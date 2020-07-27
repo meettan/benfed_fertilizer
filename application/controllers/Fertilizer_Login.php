@@ -4,7 +4,10 @@
 
 		public function __construct(){
 			parent::__construct();
+
 			$this->load->model('Login_Process');
+
+			$this->load->model('Fertilizer_Process');
 		}
 		
 		public function index(){
@@ -14,7 +17,7 @@
 				$user_id 	= $_POST['user_id'];
 				$user_pw 	= $_POST['user_pwd'];
 				$branch_id 	= $_POST['branch_id'];
-				$kms_yr		= $_POST['kms_yr'];	
+				$fin_yr		= $_POST['fin_yr'];	
 
 				$result  		= $this->Login_Process->f_select_password($user_id);
 				if($result){
@@ -51,9 +54,9 @@
 						$loggedin['districts_catered']  = $user_data->districts_catered;
 						
 
-						$kms_data 	 = $this->Login_Process->f_get_kms_inf($kms_yr);
-						$loggedin['kms_id']  			= $kms_data->sl_no;
-						$loggedin['kms_yr']   			= $kms_data->kms_yr;
+						$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
+						$loggedin['fin_id']  			= $fin_data->sl_no;
+						$loggedin['fin_yr']   			= $fin_data->fin_yr;
 
 						}
 						else{
@@ -77,9 +80,9 @@
 						$loggedin['dist_sort_code']   	= $dist_data->dist_sort_code;
 						$loggedin['districts_catered']  = $user_data->districts_catered;
 
-						$kms_data 	 = $this->Login_Process->f_get_kms_inf($kms_yr);
-						$loggedin['kms_id']  			= $kms_data->sl_no;
-						$loggedin['kms_yr']   			= $kms_data->kms_yr;
+						$fin_data 	 = $this->Login_Process->f_get_fin_inf($fin_yr);
+						$loggedin['fin_id']  			= $fin_data->sl_no;
+						$loggedin['fin_yr']   			= $fin_data->fin_yr;
 
 					    }
 
@@ -122,7 +125,7 @@
 
 				$data["branch_data"] = $this->Login_Process->f_get_branch_list();
 
-				$data["kms_yr"]		 = $this->Login_Process->f_get_kms_yr();
+				$data["fin_yr"]		 = $this->Fertilizer_Process->f_get_fin_yr();
 
 				$this->load->view('login/fertilizer_login',$data);
 			}
@@ -138,7 +141,7 @@
 				$this->session->set_userdata('cashcode', $this->Login_Process->f_get_parameters(13));
 				$_SESSION['cash_code']=$this->session->userdata('cashcode')->param_value;
 
-				$kms_id=$this->session->userdata['loggedin']['kms_id'];
+				$fin_id=$this->session->userdata['loggedin']['fin_id'];
 				$branch_id = $this->session->userdata['loggedin']['branch_id'];
 				
 				// $dash_data["tot_paddy_procurement"]= $this->Login_Process->f_get_tot_paddy_procurement($kms_id,$branch_id);

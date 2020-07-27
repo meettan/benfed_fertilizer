@@ -27,10 +27,10 @@
 
                     <tr>
                     	<th>Sl No.</th>
-                        <th>Do No</th>
+                        <th>Sale Ro No</th>
             			<!-- <th>comp Id</th>  -->
-                        <th>Do_dt</th>
-                        <th>Tras Type</th>
+                        <th>Sale RO Date</th>
+                        <th>Transaction Type</th>
                         <th>Amout</th>
                         <!-- <th>Invoice FLAG</th> -->
             			<th>View</th>
@@ -92,10 +92,10 @@
                     <tr>
                     
                     <th>Sl No.</th>
-                        <th>Do No</th>
+                        <th>Sale Ro No</th>
             			<!-- <th>Prod Id</th> -->
-                        <th>Do_dt</th>
-                        <th>Tras Type</th>
+                        <th>Sale RO Date</th>
+                        <th>Transaction Type</th>
                         <th>Amout</th>
                         <!-- <th>Invoice FLAG</th> -->
             			<th>View</th>
@@ -132,7 +132,7 @@
 
 </script>
 
- <script>
+<!-- <script>
 
     $(document).ready(function() {
 
@@ -141,6 +141,6 @@
     });
 
     <?php } ?>
-</script> 
+</script> -->
 
 

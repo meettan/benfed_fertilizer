@@ -76,15 +76,15 @@
 					<div class="select_main">
 					<div class="select_1">
 
-							<select class="form-control" name="kms_yr" id="kms_yr">
+							<select class="form-control" name="fin_yr" id="fin_yr">
 
 								<option value ="">Please Select Financial Year</option>
 
 								<?php
 
-									foreach($kms_yr as $row){ ?>
+									foreach($fin_yr as $row){ ?>
 
-										<option value="<?php echo $row->sl_no ?>"><?php echo $row->kms_yr; ?></option>
+										<option value="<?php echo $row->sl_no ?>"><?php echo $row->fin_yr; ?></option>
 									<?php
 										}
 									?>

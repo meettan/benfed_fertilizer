@@ -124,7 +124,17 @@
 	                    </div>
                         
                         </div>
-
+                        <div class="form-group row">
+                      <label for="gst_rt"  class="col-sm-2 col-form-label">GST Rate:</label>
+                      <div class="col-sm-4">
+                      <input type="text" name="gst_rt"style="width:350px"  class="form-control required gst_rt" value="" id="gst_rt" readonly>
+                      </div>
+                      <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
+                      <div class="col-sm-3">
+                      <input type="text" name="unit"style="width:290px"  class="form-control required unit" value="" id="unit" readonly>
+                      </div>
+                      </div>
+                        
 						<div class="form-header">
 					
 					<h4>Ro And Product Details</h4>
@@ -147,7 +157,7 @@
 								<th style= "text-align: center">Taxable Amt</th>
 								<th style= "text-align: center">CGST</th>
 								<th style= "text-align: center">SGST</th>
-                                <th style= "text-align: center">Disc</th>
+                                <th style= "text-align: center">Discount</th>
 								<th style= "text-align: center">Total Amt</th>
                                 <th>
                                     <!-- <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th> -->
@@ -161,65 +171,70 @@
                                     <td>    
                                        
                  <select name="ro[]" id="ro" style="width:150px"class="form-control required ro" required>
-                <option value="">Select </option>
-               
+                <option value="">Select Project</option>
+                <!-- <?php
+                    foreach($rodtls as $key1)
+                    { ?>
+                        <option value="<?php echo $key1->ro_no; ?>"><?php echo $key1->ro_no; ?></option>
+                    <?php
+                    } ?> -->
             </select> 
                                     </td>
 
                                     <td>    
                                         <!-- <input type="text" name="prod_id[]" class="form-control required prod_id" value= "" id="prod_id" required>  -->
-                                        <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" required>
-                <option value="">Select product</option>
+                                        <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly>
+                <!-- <option value="">Select product</option> -->
                 <?php
                     foreach($proddtls as $key1)
                     { ?>
                         <option value="<?php echo $key1->prod_id; ?>"><?php echo $key1->prod_desc; ?></option>
                     <?php
-                    } ?>c
+                    } ?>
             </select> 
                                         
                                     </td>
 
                                     <td>
-                                        <input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "" id="stock_qty" required> 
+                                        <input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly> 
                                     </td>
 
                                     <td>
-                                        <input type="text" name="qty[]" class="form-control required qty" value= "" id="qty" required>
+                                        <input type="text" name="qty[]" class="form-control required qty" value= "0" id="qty" required>
                                     </td>
 									<td>
-                                        <input type="text" name="sale_rt[]"  class="form-control required sale_rt" value= "" id="sale_rt" required readonly>
+                                        <input type="text" name="sale_rt[]"  class="form-control required sale_rt" value= "0" id="sale_rt"  readonly>
                                     </td>
 									<td>
-                                        <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" required>
+                                        <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" readonly>
                                     </td>
 									<td>
-                                        <input type="text" name="cgst[]" class="form-control required cgst" value= "" id="cgst" required>
+                                        <input type="text" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>
                                     </td>
 									<td>
-                                        <input type="text" name="sgst[]" class="form-control required sgst" value= "" id="sgst" required>
+                                        <input type="text" name="sgst[]" class="form-control required sgst" value= "0" id="sgst" readonly>
                                     </td>
                                     <td>
-                                    <input type="text" name="dis[]" class="form-control dis required" value= "" id="dis" required>
+                                    <input type="text" name="dis[]" class="form-control dis required" value= "0" id="dis" required>
                                     </td>
 									<td>
-                                      <input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "" id="tot_amt" required>
+                                      <input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "0" id="tot_amt" required>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <input type="hidden" name="gst_rt[]" class="form-control required gst_rt" value="" id="gst_rt" required>
-                                    </td>
+                                    </td> -->
                                 </tr>
 
                             </tbody>
 
                             <tfoot>
                                 <tr>
-                                    <td colspan="8">
-                                        <strong>Total:</strong>
-                                    </td>
-                                    <td colspan="2">
-                                        <input name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total">  
-                                    </td>
+                                    <!--  <td colspan="8"> -->
+                                        <!-- <strong>Total:</strong> -->
+                                    <!-- </td>  -->
+                                    <!-- <td colspan="2"> -->
+                                        <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total">  
+                                    <!-- </td> -->
                                 </tr>
                             </tfoot>
                     
@@ -299,28 +314,28 @@ $.each(JSON.parse(data), function( index, value ) {
            +'</select> '
                                 +'</td>'
                                 +'<td>'
-                                    +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "" id="stock_qty" required>'
+                                    +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                    +'<input type="text" name="qty[]" class="form-control required qty" value= "" id="qty" required>'
+                                    +'<input type="text" name="qty[]" class="form-control required qty" value= "0" id="qty" required>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="sale_rt[]" class="form-control required sale_rt" value= "" id="sale_rt" required readonly>'
+                                    +'<input type="text" name="sale_rt[]" class="form-control required sale_rt" value= "0" id="sale_rt" required readonly>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" required>'
+                                    +'<input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" readonly>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="cgst[]" class="form-control required cgst" value= "" id="cgst" required>'
+                                    +'<input type="text" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="sgst[]" class="form-control required sgst" value= "" id="sgst" required>'
+                                    +'<input type="text" name="sgst[]" class="form-control required sgst" value= "0" id="sgst" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                    +'<input type="text" name="dis[]" class="form-control dis" value= "" id="dis" required>'
+                                    +'<input type="text" name="dis[]" class="form-control dis" value= "0" id="dis" required>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "" id="tot_amt" required>'
+                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "0" id="tot_amt" required>'
                                 +'</td>'
                                 +'<td>'
                                     +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
@@ -446,6 +461,7 @@ $(document).ready(function(){
                 $('.stock_qty').eq($('.ro').index(this)).val(unitData.stkqty); 
                 $('.prod_id').eq($('.ro').index(this)).val(unitData.prod_id); 
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
+                $('.unit').eq($('.ro').index(this)).val('MT');
                 $('.sale_rt').eq($('.ro').index(this)).val(unitData.govt_sale_rt);
                 $('.qty').eq($('.ro').index(this)).val(0);  
                 // $('.sale_rt').eq($('.ro').index(this)).val(0);  
@@ -474,11 +490,19 @@ $(document).ready(function()
        var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
        var qty = $('.qty').eq($('.ro').index(this)).val();
        var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
-       
+      var stkqty = $('.stock_qty').eq($('.ro').index(this)).val();
+    //   alert(stkqty);
        if (sale_rt==0){
         alert('Sale rate Can not be zero');
         var txtBox=document.getElementById("sale_rt" );
-txtBox.focus();
+        txtBox.focus();
+    return false;
+       }
+
+       if (qty>stkqty){
+        alert('Quantity Can not Greater Than Stock Quantity ');
+        var txtBox=document.getElementById("qty" );
+        txtBox.focus();
     return false;
        }
        var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
@@ -546,20 +570,31 @@ txtBox.focus();
 //             })
  $('.table tbody').on('change', '.dis', function(){
 
-   
-           var sum =0;
-            let row   = $(this).closest('tr');
-             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
-            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
+       var sum    = 0;
+       var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
+       var qty = $('.qty').eq($('.ro').index(this)).val();
+       var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
+       var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
+       var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
+       var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
+       var total =0.00;
+          total = parseFloat(total) + parseFloat(tot_amt); 
+            // let row   = $(this).closest('tr');
+            //  var dis        = parseFloat(row.find('td:eq(8) .dis').val());
+            // var tot_amt   = row.find('td:eq(9) .tot_amt').val();
         
-                           row.find('td:eq(9) .tot_amt').val(tot_amt-dis);
+            //                row.find('td:eq(9) .tot_amt').val(tot_amt-dis);
            
          
                $("input[class *= 'tot_amt']").each(function(){
            sum += parseFloat($(this).val());
                       
             });
-
+            let row   = $(this).closest('tr');
+             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
+            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
+        
+                           row.find('td:eq(9) .tot_amt').val(total-dis);
             $("#total").val("0");
             $("#total").val(sum).toFixed(2);
            

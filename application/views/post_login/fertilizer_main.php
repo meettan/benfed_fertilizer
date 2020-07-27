@@ -49,7 +49,7 @@
         <header class="header_class">
 <ul class="header_top">
     <li><strong>Branch Name: </strong><?php if(isset($this->session->userdata['loggedin']['branch_name'])){ echo $this->session->userdata['loggedin']['branch_name'];}?></li>
-    <li><strong>Financial Year: </strong><?php if(isset($this->session->userdata['loggedin']['kms_yr'])){ echo $this->session->userdata['loggedin']['kms_yr'];}?></li>
+    <li><strong>Financial Year: </strong><?php if(isset($this->session->userdata['loggedin']['fin_yr'])){ echo $this->session->userdata['loggedin']['fin_yr'];}?></li>
     <li><strong>User: </strong><?php if(isset($this->session->userdata['loggedin']['user_name'])){ echo $this->session->userdata['loggedin']['user_name'];}?></li>
     <li><strong>Module:</strong> Fertilizer Management</li>
     <li class="date"><strong>Date: </strong> <?php echo date("d-m-Y");?></li>
@@ -114,9 +114,9 @@
                               <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
                           <!-- <?php } ?> -->
                               <a href="<?php echo site_url("fertilizer/sale");?>">Sale</a>
-                              <a href="<?php echo site_url("fertilizer/cr_note");?>">Cr Note</a>
+                              <!--<a href="<?php echo site_url("fertilizer/cr_note");?>">Cr Note</a>
                               <a href="<?php echo site_url("fertilizer/dr_Note");?>">Dr Note </a>
-                              <a href="<?php echo site_url("fertilizer/trfDashboard");?>">Sale Return </a>
+                              <a href="<?php echo site_url("fertilizer/trfDashboard");?>">Sale Return </a>-->
                             </div>
                           
                         </div>
@@ -130,16 +130,16 @@
                         </div>  
                         <div class="dropdown-content">
                           
-                            <div class="sub-dropdown">
+                            <!--<div class="sub-dropdown">
                                <a href="<?php echo site_url("fsertilizer/sale_report");?>">Sale Report</a>
                                <a href="<?php echo site_url("fertilizer/sale_reportdis");?>">Sale Report(District Wise)</a>
-                                    <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>-->
-                                    <!--<a href="#">Bank/Journal Book</a>-->
+                                <a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
                                     
                                     <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a>
                                     <a href="<?php echo site_url("fertilizer/stock_report");?>">Purchase Stock Report(Product Wise)</a>
                                      <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a>
-                                    <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a>  </div>
+                                    <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a>  
+                            </div>-->
                         </div>
                     </div>
 
