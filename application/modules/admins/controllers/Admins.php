@@ -17,7 +17,7 @@ class Admins extends MX_Controller {
         //For User's Authentication
         if(!isset($this->session->userdata['loggedin']['user_id'])){
             
-            redirect('User_Login/login');
+            redirect('Welcome/index');
 
         }
         
@@ -35,7 +35,15 @@ class Admins extends MX_Controller {
         $user['user_dtls']    =   $this->Admin->f_get_particulars("md_users", NULL,NULL, 0);   
         }
         
-        $this->load->view('post_login/main');
+        if ($_SESSION['module'] == 'F'){
+            
+            $this->load->view('post_login/fertilizer_main');
+
+        }else{
+
+            $this->load->view('post_login/main');
+
+        }
 
         $this->load->view("user/dashboard", $user);
 

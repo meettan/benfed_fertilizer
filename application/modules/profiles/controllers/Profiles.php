@@ -12,7 +12,7 @@ class Profiles extends MX_Controller {
         //For User's Authentication
         if(!isset($this->session->userdata['loggedin']['user_id'])){
             
-            redirect('User_Login/login');
+            redirect('Welcome/index');
 
         }
         
@@ -20,8 +20,18 @@ class Profiles extends MX_Controller {
 
     public function index(){
 
-        $this->load->view('post_login/main');
+        if ($_SESSION['module'] == 'F'){
+            
+            $this->load->view('post_login/fertilizer_main');
+
+        }else{
+
+            $this->load->view('post_login/main');
+
+        }
+
         $this->load->view('dashboard');
+
         $this->load->view('post_login/footer');
 
     }

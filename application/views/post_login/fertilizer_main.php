@@ -48,10 +48,11 @@
     <body id="page-top" style="background-color: #eff3f6;">
         <header class="header_class">
 <ul class="header_top">
-<li><strong>Branch Name: </strong><?php if(isset($this->session->userdata['loggedin']['branch_name'])){ echo $this->session->userdata['loggedin']['branch_name'];}?></li>
-<li><strong>Financial Year: </strong><?php if(isset($this->session->userdata['loggedin']['kms_yr'])){ echo $this->session->userdata['loggedin']['kms_yr'];}?></li>
-<li><strong>User: </strong><?php if(isset($this->session->userdata['loggedin']['user_name'])){ echo $this->session->userdata['loggedin']['user_name'];}?></li>
-<li class="date"><strong>Date: </strong> <?php echo date("d-m-Y");?></li>
+    <li><strong>Branch Name: </strong><?php if(isset($this->session->userdata['loggedin']['branch_name'])){ echo $this->session->userdata['loggedin']['branch_name'];}?></li>
+    <li><strong>Financial Year: </strong><?php if(isset($this->session->userdata['loggedin']['kms_yr'])){ echo $this->session->userdata['loggedin']['kms_yr'];}?></li>
+    <li><strong>User: </strong><?php if(isset($this->session->userdata['loggedin']['user_name'])){ echo $this->session->userdata['loggedin']['user_name'];}?></li>
+    <li><strong>Module:</strong> Fertilizer Management</li>
+    <li class="date"><strong>Date: </strong> <?php echo date("d-m-Y");?></li>
 </ul>
 </header>
     
@@ -148,8 +149,21 @@
                     </div> 
                     </div> -->
 
-                                      
-                
+                    <div class="dropdown">
+                        <div class="dropbtn">
+                                <i class="fa fa-cog fa-spin fa-fw" aria-hidden="true"></i>
+                                Setting
+                                <i class="fa fa-angle-down"></i>
+                            </div>
+                            <div class="dropdown-content">
+                            <a href="<?php echo site_url("profile") ?>">Change Password</a>
+                            <?php  if($this->session->userdata['loggedin']['user_type']!="U"){
+                                ?>
+                            <a href="<?php echo site_url('admin/user'); ?>">Create User</a>
+                            <?php }?>
+                            </div>
+                        </div>
+                    <div class="dropdown">
                     <div class="dropdown">
                         <div class="dropbtn">
                             <a href="<?php echo site_url("Fertilizer_Login/logout") ?>" style="color: white; text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>

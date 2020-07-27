@@ -133,6 +133,8 @@
 
 				$_SESSION['sys_date']= date('Y-m-d');
 
+				$_SESSION['module']  = 'F';
+				
 				$this->session->set_userdata('cashcode', $this->Login_Process->f_get_parameters(13));
 				$_SESSION['cash_code']=$this->session->userdata('cashcode')->param_value;
 
