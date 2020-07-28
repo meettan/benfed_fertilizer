@@ -2,7 +2,7 @@
 
         <div class="col-md-6 container form-wraper">
 
-            <form method="POST" id="form" action="<?php echo site_url("fertilizer/editproduct");?>" >
+            <form method="POST" id="form" action="<?php echo site_url("key/editproduct");?>" >
 
                 <div class="form-header">
                 
@@ -12,7 +12,7 @@
 
                 <div class="form-group row">
 
-                    <label for="prod_id" class="col-sm-2 col-form-label">Product Id:</label>
+                    <label for="prod_id" class="col-sm-2 col-form-label">Product ID:</label>
 
                     <div class="col-sm-10">
 
@@ -22,54 +22,38 @@
                     </div>
 
                 </div>
-                <div class="form-group row">
-
-<label for="comp_id" class="col-sm-2 col-form-label">Company Name:</label>
-
-<div class="col-sm-10">
-
-    <input type="text" name="comp_id" class="form-control required"  
-        value = "<?php echo $schdtls->comp_name; ?>" 
-   readonly />
-</div>
-</div>
 
                 <div class="form-group row">
 
-                    <label for="Prod_type" class="col-sm-2 col-form-label">Product Type:</label>
+                    <label for="comp_id" class="col-sm-2 col-form-label">Company Name:</label>
 
                     <div class="col-sm-10">
 
-                        <!-- <input type="text" name="Prod_type" class="form-control required"  
-                        value = "<?php if($schdtls->prod_type==1){
-                                            echo "Chemical - Fertilizer";
-                                          }elseif($schdtls->prod_type==2){
-                                            echo "Organic - Fertilizer";
-                                          }elseif($schdtls->prod_type==3){
-                                            echo "Bio- Fertilizer"; 
-                                        //   }elseif($schdtls->acc_type==4){
-                                        //     echo "Purchase";  
-                                        //   }elseif($schdtls->acc_type==5){
-                                        //     echo "Income";   
-                                        //   }else{
-                                        //     echo "Expense";  
-                                          }
-                                 ?>" readonly
-                        /> -->
-
-                        <select class="col-sm-10"
-                        name="prod_type"
-                        id="prod_type" style="width:300px;height:40px"
-                    >
-                    
-                    <option value="">Select</option>
-                    <option value="1" <?php echo ($schdtls->prod_type == 1)? 'selected' : '';?>>Chemical - Fertilizer</option>
-                    <option value="2" <?php echo ($schdtls->prod_type == 2)? 'selected' : '';?>>Organic - Fertilizer</option>
-                    <option value="3" <?php echo ($schdtls->prod_type == 3)? 'selected' : '';?>>Bio- Fertilizer</option>
-                </select>  
+                        <input type="text" name="comp_id" class="form-control required"  
+                            value = "<?php echo $schdtls->comp_name; ?>" 
+                            readonly />
                     </div>
-
                 </div>
+
+                <div class="form-group row">
+
+                    <label for="Prod_type" class="col-sm-2 col-form-label">Type:</label>
+
+                    <div class="col-sm-10">
+
+                        <select class="form-control required" id="prod_type" name="prod_type"  required>
+                            
+                            <option value="">Select Product Type</option>
+
+                            <option value="1" <?php echo ($schdtls->prod_type == 1)? 'selected' : '';?>>Chemical-Fertilizer</option>
+                            
+                            <option value="2" <?php echo ($schdtls->prod_type == 2)? 'selected' : '';?>>Organic-Fertilizer</option>
+
+                            <option value="3" <?php echo ($schdtls->prod_type == 3)? 'selected' : '';?>>Bio-Fertilizer</option>
+                        
+                        </select>
+                    </div>
+			    </div>
 
                 <div class="form-group row">
 
@@ -82,59 +66,46 @@
                         />
 		            </div>
 
-		</div>
-        <div class="form-group row">
+		        </div>
 
-<label for="gst_rt" class="col-sm-2 col-form-label">GST Rate:</label>
+                <div class="form-group row">
 
-<div class="col-sm-10">
+                    <label for="gst_rt" class="col-sm-2 col-form-label">GST Rate:</label>
 
-    <input type="text" name="gst_rt" class="form-control required"  
-        value = "<?php echo $schdtls->gst_rt; ?>" 
-    />
-</div>
+                    <div class="col-sm-10">
 
-</div>
-<div class="form-group row">
+                        <input type="text" name="gst_rt" class="form-control required"  
+                            value = "<?php echo $schdtls->gst_rt; ?>" 
+                        />
+                    </div>
 
-<label for="hsn_code" class="col-sm-2 col-form-label">HSN:</label>
+                </div>
 
-<div class="col-sm-10">
+                <div class="form-group row">
 
-    <input type="text" name="hsn_code" class="form-control required"  
-        value = "<?php echo $schdtls->hsn_code; ?>" 
-    />
-</div>
+                    <label for="hsn_code" class="col-sm-2 col-form-label">HSN:</label>
 
+                    <div class="col-sm-10">
 
-</div>
+                        <input type="text" name="hsn_code" class="form-control required"  
+                            value = "<?php echo $schdtls->hsn_code; ?>" 
+                        />
+                    </div>
+
+                </div>
 			
 
-<div class="form-group row">
+                <div class="form-group row">
 
-<label for="bag" class="col-sm-2 col-form-label">Qty per bag(In KG) :</label>
+                    <label for="bag" class="col-sm-2 col-form-label">Qty per bag(In KG):</label>
 
-<div class="col-sm-10">
-<select class="col-sm-10"
-                        name="bag"
-                        id="bag" style="width:300px;height:40px"
-                    >
+                    <div class="col-sm-10">
 
-<option value="">Select</option>
-                    <option value="45" <?php echo ($schdtls->qty_per_bag == 45)? 'selected' : '';?>>45</option>
-                    <option value="50" <?php echo ($schdtls->qty_per_bag == 50)? 'selected' : '';?>>50</option>
-                    </select>  
-<!-- <input type="text" name="bag" class="form-control required"  
-        value = "<?php echo $schdtls->qty_per_bag; ?>" 
-    /> -->
+                        <input type="text" id=bag name="bag" class="form-control" value="<?php echo $schdtls->qty_per_bag; ?>" required />
+                    </div>
+                </div>
 
-    <!-- <input type="text" style="width:50px" name="unit" class="form-control required"  
-        value = "<?php  if(isset($unitdtls->unit_name)){ echo $unitdtls->unit_name ;} ?>" /> -->
-
- </div>
-
-</div>
-		<div class="form-group row">
+                <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -149,5 +120,3 @@
         </div>
 
     </div>
-
-

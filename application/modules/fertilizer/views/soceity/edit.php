@@ -12,7 +12,7 @@
 
                 <div class="form-group row">
 
-                    <label for="soc_id" class="col-sm-2 col-form-label">Id:</label>
+                    <label for="soc_id" class="col-sm-2 col-form-label">Society ID:</label>
 
                     <div class="col-sm-10">
 
@@ -70,33 +70,7 @@
                         </div>
                 </div>
 
-                <div class="form-group row">
-				<label for="district" class="col-sm-2 col-form-label">District :</label>
-				<div class="col-sm-9">
-
-					<select name="district" class="form-control required" id="district">
-
-						<option value="">Select Branch</option>
-
-							<?php
-
-								foreach($distdtls as $dis){
-
-							?>
-
-								<option value="<?php echo $dis->district_code;?>"><?php echo $dis->district_name;?></option>
-
-							<?php
-
-								}
-
-							?>     
-
-					</select>
-
-				</div>
-
-
+                 
                 <div class="form-group row">
 
                     <label for="ph_no" class="col-sm-2 col-form-label">Ph No.:</label>
@@ -124,77 +98,60 @@
                 </div>
 
                 <div class="form-group row">
-
                     <label for="stock_point_flag" class="col-sm-2 col-form-label">Stock Point:</label>
+                    <div class="col-sm-10">
 
-                        <div class="col-sm-3">
+                        <select class="form-control required" id="stock_point_flag" name="stock_point_flag" required>
+                        
+                            <option value="Y" <?php echo ($schdtls->stock_point_flag == 'Y')? 'selected' : '';?>>YES</option>
 
+                            <option value="N" <?php echo ($schdtls->stock_point_flag == 'N')? 'selected' : '';?>>No</option>
+                        
+                        </select>
 
-                        <select class="col-sm-3"
-                                            name="stock_point_flag"
-                                            id="stock_point_flag" style="width:80px;height:40px"
-                                        >
-                                        
-                                        <option value="">Select</option>
-                                        <option value="1" <?php echo ($schdtls->stock_point_flag == '1')? 'selected' : '';?>>YES</option>
-                                        <option value="2" <?php echo ($schdtls->stock_point_flag == '2')? 'selected' : '';?>>No</option>
-
-                                    </select>  
                     </div>
-<label for="buffer_flag" class="col-sm-1 col-form-label">Buffer Flag:</label>
 
-<div class="col-sm-2">
+			    </div>
 
-      <select class="col-sm-3"
-                        name="buffer_flag"
-                        id="buffer_flag" style="width:80px;height:40px"
-                    >
-      
-                    <option value="">Select</option>
-                    <option value="1" <?php echo ($schdtls->buffer_flag == '1')? 'selected' : '';?>>Non - Buffer</option>
-                    <option value="2" <?php echo ($schdtls->buffer_flag == '2')? 'selected' : '';?>>Benfed Buffer</option>
-                    <option value="3" <?php echo ($schdtls->buffer_flag == '3')? 'selected' : '';?>>Iffco Buffer</option>
+                <div class="form-group row">
 
-                </select>  
-</div>
-<label for="status" class="col-sm-1 col-form-label">status:</label>
+                    <label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Flag:</label>
 
-<div class="col-sm-3">
+                    <div class="col-sm-5">
 
-	<select class="form-control" id="status" name="status" required>
-		
-		<option value="">Select</option>
-        <option value="1" <?php echo ($schdtls->status == '1')? 'selected' : '';?>>Own</option>
-                    <option value="2" <?php echo ($schdtls->status == '2')? 'selected' : '';?>>Rented</option>
-		
-	</select>
+                        <select class="form-control required" id="buffer_flag" name="buffer_flag" required>
+            
+                            <option value="N" <?php echo ($schdtls->buffer_flag == 'N')? 'selected' : '';?>>Non - Buffer</option>
 
-</div>
+                            <option value="B" <?php echo ($schdtls->buffer_flag == 'B')? 'selected' : '';?>>Benfed Buffer</option>
 
-</div>
+                            <option value="I" <?php echo ($schdtls->buffer_flag == 'I')? 'selected' : '';?>>Iffco Buffer</option>
+                            
+                        </select>
 
+                    </div>
 
-<!-- <div class="form-group row">
+                    <label for="status" id="status_label" class="col-sm-1 col-form-label">Status:</label>
 
-<label for="buffer_flag" class="col-sm-2 col-form-label">Buffer Flag:</label>
+                    <div class="col-sm-3">
 
-<div class="col-sm-10">
+                        <select class="form-control" id="status" name="status" required>
+                            
+                            <option value="">Select</option>
 
-      <select class="col-sm-10"
-                        name="buffer_flag"
-                        id="buffer_flag" style="width:300px;height:40px"
-                    >
-                    
-                    <option value="">Select</option>
-                    <option value="1" <?php echo ($schdtls->buffer_flag == '1')? 'selected' : '';?>>YES</option>
-                    <option value="2" <?php echo ($schdtls->buffer_flag == '2')? 'selected' : '';?>>No</option>
+                            <option value="N" <?php echo ($schdtls->status == 'N')? 'selected' : '';?>>None</option>
 
-                </select>  
-</div>
+                            <option value="O" <?php echo ($schdtls->status == 'O')? 'selected' : '';?>>Own</option>
 
-</div> -->
+                            <option value="R" <?php echo ($schdtls->status == 'R')? 'selected' : '';?>>Rented</option>
+                            
+                        </select>
 
-		<div class="form-group row">
+                    </div>
+
+			    </div>
+
+		        <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -209,5 +166,3 @@
         </div>
 
     </div>
-
-

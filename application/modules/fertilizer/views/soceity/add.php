@@ -60,7 +60,7 @@
 				</div>
 			</div>
 				
-			<div class="form-group row">
+			<!--<div class="form-group row">
 				<label for="district" class="col-sm-2 col-form-label">District :</label>
 				<div class="col-sm-9">
 
@@ -70,15 +70,15 @@
 
 							<?php
 
-								foreach($distdtls as $dis){
+								//foreach($distdtls as $dis){
 
 							?>
 
-								<option value="<?php echo $dis->district_code;?>"><?php echo $dis->district_name;?></option>
+								<option value="<?php //echo $dis->district_code;?>"><?php //echo $dis->district_name;?></option>
 
 							<?php
 
-								}
+								//}
 
 							?>     
 
@@ -86,7 +86,7 @@
 
 				</div>
 
-			</div>
+			</div>--->
 
 			<div class="form-group row">
 				<label for="ph_no" class="col-sm-2 col-form-label">Ph No:</label>
