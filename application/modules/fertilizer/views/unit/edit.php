@@ -2,7 +2,7 @@
       <div class="col-md-3"></div>
         <div class="col-md-6 container form-wraper">
 
-            <form method="POST" id="form" action="<?php echo site_url("fertilizer/editunit");?>" >
+            <form method="POST" id="form" action="<?php echo site_url("key/editunit");?>" >
 
                 <div class="form-header">
                 
@@ -12,7 +12,7 @@
 
                 <div class="form-group row">
 
-                    <label for="id" class="col-sm-2 col-form-label">Id:</label>
+                    <label for="id" class="col-sm-2 col-form-label">ID:</label>
 
                     <div class="col-sm-10">
 

@@ -17,7 +17,10 @@
 			return;
 
 		}
-/*Select Data from a table*/		
+
+
+
+/*Select Data from a table*/			///=========================================
 		public function f_select($table,$select=NULL,$where=NULL,$type){
 			if(isset($select)){
 				$this->db->select($select);
@@ -32,6 +35,18 @@
 				return $value->result();
 			}
 		}
+
+		Public function f_get_society(){		////========================================
+
+			$data = $this->db->query("select a.soc_id soc_id,a.soc_name soc_name,
+									 b.branch_name branch_name
+							  from   mm_ferti_soc a, md_branch b 
+							  where  a.district = b.id
+							  order by b.branch_name");
+
+			return $data->result();
+		}
+	
 		
 		public function get_trans_no($fin_id,$branch_id){
 
@@ -177,7 +192,7 @@
        }
 
 
-/*Select Maximun soceity Code*/
+/*Select Maximun soceity Code*/						///==============================================
 		public function get_soceity_code(){
 
 			$this->db->select_max('soc_id');
@@ -200,7 +215,7 @@
 			return ($result+1);
 		 }
 		 
-		 /*Select Maximun comapany Code*/
+		 /*Select Maximun comapany Code*/				////=================================================
 		 public function get_company_code(){
 
 			$this->db->select_max('comp_id');

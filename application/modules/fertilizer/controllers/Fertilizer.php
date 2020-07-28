@@ -1,100 +1,20 @@
 <?php
 	class Fertilizer extends MX_Controller{
-		protected $sysdate;
-		protected $kms_year;
-		public function __construct(){
-		parent::__construct();	
-		$this->load->model('FertilizerModel');
-		$this->load->helper('paddyrate_helper');
-		// $data       = $this->FertilizerModel->f_get_particulars_in('md_parameters', array(16, 17), array(""));
 
-		// $this->kms_year   = substr($data[0]->param_value, 0,4).'-'.substr($data[1]->param_value, 2,2);
-		$this->session->userdata('kms_yr');
+		protected $sysdate;
+
+		protected $kms_year;
+
+		public function __construct(){
+
+			parent::__construct();	
+
+			$this->load->model('FertilizerModel');
+			
+			$this->session->userdata('fin_yr');
 		}
 		
-		public function dr_note(){
-			$this->sysdate  = $_SESSION['sys_date'];
-		   $data['dr_notes']    = $this->FertilizerModel->f_get_drnote_dtls();
-		   $this->load->view("post_login/fertilizer_main");
-	   
-		   $this->load->view("dr_note/dashboard",$data);
-	   
-		   $this->load->view('search/search');
-	   
-		   $this->load->view('post_login/footer');
-	   }
-//     Add DR note code written by Lokesh kumar jha 09/04/2020"
-	   public function drnoteAdd(){
 
-		if($_SERVER['REQUEST_METHOD'] == "POST") {
-				
-
-				$soc_amt = $this->input->post('soc_amt');
-				
-				  for($i = 0; $i < count($soc_amt); $i++){
-	
-				  $data     = array(
-										
-										'ro_no'        => $this->input->post('ro_no'),
-	
-										'ro_dt'        => $this->input->post('ro_dt'),
-	
-										'invoice_no'   => $this->input->post('invoice_no'),
-
-										'invoice_dt'   => $this->input->post('invoice_dt'),
-
-										'trans_dt'    =>  date('Y-m-d'),
-	
-										'tot_amt'  => $this->input->post('tot_amt'),
-
-										'comp_id'     => $this->input->post('comp_id'),
-	
-										'soc_id'   => $_POST['soc_id'][$i],
-	
-										'soc_amt'    => $_POST['soc_amt'][$i],
-										
-										"created_by"  =>  $this->session->userdata['loggedin']['user_name'],
-	
-										"created_dt"  =>  date('Y-m-d'),
-
-										'branch_id'     =>$this->session->userdata['loggedin']['branch_id']
-
-										 
-									);
-	
-					$this->FertilizerModel->f_insert('td_dr_note', $data);
-	
-				}
-					
-					$this->session->set_flashdata('msg', 'Successfully Added');
-	
-						redirect('fertilizer/dr_note');
-			
-			   
-				
-				}else {
-
-				$select4        = array("id","branch_name");
-				$product['brdtls']   = $this->FertilizerModel->f_select('md_branch',$select4,NULL,0);
-
-				$select3         = array("comp_id","comp_name");
-				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select3,NULL,0);
-
-	
-				$select1          = array("soc_id","soc_name","soc_add","gstin");
-				$product['socdtls']   = $this->FertilizerModel->f_select('mm_ferti_soc',$select1,NULL,0);
-	
-				$branch_id  = $this->session->userdata['loggedin']['branch_id'];
-				$product['ro_dtls']   = $this->FertilizerModel->f_getdo_dtl($branch_id);	
-	
-		$this->load->view('post_login/fertilizer_main');
-	
-		$this->load->view("dr_note/add",$product);
-	
-		$this->load->view('post_login/footer');
-	}
-	
-	}
 
 	//     edit DR note code written by Lokesh kumar jha 09/04/2020"
      public function drnote_edit(){
@@ -1436,15 +1356,12 @@ public function viewstock(){
 }
 
 
-//******************************************* */
+/****************************************************Society MAster************************************ */
 
-//View Soceity
+//Dashboard
 public function soceity(){
-	$select          = array("soc_id","soc_name");
-	$where        = array(
-		"branch_id" => $this->session->userdata['loggedin']['branch_id']);
 
-	$bank['data']    = $this->FertilizerModel->f_select('mm_ferti_soc',$select,NULL,0);
+	$bank['data']    = $this->FertilizerModel->f_get_society();
 
 	$this->load->view("post_login/fertilizer_main");
 
@@ -1455,80 +1372,60 @@ public function soceity(){
 	$this->load->view('post_login/footer');
 }
 
-///*********************************************** */
-
 // Add Soceity
 public function soceityAdd(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-		   $soc_id = $this->FertilizerModel->get_soceity_code();
-
-			$soc_name = $this->input->post('soc_name');
-
-			$soc_add = $this->input->post('soc_add');
-			
-		   $gstin = $this->input->post('gstin');
-
-		   $mfms = $this->input->post('mfms');
-
-			$district = $this->input->post('district');
-
-			$ph_no    = $this->input->post('ph_no');
-
-			$email = $this->input->post('email');
-
-			$stock_point_flag = $this->input->post('stock_point_flag');
-
-			$buffer_flag = $this->input->post('buffer_flag');
-    
-			$status = $this->input->post('status');
+		    $soc_id = $this->FertilizerModel->get_soceity_code();
 
 			$data_array = array (
 
-					"soc_id" => $soc_id,
+					"soc_id" 			=> $soc_id,
 			
-					"soc_name" => $soc_name,
+					"soc_name" 			=> $this->input->post('soc_name'),
 
-					"soc_add"   => $soc_add,
+					"soc_add"   		=> $this->input->post('soc_add'),
 
-					"gstin"=>$gstin,
+					"gstin"				=> $this->input->post('gstin'),
 
-					"mfms" => $mfms,
+					"mfms" 				=> $this->input->post('mfms'),
 
-					"district"  => $district,
+					"district"  		=> $this->input->post('district'),
 					
-					"ph_no"    => $ph_no,
+					"ph_no"    			=> $this->input->post('ph_no'),
 
-					"email" =>  $email,
+					"email" 			=> $this->input->post('email'),
 				
-					"stock_point_flag" =>  $stock_point_flag,
+					"stock_point_flag"  => $this->input->post('stock_point_flag'),
 
-					"buffer_flag"    => $buffer_flag,
+					"buffer_flag"    	=> $this->input->post('buffer_flag'),
 		   
-					"status"          => $status,
+					"status"          	=> $this->input->post('status'),
 					
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],    
+					"created_by"    	=>  $this->session->userdata['loggedin']['user_name'],    
 
-					"created_dt"    =>  date('Y-m-d h:i:s'));
+					"created_dt"    	=>  date('Y-m-d h:i:s')
+				);
 			 
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
-					redirect('fertilizer/soceity');
+				redirect('customer');
+
 			}else {
 
-				$select          = array("district_code","district_name");
+				$select          		= array("district_code","district_name");
 
 				$district['distdtls']   = $this->FertilizerModel->f_select('md_district',$select,NULL,0);
 					
-	$this->load->view('post_login/fertilizer_main');
+				$this->load->view('post_login/fertilizer_main');
 
-	$this->load->view("soceity/add",$district);
+				$this->load->view("soceity/add",$district);
 
-	$this->load->view('post_login/footer');
-}
+				$this->load->view('post_login/footer');
+			}
 }
 
 //Edit Soceity
@@ -1622,116 +1519,116 @@ public function deletesociety() {
 
 }
 
-///************************************************/
-//View Unit
-		public function unit(){
-			$select         = array("id","unit_name");
-		
-			$bank['data']   = $this->FertilizerModel->f_select('mm_unit',$select,NULL,0);
 
-			$this->load->view("post_login/fertilizer_main");
-		
-			$this->load->view("unit/dashboard",$bank);
-		
-			$this->load->view('search/search');
-		
-			$this->load->view('post_login/footer');
-		}
+//*********************************************Unit Master*********************************************************/
+
+//Dashboard
+public function unit(){
+	$select         = array("id","unit_name");
+
+	$bank['data']   = $this->FertilizerModel->f_select('mm_unit',$select,NULL,0);
+
+	$this->load->view("post_login/fertilizer_main");
+
+	$this->load->view("unit/dashboard",$bank);
+
+	$this->load->view('search/search');
+
+	$this->load->view('post_login/footer');
+}
 
 //Add Unit
-		public function unitAdd(){
+public function unitAdd(){
 
-			if($_SERVER['REQUEST_METHOD'] == "POST") {
-		
-				//    $comp_id = $this->FertilizerModel->get_company_code();
-		
-					$unit_name = $this->input->post('unit_name');
-		
-					$data_array = array (
-		
-							// "comp_id" => $comp_id,
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+		$data_array = array (
+
+				"unit_name" 	=> $this->input->post('unit_name'),
+			
+				"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+
+				"created_dt"    =>  date('Y-m-d h:i:s')
+			);
+			
+			$this->FertilizerModel->f_insert('mm_unit', $data_array);
+				
+			$this->session->set_flashdata('msg', 'Successfully Added');
+
+			redirect('measurement');
+	}else 
+	
+		{
 					
-							"unit_name" => $unit_name,
-						
-							"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-		
-							"created_dt"    =>  date('Y-m-d h:i:s'));
-					 
-						$this->FertilizerModel->f_insert('mm_unit', $data_array);
-						// echo $this->db->last_query();
-						// die();
-						$this->session->set_flashdata('msg', 'Successfully Added');
-		
-							redirect('fertilizer/unit');
-					}else {
-							
 			$this->load->view('post_login/fertilizer_main');
-		
+
 			$this->load->view("unit/add");
-		
+
 			$this->load->view('post_login/footer');
-		}
-		}
+	}
+}
 		
-		
-		public function editunit(){
+//Edit Unit		
+public function editunit(){
 
-			if($_SERVER['REQUEST_METHOD'] == "POST") {
-		
-				$data_array = array(
-		
-						"id"     =>  $this->input->post('id'),
-		
-						"unit_name"   =>  $this->input->post('unit_name'),
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-						"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-		
-						"modified_dt"  =>  date('Y-m-d h:i:s')
-				);
-		
-				$where = array(
-						"id" => $this->input->post('id')
-				);
-				 
-		
-				$this->FertilizerModel->f_edit('mm_unit', $data_array, $where);
-		
-				$this->session->set_flashdata('msg', 'Successfully Updated');
-		
-				redirect('fertilizer/unit');
-		
-			}else{
-					$select = array(
-							"id",
-							"unit_name"                           
-				);
-		
-					$where = array(
-						"id" => $this->input->get('id')
-						);
-		
-				$sch['schdtls'] = $this->FertilizerModel->f_select("mm_unit",$select,$where,1);
-																																	
-				$this->load->view('post_login/fertilizer_main');
-		
-				$this->load->view("unit/edit",$sch);
-		
-				$this->load->view("post_login/footer");
-			}
-		}
-		
-		
+		$data_array = array(
 
-/*******************************************************************
- *						Company Master							   *
- *******************************************************************/
-//View Added Company
+				"id"     		=>  $this->input->post('id'),
+
+				"unit_name"    =>  $this->input->post('unit_name'),
+
+				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+
+				"modified_dt"  =>  date('Y-m-d h:i:s')
+		);
+
+		$where = array(
+				"id" => $this->input->post('id')
+		);
+			
+
+		$this->FertilizerModel->f_edit('mm_unit', $data_array, $where);
+
+		$this->session->set_flashdata('msg', 'Successfully Updated');
+
+		redirect('measurement');
+
+	}else
+
+	{
+			$select = array(
+					"id",
+
+					"unit_name"                           
+			);
+
+			$where = array(
+
+				"id" => $this->input->get('id')
+
+				);
+
+			$sch['schdtls'] = $this->FertilizerModel->f_select("mm_unit",$select,$where,1);
+																															
+			$this->load->view('post_login/fertilizer_main');
+
+			$this->load->view("unit/edit",$sch);
+
+			$this->load->view("post_login/footer");
+	}
+}
+		
+/***********************Company Master***************************************/
+
+//Dashboard
 public function company(){
+
 	$select         = array("comp_id","comp_name","comp_add","gst_no");
 
 	$bank['data']   = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
-//   echo $this->db->last_query();
-// / die();
+
 	$this->load->view("post_login/fertilizer_main");
 
 	$this->load->view("company/dashboard",$bank);
@@ -1746,98 +1643,81 @@ public function companyAdd(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-		   $comp_id = $this->FertilizerModel->get_company_code();
-
-			$comp_desc = $this->input->post('comp_name');
-
-			$comp_add = $this->input->post('comp_add');
-			
-			$gst_no    = $this->input->post('gst_no');
-						
-			$pan_no    = $this->input->post('pan_no');
-
-			$comp_email_id = $this->input->post('comp_email_id');
-
-			$comp_pn_no = $this->input->post('comp_pn_no');
-
-			$cin = $this->input->post('cin');
-
-			$mfms = $this->input->post('mfms');
-
-			$short_name = $this->input->post('short_name');
+		    $comp_id 	= $this->FertilizerModel->get_company_code();
 			
 			$data_array = array (
 
-					"comp_id" => $comp_id,
+					"comp_id" 			=> $comp_id,
 			
-					"comp_name" => $comp_desc,
+					"comp_name" 		=> $this->input->post('comp_name'),
 
-					"short_name" => $short_name,
+					"short_name" 		=> $this->input->post('short_name'),
 					
-					"comp_add"   => $comp_add,
+					"comp_add"   		=> $this->input->post('comp_add'),
 
-					"comp_email_id" =>$comp_email_id,
+					"comp_email_id" 	=> $this->input->post('comp_email_id'),
 
-					"comp_pn_no"    => $comp_pn_no,
+					"comp_pn_no"    	=> $this->input->post('comp_pn_no'),
 					
-					"pan_no"    => $pan_no,
+					"pan_no"    		=> $this->input->post('pan_no'),
 
-					"gst_no" =>  $gst_no,
+					"gst_no" 			=> $this->input->post('gst_no'),
 
-					"mfms"=>  $mfms,
+					"mfms"				=> $this->input->post('mfms'),
 
-					"cin"=> $cin,
+					"cin"				=> $this->input->post('cin'),
 				
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+					"created_by"    	=>  $this->session->userdata['loggedin']['user_name'],
 
-					"created_dt"    =>  date('Y-m-d h:i:s'));
+					"created_dt"    	=>  date('Y-m-d h:i:s')
+				);
 			 
 				$this->FertilizerModel->f_insert('mm_company_dtls', $data_array);
-				// echo $this->db->last_query();
-				// die();
+				 
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
-					redirect('fertilizer/company');
-			}else {
+				redirect('source');
+	}else 
+		{
 					
-	$this->load->view('post_login/fertilizer_main');
+			$this->load->view('post_login/fertilizer_main');
 
-	$this->load->view("company/add");
+			$this->load->view("company/add");
 
-	$this->load->view('post_login/footer');
+			$this->load->view('post_login/footer');
+	}
 }
-}
 
-
+//Edit Company
 public function editcompany(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		$data_array = array(
 
-				"comp_id"     =>  $this->input->post('comp_id'),
+				"comp_id"     		=>  $this->input->post('comp_id'),
 
-				"comp_name"   =>  $this->input->post('comp_name'),
+				"comp_name"   		=>  $this->input->post('comp_name'),
 
-				"short_name" =>$this->input->post('short_name'),
+				"short_name"  		=>  $this->input->post('short_name'),
 
-				"comp_add"    =>  $this->input->post('comp_add'),
+				"comp_add"    		=>  $this->input->post('comp_add'),
 
-				"comp_email_id" =>  $this->input->post('comp_email_id'),
+				"comp_email_id" 	=>  $this->input->post('comp_email_id'),
 
-				"comp_pn_no"   =>  $this->input->post('comp_pn_no'),
+				"comp_pn_no"  	 	=>  $this->input->post('comp_pn_no'),
 				 
-				"gst_no"      =>  $this->input->post('gst_no'),
+				"gst_no"      		=>  $this->input->post('gst_no'),
 
-				"mfms" =>  $this->input->post('mfms'),
+				"mfms" 				=>  $this->input->post('mfms'),
 
-				"pan_no"    =>  $this->input->post('pan_no'),
+				"pan_no"    		=>  $this->input->post('pan_no'),
 
-				"cin" =>  $this->input->post('cin'),
+				"cin" 				=>  $this->input->post('cin'),
 
-				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+				"modified_by"  		=>  $this->session->userdata['loggedin']['user_name'],
 
-				"modified_dt"  =>  date('Y-m-d h:i:s')
+				"modified_dt"  		=>  date('Y-m-d h:i:s')
 		);
 
 		$where = array(
@@ -1849,21 +1729,30 @@ public function editcompany(){
 
 		$this->session->set_flashdata('msg', 'Successfully Updated');
 
-		redirect('fertilizer/company');
+		redirect('source');
 
 	}else{
 			$select = array(
 					"comp_id",
+
 					"comp_name",
+
 					"short_name",
+
 					"comp_add",
+
 					"comp_email_id",
+
 					"comp_pn_no",
+
 					"gst_no"  ,
+
 					"mfms"  ,
+
 					"pan_no",
+
 					"cin"                                
-		);
+				);
 
 			$where = array(
 				"comp_id" => $this->input->get('comp_id')
@@ -1879,22 +1768,8 @@ public function editcompany(){
 	}
 }
 
+/*************************************************End Company*********************************************** */
 
-public function deletecompany() {
-
-	$where = array(
-				 "comp_id"    =>  $this->input->get('comp_id')
-		
-	);
-	
-	$this->FertilizerModel->f_delete('mm_company_dtls', $where);
-   
-	
-	$this->session->set_flashdata('msg', 'Successfully Deleted!');
-
-	redirect("fertilizer/fertilizer/company");
-
-}
 
 public function f_get_salerate(){
 
