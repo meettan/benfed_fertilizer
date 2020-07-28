@@ -2,7 +2,7 @@
             
 			<div class="col-md-12 container form-wraper">
 	
-				<form method="POST" action="<?php echo site_url("fertilizer/saleAdd") ?>" onsubmit="return valid_data()">
+				<form method="POST" action="<?php echo site_url("trade/saleAdd") ?>" onsubmit="return valid_data()">
 	
 					<div class="form-header">
 					
@@ -182,17 +182,9 @@
                                     </td>
 
                                     <td>    
-                                        <input type="hidden" name="prod_id[]" class="form-control required prod_id" value= "" id="prod_id" required> 
-                                        <input type="text" name="prod_desc[]" class="form-control required prod_id" value= "" id="prod_desc" required> 
-                                        <!-- <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly>
-                <option value="">Select product</option>
-                <?php
-                    foreach($proddtls as $key1)
-                    { ?>
-                        <option value="<?php echo $key1->prod_id; ?>"><?php echo $key1->prod_desc; ?></option>
-                    <?php
-                    } ?>
-            </select>  -->
+                                        <input type="hidden" name="prod_id[]" style="width:150px" class="form-control required prod_id" value= "" id="prod_id" required>  
+                                        <input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
+                       
                                         
                                     </td>
 
@@ -207,7 +199,7 @@
                                         <input type="text" name="sale_rt[]"  class="form-control required sale_rt" value= "0" id="sale_rt"  readonly>
                                     </td>
 									<td>
-                                        <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" readonly>
+                                        <input type="text" name="taxable_amt[]" style="width:130px" class="form-control required taxable_amt" value= "0" id="taxable_amt" readonly>
                                     </td>
 									<td>
                                         <input type="text" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>
@@ -219,7 +211,7 @@
                                     <input type="text" name="dis[]" class="form-control dis required" value= "0" id="dis" required>
                                     </td>
 									<td>
-                                      <input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "0" id="tot_amt" required>
+                                      <input type="text" name="tot_amt[]" style="width:130px" class="form-control tot_amt required" value= "0" id="tot_amt" required>
                                     </td>
                                     <!-- <td>
                                         <input type="hidden" name="gst_rt[]" class="form-control required gst_rt" value="" id="gst_rt" required>
@@ -276,7 +268,7 @@
         $('#addrow').click(function(){
             $.get( 
 
-'<?php echo site_url("fertilizer/f_get_sale_ro");?>',
+'<?php echo site_url("trade/f_get_sale_ro");?>',
 
 { 
 
@@ -414,7 +406,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_soc");?>',
+			'<?php echo site_url("trade/f_get_soc");?>',
 			{ 
 
 				soc_id: $(this).val(),
@@ -452,13 +444,20 @@ $(document).ready(function(){
         $('#intro').on( "change", ".ro", function()
         {
             //console.log($(this).val());
-            $.get('<?php echo site_url("fertilizer/js_get_stock_qty");?>',{ ro: $(this).val() })
+            $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
                                                                             
             .done(function(data)
             {
-                 console.log(data);
+                //  console.log(data);
                 var unitData = JSON.parse(data);
-                //  console.log(unitData);
+                  console.log(unitData);
+            //     var string = '<option value="">Select</option>';
+            //     $.each(JSON.parse(unitData), function( index, value ) {
+            //     string += '<option value="' + value.prod_id + '">' + value.prod_desc + '</option>'
+
+            // });
+            //     $('#prod_id').val(string);
+                
                 $('.stock_qty').eq($('.ro').index(this)).val(unitData.stkqty); 
                 $('.prod_id').eq($('.ro').index(this)).val(unitData.prod_id); 
                 $('.prod_desc').eq($('.ro').index(this)).val(unitData.prod_desc); 
@@ -515,7 +514,7 @@ $(document).ready(function()
        
        
     //    total += parseFloat(tot_amt); 
-        $.get('<?php echo site_url("fertilizer/js_get_stock_qty");?>',{ ro: $(this).val() })
+        $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
 
                                                                   
         .done(function(data)
@@ -580,7 +579,7 @@ $(document).ready(function()
        var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
        var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
        var total =0.00;
-          total = parseFloat(total) + parseFloat(tot_amt); 
+       total = parseFloat(total) + parseFloat(tot_amt); 
             // let row   = $(this).closest('tr');
             //  var dis        = parseFloat(row.find('td:eq(8) .dis').val());
             // var tot_amt   = row.find('td:eq(9) .tot_amt').val();
@@ -588,7 +587,7 @@ $(document).ready(function()
             //                row.find('td:eq(9) .tot_amt').val(tot_amt-dis);
            
          
-               $("input[class *= 'tot_amt']").each(function(){
+          $("input[class *= 'tot_amt']").each(function(){
            sum += parseFloat($(this).val());
                       
             });
@@ -606,7 +605,8 @@ $(document).ready(function()
         
 
 </script>
-	<script>
+
+<script>
 
 $(document).ready(function(){
 
@@ -616,7 +616,7 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("fertilizer/f_get_sale_ro");?>',
+            '<?php echo site_url("trade/f_get_sale_ro");?>',
 
             { 
 
@@ -643,7 +643,8 @@ $(document).ready(function(){
     });
 
 });
-</script></script>
+</script>
+<!-- </script> -->
 
 <script>
 $(document).ready(function(){

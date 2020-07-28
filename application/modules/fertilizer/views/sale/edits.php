@@ -2,8 +2,8 @@
             
 			<div class="col-md-12 container form-wraper">
 	
-				<form method="POST" action="<?php echo site_url("fertilizer/saleedit") ?>" onsubmit="return valid_data()">
-	
+				<!-- <form method="POST" action="<?php echo site_url("trade/saleedit") ?>> -->
+                <form method="POST"  action="<?php echo site_url("trade/saleedit");?>" >
 					<div class="form-header">
 					
 						<h4>Edit Sale</h4>
@@ -273,7 +273,7 @@
 
             $.get( 
 
-'<?php echo site_url("fertilizer/f_get_sale_ro");?>',
+'<?php echo site_url("trade/f_get_sale_ro");?>',
 
 { 
 
@@ -410,7 +410,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_soc");?>',
+			'<?php echo site_url("trade/f_get_soc");?>',
 			{ 
 
 				soc_id: $(this).val(),
@@ -437,7 +437,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_soc");?>',
+			'<?php echo site_url("trade/f_get_soc");?>',
 			{ 
 
 				soc_id: <?=$prodd->soc_id?>,
@@ -468,7 +468,7 @@ $(document).ready(function(){
         $('#intro').on( "change", ".ro", function()
         {
          
-            $.get('<?php echo site_url("fertilizer/js_get_stock_qty");?>',{ ro: $(this).val() })
+            $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
                                                                             
             .done(function(data)
             {
@@ -518,7 +518,7 @@ txtBox.focus();
        
        
     //    total += parseFloat(tot_amt); 
-        $.get('<?php echo site_url("fertilizer/js_get_stock_qty");?>',{ ro: $(this).val() })
+        $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
 
                                                                   
         .done(function(data)

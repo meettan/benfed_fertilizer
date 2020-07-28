@@ -1034,7 +1034,7 @@ public function f_get_product(){
 
 }
 
-public function f_get_sale_ro(){
+/*public function f_get_sale_ro(){
 	// echo 'hi';
 	// die();
     $select = array("a.ro_no " );
@@ -1051,7 +1051,7 @@ public function f_get_sale_ro(){
 			// die();
 			echo json_encode($ro);
 
-	        }
+	        }*/
 
 
 
