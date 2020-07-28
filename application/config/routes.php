@@ -70,10 +70,11 @@ $route['paddy/(:any)'] = 'paddys/f_$1';
 $route['source']           = 'fertilizer/fertilizer/company';                       //Company Master
 $route['measurement']      = 'fertilizer/fertilizer/unit';                          //Unit Master
 $route['material']         = 'fertilizer/fertilizer/product';                       //Product Master
-$route['customer']         = 'fertilizer/fertilizer/soceity';                       //Society Master         
+$route['customer']         = 'fertilizer/fertilizer/soceity';                       //Society Master 
+$route['key/(:any)']       = 'fertilizer/$1';                                       //Fertilizer        
 $route['rateslab']         = 'fertilizer/fertilizer/sale_rate';                     //Sale Rate Salb
-$route['trade/(:any)']     =  'fertilizer/sale/$1';                                 //Sale
-$route['stock/(:any)']     =  'fertilizer/purchase/$1';                             //Purchase
+$route['trade/(:any)']     = 'fertilizer/sale/$1';                                  //Sale
+$route['stock/(:any)']     = 'fertilizer/purchase/$1';                              //Purchase
 
 //For Add New
 

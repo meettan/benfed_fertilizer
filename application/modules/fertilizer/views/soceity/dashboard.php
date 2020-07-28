@@ -26,13 +26,14 @@
                 <thead>
 
                     <tr>
-                    	<!-- <th>Sl No.</th> -->
-                        <th>Soc Id</th>
+                        <th>Sl.No.</th>
+
                         <th>Society Name</th>
-                        <!-- <th>Stock Flag</th>
-                        <th>Buffer Flag</th> -->
+                      
+                        <th>Branch</th>
+
             			<th>Edit</th>
-                        <!-- <th>Delete</th> -->
+                       
                     </tr>
 
                 </thead>
@@ -41,29 +42,25 @@
 
                     <?php 
                         $i=0;
-                    if($data) {
-                            foreach($data as $value) {
-		    ?>
+                        if($data) {
+                                foreach($data as $value) {
+		            ?>
 
                             <tr>   
-                                <td style="display:none;"><?php echo ++$i; ?></td>
+                                <td><?php echo ++$i; ?></td>
                               
-				                <td><?php echo $value->soc_id; ?></td>
+				                <td style="display:none;"><?php echo $value->soc_id; ?></td>
+
                                 <td><?php echo $value->soc_name; ?></td>
 
-			 	                <td><a href="editsoceity/edit?soc_id=<?php echo $value->soc_id;?>" 
+                                <td><?php echo $value->branch_name; ?></td>
+
+			 	                <td><a href="key/editsoceity?soc_id=<?php echo $value->soc_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                 </td>
-                                <!-- <td><button type="button" class="delete" id="<?php echo $value->soc_id;?>"    
-                                       
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
-
-                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                    </button> 
-                                </td> -->
                             </tr>
 
                     <?php
@@ -85,13 +82,13 @@
 
                     <tr>
                     
-                    <!-- <th>Sl No.</th> -->
-                        <th>Soc Id</th>
+                        <th>Sl.No.</th>
+
                         <th>Society Name</th>
-                        <!-- <th>Stock Flag</th>
-                        <th>Buffer Flag</th> -->
-            			<th>Edit</th>
-                        <!-- <th>Delete</th> -->
+
+                        <th>Branch</th>
+
+                        <th>Edit</th>
                     </tr>
                 
                 </tfoot>
@@ -104,28 +101,6 @@
 
 <script>
 
-    $(document).ready( function (){
-
-        $('.delete').click(function () {
-
-            var id = $(this).attr('id');
-
-            var result = confirm("Do you really want to delete this record?");
-
-            if(result) {
-
-                window.location = "<?php echo site_url('fertilizer/fertilizer/deleteprod?prod_id="+id+"');?>";
-
-            }
-            
-        });
-
-    });
-
-</script>
-
-<script>
-
     $(document).ready(function() {
 
     <?php if($this->session->flashdata('msg')){ ?>
@@ -133,6 +108,4 @@
     });
 
     <?php } ?>
-</script> 
-
-
+</script>
