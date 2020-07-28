@@ -183,8 +183,8 @@
 
                                     <td>    
                                         <!-- <input type="text" name="prod_id[]" class="form-control required prod_id" value= "" id="prod_id" required>  -->
-                                        <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly>
-                <!-- <option value="">Select product</option> -->
+                                        <select disabled name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly>
+                <option value="">Select product</option>
                 <?php
                     foreach($proddtls as $key1)
                     { ?>
