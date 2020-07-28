@@ -33,10 +33,10 @@
 			}
 		}
 		
-		public function get_trans_no($kms_id,$branch_id){
+		public function get_trans_no($fin_id,$branch_id){
 
 			$sql="select ifnull(max(trans_no),0) + 1 trans_no
-					 from td_sale where fin_yr = '$kms_id' AND br_cd= '$branch_id'";
+					 from td_sale where fin_yr = '$fin_id' AND br_cd= '$branch_id'";
 
 		  $result = $this->db->query($sql);     
 	  
@@ -132,13 +132,14 @@
 		}
 	
 		
-		public function f_get_sales_dtls($banch_id){
+		public function f_get_sales_dtls($banch_id,$fin_id){
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
 		$data = $this->db->query("select trans_do,do_dt,trans_type, sum(tot_amt) as tot_amt
 									from td_sale
 									where br_cd='$banch_id' 
+									and fin_yr='$fin_id'
 									group by trans_do,do_dt,trans_type");
 	
 		 return $data->result();

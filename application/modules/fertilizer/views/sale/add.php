@@ -182,8 +182,9 @@
                                     </td>
 
                                     <td>    
-                                        <!-- <input type="text" name="prod_id[]" class="form-control required prod_id" value= "" id="prod_id" required>  -->
-                                        <select disabled name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly>
+                                        <input type="hidden" name="prod_id[]" class="form-control required prod_id" value= "" id="prod_id" required> 
+                                        <input type="text" name="prod_desc[]" class="form-control required prod_id" value= "" id="prod_desc" required> 
+                                        <!-- <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly>
                 <option value="">Select product</option>
                 <?php
                     foreach($proddtls as $key1)
@@ -191,7 +192,7 @@
                         <option value="<?php echo $key1->prod_id; ?>"><?php echo $key1->prod_desc; ?></option>
                     <?php
                     } ?>
-            </select> 
+            </select>  -->
                                         
                                     </td>
 
@@ -460,6 +461,7 @@ $(document).ready(function(){
                 //  console.log(unitData);
                 $('.stock_qty').eq($('.ro').index(this)).val(unitData.stkqty); 
                 $('.prod_id').eq($('.ro').index(this)).val(unitData.prod_id); 
+                $('.prod_desc').eq($('.ro').index(this)).val(unitData.prod_desc); 
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
                 $('.unit').eq($('.ro').index(this)).val('MT');
                 $('.sale_rt').eq($('.ro').index(this)).val(unitData.govt_sale_rt);

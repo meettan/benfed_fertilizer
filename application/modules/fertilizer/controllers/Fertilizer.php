@@ -404,10 +404,11 @@ redirect('fertilizer/cr_note');
 		
 		public function sale(){
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-			// $select          = array("trans_do","trans_do",	"do_dt",	"trans_type", "tot_amt");
-	   
-			// $bank['data']    = $this->FertilizerModel->f_select('td_sale',$select,NULL,0);
-		   $bank['data']    = $this->FertilizerModel->f_get_sales_dtls($br_cd);
+			$fin_id=$this->session->userdata['loggedin']['fin_id'];
+			
+			$bank['data']    = $this->FertilizerModel->f_get_sales_dtls($br_cd,$fin_id);
+	// 		echo $this->db->last_query();
+	// die();
 		   $this->load->view("post_login/fertilizer_main");
 	   
 		   $this->load->view("sale/dashboard",$bank);
@@ -420,20 +421,19 @@ redirect('fertilizer/cr_note');
 
 //     addsale code written by Lokesh kumar jha 31/03/2020"
 public function saleAdd(){
-	// "br_cd"     => $this->session->userdata['loggedin']['branch_id']
+	
 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 	$dist_sort_code    = $this->session->userdata['loggedin']['dist_sort_code'];
-	$kms_year_sort_code=substr($this->session->userdata['loggedin']['kms_yr'],2);
-	$kms_id=$this->session->userdata['loggedin']['kms_id'];
-	// $kms_year=  $this->session->userdata['loggedin']['kms_yr'];
-	// $branch_id = $this->session->userdata['loggedin']['branch_id'];
-	$trans_no = $this->FertilizerModel->get_trans_no($kms_id,$br_cd);
-	// echo $trans_no;
+	$fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],2);
+	$fin_id=$this->session->userdata['loggedin']['fin_id'];
+	$trans_no = $this->FertilizerModel->get_trans_no($fin_id,$br_cd);
+
+	// echo $fin_year_sort_code;
 	// die();
 	// echo $this->db->last_query();
 	// die();
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
-			
+		
 			$prod_id = $this->input->post('prod_id');
 
 			$qty = $this->input->post('qty');
@@ -449,13 +449,15 @@ public function saleAdd(){
 			$tot_amt=$this->input->post('tot_amt');
 
 			$br_cd      = $this->session->userdata['loggedin']['branch_name'];
-
+			// echo ($prod_id);
+			//    die();
 			  for($i = 0; $i < count($prod_id); $i++){
-
-			  $data     = array(
-									'trans_do' =>  'SRO/'.$dist_sort_code.'/'.$kms_year_sort_code.'/'. $trans_no->trans_no,
-                                    // 'trans_do'     => $this->input->post('trans_do'),
-                                     'trans_no'  =>  $trans_no->trans_no,
+			   
+			   $data     = array(
+									'trans_do' =>  'SRO/'.$dist_sort_code.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no,
+								   
+									'trans_no'  =>  $trans_no->trans_no ,
+									 
                                     'do_dt'        => $this->input->post('ro_dt'),
 
                                     'sale_due_dt'  => $this->input->post('sale_due_dt'),
@@ -490,9 +492,9 @@ public function saleAdd(){
 
 									 "br_cd"     => $this->session->userdata['loggedin']['branch_id'],
 
-									 "fin_yr"    =>$kms_id
+									 "fin_yr"    => $fin_id
                                 );
-
+								
 		
 		
 				$this->FertilizerModel->f_insert('td_sale', $data);
