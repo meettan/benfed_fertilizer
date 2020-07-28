@@ -1055,7 +1055,7 @@ public function f_get_sale_ro(){
 
 
 
- public function stock_entry(){
+ /*public function stock_entry(){
 	 $br_cd      = $this->session->userdata['loggedin']['branch_id'];
 	// // echo $br_cd  ;
 	// // die();
@@ -1077,7 +1077,7 @@ public function f_get_sale_ro(){
 	$this->load->view('search/search');
 
 	$this->load->view('post_login/footer');
-}
+}*/
 
 // Add stock_entry
 public function stockAdd(){

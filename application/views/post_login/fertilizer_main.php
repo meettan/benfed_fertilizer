@@ -107,13 +107,13 @@
                             <div class="sub-dropdown">
                             <!-- <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>  -->
                               <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
-                              <a href="<?php echo site_url("fertilizer/stock_entry");?>">Purchase Entry</a>
+                              <a href="<?php echo site_url("fertilizer/purchase/stock_entry");?>">Purchase Entry</a>
                           <!-- <?php } ?> -->
                               
                                <!-- <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>  -->
                               <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
                           <!-- <?php } ?> -->
-                              <a href="<?php echo site_url("fertilizer/sale");?>">Sale</a>
+                              <a href="<?php echo site_url("fertilizer/sale/sale");?>">Sale</a>
                               <!--<a href="<?php echo site_url("fertilizer/cr_note");?>">Cr Note</a>
                               <a href="<?php echo site_url("fertilizer/dr_Note");?>">Dr Note </a>
                               <a href="<?php echo site_url("fertilizer/trfDashboard");?>">Sale Return </a>-->

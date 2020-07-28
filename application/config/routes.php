@@ -66,6 +66,12 @@ $route['paddy/approve/(:any)'] = 'paddys/approves/f_approve_$1';
 $route['paddy/(:any)/(:any)'] = 'paddys/f_$1_$2';
 $route['paddy/(:any)'] = 'paddys/f_$1';
 
+//For Paddy
+$route['fertilizer'] = 'purchase';
+/*route['paddy/approve/(:any)'] = 'paddys/approves/f_approve_$1';
+$route['paddy/(:any)/(:any)'] = 'paddys/f_$1_$2';
+$route['paddy/(:any)'] = 'paddys/f_$1';*/
+
 //For Add New
 
 //$route['add_new/(:any)/(:any)'] = 'paddys/add_new/f_$1_$2';

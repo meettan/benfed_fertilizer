@@ -1,6 +1,6 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
-	class FertilizerModel extends CI_Model{					/*Insert Data in Tables*/
+	class PurchaseModel extends CI_Model{					/*Insert Data in Tables*/
 		public function f_insert($table_name, $data_array) {
 
 			$this->db->insert($table_name, $data_array);
@@ -33,10 +33,20 @@
 			}
 		}
 		
+		public function get_trans_no($fin_id,$branch_id){
+
+			$sql="select ifnull(max(trans_no),0) + 1 trans_no
+					 from td_sale where fin_yr = '$fin_id' AND br_cd= '$branch_id'";
+
+		  $result = $this->db->query($sql);     
+	  
+		  return $result->row();
+
+  }
 		public function js_get_stock_qty($ro)
 		{
 
-			$sql = $this->db->query("SELECT a.stock_qty qty,a.prod_id ,b.gst_rt ,a.govt_sale_rt FROM td_purchase a ,mm_product b WHERE a.prod_id=b.prod_id and  a.ro_no = '$ro'");
+		$sql = $this->db->query("SELECT a.stock_qty -  (select  ifnull(sum(qty) ,0) from td_sale where sale_ro ='$ro') stkqty,a.prod_id ,b.gst_rt ,a.govt_sale_rt FROM td_purchase a ,mm_product b WHERE a.prod_id=b.prod_id and  a.ro_no = '$ro'");
 			return $sql->row();
 		}
 		
@@ -122,13 +132,14 @@
 		}
 	
 		
-		public function f_get_sales_dtls($banch_id){
+		public function f_get_sales_dtls($banch_id,$fin_id){
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
 		$data = $this->db->query("select trans_do,do_dt,trans_type, sum(tot_amt) as tot_amt
 									from td_sale
 									where br_cd='$banch_id' 
+									and fin_yr='$fin_id'
 									group by trans_do,do_dt,trans_type");
 	
 		 return $data->result();
