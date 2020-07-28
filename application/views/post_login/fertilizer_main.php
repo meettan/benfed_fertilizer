@@ -82,12 +82,12 @@
                         <div class="sub-dropdown">
                               <!-- <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>    -->
                                 
-                                <a href="<?php echo site_url("fertilizer/company");?>">Company</a>
-                            <a href="<?php echo site_url("fertilizer/unit");?>">Unit</a>
-                            <a href="<?php echo site_url("fertilizer/product");?>">Product</a>
-                            <a href="<?php echo site_url("fertilizer/soceity");?>">Society</a>
+                                <a href="<?php echo site_url("source");?>">Company</a>
+                            <a href="<?php echo site_url("measurement");?>">Unit</a>
+                            <a href="<?php echo site_url("material");?>">Product</a>
+                            <a href="<?php echo site_url("customer");?>">Society</a>
                     
-                            <a href="<?php echo site_url("fertilizer/sale_rate");?>">Sale Rate</a>
+                            <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
                      
                             <!-- <a href="<?php echo site_url("fertilizer/soceity");?>">Soceity</a> -->
                             <!--<a href="<?php //echo site_url("finance/view_bank_master");?>">Bank</a>-->
@@ -107,13 +107,13 @@
                             <div class="sub-dropdown">
                             <!-- <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>  -->
                               <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
-                              <a href="<?php echo site_url("fertilizer/purchase/stock_entry");?>">Purchase Entry</a>
+                              <a href="<?php echo site_url("stock/stock_entry");?>">Purchase Entry</a>
                           <!-- <?php } ?> -->
                               
                                <!-- <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>  -->
                               <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
                           <!-- <?php } ?> -->
-                              <a href="<?php echo site_url("fertilizer/sale/sale");?>">Sale</a>
+                              <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <!--<a href="<?php echo site_url("fertilizer/cr_note");?>">Cr Note</a>
                               <a href="<?php echo site_url("fertilizer/dr_Note");?>">Dr Note </a>
                               <a href="<?php echo site_url("fertilizer/trfDashboard");?>">Sale Return </a>-->

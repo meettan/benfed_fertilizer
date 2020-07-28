@@ -66,11 +66,14 @@ $route['paddy/approve/(:any)'] = 'paddys/approves/f_approve_$1';
 $route['paddy/(:any)/(:any)'] = 'paddys/f_$1_$2';
 $route['paddy/(:any)'] = 'paddys/f_$1';
 
-//For Paddy
-$route['fertilizer'] = 'purchase';
-/*route['paddy/approve/(:any)'] = 'paddys/approves/f_approve_$1';
-$route['paddy/(:any)/(:any)'] = 'paddys/f_$1_$2';
-$route['paddy/(:any)'] = 'paddys/f_$1';*/
+//For Fertilizer
+$route['source']           = 'fertilizer/fertilizer/company';                       //Company Master
+$route['measurement']      = 'fertilizer/fertilizer/unit';                          //Unit Master
+$route['material']         = 'fertilizer/fertilizer/product';                       //Product Master
+$route['customer']         = 'fertilizer/fertilizer/soceity';                       //Society Master         
+$route['rateslab']         = 'fertilizer/fertilizer/sale_rate';                     //Sale Rate Salb
+$route['trade/(:any)']     =  'fertilizer/sale/$1';                                 //Sale
+$route['stock/(:any)']     =  'fertilizer/purchase/$1';                             //Purchase
 
 //For Add New
 
