@@ -2,7 +2,7 @@
 
         <div class="col-md-6 container form-wraper">
 
-            <form method="POST" id="form" action="<?php echo site_url("key/editsoceity");?>" >
+            <form method="POST" id="product" action="<?php echo site_url("key/editsoceity");?>" >
 
                 <div class="form-header">
                 
@@ -98,8 +98,28 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="stock_point_flag" class="col-sm-2 col-form-label">Stock Point:</label>
+                    <label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Type:</label>
+
                     <div class="col-sm-10">
+
+                        <select class="form-control required" id="buffer_flag" name="buffer_flag" required>
+
+                            <option value="N" <?php echo ($schdtls->buffer_flag == 'N')? 'selected' : '';?>>Non - Buffer</option>
+
+                            <option value="B" <?php echo ($schdtls->buffer_flag == 'B')? 'selected' : '';?>>Benfed Buffer</option>
+
+                            <option value="I" <?php echo ($schdtls->buffer_flag == 'I')? 'selected' : '';?>>Iffco Buffer</option>
+                            
+                        </select>
+
+                    </div>
+
+			    </div>
+
+                <div class="form-group row">
+
+                    <label for="stock_point_flag" class="col-sm-2 col-form-label">Stock Point:</label>
+                    <div class="col-sm-4">
 
                         <select class="form-control required" id="stock_point_flag" name="stock_point_flag" required>
                         
@@ -111,29 +131,9 @@
 
                     </div>
 
-			    </div>
+                    <label for="status" id="status_label" class="col-sm-2 col-form-label">Type:</label>
 
-                <div class="form-group row">
-
-                    <label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Flag:</label>
-
-                    <div class="col-sm-5">
-
-                        <select class="form-control required" id="buffer_flag" name="buffer_flag" required>
-            
-                            <option value="N" <?php echo ($schdtls->buffer_flag == 'N')? 'selected' : '';?>>Non - Buffer</option>
-
-                            <option value="B" <?php echo ($schdtls->buffer_flag == 'B')? 'selected' : '';?>>Benfed Buffer</option>
-
-                            <option value="I" <?php echo ($schdtls->buffer_flag == 'I')? 'selected' : '';?>>Iffco Buffer</option>
-                            
-                        </select>
-
-                    </div>
-
-                    <label for="status" id="status_label" class="col-sm-1 col-form-label">Status:</label>
-
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
 
                         <select class="form-control" id="status" name="status" required>
                             
@@ -166,3 +166,44 @@
         </div>
 
     </div>
+
+    <script>
+	$(document).ready(function(){
+
+		$("#stock_point_flag").on('change',function(){
+
+			if ($("#stock_point_flag").val() =='N'){
+
+				$("#status").hide();
+
+				$("#status").val("N");
+
+				$("#status_label").hide();
+				
+			}else{
+
+				$("#status").show();
+
+				$("#status_label").show();
+			}
+
+		});
+
+		$("#product").on('submit',function(){
+
+			if ($("#stock_point_flag").val() =='Y'){
+
+				if($("#status").val() == 'N'){
+
+					alert("Invalid stock point type!");
+
+					return false;
+				}else{
+				
+					return true;
+				}
+			}
+
+		});
+	});
+</script>

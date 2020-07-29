@@ -40,7 +40,11 @@ public function soceityAdd(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-		    $soc_id = $this->FertilizerModel->get_soceity_code();
+			$soc_id 	 = $this->FertilizerModel->get_soceity_code();
+			
+			$stock_point = $this->input->post('stock_point_flag');
+
+			$buffer		 = $this->input->post('buffer_flag');
 
 			$data_array = array (
 
@@ -66,13 +70,13 @@ public function soceityAdd(){
 		   
 					"status"          	=> $this->input->post('status'),
 					
-					"created_by"    	=>  $this->session->userdata['loggedin']['user_name'],    
+					"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
 
 					"created_dt"    	=>  date('Y-m-d h:i:s')
 				);
-			 
+
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
-				
+	
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
 				redirect('customer');

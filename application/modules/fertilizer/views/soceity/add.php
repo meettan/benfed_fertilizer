@@ -2,7 +2,7 @@
             
 	<div class="col-md-6 container form-wraper">
 
-		<form method="POST" action="<?php echo site_url("key/soceityAdd") ?>" >
+		<form method="POST" id="product" action="<?php echo site_url("key/soceityAdd") ?>" >
 
 			<div class="form-header">
 			
@@ -108,30 +108,13 @@
 			</div>
 			
 			<div class="form-group row">
-				<label for="stock_point_flag" class="col-sm-2 col-form-label">Stock Point:</label>
+
+				<label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Type:</label>
+
 				<div class="col-sm-9">
 
-					<select class="form-control required" id="stock_point_flag" name="stock_point_flag" required>
-					
-						<option value="">Select</option>
-
-						<option value="Y">Yes</option>
-
-						<option value="N">No</option>
-					
-					</select>
-
-				</div>
-			</div>
-
-			<div class="form-group row">
-
-				<label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Flag:</label>
-
-				<div class="col-sm-5">
-
 					<select class="form-control required" id="buffer_flag" name="buffer_flag" required>
-		
+
 						<option value="">Select</option>
 
 						<option value="N">Non-Buffer</option>
@@ -144,9 +127,29 @@
 
 				</div>
 
-				<label for="status" id="status_label" class="col-sm-1 col-form-label">Status:</label>
+			</div>
 
-				<div class="col-sm-3">
+			<div class="form-group row">
+
+				
+				<label for="stock_point_flag" class="col-sm-2 col-form-label">Stock Point:</label>
+				<div class="col-sm-4">
+
+					<select class="form-control required" id="stock_point_flag" name="stock_point_flag" required>
+					
+						<option value="">Select</option>
+
+						<option value="Y">Yes</option>
+
+						<option value="N">No</option>
+					
+					</select>
+
+				</div>
+
+				<label for="status" id="status_label" class="col-sm-1 col-form-label">Type:</label>
+
+				<div class="col-sm-4">
 
 					<select class="form-control" id="status" name="status" required>
 						
@@ -169,7 +172,7 @@
 
 				<div class="col-sm-10">
 
-					<input type="submit" class="btn btn-info" value="Save" />
+					<input type="submit" id="submit" class="btn btn-info" value="Save" />
 
 				</div>
 
@@ -188,29 +191,36 @@
 
 			if ($("#stock_point_flag").val() =='N'){
 
-				$("#buffer_flag").hide();
-
-				$("#buffer_flag").val("N");
-
 				$("#status").hide();
 
 				$("#status").val("N");
 
-				$("#buffer_flag_label").hide();
-
 				$("#status_label").hide();
 				
 			}else{
-				$("#buffer_flag").show();
 
 				$("#status").show();
-
-				$("#buffer_flag_label").show();
 
 				$("#status_label").show();
 			}
 
 		});
 
+		$("#product").on('submit',function(){
+
+			if ($("#stock_point_flag").val() =='Y'){
+
+				if($("#status").val() == 'N'){
+
+					alert("Invalid stock point type!");
+
+					return false;
+				}else{
+				
+					return true;
+				}
+			}
+
+		});
 	});
 </script>
