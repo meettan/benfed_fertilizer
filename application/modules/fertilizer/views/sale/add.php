@@ -121,9 +121,10 @@
                         
                         </div>
                         <div class="form-group row">
-                      <label for="gst_rt"  class="col-sm-2 col-form-label">GST Rate:</label>
+                      <label for="gst_rt"  class="col-sm-2 col-form-label">Advance:</label>
                       <div class="col-sm-4">
-                     <!--  <input type="text" name="gst_rt"style="width:350px"  class="form-control required gst_rt" value="" id="gst_rt" readonly> -->
+                        <span id="advance" style="width:350px;color: #0d7d8ef5;font-weight: bold;font-size:20px;"></span>
+                     <!--  <input type="text" name="advance"   class="form-control advance" value=""  readonly> -->
                       </div>
                       <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
                       <div class="col-sm-3">
@@ -440,6 +441,27 @@ $(document).ready(function(){
 			$('#soc_add').val(soc_add);
 			
 		});
+
+        $.get( 
+
+            '<?php echo site_url("trade/f_get_adv");?>',
+            { 
+
+                soc_id: $(this).val(),
+                
+            }
+
+        )
+        .done(function(data){
+
+            //console.log(data);
+            var parseData = JSON.parse(data);
+            
+            var advance_balance = parseData.advance_balance;
+          
+            $('#advance').html(advance_balance);
+            
+        });
 
 	});
 

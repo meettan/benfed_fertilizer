@@ -60,6 +60,23 @@
 
 				return $query->result();
 		}
+
+		public function get_advance($soc_id){
+
+		$sql = $this->db->query("select (ifnull(sum(in_adv),0) - ifnull(sum(out_adv),0) )advance_balance
+								from (
+								        SELECT ifnull(sum(adv_amt),0)in_adv,0 out_adv
+								        FROM   `tdf_advance` 
+								        where soc_id = '$soc_id'
+								        and trans_type = 'I'
+								        UNION
+								        SELECT 0 in_adv,ifnull(sum(adv_amt),0)out_adv 
+								        FROM `tdf_advance` 
+								        where soc_id = '$soc_id' 
+								        and trans_type = 'O') b");
+			return $sql->row();
+
+		}
 		
 		public function f_get_drnote_dtls(){
 
