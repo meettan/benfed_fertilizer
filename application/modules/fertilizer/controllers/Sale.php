@@ -17,10 +17,22 @@
 		{
 
 			$ro = $this->input->get('ro');
-			// var_dump($ro);die;
-			$result = $this->SaleModel->js_get_stock_qty($ro);
+		
+			$result = $this->SaleModel->js_get_stock_qty($ro);		
 			
  			echo json_encode($result);
+
+		}
+
+		public function js_get_stock_point(){
+
+			$ro = $this->input->get('ro');
+			$dist_id = $this->session->userdata['loggedin']['branch_id'];
+		
+			$result = $this->SaleModel->js_get_stock_point($ro,$dist_id);		
+			
+ 			echo json_encode($result);
+
 
 		} 
 		
@@ -29,8 +41,7 @@
 			$fin_id=$this->session->userdata['loggedin']['fin_id'];
 			
 			$bank['data']    = $this->SaleModel->f_get_sales_dtls($br_cd,$fin_id);
-	// 		echo $this->db->last_query();
-	// die();
+	
 		   $this->load->view("post_login/fertilizer_main");
 	   
 		   $this->load->view("sale/dashboard",$bank);
@@ -41,7 +52,7 @@
 	   }
 
 
-public function saleAdd(){
+public function saleAdd(){   //================================================
 	
 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 	$dist_sort_code    = $this->session->userdata['loggedin']['dist_sort_code'];
@@ -49,10 +60,7 @@ public function saleAdd(){
 	$fin_id=$this->session->userdata['loggedin']['fin_id'];
 	$trans_no = $this->SaleModel->get_trans_no($fin_id,$br_cd);
 
-	// echo $fin_year_sort_code;
-	// die();
-	// echo $this->db->last_query();
-	// die();
+	
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 			$prod_id = $this->input->post('prod_id');
@@ -141,8 +149,7 @@ public function saleAdd(){
 					'br'     => $br_cd);
 					
 				$product['rodtls']   = $this->SaleModel->f_select('td_purchase',$select2,$where,0);
-// echo $this->db->last_query();
-// die();
+
 				$select1          = array("soc_id","soc_name","soc_add","gstin");
 				$where1  =   array(
 
@@ -220,9 +227,7 @@ public function saleAdd(){
            
             
 			}else {
-				// $comp_id	= $this->input->post('comp_id');
-				// echo $comp_id;
-				// die();
+				
 				$select3        = array("comp_id","comp_name");
 				$product['compdtls']   = $this->SaleModel->f_select('mm_company_dtls',$select3,NULL,0);
 
@@ -241,8 +246,7 @@ public function saleAdd(){
 			$select          = array("prod_id","prod_desc","gst_rt");
 			$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
             $product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array( "trans_do" => $this->input->get('trans_do')),0);
-		//    echo $this->db->last_query();
-		//    die();
+		
 	        $this->load->view('post_login/fertilizer_main');
 
 	       $this->load->view("sale/edits",$product);

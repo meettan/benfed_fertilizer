@@ -47,7 +47,7 @@
 						<label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
 						<div class="col-sm-3">
 	
-						<input type="text" style="width:280px" id=gstin name="gstin" class="form-control" readonly />
+						<input type="text"  id=gstin name="gstin" class="form-control" readonly />
 	
 						</div>
 						
@@ -79,34 +79,30 @@
 	
 						<input type="text" style="width:350px" id=trans_ro name="trans_do" class="form-control" readonly />
 	                    </div>
-                      <!-- <label for="do_dt" class="col-sm-3 col-form-label">Sale Ro Date:</label>
-						<div class="col-sm-4">
-	
-						<input type="date" style="width:200px" id=ro_dt name="ro_dt" class="form-control"  />
-	                    </div> -->
+                     
 
-    <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
-<div class="col-sm-3">
+                        <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
+                    <div class="col-sm-3">
 
-	<select name="comp_id" class="form-control required" id="comp_id">
+                    	<select name="comp_id" class="form-control required" id="comp_id">
 
-<option value="">Select</option>
+                    <option value="">Select</option>
 
-<?php
+                    <?php
 
-	foreach($compdtls as $comp){
+                    	foreach($compdtls as $comp){
 
-?>
+                    ?>
 
-	<option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
+                    	<option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
 
-<?php
+                    <?php
 
-	}
+                    	}
 
-?>     
+                    ?>     
 
-</select>
+                    </select>
 
 					</div>
                         </div>
@@ -120,18 +116,18 @@
                         <label for="do_dt" class="col-sm-2 col-form-label">Sale Ro Date:</label>
 						<div class="col-sm-3">
 	
-						<input type="date" style="width:285px" id=ro_dt name="ro_dt" class="form-control"  />
+						<input type="date"  id=ro_dt name="ro_dt" class="form-control"  />
 	                    </div>
                         
                         </div>
                         <div class="form-group row">
                       <label for="gst_rt"  class="col-sm-2 col-form-label">GST Rate:</label>
                       <div class="col-sm-4">
-                      <input type="text" name="gst_rt"style="width:350px"  class="form-control required gst_rt" value="" id="gst_rt" readonly>
+                     <!--  <input type="text" name="gst_rt"style="width:350px"  class="form-control required gst_rt" value="" id="gst_rt" readonly> -->
                       </div>
                       <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
                       <div class="col-sm-3">
-                      <input type="text" name="unit"style="width:290px"  class="form-control required unit" value="" id="unit" readonly>
+                      <input type="text" name="unit" class="form-control required unit" value="" id="unit" readonly>
                       </div>
                       </div>
                         
@@ -151,16 +147,22 @@
                             <thead>
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
+                           
+                                <th style= "text-align: center">Stock Point</th>
+                                <th style= "text-align: center">Gov Sale Rate</th>
+                               
                                 <th style= "text-align: center">Stock Qty</th>
                                 <th style= "text-align: center">Qty</th>
 								<th style= "text-align: center">Sale Rate</th>
 								<th style= "text-align: center">Taxable Amt</th>
-								<th style= "text-align: center">CGST</th>
-								<th style= "text-align: center">SGST</th>
+                         
+								<!-- <th style= "text-align: center">CGST</th>
+
+								<th style= "text-align: center">SGST</th> -->
                                 <th style= "text-align: center">Discount</th>
 								<th style= "text-align: center">Total Amt</th>
                                 <th>
-                                    <!-- <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th> -->
+                                    <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
                                 </th>
 
                             </thead>
@@ -182,9 +184,26 @@
                                     </td>
 
                                     <td>    
-                                        <input type="hidden" name="prod_id[]" style="width:150px" class="form-control required prod_id" value= "" id="prod_id" required>  
+                                        <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id">  
                                         <input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
                        
+                                        
+                                    </td>
+        
+                                      <td>
+
+                                         <select name="stock_point[]" id="stock_point" style="width:150px"class="form-control stock_point" required>
+                <option value="">Select</option>
+              
+            </select> 
+                                    
+                                    </td>
+                                      <td>
+                                         <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:70px" class="form-control gov_sale_rt" required>
+             
+                                          <option value="N">No</option>
+                                          <option value="Y">Yes</option>
+                                        </select> 
                                         
                                     </td>
 
@@ -193,41 +212,49 @@
                                     </td>
 
                                     <td>
-                                        <input type="text" name="qty[]" class="form-control required qty" value= "0" id="qty" required>
+                                        <input type="text" name="qty[]" class="form-control qty" value= "0" id="qty" required>
                                     </td>
 									<td>
                                         <input type="text" name="sale_rt[]"  class="form-control required sale_rt" value= "0" id="sale_rt"  readonly>
                                     </td>
 									<td>
-                                        <input type="text" name="taxable_amt[]" style="width:130px" class="form-control required taxable_amt" value= "0" id="taxable_amt" readonly>
+                                    <input type="hidden" name="gst_rt[]"  class="form-control gst_rt" value="" id="gst_rt" >
+                                        <input type="text" name="taxable_amt[]"  class="form-control taxable_amt" value="" id="taxable_amt" readonly>
                                     </td>
-									<td>
-                                        <input type="text" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>
-                                    </td>
-									<td>
-                                        <input type="text" name="sgst[]" class="form-control required sgst" value= "0" id="sgst" readonly>
-                                    </td>
+                               
+									
+                                        <input type="hidden" name="cgst[]" class="form-control cgst" value= "0" id="cgst" readonly>
+                                  
+									
+                                        <input type="hidden" name="sgst[]" class="form-control sgst" value= "0" id="sgst" readonly>
+                                  
                                     <td>
                                     <input type="text" name="dis[]" class="form-control dis required" value= "0" id="dis" required>
                                     </td>
 									<td>
-                                      <input type="text" name="tot_amt[]" style="width:130px" class="form-control tot_amt required" value= "0" id="tot_amt" required>
+                          <input type="text" name="tot_amt[]" style="width:100px" class="form-control tot_amt" value="0" id="tot_amt" required>
                                     </td>
-                                    <!-- <td>
-                                        <input type="hidden" name="gst_rt[]" class="form-control required gst_rt" value="" id="gst_rt" required>
-                                    </td> -->
+                                    <td>
+                                       <button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>
+                                    </td>
                                 </tr>
 
                             </tbody>
 
                             <tfoot>
                                 <tr>
-                                    <!--  <td colspan="8"> -->
-                                        <!-- <strong>Total:</strong> -->
-                                    <!-- </td>  -->
-                                    <!-- <td colspan="2"> -->
+                                     <td colspan="2" style="text-align:right">
+                                        <strong >Total:</strong>
+                                    </td> 
+                                    <td colspan="9">
+                                        <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"></span></div>
+                                        <div class="col-md-2">CGST:<span id="tot_cgst"></span></div>
+                                        <div class="col-md-2">SGST:<span id="tot_sgst"></span></div>
+                                        <div class="col-md-2">Discount:<span id="tot_dis"></span></div>
+                                        <div class="col-md-3">Net Payable:<span id="tot_payble_amt"></span></div>
+                                   
                                         <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total">  
-                                    <!-- </td> -->
+                                    </td>
                                 </tr>
                             </tfoot>
                     
@@ -289,46 +316,33 @@ $.each(JSON.parse(data), function( index, value ) {
             var newElement = '<tr>'
                                 +'<td>'
                                +'<select name="ro[]" id="ro" style="width:150px"class="form-control required ro" required>'
-                +'<option value="">Select Project</option>'
+                
                 
                        +' <option value=" '+ string +'</option>'
                  
            +'</select> '
                                 +'</td>'
-                                +'<td>'
-                                    +'<select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" required>'
-                +'<option value="">Select Product</option>'
-                +'<?php
-                   foreach($proddtls as $key1)
-                  { ?>'
-                       +' <option value="<?php echo $key1->prod_id; ?>"><?php echo $key1->prod_desc; ?></option>'
-                  +'<?php
-                   } ?>'
-           +'</select> '
-                                +'</td>'
-                                +'<td>'
+                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'              
+                                +'<td><select name="stock_point[]" id="ro" style="width:150px"class="form-control stock_point" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:70px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
                                     +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                    +'<input type="text" name="qty[]" class="form-control required qty" value= "0" id="qty" required>'
+                                    +'<input type="text" name="qty[]" class="form-control qty" value= "0" id="qty" required>'
                                 +'</td>'
 								+'<td>'
                                     +'<input type="text" name="sale_rt[]" class="form-control required sale_rt" value= "0" id="sale_rt" required readonly>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" readonly>'
+                                    +'<input type="hidden" name="gst_rt[]"  class="form-control gst_rt" value="" id="gst_rt" ><input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" readonly>'
                                 +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>'
-                                +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="sgst[]" class="form-control required sgst" value= "0" id="sgst" readonly>'
-                                +'</td>'
+                              
+								+'<input type="hidden" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>'
+                                +'<input type="hidden" name="sgst[]" class="form-control required sgst" value= "0" id="sgst" readonly>'
                                 +'<td>'
                                     +'<input type="text" name="dis[]" class="form-control dis" value= "0" id="dis" required>'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "0" id="tot_amt" required>'
+                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" required>'
                                 +'</td>'
                                 +'<td>'
                                     +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
@@ -424,8 +438,7 @@ $(document).ready(function(){
 			var cin= parseData[0].cin;
 			$('#gstin').val(gstin);
 			$('#soc_add').val(soc_add);
-			// $('#cin').val(cin);
-			// $('#hsn_code').val(hsn_code);
+			
 		});
 
 	});
@@ -450,7 +463,7 @@ $(document).ready(function(){
             {
                 //  console.log(data);
                 var unitData = JSON.parse(data);
-                  console.log(unitData);
+            
             //     var string = '<option value="">Select</option>';
             //     $.each(JSON.parse(unitData), function( index, value ) {
             //     string += '<option value="' + value.prod_id + '">' + value.prod_desc + '</option>'
@@ -474,6 +487,31 @@ $(document).ready(function(){
                 
             
             });
+
+        });
+
+         $('#intro').on( "change", ".ro", function()
+        {
+            //console.log($(this).val());
+            $.get('<?php echo site_url("trade/js_get_stock_point");?>',{ ro: $(this).val() })
+                                                                            
+            
+            .done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.soc_id + '">' + value.soc_name + '</option>'
+
+            });
+
+             $('.stock_point').eq($('.ro').index(this)).html(string); 
+
+            //$('#stock_point').html(string);
+
+
+          });
 
         });
 
@@ -509,7 +547,7 @@ $(document).ready(function()
        var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
        var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
        var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
-     var total =0.00;
+       var total =0.00;
      total = parseFloat(total) + parseFloat(tot_amt); 
        
        
@@ -519,9 +557,8 @@ $(document).ready(function()
                                                                   
         .done(function(data)
         {
-             console.log(data);
+         
             var unitData = JSON.parse(data);
-             console.log(unitData);
            
             
             $('.taxable_amt').eq($('.ro').index(this)).val(taxable_amt);
@@ -529,46 +566,72 @@ $(document).ready(function()
             $('.sgst').eq($('.ro').index(this)).val(cgst);
             $('.tot_amt').eq($('.ro').index(this)).val(tot_amt);
             
-                       
-           // $('#total').val(parseFloat(total).toFixed());  
-
-             $("input[class *= 'tot_amt']").each(function(){
+           
+      $("input[class *= 'tot_amt']").each(function(){
            sum += parseFloat($(this).val());
                       
             });
 
             $("#total").val("0");
-            $("#total").val(sum).toFixed();
-
+            $("#total").val(sum.toFixed());
         });
+
+         
        
     });
+
+     
     
    
 });
 
-//  $('.table tbody').on('change', '.qty', function(){
-
-   
-          
-//             let row          = $(this).closest('tr');
-//             var qty          = row.find('td:eq(3) .qty').val();
-        
-            
-//             var stock        = row.find('td:eq(2) .stock_qty').val();
+ $('#intro').on('change', '.qty', function(){
 
          
-//                 if (parseFloat(qty)>parseFloat(stock)  ){
-//               //  var zero_qty          = null;
-               
-//                 row.find('td:eq(3)  input').val("0");
-             
-//                 alert('Sale Quantity Should Not Be Greater Than Stock Quantity!');
+          var tottaxable  = 0;
+          var cgst        = 0;
+          var sgst        = 0;
+          var tot_discnt  = 0;
+          var gross       = 0;
+ 
+          //  $("input[class *= 'Net_Price']").each(function(){
+            let row          = $(this).closest('tr');
 
-//               }
-           
-                      
-//             })
+
+               $('#intro tr').each(function() {
+
+                 var qty = $(this).find('td:eq(5) .qty').val();
+                 var rate = $(this).find('td:eq(6) .sale_rt').val();
+               //  var gst_rt = $(this).find('td:eq(6) .gst_rt').val();
+
+                //var cgst =parseFloat((qty*rate) * gst_rt/100/2).toFixed('2');
+                 tottaxable += parseFloat(qty*rate);
+                   
+            });
+             
+           // $("#tot_taxable_amt").html("0");
+            $("#tot_taxable_amt").html(tottaxable);      
+
+            $("input[class *= 'tot_amt']").each(function(){
+              gross += +parseFloat($(this).val()); 
+            
+            });
+             
+            $("#tot_payble_amt").html("0");
+            $("#tot_payble_amt").html(gross);
+
+
+            $("input[class *= 'dis']").each(function(){
+              tot_discnt += parseFloat($(this).val()); 
+            
+            });
+             
+            $("#tot_dis").val("0");
+            $("#tot_dis").val(tot_discnt.toFixed('2'));
+                
+        })
+
+
  $('.table tbody').on('change', '.dis', function(){
 
        var sum    = 0;
@@ -580,11 +643,7 @@ $(document).ready(function()
        var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
        var total =0.00;
        total = parseFloat(total) + parseFloat(tot_amt); 
-            // let row   = $(this).closest('tr');
-            //  var dis        = parseFloat(row.find('td:eq(8) .dis').val());
-            // var tot_amt   = row.find('td:eq(9) .tot_amt').val();
-        
-            //                row.find('td:eq(9) .tot_amt').val(tot_amt-dis);
+           
            
          
           $("input[class *= 'tot_amt']").each(function(){
