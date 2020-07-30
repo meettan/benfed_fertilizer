@@ -57,7 +57,7 @@
                                 <!-- <td style="visibility:hidden;"><?php echo $value->challan_flag; ?></td> -->
                                 <!-- <td id="challan_flag"><?php echo $value->challan_flag; ?> -->
                                   <!-- <td>   -->
-                                    <input type="hidden" name="challan_flag" value="<?php echo $value->challan_flag; ?>">
+                                    <input type="hidden" name="challan_flag" id="challan_flag" value="<?php echo $value->challan_flag; ?>">
                                 <!-- </td> -->
 			 	                <td><a href="viewstock?ro_no=<?php echo $value->ro_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
@@ -67,7 +67,7 @@
                                 </td>
                                 <td><button type="button" class="delete" id="<?php echo $value->ro_no;?>"    
                                        
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                        data-toggle="tooltip" data-placement="bottom" title="Delete" onclick="myFunction()">
 
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
@@ -119,12 +119,14 @@
             
             var id = $(this).attr('id');
 
-            var ids = $(this).closest('tr').find('td:eq(4)  input').val();
-            
-           if( ids== "Y"){  
-
-          alert("You Can Not Delete");
-           } else{
+            var ids = $(this).closest('tr').find('td:eq(6)  input').val();
+            var challan_flag = $('#challan_flag').val();
+            // echo(ids);
+            // die
+           if( challan_flag== "N" ){  
+       
+        //   alert("You Can Not Delete");
+        //    } else{
             var result = confirm("Do you really want to delete this record?");
            
             if(result) {
@@ -152,3 +154,16 @@
 </script>
 
 
+<script>
+function myFunction() {
+	var challan_flag = $('#challan_flag').val();
+	//  alert(salerate);
+	if(challan_flag=='Y'){
+		alert('Some Sale Transaction has Occured ! Delete Not Possible!');
+		// $('#submit').attr('type', 'buttom');
+		event.preventDefault();
+	}else{
+	// $('#submit').attr('type', 'submit');
+	}
+}
+</script>

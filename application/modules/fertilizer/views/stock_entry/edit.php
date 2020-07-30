@@ -102,6 +102,8 @@
 
                     <input type="text" style="width:200px"  name="ro_no" class="form-control required"  
                         value = "<?php echo $schdtls->ro_no; ?>"  />
+						<input type="hidden" style="width:200px"  name="challan_flag" id="challan_flag" class="form-control required"  
+                        value = "<?php echo $schdtls->challan_flag; ?>"  />
                 </div>
 
                 <label for="ro_dt" class="col-sm-1 col-form-label">Ro Date:</label>
@@ -365,10 +367,13 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 		<div class="form-group row">
 
                     <div class="col-sm-10">
-                    <input type="submit" class="btn btn-info" value="Save" />
+                    <input type="submit" id="submit" class="btn btn-info" value="Save" />
                         <!-- <input type="button" class="btn btn-info" value="Back" /> -->
                         <!-- <a href="<?php echo site_url("stock/stock_entry");?>" class="btn btn-primary" style="width: 100px;">Back</a></small> -->
-                    </div>
+                   
+				   		<span id="msg"></span>
+				    </div>
+
 
                 </div>
  
@@ -828,5 +833,22 @@ return false;
    $('#submit').attr('type', 'submit');
 }
 })
+});
+</script>
+
+<script>
+$(document).ready(function(){
+	var chal_flag = $('#challan_flag').val();
+	if (chal_flag=='Y'){
+	//  alert(chal_flag);
+	$('#submit').hide();	
+	$('#msg').html("This RO cannot be edited.Since some items have been sold.").css("font-size","20px","color","#0d7d8ef5");
+
+	}else{
+		//$('#msg').hide();	
+		$('#submit').show();
+	}
+
+
 });
 </script>

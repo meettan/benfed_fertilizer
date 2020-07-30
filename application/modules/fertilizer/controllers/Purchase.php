@@ -1289,8 +1289,15 @@ public function deletero() {
 				 "challan_flag" =>  'N'
 		
 	);
-	
+	$where1 = array(
+		"ro_inv_no"    =>  $this->input->get('ro_no')
+		
+
+);
+
+
 	$this->PurchaseModel->f_delete('td_purchase', $where);
+	$this->PurchaseModel->f_delete('tdf_stock_point_trans', $where1);
 
 	$select1          = array("challan_flag");
 	$where = array(
@@ -1441,7 +1448,7 @@ public function viewstock(){
 				$select1          = array("a.prod_id","a.prod_desc","hsn_code","gst_rt","qty_per_bag");
 				$product['proddtls']   = $this->PurchaseModel->f_select('mm_product a,td_purchase b',$select1,$where2,1);	
 
-				$select2=  array("qty","ro_no","invoice_no","invoice_dt","due_dt","no_of_bags","ro_dt","delivery_mode","
+				$select2=  array("qty","ro_no","invoice_no","invoice_dt","challan_flag","due_dt","no_of_bags","ro_dt","delivery_mode","
 				rate","reck_pt_rt","reck_pt_n_rt","iffco_buf_rt","iffco_n_buff_rt","base_price","net_amt","retlr_margin","spl_rebt","add_adj_amt","less_adj_amt","cgst","sgst",
 				"rbt_add","rbt_less","rnd_of_add","rnd_of_less","tot_amt");
 
