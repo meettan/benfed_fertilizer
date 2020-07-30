@@ -2,7 +2,7 @@
 
         <div class="col-md-11 container form-wraper">
 
-            <form method="POST" id="form" action="<?php echo site_url("fertilizer/viewstock");?>"  onsubmit="myFunction()">
+            <form method="POST" id="form" action="<?php echo site_url("stock/viewstock");?>"  onsubmit="myFunction()">
 
                 <div class="form-header">
                 
@@ -367,7 +367,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
                     <div class="col-sm-10">
                     <input type="submit" class="btn btn-info" value="Save" />
                         <!-- <input type="button" class="btn btn-info" value="Back" /> -->
-                        <!-- <a href="<?php echo site_url("fertilizer/stock_entry");?>" class="btn btn-primary" style="width: 100px;">Back</a></small> -->
+                        <!-- <a href="<?php echo site_url("stock/stock_entry");?>" class="btn btn-primary" style="width: 100px;">Back</a></small> -->
                     </div>
 
                 </div>
@@ -399,7 +399,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -465,7 +465,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 			let row = $(this).closest('tr');
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -534,7 +534,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -603,7 +603,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -673,7 +673,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
