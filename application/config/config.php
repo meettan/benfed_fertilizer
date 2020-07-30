@@ -23,11 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-<<<<<<< HEAD
-$config['base_url'] = 'http://localhost/benfed_fertilizer/';
-=======
-// $config['base_url'] = 'http://localhost/benfed_ferti/';
->>>>>>> 7c48d44a060b6f9dbe82ca37d000355d6caf22dd
+// $config['base_url'] = 'http://localhost/benfed_fertilizer/';
 
 $config['base_url'] = 'http://localhost/benfed_fertilizer/';
 
