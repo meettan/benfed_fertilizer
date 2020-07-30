@@ -5,7 +5,7 @@
 		public function __construct(){
 		parent::__construct();	
 		$this->load->model('PurchaseModel');
-		$this->load->helper('paddyrate_helper');
+		// $this->load->helper('paddyrate_helper');
 		// $data       = $this->FertilizerModel->f_get_particulars_in('md_parameters', array(16, 17), array(""));
 
 		// $this->kms_year   = substr($data[0]->param_value, 0,4).'-'.substr($data[1]->param_value, 2,2);
@@ -655,7 +655,7 @@ redirect("fertilizer/fertilizer/sale");
 
             $ro_no = $this->input->get('ro_no');
            
-			$data = $this->FertilizerModel->f_get_ro_dtls($ro_no);
+			$data = $this->PurchaseModel->f_get_ro_dtls($ro_no);
 			// echo $this->db->last_query();
 			// die();
             echo json_encode($data);
@@ -966,7 +966,7 @@ public function viewinvoice(){
 			   ) ;
 		
 			   
-			$comp    = $this->FertilizerModel->f_select('mm_company_dtls',$select,$where,0);
+			$comp    = $this->PurchaseModel->f_select('mm_company_dtls',$select,$where,0);
 			// echo $this->db->last_query();
 			// die();
 			echo json_encode($comp);
@@ -996,7 +996,7 @@ public function viewinvoice(){
 			   ) ;
 		
 			   
-			$prod    = $this->FertilizerModel->f_select(' mm_product',$select,$where,0);
+			$prod    = $this->PurchaseModel->f_select(' mm_product',$select,$where,0);
 			// echo $this->db->last_query();
 			// die();
 			echo json_encode($prod);
@@ -1012,7 +1012,7 @@ public function viewinvoice(){
 			   ) ;
 		
 			   
-			$prod    = $this->FertilizerModel->f_select(' mm_product',$select,$where,0);
+			$prod    = $this->PurchaseModel->f_select(' mm_product',$select,$where,0);
 			// echo $this->db->last_query();
 			// die();
 			echo json_encode($prod);
@@ -1028,7 +1028,7 @@ public function f_get_product(){
 	   "company" =>$this->input->get("comp_id")
 	   ) ;
 
-	$product    = $this->FertilizerModel->f_select(' mm_product',$select,$where,0);
+	$product    = $this->PurchaseModel->f_select(' mm_product',$select,$where,0);
 
     echo json_encode($product);
 
@@ -1057,8 +1057,8 @@ public function f_get_sale_ro(){
 
  public function stock_entry(){
 	 $br_cd      = $this->session->userdata['loggedin']['branch_id'];
-	
-	$bank['data']    = $this->PurchaseModel->f_get_stock_view( $br_cd );
+	 $fin_id=$this->session->userdata['loggedin']['fin_id'];
+	$bank['data']    = $this->PurchaseModel->f_get_stock_view( $br_cd ,$fin_id);
 	// echo $this->db->last_query();
 	// die();
 	$this->load->view("post_login/fertilizer_main");
@@ -1076,7 +1076,8 @@ public function stockAdd(){
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		// "kms_year"      =>  $this->kms_year,
-			$kms_year=  $this->session->userdata['loggedin']['kms_yr'];
+			$fin_year=  $this->session->userdata['loggedin']['fin_yr'];
+			$fin_id=$this->session->userdata['loggedin']['fin_id'];
 			    // $br_cd = $this->session->userdata['loggedin']['branch_id'];
 			   // echo $kms_year;
 			  // die();
@@ -1139,7 +1140,10 @@ public function stockAdd(){
 			$iffco_n_buff_rt=  $this->input->post('iffco_n_buff_rt');
 
 			$delivery_mode= $this->input->post('delivery_mode');
-            $trans_flag='1';
+
+			$trans_flag='1';
+			
+			$stock_point = $this->input->post('stkpnt_id');
 
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 			// print_r($br_cd );
@@ -1202,7 +1206,7 @@ public function stockAdd(){
 
 					"reck_pt_n_rt"=>$reck_pt_n_rt,
 
-					"govt_sale_rt"=>$govt_sale_rt,
+					"govt_sale_rt"=>0,
 					
 					"iffco_buf_rt"=>$iffco_buf_rt,
 
@@ -1220,21 +1224,32 @@ public function stockAdd(){
 
 					"br"     => $this->session->userdata['loggedin']['branch_id'],
 
-					"fin_yr"   =>$kms_year);
+					"fin_yr"   =>$fin_id,
+
+					"stock_point" => $stock_point
+				);
 			 
-				$this->FertilizerModel->f_insert('td_purchase', $data_array);
+				$this->PurchaseModel->f_insert('td_purchase', $data_array);
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
-					redirect('fertilizer/stock_entry');
+					redirect('stock/stock_entry');
 			}else {
-        
+				$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+				$select2 =  array("soc_id","soc_name");
+				$where2 = array(
+					"stock_point_flag"    =>  '1',
+					"district" => $br_cd 
+		   
+	   );
+				$product['socdtls']   = $this->PurchaseModel->f_select('mm_ferti_soc',$select2,$where2,0);
+
 				$select1          = array("comp_id","comp_name");
 
-				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
+				$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls',$select1,NULL,0);
 				
 				$select  =array("id","unit_name");
-				$product['unitdtls']   = $this->FertilizerModel->f_select('mm_unit',$select,NULL,0);
+				$product['unitdtls']   = $this->PurchaseModel->f_select('mm_unit',$select,NULL,0);
 				
 	$this->load->view('post_login/fertilizer_main');
 
@@ -1261,7 +1276,7 @@ $challan_flag = $this->FertilizerModel->f_select('td_purchase',$select1,$where,0
 
 	$this->session->set_flashdata('msg', 'Successfully Deleted!');
 	
-	redirect("fertilizer/fertilizer/stock_entry");
+	redirect("stock/stock_entry");
 
 }
 
@@ -1287,12 +1302,6 @@ public function viewstock(){
 		$data_array = array(
 			"comp_id" => $this->input->post('comp_id'),
 
-			//  "comp_add">$this->input->post('comp_add'),
-			 
-			//  "gst_no"=> $this->input->post('gst_no'),
-
-			//  "cin" =>$this->input->post('cin'),
-			 
 			"prod_id" => $this->input->post('prod_id'),
 
 			"ro_no"   => $this->input->post('ro_no'),
@@ -1338,19 +1347,20 @@ public function viewstock(){
 			"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
 
 			"created_dt"    =>  date('Y-m-d h:i:s'));
+
 			$br     = $this->session->userdata['loggedin']['branch_name'];
-		$where = array(
+
+		    $where = array(
 			"ro_no" => $this->input->post('ro_no'),
-			 "br" => $this->session->userdata['loggedin']['branch_id'])
-		;
-		 
-// echo $this->db->last_query();
-// die();
-		$this->FertilizerModel->f_edit('td_purchase', $data_array, $where);
+			 "br" => $this->session->userdata['loggedin']['branch_id']);
+					
+			// echo $this->db->last_query();
+			// die();
+		$this->PurchaseModel->f_edit('td_purchase', $data_array, $where);
         
 		$this->session->set_flashdata('msg', 'Successfully Updated');
 
-		redirect('fertilizer/stock_entry');
+		redirect('stock/stock_entry');
 
 	}else{
 			$select = array(
@@ -1400,23 +1410,23 @@ public function viewstock(){
 						);
 			
 				$select        = array("a.comp_id","a.comp_name","a.comp_add","a.gst_no","a.cin");
-				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls a,td_purchase b',$select,$where1,1);
-// 				echo $this->db->last_query();
-// die();
+				$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls a,td_purchase b',$select,$where1,1);
+				// echo $this->db->last_query();
+				// die();
 
 				$select1          = array("a.prod_id","a.prod_desc","hsn_code","gst_rt","qty_per_bag");
-				$product['proddtls']   = $this->FertilizerModel->f_select('mm_product a,td_purchase b',$select1,$where2,1);	
+				$product['proddtls']   = $this->PurchaseModel->f_select('mm_product a,td_purchase b',$select1,$where2,1);	
 
 				$select2=  array("qty","ro_no","invoice_no","invoice_dt","due_dt","no_of_bags","ro_dt","delivery_mode","
 				rate","reck_pt_rt","reck_pt_n_rt","iffco_buf_rt","iffco_n_buff_rt","base_price","net_amt","retlr_margin","spl_rebt","add_adj_amt","less_adj_amt","cgst","sgst",
 				"rbt_add","rbt_less","rnd_of_add","rnd_of_less","tot_amt");
 
-				$product['schdtls'] = $this->FertilizerModel->f_select("td_purchase",$select2,$where,1);
+				$product['schdtls'] = $this->PurchaseModel->f_select("td_purchase",$select2,$where,1);
 				
 				$select3= array("id","unit_name");
-				$product['unitdtls'] = $this->FertilizerModel->f_select("mm_unit",$select3,Null,1);
-// 								echo $this->db->last_query();
-// die();
+				$product['unitdtls'] = $this->PurchaseModel->f_select("mm_unit",$select3,Null,1);
+				// echo $this->db->last_query();
+				// die();
 																							
 		$this->load->view('post_login/fertilizer_main');
 

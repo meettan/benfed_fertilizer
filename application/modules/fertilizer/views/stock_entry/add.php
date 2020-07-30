@@ -2,7 +2,7 @@
             
 		<div class="col-md-11 container form-wraper">
 
-			<form method="POST" action="<?php echo site_url("fertilizer/stockAdd") ?>" onsubmit="myFunction()">
+			<form method="POST" action="<?php echo site_url("stock/stockAdd") ?>" onsubmit="myFunction()">
 
 				<div class="form-header">
                 
@@ -118,6 +118,35 @@
 							<input type="text" style="width:150px" id=gst_rt name="gst_rt" class="form-control" readonly />
 	
 						</div>
+
+					</div>
+					
+					<div class="form-group row">
+					<label for="stkpnt_id" class="col-sm-1 col-form-label">Stock Point:</label>
+
+					<div class="col-sm-3">
+						<!-- <input type="text" id=prod_id name="prod_id" class="form-control" required /> -->
+						<select name="stkpnt_id" class="form-control required" id="stkpnt_id" required>
+
+							<option value="">Select</option>
+
+							<?php
+
+								foreach($socdtls as $stkpnt){
+
+							?>
+
+								<option value="<?php echo $stkpnt->soc_id;?>"><?php echo $stkpnt->soc_name;?></option>
+
+							<?php
+
+								}
+
+							?>     
+
+							</select>
+
+					</div>
 					</div>
 					<div class="form-header">
                 
@@ -173,19 +202,25 @@
 					<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
 					<div class="col-sm-3">
 
-						<input type="number" style="width:180px" id=qty name="qty" class="form-control" required />
+						<input type="text" style="width:180px" id=qty name="qty" class="form-control" required />
 
 					</div>
 
 					<!-- <div class="form-group row"> -->
+	
+					<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
+					<div class="col-sm-3">
+
+					<input type="number" style="width:150px" id=no_of_bags name="no_of_bags" class="form-control" value="0"  required readonly />
+					</div> 
 					<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
 		<div class="col-sm-3">
 
-	<select name="unit" class="form-control required" id="unit" style="width:150px" readonly >
+	<select name="unit" class="form-control required" id="unit" style="width:150px"  >
 
-<!-- <option value="">Select</option> -->
-<option value="1">MT</option>
-<!-- <?php
+<option value="">Select</option>
+<!-- <option value="1">MT</option> -->
+<?php
 
 	foreach($unitdtls as $unit){
 
@@ -197,28 +232,28 @@
 
 	}
 
-?>      -->
+?>     
 
 </select>
 
 					</div>
 					</div> 
 					
-					<div class="form-group row">
+					<!-- <div class="form-group row"> -->
 
-					<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
+					<!-- <label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
 					<div class="col-sm-3">
 
 					<input type="number" style="width:180px" id=no_of_bags name="no_of_bags" class="form-control" value="0"  required readonly />
-					</div> 
+					</div>  -->
 
-					<label for="govt_sale_rt" class="col-sm-1 col-form-label">Sale Rate:</label>
+					<!-- <label for="govt_sale_rt" class="col-sm-1 col-form-label">Sale Rate:</label>
 					<div class="col-sm-4">
 
 						<input type="text" style="width:150px" id=govt_sale_rt name="govt_sale_rt" class="form-control" value="0"  readonly />
 
 					</div>
-				</div>
+				</div> -->
 
 				<div class="form-group row">
 					<label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label>
@@ -396,7 +431,7 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("fertilizer/f_get_product");?>',
+            '<?php echo site_url("stock/f_get_product");?>',
 
             { 
 
@@ -434,10 +469,10 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_salerate");?>',
+			'<?php echo site_url("stock/f_get_salerate");?>',
 			{ 
 
-				comp_id: $('#comp_id').val(),
+			 comp_id: $('#comp_id').val(),
 			 prod_id : $('#prod_id').val(),
 			 ro_dt : $(this).val(),
 				// frm_dt  : $(this).val(),
@@ -480,7 +515,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_company");?>',
+			'<?php echo site_url("stock/f_get_company");?>',
 			{ 
 
 				comp_id: $(this).val(),
@@ -520,7 +555,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_hsn");?>',
+			'<?php echo site_url("stock/f_get_hsn");?>',
 			{ 
 
 				prod_id: $(this).val(),
@@ -544,8 +579,6 @@ $(document).ready(function(){
 	});
 
 });
-
-
 </script>
 
 <script>
@@ -568,7 +601,7 @@ $(document).ready(function(){
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -613,8 +646,8 @@ $(document).ready(function(){
 		});
 	
 	});
-	
 	</script>
+
 	<script>
 	
 	$(document).ready(function(){
@@ -639,7 +672,7 @@ $(document).ready(function(){
 			let row = $(this).closest('tr');
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -687,10 +720,9 @@ $(document).ready(function(){
 		});
 	
 	});
+</script>
 	
-	</script>
-	
-	<script>
+<script>
 	
 	$(document).ready(function(){
 	
@@ -713,7 +745,7 @@ $(document).ready(function(){
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -758,8 +790,7 @@ $(document).ready(function(){
 		});
 	
 	});
-	
-	</script>
+</script>
 
 
 <script>
@@ -785,7 +816,7 @@ $(document).ready(function(){
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -833,7 +864,7 @@ $(document).ready(function(){
 	
 	});
 	
-	</script>
+</script>
 
 <script>
 	
@@ -858,7 +889,7 @@ $(document).ready(function(){
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -906,7 +937,7 @@ $(document).ready(function(){
 	
 	});
 	
-	</script>
+</script>
 
 <script>
 	
@@ -927,13 +958,11 @@ $(document).ready(function(){
 		var less_adj_amt=0.00;
 		var tot_amt = 0.00;
 		
-		
-
 		$('#rbt_add').change(function(){
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -942,8 +971,7 @@ $(document).ready(function(){
 	
 			)
 			.done(function(data){
-	
-				     //console.log(data);
+	         //console.log(data);
 				var parseData = JSON.parse(data);
 				tot_qty=$('#qty').val() 
 				gst_rt =$('#gst_rt').val() 
@@ -953,7 +981,9 @@ $(document).ready(function(){
 				spl_rebt  = $('#spl_rebt').val() 
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
-
+                // $('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
 				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
@@ -961,11 +991,11 @@ $(document).ready(function(){
 				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
 			    rbt_add =$('#rbt_add').val() 
 				console.log(rbt_add);
-				rbt_less =$('#rbt_less').val() 
+				// rbt_less =$('#rbt_less').val() 
 				// tot_amt=$('#tot_amt').val() 
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) -parseFloat(rbt_les)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less)
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
@@ -976,8 +1006,8 @@ $(document).ready(function(){
 		});
 	
 	});
-	
-	</script> 
+</script> 
+
 <script>
 	
 	$(document).ready(function(){
@@ -997,13 +1027,11 @@ $(document).ready(function(){
 		var less_adj_amt=0.00;
 		var tot_amt = 0.00;
 		
-		
-
 		$('#rbt_less').change(function(){
 	
 			$.get( 
 	
-				'<?php echo site_url("fertilizer/f_get_ro");?>',
+				'<?php echo site_url("stock/f_get_ro");?>',
 				{ 
 	
 					rate: $(this).val()
@@ -1023,7 +1051,9 @@ $(document).ready(function(){
 				spl_rebt  = $('#spl_rebt').val() 
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
-
+				rbt_add  = $('#less_amt').val() 
+				// $('#rbt_add').val(0);
+			
 				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
@@ -1032,10 +1062,12 @@ $(document).ready(function(){
 			    rbt_add =$('#rbt_add').val() 
 				console.log(rbt_add);
 				rbt_less =$('#rbt_less').val() 
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
 				// tot_amt=$('#tot_amt').val() 
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) -parseFloat(rbt_les)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less)
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
@@ -1047,19 +1079,165 @@ $(document).ready(function(){
 	
 	});
 	
-	</script> 
+</script>
 
+<script>
+	
+	$(document).ready(function(){
+	
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var tot_amt = 0.00;
+		
+		$('#rnd_of_add').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+				rbt_add  = $('#less_amt').val() 
+				rnd_of_add = $('#rnd_of_add').val() 
+				rnd_of_less =$('#rnd_of_less').val() 
+				// $('#rbt_add').val(0);
+			
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			    rbt_add =$('#rbt_add').val() 
+				console.log(rbt_add);
+				rbt_less =$('#rbt_less').val() 
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				// tot_amt=$('#tot_amt').val() 
+				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+				// tot_amt = taxable_amt + parseFloat(gst) *2
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
+				tot_amt=Math.round(parseFloat(tot_amt))
+			
+				$('#tot_amt').val(tot_amt);
+			
+				
+			});
+	
+		});
+	
+	});
+	
+</script> 
 
+<script>
+	
+	$(document).ready(function(){
+	
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var tot_amt = 0.00;
+		
+		$('#rnd_of_less').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+				rbt_add  = $('#less_amt').val() 
+				rnd_of_add = $('#rnd_of_add').val() 
+				rnd_of_less =$('#rnd_of_less').val() 
+				// $('#rbt_add').val(0);
+			
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			    rbt_add =$('#rbt_add').val() 
+				console.log(rbt_add);
+				rbt_less =$('#rbt_less').val() 
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				// tot_amt=$('#tot_amt').val() 
+				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+				// tot_amt = taxable_amt + parseFloat(gst) *2
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
+				tot_amt=Math.round(parseFloat(tot_amt))
+			
+				$('#tot_amt').val(tot_amt);
+			
+				
+			});
+	
+		});
+	
+	});
+	
+</script> 
 <script>
 $(document).ready(function(){
 $("#ro_dt").change(function(){
 
 var ro_dt = $('#ro_dt').val();
-
 var sale_rate=$('#govt_sale_rt').val();
 
 var d = new Date();
-
 var month = d.getMonth()+1;
 var day = d.getDate();
 
@@ -1092,11 +1270,7 @@ $(document).ready(function(){
 $("#invoice_dt").change(function(){
 
 var ro_dt = $('#invoice_dt').val();
-
-
-
 var d = new Date();
-
 var month = d.getMonth()+1;
 var day = d.getDate();
 
@@ -1122,33 +1296,27 @@ return false;
 $(document).ready(function(){
 $("#due_dt").change(function(){
 
-var ro_dt = $('#due_dt').val();
+	var ro_dt = $('#due_dt').val();
+	var d = new Date();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
 
-
-
-var d = new Date();
-
-var month = d.getMonth()+1;
-var day = d.getDate();
-
-var output = d.getFullYear() + '-' +
-(month<10 ? '0' : '') + month + '-' +
-(day<10 ? '0' : '') + day;
+	var output = d.getFullYear() + '-' +
+	(month<10 ? '0' : '') + month + '-' +
+	(day<10 ? '0' : '') + day;
 
 // console.log(trans_dt,output);
-
-if(new Date(output) > new Date(ro_dt))
-{
-alert("Due Date Can Not Be Less Than Current Date");
-$('#submit').attr('type', 'buttom');
-return false;
-}else{
-   $('#submit').attr('type', 'submit');
-}
-})
+		if(new Date(output) > new Date(ro_dt))
+		{
+		alert("Due Date Can Not Be Less Than Current Date");
+		$('#submit').attr('type', 'buttom');
+		return false;
+		}else{
+		$('#submit').attr('type', 'submit');
+		}
+	})
 });
 </script>
-
 
 <script>
 $(document).ready(function(){
@@ -1156,28 +1324,23 @@ $("#tot_amt").onchange(function(){
 
 var tot_amt = $('#tot_amt').val();
 
-
-
 // var d = new Date();
-
 // var month = d.getMonth()+1;
 // var day = d.getDate();
-
 // var output = d.getFullYear() + '-' +
 // (month<10 ? '0' : '') + month + '-' +
 // (day<10 ? '0' : '') + day;
-
 // console.log(trans_dt,output);
 
-if(tot_amt=0)
-{
-alert("Total Amount can't be Zero");
-$('#submit').attr('type', 'buttom');
-return false;
-}else{
-   $('#submit').attr('type', 'submit');
-}
-})
+		if(tot_amt=0)
+		{
+		alert("Total Amount can't be Zero");
+		$('#submit').attr('type', 'buttom');
+		return false;
+		}else{
+		$('#submit').attr('type', 'submit');
+		}
+	})
 });
 </script>
 
@@ -1191,7 +1354,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_qty_per_bag");?>',
+			'<?php echo site_url("stock/f_get_qty_per_bag");?>',
 			{ 
 
 				prod_id : $('#prod_id').val()
@@ -1203,12 +1366,23 @@ $(document).ready(function(){
 		)
 		.done(function(data){
 
-			//console.log(data);
+			// console.log(data);
 			var parseData = JSON.parse(data);
 			var qty = $('#qty').val();
+			var unit = $('#unit').val();
+			console.log(unit);
+			var unitqty =0.00;
 			var qty_per_bag = parseData[0].qty_per_bag;
 			if (qty_per_bag==45){
-				var qty_per_bag  =22.22 *qty;
+				 if(unit==1){
+				 	unitqty=parseFloat(1000/qty).toFixed(2);
+				// 	elseif(unit==2){
+				// 		unitqty=parseFloat(100/qty).toFixed(2);
+				// 		elseif(unit==3){
+				// 		unitqty=parseFloat(10/qty).toFixed(2);
+				// 	}
+				}
+				var qty_per_bag  =unitqty *qty;
 			var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
 			}
 			if (qty_per_bag==50){
@@ -1223,20 +1397,18 @@ $(document).ready(function(){
 	});
 
 });
-
-
 </script>
 
 <script>
 function myFunction() {
 	var salerate = $('#govt_sale_rt').val();
-//  alert(salerate);
-  if(salerate==0){
-	alert('Sale Rate Cant not zero');
-	$('#submit').attr('type', 'buttom');
-	event.preventDefault();
-}else{
-   $('#submit').attr('type', 'submit');
-}
+	//  alert(salerate);
+	if(salerate==0){
+		alert('Sale Rate Cant not zero');
+		$('#submit').attr('type', 'buttom');
+		event.preventDefault();
+	}else{
+	$('#submit').attr('type', 'submit');
+	}
 }
 </script>

@@ -211,26 +211,26 @@
 			return ($result+1);
 		 }
 //Generate new schedule code accoring to acc_type(Liability 1,Asset 2,Income 5,Expense 6,Purchase 3,Sale 4)
-		public function get_sch_code($acc_type){
+		// public function get_sch_code($acc_type){
 
-		   $this->db->select_max('schedule_code');
+		//    $this->db->select_max('schedule_code');
 
-		   $this->db->where('acc_type', $acc_type);
+		//    $this->db->where('acc_type', $acc_type);
 		   
-		   $result = $this->db->get('md_schedule_heads')->row()->schedule_code;  
+		//    $result = $this->db->get('md_schedule_heads')->row()->schedule_code;  
 
-           return ($result+1);
-		}
+        //    return ($result+1);
+		// }
 
-		public function get_subsch_code($sch_code,$acc_type){
+		// public function get_subsch_code($sch_code,$acc_type){
 
-		   $this->db->select_max('subschedule_code');
-		   $this->db->where('acc_type', $acc_type);
-		   $this->db->where('schedule_code', $sch_code);
-           $result = $this->db->get('md_subschedule_heads')->row()->subschedule_code;  
+		//    $this->db->select_max('subschedule_code');
+		//    $this->db->where('acc_type', $acc_type);
+		//    $this->db->where('schedule_code', $sch_code);
+        //    $result = $this->db->get('md_subschedule_heads')->row()->subschedule_code;  
 
-           return ($result+1);
-		}
+        //    return ($result+1);
+		// }
 
 /*Delete From Table*/
 		public function f_delete($table_name, $where) {			
@@ -450,9 +450,9 @@
 				return $data->result();
 		}
 
-		public function f_get_stock_view($banch_id){
+		public function f_get_stock_view($banch_id,$fin_id){
 			$data=$this->db->query("select ro_no,ro_dt,invoice_no,invoice_dt,challan_flag from td_purchase
-									where br='$banch_id' order by ro_dt,ro_no");
+									where br='$banch_id' and fin_yr='$fin_id' order by ro_dt,ro_no");
 			return $data->result();
 
 		}

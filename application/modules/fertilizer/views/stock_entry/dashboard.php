@@ -13,7 +13,7 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-		        <small><a href="<?php echo site_url("fertilizer/stockAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
+		        <small><a href="<?php echo site_url("stock/stockAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
                 <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -59,7 +59,7 @@
                                   <!-- <td>   -->
                                     <input type="hidden" name="challan_flag" value="<?php echo $value->challan_flag; ?>">
                                 <!-- </td> -->
-			 	                <td><a href="viewstock/edit?ro_no=<?php echo $value->ro_no;?>" 
+			 	                <td><a href="viewstock?ro_no=<?php echo $value->ro_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
@@ -129,7 +129,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('fertilizer/fertilizer/deletero?ro_no="+id+"');?>";
+                window.location = "<?php echo site_url('stock/deletero?ro_no="+id+"');?>";
 
             }
         }
