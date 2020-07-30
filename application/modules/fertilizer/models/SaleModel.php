@@ -49,6 +49,17 @@
 		$sql = $this->db->query("SELECT a.stock_qty -  (select  ifnull(sum(qty) ,0) from td_sale where sale_ro ='$ro') stkqty,a.prod_id ,b.gst_rt ,a.govt_sale_rt,b.prod_id,b.prod_desc FROM td_purchase a ,mm_product b WHERE a.prod_id=b.prod_id and  a.ro_no = '$ro'");
 			return $sql->row();
 		}
+
+		public function js_get_stock_point($ro,$dist_id){
+
+				$this->db->select('soc_id,soc_name');
+				$this->db->from('mm_ferti_soc');
+				$this->db->where('district', $dist_id);
+				$this->db->where('stock_point_flag', "Y");
+				$query = $this->db->get();
+
+				return $query->result();
+		}
 		
 		public function f_get_drnote_dtls(){
 
