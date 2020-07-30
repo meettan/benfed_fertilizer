@@ -1229,6 +1229,29 @@ public function stockAdd(){
 					"stock_point" => $stock_point
 				);
 			 
+				$data_array1 = array (
+					"trans_dt" => date('Y-m-d h:i:s'),
+
+					"ro_inv_no"   => $ro_no    ,   
+					          
+					"branch_id" => $this->session->userdata['loggedin']['branch_id'],
+
+					"fin_yr"	 =>$fin_id,
+
+					"point_id"	=>$stock_point,
+
+					"trans_type" => "I",
+
+					"unit"=>$unit,
+
+					"quantity" =>  $qty,	
+
+					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+
+					"created_dt"    =>  date('Y-m-d h:i:s'),
+				);
+				$this->PurchaseModel->f_insert('tdf_stock_point_trans', $data_array1);
+
 				$this->PurchaseModel->f_insert('td_purchase', $data_array);
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
@@ -1238,12 +1261,13 @@ public function stockAdd(){
 				$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 				$select2 =  array("soc_id","soc_name");
 				$where2 = array(
-					"stock_point_flag"    =>  '1',
+					"stock_point_flag"    =>  'Y',
 					"district" => $br_cd 
 		   
 	   );
 				$product['socdtls']   = $this->PurchaseModel->f_select('mm_ferti_soc',$select2,$where2,0);
-
+			//   echo $this->db->last_query();
+			//   die();
 				$select1          = array("comp_id","comp_name");
 
 				$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls',$select1,NULL,0);
@@ -1266,13 +1290,13 @@ public function deletero() {
 		
 	);
 	
-	$this->FertilizerModel->f_delete('td_purchase', $where);
+	$this->PurchaseModel->f_delete('td_purchase', $where);
 
 	$select1          = array("challan_flag");
 	$where = array(
 		"ro_no"    =>  $this->input->get('ro_no'));
 
-$challan_flag = $this->FertilizerModel->f_select('td_purchase',$select1,$where,0);
+$challan_flag = $this->PurchaseModel->f_select('td_purchase',$select1,$where,0);
 
 	$this->session->set_flashdata('msg', 'Successfully Deleted!');
 	
