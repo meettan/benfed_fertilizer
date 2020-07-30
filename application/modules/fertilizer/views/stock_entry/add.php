@@ -199,24 +199,10 @@
 				
 			
 				<div class="form-group row">
-					<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
-					<div class="col-sm-3">
-
-						<input type="text" style="width:180px" id=qty name="qty" class="form-control" required />
-
-					</div>
-
-					<!-- <div class="form-group row"> -->
-	
-					<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
-					<div class="col-sm-3">
-
-					<input type="number" style="width:150px" id=no_of_bags name="no_of_bags" class="form-control" value="0"  required readonly />
-					</div> 
-					<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
+				<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
 		<div class="col-sm-3">
 
-	<select name="unit" class="form-control required" id="unit" style="width:150px"  >
+	<select name="unit" class="form-control required" id="unit" style="width:180px"  required>
 
 <option value="">Select</option>
 <!-- <option value="1">MT</option> -->
@@ -237,6 +223,21 @@
 </select>
 
 					</div>
+					<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
+					<div class="col-sm-3">
+
+						<input type="text" style="width:150px" id=qty name="qty" class="form-control" required />
+
+					</div>
+
+					<!-- <div class="form-group row"> -->
+	
+					<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
+					<div class="col-sm-3">
+
+					<input type="number" style="width:150px" id=no_of_bags name="no_of_bags" class="form-control" value="0"  required readonly />
+					</div> 
+					
 					</div> 
 					
 					<!-- <div class="form-group row"> -->
@@ -1370,25 +1371,43 @@ $(document).ready(function(){
 			var parseData = JSON.parse(data);
 			var qty = $('#qty').val();
 			var unit = $('#unit').val();
-			console.log(unit);
+			// console.log(unit);
 			var unitqty =0.00;
 			var qty_per_bag = parseData[0].qty_per_bag;
+			console.log(qty_per_bag);
 			if (qty_per_bag==45){
 				 if(unit==1){
-				 	unitqty=parseFloat(1000/qty).toFixed(2);
-				// 	elseif(unit==2){
-				// 		unitqty=parseFloat(100/qty).toFixed(2);
-				// 		elseif(unit==3){
-				// 		unitqty=parseFloat(10/qty).toFixed(2);
-				// 	}
-				}
+				 	unitqty=parseFloat(1000/qty_per_bag).toFixed(2);
+					 console.log(unitqty);
+				 }
+					if(unit==2){
+						unitqty=parseFloat(100/qty_per_bag).toFixed(2);
+				 }
+						if(unit==3){
+						unitqty=parseFloat(10/qty).toFixed(2);
+					}
+				
 				var qty_per_bag  =unitqty *qty;
-			var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
+			// var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
+			var qty_per_bag=Math.ceil(qty_per_bag)
 			}
 			if (qty_per_bag==50){
-				var qty_per_bag  =20 *qty;
-			var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
+				if(unit==1){
+				 	unitqty=parseFloat(1000/qty_per_bag).toFixed(2);
+					 console.log(unitqty);
+				 }
+					if(unit==2){
+						unitqty=parseFloat(100/qty_per_bag).toFixed(2);
+				 }
+						if(unit==3){
+						unitqty=parseFloat(10/qty).toFixed(2);
+					}
+				
+				var qty_per_bag  =unitqty *qty;
+			// var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
+			var qty_per_bag=Math.ceil(qty_per_bag)
 			}
+
 			// var gst_rt = parseData[0].gst_rt;
 			$('#no_of_bags').val(qty_per_bag);
 			// $('#gst_rt').val(gst_rt);
