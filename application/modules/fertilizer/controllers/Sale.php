@@ -330,6 +330,20 @@ redirect("fertilizer/fertilizer/sale");
 			echo json_encode($soc);
 		
 		}
+
+		public function f_get_adv(){
+
+		//	$select          = array("soc_id","soc_add","gstin");
+			
+		   $soc_id = $this->input->get("soc_id");
+		
+			   
+			$soc    = $this->SaleModel->get_advance($soc_id);
+			// echo $this->db->last_query();
+			// die();
+			echo json_encode($soc);
+		
+		}
 		public function f_get_hsn(){
 
 			$select          = array("hsn_code","gst_rt");
