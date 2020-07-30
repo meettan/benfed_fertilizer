@@ -107,7 +107,8 @@
                             <div class="sub-dropdown">
                             <!-- <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>  -->
                               <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
-                              <a href="<?php echo site_url("stock/stock_entry");?>">Purchase Entry</a>
+                              <a href="<?php echo site_url("adv/advance");?>">Advance</a>
+                              <a href="<?php echo site_url("stock/stock_entry");?>">Purchase</a>
                           <!-- <?php } ?> -->
                               
                                <!-- <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>  -->
