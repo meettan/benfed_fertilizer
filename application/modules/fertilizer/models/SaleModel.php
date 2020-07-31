@@ -42,12 +42,26 @@
 	  
 		  return $result->row();
 
-  }
+      }
 		public function js_get_stock_qty($ro)
 		{
 
 		$sql = $this->db->query("SELECT a.stock_qty -  (select  ifnull(sum(qty) ,0) from td_sale where sale_ro ='$ro') stkqty,a.prod_id ,b.gst_rt ,a.govt_sale_rt,b.prod_id,b.prod_desc FROM td_purchase a ,mm_product b WHERE a.prod_id=b.prod_id and  a.ro_no = '$ro'");
 			return $sql->row();
+		}
+
+		public function js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id)
+		{
+
+		$sql = $this->db->query("SELECT a.catg_id,b.cate_desc
+									from  mm_sale_rate a,
+	   					                  mm_category b    							   							
+					                     where  a.catg_id = b.sl_no
+					                     and a.district='$br_cd'
+			                             and a.comp_id='$comp_id'
+			                             and a.prod_id ='$prod_id'
+			                             and '$ro_dt' BETWEEN a.frm_dt and a.to_dt");
+			return $sql->result();
 		}
 
 		public function js_get_stock_point($ro,$dist_id){

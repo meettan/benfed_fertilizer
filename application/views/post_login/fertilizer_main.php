@@ -86,8 +86,9 @@
                             <a href="<?php echo site_url("measurement");?>">Unit</a>
                             <a href="<?php echo site_url("material");?>">Product</a>
                             <!---<a href="<?php echo site_url("customer");?>">Society</a>-->
-                    
-                            <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
+                            <a href="<?php echo site_url("category");?>">Category</a>
+                            <a href="<?php echo site_url("fertilizer/sale_rate");?>">Sale Rate</a>
+                            
                              <?php }elseif($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']!="Y"){ ?>    
                            <a href="<?php echo site_url("customer");?>">Society</a>
                             <!--<a href="<?php //echo site_url("finance/view_bank_master");?>">Bank</a>-->

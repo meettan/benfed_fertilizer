@@ -34,6 +34,34 @@
  			echo json_encode($result);
 
 
+		}
+
+		public function get_sale_rate(){
+
+
+			$ro = $this->input->get('ro');
+			$comp_id = $this->input->get('comp_id');
+
+			 $where  =   array(
+
+					'comp_id'     => $this->input->get('comp_id'),
+
+					'ro_no'      =>  $this->input->get('ro')
+
+				);
+
+			$select = array("ro_dt","prod_id");
+
+			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+		    
+            $ro_dt      = $ros->ro_dt;
+            $prod_id    = $ros->prod_id;
+            $br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+            $result = $this->SaleModel->js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id);		
+			
+ 			echo json_encode($result);
+
 		} 
 		
 		public function sale(){
@@ -64,6 +92,10 @@ public function saleAdd(){   //================================================
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 			$prod_id = $this->input->post('prod_id');
+
+			$stock_point = $this->input->post('stock_point');
+
+			$gov_sale_rt = $this->input->post('gov_sale_rt');
 
 			$qty = $this->input->post('qty');
 
@@ -100,6 +132,10 @@ public function saleAdd(){   //================================================
                                     'sale_ro'      => $_POST['ro'][$i],
 
                                     'prod_id'      => $_POST['prod_id'][$i],
+
+									'stock_point'  => $_POST['stock_point'][$i],
+
+									'gov_sale_rt'  => $_POST['gov_sale_rt'][$i],                                    
                                                             
                                     'qty'          => $_POST['qty'][$i],
 
@@ -129,6 +165,37 @@ public function saleAdd(){   //================================================
 				$this->SaleModel->f_insert('td_sale', $data);
 
 			}
+
+			 for($i = 0; $i < count($prod_id); $i++){
+			   
+			   $data     = array(
+
+			   						'trans_dt'     => $this->input->post('sale_due_dt'),
+
+									'ro_inv_no'    =>  $_POST['ro'][$i],
+								   
+									'branch_id'    =>  $this->session->userdata['loggedin']['branch_id'],
+                 
+                                    'fin_yr'       => $fin_id,
+									
+									'point_id'      => $_POST['stock_point'][$i],
+
+                                    'trans_type'    => "O",
+
+                                    'unit'         => $this->input->post('unit'),
+
+									'quantity'     => $_POST['qty'][$i],
+
+                                    "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+
+					                "created_dt"    =>  date('Y-m-d h:i:s')
+                                );
+								
+		
+		
+				$this->SaleModel->f_insert('tdf_stock_point_trans', $data);
+
+			}
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
@@ -146,15 +213,17 @@ public function saleAdd(){   //================================================
 				$select2         = array("ro_no","qty");
 				$where  =   array(
 
-					'br'     => $br_cd);
+					'br'     => $this->session->userdata['loggedin']['branch_id']);
 					
 				$product['rodtls']   = $this->SaleModel->f_select('td_purchase',$select2,$where,0);
 
 				$select1          = array("soc_id","soc_name","soc_add","gstin");
 				$where1  =   array(
 
-					'district'     => $br_cd);
+					'district'     => $this->session->userdata['loggedin']['branch_id']);
 				$product['socdtls']   = $this->SaleModel->f_select('mm_ferti_soc',$select1,$where1,0);
+
+				
 
 				$select          = array("prod_id","prod_desc","gst_rt");
 				$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
