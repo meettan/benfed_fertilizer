@@ -727,6 +727,122 @@ public function editsalerate(){
 	}
 }*/
 
+/*************************************************Category Master*********************************************** */
+
+//Dashboard
+public function category(){
+
+
+	$select = array(
+
+					"a.*",
+
+					"b.COMP_NAME"
+				);
+
+			$where = array(
+
+				"a.comp_id=b.COMP_ID"=>NULL
+
+				);
+
+	$cate['data'] = $this->FertilizerModel->f_select("mm_category a,mm_company_dtls b",$select,$where,0);
+
+	//$cate['data']   = $this->FertilizerModel->f_select('mm_category',NULL,NULL,0);
+
+	$this->load->view("post_login/fertilizer_main");
+
+	$this->load->view("category/dashboard",$cate);
+
+	$this->load->view('search/search');
+
+	$this->load->view('post_login/footer');
+}
+
+//Add New Product		
+public function categoryAdd(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+				$prod_id   = $this->FertilizerModel->get_product_code();
+
+				$data_array = array (
+				
+						"comp_id"   			=> $this->input->post('comp_id'),
+
+						"cate_desc"   			=> $this->input->post('cate_desc'),
+
+						"created_by"   	 		=>  $this->session->userdata['loggedin']['user_name'],
+
+						"created_dt"    		=>  date('Y-m-d h:i:s')
+					);
+				 
+				$this->FertilizerModel->f_insert('mm_category', $data_array);
+				
+				$this->session->set_flashdata('msg', 'Successfully Added');
+
+				redirect('category');
+		}else {
+
+				$select          		= array("comp_id","comp_name");
+
+				$product['compdtls']    = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
+				
+				$this->load->view('post_login/fertilizer_main');
+
+				$this->load->view("category/add",$product);
+
+				$this->load->view('post_login/footer');
+		}
+}
+
+//Edit Product
+public function categoryedit(){
+
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+		$data_array = array(
+
+				"comp_id"   			=> $this->input->post('comp_id'),
+
+				"cate_desc"   			=> $this->input->post('cate_desc'),
+			   
+				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+
+				"modified_dt"  =>  date('Y-m-d h:i:s')
+		);
+
+		$where = array(
+				"sl_no" => $this->input->post('sl_no')
+		);
+		 
+
+		$this->FertilizerModel->f_edit('mm_category', $data_array, $where);
+
+		$this->session->set_flashdata('msg', 'Successfully Updated');
+
+		redirect('category');
+
+	}else{
+			
+
+			$where = array(
+				"sl_no" => $this->input->get('sl_no')
+				);
+
+			$sch['schdtls'] = $this->FertilizerModel->f_select("mm_category",NULL,$where,1);
+
+			$select          		= array("comp_id","comp_name");
+
+			$sch['compdtls']    = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
+			$this->load->view('post_login/fertilizer_main');
+
+			$this->load->view("category/edit",$sch);
+
+			$this->load->view("post_login/footer");
+	}
+}
+
 	
 }
 ?>

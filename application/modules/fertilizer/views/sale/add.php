@@ -128,7 +128,8 @@
                       </div>
                       <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
                       <div class="col-sm-3">
-                      <input type="text" name="unit" class="form-control required unit" value="" id="unit" readonly>
+                      <input type="text" name="units" class="form-control unit" value="" id="units" readonly="">
+                      <input type="hidden" name="unit" class="form-control units" value="" id="unit">
                       </div>
                       </div>
                         
@@ -498,6 +499,7 @@ $(document).ready(function(){
                 $('.prod_desc').eq($('.ro').index(this)).val(unitData.prod_desc); 
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
                 $('.unit').eq($('.ro').index(this)).val('MT');
+                $('.units').eq($('.ro').index(this)).val('MT');
                 $('.sale_rt').eq($('.ro').index(this)).val(unitData.govt_sale_rt);
                 $('.qty').eq($('.ro').index(this)).val(0);  
                 // $('.sale_rt').eq($('.ro').index(this)).val(0);  
@@ -612,45 +614,43 @@ $(document).ready(function()
          
           var tottaxable  = 0;
           var cgst        = 0;
-          var sgst        = 0;
-          var tot_discnt  = 0;
-          var gross       = 0;
- 
+         // var sgst        = 0;
+          var qty         = 0;
+          var rate        = 0;
+         
           //  $("input[class *= 'Net_Price']").each(function(){
-            let row          = $(this).closest('tr');
+         //   let row          = $(this).closest('tr');
 
 
                $('#intro tr').each(function() {
 
+
                  var qty = $(this).find('td:eq(5) .qty').val();
                  var rate = $(this).find('td:eq(6) .sale_rt').val();
-               //  var gst_rt = $(this).find('td:eq(6) .gst_rt').val();
+                 var gst_rt = $(this).find('td:eq(7) .gst_rt').val();
 
-                //var cgst =parseFloat((qty*rate) * gst_rt/100/2).toFixed('2');
+                
+             //   var tot_amt += parseFloat(taxable_amt + cgst*2).toFixed('2')
+                 
+             
                  tottaxable += parseFloat(qty*rate);
+
+                 cgst += parseFloat((qty*rate) * gst_rt/100/2);
                    
             });
              
-           // $("#tot_taxable_amt").html("0");
-            $("#tot_taxable_amt").html(tottaxable);      
+            $("#tot_taxable_amt").html("");
+            $("#tot_taxable_amt").html(tottaxable);
+            $("#tot_cgst").html("");    
+            $("#tot_cgst").html(cgst.toFixed('2')); 
+            $("#tot_sgst").html(cgst.toFixed('2')); 
+            $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
 
-            $("input[class *= 'tot_amt']").each(function(){
-              gross += +parseFloat($(this).val()); 
-            
-            });
-             
-            $("#tot_payble_amt").html("0");
-            $("#tot_payble_amt").html(gross);
-
-
-            $("input[class *= 'dis']").each(function(){
-              tot_discnt += parseFloat($(this).val()); 
-            
-            });
-             
-            $("#tot_dis").val("0");
-            $("#tot_dis").val(tot_discnt.toFixed('2'));
-                
+         //           var tottaxable  = 0;
+         //           var cgst        = '';
+         // // var sgst        = 0;
+         //          var tot_discnt  = 0;
+         //          var gross       = 0;
         })
 
 
@@ -683,107 +683,107 @@ $(document).ready(function()
                       
             })
 
-        
+                
 
-</script>
+        </script>
 
-<script>
+                <script>
 
-$(document).ready(function(){
+                $(document).ready(function(){
 
-    var i = 0;
+                    var i = 0;
 
-    $('#comp_id').change(function(){
+                    $('#comp_id').change(function(){
 
-        $.get( 
+                        $.get( 
 
-            '<?php echo site_url("trade/f_get_sale_ro");?>',
+                            '<?php echo site_url("trade/f_get_sale_ro");?>',
 
-            { 
+                            { 
 
-                comp_id: $(this).val()
+                                comp_id: $(this).val()
 
-            }
+                            }
 
-        ).done(function(data){
+                        ).done(function(data){
 
-            var string = '<option value="">Select</option>';
+                            var string = '<option value="">Select</option>';
 
-            $.each(JSON.parse(data), function( index, value ) {
+                            $.each(JSON.parse(data), function( index, value ) {
 
-                string += '<option value="' + value.ro_no + '">' + value.ro_no + '</option>'
+                                string += '<option value="' + value.ro_no + '">' + value.ro_no + '</option>'
 
-            });
+                            });
 
-            $('#ro').html(string);
-
-
-          });
+                            $('#ro').html(string);
 
 
-    });
+                          });
 
-});
-</script>
+
+                    });
+
+                });
+                </script>
 <!-- </script> -->
 
-<script>
-$(document).ready(function(){
-$("#ro_dt").change(function(){
+            <script>
+            $(document).ready(function(){
+            $("#ro_dt").change(function(){
 
-var ro_dt = $('#ro_dt').val();
-
-
-
-var d = new Date();
-
-var month = d.getMonth()+1;
-var day = d.getDate();
-
-var output = d.getFullYear() + '-' +
-(month<10 ? '0' : '') + month + '-' +
-(day<10 ? '0' : '') + day;
-
-// console.log(trans_dt,output);
-
-if(new Date(output) < new Date(ro_dt))
-{
-alert("Sale RO Date Can Not Be Greater Than Current Date");
-$('#submit').attr('type', 'buttom');
-return false;
-}else{
-   $('#submit').attr('type', 'submit');
-}
-})
-});
-</script>
-<script>
-$(document).ready(function(){
-$("#sale_due_dt").change(function(){
-
-var ro_dt = $('#sale_due_dt').val();
+            var ro_dt = $('#ro_dt').val();
 
 
 
-var d = new Date();
+            var d = new Date();
 
-var month = d.getMonth()+1;
-var day = d.getDate();
+            var month = d.getMonth()+1;
+            var day = d.getDate();
 
-var output = d.getFullYear() + '-' +
-(month<10 ? '0' : '') + month + '-' +
-(day<10 ? '0' : '') + day;
+            var output = d.getFullYear() + '-' +
+            (month<10 ? '0' : '') + month + '-' +
+            (day<10 ? '0' : '') + day;
 
-// console.log(trans_dt,output);
+            // console.log(trans_dt,output);
 
-if(new Date(output) >new Date(ro_dt))
-{
-alert("Sale Due Date Can Not Be Less Than Current Date");
-$('#submit').attr('type', 'buttom');
-return false;
-}else{
-   $('#submit').attr('type', 'submit');
-}
-})
-});
-</script>
+            if(new Date(output) < new Date(ro_dt))
+            {
+            alert("Sale RO Date Can Not Be Greater Than Current Date");
+            $('#submit').attr('type', 'buttom');
+            return false;
+            }else{
+               $('#submit').attr('type', 'submit');
+            }
+            })
+            });
+            </script>
+            <script>
+            $(document).ready(function(){
+            $("#sale_due_dt").change(function(){
+
+            var ro_dt = $('#sale_due_dt').val();
+
+
+
+            var d = new Date();
+
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var output = d.getFullYear() + '-' +
+            (month<10 ? '0' : '') + month + '-' +
+            (day<10 ? '0' : '') + day;
+
+            // console.log(trans_dt,output);
+
+            if(new Date(output) >new Date(ro_dt))
+            {
+            alert("Sale Due Date Can Not Be Less Than Current Date");
+            $('#submit').attr('type', 'buttom');
+            return false;
+            }else{
+               $('#submit').attr('type', 'submit');
+            }
+            })
+            });
+            </script>
