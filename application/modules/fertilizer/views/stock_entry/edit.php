@@ -87,6 +87,33 @@
 	
 						</div>
 </div>
+<div class="form-group row">
+					<label for="stkpnt_id" class="col-sm-1 col-form-label">Stock Point:</label>
+
+					<div class="col-sm-3">
+						<!-- <input type="text" id=prod_id name="prod_id" class="form-control" required /> -->
+						<select name="stkpnt_id" style="width:200px" class="form-control required" id="stkpnt_id" required>
+
+							<option value="">Select</option>
+
+							<?php
+
+								foreach($stockpoint as $stkpnt){
+
+							?>
+
+								<!-- <option value="<?php echo $stkpnt->soc_id;?>"><?php echo $stkpnt->soc_name;?></option> -->
+								<option value="<?php echo $stkpnt->soc_id;?>"  <?php if($schdtls->stock_point==$stkpnt->soc_id) {echo "selected"; }?>><?php echo $stkpnt->soc_name;?></option>
+							<?php
+
+								}
+
+							?>     
+
+							</select>
+
+					</div>
+					</div>
 
                 <div class="form-header">
                                 
@@ -197,36 +224,44 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
         value = "<?php echo $unitdtls->unit_name; ?>" readonly />
  
 </div>
+<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
+
+  <div class="col-sm-3">
+
+  <input type="text" style="width:150px"   name="no_of_bags" class="form-control required"  
+  value = "<?php echo $schdtls->no_of_bags; ?>"  readonly />
+
+ </div>
 </div>
 <div class="form-group row">
-<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
+<!-- <label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
 
   <div class="col-sm-3">
 
   <input type="text" style="width:150px"   name="no_of_bags" class="form-control required"  
   value = "<?php echo $schdtls->no_of_bags; ?>"   />
 
- </div>
- <label for="govt_sale_rt" class="col-sm-1 col-form-label">Sale Rate:</label>
+ </div> -->
+ <!-- <label for="govt_sale_rt" class="col-sm-1 col-form-label">Sale Rate:</label>
 					<div class="col-sm-4">
 
 						<input type="text" style="width:150px" id=govt_sale_rt name="govt_sale_rt" class="form-control" 
 						value = "<?php echo $schdtls->no_of_bags; ?>"  readonly />
 
-					</div>
+					</div> -->
 </div>
 <div class="form-group row">
 					<label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label>
 					<div class="col-sm-3">
 
-						<input type="text" style="width:180px" id=reck_pt_rt name="reck_pt_rt" class="form-control" 
+						<input type="text" style="width:180px" id="reck_pt_rt" name="reck_pt_rt" class="form-control" 
 						value = "<?php echo $schdtls->reck_pt_rt; ?>" />
 
 					</div>
 					<label for="reck_pt_n_rt" class="col-sm-1 col-form-label">Non Reck Pt Entry Rate:</label>
 					<div class="col-sm-3">
 
-					<input type="text" style="width:150px" id=reck_pt_n_rt name="reck_pt_n_rt" class="form-control" 
+					<input type="text" style="width:150px" id="reck_pt_n_rt" name="reck_pt_n_rt" class="form-control" 
 					value = "<?php echo $schdtls->reck_pt_n_rt; ?>"  />
 					</div> 
 				</div>
@@ -235,14 +270,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<label for="iffco_buf_rt" class="col-sm-1 col-form-label">IFFCO Buffer Rate:</label>
 					<div class="col-sm-3">
 
-						<input type="text" style="width:180px" id=iffco_buf_rt name="iffco_buf_rt" class="form-control"
+						<input type="text" style="width:180px" id="iffco_buf_rt" name="iffco_buf_rt" class="form-control"
 						value = "<?php echo $schdtls->iffco_buf_rt; ?>"  />
 
 					</div>
 					<label for="iffco_n_buff_rt" class="col-sm-1 col-form-label">IFFCO Non Buffer Rate:</label>
 					<div class="col-sm-3">
 
-						<input type="text" style="width:150px" id=iffco_n_buff_rt name="iffco_n_buff_rt" class="form-control"
+						<input type="text" style="width:150px" id="iffco_n_buff_rt" name="iffco_n_buff_rt" class="form-control"
 						value = "<?php echo $schdtls->iffco_n_buff_rt; ?>" />
 
 					</div>
@@ -257,7 +292,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<label for="rate" class="col-sm-1 col-form-label">Purchase Rate/Unit:</label>
 						<div class="col-sm-3">
 	
-							<input type="Decimal" style="width:150px" id=rate name="rate" class="form-control required" 
+							<input type="text" style="width:150px" id="rate" name="rate" class="form-control required" 
                             value = "<?php echo $schdtls->rate; ?>"    />
 			
 						</div>
@@ -265,14 +300,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<label for="base_price" class="col-sm-1 col-form-label">Base Price:</label>
 						<div class="col-sm-3">
 	
-							<input type="number" style="width:150px" id=base_price name="base_price" class="form-control" 
+							<input type="text" style="width:150px" id="base_price" name="base_price" class="form-control" 
                             value = "<?php echo $schdtls->base_price; ?>"   readonly />
 						   
 						</div>
 						<label for="net_amt" class="col-sm-1 col-form-label">Taxable Amt:</label>
 						<div class="col-sm-3">
 	
-							<input type="number" style="width:150px" id=net_amt name="net_amt" class="form-control" 
+							<input type="text" style="width:150px" id="net_amt" name="net_amt" class="form-control" 
                             value = "<?php echo $schdtls->net_amt; ?>" readonly />
 						   
 						</div>
@@ -281,14 +316,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<label for="retlr_margin" class="col-sm-1 col-form-label">Add Retailer margin:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=retlr_margin name="retlr_margin" class="form-control"  
+						<input type="text" style="width:150px" id="retlr_margin" name="retlr_margin" class="form-control"  
                         value = "<?php echo $schdtls->retlr_margin; ?>"  />
 						</div> 
 	
 						<label for="spl_rebt" class="col-sm-1 col-form-label">Less Special Rebate:</label>
 						<div class="col-sm-3">
 	
-							<input type="number" style="width:150px" id=spl_rebt name="spl_rebt" class="form-control" 
+							<input type="text" style="width:150px" id="spl_rebt" name="spl_rebt" class="form-control" 
                             value = "<?php echo $schdtls->spl_rebt; ?>"   />
 						   
 						</div>
@@ -297,14 +332,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<label for="adj_amt" class="col-sm-1 col-form-label">Add Adj Amt:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=add_adj_amt name="add_adj_amt" class="form-control"  
+						<input type="text" style="width:150px" id="adj_amt" name="adj_amt" class="form-control"  
                         value = "<?php echo $schdtls->add_adj_amt; ?>"   />
 						</div> 
 	
 						 <label for="less_adj_amt" class="col-sm-1 col-form-label">Less Adj Amt:</label>
 						<div class="col-sm-3">
 	
-							<input type="text" style="width:150px" id=less_amt name="less_adj_amt" class="form-control" 
+							<input type="text" style="width:150px" id="less_amt" name="less_adj_amt" class="form-control" 
                             value = "<?php echo $schdtls->less_adj_amt; ?>"   />
 						   
 						</div> 
@@ -314,14 +349,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<label for="cgst" class="col-sm-1 col-form-label">CGST:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=cgst name="cgst" class="form-control" 
+						<input type="text" style="width:150px" id=cgst name="cgst" class="form-control" 
                         value = "<?php echo $schdtls->cgst; ?>" readonly  />
 						</div> 
 	
 						<label for="sgst" class="col-sm-1 col-form-label">SGST:</label>
 						<div class="col-sm-3">
 	
-							<input type="number" style="width:150px" id=sgst name="sgst" class="form-control" 
+							<input type="text" style="width:150px" id=sgst name="sgst" class="form-control" 
                             value = "<?php echo $schdtls->sgst; ?>"  readonly  />
 						   
 						</div>
@@ -331,14 +366,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<label for="rbt_add" class="col-sm-1 col-form-label">Rebate Add:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=rbt_add name="rbt_add" class="form-control" 
+						<input type="text" style="width:150px" id="rbt_add" name="rbt_add" class="form-control" 
                         value = "<?php echo $schdtls->rbt_add; ?>"    />
 						</div> 
 	
 						<label for="rbt_less" class="col-sm-1 col-form-label">Rebate Less:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=rbt_less name="rbt_less" class="form-control" 
+						<input type="text" style="width:150px" id="rbt_less" name="rbt_less" class="form-control" 
                         value = "<?php echo $schdtls->rbt_less; ?>"    />
 						</div> 
 						</div>
@@ -346,20 +381,20 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<label for="rnd_of_add" class="col-sm-1 col-form-label">Round Off Add:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=rnd_of_add name="rnd_of_add" class="form-control" 
+						<input type="text" style="width:150px" id="rnd_of_add" name="rnd_of_add" class="form-control" 
                         value = "<?php echo $schdtls->rnd_of_add; ?>"    />
 						</div> 
 	
 						<label for="rnd_of_less" class="col-sm-1 col-form-label">Round Off Less:</label>
 						<div class="col-sm-3">
 	
-						<input type="number" style="width:150px" id=rnd_of_less name="rnd_of_less" class="form-control"
+						<input type="text" style="width:150px" id="rnd_of_less" name="rnd_of_less" class="form-control"
                         value = "<?php echo $schdtls->rnd_of_less; ?>"     />
 						</div> 
 						<label for="tot_amt" class="col-sm-1 col-form-label">Total Amt:</label>
 						<div class="col-sm-2">
 	
-							<input type="number" style="width:150px" id=tot_amt name="tot_amt" class="form-control" 
+							<input type="text" style="width:150px" id=tot_amt name="tot_amt" class="form-control" 
                             value = "<?php echo $schdtls->tot_amt; ?>"  readonly />
 						   
 						</div>
@@ -724,7 +759,317 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 	});
 	
 	</script>
+	 <script>
+	
+	$(document).ready(function(){
+	
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var tot_amt = 0.00;
+		
+		$('#rbt_add').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	         //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				console.log('qty');
+				console.log(tot_qty);
+				gst_rt =$('#gst_rt').val() 
+				console.log('gst_rt');
+				console.log(gst_rt);
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				console.log('base_price');
+				console.log(base_price);
+				retlr_margin = $('#retlr_margin').val() 
+				console.log('retlr_margin');
+				console.log(retlr_margin);
+				spl_rebt  = $('#spl_rebt').val() 
+				console.log('spl_rebt');
+				console.log(spl_rebt);
+				add_adj_amt=$('#adj_amt').val() 
+				console.log('add_adj_amt');
+				console.log(add_adj_amt);
+				less_adj_amt =$('#less_amt').val() 
+				console.log('less_adj_amt');
+				console.log(less_adj_amt);
+                // $('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) - parseFloat(spl_rebt) + parseFloat(add_adj_amt)- parseFloat(less_adj_amt)
+				console.log('taxable_amt');
+				console.log(taxable_amt);
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			    rbt_add =$('#rbt_add').val() 
+				console.log(rbt_add);
+				// rbt_less =$('#rbt_less').val() 
+				// tot_amt=$('#tot_amt').val() 
+				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+				tot_amt = taxable_amt + parseFloat(gst) *2
+				// console.log(tot_amt);
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less)
+				tot_amt=Math.round(parseFloat(tot_amt))
+			
+				$('#tot_amt').val(tot_amt);
+			
+				
+			});
+	
+		});
+	
+	});
+</script>
+
 <script>
+	
+	$(document).ready(function(){
+	
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var tot_amt = 0.00;
+		
+		$('#rbt_less').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+				rbt_add  = $('#less_amt').val() 
+				// $('#rbt_add').val(0);
+			
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			    rbt_add =$('#rbt_add').val() 
+				console.log(rbt_add);
+				rbt_less =$('#rbt_less').val() 
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				// tot_amt=$('#tot_amt').val() 
+				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+				// tot_amt = taxable_amt + parseFloat(gst) *2
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less)
+				tot_amt=Math.round(parseFloat(tot_amt))
+			
+				$('#tot_amt').val(tot_amt);
+			
+				
+			});
+	
+		});
+	
+	});
+	
+</script>
+
+<script>
+	
+	$(document).ready(function(){
+	
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var tot_amt = 0.00;
+		
+		$('#rnd_of_add').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+				rbt_add  = $('#less_amt').val() 
+				rnd_of_add = $('#rnd_of_add').val() 
+				rnd_of_less =$('#rnd_of_less').val() 
+				// $('#rbt_add').val(0);
+			
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			    rbt_add =$('#rbt_add').val() 
+				console.log(rbt_add);
+				rbt_less =$('#rbt_less').val() 
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				// tot_amt=$('#tot_amt').val() 
+				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+				// tot_amt = taxable_amt + parseFloat(gst) *2
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
+				tot_amt=Math.round(parseFloat(tot_amt))
+			
+				$('#tot_amt').val(tot_amt);
+			
+				
+			});
+	
+		});
+	
+	});
+	
+</script> 
+
+<script>
+	
+	$(document).ready(function(){
+	
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var tot_amt = 0.00;
+		
+		$('#rnd_of_less').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+				rbt_add  = $('#less_amt').val() 
+				rnd_of_add = $('#rnd_of_add').val() 
+				rnd_of_less =$('#rnd_of_less').val() 
+				// $('#rbt_add').val(0);
+			
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			    rbt_add =$('#rbt_add').val() 
+				console.log(rbt_add);
+				rbt_less =$('#rbt_less').val() 
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				// tot_amt=$('#tot_amt').val() 
+				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+				// tot_amt = taxable_amt + parseFloat(gst) *2
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
+				tot_amt=Math.round(parseFloat(tot_amt))
+			
+				$('#tot_amt').val(tot_amt);
+			
+				
+			});
+	
+		});
+	
+	});
+	
+</script> 
+
+<!-- <script>
 function myFunction() {
 	var salerate = $('#govt_sale_rt').val();
 //  alert(salerate);
@@ -736,7 +1081,7 @@ function myFunction() {
    $('#submit').attr('type', 'submit');
 }
 }
-</script>
+</script> -->
 <script>
 $(document).ready(function(){
 $("#ro_dt").change(function(){
@@ -833,6 +1178,78 @@ return false;
    $('#submit').attr('type', 'submit');
 }
 })
+});
+</script>
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#qty').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("stock/f_get_qty_per_bag");?>',
+			{ 
+
+				prod_id : $('#prod_id').val()
+				//dist_cd: $(this).val(),
+				// dist_cd : $('#dist_cd').val()
+				
+			}
+
+		)
+		.done(function(data){
+
+			// console.log(data);
+			var parseData = JSON.parse(data);
+			var qty = $('#qty').val();
+			var unit = $('#unit').val();
+			// console.log(unit);
+			var unitqty =0.00;
+			var qty_per_bag = parseData[0].qty_per_bag;
+			console.log(qty_per_bag);
+			if (qty_per_bag==45){
+				 if(unit==1){
+				 	unitqty=parseFloat(1000/qty_per_bag).toFixed(2);
+					 console.log(unitqty);
+				 }
+					if(unit==2){
+						unitqty=parseFloat(100/qty_per_bag).toFixed(2);
+				 }
+						if(unit==3){
+						unitqty=parseFloat(10/qty).toFixed(2);
+					}
+				
+				var qty_per_bag  =unitqty *qty;
+			// var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
+			var qty_per_bag=Math.ceil(qty_per_bag)
+			}
+			if (qty_per_bag==50){
+				if(unit==1){
+				 	unitqty=parseFloat(1000/qty_per_bag).toFixed(2);
+					 console.log(unitqty);
+				 }
+					if(unit==2){
+						unitqty=parseFloat(100/qty_per_bag).toFixed(2);
+				 }
+						if(unit==3){
+						unitqty=parseFloat(10/qty).toFixed(2);
+					}
+				
+				var qty_per_bag  =unitqty *qty;
+			// var qty_per_bag=parseFloat(qty_per_bag).toFixed(2)
+			var qty_per_bag=Math.ceil(qty_per_bag)
+			}
+
+			// var gst_rt = parseData[0].gst_rt;
+			$('#no_of_bags').val(qty_per_bag);
+			// $('#gst_rt').val(gst_rt);
+		});
+
+	});
+
 });
 </script>
 

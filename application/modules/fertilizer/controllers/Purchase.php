@@ -1262,9 +1262,8 @@ public function stockAdd(){
 				$select2 =  array("soc_id","soc_name");
 				$where2 = array(
 					"stock_point_flag"    =>  'Y',
-					"district" => $br_cd 
-		   
-	   );
+					"district" => $br_cd  );
+
 				$product['socdtls']   = $this->PurchaseModel->f_select('mm_ferti_soc',$select2,$where2,0);
 			//   echo $this->db->last_query();
 			//   die();
@@ -1352,6 +1351,8 @@ public function viewstock(){
 			"rate"=>  $this->input->post('rate'),
 
 			"base_price"=>  $this->input->post('base_price'),
+			
+			"add_adj_amt" =>  $this->input->post('add_adj_amt'),
 
 			"tot_amt"=>  $this->input->post('tot_amt'),
 
@@ -1374,6 +1375,8 @@ public function viewstock(){
 			"trans_dt" =>  $this->input->post(date('Y-m-d h:i:s')),
 
 			"challan_flag"    =>  $this->input->post('N'),
+
+			"stock_point"     => $this->input->post('stkpnt_id'),
 
 			"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -1425,7 +1428,8 @@ public function viewstock(){
 					"sgst"   ,
 					"rbt_add" ,
 					"rbt_less" ,"rnd_of_add",
-					"rnd_of_less" ,"tot_amt"                  
+					"rnd_of_less" ,"tot_amt",
+					"stock_point"                  
 		);
 
 			$where = array(
@@ -1447,17 +1451,24 @@ public function viewstock(){
 
 				$select1          = array("a.prod_id","a.prod_desc","hsn_code","gst_rt","qty_per_bag");
 				$product['proddtls']   = $this->PurchaseModel->f_select('mm_product a,td_purchase b',$select1,$where2,1);	
-
+// echo $this->db->last_query();
+// 				die();
 				$select2=  array("qty","ro_no","invoice_no","invoice_dt","challan_flag","due_dt","no_of_bags","ro_dt","delivery_mode","
 				rate","reck_pt_rt","reck_pt_n_rt","iffco_buf_rt","iffco_n_buff_rt","base_price","net_amt","retlr_margin","spl_rebt","add_adj_amt","less_adj_amt","cgst","sgst",
-				"rbt_add","rbt_less","rnd_of_add","rnd_of_less","tot_amt");
+				"rbt_add","rbt_less","rnd_of_add","rnd_of_less","tot_amt","stock_point");
 
 				$product['schdtls'] = $this->PurchaseModel->f_select("td_purchase",$select2,$where,1);
 				
 				$select3= array("id","unit_name");
 				$product['unitdtls'] = $this->PurchaseModel->f_select("mm_unit",$select3,Null,1);
-				// echo $this->db->last_query();
-				// die();
+
+				$select4 = array("soc_id","soc_name");
+				$where4 = array(
+					"stock_point_flag"=>'Y'
+					);
+				$product['stockpoint'] = $this->PurchaseModel->f_select("mm_ferti_soc",$select4,$where4,0);
+				//  echo $this->db->last_query();
+				//  die();
 																							
 		$this->load->view('post_login/fertilizer_main');
 
