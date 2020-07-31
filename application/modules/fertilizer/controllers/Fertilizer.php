@@ -843,6 +843,215 @@ public function categoryedit(){
 	}
 }
 
+/*************************************************Sale Rate Master*********************************************** */
+public function sale_rate(){
+	$select = array("a.district","d.district_name","a.frm_dt","a.to_dt","a.sp_mt","b.comp_name","a.comp_id","c.prod_desc","a.prod_id");
+
+	$where      =   array(
+
+		"a.comp_id = b.comp_id"  => NULL,
+		"a.prod_id= c.prod_id"=>NULL,
+	    "a.district=d.district_code"=>NULL	);
+		   
+		// $ro   = $this->FertilizerModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
+	$bank['data']   = $this->FertilizerModel->f_select('mm_sale_rate a,mm_company_dtls b,mm_product c,md_district d',$select,$where,0);
+//   echo $this->db->last_query();
+// / die();
+	$this->load->view("post_login/fertilizer_main");
+
+	$this->load->view("sale_rate/dashboard",$bank);
+
+	$this->load->view('search/search');
+
+	$this->load->view('post_login/footer');
+}
+
+public function f_get_product(){
+
+			$where = array(
+				"COMPANY" => $this->input->get('comp_id')
+				);
+		
+			$result = $this->FertilizerModel->f_select('mm_product',NULL,$where,0);	
+			
+ 			echo json_encode($result);
+
+} 
+public function f_get_category(){
+
+			$where = array(
+				"comp_id" => $this->input->get('comp_id')
+				);
+		
+			$result = $this->FertilizerModel->f_select('mm_category',NULL,$where,0);	
+			
+ 			echo json_encode($result);
+
+} 
+public function salerateAdd(){
+
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+		   $prod_id    = $this->input->post('prod_id');
+		   $comp_id    = $this->input->post('comp_id');
+		   $district   = $this->input->post('district');
+		   $catg_id    = $this->input->post('catg_id');
+		   $sp_mt      = $this->input->post('sp_mt');
+		   $sp_bag     = $this->input->post('sp_bag');
+		   $sp_govt    = $this->input->post('sp_govt');
+		
+		   $frm_dt     = $this->input->post('frm_dt');
+		   $to_dt      = $this->input->post('to_dt');
+
+		  
+		
+           for ($i = 0;$i < count($district); $i++){
+			
+			$data_array = array (
+
+					"prod_id" => $prod_id,
+			
+					"comp_id" => $comp_id,
+
+					"catg_id" => $catg_id,
+
+					"district" => $district[$i],
+					
+					"sp_mt" =>  $sp_mt,
+
+					"sp_bag" =>  $sp_bag,
+
+					"sp_govt" =>  $sp_govt,
+
+					"frm_dt" =>  $frm_dt,
+
+					"to_dt" =>  $to_dt,
+
+					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+
+					"created_dt"    =>  date('Y-m-d h:i:s'));
+			 
+				$this->FertilizerModel->f_insert('mm_sale_rate', $data_array);
+				
+                }
+				$this->session->set_flashdata('msg', 'Successfully Added');
+
+					redirect('fertilizer/sale_rate');
+			}else {
+				$select1          = array("comp_id","comp_name");
+				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
+				
+				$select2          = array("prod_id","prod_desc");
+				$product['proddtls']   = $this->FertilizerModel->f_select('mm_product',$select2,NULL,0);
+				
+			
+				$product['distdtls']   = $this->FertilizerModel->f_select('md_district',NULL,NULL,0);
+	$this->load->view('post_login/fertilizer_main');
+
+	$this->load->view("sale_rate/add",$product);
+
+	$this->load->view('post_login/footer');
+}
+}
+
+public function editsalerate(){
+
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+		$data_array = array(
+
+				"prod_id"     =>  $this->input->post('prod_id'),
+
+				"comp_id"   =>  $this->input->post('comp_id'),
+				
+				"district"   =>$this->input->post('district'),
+
+				"frm_dt"      =>  $this->input->post('frm_dt'),
+
+				"to_dt"    =>  $this->input->post('to_dt'),
+
+				"rate"     =>  $this->input->post('rate'),
+			   
+				// "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+
+				"modified_dt"  =>  date('Y-m-d h:i:s')
+		);
+
+		$where = array(
+				"district" => $this->input->post('district'),
+				"prod_id"     =>  $this->input->post('prod_id'),
+				"comp_id"   =>  $this->input->post('comp_id'),
+				"frm_dt"      =>  $this->input->post('frm_dt'),
+				"to_dt"    =>  $this->input->post('to_dt')
+
+				
+		);
+		 
+
+		$this->FertilizerModel->f_edit('mm_sale_rate', $data_array, $where);
+		
+		$this->session->set_flashdata('msg', 'Successfully Updated');
+
+		redirect('fertilizer/sale_rate');
+
+	}else{
+			$select = array(
+					"a.prod_id",
+					"a.comp_id",
+					"a.district" ,
+					"a.frm_dt",
+					"a.to_dt"  ,
+					"a.sp_mt","a.sp_bag","a.sp_govt","a.catg_id",
+					"b.prod_desc",
+					"c.comp_name" ,
+				"d.district_name" 
+				);
+
+			$where = array(
+				"a.prod_id" => $this->input->get('prod_id'),
+				"a.comp_id" =>  $this->input->get('comp_id'),
+				"a.frm_dt" =>  $this->input->get('frm_dt'),
+				"a.to_dt" =>  $this->input->get('to_dt'),
+				"a.district" =>  $this->input->get('district'),
+				"a.prod_id=b.prod_id"=>NULL,
+				"a.comp_id=c.comp_id"=>NULL,
+				"a.district=d.district_code" =>NULL
+				);
+			
+			$wheres = array(
+				"comp_id" =>  $this->input->get('comp_id'),
+				);
+
+		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d",$select,$where,1);
+		$sch['cat_names'] = $this->FertilizerModel->f_select("mm_category",NULL,$wheres,0);
+
+		$this->load->view('post_login/fertilizer_main');
+
+		$this->load->view("sale_rate/edit",$sch);
+
+		$this->load->view("post_login/footer");
+	}
+}
+
+public function deletesalerate(){
+
+
+
+	 $where = array(  "district"  =>  $this->input->get('district'),
+                     "prod_id"    =>  $this->input->get('prod_id'),
+                     "comp_id"    =>  $this->input->get('comp_id'),
+                     "frm_dt"    =>  $this->input->get('frm_dt'),
+                     "to_dt"    =>  $this->input->get('to_dt')
+            
+        );
+	
+        $this->FertilizerModel->f_delete('mm_sale_rate', $where);        
+       $this->session->set_flashdata('msg', 'Successfully Deleted!');
+
+       redirect('fertilizer/sale_rate');
+
+	}
+
 	
 }
 ?>

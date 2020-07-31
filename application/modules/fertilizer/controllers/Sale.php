@@ -34,6 +34,34 @@
  			echo json_encode($result);
 
 
+		}
+
+		public function get_sale_rate(){
+
+
+			$ro = $this->input->get('ro');
+			$comp_id = $this->input->get('comp_id');
+
+			 $where  =   array(
+
+					'comp_id'     => $this->input->get('comp_id'),
+
+					'ro_no'      =>  $this->input->get('ro')
+
+				);
+
+			$select = array("ro_dt","prod_id");
+
+			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+		    
+            $ro_dt      = $ros->ro_dt;
+            $prod_id    = $ros->prod_id;
+            $br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+            $result = $this->SaleModel->js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id);		
+			
+ 			echo json_encode($result);
+
 		} 
 		
 		public function sale(){

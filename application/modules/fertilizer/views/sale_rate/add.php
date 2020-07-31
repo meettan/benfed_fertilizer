@@ -1,7 +1,8 @@
 
     <div class="wraper">      
-            
-		<div class="col-md-6 container form-wraper">
+    	<div class="col-md-2 container">
+           </div> 
+		<div class="col-md-8 container form-wraper">
 
 			<form method="POST" action="<?php echo site_url("fertilizer/salerateAdd") ?>" onsubmit="return valid_data()">
 
@@ -11,99 +12,79 @@
 				
 				</div>
 				<div class="form-group row">
-					<label for="district" class="col-sm-3 col-form-label">District :</label>
-					<div class="col-sm-9">
+					
 
-						<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-						<select name="district" class="form-control required" id="district" required>
+						<label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
+						<div class="col-sm-4">
 
-<option value="">Select</option>
+							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
+							<select name="comp_id" class="form-control required" id="comp_id" required>
 
-<?php
+						<option value="">Select</option>
 
-	foreach($distdtls as $dist){
+						<?php
 
-?>
+							foreach($compdtls as $comp){
 
-	<option value="<?php echo $dist->district_code;?>"><?php echo $dist->district_name;?></option>
+						?>
 
-<?php
+							<option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
 
-	}
+						<?php
 
-?>     
+							}
 
-</select>
+						?>     
 
-					</div>
-					</div>
+						</select>
 
-				<div class="form-group row">
-					<label for="comp_id" class="col-sm-3 col-form-label">Company :</label>
-					<div class="col-sm-9">
+						</div>
 
-						<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-						<select name="comp_id" class="form-control required" id="comp_id" required>
 
-<option value="">Select</option>
+							<label for="catg_id" class="col-sm-2 col-form-label">Category :</label>
+						<div class="col-sm-4">
 
-<?php
+							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
+							<select name="catg_id" class="form-control required" id="catg_id" required>
 
-	foreach($compdtls as $comp){
+							<option value="">Select</option>
 
-?>
+							  
 
-	<option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
+							</select>
 
-<?php
-
-	}
-
-?>     
-
-</select>
-
-					</div>
+						</div>
+						
 					</div>
 
 					<div class="form-group row">
-					<label for="prod_id" class="col-sm-3 col-form-label">Product :</label>
-					<div class="col-sm-9">
 
-						<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-						<select name="prod_id" class="form-control required" id="prod_id" required>
 
-<option value="">Select</option>
+						<label for="prod_id" class="col-sm-2 col-form-label">Product :</label>
+						<div class="col-sm-4">
 
-<?php
+							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
+							<select name="prod_id" class="form-control required" id="prod_id" required>
 
-	foreach($proddtls as $prod){
+							<option value="">Select</option>
 
-?>
+							  
 
-	<option value="<?php echo $prod->prod_id;?>"><?php echo $prod->prod_desc;?></option>
+							</select>
 
-<?php
-
-	}
-
-?>     
-
-</select>
-
-					</div>
-					</div>
+						</div>
+				
+				   </div>
+					
 					<div class="form-group row">
-					<label for="frm_dt" class="col-sm-3 col-form-label">From Date:</label>
-					<div class="col-sm-9">
+						<label for="frm_dt" class="col-sm-2 col-form-label">From Date:</label>
+						<div class="col-sm-4">
 
-						<input type="date" id=frm_dt name="frm_dt" class="form-control"  required />
+							<input type="date" id=frm_dt name="frm_dt" class="form-control"  required />
 
-					</div>
-					</div>
-					<div class="form-group row">
-					<label for="to_dt" class="col-sm-3 col-form-label">To Date:</label>
-					<div class="col-sm-9">
+						</div>
+					<label for="to_dt" class="col-sm-2 col-form-label">To Date:</label>
+					<div class="col-sm-4">
 
 
 						<input type="date" id=to_dt name="to_dt" class="form-control" onchange="DateCheck();" required />
@@ -111,16 +92,60 @@
 					</div>
 					</div>
 
-					<div class="form-group row">
-					<label for="salerate" class="col-sm-3 col-form-label">Sale Rate:</label>
-					<div class="col-sm-9">
 
-						<input type="text" id=rate name="rate" class="form-control" required />
+
+
+					<div class="form-group row">
+					<label for="sp_mt" class="col-sm-2 col-form-label">Sale Price in MT:</label>
+					<div class="col-sm-4">
+
+						<input type="text" id="sp_mt" name="sp_mt" class="form-control" required />
+
+					</div>
+					<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price per Bag:</label>
+					<div class="col-sm-4">
+
+						<input type="text" id="sp_bag" name="sp_bag" class="form-control" required />
 
 					</div>
 				   </div>
 
-				
+				   	<div class="form-group row">
+					<label for="sp_govt" class="col-sm-2 col-form-label">Gov Sale rate:</label>
+					<div class="col-sm-4">
+
+						<input type="text" id="sp_govt" name="sp_govt" class="form-control" required />
+
+					</div>
+					
+				   </div>
+
+					<div class="form-group row">
+						<label for="salerate" class="col-sm-2 col-form-label">District:</label>
+
+						<div class="col-sm-10">
+						<?php
+
+							foreach($distdtls as $dist){
+
+						?>
+						<div class="col-sm-2">
+							
+
+					<input type='checkbox' name='district[]' id="checkItem" value='<?php echo $dist->district_code;?>' /><?php echo $dist->dist_sort_code;?>
+
+					</div>
+					<?php
+
+							}
+
+						?>  
+
+						<div class="col-sm-2"><input type="checkbox" id="checkAll" > Check All </div>
+						</div> 
+
+						
+					</div>
 
 				<div class="form-group row">
 
@@ -162,11 +187,41 @@ $(document).ready(function(){
 
             $.each(JSON.parse(data), function( index, value ) {
 
-                string += '<option value="' + value.prod_id + '">' + value.prod_desc + '</option>'
+                string += '<option value="' + value.PROD_ID + '">' + value.PROD_DESC + '</option>'
 
             });
 
             $('#prod_id').html(string);
+
+
+          });
+
+
+    });
+
+     $('#comp_id').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("fertilizer/f_get_category");?>',
+
+            { 
+
+                comp_id: $(this).val()
+
+            }
+
+        ).done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.sl_no + '">' + value.cate_desc + '</option>'
+
+            });
+
+            $('#catg_id').html(string);
 
 
           });
@@ -192,5 +247,7 @@ function DateCheck()
 	// document.getElementById('to_dt').value
     }
 }
-
+$('#checkAll').click(function () {    
+     $('input:checkbox').prop('checked', this.checked);    
+ });
 </script>

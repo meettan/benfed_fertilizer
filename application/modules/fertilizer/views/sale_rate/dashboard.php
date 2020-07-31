@@ -34,7 +34,7 @@
                         <th>Company</th>
                         <th>Product</th>
                         <th>Sale Rate</th>
-            			<th>Edit</th>
+            			<th>Option</th>
                      
                     </tr>
 
@@ -55,13 +55,20 @@
                                 <td><?php echo $value->to_dt; ?></td>
                                 <td><?php echo $value->comp_name; ?></td>
 				                <td><?php echo $value->prod_desc; ?></td>
-                                <td><?php echo $value->rate; ?></td>
+                                <td><?php echo $value->sp_mt; ?></td>
 			 	                <td><a href="editsalerate/edit?prod_id=<?php echo $value->prod_id;?>&comp_id=<?php echo $value->comp_id; ?>&frm_dt=<?php echo $value->frm_dt; ?>&to_dt=<?php echo $value->to_dt; ?>
                                  &district=<?php echo $value->district; ?>" 
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                        data-toggle="tooltip" data-placement="bottom" title="View">
 
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                        <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
                                     </a> 
+       <a href="deletesalerate/?district=<?php echo $value->district;?>&prod_id=<?php echo $value->prod_id;?>&comp_id=<?php echo $value->comp_id; ?>&frm_dt=<?php echo $value->frm_dt; ?>&to_dt=<?php echo $value->to_dt; ?>&district=<?php echo $value->district; ?>" 
+                                        data-toggle="tooltip" data-placement="bottom" title="delete">
+
+                                        <i class="fa fa-trash fa-2x" style="color: #007bff"></i>
+                                    </a> 
+
+
                                 </td>
                                
                             </tr>
@@ -105,7 +112,7 @@
 
     </div>
 
-<script>
+<!-- <script>
 
     $(document).ready( function (){
 
@@ -126,7 +133,7 @@
     });
 
 </script>
-
+ -->
  <script>
 
     $(document).ready(function() {

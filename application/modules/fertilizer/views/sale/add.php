@@ -149,8 +149,9 @@
                             <thead>
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
-                           
+                            <th style= "text-align: center">Sale Rate Category</th>
                                 <th style= "text-align: center">Stock Point</th>
+                               
                                 <th style= "text-align: center">Gov Sale Rate</th>
                                
                                 <th style= "text-align: center">Stock Qty</th>
@@ -191,6 +192,13 @@
                        
                                         
                                     </td>
+                                       <td>
+
+                                    <select name="sale_category[]" id="sale_category" style="width:130px"class="form-control sale_category" required>
+                                         <option value="">Select</option>
+              
+                                         </select> 
+                                    
         
                                       <td>
 
@@ -199,6 +207,9 @@
               
             </select> 
                                     
+                                    </td>
+
+                                   
                                     </td>
                                       <td>
                                          <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:70px" class="form-control gov_sale_rt" required>
@@ -324,7 +335,8 @@ $.each(JSON.parse(data), function( index, value ) {
                  
            +'</select> '
                                 +'</td>'
-                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'              
+                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'
+                                +'   <td><select name="sale_category[]" id="sale_category" style="width:130px"class="form-control sale_category" required><option value="">Select</option></select>'             
                                 +'<td><select name="stock_point[]" id="ro" style="width:150px"class="form-control stock_point" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:70px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
                                     +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
                                 +'</td>'
@@ -531,6 +543,31 @@ $(document).ready(function(){
             });
 
              $('.stock_point').eq($('.ro').index(this)).html(string); 
+
+            //$('#stock_point').html(string);
+
+
+          });
+
+        });
+
+         $('#intro').on( "change", ".ro", function()
+        {
+            //console.log($(this).val());
+            $.get('<?php echo site_url("trade/get_sale_rate");?>',{ ro: $(this).val(),comp_id:$("#comp_id").val() })
+                                                                            
+            
+            .done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.catg_id + '">' + value.cate_desc + '</option>'
+
+            });
+
+             $('.sale_category').eq($('.ro').index(this)).html(string); 
 
             //$('#stock_point').html(string);
 

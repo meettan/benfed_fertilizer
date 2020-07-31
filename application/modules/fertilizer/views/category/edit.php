@@ -8,7 +8,7 @@
                         />
                 <div class="form-header">
                 
-                    <h4>Edit Product</h4>
+                    <h4>Edit Category</h4>
                 
                 </div>
 
