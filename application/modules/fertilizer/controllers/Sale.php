@@ -12,7 +12,7 @@
 		$this->session->userdata('fin_yr');
 		}
 		
-	
+//Getting Product name and stock quantity on supplying RO
 		public function js_get_stock_qty()
 		{
 
@@ -35,7 +35,7 @@
 
 
 		}
-
+///Getting the sale category with district,company,supplied ro date and product
 		public function get_sale_rate(){
 
 

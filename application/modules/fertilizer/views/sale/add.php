@@ -18,108 +18,104 @@
 	
 						</div>
 						
-						</div>
+					</div>
 	
-						<div class="form-group row">
+					<div class="form-group row">
 						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
 						<div class="col-sm-4">
 	
-							<select name="soc_id" style="width:350px" class="form-control required" id="soc_id">
+							<select name="soc_id" style="width:350px" class="form-control required" id="soc_id" required>
 	
-	<option value="">Select</option>
+	                            <option value="">Select</option>
 	
-	<?php
+                                <?php
+                                
+                                    foreach($socdtls as $soc){
+                                
+                                ?>
+                                
+                                    <option value="<?php echo $soc->soc_id;?>"><?php echo $soc->soc_name;?></option>
 	
-		foreach($socdtls as $soc){
+	                            <?php
 	
-	?>
+		                            }
 	
-		<option value="<?php echo $soc->soc_id;?>"><?php echo $soc->soc_name;?></option>
+	                            ?>     
 	
-	<?php
-	
-		}
-	
-	?>     
-	
-	</select>
+	                        </select>
 						</div>
+
 						<label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
 						<div class="col-sm-3">
 	
-						<input type="text"  id=gstin name="gstin" class="form-control" readonly />
+						    <input type="text"  id=gstin name="gstin" class="form-control" readonly />
 	
 						</div>
 						
-						</div>
+					</div>
 	
-						<div class="form-group row">
+					<div class="form-group row">
 						<label for="soc_add" class="col-sm-2 col-form-label">Address:</label>
 						<div class="col-sm-4">
 	
-						<textarea style="width:350px;height:70px"  id=soc_add name="soc_add" class="form-control" readonly /></textarea>
+						    <textarea style="width:350px;height:70px"  id=soc_add name="soc_add" class="form-control" readonly ></textarea>
 	
 						</div>
-						 <label for="cin" class="col-sm-2 col-form-label">Transaction Type:</label>
-						<div class="col-sm-3">
+
+						<label for="cin" class="col-sm-2 col-form-label">Invoice Type:</label>
+						    <div class="col-sm-3">
 	
-						<select name="trans_type" id="trans_type" class="form-control" required>
-                             <option value="">Select</option>
-                            <option value="Credit">Credit</option>
-                            <option value="Cash">Cash</option>
-                        </select>
-	
-						</div> 
-                      
-                        
-					  </div>
-                      <div class="form-group row">
-                      <label for="trans_do" class="col-sm-2 col-form-label">Sale Ro:</label>
+                                <select name="trans_type" id="trans_type" class="form-control required" required>
+                                    <option value="">Select</option>
+                                    <option value="Credit">Credit</option>
+                                    <option value="Cash">Cash</option>
+                                </select>
+            
+						    </div> 
+					</div>
+
+                    <div class="form-group row">
+                        <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
 						<div class="col-sm-4">
 	
-						<input type="text" style="width:350px" id=trans_ro name="trans_do" class="form-control" readonly />
+						    <input type="date" style="width:350px" id=ro_dt name="ro_dt" class="form-control"  required/>
 	                    </div>
                      
 
                         <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
-                    <div class="col-sm-3">
+                        <div class="col-sm-3">
 
-                    	<select name="comp_id" class="form-control required" id="comp_id">
+                    	    <select name="comp_id" class="form-control required" id="comp_id" required>
 
-                    <option value="">Select</option>
+                                <option value="">Select</option>
 
-                    <?php
+                                <?php
 
-                    	foreach($compdtls as $comp){
+                                    foreach($compdtls as $comp){
 
-                    ?>
+                                ?>
 
-                    	<option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
+                    	            <option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
 
-                    <?php
+                                <?php
 
-                    	}
+                                    }
 
-                    ?>     
+                                ?>     
 
-                    </select>
+                            </select>
 
-					</div>
-                        </div>
+					    </div>
+                    </div>
 
                         <div class="form-group row">
-                      <label for="sale_due_dt"  class="col-sm-2 col-form-label">Sale Due Date:</label>
-                        <div class="col-sm-4">
+                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
+                            <div class="col-sm-4">
     
-                        <input type="date" style="width:350px" name="sale_due_dt" id="sale_due_dt" class="form-control"  />
+                                <input type="date" style="width:350px" name="sale_due_dt" id="sale_due_dt" class="form-control" required />
+                            </div>
                         </div>
-                        <label for="do_dt" class="col-sm-2 col-form-label">Sale Ro Date:</label>
-						<div class="col-sm-3">
-	
-						<input type="date"  id=ro_dt name="ro_dt" class="form-control"  />
-	                    </div>
-                        
-                        </div>
+
                         <div class="form-group row">
                       <label for="gst_rt"  class="col-sm-2 col-form-label">Advance:</label>
                       <div class="col-sm-4">
@@ -149,10 +145,13 @@
                             <thead>
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
-                            <th style= "text-align: center">Sale Rate Category</th>
-                                <th style= "text-align: center">Stock Point</th>
                                
-                                <th style= "text-align: center">Gov Sale Rate</th>
+                                <th style= "text-align: center">Stock 
+                                                                Point</th>
+                                <th style= "text-align: center">Rate 
+                                                                Catg</th>
+                                <th style= "text-align: center">Govt.
+                                                                Rate</th>
                                
                                 <th style= "text-align: center">Stock Qty</th>
                                 <th style= "text-align: center">Qty</th>
@@ -162,8 +161,8 @@
 								<!-- <th style= "text-align: center">CGST</th>
 
 								<th style= "text-align: center">SGST</th> -->
-                                <th style= "text-align: center">Discount</th>
-								<th style= "text-align: center">Total Amt</th>
+                                <!--<th style= "text-align: center">Discount</th>-->
+								<th style= "text-align: center">Net Amt</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
                                 </th>
@@ -175,8 +174,8 @@
                                 
                                     <td>    
                                        
-                 <select name="ro[]" id="ro" style="width:150px"class="form-control required ro" required>
-                <option value="">Select Project</option>
+                 <select name="ro[]" id="ro" style="width:100px"class="form-control required ro" required>
+                <option value="">Select RO</option>
                 <!-- <?php
                     foreach($rodtls as $key1)
                     { ?>
@@ -188,31 +187,33 @@
 
                                     <td>    
                                         <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id">  
-                                        <input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
+                                        <input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
                        
                                         
                                     </td>
+
+                                    <td>
+
+                                        <select name="stock_point[]" id="stock_point" style="width:110px"class="form-control stock_point" required>
+                                            <option value="">Select</option>
+              
+                                        </select> 
+                                    
+                                    </td>
                                        <td>
 
-                                    <select name="sale_category[]" id="sale_category" style="width:130px"class="form-control sale_category" required>
+                                    <select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required>
                                          <option value="">Select</option>
               
                                          </select> 
                                     
-        
-                                      <td>
-
-                                         <select name="stock_point[]" id="stock_point" style="width:150px"class="form-control stock_point" required>
-                <option value="">Select</option>
-              
-            </select> 
-                                    
                                     </td>
+                                      
 
                                    
                                     </td>
                                       <td>
-                                         <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:70px" class="form-control gov_sale_rt" required>
+                                         <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required>
              
                                           <option value="N">No</option>
                                           <option value="Y">Yes</option>
@@ -241,11 +242,11 @@
 									
                                         <input type="hidden" name="sgst[]" class="form-control sgst" value= "0" id="sgst" readonly>
                                   
-                                    <td>
+                                    <!--<td>
                                     <input type="text" name="dis[]" class="form-control dis required" value= "0" id="dis" required>
-                                    </td>
+                                    </td>--->
 									<td>
-                          <input type="text" name="tot_amt[]" style="width:100px" class="form-control tot_amt" value="0" id="tot_amt" required>
+                          <input type="text" name="tot_amt[]"  class="form-control tot_amt" value="0" id="tot_amt" required>
                                     </td>
                                     <td>
                                        <button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>
@@ -263,7 +264,7 @@
                                         <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"></span></div>
                                         <div class="col-md-2">CGST:<span id="tot_cgst"></span></div>
                                         <div class="col-md-2">SGST:<span id="tot_sgst"></span></div>
-                                        <div class="col-md-2">Discount:<span id="tot_dis"></span></div>
+                                        <!--<div class="col-md-2">Discount:<span id="tot_dis"></span></div>-->
                                         <div class="col-md-3">Net Payable:<span id="tot_payble_amt"></span></div>
                                    
                                         <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total">  
@@ -328,16 +329,16 @@ $.each(JSON.parse(data), function( index, value ) {
 });
             var newElement = '<tr>'
                                 +'<td>'
-                               +'<select name="ro[]" id="ro" style="width:150px"class="form-control required ro" required>'
+                               +'<select name="ro[]" id="ro" style="width:100px"class="form-control required ro" required>'
                 
                 
                        +' <option value=" '+ string +'</option>'
                  
            +'</select> '
                                 +'</td>'
-                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'
-                                +'   <td><select name="sale_category[]" id="sale_category" style="width:130px"class="form-control sale_category" required><option value="">Select</option></select>'             
-                                +'<td><select name="stock_point[]" id="ro" style="width:150px"class="form-control stock_point" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:70px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
+                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'
+                                +'   <td><select name="stock_point[]" id="ro" style="width:110px"class="form-control stock_point" required><option value="">Select</option></select>'             
+                                +'<td><select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
                                     +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
                                 +'</td>'
                                 +'<td>'
@@ -352,9 +353,9 @@ $.each(JSON.parse(data), function( index, value ) {
                               
 								+'<input type="hidden" name="cgst[]" class="form-control required cgst" value= "0" id="cgst" readonly>'
                                 +'<input type="hidden" name="sgst[]" class="form-control required sgst" value= "0" id="sgst" readonly>'
-                                +'<td>'
+                                /*+'<td>'
                                     +'<input type="text" name="dis[]" class="form-control dis" value= "0" id="dis" required>'
-                                +'</td>'
+                                +'</td>'*/
 								+'<td>'
                                     +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" required>'
                                 +'</td>'
@@ -489,7 +490,7 @@ $(document).ready(function(){
 
     $(document).ready(function()
     {
-        $('#intro').on( "change", ".ro", function()
+        $('#intro').on( "change", ".ro", function()                     //Getting Product name and stock quantity on supplying RO
         {
             //console.log($(this).val());
             $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
@@ -512,7 +513,7 @@ $(document).ready(function(){
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
                 $('.unit').eq($('.ro').index(this)).val('MT');
                 $('.units').eq($('.ro').index(this)).val('MT');
-                $('.sale_rt').eq($('.ro').index(this)).val(unitData.govt_sale_rt);
+                //$('.sale_rt').eq($('.ro').index(this)).val(unitData.govt_sale_rt);
                 $('.qty').eq($('.ro').index(this)).val(0);  
                 // $('.sale_rt').eq($('.ro').index(this)).val(0);  
                 $('.taxable_amt').eq($('.ro').index(this)).val(0);
@@ -551,6 +552,7 @@ $(document).ready(function(){
 
         });
 
+///Getting the sale category with district,company,supplied ro date and product
          $('#intro').on( "change", ".ro", function()
         {
             //console.log($(this).val());

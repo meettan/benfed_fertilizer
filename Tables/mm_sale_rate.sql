@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 30, 2020 at 02:47 PM
--- Server version: 5.7.31-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.6
+-- Generation Time: Jul 31, 2020 at 08:07 PM
+-- Server version: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,8 +31,11 @@ CREATE TABLE `mm_sale_rate` (
   `frm_dt` date NOT NULL,
   `to_dt` date NOT NULL,
   `comp_id` int(10) NOT NULL,
+  `catg_id` int(10) NOT NULL,
   `prod_id` int(10) NOT NULL,
-  `rate` decimal(20,2) NOT NULL,
+  `sp_mt` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `sp_bag` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `sp_govt` decimal(10,2) NOT NULL DEFAULT '0.00',
   `created_by` varchar(50) DEFAULT NULL,
   `created_dt` date DEFAULT NULL,
   `modified_by` varchar(50) DEFAULT NULL,
@@ -43,16 +46,16 @@ CREATE TABLE `mm_sale_rate` (
 -- Dumping data for table `mm_sale_rate`
 --
 
-INSERT INTO `mm_sale_rate` (`district`, `frm_dt`, `to_dt`, `comp_id`, `prod_id`, `rate`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(328, '2020-07-31', '2020-07-31', 1, 19, '77.58', 'synergic', '2020-07-15', NULL, NULL),
-(329, '2020-07-01', '2020-07-31', 5, 59, '50.00', 'synergic', '2020-07-16', NULL, NULL),
-(332, '2020-07-01', '2020-07-31', 1, 28, '500.00', 'synergic', '2020-07-17', NULL, NULL),
-(332, '2020-07-15', '2020-07-31', 1, 18, '8.22', 'synergic', '2020-07-15', NULL, NULL),
-(334, '2020-07-01', '2020-07-31', 7, 25, '100.00', 'synergic', '2020-07-16', NULL, NULL),
-(337, '2020-07-01', '2020-08-31', 1, 28, '200.00', 'synergic', '2020-07-20', NULL, NULL),
-(337, '2020-07-01', '2020-08-31', 1, 80, '512.00', 'synergic', '2020-07-20', NULL, NULL),
-(337, '2020-07-01', '2020-08-31', 1, 81, '256.25', 'synergic', '2020-07-20', NULL, NULL),
-(340, '2020-07-07', '2020-07-23', 7, 25, '23.33', 'synergic', '2020-07-15', NULL, NULL);
+INSERT INTO `mm_sale_rate` (`district`, `frm_dt`, `to_dt`, `comp_id`, `catg_id`, `prod_id`, `sp_mt`, `sp_bag`, `sp_govt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+(333, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL),
+(334, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL),
+(336, '2020-07-31', '2020-08-28', 1, 1, 81, '12.00', '12.00', '23.00', 'synergic', '2020-07-31', NULL, NULL),
+(337, '2020-07-31', '2020-08-28', 1, 1, 81, '12.00', '12.00', '23.00', 'synergic', '2020-07-31', NULL, NULL),
+(337, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL),
+(338, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL),
+(339, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL),
+(341, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL),
+(347, '2020-07-31', '2020-09-26', 1, 2, 81, '5000.00', '500.00', '2300.00', 'synergic', '2020-07-31', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -62,7 +65,7 @@ INSERT INTO `mm_sale_rate` (`district`, `frm_dt`, `to_dt`, `comp_id`, `prod_id`,
 -- Indexes for table `mm_sale_rate`
 --
 ALTER TABLE `mm_sale_rate`
-  ADD UNIQUE KEY `idx_mm_sale_rt` (`district`,`frm_dt`,`to_dt`,`comp_id`,`prod_id`,`rate`);
+  ADD UNIQUE KEY `idx_mm_sale_rt` (`district`,`frm_dt`,`to_dt`,`comp_id`,`prod_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
