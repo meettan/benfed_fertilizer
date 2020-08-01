@@ -497,7 +497,7 @@ $(document).ready(function(){
                                                                             
             .done(function(data)
             {
-                //  console.log(data);
+                
                 var unitData = JSON.parse(data);
             
             //     var string = '<option value="">Select</option>';
@@ -571,9 +571,6 @@ $(document).ready(function(){
 
              $('.sale_category').eq($('.ro').index(this)).html(string); 
 
-            //$('#stock_point').html(string);
-
-
           });
 
         });
@@ -581,6 +578,7 @@ $(document).ready(function(){
     });
 
 </script>
+
 <script>
 
 $(document).ready(function()
@@ -588,62 +586,40 @@ $(document).ready(function()
     $('#intro').on( "change", ".qty", function()
     {
        
-           var sum    = 0;
+           var sum         = 0;
+           var tot_amt     = 0;
+           var taxable_amt = 0;
+           var cgst        = 0;
+
        var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
+
        var qty = $('.qty').eq($('.ro').index(this)).val();
        var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
       var stkqty = $('.stock_qty').eq($('.ro').index(this)).val();
     //   alert(stkqty);
-       if (sale_rt==0){
-        alert('Sale rate Can not be zero');
-        var txtBox=document.getElementById("sale_rt" );
-        txtBox.focus();
-    return false;
-       }
+    //    if (sale_rt==0){
+    //     alert('Sale rate Can not be zero');
+    //     var txtBox=document.getElementById("sale_rt" );
+    //     txtBox.focus();
+    // return false;
+    //    }
 
-       if (qty>stkqty){
-        alert('Quantity Can not Greater Than Stock Quantity ');
-        var txtBox=document.getElementById("qty" );
-        txtBox.focus();
-    return false;
-       }
+    //    if (qty>stkqty){
+    //     alert('Quantity Can not Greater Than Stock Quantity ');
+    //     var txtBox=document.getElementById("qty" );
+    //     txtBox.focus();
+    // return false;
+    //    }
        var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
-       var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
-       var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
-       var total =0.00;
-     total = parseFloat(total) + parseFloat(tot_amt); 
-       
-       
-    //    total += parseFloat(tot_amt); 
-        $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
+       var cgst = parseFloat(taxable_amt * gst_rt/100/2).toFixed('2');
 
-                                                                  
-        .done(function(data)
-        {
-         
-            var unitData = JSON.parse(data);
-           
-            
-            $('.taxable_amt').eq($('.ro').index(this)).val(taxable_amt);
-            $('.cgst').eq($('.ro').index(this)).val(cgst);
-            $('.sgst').eq($('.ro').index(this)).val(cgst);
-            $('.tot_amt').eq($('.ro').index(this)).val(tot_amt);
-            
-           
-      $("input[class *= 'tot_amt']").each(function(){
-           sum += parseFloat($(this).val());
-                      
-            });
+       var tot_amt = parseFloat(taxable_amt + (cgst*2)).toFixed('2');
 
-            $("#total").val("0");
-            $("#total").val(sum.toFixed());
-        });
+       $('.taxable_amt').eq($('.ro').index(this)).val(taxable_amt);
+       $('.cgst').eq($('.ro').index(this)).val(cgst);
+       $('.sgst').eq($('.ro').index(this)).val(cgst);
 
-         
-       
-    });
-
-     
+        $('.tot_amt').eq($('.ro').index(this)).val(parseFloat(taxable_amt) + parseFloat(cgst*2));
     
    
 });
@@ -656,6 +632,7 @@ $(document).ready(function()
          // var sgst        = 0;
           var qty         = 0;
           var rate        = 0;
+          var gst_rt      = 0;
          
           //  $("input[class *= 'Net_Price']").each(function(){
          //   let row          = $(this).closest('tr');
@@ -664,9 +641,9 @@ $(document).ready(function()
                $('#intro tr').each(function() {
 
 
-                 var qty = $(this).find('td:eq(5) .qty').val();
-                 var rate = $(this).find('td:eq(6) .sale_rt').val();
-                 var gst_rt = $(this).find('td:eq(7) .gst_rt').val();
+                 var qty = $(this).find('td:eq(6) .qty').val();
+                 var rate = $(this).find('td:eq(7) .sale_rt').val();
+                 var gst_rt = $(this).find('td:eq(8) .gst_rt').val();
 
                 
              //   var tot_amt += parseFloat(taxable_amt + cgst*2).toFixed('2')
@@ -685,39 +662,81 @@ $(document).ready(function()
             $("#tot_sgst").html(cgst.toFixed('2')); 
             $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
 
-         //           var tottaxable  = 0;
-         //           var cgst        = '';
-         // // var sgst        = 0;
-         //          var tot_discnt  = 0;
-         //          var gross       = 0;
+    
         })
 
+    ///       get Sale rate In MT
+    $('#intro').on( "change", ".sale_category", function(){   
 
- $('.table tbody').on('change', '.dis', function(){
+        var row = $(this).closest('tr');
 
-       var sum    = 0;
-       var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
-       var qty = $('.qty').eq($('.ro').index(this)).val();
-       var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
-       var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
-       var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
-       var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
-       var total =0.00;
-       total = parseFloat(total) + parseFloat(tot_amt); 
+        var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
+                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
+       
+        $.get('<?php echo site_url("trade/get_salerate");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category: $(this).val() })
+
+                                                                  
+        .done(function(data)
+        {
+         
+            var unitData = JSON.parse(data);
+           
+           row.find('td:eq(7) .sale_rt').val(unitData.sp_mt);
+                      
+        });
+         
+       
+     });
+
+     ///       get Gov rate In MT
+    $('#intro').on( "change", ".gov_sale_rt", function(){   
+
+        var row = $(this).closest('tr');
+
+        var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
+        var sale_category =  $(this).closest('tr').find('td:eq(3) .sale_category').val();
+                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
+       
+        $.get('<?php echo site_url("trade/get_govsalert");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category:sale_category,gov_sale_rt: $(this).val() })
+
+                                                                  
+        .done(function(data)
+        {
+         
+            var unitData = JSON.parse(data);
+           
+           row.find('td:eq(7) .sale_rt').val(unitData.rate);
+                      
+        });
+         
+       
+     });
+
+ // $('.table tbody').on('change', '.dis', function(){
+
+ //       var sum    = 0;
+ //       var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
+ //       var qty = $('.qty').eq($('.ro').index(this)).val();
+ //       var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
+ //       var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
+ //       var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
+ //       var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
+ //       var total =0.00;
+ //       total = parseFloat(total) + parseFloat(tot_amt); 
            
            
          
-          $("input[class *= 'tot_amt']").each(function(){
-           sum += parseFloat($(this).val());
+ //          $("input[class *= 'tot_amt']").each(function(){
+ //           sum += parseFloat($(this).val());
                       
-            });
-            let row   = $(this).closest('tr');
-             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
-            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
+ //            });
+ //            let row   = $(this).closest('tr');
+ //             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
+ //            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
         
-                           row.find('td:eq(9) .tot_amt').val(total-dis);
-            $("#total").val("0");
-            $("#total").val(sum).toFixed(2);
+ //                           row.find('td:eq(9) .tot_amt').val(total-dis);
+ //            $("#total").val("0");
+ //            $("#total").val(sum).toFixed(2);
            
                       
             })
@@ -796,6 +815,7 @@ $(document).ready(function()
             })
             });
             </script>
+
             <script>
             $(document).ready(function(){
             $("#sale_due_dt").change(function(){

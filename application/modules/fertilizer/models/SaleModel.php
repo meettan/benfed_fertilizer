@@ -63,6 +63,43 @@
 			                             and '$ro_dt' BETWEEN a.frm_dt and a.to_dt");
 			return $sql->result();
 		}
+		public function get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category)
+		{
+
+		$sql = $this->db->query("SELECT sp_mt
+									from  mm_sale_rate
+	   					                 					   							
+					                     where  catg_id = '$category'
+					                     and district='$br_cd'
+			                             and comp_id='$comp_id'
+			                             and prod_id ='$prod_id'
+			                             and '$ro_dt' BETWEEN frm_dt and to_dt");
+			return $sql->row();
+		}
+		public function get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt)
+		{
+
+			if($gov_sale_rt =="N"){
+									 $sql = $this->db->query("SELECT sp_mt as rate
+														     from  mm_sale_rate
+										                     where  catg_id = '$category'
+										                     and district='$br_cd'
+								                             and comp_id='$comp_id'
+								                             and prod_id ='$prod_id'
+								                             and '$ro_dt' BETWEEN frm_dt and to_dt");
+			}else{
+									$sql = $this->db->query("SELECT sp_govt  as rate
+														     from  mm_sale_rate
+										                     where  catg_id = '$category'
+										                     and district='$br_cd'
+								                             and comp_id='$comp_id'
+								                             and prod_id ='$prod_id'
+								                             and '$ro_dt' BETWEEN frm_dt and to_dt");
+			}
+
+		
+			return $sql->row();
+		}
 
 		public function js_get_stock_point($ro,$dist_id){
 

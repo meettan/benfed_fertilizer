@@ -63,6 +63,64 @@
  			echo json_encode($result);
 
 		} 
+		public function get_salerate(){
+
+
+			$ro = $this->input->get('ro');
+			$comp_id = $this->input->get('comp_id');
+			$category = $this->input->get('sale_category');
+
+			 $where  =   array(
+
+					'comp_id'     => $this->input->get('comp_id'),
+
+					'ro_no'      =>  $this->input->get('ro')
+
+				);
+
+			$select = array("ro_dt","prod_id");
+
+			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+		    
+            $ro_dt      = $ros->ro_dt;
+            $prod_id    = $ros->prod_id;
+            $br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+            $result = $this->SaleModel->get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category);		
+			
+ 			echo json_encode($result);
+
+		} 
+
+		public function get_govsalert(){
+
+			$ro = $this->input->get('ro');
+			$comp_id = $this->input->get('comp_id');
+			$category = $this->input->get('sale_category');
+			$gov_sale_rt = $this->input->get('sale_category');
+
+			 $where  =   array(
+
+					'comp_id'     => $this->input->get('comp_id'),
+
+					'ro_no'      =>  $this->input->get('ro')
+
+				);
+
+			$select = array("ro_dt","prod_id");
+
+			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+		    
+            $ro_dt      = $ros->ro_dt;
+            $prod_id    = $ros->prod_id;
+            $br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+            $result = $this->SaleModel->get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt);		
+			
+ 			echo json_encode($result);
+
+
+		}
 		
 		public function sale(){
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];

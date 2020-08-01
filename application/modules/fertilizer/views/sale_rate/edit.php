@@ -101,7 +101,7 @@
                 </div>
 
                     <div class="form-group row">
-                    <label for="sp_mt" class="col-sm-2 col-form-label">Sale Price in Empty:</label>
+                    <label for="sp_mt" class="col-sm-2 col-form-label">Sale Price in MT:</label>
                     <div class="col-sm-4">
 
                         <input type="text" id="sp_mt" name="sp_mt" class="form-control" value="<?php echo $schdtls->sp_mt; ?>" readonly />
