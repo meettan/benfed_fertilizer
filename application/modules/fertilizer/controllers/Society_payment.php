@@ -106,7 +106,7 @@
 		   $data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls();
 		   $this->load->view("post_login/fertilizer_main");
 	   
-		   $this->load->view("Society_payment/dashboard",$data);
+		   $this->load->view("society_payment/dashboard",$data);
 	   
 		   $this->load->view('search/search');
 	   
