@@ -844,19 +844,19 @@ public function categoryedit(){
 }
 
 /*************************************************Sale Rate Master*********************************************** */
+
+//Dashboard
 public function sale_rate(){
-	$select = array("a.district","d.district_name","a.frm_dt","a.to_dt","a.sp_mt","b.comp_name","a.comp_id","c.prod_desc","a.prod_id");
+	$select = array("a.frm_dt","a.to_dt","b.comp_name","a.comp_id","c.prod_desc","a.prod_id","d.cate_desc","a.catg_id");
 
 	$where      =   array(
 
 		"a.comp_id = b.comp_id"  => NULL,
 		"a.prod_id= c.prod_id"=>NULL,
-	    "a.district=d.district_code"=>NULL	);
+		"a.catg_id=d.sl_no"=>NULL);
 		   
-		// $ro   = $this->FertilizerModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
-	$bank['data']   = $this->FertilizerModel->f_select('mm_sale_rate a,mm_company_dtls b,mm_product c,md_district d',$select,$where,0);
-//   echo $this->db->last_query();
-// / die();
+	$bank['data']   = $this->FertilizerModel->f_select_distinct('mm_sale_rate a,mm_company_dtls b,mm_product c,mm_category d',$select,$where,0);
+
 	$this->load->view("post_login/fertilizer_main");
 
 	$this->load->view("sale_rate/dashboard",$bank);
@@ -888,6 +888,8 @@ public function f_get_category(){
  			echo json_encode($result);
 
 } 
+
+//Add sale rate
 public function salerateAdd(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -978,12 +980,15 @@ public function editsalerate(){
 		);
 
 		$where = array(
-				"district" => $this->input->post('district'),
-				"prod_id"     =>  $this->input->post('prod_id'),
-				"comp_id"   =>  $this->input->post('comp_id'),
-				"frm_dt"      =>  $this->input->post('frm_dt'),
-				"to_dt"    =>  $this->input->post('to_dt')
+				"catg_id" 		=> $this->input->post('catg_id'),
 
+				"prod_id"     	=>  $this->input->post('prod_id'),
+
+				"comp_id"   	=>  $this->input->post('comp_id'),
+
+				"frm_dt"      	=>  $this->input->post('frm_dt'),
+
+				"to_dt"    		=>  $this->input->post('to_dt')
 				
 		);
 		 
@@ -997,32 +1002,53 @@ public function editsalerate(){
 	}else{
 			$select = array(
 					"a.prod_id",
+
 					"a.comp_id",
+
 					"a.district" ,
+
+					"a.catg_id",
+
 					"a.frm_dt",
+
 					"a.to_dt"  ,
-					"a.sp_mt","a.sp_bag","a.sp_govt","a.catg_id",
+
+					"a.sp_mt","a.sp_bag","a.sp_govt",
+
 					"b.prod_desc",
+
 					"c.comp_name" ,
-				"d.district_name" 
+
+					"d.district_name" ,
+
+					"e.cate_desc"
 				);
 
 			$where = array(
 				"a.prod_id" => $this->input->get('prod_id'),
+
 				"a.comp_id" =>  $this->input->get('comp_id'),
+
 				"a.frm_dt" =>  $this->input->get('frm_dt'),
+
 				"a.to_dt" =>  $this->input->get('to_dt'),
-				"a.district" =>  $this->input->get('district'),
+
+				"a.catg_id" =>  $this->input->get('catg_id'),
+
 				"a.prod_id=b.prod_id"=>NULL,
+
 				"a.comp_id=c.comp_id"=>NULL,
-				"a.district=d.district_code" =>NULL
+
+				"a.catg_id=e.sl_no" =>NULL
+
 				);
 			
 			$wheres = array(
 				"comp_id" =>  $this->input->get('comp_id'),
 				);
 
-		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d",$select,$where,1);
+		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d,mm_category e",$select,$where,0);
+		
 		$sch['cat_names'] = $this->FertilizerModel->f_select("mm_category",NULL,$wheres,0);
 
 		$this->load->view('post_login/fertilizer_main');

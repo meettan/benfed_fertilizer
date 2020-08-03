@@ -38,6 +38,28 @@
 				return $value->result();
 			}
 		}
+
+
+		public function f_select_distinct($table,$select=NULL,$where=NULL,$type){	/**Select distinct data */
+
+			$this->db->distinct();
+
+			if(isset($select)){
+				$this->db->select($select);
+			}
+
+			if(isset($where)){
+				$this->db->where($where);
+			}
+
+			$value = $this->db->get($table);
+
+			if($type==1){
+				return $value->row();
+			}else{
+				return $value->result();
+			}
+		}
 																			/*Select Maximun soceity Code*/					
 		public function get_soceity_code(){
 

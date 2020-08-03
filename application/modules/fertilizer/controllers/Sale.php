@@ -205,7 +205,7 @@ public function saleAdd(){   //================================================
 
                                     'sgst'        => $_POST['sgst'][$i],
 
-                                    'dis'        => $_POST['dis'][$i],
+                                    //'dis'        => $_POST['dis'][$i],
 
                                     'tot_amt'     => $_POST['tot_amt'][$i],
 
