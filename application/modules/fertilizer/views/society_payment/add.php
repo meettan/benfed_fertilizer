@@ -153,7 +153,7 @@
 
                             <thead>
                                 <th style= "text-align: center;width:100px">Pay Type</th>
-                                
+                                <th style= "text-align: center;width:100px">Reference No.</th>
 								<th style= "text-align: center;width:100px">Amount</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
@@ -175,13 +175,18 @@
 						<option value="3">Cheque</option>
                         <option value="4">Draft</option>
                         <option value="5">Pay Order</option>
+                        <option value="6">DR Note</option>
+                        <option value="7">NEFT/RTGS</option>
                    
             </select> 
                                     </td>
-
+                                    <td>
+                                      <input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" required>
+                                    </td>
 									<td>
                                       <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>
                                     </td>
+                                    
                                    
                                 </tr>
 
@@ -189,7 +194,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <td colspan="1">
+                                    <td colspan="2">
                                         Total:
                                     </td>
                                     <td colspan="2">
@@ -241,8 +246,9 @@
                        + '<option value="4">Draft</option>'
                       +  '<option value="5">Pay Order</option>'
                                 +'</td>'
-                               
-                              
+                               +'<td>'
+                                +'<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" required>'
+                                +'</td>'
 								+'<td>'
                                     +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>'
                                 +'</td>'
