@@ -198,7 +198,7 @@
                                         Total:
                                     </td>
                                     <td colspan="2">
-                                        <input name="total" style="width:150px;" id="total" class="form-control total" placeholder="Total">  
+                                        <input name="total" style="width:150px;" id="total" class="form-control total" placeholder="Total" readonly>  
                                     </td>
                                 </tr>
                             </tfoot>
@@ -508,3 +508,103 @@ $(document).ready(function(){
 
 });
 </script>
+
+<!-- <script>
+
+$(document).ready(function()
+{
+    $('#intro').on( "change", ".sale_rt", function()
+    {
+       
+           var sum    = 0;
+       var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
+       var qty = $('.qty').eq($('.ro').index(this)).val();
+       var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
+       var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
+       var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
+       var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
+     var total =0.00;
+     total = parseFloat(total) + parseFloat(tot_amt); 
+       
+       
+    //    total += parseFloat(tot_amt); 
+        $.get('<?php echo site_url("fertilizer/js_get_stock_qty");?>',{ ro: $(this).val() })
+
+                                                                  
+        .done(function(data)
+        {
+             console.log(data);
+            var unitData = JSON.parse(data);
+             console.log(unitData);
+           
+            
+            $('.taxable_amt').eq($('.ro').index(this)).val(taxable_amt);
+            $('.cgst').eq($('.ro').index(this)).val(cgst);
+            $('.sgst').eq($('.ro').index(this)).val(cgst);
+            $('.tot_amt').eq($('.ro').index(this)).val(tot_amt);
+            
+                       
+           // $('#total').val(parseFloat(total).toFixed());  
+
+             $("input[class *= 'tot_amt']").each(function(){
+           sum += parseFloat($(this).val());
+                      
+            });
+
+            $("#total").val("0");
+            $("#total").val(sum).toFixed();
+
+        });
+       
+    });
+    
+   
+});
+
+ $('.table tbody').on('change', '.qty', function(){
+
+   
+          
+            let row          = $(this).closest('tr');
+            var qty          = row.find('td:eq(3) .qty').val();
+        
+            
+            var stock        = row.find('td:eq(2) .stock_qty').val();
+
+         
+                if (parseFloat(qty)>parseFloat(stock)  ){
+              //  var zero_qty          = null;
+               
+                row.find('td:eq(3)  input').val("0");
+             
+                alert('Sale Quantity Should Not Be Greater Than Stock Quantity!');
+
+              }
+           
+                      
+            })
+ $('.table tbody').on('change', '.dis', function(){
+
+   
+           var sum =0;
+            let row   = $(this).closest('tr');
+             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
+            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
+        
+                           row.find('td:eq(9) .tot_amt').val(tot_amt-dis);
+           
+         
+               $("input[class *= 'tot_amt']").each(function(){
+           sum += parseFloat($(this).val());
+                      
+            });
+
+            $("#total").val("0");
+            $("#total").val(sum).toFixed(2);
+           
+                      
+            })
+
+        
+
+</script> -->

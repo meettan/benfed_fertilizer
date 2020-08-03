@@ -53,8 +53,8 @@
         
         public function f_get_soc_payment_dtls(){
 
-            $data = $this->db->query("select a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.sale_invoice_no,a.sale_invoice_dt,comp_id,
-            a.ro_no,a.prod_id,a.pay_type,a.tot_recvble_amt,a.adj_dr_note_amt,a.adj_adv_amt,a.net_recvble_amt,
+            $data = $this->db->query("select a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.sale_invoice_no,a.sale_invoice_dt,
+            a.ro_no,a.pay_type,a.tot_recvble_amt,a.adj_dr_note_amt,a.adj_adv_amt,a.net_recvble_amt,
             a.paid_amt,a.created_by,a.created_dt,a.modified_by,a.modified_dt,a.branch_id,a.fin_yr
                                         from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id");
     
