@@ -124,7 +124,7 @@
 		
 		public function sale(){
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-			$fin_id=$this->session->userdata['loggedin']['fin_id'];
+			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
 			
 			$bank['data']    = $this->SaleModel->f_get_sales_dtls($br_cd,$fin_id);
 	

@@ -117,6 +117,7 @@
                           <!-- <?php } ?> -->
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("socpay/society_payment");?>">Society Payment</a>
+                              <a href="<?php echo site_url("drcrnote/dr_note");?>">Dr Note</a>
                               <!--<a href="<?php echo site_url("fertilizer/cr_note");?>">Cr Note</a>
                               <a href="<?php echo site_url("fertilizer/dr_Note");?>">Dr Note </a>
                               <a href="<?php echo site_url("fertilizer/trfDashboard");?>">Sale Return </a>-->
