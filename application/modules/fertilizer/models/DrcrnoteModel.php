@@ -42,7 +42,7 @@
 	  
 		  return $result->row();
 
-  }
+        }
 		public function js_get_stock_qty($ro)
 		{
 
@@ -63,6 +63,20 @@
 		
 			
 		}
+
+		public function get_invoice_dtls($soc_id,$trans_do){
+
+		$data = $this->db->query("select trans_do,do_dt,sale_due_dt,sum(tot_amt) tot_amt
+									from  td_sale					   							
+					                where trans_do = '$trans_do'
+					                and   soc_id  =  '$soc_id'
+									group by trans_do,do_dt,sale_due_dt");
+		
+		 return $data->row();
+		
+			
+		}
+
 		public function f_get_crnote_dtls(){
 			// $user_id    = $this->session->userdata('login')->user_id;
 	

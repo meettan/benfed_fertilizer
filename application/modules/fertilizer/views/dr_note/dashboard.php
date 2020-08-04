@@ -27,9 +27,9 @@
 
                     <tr>
                     	<th>Sl No.</th>
-                        <th>Company</th>
+                      <!--   <th>Company</th>
                         <th>Ro No</th>
-                        <th>Ro dt</th>
+                        <th>Ro dt</th> -->
                         <th>Invoice NO</th>
                         <th>Amout</th>
                      
@@ -48,19 +48,19 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                                <td><?php echo $dr->COMP_NAME; ?></td>
-                                <td><?php echo $dr->ro_no; ?></td>
-                                <td><?php echo date("d/m/Y",strtotime($dr->ro_dt)); ?></td>
+                                <!-- <td><?php //echo $dr->COMP_NAME; ?></td>
+                                <td><?php //echo $dr->ro_no; ?></td>
+                                <td><?php //echo date("d/m/Y",strtotime($dr->ro_dt)); ?></td> -->
 				                <td><?php echo $dr->invoice_no; ?></td>
                                 <td><?php echo $dr->tot_amt; ?></td>
                                
-			 	                <td><a href="drnote_edit?trans_do=<?=$dr->comp_id;?>/<?=$dr->ro_no;?>" 
+			 	                <td><a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&invoice_no=<?=$dr->invoice_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
-                               <button type="button" class="delete" id="<?=$dr->comp_id;?>/<?=$dr->ro_no;?>"    
+                               <button type="button" class="delete" id="<?=$dr->trans_dt;?>&invoice_no=<?=$dr->invoice_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
@@ -89,10 +89,10 @@
                     <tr>
                     
                     <th>Sl No.</th>
-                        <th>Company</th>
+                       <!--  <th>Company</th>
                         <th>Do No</th>
-            			<!-- <th>Prod Id</th> -->
-                        <th>Do_dt</th>
+            			
+                        <th>Do_dt</th> -->
                         <th>Invoice NO</th>
                         <th>Amout</th>
                   
@@ -120,7 +120,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('fertilizer/deletedr_note?trans_do="+id+"');?>";
+                window.location = "<?php echo site_url('drcrnote/deletedr_note?trans_dt="+id+"');?>";
 
             }
             

@@ -6,7 +6,6 @@
 		parent::__construct();	
 		$this->load->model('DrcrnoteModel');
 		$this->load->helper('paddyrate_helper');
-		// $data       = $this->FertilizerModel->f_get_particulars_in('md_parameters', array(16, 17), array(""));
 
 		// $this->kms_year   = substr($data[0]->param_value, 0,4).'-'.substr($data[1]->param_value, 2,2);
 		//$this->session->userdata('kms_yr');
@@ -15,7 +14,7 @@
 		public function dr_note(){
 			$this->sysdate  = $_SESSION['sys_date'];
 		   //$data['dr_notes']    = $this->DrcrnoteModel->f_get_drnote_dtls();
-		   $data['dr_notes']    = $this->DrcrnoteModel->f_select("td_dr_note",NULL,NULL,0);
+		   $data['dr_notes']    = $this->DrcrnoteModel->f_select("tdf_dr_cr_note",NULL,NULL,0);
 		   $this->load->view("post_login/fertilizer_main");
 	   
 		   $this->load->view("dr_note/dashboard",$data);
@@ -24,164 +23,166 @@
 	   
 		   $this->load->view('post_login/footer');
 	   }
-//     Add DR note code written by Lokesh kumar jha 09/04/2020"
-	   public function drnoteAdd(){
 
-		if($_SERVER['REQUEST_METHOD'] == "POST") {
-				
 
-				$soc_amt = $this->input->post('soc_amt');
-				
-				  for($i = 0; $i < count($soc_amt); $i++){
-	
-				  $data     = array(
-										
-										'ro_no'        => $this->input->post('ro_no'),
-	
-										'ro_dt'        => $this->input->post('ro_dt'),
-	
-										'invoice_no'   => $this->input->post('invoice_no'),
+	   public function invoice_detail(){
 
-										'invoice_dt'   => $this->input->post('invoice_dt'),
-
-										'trans_dt'    =>  date('Y-m-d'),
-	
-										'tot_amt'  => $this->input->post('tot_amt'),
-
-										'comp_id'     => $this->input->post('comp_id'),
-	
-										'soc_id'   => $_POST['soc_id'][$i],
-	
-										'soc_amt'    => $_POST['soc_amt'][$i],
-										
-										"created_by"  =>  $this->session->userdata['loggedin']['user_name'],
-	
-										"created_dt"  =>  date('Y-m-d'),
-
-										'branch_id'     =>$this->session->userdata['loggedin']['branch_id']
-
-										 
-									);
-	
-					$this->FertilizerModel->f_insert('td_dr_note', $data);
-	
-				}
-					
-					$this->session->set_flashdata('msg', 'Successfully Added');
-	
-						redirect('fertilizer/dr_note');
-			
+		    $soc_id = $this->input->get("soc_id");
+		    $invoice_no = $this->input->get("invoice_no");
 			   
+			$data    = $this->DrcrnoteModel->get_invoice_dtls($soc_id,$invoice_no);
+
+			echo json_encode($data);
+		
+		}
+//     Add DR note code written by Lokesh kumar jha 09/04/2020"
+	public function drnoteAdd(){
+
+			if($_SERVER['REQUEST_METHOD'] == "POST") {
+					
+	           $data  = array (
+					'soc_id'      => $this->input->post('soc_id'),
+
+					'invoice_no'  => $this->input->post('invoice_no'),
+
+					'invoice_dt'  => $this->input->post('invoice_dt'),
+
+					'trans_dt'    =>  $this->input->post('trans_dt'),
+
+					'tot_amt'     => $this->input->post('tot_amt'),
+
+					'branch_id'   => $this->session->userdata['loggedin']['branch_id'],
+
+					"remarks"     => $this->input->post('remarks'),
+
+					"fin_yr"      => $this->session->userdata['loggedin']['fin_id'],
+					
+					'created_by'  => $this->session->userdata['loggedin']['user_name'],
+
+					'created_dt'  =>  date('Y-m-d')
+
+				  );
+							
+					$this->DrcrnoteModel->f_insert('tdf_dr_cr_note', $data);
+							
+					$this->session->set_flashdata('msg', 'Successfully Added');
+		
+				    redirect('drcrnote/dr_note');
 				
-				}else {
+				   
+					
+					}else {
+				
+			              $wheres = array(
 
-				$select4        = array("id","branch_name");
-				$product['brdtls']   = $this->DrcrnoteModel->f_select('md_branch',$select4,NULL,0);
-
-				$select3         = array("comp_id","comp_name");
-				$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select3,NULL,0);
-
-	
-				$select1          = array("soc_id","soc_name","soc_add","gstin");
-				$product['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select1,NULL,0);
-	
-				// $branch_id  = $this->session->userdata['loggedin']['branch_id'];
-				// $product['ro_dtls']   = $this->DrcrnoteModel->f_getdo_dtl($branch_id);	
-	
-		$this->load->view('post_login/fertilizer_main');
-	
-		$this->load->view("dr_note/add",$product);
-	
-		$this->load->view('post_login/footer');
-	}
+			              	"district" => $this->session->userdata['loggedin']['branch_id']
+			                   
+			              );
+		
+					$select1          = array("soc_id","soc_name","soc_add","gstin");
+					$product['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+		
+					// $branch_id  = $this->session->userdata['loggedin']['branch_id'];
+					// $product['ro_dtls']   = $this->DrcrnoteModel->f_getdo_dtl($branch_id);	
+		
+			$this->load->view('post_login/fertilizer_main');
+		
+			$this->load->view("dr_note/add",$product);
+		
+			$this->load->view('post_login/footer');
+	   }
 	
 	}
 
 	//     edit DR note code written by Lokesh kumar jha 09/04/2020"
-     public function drnote_edit(){
-
+    public function drnote_edit(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-	
-            	$soc_amt = $this->input->post('soc_amt');
-
-
-					
-			  for($i = 0; $i < count($soc_amt); $i++){
-
 			  $data     = array(
 
-			  	                 'comp_id'     => $this->input->post('comp_id'),
+								'tot_amt'       => $this->input->post('tot_amt'),
 
-                                    'ro_no'      => $this->input->post('ro_no'),
-	
-										'ro_dt'        => $this->input->post('ro_dt'),
-	
-										'invoice_no'   => $this->input->post('invoice_no'),
+								'remarks'       => $this->input->post('remarks'),
 
-										'invoice_dt'   => $this->input->post('invoice_dt'),
-	
-										'tot_amt'  => $this->input->post('tot_amt'),
+								'modified_by'   => $this->session->userdata['loggedin']['user_name'],
 
-	
-										'soc_id'   => $_POST['soc_id'][$i],
-	
-										'soc_amt'    => $_POST['soc_amt'][$i]
+								'modified_dt'   =>  date('Y-m-d'),
 
                                 );
 
 		   $where  =   array(
 
-		   	     'soc_id'   => $_POST['soc_id'][$i],
+                 'trans_dt'     => $this->input->post('trans_dt'),
 
-                 'comp_id'     => $this->input->post('comp_id'),
-
-                 'ro_no'      => $this->input->post('ro_no'),
+                 'invoice_no'      => $this->input->post('invoice_no'),
 
             );
 
-            $this->FertilizerModel->f_edit('td_dr_note', $data, $where);
+            $this->DrcrnoteModel->f_edit('tdf_dr_cr_note', $data, $where);
 
-							}
-				
-				$this->session->set_flashdata('msg', 'Successfully Updated');
+							
+			$this->session->set_flashdata('msg', 'Successfully Updated');
 
-			redirect('fertilizer/dr_note');
-		
-           
+			redirect('drcrnote/dr_note');
+			
             
 			}else {
 
 
               $where = array(
 
-              	"comp_id" => explode("/",$this->input->get('trans_do'))["0"],
+              	"trans_dt" => $this->input->get('trans_dt'),
                     
-                "ro_no" => explode("/",$this->input->get('trans_do'))["1"]
+                "invoice_no" => $this->input->get('invoice_no')
               );
 
-           $select          = array("soc_id","soc_name","soc_add","gstin");
-				$product['socdtls']   = $this->FertilizerModel->f_select('mm_ferti_soc',$select,NULL,0);
+              $wheres = array(
 
-			$select1  = array("comp_id","comp_name");
-			$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
+              	"district" => $this->session->userdata['loggedin']['branch_id']
+                   
+              );
 
-			$product['cr_detals']   = $this->FertilizerModel->f_select('td_dr_note',NULL,$where,0);
-			$branch_id  = $this->session->userdata['loggedin']['branch_id'];
-			$product['ro_dtls']   = $this->FertilizerModel->f_getdo_dtl($branch_id);	
+             $select          = array("soc_id","soc_name","soc_add","gstin");
+		     $product['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select,$wheres,0);
 
+
+			  $product['cr_detals']   = $this->DrcrnoteModel->f_select('tdf_dr_cr_note',NULL,$where,0);
+
+		
 	        $this->load->view('post_login/fertilizer_main');
 
 	        $this->load->view("dr_note/edit",$product);
 
 	        $this->load->view('post_login/footer');
-     }
+       }
 
-}
+    }
+
+    	//     delete cr note code written by Lokesh kumar jha 08/04/2020"
+	public function deletedr_note() {
+
+				 $where  =   array(
+
+			                 	"trans_dt" => $this->input->get('trans_dt'),
+			                    
+			                    "invoice_no"   => $this->input->get('invoice_no')
+
+			                   );
+
+		
+
+			$this->DrcrnoteModel->f_delete('tdf_dr_cr_note', $where);
+
+			$this->session->set_flashdata('msg', 'Successfully Deleted!');
+
+			redirect('drcrnote/dr_note');
+
+	}	
+
 
      //     edit DR note code written by Lokesh kumar jha 11/04/2020"
-	        public function do_detail(){
+	    public function do_detail(){
             
 	        $select = array("a.do_dt", "a.invoice_no","a.comp_id","a.invoice_dt","a.tot_cr_amt", "b.COMP_NAME", "b.GST_NO");
        		
@@ -390,328 +391,10 @@ $this->session->set_flashdata('msg', 'Successfully Deleted!');
 redirect('fertilizer/cr_note');
 
 }	
+
+
+
 		
-	
-		public function js_get_stock_qty()
-		{
-
-			$ro = $this->input->get('ro');
-			// var_dump($ro);die;
-			$result = $this->FertilizerModel->js_get_stock_qty($ro);
-			
- 			echo json_encode($result);
-
-		} 
-		
-		public function sale(){
-			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-			// $select          = array("trans_do","trans_do",	"do_dt",	"trans_type", "tot_amt");
-	   
-			// $bank['data']    = $this->FertilizerModel->f_select('td_sale',$select,NULL,0);
-		   $bank['data']    = $this->FertilizerModel->f_get_sales_dtls($br_cd);
-		   $this->load->view("post_login/fertilizer_main");
-	   
-		   $this->load->view("sale/dashboard",$bank);
-	   
-		   $this->load->view('search/search');
-	   
-		   $this->load->view('post_login/footer');
-	   }
-
-
-    public function viewinvoice(){
-
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-		$data_array = array(
-			"comp_id" => $comp_id,
-
-			//  "comp_add">$comp_add,
-			 
-			 "gstin"=> $gstin,
-
-			//  "cin" =>$cin,
-			 
-			"prod_id" => $prod_id,
-
-			"ro"   => $ro_no,
-		   
-			// "ro_dt"    => $ro_dt,
-			
-			"due_dt"    => $due_dt,
-
-			"invoice_no" => $invoice_no,
-		
-			"invoice_dt" =>  $invoice_dt,
-
-			"qty" =>  $qty,
-
-		   "base_price"  => $no_of_bags,
-
-		   "cgst" => $cgst,
-
-		   "sgst" => $sgst,
-		   
-           "tot_amt"=>$rnd_of_less,
-
-		   "retlr_margin"=> $retlr_margin,
-
-			"spl_rebt"=> $spl_rebt,
-
-			"net_amt"=> $net_amt,
-
-			"stock_qty" =>  $qty,
-					
-			"rbt_add"=> $rbt_add,
-
-			"rbt_less"=> $rbt_less,
-
-			"rnd_of_add" => $rnd_of_add,
-
-			"rnd_of_less"    => $rnd_of_less,
-
-			"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-
-			"created_dt"    =>  date('Y-m-d h:i:s'));
-
-		$where = array(
-				"ro" => $this->input->post('ro')
-		);
-		 
-
-		$this->FertilizerModel->f_edit('td_invoice_entry', $data_array, $where);
-
-		$this->session->set_flashdata('msg', 'Successfully Updated');
-
-		redirect('fertilizer/stock_entry');
-
-	}else{
-			$select = array(
-					"comp_id",
-					// "comp_add",
-					"gstin",
-					// "cin" ,
-					"prod_id",
-					"ro",
-					// "ro_dt",
-					"due_dt",
-					"invoice_no",
-					"invoice_dt" ,
-					"qty" ,
-					"cgst" ,
-					"sgst",
-					"tot_amt",
-					"net_amt",
-					"stock_qty",
-					"base_price",
-					"retlr_margin",
-					"spl_rebt"   ,
-					"rbt_add"   ,
-					"rbt_les",
-					"rnd_of_add",
-					"rnd_of_les"                      
-		);
-
-			$where = array(
-				"ro" => $this->input->get('ro')
-				);
-
-				$where1 = array(
-					"a.comp_id = b.comp_id"    => NULL
-					);
-		
-					$where2 = array(
-						"a.prod_id = b.prod_id"    => NULL
-						);
-			
-				$select        = array("a.comp_id","a.comp_name","a.comp_add","a.gst_no","a.cin");
-				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls a,td_invoice_entry b',$select,$where1,1);
-// 				echo $this->db->last_query();
-// die();
-
-				$select1          = array("a.prod_id","a.prod_desc","hsn_code","gst_rt");
-				$product['proddtls']   = $this->FertilizerModel->f_select('mm_product a,td_invoice_entry b',$select1,$where2,1);	
-				
-				
-
-				$select2=  array("qty","ro","invoice_no","invoice_dt","due_dt","base_price","tot_amt","net_amt","stock_qty","cgst","sgst","retlr_margin","spl_rebt","rbt_add","rbt_less","rnd_of_add","rnd_of_less");
-				$product['schdtls'] = $this->FertilizerModel->f_select("td_invoice_entry",$select2,$where,1);
-				
-																											
-		$this->load->view('post_login/fertilizer_main');
-
-		$this->load->view("invoice_entry/edit",$product);
-
-		$this->load->view("post_login/footer");
-	}
-    }
-
-///*********************************************** */
-
-		public function invoice_entry(){
-
-			$select          = array("ro","invoice_no","invoice_dt","base_price");
-		
-			$invoice['data']    = $this->FertilizerModel->f_select(' td_invoice_entry',$select,NULL,0);
-			
-			$this->load->view("post_login/fertilizer_main");
-		
-			$this->load->view("invoice_entry/dashboard",$invoice);
-		
-			$this->load->view('search/search');
-		
-			$this->load->view('post_login/footer');
-		}
-		
-
-		public function invoiceAdd(){
-
-			if($_SERVER['REQUEST_METHOD'] == "POST") {
-		
-				
-					$comp_id = $this->input->post('comp_id');
-					 
-					$prod_id = $this->input->post('prod_id');
-		
-					$ro_no = $this->input->post('ro_no');
-					
-					$due_dt    = $this->input->post('due_dt');
-		
-					$invoice_no = $this->input->post('invoice_no');
-		
-					$invoice_dt = $this->input->post('invoice_dt');
-		
-					$qty = $this->input->post('qty');
-
-					$rate = $this->input->post('rate');
-
-					$base_price = $this->input->post('base_price');
-
-					$cgst = $this->input->post('cgst');
-
-					$sgst = $this->input->post('sgst');
-		
-					$retlr_margin= $this->input->post('retlr_margin');
-
-					$spl_rebt= $this->input->post('spl_rebt');
-
-					$add_adj_amt= $this->input->post('adj_amt');
-
-					$less_adj_amt= $this->input->post('less_amt');
-
-					$net_amt= $this->input->post('net_amt');
-
-					$rbt_add= $this->input->post('rbt_add');
-
-					$rbt_less= $this->input->post('rbt_less');
-
-					$rnd_of_add= $this->input->post('rnd_of_add');
-
-					$rnd_of_less= $this->input->post('rnd_of_less');
-
-					$tot_amt= $this->input->post('tot_amt');
-
-					$br_cd      = $this->input->post('br');
-
-					// print_r($br_cd );
-					// die();
-					$data_array = array (
-		
-							"comp_id" => $comp_id,
-					
-							"prod_id" => $prod_id,
-		
-							"ro"   => $ro_no,
-		
-							"due_dt"    => $due_dt,
-		
-							"invoice_no" => $invoice_no,
-						
-							"invoice_dt" =>  $invoice_dt,
-		
-							"qty" =>  $qty,
-
-							"stock_qty"=>  $qty,
-							
-		                   "rate" =>  $rate,
-
-							"base_price" => $base_price,
-
-							"cgst"        => $cgst,
-
-							"sgst"        => $sgst,
-
-							"retlr_margin"   => $retlr_margin,
-							
-							"spl_rebt"       => $spl_rebt,
-
-							"add_adj_amt" => $add_adj_amt,
-
-							"less_adj_amt" => $less_adj_amt,
-
-							"net_amt"        => $net_amt,
-
-							"rbt_add"        => $rbt_add,
-
-							"rbt_less"       => $rbt_less,
-
-							"rnd_of_add"     => $rnd_of_add,
-
-							"rnd_of_less"   => $rnd_of_less,
-
-							"tot_amt"        => $tot_amt,
-
-							// "trans_dt" => date('Y-m-d h:i:s'),
-		
-							// "challan_flag"    => 'Y',
-		
-							"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-		
-							"created_dt"    =>  date('Y-m-d h:i:s'),
-		
-							"br_cd"     => $br_cd);
-					 
-						$this->FertilizerModel->f_insert('td_invoice_entry', $data_array);
-						
-						// echo $this->db->last_query();
-						// die();
-						$this->session->set_flashdata('msg', 'Successfully Added');
-		
-							redirect('fertilizer/invoice_entry');
-					}else {
-				
-
-				
-					$select1          = array("comp_id","comp_name");
-					$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
-
-					$select          = array("prod_id","prod_desc","gst_rt");
-					$product['proddtls']   = $this->FertilizerModel->f_select('mm_product',$select,NULL,0);	
-
-			$this->load->view('post_login/fertilizer_main');
-		
-			$this->load->view("invoice_entry/add",$product);
-		
-			$this->load->view('post_login/footer');
-		}
-		}
-
-
-		public function f_get_company(){
-
-			$select          = array("gst_no","comp_add","cin");
-			
-		   $where=array(
-			   "comp_id" =>$this->input->get("comp_id")
-			   ) ;
-		
-			   
-			$comp    = $this->FertilizerModel->f_select('mm_company_dtls',$select,$where,0);
-			// echo $this->db->last_query();
-			// die();
-			echo json_encode($comp);
-		
-		}
 		public function f_get_soc(){
 
 			$select          = array("soc_id","soc_add","gstin");
@@ -795,203 +478,7 @@ public function f_get_sale_ro(){
 
 
 
- public function stock_entry(){
-	 $br_cd      = $this->session->userdata['loggedin']['branch_id'];
-	// // echo $br_cd  ;
-	// // die();
-	// $select          = array("ro_no","ro_dt","invoice_no","invoice_dt","challan_flag");
 
-	// $where        = array(
-	// 	"br" => $this->session->userdata['loggedin']['branch_id']);
-
-	// $bank['data']    = $this->FertilizerModel->f_select('td_purchase',$select,$where,0);
-	// echo $this->db->last_query();
-	// die();
-	$bank['data']    = $this->FertilizerModel->f_get_stock_view( $br_cd );
-	// echo $this->db->last_query();
-	// die();
-	$this->load->view("post_login/fertilizer_main");
-
-	$this->load->view("stock_entry/dashboard",$bank);
-
-	$this->load->view('search/search');
-
-	$this->load->view('post_login/footer');
-}
-
-// Add stock_entry
-public function stockAdd(){
-
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-		// "kms_year"      =>  $this->kms_year,
-			$kms_year=  $this->session->userdata['loggedin']['kms_yr'];
-			    // $br_cd = $this->session->userdata['loggedin']['branch_id'];
-			   // echo $kms_year;
-			  // die();
-			 $comp_id = $this->input->post('comp_id');
-			 
-			$prod_id = $this->input->post('prod_id');
-
-			$ro_no = $this->input->post('ro_no');
-
-			$ro_dt = $this->input->post('ro_dt');
-			
-			$due_dt    = $this->input->post('due_dt');
-
-			$invoice_no = $this->input->post('invoice_no');
-
-			$invoice_dt = $this->input->post('invoice_dt');
-
-			$qty = $this->input->post('qty');
-
-			$unit = $this->input->post('unit');
-
-			$rate = $this->input->post('rate');
-
-			$base_price = $this->input->post('base_price');
-
-			$cgst = $this->input->post('cgst');
-
-			$sgst = $this->input->post('sgst');
-
-			$retlr_margin= $this->input->post('retlr_margin');
-
-			$spl_rebt= $this->input->post('spl_rebt');
-
-			$add_adj_amt= $this->input->post('adj_amt');
-
-			$less_adj_amt= $this->input->post('less_amt');
-
-			$net_amt= $this->input->post('net_amt');
-
-			$rbt_add= $this->input->post('rbt_add');
-
-			$rbt_less= $this->input->post('rbt_less');
-
-			$rnd_of_add= $this->input->post('rnd_of_add');
-
-			$rnd_of_less= $this->input->post('rnd_of_less');
-
-			$tot_amt= $this->input->post('tot_amt');
-
-			$no_of_bags =  $this->input->post('no_of_bags');
-
-			$reck_pt_rt=  $this->input->post('reck_pt_rt');
-
-			$reck_pt_n_rt=  $this->input->post('reck_pt_n_rt');
-
-			$govt_sale_rt=  $this->input->post('govt_sale_rt');
-
-			$iffco_buf_rt=  $this->input->post('iffco_buf_rt');
-
-			$iffco_n_buff_rt=  $this->input->post('iffco_n_buff_rt');
-
-			$delivery_mode= $this->input->post('delivery_mode');
-            $trans_flag='1';
-
-			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-			// print_r($br_cd );
-			// die();
-			$data_array = array (
-
-					"comp_id" => $comp_id,
-			
-					"prod_id" => $prod_id,
-
-					"ro_no"   => $ro_no,
-
-					"ro_dt"   => $ro_dt,
-
-					"due_dt"    => $due_dt,
-
-					"invoice_no" => $invoice_no,
-				
-					"invoice_dt" =>  $invoice_dt,
-
-					"qty" =>  $qty,
-
-					"unit" => $unit,
-
-					"rate" =>  $rate,
-
-					"base_price" => $base_price,
-
-					"cgst"        => $cgst,
-
-					"sgst"        => $sgst,
-
-					"retlr_margin"   => $retlr_margin,
-					
-					"spl_rebt"       => $spl_rebt,
-
-					"add_adj_amt" => $add_adj_amt,
-
-					"less_adj_amt" => $less_adj_amt,
-
-					"net_amt"        => $net_amt,
-
-					"rbt_add"        => $rbt_add,
-
-					"rbt_less"       => $rbt_less,
-
-					"rnd_of_add"     => $rnd_of_add,
-
-					"rnd_of_less"   => $rnd_of_less,
-
-					"tot_amt"        => $tot_amt,
-
-					"stock_qty" =>  $qty,
-					
-					"no_of_bags"  => $no_of_bags,
-
-					"delivery_mode" =>$delivery_mode,
-
-					"reck_pt_rt"=> $reck_pt_rt,
-
-					"reck_pt_n_rt"=>$reck_pt_n_rt,
-
-					"govt_sale_rt"=>$govt_sale_rt,
-					
-					"iffco_buf_rt"=>$iffco_buf_rt,
-
-					"iffco_n_buff_rt"=>$iffco_n_buff_rt,
-
-					"trans_dt" => date('Y-m-d h:i:s'),
-
-					 "trans_flag" =>$trans_flag,
-
-				    "challan_flag"    => 'N',
-
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-
-					"created_dt"    =>  date('Y-m-d h:i:s'),
-
-					"br"     => $this->session->userdata['loggedin']['branch_id'],
-
-					"fin_yr"   =>$kms_year);
-			 
-				$this->FertilizerModel->f_insert('td_purchase', $data_array);
-				
-				$this->session->set_flashdata('msg', 'Successfully Added');
-
-					redirect('fertilizer/stock_entry');
-			}else {
-        
-				$select1          = array("comp_id","comp_name");
-
-				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
-				
-				$select  =array("id","unit_name");
-				$product['unitdtls']   = $this->FertilizerModel->f_select('mm_unit',$select,NULL,0);
-				
-	$this->load->view('post_login/fertilizer_main');
-
-	$this->load->view("stock_entry/add",$product);
-
-	$this->load->view('post_login/footer');
-}
-}
 public function deletero() {
 
 	$where = array(
@@ -1359,280 +846,6 @@ public function deletesociety() {
 	$this->session->set_flashdata('msg', 'Successfully Deleted!');
 
 	redirect("fertilizer/fertilizer/soceity");
-
-}
-
-///************************************************/
-//View Unit
-		public function unit(){
-			$select         = array("id","unit_name");
-		
-			$bank['data']   = $this->FertilizerModel->f_select('mm_unit',$select,NULL,0);
-
-			$this->load->view("post_login/fertilizer_main");
-		
-			$this->load->view("unit/dashboard",$bank);
-		
-			$this->load->view('search/search');
-		
-			$this->load->view('post_login/footer');
-		}
-
-//Add Unit
-		public function unitAdd(){
-
-			if($_SERVER['REQUEST_METHOD'] == "POST") {
-		
-				//    $comp_id = $this->FertilizerModel->get_company_code();
-		
-					$unit_name = $this->input->post('unit_name');
-		
-					$data_array = array (
-		
-							// "comp_id" => $comp_id,
-					
-							"unit_name" => $unit_name,
-						
-							"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-		
-							"created_dt"    =>  date('Y-m-d h:i:s'));
-					 
-						$this->FertilizerModel->f_insert('mm_unit', $data_array);
-						// echo $this->db->last_query();
-						// die();
-						$this->session->set_flashdata('msg', 'Successfully Added');
-		
-							redirect('fertilizer/unit');
-					}else {
-							
-			$this->load->view('post_login/fertilizer_main');
-		
-			$this->load->view("unit/add");
-		
-			$this->load->view('post_login/footer');
-		}
-		}
-		
-		
-		public function editunit(){
-
-			if($_SERVER['REQUEST_METHOD'] == "POST") {
-		
-				$data_array = array(
-		
-						"id"     =>  $this->input->post('id'),
-		
-						"unit_name"   =>  $this->input->post('unit_name'),
-
-						"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-		
-						"modified_dt"  =>  date('Y-m-d h:i:s')
-				);
-		
-				$where = array(
-						"id" => $this->input->post('id')
-				);
-				 
-		
-				$this->FertilizerModel->f_edit('mm_unit', $data_array, $where);
-		
-				$this->session->set_flashdata('msg', 'Successfully Updated');
-		
-				redirect('fertilizer/unit');
-		
-			}else{
-					$select = array(
-							"id",
-							"unit_name"                           
-				);
-		
-					$where = array(
-						"id" => $this->input->get('id')
-						);
-		
-				$sch['schdtls'] = $this->FertilizerModel->f_select("mm_unit",$select,$where,1);
-																																	
-				$this->load->view('post_login/fertilizer_main');
-		
-				$this->load->view("unit/edit",$sch);
-		
-				$this->load->view("post_login/footer");
-			}
-		}
-		
-		
-
-/*******************************************************************
- *						Company Master							   *
- *******************************************************************/
-//View Added Company
-public function company(){
-	$select         = array("comp_id","comp_name","comp_add","gst_no");
-
-	$bank['data']   = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
-//   echo $this->db->last_query();
-// / die();
-	$this->load->view("post_login/fertilizer_main");
-
-	$this->load->view("company/dashboard",$bank);
-
-	$this->load->view('search/search');
-
-	$this->load->view('post_login/footer');
-}
-
-//Add New Company
-public function companyAdd(){
-
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-		   $comp_id = $this->FertilizerModel->get_company_code();
-
-			$comp_desc = $this->input->post('comp_name');
-
-			$comp_add = $this->input->post('comp_add');
-			
-			$gst_no    = $this->input->post('gst_no');
-						
-			$pan_no    = $this->input->post('pan_no');
-
-			$comp_email_id = $this->input->post('comp_email_id');
-
-			$comp_pn_no = $this->input->post('comp_pn_no');
-
-			$cin = $this->input->post('cin');
-
-			$mfms = $this->input->post('mfms');
-
-			$short_name = $this->input->post('short_name');
-			
-			$data_array = array (
-
-					"comp_id" => $comp_id,
-			
-					"comp_name" => $comp_desc,
-
-					"short_name" => $short_name,
-					
-					"comp_add"   => $comp_add,
-
-					"comp_email_id" =>$comp_email_id,
-
-					"comp_pn_no"    => $comp_pn_no,
-					
-					"pan_no"    => $pan_no,
-
-					"gst_no" =>  $gst_no,
-
-					"mfms"=>  $mfms,
-
-					"cin"=> $cin,
-				
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
-
-					"created_dt"    =>  date('Y-m-d h:i:s'));
-			 
-				$this->FertilizerModel->f_insert('mm_company_dtls', $data_array);
-				// echo $this->db->last_query();
-				// die();
-				$this->session->set_flashdata('msg', 'Successfully Added');
-
-					redirect('fertilizer/company');
-			}else {
-					
-	$this->load->view('post_login/fertilizer_main');
-
-	$this->load->view("company/add");
-
-	$this->load->view('post_login/footer');
-}
-}
-
-
-public function editcompany(){
-
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-		$data_array = array(
-
-				"comp_id"     =>  $this->input->post('comp_id'),
-
-				"comp_name"   =>  $this->input->post('comp_name'),
-
-				"short_name" =>$this->input->post('short_name'),
-
-				"comp_add"    =>  $this->input->post('comp_add'),
-
-				"comp_email_id" =>  $this->input->post('comp_email_id'),
-
-				"comp_pn_no"   =>  $this->input->post('comp_pn_no'),
-				 
-				"gst_no"      =>  $this->input->post('gst_no'),
-
-				"mfms" =>  $this->input->post('mfms'),
-
-				"pan_no"    =>  $this->input->post('pan_no'),
-
-				"cin" =>  $this->input->post('cin'),
-
-				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-
-				"modified_dt"  =>  date('Y-m-d h:i:s')
-		);
-
-		$where = array(
-				"comp_id" => $this->input->post('comp_id')
-		);
-		 
-
-		$this->FertilizerModel->f_edit('mm_company_dtls', $data_array, $where);
-
-		$this->session->set_flashdata('msg', 'Successfully Updated');
-
-		redirect('fertilizer/company');
-
-	}else{
-			$select = array(
-					"comp_id",
-					"comp_name",
-					"short_name",
-					"comp_add",
-					"comp_email_id",
-					"comp_pn_no",
-					"gst_no"  ,
-					"mfms"  ,
-					"pan_no",
-					"cin"                                
-		);
-
-			$where = array(
-				"comp_id" => $this->input->get('comp_id')
-				);
-
-		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_company_dtls",$select,$where,1);
-																															
-		$this->load->view('post_login/fertilizer_main');
-
-		$this->load->view("company/edit",$sch);
-
-		$this->load->view("post_login/footer");
-	}
-}
-
-
-public function deletecompany() {
-
-	$where = array(
-				 "comp_id"    =>  $this->input->get('comp_id')
-		
-	);
-	
-	$this->FertilizerModel->f_delete('mm_company_dtls', $where);
-   
-	
-	$this->session->set_flashdata('msg', 'Successfully Deleted!');
-
-	redirect("fertilizer/fertilizer/company");
 
 }
 

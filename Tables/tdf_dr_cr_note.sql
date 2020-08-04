@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 04, 2020 at 06:04 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.2.24
+-- Host: localhost:3306
+-- Generation Time: Aug 04, 2020 at 04:36 PM
+-- Server version: 5.7.31-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,26 +17,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sssproje_benfed`
+-- Database: `benfed`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `td_dr_note`
+-- Table structure for table `tdf_dr_cr_note`
 --
 
-CREATE TABLE `td_dr_note` (
+CREATE TABLE `tdf_dr_cr_note` (
   `trans_dt` date NOT NULL,
   `invoice_no` varchar(20) NOT NULL,
   `invoice_dt` date NOT NULL,
   `ro_no` varchar(20) NOT NULL,
   `ro_dt` date NOT NULL,
   `soc_id` int(10) NOT NULL,
-  `tot_amt` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `tot_amt` decimal(10,2) NOT NULL DEFAULT '0.00',
   `trans_flag` enum('R','A') NOT NULL,
   `branch_id` int(5) NOT NULL,
   `fin_yr` int(5) NOT NULL,
+  `remarks` text NOT NULL,
   `created_by` varchar(30) DEFAULT NULL,
   `created_dt` date DEFAULT NULL,
   `modified_by` varchar(20) DEFAULT NULL,
@@ -46,15 +45,21 @@ CREATE TABLE `td_dr_note` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tdf_dr_cr_note`
+--
+
+INSERT INTO `tdf_dr_cr_note` (`trans_dt`, `invoice_no`, `invoice_dt`, `ro_no`, `ro_dt`, `soc_id`, `tot_amt`, `trans_flag`, `branch_id`, `fin_yr`, `remarks`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+('2020-07-31', 'SRO/N24/20-21/1', '2020-07-31', '', '0000-00-00', 1, '400.00', 'R', 337, 1, 'dfgf drg h', 'synergic', '2020-08-04', NULL, NULL);
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `td_dr_note`
+-- Indexes for table `tdf_dr_cr_note`
 --
-ALTER TABLE `td_dr_note`
+ALTER TABLE `tdf_dr_cr_note`
   ADD PRIMARY KEY (`trans_dt`,`invoice_no`,`ro_no`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

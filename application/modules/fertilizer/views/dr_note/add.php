@@ -2,7 +2,7 @@
             <div class="col-md-2 container"></div>
 			<div class="col-md-8 container form-wraper">
 	
-				<form method="POST" action="<?php echo site_url("fertilizer/drnoteAdd") ?>" onsubmit="return valid_data()" id="form">
+			<form method="POST" action="<?php echo site_url("drcrnote/drnoteAdd") ?>" onsubmit="return valid_data()" id="form">
 	
 					<div class="form-header">
 					
@@ -10,41 +10,42 @@
 					
 					</div>
 									
-                      <div class="form-group row">
+                    <div class="form-group row">
+
                       <label for="ro_no" class="col-sm-2 col-form-label">Society:</label>
 						<div class="col-sm-4">
 
-
-                        <select name="soc_id[]" id="soc_id" class="form-control soc_id" required>
-                      <option value="">Select Society</option>
-                    <?php
-                    foreach($socdtls as $key1)
-                    { ?>
-                        <option value="<?php echo $key1->soc_id; ?>"><?php echo $key1->soc_name; ?></option>
-                    <?php
-                    } ?>
-                     </select> 
+                           <select name="soc_id" id="soc_id" class="form-control soc_id" required>
+                              <option value="">Select Society</option>
+                            <?php
+                            foreach($socdtls as $key1)
+                            { ?>
+                                <option value="<?php echo $key1->soc_id; ?>"><?php echo $key1->soc_name; ?></option>
+                            <?php
+                            } ?>
+                            </select> 
 	              
 	                    </div>
 
-                        <label for="invoice_no" class="col-sm-2 col-form-label">Invoice No:</label>
+                       <label for="invoice_no" class="col-sm-2 col-form-label">Invoice No:</label>
 
-                        <div class="col-sm-4">
+                       <div class="col-sm-4">
     
                         <input type="text"  id=invoice_no name="invoice_no" class="form-control"  />
-                        </div>
+                       </div>
 
 
-                        </div>
+                    </div>
 
 
-                        <div class="form-group row">
+                    <div class="form-group row">
 
                         <label for="invoice_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
                         <div class="col-sm-4">
     
                         <input type="date" id=invoice_dt name="invoice_dt" class="form-control" readonly/>
                         </div>
+
                         <label for="invoice_amt" class="col-sm-2 col-form-label">Invoice Amount:</label>
 
 						<div class="col-sm-4">
@@ -52,41 +53,54 @@
 						<input type="text" id=invoice_amt name="invoice_amt" class="form-control"  readonly/>
 	                    </div>
                      
-                        </div>
+                    </div>
 
-                        <div class="form-group row">
+                    <div class="form-group row">
 
-                        <label for="trans_dt" class="col-sm-2 col-form-label">Dr Date:</label>
+                        <label for="trans_dt" class="col-sm-2 col-form-label">Dr Note Date:</label>
 
 						<div class="col-sm-4">
 						<input type="date" id="trans_dt" name="trans_dt" class="form-control"  />
 	                    </div>
 
-                        <label for="dr_date" class="col-sm-2 col-form-label">Days:</label>
-
-                        <div class="col-sm-3">
-                        <input type="text" id="dr_date" name="dr_date" class="form-control"  readonly/>
-                        </div>
-
-
-                        </div>
-
-
-                        <div class="form-group row">
-
-                        <label for="dr_date" class="col-sm-2 col-form-label">Dr Amount:</label>
+                        <label for="dr_date" class="col-sm-2 col-form-label">Sale Due dt:</label>
 
                         <div class="col-sm-4">
-                        <input type="text" id="dr_date" name="dr_date" class="form-control"  />
+                        <input type="date" id="sale_due_dt" name="sale_due_dt" class="form-control"  readonly/>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <label for="dr_amt" class="col-sm-2 col-form-label">Dr Amount:</label>
+
+                        <div class="col-sm-4">
+                        <input type="text" id="tot_amt" name="tot_amt" class="form-control"  />
                         </div>
 
                        
 
+                    </div>
+
+                       <div class="form-group row">
+
+                        <label for="dr_amt" class="col-sm-2 col-form-label">Remarks:</label>
+
+                        <div class="col-sm-10">
+                          <textarea id="remarks" name="remarks" class="form-control"></textarea>
+                       
                         </div>
+
+                       
+
+                    </div>
 						
              
                 
-                <div class="form-group row">
+                 <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -107,114 +121,16 @@
 
 <script>
 
-    $(document).ready(function(){
-
-        // For add row option
-        $('#addrow').click(function(){
-
-            var newElement = '<tr>'
-                                +'<td>'
-                               +'<select name="soc_id[]" id="soc_id" style="width:230px"class="form-control required soc_id" required>'
-                +'<option value="">Select Society</option>'
-                +'<?php
-                   foreach($socdtls as $key1)
-                  { ?>'
-                       +' <option value="<?php echo $key1->soc_id; ?>"><?php echo $key1->soc_name; ?></option>'
-                  +'<?php
-                   } ?>'
-           +'</select> '
-                                +'</td>'
-                               
-                              
-								+'<td>'
-                                    +'<input type="text" name="soc_amt[]" style="width:130px;" class="form-control soc_amt" value= "" id="br_amt" required>'
-                                +'</td>'
-                                +'<td>'
-                                    +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
-                                +'</td>'
-                            '</tr>';
-
-            $("#intro").append($(newElement));
-
-        });
-
-        $("#intro").on("click","#removeRow", function(){
-            $(this).parents('tr').remove();
-            var sum =0;        
-         
-               $("input[class *= 'br_amt']").each(function(){
-           sum += parseFloat($(this).val());
-                      
-            });
-
-            $("#total").val("0");
-            $("#total").val(sum).toFixed(2);
-        });
-
-        $('#nt').on("change", function(){
-            var total = $(this).val();
-            $('#total').val(total);
-        })
-
-
-        $('.total').change(function(){
-
-            var total = $('#nt').val();
-            var ntAmount = $('#nt').val();
-            $('.cgst_val').each(function(){
-
-                var curr_gst_val = $(this).val();
-                total = parseFloat(total)+parseFloat(parseFloat(curr_gst_val)*2);
-               
-
-            })
-            $('#total').val(parseFloat(total).toFixed());
-
-            var total_subAmnt = 0;
-            $('.sub_amnt').each(function(){
-
-                var tot_sub_amnt = $(this).val();
-                total_subAmnt = parseFloat(total_subAmnt)+parseFloat(tot_sub_amnt);
-                
-                if(parseFloat(ntAmount)<parseFloat(total_subAmnt))
-                {
-                    $('#nt').css('border-color', 'red');
-                    $('#submit').prop('disabled', true);
-                    return false;
-                }
-                else
-                {
-                    $('#nt').css('border-color', 'green');
-                    $('#submit').prop('disabled', false);
-                    return true;
-                }
-
-                
-            })
-
-        });
-
-    })
-
-</script>
-
-<script>
-
 $(document).ready(function(){
 
-    var i = 2;
+    $('#invoice_no').change(function(){
 
-  
+        $.get(
 
-     $('#do_no').change(function(){
-
-        $.get( 
-
-            '<?php echo site_url("fertilizer/do_detail");?>',
+            '<?php echo site_url("drcrnote/invoice_detail");?>',
             { 
-
-                do_no: $(this).val(),
-               
+                soc_id: $('#soc_id').val(),
+                invoice_no: $(this).val(),
             }
 
         )
@@ -222,60 +138,82 @@ $(document).ready(function(){
 
             var datas = JSON.parse(data);
             
-           
-            $('#ro_dt').val(datas.do_dt);
-            $('#invoice_no').val(datas.invoice_no);
-            $('#invoice_dt').val(datas.invoice_dt);
-            $('#company').val(datas.COMP_NAME);
-            $('#comp_id').val(datas.comp_id);
-            $('#gst_no').val(datas.GST_NO);
-            $('#tot_amt').val(datas.tot_cr_amt);
-            $('#tot_amts').val(datas.tot_cr_amt);
+           if(datas == null ){
+             alert("Invalid Invoice No");
+             $('#invoice_no').val("");  
+
+           }else{
+                $('#invoice_dt').val(datas.do_dt);  
+                $('#invoice_amt').val(datas.tot_amt);     
+                $('#sale_due_dt').val(datas.sale_due_dt);   
+
+           }
+             
+          
         });
 
     });
 
 });
 
- $('.table tbody').on('change', '.qty', function(){
+     $('#trans_dt').change(function(){
 
-   
+       var date1 = new Date($('#invoice_dt').val());
+       var date3 = new Date($('#sale_due_dt').val());
+       
+       var date2   = new Date($(this).val());
+
+       if(date2.getTime() < date1.getTime()){
+
+          alert("Dr Note Date Must Be Grater Than Invoice Date");
+              $('#trans_dt').val("");
+       }else{
+    
+
+        var Difference_In_Time = date2.getTime() - date1.getTime(); 
           
-            let row          = $(this).closest('tr');
-            var qty          = row.find('td:eq(3) .qty').val();
+        // To calculate the no. of days between two dates 
+      //  var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+
+        var Difference = date3.getTime() - date1.getTime(); 
+
+      //  var DiffeDAY = Difference_In_Time / (1000 * 3600 * 24); 
+          
+      if(Difference_In_Time > Difference){
+
+         alert("Dr Note Can Not Be Given");
+         $('#trans_dt').val("");
+        $('#submit').attr('type', 'buttom');
+
+      }else{
+          $('#submit').attr('type', 'submit');
+
+      }
+
+    }
+          
+     });
+
+      $('#tot_amt').change(function(){
+
+       var tot_amt = parseFloat($('#invoice_amt').val());
+
+       
+       var date2   = parseFloat($(this).val());
+
+       if(date2 > tot_amt){
+
+          alert("Dr Note amount must be less than Invoice Amount");
+              $('#tot_amt').val("");
+       }
+  
+          
+     });
+
+    
+
         
-            
-            var stock        = row.find('td:eq(2) .stock_qty').val();
-
-         
-                if (parseFloat(qty)>parseFloat(stock)  ){
-              //  var zero_qty          = null;
-               
-                row.find('td:eq(3)  input').val("0");
-             
-                alert('Sale Quantity Should Not Be Greater Than Stock Quantity!');
-
-              }
-           
-                      
-            })
- $('.table tbody').on('change', '.soc_amt', function(){
-   
-           var sum =0;
-            let row   = $(this).closest('tr');
-                    
-            $("input[class *= 'soc_amt']").each(function(){
-            sum += parseFloat($(this).val());
-                      
-            });
-
-            $("#total").val("0");
-            $("#total").val(sum).toFixed(2);
-                      
-            })
-
-        
-   $('#form').submit(function(event){
+    $('#form').submit(function(event){
 
           
                  var tot_cr_amt = parseFloat($('#tot_amt').val());
