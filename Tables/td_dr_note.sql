@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2020 at 06:24 AM
+-- Generation Time: Aug 04, 2020 at 06:04 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -25,30 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tdf_payment_recv`
+-- Table structure for table `td_dr_note`
 --
 
-CREATE TABLE `tdf_payment_recv` (
-  `paid_id` int(10) NOT NULL,
-  `paid_dt` int(10) NOT NULL,
+CREATE TABLE `td_dr_note` (
+  `trans_dt` date NOT NULL,
+  `invoice_no` varchar(20) NOT NULL,
+  `invoice_dt` date NOT NULL,
+  `ro_no` varchar(20) NOT NULL,
+  `ro_dt` date NOT NULL,
   `soc_id` int(10) NOT NULL,
-  `sale_invoice_no` varchar(20) NOT NULL,
-  `sale_invoice_dt` datetime NOT NULL,
-  `ro_no` varchar(10) NOT NULL,
-  `pay_type` varchar(10) NOT NULL,
-  `ref_no` varchar(20) DEFAULT NULL,
-  `tot_recvble_amt` decimal(10,2) NOT NULL,
-  `adj_dr_note_amt` decimal(10,2) NOT NULL,
-  `adj_adv_amt` decimal(10,2) NOT NULL,
-  `net_recvble_amt` decimal(10,2) NOT NULL,
-  `paid_amt` decimal(10,2) NOT NULL,
-  `created_by` varchar(20) NOT NULL,
-  `created_dt` datetime NOT NULL,
-  `modified_by` varchar(20) NOT NULL,
-  `modified_dt` datetime NOT NULL,
-  `branch_id` int(10) NOT NULL,
-  `fin_yr` int(10) NOT NULL
+  `tot_amt` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `trans_flag` enum('R','A') NOT NULL,
+  `branch_id` int(5) NOT NULL,
+  `fin_yr` int(5) NOT NULL,
+  `created_by` varchar(30) DEFAULT NULL,
+  `created_dt` date DEFAULT NULL,
+  `modified_by` varchar(20) DEFAULT NULL,
+  `modified_dt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `td_dr_note`
+--
+ALTER TABLE `td_dr_note`
+  ADD PRIMARY KEY (`trans_dt`,`invoice_no`,`ro_no`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

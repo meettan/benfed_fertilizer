@@ -37,7 +37,7 @@
         
                                             'ro_no'  => $this->input->post('ro_no'),
     
-                                            'comp_id'     => $this->input->post('comp_id'),
+                                            // 'comp_id'     => $this->input->post('comp_id'),
 
                                             'adj_dr_note_amt' => $this->input->post('adj_dr_note_amt'),
 
@@ -106,7 +106,7 @@
 		   $data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls();
 		   $this->load->view("post_login/fertilizer_main");
 	   
-		   $this->load->view("society_payment/dashboard",$data);
+		   $this->load->view("Society_payment/dashboard",$data);
 	   
 		   $this->load->view('search/search');
 	   
@@ -1078,7 +1078,7 @@ public function viewinvoice(){
 
 		public function f_get_ro_dt(){
 
-			$select          = array("do_dt","sale_ro");
+			$select          = array("do_dt","sale_ro","tot_amt");
 			
 		   $where=array(
 			   "trans_do" =>$this->input->get("trans_do")
