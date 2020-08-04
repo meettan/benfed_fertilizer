@@ -53,10 +53,9 @@
         
         public function f_get_soc_payment_dtls(){
 
-            $data = $this->db->query("select a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.sale_invoice_no,a.sale_invoice_dt,
-            a.ro_no,a.pay_type,a.tot_recvble_amt,a.adj_dr_note_amt,a.adj_adv_amt,a.net_recvble_amt,
-            a.paid_amt,a.created_by,a.created_dt,a.modified_by,a.modified_dt,a.branch_id,a.fin_yr
-                                        from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id");
+            $data = $this->db->query("select a.paid_id,a.paid_dt,a.soc_id,b.soc_name,sum(a.paid_amt)amount
+		                            	from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id
+										group by a.paid_id,a.paid_dt,a.soc_id,b.soc_name ");
     
             
              return $data->result();
@@ -112,6 +111,45 @@
 		return $data->result();
 			
 		}
+
+		public function f_get_advamt_dr_dtls($soc_id) // For Jquery
+        {
+
+            $sql = $this->db->query("SELECT ifnull(sum(a.adv_amt),0) -(select  ifnull(sum(adv_amt),0) from tdf_advance WHERE a.soc_id ='$soc_id'
+			and trans_type='O')as adv_amt
+			FROM tdf_advance a 
+			WHERE a.soc_id ='$soc_id'
+			and trans_type='I'");
+            return $sql->result();
+
+		}
+
+		public function get_soc_pay_code($branch,$fin){
+
+            $data   =   $this->db->query("select ifnull(max(paid_id),0) +1 sl_no
+                                          from   tdf_payment_recv
+                                          where  branch_id = '$branch'
+                                          and    fin_yr    = '$fin'");
+
+			$result = $data->row();  
+ 
+			return $result;
+		 }
+
+		public function f_get_adv_net_amt_dtls($soc_id,$sale_invoice_no,$ro_no) // For Jquery
+        {
+
+            $sql = $this->db->query(" select ifnull(sum(tot_amt),0) - 
+			(SELECT ifnull(sum(a.paid_amt),0)  
+			FROM tdf_payment_recv a 
+			WHERE a.soc_id ='$soc_id'
+			and sale_invoice_no='$sale_invoice_no'
+			and ro_no='$ro_no' )as net_amt
+			from  td_sale where  trans_do = '$sale_invoice_no'");
+            return $sql->result();
+
+		}
+
 		public function f_get_ro_dtls($ro_no) // For Jquery
         {
 

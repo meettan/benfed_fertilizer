@@ -56,25 +56,9 @@
                       <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
 						<div class="col-sm-2">
 	
-						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control"/>
+						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" readonly/>
 	                    </div>
                         </div>
-
-                        <!-- <div class="form-group row">
-                        <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
-                        <div class="col-sm-3">
-                    <input type="hidden" id=comp_id name="comp_id"  />
-                     <input type="text" style="width:180px" id=company name="company" class="form-control" readonly />
-                          
-                        </div>
-                        <label for="prod_id" class="col-sm-2 col-form-label">Product:</label>
-                        <div class="col-sm-3">
-    
-                        <input type="text" style="width:200px" id=prod_id name="prod_id" class="form-control"  />
-    
-                        </div>
-                        
-                        </div> -->
 
                         <div class="form-group row">
                       <label for="sale_ro" class="col-sm-2 col-form-label">RO No:</label>
@@ -101,11 +85,7 @@
 
 							</select>
 	                    </div>
-                      <!-- <label for="invoice_dt" class="col-sm-2 col-form-label">RO Date:</label>
-						<div class="col-sm-2">
-	
-						<input type="date" style="width:200px" id=invoice_dt name="invoice_dt" class="form-control"  />
-	                    </div> -->
+                      
                         <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Amount:</label>
 						<div class="col-sm-3">
 	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
@@ -129,7 +109,7 @@
                         </div>
                         <div class="form-group row">
                        
-                        <label for="net_amt" class="col-sm-2 col-form-label">Net Amount:</label>
+                        <label for="net_amt" class="col-sm-2 col-form-label">Net Amount<br>(Total Amount - Paid Amount):</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
                         </div>
@@ -181,7 +161,7 @@
             </select> 
                                     </td>
                                     <td>
-                                      <input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" required>
+                                      <input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >
                                     </td>
 									<td>
                                       <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>
@@ -247,7 +227,7 @@
                       +  '<option value="5">Pay Order</option>'
                                 +'</td>'
                                +'<td>'
-                                +'<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" required>'
+                                +'<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >'
                                 +'</td>'
 								+'<td>'
                                     +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>'
@@ -261,18 +241,18 @@
 
         });
 
-        $("#intro").on("click","#removeRow", function(){
-            $(this).parents('tr').remove();
-            var sum =0;        
+        // $("#intro").on("click","#removeRow", function(){
+        //     $(this).parents('tr').remove();
+        //     var sum =0;        
          
-               $("input[class *= 'br_amt']").each(function(){
-           sum += parseFloat($(this).val());
+        //        $("input[class *= 'br_amt']").each(function(){
+        //    sum += parseFloat($(this).val());
                       
-            });
+        //     });
 
-            $("#total").val("0");
-            $("#total").val(sum).toFixed(2);
-        });
+        //     $("#total").val("0");
+        //     $("#total").val(sum.toFixed(2));
+        // });
 
         $('#nt').on("change", function(){
             var total = $(this).val();
@@ -445,8 +425,7 @@ $(document).ready(function(){
 			{ 
 
 				trans_do: $(this).val(),
-				//dist_cd: $(this).val(),
-				// dist_cd : $('#dist_cd').val()
+				
 				
 			}
 
@@ -545,36 +524,128 @@ $(document).ready(function(){
 
 });
 </script>
-<!-- <script>
 
-$(document).ready(function()
-{
-    $('#intro').on( "change", ".paid_amt", function()
-    {
-       
+<script>
 
- $('.table tbody').on('change', '.paid_amt', function(){
+$(document).ready(function(){
 
-   
-           var sum =0;
-            let row   = $(this).closest('tr');
-             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
-            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
-        
-                           row.find('td:eq(9) .tot_amt').val(tot_amt-dis);
+    var i = 0;
+
+    $('#sale_ro').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("socpay/f_get_advamt_dr");?>',
+
+            { 
+
+                soc_id: $('#soc_id').val()
+
+            }
+
+        ).done(function(data){
+
+            var parseData = JSON.parse(data);
+            
+			var adv_amt = parseData[0].adv_amt;
            
-         
-               $("input[class *= 'tot_amt']").each(function(){
-           sum += parseFloat($(this).val());
-                      
-            });
+			 $('#adv_amt').val(adv_amt);
+             
+          });
 
-            $("#total").val("0");
-            $("#total").val(sum).toFixed(2);
+
+    });
+
+});
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#sale_ro').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("socpay/f_get_adv_net_amt");?>',
+
+            { 
+
+                soc_id: $('#soc_id').val(),
+                trans_do: $('#trans_do').val(),
+                sale_ro: $('#sale_ro').val(),
+                // tot_recvble_amt: $('#tot_recvble_amt').val()
+
+            }
+
+        ).done(function(data){
+
+            var parseData = JSON.parse(data);
+            
+			var net_amt = parseData[0].net_amt;
            
-                      
-            })
+			 $('#net_amt').val(net_amt);
+             
+          });
 
-        });
 
-</script> -->
+    });
+
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    
+$('#intro').on( "change", ".paid_amt", function(){
+
+$("#total").val('');
+var total = 0;
+$('.paid_amt').each(function(){
+    total += +$(this).val();
+})
+$("#total").val(total);
+
+});
+$("#intro").on("click","#removeRow", function(){
+    console.log('ok');
+
+    $(this).parent().parent().remove();
+    $('.paid_amt').change();
+})
+});
+</script>
+<script>
+
+$(document).ready(function(){
+
+    $('#intro').on("change", ".paid_amt", function(){
+
+        var net_amt    =   $('#net_amt').val();
+        var total               =   $('#total').val();
+
+        // console.log(tot_dist_qty_qnt);
+        // console.log(total);
+
+        if(parseFloat(total) > parseFloat(net_amt))
+        {
+            $('#total').css('border-color', 'red');
+            alert('Paid Amount Should Not Greater Than Net Amount!');
+            $('#submit').prop('disabled', true);
+            
+            return false;
+        }
+        else
+        {
+            $('#submit').prop('disabled', false);
+            $('#total').css('border-color', 'gray');
+            return true;
+        }
+
+    })
+
+})
+
+</script>

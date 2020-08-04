@@ -31,7 +31,7 @@
                         <th>Society</th>
                         <th>Amout</th>
                      
-                        <th>Delete</th>
+                        <th>Edit/Delete</th>
                     </tr>
 
                 </thead>
@@ -45,12 +45,12 @@
 		    ?>
 
                             <tr>   
-                                <td><?php echo $pay->paid_no; ?></td>
+                                <td><?php echo $pay->paid_id; ?></td>
                                 <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
                                 <td><?php echo $pay->soc_name; ?></td>
                                 <td><?php echo $pay->amount; ?></td>
                                
-			 	                <td><a href="drnote_edit?trans_do=<?=$dr->comp_id;?>/<?=$dr->ro_no;?>" 
+			 	                <td><a href="drnote_edit?trans_do=<?=$pay->paid_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
@@ -90,7 +90,7 @@
                         <th>Amout</th>
                   
             		
-                        <th>Delete</th>
+                        <th>Edit/Delete</th>
                     </tr>
                 
                 </tfoot>

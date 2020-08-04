@@ -5,6 +5,7 @@
 		public function __construct(){
 		parent::__construct();	
 		$this->load->model('Society_paymentModel');
+		$this->load->model('AdvanceModel');
 		// $this->load->helper('paddyrate_helper');
 		// $data       = $this->FertilizerModel->f_get_particulars_in('md_parameters', array(16, 17), array(""));
 
@@ -15,86 +16,118 @@
         public function society_payAdd(){
 
             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
-			$fin_id=$this->session->userdata['loggedin']['fin_id'];
+			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
+			$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
+			$transCd 	= $this->Society_paymentModel->get_soc_pay_code($br_cd,$fin_id);
+
+			$select_dist         = array("dist_sort_code" );
+
+            $where_dist          = array("district_code"     =>  $br_cd );
+
+            $brn                 = $this->AdvanceModel->f_select("md_district",$select_dist,$where_dist,1);  
+            $adv_transCd 	    = $this->AdvanceModel->get_advance_code($br_cd,$fin_id);
+            $receipt            = 'Adv/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$adv_transCd->sl_no;
+
             if($_SERVER['REQUEST_METHOD'] == "POST") {
-                    
+				
     
-                    $paid_amt = $this->input->post('paid_amt');
+                     $paid_amt = $this->input->post('paid_amt');
                     
-                      for($i = 0; $i < count($soc_amt); $i++){
+                      for($i = 0; $i < count($paid_amt); $i++){
         
                       $data     = array(
                                             
-                                            'paid_no'        => $this->input->post('paid_no'),
+                                            'paid_id'        	=> $transCd->sl_no,
         
-                                            'paid_dt'        => $this->input->post('paid_dt'),
+                                            'paid_dt'           => $this->input->post('paid_dt'),
         
-                                            'soc_id'   => $this->input->post('soc_id'),
+                                            'soc_id'            => $this->input->post('soc_id'),
     
-                                            'sale_invoice_no'   => $this->input->post('sale_invoice_no'),
+                                            'sale_invoice_no'   => $this->input->post('trans_do'),
     
-                                            'sale_invoice_dt'    =>  $this->input->post('sale_invoice_dt'),
+                                            'sale_invoice_dt'    =>  $this->input->post('do_dt'),
         
-                                            'ro_no'  => $this->input->post('ro_no'),
-    
-                                            // 'comp_id'     => $this->input->post('comp_id'),
+                                            'ro_no'              => $this->input->post('sale_ro'),
 
-                                            'adj_dr_note_amt' => $this->input->post('adj_dr_note_amt'),
+                                            'adj_dr_note_amt'    => $this->input->post('tot_dr_amt'),
 
-                                            'adj_adv_amt' => $this->input->post('adj_adv_amt'),
+                                            'adj_adv_amt'        => $this->input->post('adv_amt'),
 
-                                            'net_recvble_amt' => $this->input->post('net_recvble_amt'),
+                                            'net_recvble_amt'    => $this->input->post('net_amt'),
                                             
-                                            'tot_recvble_amt' => $this->input->post('tot_recvble_amt'),
+                                            'tot_recvble_amt'    => $this->input->post('tot_recvble_amt'),
 
-                                            'pay_type'   => $_POST['pay_type'][$i],
+                                            'pay_type'           => $_POST['pay_type'][$i],
         
-                                            'paid_amt'    => $_POST['paid_amt'][$i],
+                                            'paid_amt'           => $_POST['paid_amt'][$i],
                                             
-                                            "created_by"  =>  $this->session->userdata['loggedin']['user_name'],
+                                            "created_by"         =>  $this->session->userdata['loggedin']['user_name'],
         
-                                            "created_dt"  =>  date('Y-m-d'),
+                                            "created_dt"         =>  date('Y-m-d'),
     
-                                            'branch_id'     =>$br_cd,
+                                            'branch_id'          => $br_cd,
     
-                                           'fin_yr'  =>$fin_id
+                                            'fin_yr'             => $fin_id
                                         );
         
-                        $this->Society_paymentModel->f_insert('tdf_payment_recv', $data);
+						$this->Society_paymentModel->f_insert('tdf_payment_recv', $data);
+						// echo $this->db->last_query();
+						// die();
+					}
+					
+				 $total = $this->input->post('total');
+
+				 $data_adv_pay     = array('trans_dt'    =>date('Y-m-d'),
+
+											'sl_no'         =>$adv_transCd->sl_no,
+
+											'receipt_no'    =>$receipt,
+
+											'fin_yr'        =>$fin_id,
+
+											'branch_id'     =>$br_cd,
+
+											'soc_id'        =>$this->input->post('soc_id'),
+
+											'trans_type'    =>'O',
+
+											'adv_amt'       =>$total,
+
+											'inv_no'        =>$this->input->post('trans_do'),
+
+											'ro_no'         =>$this->input->post('sale_ro'),
+
+											'remarks'       =>'ADV ADJ',
+
+											'created_by'    => $this->session->userdata['loggedin']['user_name'],
+
+											'created_dt'    => date('Y-m-d'));
+
+					$this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
+
+                    $this->session->set_flashdata('msg', 'Successfully Added');
         
-                    }
-                        
-                        $this->session->set_flashdata('msg', 'Successfully Added');
-        
-                            redirect('Society_payment/Society_payment');
+                    redirect('socpay/society_payment');
                 
-                   
-                    
                     }else {
     
                     $select4        = array("id","branch_name");
                     $product['brdtls']   = $this->Society_paymentModel->f_select('md_branch',$select4,NULL,0);
-    
-                    // $select3         = array("comp_id","comp_name");
-                    // $product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select3,NULL,0);
-    
         
 					$select1          = array("soc_id","soc_name","soc_add","gstin");
-					$where1  =   array(
-
-						'district'   => $br_cd );
+					$where1  =   array('district'   => $br_cd );
 
                     $product['socdtls']   = $this->Society_paymentModel->f_select('mm_ferti_soc',$select1,$where1,0);
 				//    echo $this->db->last_query();
 				//    die();
-                //  $branch_id  = $this->session->userdata['loggedin']['branch_id'];
+               
                     $product['ro_dtls']   = $this->Society_paymentModel->f_getdo_dtl($br_cd);	
         
-            $this->load->view('post_login/fertilizer_main');
+				$this->load->view('post_login/fertilizer_main');
+			
+				$this->load->view("society_payment/add",$product);
         
-            $this->load->view("society_payment/add",$product);
-        
-            $this->load->view('post_login/footer');
+            	$this->load->view('post_login/footer');
         }
         
         }
@@ -1089,6 +1122,34 @@ public function viewinvoice(){
 			// die();
 			echo json_encode($comp);
 		
+		}
+
+		public function f_get_advamt_dr()
+        {
+
+            $soc_id = $this->input->get('soc_id');
+           
+			$data = $this->Society_paymentModel->f_get_advamt_dr_dtls($soc_id);
+			// echo $this->db->last_query();
+			// die();
+            echo json_encode($data);
+
+		}
+
+		public function f_get_adv_net_amt()
+        {
+
+            $soc_id = $this->input->get('soc_id');
+			$sale_invoice_no = $this->input->get('trans_do');
+			$ro_no = $this->input->get('sale_ro');
+			// $tot_recvble_amt= $this->input->get('tot_recvble_amt');
+			// echo ($tot_recvble_amt);
+			// die();
+			$data = $this->Society_paymentModel->f_get_adv_net_amt_dtls($soc_id,$sale_invoice_no,$ro_no);
+			// echo $this->db->last_query();
+			// die();
+            echo json_encode($data);
+
 		}
 		public function f_get_soc(){
 

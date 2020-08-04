@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2020 at 06:24 AM
+-- Generation Time: Aug 04, 2020 at 01:33 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -34,7 +34,7 @@ CREATE TABLE `tdf_payment_recv` (
   `soc_id` int(10) NOT NULL,
   `sale_invoice_no` varchar(20) NOT NULL,
   `sale_invoice_dt` datetime NOT NULL,
-  `ro_no` varchar(10) NOT NULL,
+  `ro_no` varchar(20) NOT NULL,
   `pay_type` varchar(10) NOT NULL,
   `ref_no` varchar(20) DEFAULT NULL,
   `tot_recvble_amt` decimal(10,2) NOT NULL,
@@ -49,6 +49,23 @@ CREATE TABLE `tdf_payment_recv` (
   `branch_id` int(10) NOT NULL,
   `fin_yr` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tdf_payment_recv`
+--
+
+INSERT INTO `tdf_payment_recv` (`paid_id`, `paid_dt`, `soc_id`, `sale_invoice_no`, `sale_invoice_dt`, `ro_no`, `pay_type`, `ref_no`, `tot_recvble_amt`, `adj_dr_note_amt`, `adj_adv_amt`, `net_recvble_amt`, `paid_amt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `branch_id`, `fin_yr`) VALUES
+(1, 2020, 8, 'SRO/JPG/20-21/8', '2020-07-20 00:00:00', 'raja_test_4', '2', NULL, '3879.00', '0.00', '5000.00', '3879.00', '2000.00', 'synergic', '2020-08-04 00:00:00', '', '0000-00-00 00:00:00', 328, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tdf_payment_recv`
+--
+ALTER TABLE `tdf_payment_recv`
+  ADD PRIMARY KEY (`paid_id`,`paid_dt`,`soc_id`,`pay_type`,`paid_amt`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
