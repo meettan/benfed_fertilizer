@@ -1,5 +1,5 @@
 <div class="wraper">      
-            
+            <div class="col-md-2 container"></div>
 			<div class="col-md-8 container form-wraper">
 	
 				<form method="POST" action="<?php echo site_url("fertilizer/drnoteAdd") ?>" onsubmit="return valid_data()" id="form">
@@ -11,129 +11,82 @@
 					</div>
 									
                       <div class="form-group row">
-                      <label for="ro_no" class="col-sm-2 col-form-label">Ro no:</label>
-						<div class="col-sm-3">
-	                <select name="ro_no" class="form-control required" id="do_no">
-                    <option value="">Select</option>
+                      <label for="ro_no" class="col-sm-2 col-form-label">Society:</label>
+						<div class="col-sm-4">
+
+
+                        <select name="soc_id[]" id="soc_id" class="form-control soc_id" required>
+                      <option value="">Select Society</option>
                     <?php
-                       foreach($ro_dtls as $ro){
-                            ?>
-                <option value="<?php echo $ro->do_no;?>"><?php echo $ro->do_no;?></option>
-                <?php    }    ?>     
-                </select>
-	                    </div>
-                      <label for="ro_dt" class="col-sm-2 col-form-label">Ro Date:</label>
-						<div class="col-sm-2">
-	
-						<input type="date" style="width:200px" id=ro_dt name="ro_dt" class="form-control"/>
-	                    </div>
-                        </div>
-
-                        <div class="form-group row">
-                        <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
-                        <div class="col-sm-3">
-                    <input type="hidden" id=comp_id name="comp_id"  />
-      <input type="text" style="width:180px" id=company name="company" class="form-control" readonly />
-                          
-                        </div>
-                        <label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
-                        <div class="col-sm-3">
-    
-                        <input type="text" style="width:200px" id=gst_no name="gstin" class="form-control" readonly />
-    
-                        </div>
-                        
-                        </div>
-
-                        <div class="form-group row">
-                      <label for="invoice_no" class="col-sm-2 col-form-label">Invoice No:</label>
-						<div class="col-sm-3">
-	
-						<input type="text" style="width:170px" id=invoice_no name="invoice_no" class="form-control"  />
-	                    </div>
-                      <label for="invoice_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
-						<div class="col-sm-2">
-	
-						<input type="date" style="width:200px" id=invoice_dt name="invoice_dt" class="form-control"  />
-	                    </div>
-                        </div>
-                        <div class="form-group row">
-                      <label for="tot_amt" class="col-sm-2 col-form-label">Total Dr Amount:</label>
-						<div class="col-sm-3">
-	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
-						<input type="text" style="width:170px" id="tot_amts" name="tot_amtdd" class="form-control" readonly />
-	                    </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                        
-                        </div>
-
-						<div class="form-header">
-					
-					<h4>Society And Debit Details</h4>
-				
-				</div>
-                <hr>
-
-                <div class="row" style ="margin: 5px;">
-
-                    <div class="form-group">
-
-                        <table class= "table table-striped table-bordered table-hover">
-
-                            <thead>
-                                <th style= "text-align: center;width:100px">Society</th>
-                                
-								<th style= "text-align: center;width:100px">Amount</th>
-                                <th>
-                                    <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
-                                </th>
-
-                            </thead>
-
-                            <tbody id= "intro">
-                                <tr>
-                                
-                                    <td>    
-                                       
-                 <select name="soc_id[]" id="soc_id" style="width:230px"class="form-control required soc_id" required>
-                <option value="">Select Society</option>
-                <?php
                     foreach($socdtls as $key1)
                     { ?>
                         <option value="<?php echo $key1->soc_id; ?>"><?php echo $key1->soc_name; ?></option>
                     <?php
                     } ?>
-            </select> 
-                                    </td>
+                     </select> 
+	              
+	                    </div>
 
-									<td>
-                                      <input type="text" name="soc_amt[]" style="width:130px;" class="form-control soc_amt" value= "" id="soc_amt" required>
-                                    </td>
-                                   
-                                </tr>
+                        <label for="invoice_no" class="col-sm-2 col-form-label">Invoice No:</label>
 
-                            </tbody>
+                        <div class="col-sm-4">
+    
+                        <input type="text"  id=invoice_no name="invoice_no" class="form-control"  />
+                        </div>
 
-                            <tfoot>
-                                <tr>
-                                    <td colspan="1">
-                                        Total:
-                                    </td>
-                                    <td colspan="2">
-                                        <input name="total" style="width:150px;" id="total" class="form-control total" placeholder="Total">  
-                                    </td>
-                                </tr>
-                            </tfoot>
-                    
-                        </table>
 
-                    </div> 
+                        </div>
 
-                </div>
 
+                        <div class="form-group row">
+
+                        <label for="invoice_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
+                        <div class="col-sm-4">
+    
+                        <input type="date" id=invoice_dt name="invoice_dt" class="form-control" readonly/>
+                        </div>
+                        <label for="invoice_amt" class="col-sm-2 col-form-label">Invoice Amount:</label>
+
+						<div class="col-sm-4">
+	
+						<input type="text" id=invoice_amt name="invoice_amt" class="form-control"  readonly/>
+	                    </div>
+                     
+                        </div>
+
+                        <div class="form-group row">
+
+                        <label for="trans_dt" class="col-sm-2 col-form-label">Dr Date:</label>
+
+						<div class="col-sm-4">
+						<input type="date" id="trans_dt" name="trans_dt" class="form-control"  />
+	                    </div>
+
+                        <label for="dr_date" class="col-sm-2 col-form-label">Days:</label>
+
+                        <div class="col-sm-3">
+                        <input type="text" id="dr_date" name="dr_date" class="form-control"  readonly/>
+                        </div>
+
+
+                        </div>
+
+
+                        <div class="form-group row">
+
+                        <label for="dr_date" class="col-sm-2 col-form-label">Dr Amount:</label>
+
+                        <div class="col-sm-4">
+                        <input type="text" id="dr_date" name="dr_date" class="form-control"  />
+                        </div>
+
+                       
+
+                        </div>
+
+
+						
+             
                 
                 <div class="form-group row">
 

@@ -77,7 +77,8 @@ $route['rateslab']         = 'fertilizer/fertilizer/sale_rate';                 
 $route['trade/(:any)']     = 'fertilizer/sale/$1';                                  //Sale
 $route['stock/(:any)']     = 'fertilizer/purchase/$1';                              //Purchase
 $route['adv/(:any)']       = 'fertilizer/advance/$1'; 
-$route['socpay/(:any)']       = 'fertilizer/society_payment/$1';                               //Advance
+$route['socpay/(:any)']    = 'fertilizer/society_payment/$1';                       //Advance
+$route['drcrnote/(:any)']  = 'fertilizer/drcrnote/$1'; 
 
 //For Add New
 

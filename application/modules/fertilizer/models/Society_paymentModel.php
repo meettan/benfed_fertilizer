@@ -1,6 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
-	class Society_paymentModel extends CI_Model{					/*Insert Data in Tables*/
+	class Society_paymentModel extends CI_Model{
+						/*Insert Data in Tables*/
 		public function f_insert($table_name, $data_array) {
 
 			$this->db->insert($table_name, $data_array);
@@ -42,7 +43,7 @@
 	  
 		  return $result->row();
 
-  }
+       }
 		public function js_get_stock_qty($ro)
 		{
 
