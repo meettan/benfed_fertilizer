@@ -6,6 +6,8 @@
 		parent::__construct();	
 		$this->load->model('Society_paymentModel');
 		$this->load->model('AdvanceModel');
+		$this->load->model('DrcrnoteModel');
+		
 		// $this->load->helper('paddyrate_helper');
 		// $data       = $this->FertilizerModel->f_get_particulars_in('md_parameters', array(16, 17), array(""));
 
@@ -34,7 +36,10 @@
                      $paid_amt = $this->input->post('paid_amt');
                     
                       for($i = 0; $i < count($paid_amt); $i++){
-        
+						$trans_type=$_POST['pay_type'][$i];
+						$paid_amt=$_POST['paid_amt'][$i];
+						// echo $paid_amt;
+						// die();
                       $data     = array(
                                             
                                             'paid_id'        	=> $transCd->sl_no,
@@ -71,39 +76,101 @@
                                         );
         
 						$this->Society_paymentModel->f_insert('tdf_payment_recv', $data);
+
+if ($trans_type=='2'){
+						$total = $_POST['paid_amt'][$i];
+
+						$data_adv_pay     = array('trans_dt'    =>date('Y-m-d'),
+	   
+												   'sl_no'         =>$adv_transCd->sl_no,
+	   
+												   'receipt_no'    =>$receipt,
+	   
+												   'fin_yr'        =>$fin_id,
+	   
+												   'branch_id'     =>$br_cd,
+	   
+												   'soc_id'        =>$this->input->post('soc_id'),
+	   
+												   'trans_type'    =>'O',
+	   
+												   'adv_amt'       =>$total,
+	   
+												   'inv_no'        =>$this->input->post('trans_do'),
+	   
+												   'ro_no'         =>$this->input->post('sale_ro'),
+	   
+												   'remarks'       =>'ADV ADJ',
+	   
+												   'created_by'    => $this->session->userdata['loggedin']['user_name'],
+	   
+												   'created_dt'    => date('Y-m-d'));
+	   
+						   $this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
+}
 						// echo $this->db->last_query();
 						// die();
 					}
 					
-				 $total = $this->input->post('total');
+					if ($trans_type=='6'){
+					// 	$total_cr = $_POST['paid_amt'][$i];
+					//    print_r($total_cr);
+					//    die();
+						$data_dr_cr_note     = array('trans_dt'    =>date('Y-m-d'),
 
-				 $data_adv_pay     = array('trans_dt'    =>date('Y-m-d'),
+													'invoice_no'   => $this->input->post('trans_do'),
 
-											'sl_no'         =>$adv_transCd->sl_no,
+													'invoice_dt'   => $this->input->post('do_dt'),
 
-											'receipt_no'    =>$receipt,
+													'ro_no'        => $this->input->post('sale_ro'),
 
-											'fin_yr'        =>$fin_id,
+													'soc_id'       => $this->input->post('soc_id'),
 
-											'branch_id'     =>$br_cd,
+													'tot_amt'      => $paid_amt,
 
-											'soc_id'        =>$this->input->post('soc_id'),
+													'trans_flag'   => 'A',
 
-											'trans_type'    =>'O',
+													'branch_id'    => $br_cd,
 
-											'adv_amt'       =>$total,
+													'fin_yr'       => $fin_id,
 
-											'inv_no'        =>$this->input->post('trans_do'),
+													'remarks'      => 'ADV ADJ',
+													
+													'created_by'    => $this->session->userdata['loggedin']['user_name'],
 
-											'ro_no'         =>$this->input->post('sale_ro'),
+													'created_dt'    => date('Y-m-d'));
 
-											'remarks'       =>'ADV ADJ',
+						$this->DrcrnoteModel->f_insert('tdf_dr_cr_note',$data_dr_cr_note);
+					}
+				//  $total = $this->input->post('total');
 
-											'created_by'    => $this->session->userdata['loggedin']['user_name'],
+				//  $data_adv_pay     = array('trans_dt'    =>date('Y-m-d'),
 
-											'created_dt'    => date('Y-m-d'));
+				// 							'sl_no'         =>$adv_transCd->sl_no,
 
-					$this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
+				// 							'receipt_no'    =>$receipt,
+
+				// 							'fin_yr'        =>$fin_id,
+
+				// 							'branch_id'     =>$br_cd,
+
+				// 							'soc_id'        =>$this->input->post('soc_id'),
+
+				// 							'trans_type'    =>'O',
+
+				// 							'adv_amt'       =>$total,
+
+				// 							'inv_no'        =>$this->input->post('trans_do'),
+
+				// 							'ro_no'         =>$this->input->post('sale_ro'),
+
+				// 							'remarks'       =>'ADV ADJ',
+
+				// 							'created_by'    => $this->session->userdata['loggedin']['user_name'],
+
+				// 							'created_dt'    => date('Y-m-d'));
+
+				// 	$this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
 
                     $this->session->set_flashdata('msg', 'Successfully Added');
         
@@ -1122,6 +1189,18 @@ public function viewinvoice(){
 			// die();
 			echo json_encode($comp);
 		
+		}
+
+		public function f_get_amt_dr()
+        {
+
+            $soc_id = $this->input->get('soc_id');
+            $trans_do = $this->input->get('trans_do');
+			$data = $this->Society_paymentModel->f_get_amt_dr_dtls($soc_id,$trans_do);
+			// echo $this->db->last_query();
+			// die();
+            echo json_encode($data);
+
 		}
 
 		public function f_get_advamt_dr()

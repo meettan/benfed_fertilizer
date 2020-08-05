@@ -163,6 +163,20 @@
 
 		}
 
+		
+		public function f_get_amt_dr_dtls($soc_id,$trans_do) // For Jquery
+        {
+
+            $sql = $this->db->query("SELECT tot_amt
+			FROM tdf_dr_cr_note
+			WHERE soc_id='$soc_id'
+			and invoice_no='$trans_do'
+			");
+            return $sql->result();
+
+		}
+
+
 		public function f_get_particulars_in($table_name, $where_in=NULL, $where=NULL) {
 
 			if(isset($where)){

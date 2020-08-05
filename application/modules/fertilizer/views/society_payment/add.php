@@ -617,6 +617,44 @@ $("#intro").on("click","#removeRow", function(){
 })
 });
 </script>
+
+<script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#sale_ro').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("socpay/f_get_amt_dr");?>',
+
+            { 
+
+                soc_id: $('#soc_id').val(),
+                trans_do: $('#trans_do').val(),
+
+            }
+
+        ).done(function(data){
+
+            var parseData = JSON.parse(data);
+            
+			var tot_dr_amt = parseData[0].tot_amt;
+           
+			 $('#tot_dr_amt').val(tot_dr_amt);
+             
+          });
+
+
+    });
+
+});
+</script>
+
+
+
 <script>
 
 $(document).ready(function(){
