@@ -1,5 +1,5 @@
     <div class="wraper">      
-
+ <div class="col-md-3 container"></div>
         <div class="col-md-6 container form-wraper">
 
             <form method="POST" id="form" action="<?php echo site_url("key/editproduct");?>" >
@@ -29,9 +29,29 @@
 
                     <div class="col-sm-10">
 
-                        <input type="text" name="comp_id" class="form-control required"  
+                            <select name="comp_id" class="form-control required" id="comp_id">
+
+                        <option value="">Select Company</option>
+
+                            <?php
+
+                                foreach($compdtls as $comp){
+
+                            ?>
+
+                                <option value="<?php echo $comp->comp_id;?>" <?php if($comp->comp_id == $schdtls->company) {echo "Selected";}?>><?php echo $comp->comp_name;?></option>
+
+                            <?php
+
+                            }
+
+                            ?>     
+
+                    </select>
+
+                       <!--  <input type="text" name="comp_id" class="form-control required"  
                             value = "<?php echo $schdtls->comp_name; ?>" 
-                            readonly />
+                            readonly /> -->
                     </div>
                 </div>
 

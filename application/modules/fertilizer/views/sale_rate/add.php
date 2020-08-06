@@ -121,32 +121,136 @@
 				   </div>
 
 					<div class="form-group row">
-						<label for="salerate" class="col-sm-2 col-form-label">District:</label>
-
+						<label for="salerate" class="col-sm-2 col-form-label">District:</label><div class="col-sm-10">
+							<label for="salerate" class="col-form-label">North Bengal</label>
+						</div>
+<label for="salerate" class="col-sm-2 col-form-label"></label>
 						<div class="col-sm-10">
-						<?php
+												<div class="col-sm-2">
+							
 
-							foreach($distdtls as $dist){
+					<input type="checkbox" name="district[]" id="checkItem" value="327">DAR
+					</div>
+											<div class="col-sm-2">
+							
 
-						?>
+					<input type="checkbox" name="district[]" id="checkItem" value="328">JPG
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="329">COOH
+					</div>
+
 						<div class="col-sm-2">
 							
 
-					<input type='checkbox' name='district[]' id="checkItem" value='<?php echo $dist->district_code;?>' /><?php echo $dist->dist_sort_code;?>
+					     <input type="checkbox" name="district[]" id="checkItem" value="346">ALPD
+					    </div>
+											<div class="col-sm-2">
+							
 
+					<input type="checkbox" name="district[]" id="checkItem" value="330">NDNJ
 					</div>
-					<?php
+											<div class="col-sm-2">
+							
 
-							}
+					<input type="checkbox" name="district[]" id="checkItem" value="331">SDNJ
+					</div>
+											<div class="col-sm-2">
+							
 
-						?>  
+					<input type="checkbox" name="district[]" id="checkItem" value="332">MLD
+					</div>
+											
+               </div>
+				<label for="salerate" class="col-sm-2 col-form-label"></label><div class="col-sm-10">
+							<label for="salerate" class="col-form-label">South Bengal</label>
+						</div>
+						<label for="salerate" class="col-sm-2 col-form-label"></label><div class="col-sm-10">
+							<div class="col-sm-2">
+							
 
-						<div class="col-sm-2"><input type="checkbox" id="checkAll" > Check All </div>
-						</div> 
+					<input type="checkbox" name="district[]" id="checkItem" value="333">MUR
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="334">BRH
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="335">EBDN
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="336">NDA
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="337">N24
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="338">HOG
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="339">BNK
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="340">PUR
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="341">HWH
+					</div>
+														<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="343">S24
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="344">WMDN
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="345">EMDN
+					</div>
+										
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="347">WBDN
+					</div>
+											<div class="col-sm-2">
+							
+
+					<input type="checkbox" name="district[]" id="checkItem" value="348">JHG
+					</div>
+					  
 
 						
+						</div>
+				
 					</div>
-
+                <div class="form-group row">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-10">
+						<div class="col-sm-2"><input type="checkbox" id="checkAll"> Check All </div>
+					</div>
+                </div>
 				<div class="form-group row">
 
 					<div class="col-sm-10">
