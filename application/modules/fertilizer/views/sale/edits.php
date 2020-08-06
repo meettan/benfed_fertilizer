@@ -64,7 +64,7 @@
                         <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
                         <div class="col-sm-4">
     
-                            <input type="date" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>" required/>
+                            <input type="date" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>" readonly/>
                         </div>
 	                
      
@@ -98,7 +98,7 @@
                             <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
                             <div class="col-sm-4">
     
-                                <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>" required />
+                                <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>" readonly />
                             </div>
 
                             <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
@@ -144,6 +144,9 @@
 
                             <tbody id= "intro">
                      <?php          $sum=0;
+                                     $taxable_amt=0;
+                                      $cgst=0;
+                                       $sgst=0;
                     foreach($prod_dtls as $prodd)
                     { ?>
                                 <tr>
@@ -223,7 +226,7 @@
                                             foreach ($result as $res ) {
                                            
                                          ?>
-                                          <option value="<?=$res->catg_id?>"><?=$res->cate_desc?></option>
+                                          <option value="<?=$res->catg_id?>" <?php if($res->catg_id==$prodd->catg_id) {echo "selected";}?> ><?=$res->cate_desc?></option>
 
                                       <?php } ?>
               
@@ -231,10 +234,10 @@
                                     
                                     </td>
                                       <td>
-                                         <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required>
+                                         <select name="gov_sale_rt[]" id="gov_sale_rt" class="form-control gov_sale_rt" required>
              
-                                          <option value="N">No</option>
-                                          <option value="Y">Yes</option>
+                                          <option value="N" <?php if($prodd->gov_sale_rt == "N") {echo "selected";}?> >No</option>
+                                          <option value="Y" <?php if($prodd->gov_sale_rt == "Y") {echo "selected";}?> >Yes</option>
                                         </select> 
                                         
                                     </td>
@@ -252,16 +255,17 @@
                                     </td>
 									<td>
                     <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
+                    <?php $taxable_amt +=$prodd->taxable_amt;?>
                     <input type="hidden" name="cgst[]" class="form-control required cgst" value= "<?=$prodd->cgst?>" id="cgst" readonly>
+                     <?php $cgst +=$prodd->cgst;?>
                        <input type="hidden" name="sgst[]" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
+                        <?php $sgst +=$prodd->sgst;?>
                                     </td>
 									
-                 <!--    <td>
-                       <input type="text" name="dis[]" class="form-control dis" value="<?=$prodd->dis?>" id="dis" readonly>
-                       </td> -->
+               
 									<td>
-                    <input type="text" name="tot_amt[]" class="form-control tot_amt required" value="<?php echo $prodd->tot_amt;
-                                        $sum +=$prodd->tot_amt; ?>" id="tot_amt" readonly>
+                    <input type="text" name="tot_amt[]" class="form-control tot_amt required" value="<?php echo ($prodd->taxable_amt+$prodd->cgst+$prodd->sgst);
+                                        $sum +=($prodd->taxable_amt+$prodd->cgst+$prodd->sgst); ?>" id="tot_amt" readonly>
                                     </td>
               
                                    
@@ -273,11 +277,16 @@
 
                             <tfoot>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="2">
                                         <strong>Total:</strong>
                                     </td>
-                                    <td colspan="2">
-                       <input name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" value="<?=$sum?>">  
+                                     <td colspan="9">
+                                         <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"><?=$taxable_amt?></span></div>
+                                        <div class="col-md-2">CGST:<span id="tot_cgst"><?=$cgst?></span></div>
+                                        <div class="col-md-2">SGST:<span id="tot_sgst"><?=$sgst?></span></div>
+                                        <!--<div class="col-md-2">Discount:<span id="tot_dis"></span></div>-->
+                                        <div class="col-md-3">Net Payable:<span id="tot_payble_amt">  <?=$sum?></span></div>
+                   <!--     <input name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" value="<?=$sum?>">  --> 
                                     </td>
                                 </tr>
                             </tfoot>
@@ -289,7 +298,7 @@
                 </div>
 
                 
-                <div class="form-group row">
+              <!--   <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -297,7 +306,7 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
             </form>
 

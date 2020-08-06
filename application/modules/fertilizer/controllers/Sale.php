@@ -357,10 +357,6 @@ public function saleAdd(){   //================================================
 				
 			 $select3        = array("comp_id","comp_name");
 			 $product['compdtls']   = $this->SaleModel->f_select('mm_company_dtls',$select3,NULL,0);
-
-			// $where  =   array(
-
-			// 		'comp_id'     => $this->input->get('comp_id'));
 					
 			$select2         = array("ro_no","qty");
 
@@ -399,7 +395,7 @@ $this->SaleModel->f_delete('td_sale', $where);
 
 $this->session->set_flashdata('msg', 'Successfully Deleted!');
 
-redirect("fertilizer/fertilizer/sale");
+redirect("trade/sale");
 
 }
 
