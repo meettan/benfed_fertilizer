@@ -97,35 +97,41 @@
                       </div>
                     </div>
                     <?php } ?>
-                    <?php if( $this->session->userdata['loggedin']['ho_flag']=="N"){?> 
+                    
                     <div class="dropdown">
                         <div class="dropbtn">
                             <i class="fa fa-university" aria-hidden="true"></i>
                                 Transaction
+                              
                             <i class="fa fa-angle-down"></i>
                         </div>
+                        <?php if( $this->session->userdata['loggedin']['ho_flag']=="N"){?> 
                         <div class="dropdown-content">
                             <div class="sub-dropdown">
-                            <!-- <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>  -->
-                              <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
+                            
                               <a href="<?php echo site_url("adv/advance");?>">Advance</a>
                               <a href="<?php echo site_url("stock/stock_entry");?>">Purchase</a>
-                          <!-- <?php } ?> -->
-                              
-                               <!-- <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>  -->
-                              <!-- <a href="<?php echo site_url("fertilizer/invoice_entry");?>">Invoice Entry</a> -->
-                          <!-- <?php } ?> -->
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("socpay/society_payment");?>">Society Payment</a>
                               <a href="<?php echo site_url("drcrnote/dr_note");?>">Dr Note</a>
-                              <!--<a href="<?php echo site_url("fertilizer/cr_note");?>">Cr Note</a>
-                              <a href="<?php echo site_url("fertilizer/dr_Note");?>">Dr Note </a>
-                              <a href="<?php echo site_url("fertilizer/trfDashboard");?>">Sale Return </a>-->
+                              
                             </div>
                           
                         </div>
-                    </div> 
+                        <?php } ?>
+
+                        <?php if( $this->session->userdata['loggedin']['ho_flag']!="N"){?> 
+                            <div class="dropdown-content">
+                            <div class="sub-dropdown">
+                              <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
+                             
+                            </div>
+                          
+                        </div>
                     <?php } ?>
+                    
+                    </div> 
+                    
                       <div class="dropdown">
                         <div class="dropbtn">
                             <i class="fa fa-university" aria-hidden="true"></i>

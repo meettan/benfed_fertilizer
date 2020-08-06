@@ -6,25 +6,25 @@
 	
 					<div class="form-header">
 					
-						<h4>Society and Payble Details</h4>
+						<h4>Company and Payble Details</h4>
 					
 					</div>
 
                     <div class="form-group row">
-						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
+						<label for="dist_id" class="col-sm-2 col-form-label">District :</label>
 						<div class="col-sm-3">
 	
-							<select name="soc_id" style="width:180px" class="form-control required" id="soc_id" required>
+							<select name="dist_id" style="width:180px" class="form-control required" id="dist_id" required>
 	
 	                            <option value="">Select</option>
 	
                                 <?php
                                 
-                                    foreach($socdtls as $soc){
+                                    foreach($distdtls as $dist){
                                 
                                 ?>
                                 
-                                    <option value="<?php echo $soc->soc_id;?>"><?php echo $soc->soc_name;?></option>
+                                    <option value="<?php echo $dist->district_code;?>"><?php echo $dist->district_name;?></option>
 	
 	                            <?php
 	
@@ -34,38 +34,39 @@
 	
 	                        </select>
 						</div>
-                        <label for="paid_dt" class="col-sm-2 col-form-label">Paid Date:</label>
+                        <label for="pay_dt" class="col-sm-2 col-form-label">Date Of Payment:</label>
 						<div class="col-sm-4">
 	
-						<input type="date" style="width:200px" id="paid_dt" name="paid_dt" class="form-control"/>
+						<input type="date" style="width:200px" id="pay_dt" name="pay_dt" class="form-control"/>
 	                    </div>
                         <!-- </div> -->
                       </div>
                       <div class="form-group row">
-                      <label for="trans_do" class="col-sm-2 col-form-label">Sale Invoice No:</label>
+                      <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
 						<div class="col-sm-3">
-	                <select name="trans_do" style="width:180px" class="form-control required" id="trans_do">
+	                <select name="comp_id" style="width:180px" class="form-control required" id="comp_id">
                     <option value="">Select</option>
                     <?php
-                       foreach($ro_dtls as $ro){
+                       foreach($compdtls as $comp){
                             ?>
-                <option value="<?php echo $ro->trans_do;?>"><?php echo $ro->trans_do;?></option>
+                <option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
                 <?php    }    ?>     
                 </select>
 	                    </div>
-                      <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
+                      <!-- <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
 						<div class="col-sm-2">
 	
-						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" readonly/>
-	                    </div>
+						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" />
+	                    </div> -->
+                        
                         </div>
 
                         <div class="form-group row">
-                      <label for="sale_ro" class="col-sm-2 col-form-label">RO No:</label>
+                      <label for="inv_no" class="col-sm-2 col-form-label">Sale Invoice No:</label>
 						<div class="col-sm-3">
 	
 						<!-- <input type="text" style="width:180px" id="sale_ro" name="sale_ro" class="form-control"  /> -->
-                        <select name="sale_ro" class="form-control required" id="sale_ro"style="width:180px" required>
+                        <select name="inv_no" class="form-control required" id="inv_no"style="width:180px" required>
 
 							<option value="">Select</option>
 
@@ -85,12 +86,17 @@
 
 							</select>
 	                    </div>
-                      
-                        <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Amount:</label>
+                        <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
+						<div class="col-sm-2">
+	
+						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" />
+	                    </div>
+
+                        <!-- <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Amount:</label>
 						<div class="col-sm-3">
 	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
 						<input type="text" style="width:200px" id="tot_recvble_amt" name="tot_recvble_amt" value="0" class="form-control" readonly />
-	                    </div>
+	                    </div> -->
                         </div>
                         <div class="form-group row">
                       <!-- <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Receivable Amount:</label>
@@ -98,18 +104,21 @@
 	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
 						<input type="text" style="width:180px" id="tot_recvble_amt" name="tot_recvble_amt" class="form-control" readonly />
 	                    </div> -->
-                        <label for="tot_dr_amt" class="col-sm-2 col-form-label">Total Dr Note Amount:</label>
+                        <label for="pur_ro" class="col-sm-2 col-form-label">Purchase Ro:</label>
 						<div class="col-sm-3">
-                        <input type="text" style="width:180px" id="tot_dr_amt" name="tot_dr_amt" value="0" class="form-control"  readonly />
+                        <input type="text" style="width:180px" id="pur_ro" name="pur_ro" value="" class="form-control"  readonly />
                         </div>
-                         <label for="adv_amt" class="col-sm-2 col-form-label">Advance Amount:</label>
+                         <label for="pur_ro_dt" class="col-sm-2 col-form-label">Purchase RO Date:</label>
 						<div class="col-sm-3">
-                        <input type="text" style="width:200px" id="adv_amt" name="adv_amt" value="0" class="form-control" readonly  />
+                        <input type="date" style="width:200px" id="pur_ro_dt" name="pur_ro_dt" value="" class="form-control" readonly  />
                         </div>
                         </div>
                         <div class="form-group row">
-                       
-                        <label for="net_amt" class="col-sm-2 col-form-label">Net Amount<br>(Total Amount - Paid Amount):</label>
+                        <label for="prod_id" class="col-sm-2 col-form-label">Product:</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:180px" id="prod_id" name="prod_id"value=""  class="form-control" readonly />
+                        </div>
+                        <label for="net_amt" class="col-sm-2 col-form-label">Total Amount Sold:</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
                         </div>
@@ -132,8 +141,11 @@
                         <table class= "table table-striped table-bordered table-hover">
 
                             <thead>
-                                <th style= "text-align: center;width:100px">Pay Type</th>
-                                <th style= "text-align: center;width:100px">Reference No.</th>
+                                <th style= "text-align: center;width:100px">Sale Date</th>
+                                <th style= "text-align: center;width:100px">Quantity</th>
+                                <th style= "text-align: center;width:100px">Payment Date</th>
+                                <th style= "text-align: center;width:100px">Pay Mode</th>
+                                <th style= "text-align: center;width:100px">Quantity</th>
 								<th style= "text-align: center;width:100px">Amount</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
@@ -144,25 +156,24 @@
                             <tbody id= "intro">
                                 <tr>
                                 
-                                    <td>    
-                                       
-                 <select name="pay_type[]" id="pay_type" style="width:230px"class="form-control required pay_type" required>
-                <option value="">Select Pay Type</option>
-               
-                      
-						<option value="1">Cash</option>
-						<option value="2">Advance</option>
-						<option value="3">Cheque</option>
-                        <option value="4">Draft</option>
-                        <option value="5">Pay Order</option>
-                        <option value="6">DR Note</option>
-                        <option value="7">NEFT/RTGS</option>
-                   
-            </select> 
+                                <td>
+                                      <input type="date" name="sale_dt[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >
                                     </td>
                                     <td>
-                                      <input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >
+                                      <input type="text" name="qty[]" style="width:150px;" class="form-control qty" value= "" id="ref_no" >
                                     </td>
+                                    <td>
+                                      <input type="text" name="pay_dt[]" style="width:150px;" class="form-control pay_dt" value= "" id="ref_no" >
+                                    </td>
+                                    <td>    
+                                       
+                 
+                 <input type="text" name="pay_type[]" style="width:150px;" class="form-control pay_type" value= "" id="pay_type" >
+                                    </td>
+                                    <td>
+                                      <input type="text" name="ref_no[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >
+                                    </td>
+
 									<td>
                                       <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>
                                     </td>
@@ -188,7 +199,11 @@
                     </div> 
 
                 </div>
-
+                <div class="form-header">
+					
+					<h4>Bank Details</h4>
+				
+				</div>
                 
                 <div class="form-group row">
 
@@ -633,7 +648,7 @@ $(document).ready(function(){
             { 
 
                 soc_id: $('#soc_id').val(),
-                trans_do: $('#trans_do').val()
+                trans_do: $('#trans_do').val(),
 
             }
 

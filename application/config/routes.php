@@ -79,7 +79,7 @@ $route['stock/(:any)']     = 'fertilizer/purchase/$1';                          
 $route['adv/(:any)']       = 'fertilizer/advance/$1'; 
 $route['socpay/(:any)']    = 'fertilizer/society_payment/$1';                       //Advance
 $route['drcrnote/(:any)']  = 'fertilizer/drcrnote/$1'; 
-
+$route['compay/(:any)']    = 'fertilizer/company_payment/$1'; 
 //For Add New
 
 //$route['add_new/(:any)/(:any)'] = 'paddys/add_new/f_$1_$2';
