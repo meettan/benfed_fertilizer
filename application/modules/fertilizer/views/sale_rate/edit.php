@@ -8,17 +8,16 @@
 
 				<div class="form-header">
                 
-					<h4>Edit Sale Rate</h4>
+					<h4>Edit Sale Rate </h4>
 				
 				</div>
 				<div class="form-group row">
 					
-
 						<label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
 						<div class="col-sm-4">
 
 							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-							<select name="comp_id" class="form-control required" id="comp_id" required>
+							<select name="comp_id" class="form-control required" id="comp_id" disabled="" >
 
 						<option value="">Select</option>
 
@@ -28,7 +27,10 @@
 
 						?>
 
-							<option value="<?php echo $comp->comp_id;?>"><?php echo $comp->comp_name;?></option>
+							<option value="<?php echo $comp->comp_id;?>" <?php if($comp->comp_id == $schdtls->comp_id){
+
+								echo "selected";
+							}?>><?php echo $comp->comp_name;?></option>
 
 						<?php
 
@@ -40,18 +42,15 @@
 
 						</div>
 
-
 							<label for="catg_id" class="col-sm-2 col-form-label">Category :</label>
 						<div class="col-sm-4">
 
-							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-							<select name="catg_id" class="form-control required" id="catg_id" required>
+						 <input type="text" id=catg_id name="catg_id" class="form-control" value="<?=$schdtls->cate_desc?>" readonly/>
+							<!-- <select name="catg_id" class="form-control required" id="catg_id" required>
 
 							<option value="">Select</option>
 
-							  
-
-							</select>
+							</select> -->
 
 						</div>
 						
@@ -63,14 +62,14 @@
 						<label for="prod_id" class="col-sm-2 col-form-label">Product :</label>
 						<div class="col-sm-4">
 
-							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-							<select name="prod_id" class="form-control required" id="prod_id" required>
+						 <input type="text" id=prod_desc name="prod_desc" class="form-control" value="<?=$schdtls->prod_desc?>" readonly/>
+							<!-- <select name="prod_id" class="form-control required" id="prod_id" required>
 
 							<option value="">Select</option>
 
 							  
 
-							</select>
+							</select> -->
 
 						</div>
 				
@@ -80,14 +79,14 @@
 						<label for="frm_dt" class="col-sm-2 col-form-label">From Date:</label>
 						<div class="col-sm-4">
 
-							<input type="date" id=frm_dt name="frm_dt" class="form-control"  required />
+							<input type="date" id=frm_dt name="frm_dt" class="form-control"  value="<?=$schdtls->frm_dt?>" readonly />
 
 						</div>
 					<label for="to_dt" class="col-sm-2 col-form-label">To Date:</label>
 					<div class="col-sm-4">
 
 
-						<input type="date" id=to_dt name="to_dt" class="form-control" onchange="DateCheck();" required />
+						<input type="date" id=to_dt name="to_dt" class="form-control" value="<?=$schdtls->to_dt?>" readonly  />
 
 					</div>
 					</div>
@@ -99,13 +98,13 @@
 					<label for="sp_mt" class="col-sm-2 col-form-label">Sale Price in MT:</label>
 					<div class="col-sm-4">
 
-						<input type="text" id="sp_mt" name="sp_mt" class="form-control" required />
+						<input type="text" id="sp_mt" name="sp_mt" class="form-control" value="<?=$schdtls->sp_mt?>" readonly />
 
 					</div>
 					<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price per Bag:</label>
 					<div class="col-sm-4">
 
-						<input type="text" id="sp_bag" name="sp_bag" class="form-control" required />
+						<input type="text" id="sp_bag" name="sp_bag" class="form-control" value="<?=$schdtls->sp_bag?>" readonly />
 
 					</div>
 				   </div>
@@ -114,7 +113,7 @@
 					<label for="sp_govt" class="col-sm-2 col-form-label">Gov Sale rate:</label>
 					<div class="col-sm-4">
 
-						<input type="text" id="sp_govt" name="sp_govt" class="form-control" required />
+						<input type="text" id="sp_govt" name="sp_govt" class="form-control" value="<?=$schdtls->sp_govt?>" readonly />
 
 					</div>
 					
@@ -123,31 +122,38 @@
 					<div class="form-group row">
 						<label for="salerate" class="col-sm-2 col-form-label">District:</label>
 
-						<div class="col-sm-10">
+						<div class="col-sm-4">
+
+						<input type="text" id="sp_govt" name="sp_govt" class="form-control" value="<?=$schdtls->district_name?>" readonly />
+
+					</div>
+					
+
+						<!-- <div class="col-sm-10">
 						<?php
 
-							foreach($distdtls as $dist){
+							//foreach($distdtls as $dist){
 
 						?>
 						<div class="col-sm-2">
 							
 
-					<input type='checkbox' name='district[]' id="checkItem" value='<?php echo $dist->district_code;?>' /><?php echo $dist->dist_sort_code;?>
+					<input type='checkbox' name='district[]' id="checkItem" value='<?php //echo $dist->district_code;?>' /><?php// echo $dist->dist_sort_code;?>
 
 					</div>
 					<?php
 
-							}
+							//}
 
 						?>  
 
-						<div class="col-sm-2"><input type="checkbox" id="checkAll" > Check All </div>
+						<div class="col-sm-2"><input type="checkbox" id="checkAll" > Check All </div> -->
 						</div> 
 
 						
-					</div>
+					
 
-				<div class="form-group row">
+				<!-- <div class="form-group row">
 
 					<div class="col-sm-10">
 
@@ -155,7 +161,7 @@
 
 					</div>
 
-				</div>
+				</div> -->
 	
 			</form>
 
@@ -167,9 +173,9 @@
 
 $(document).ready(function(){
 
-    var i = 0;
+    //var i = 0;
 
-    $('#comp_id').change(function(){
+    // $('#comp_id').change(function(){
 
         $.get( 
 
@@ -197,9 +203,8 @@ $(document).ready(function(){
           });
 
 
-    });
 
-     $('#comp_id').change(function(){
+     // $('#comp_id').change(function(){
 
         $.get( 
 
@@ -227,7 +232,7 @@ $(document).ready(function(){
           });
 
 
-    });
+    // });
 
 });
 </script> 

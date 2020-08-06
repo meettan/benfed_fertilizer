@@ -240,8 +240,6 @@
 					<input type="checkbox" name="district[]" id="checkItem" value="348">JHG
 					</div>
 					  
-
-						
 						</div>
 				
 					</div>
