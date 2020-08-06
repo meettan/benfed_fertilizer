@@ -101,7 +101,7 @@
 			return $sql->row();
 		}
 
-		public function js_get_stock_point($ro,$dist_id){
+		public function js_get_stock_point($dist_id){
 
 				$this->db->select('soc_id,soc_name');
 				$this->db->from('mm_ferti_soc');

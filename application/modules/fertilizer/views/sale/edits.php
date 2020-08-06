@@ -2,66 +2,54 @@
             
 			<div class="col-md-12 container form-wraper">
 	
-				<!-- <form method="POST" action="<?php echo site_url("trade/saleedit") ?>> -->
+			
                 <form method="POST"  action="<?php echo site_url("trade/saleedit");?>" >
+                 
 					<div class="form-header">
 					
 						<h4>Edit Sale</h4>
 					
-					</div>
-	<?php
-                    foreach($prod_dtls as $prodd)
-                    ?>
-					<div class="form-group row">
-	
-
-						<div class="col-sm-4">
-	
-					</div>
-						
-						</div>
-	
+    					</div>
+    	                <?php
+                        foreach($prod_dtls as $prodd);
+                        ?>
+    		
+                                   <input type="hidden" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>"/>						
 						<div class="form-group row">
 						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
 						<div class="col-sm-4">
 	
-							<select name="soc_id" style="width:350px" class="form-control required" id="soc_id" disabled>
+						<select name="soc_id"  class="form-control required" id="soc_id" disabled>
 	
-	<option value="">Select</option>
-	
-	<?php
-	
-		foreach($socdtls as $soc){
-	
-	?>
-	
-		<option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
-	
-	<?php
-	
-		}
-	
-	?>     
-	
-	</select>
+                    	<option value="">Select</option>
+                    	
+                    	<?php
+                    	
+                    		foreach($socdtls as $soc){
+                    	
+                    	?>
+                    		<option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
+                    	<?php
+                    	
+                    		}
+                    	
+                    	?>     
+                    	</select>
 						</div>
 						<label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
 						<div class="col-sm-3">
-	
-						<input type="text" style="width:280px" id=gstin name="gstin" class="form-control" readonly />
-	
+						<input type="text"  id=gstin name="gstin" class="form-control" readonly />
 						</div>
-						
 						</div>
 	
 						<div class="form-group row">
 						<label for="soc_add" class="col-sm-2 col-form-label">Address:</label>
 						<div class="col-sm-4">
 	
-					<textarea style="width:350px;height:70px"  id=soc_add name="soc_add" class="form-control" readonly /></textarea>
+					   <textarea style="width:350px;height:70px"  id=soc_add name="soc_add" class="form-control" readonly /></textarea>
 	
 						</div>
-						 <label for="cin" class="col-sm-2 col-form-label">Transaction Type:</label>
+						 <label for="cin" class="col-sm-2 col-form-label">Invoice Type:</label>
 						<div class="col-sm-3">
 	
 						<select name="trans_type" class="form-control" disabled>
@@ -70,60 +58,57 @@
                         </select>
 	
 						</div> 
-                    
-                        
 					  </div>
                       <div class="form-group row">
-                      <label for="trans_do" class="col-sm-2 col-form-label">Sale Ro:</label>
-						<div class="col-sm-4">
-	
-		<input type="text" style="width:350px" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>" readonly/>
-	                    </div>
-                      <!-- <label for="do_dt" class="col-sm-3 col-form-label">Sale Ro Date:</label>
-						<div class="col-sm-4">
-	
-				<input type="date" style="width:200px" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>"/>
-	                    </div> -->
+
+                        <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
+                        <div class="col-sm-4">
+    
+                            <input type="date" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>" required/>
+                        </div>
+	                
      
                         <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
 						<div class="col-sm-3">
 	
-							<select name="comp_id" style="width:280px" class="form-control required" id="comp_id" disabled>
+							<select name="comp_id" class="form-control required" id="comp_id" disabled>
 	
-	<option value="">Select</option>
-	
-	<?php
-	
-		foreach($compdtls as $comp){
-	
-	?>
-	
-		<option value="<?php echo $comp->comp_id;?>"  <?php if($prodd->comp_id==$comp->comp_id) echo "selected" ?>><?php echo $comp->comp_name;?></option>
-	
-	<?php
-	
-		}
-	
-	?>     
-	
-	</select>
+                    	<option value="">Select</option>
+                    	
+                    	<?php
+                    	
+                    		foreach($compdtls as $comp){
+                    	
+                    	?>
+                    	
+                    		<option value="<?php echo $comp->comp_id;?>"  <?php if($prodd->comp_id==$comp->comp_id) echo "selected" ?>><?php echo $comp->comp_name;?></option>
+                    	
+                    	<?php
+                    	
+                    		}
+                    	
+                    	?>     
+                    	
+                    	</select>
 						</div>
 
                         </div>
 
-                         <div class="form-group row">
-                      <label for="trans_do" class="col-sm-2 col-form-label">Sale Due Date:</label>
-                        <div class="col-sm-4">
+                          <div class="form-group row">
+                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
+                            <div class="col-sm-4">
     
-                     <input type="date" style="width:350px" name="sale_due_dt" class="form-control"  value="<?=$prodd->sale_due_dt?>"/>
+                                <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>" required />
+                            </div>
+
+                            <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
+
+                            <div class="col-sm-3">
+    
+                                <input type="text" name="unit" id="unit" class="form-control" value="MT"  readonly/>
+                            </div>
                         </div>
-                     
-                        <label for="do_dt" class="col-sm-2 col-form-label">Sale Ro Date:</label>
-						<div class="col-sm-3">
-	
-				<input type="date" style="width:280px" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>"/>
-	                    </div>
-                        </div>
+
 
 						<div class="form-header">
 					
@@ -142,85 +127,147 @@
 
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
+                                  <th style= "text-align: center">Stock Point</th>
+                                <th style= "text-align: center">Rate Catg</th>
+                                <th style= "text-align: center">Govt.Rate</th>
                                 <th style= "text-align: center">Stock Qty</th>
                                 <th style= "text-align: center">Qty</th>
 								<th style= "text-align: center">Sale Rate</th>
 								<th style= "text-align: center">Taxable Amt</th>
-								<th style= "text-align: center">CGST</th>
+								<!-- <th style= "text-align: center">CGST</th>
 								<th style= "text-align: center">SGST</th>
-                                <th style= "text-align: center">Dis</th>
+                                <th style= "text-align: center">Dis</th> -->
 								<th style= "text-align: center">Total Amt</th>
                          
 
                             </thead>
 
                             <tbody id= "intro">
-      <?php          $sum=0;
+                     <?php          $sum=0;
                     foreach($prod_dtls as $prodd)
                     { ?>
                                 <tr>
                                 
                                     <td>    
                                     
-            <select name="ro[]" id="ro" style="width:150px"class="form-control required ro" readonly >
-                <option value="">Select Project</option>
-                <?php
+                     <select name="ro[]" id="ro" style="width:150px"class="form-control required ro" readonly >
+                     <option value="">Select Project</option>
+                     <?php
                     foreach($rodtls as $key1)
                     { ?>
                         <option value="<?php echo $key1->ro_no; ?>" <?php if($prodd->sale_ro==$key1->ro_no) echo "selected" ?> ><?php echo $key1->ro_no; ?></option>
                     <?php
                     } ?>
-            </select> 
+                    </select> 
                                     </td>
 
                                     <td>    
                                       
-            <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly >
-                <option value="">Select product</option>
-                <?php
+                    <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" readonly >
+                    <option value="">Select product</option>
+                    <?php
                     foreach($proddtls as $key1)
                     { ?>
                         <option value="<?php echo $key1->prod_id; ?>" <?php if($prodd->prod_id==$key1->prod_id) echo "selected" ?> ><?php echo $key1->prod_desc; ?></option>
                     <?php
                     } ?>c
-            </select> 
+                    </select> 
                                         
                             </td>
+                              <td>
+                                        <select name="stock_point[]" id="stock_point" style="width:110px"class="form-control stock_point" required>
+                                            <option value="">Select</option>
+                        <?php
+
+                        foreach($socdtls as $soc){
+                        
+                        ?>
+                            <option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
+                        <?php
+                        
+                            }
+                        
+                        ?>     
+              
+                                        </select> 
+                                    
+                                </td>
+                                       <td>
+
+                                    <select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required>
+
+
+                                         <option value="">Select</option>
+                                         <?php 
+
+                                                          $where  =   array(
+
+                                                            'comp_id'     => $prodd->comp_id,
+
+                                                            'ro_no'      =>  $prodd->sale_ro
+
+                                                        );
+
+                         $select = array("ro_dt","prod_id");
+
+                         $ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+  
+
+                                            $comp_id    = $prodd->comp_id;
+                                            $ro_dt      = $ros->ro_dt;
+                                            $prod_id    = $prodd->prod_id;
+                                            $br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+                                            $result = $this->SaleModel->js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id);
+
+                                            foreach ($result as $res ) {
+                                           
+                                         ?>
+                                          <option value="<?=$res->catg_id?>"><?=$res->cate_desc?></option>
+
+                                      <?php } ?>
+              
+                                         </select> 
+                                    
+                                    </td>
+                                      <td>
+                                         <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required>
+             
+                                          <option value="N">No</option>
+                                          <option value="Y">Yes</option>
+                                        </select> 
+                                        
+                                    </td>
 
                                     <td>
-              <input type="text" name="stock_qty[]" class="form-control required stock_qty" value="<?php echo $this->FertilizerModel->js_get_stock_qty($prodd->sale_ro)->qty;
-              ?>" id="stock_qty" readonly > 
+                    <input type="text" name="stock_qty[]" class="form-control stock_qty" value="<?php  
+                    echo $this->SaleModel->js_get_stock_qty($prodd->sale_ro)->stkqty;?>" id="stock_qty" readonly > 
                                     </td>
 
                                     <td>
-              <input type="text" name="qty[]" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" readonly>
+                    <input type="text" name="qty[]" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" readonly>
                                     </td>
 									<td>
-              <input type="text" name="sale_rt[]" class="form-control required sale_rt" value="<?=$prodd->sale_rt?>" id="sale_rt" readonly>
+                    <input type="text" name="sale_rt[]" class="form-control required sale_rt" value="<?=$prodd->sale_rt?>" id="sale_rt" readonly>
                                     </td>
 									<td>
-                <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
+                    <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
+                    <input type="hidden" name="cgst[]" class="form-control required cgst" value= "<?=$prodd->cgst?>" id="cgst" readonly>
+                       <input type="hidden" name="sgst[]" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
                                     </td>
-									<td>
-                  <input type="text" name="cgst[]" class="form-control required cgst" value= "<?=$prodd->cgst?>" id="cgst" readonly>
-                                    </td>
-									<td>
-                  <input type="text" name="sgst[]" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
-                                    </td>
-                    <td>
+									
+                 <!--    <td>
                        <input type="text" name="dis[]" class="form-control dis" value="<?=$prodd->dis?>" id="dis" readonly>
-                       </td>
+                       </td> -->
 									<td>
-                 <input type="text" name="tot_amt[]" class="form-control tot_amt required" value="<?php echo $prodd->tot_amt;
+                    <input type="text" name="tot_amt[]" class="form-control tot_amt required" value="<?php echo $prodd->tot_amt;
                                         $sum +=$prodd->tot_amt; ?>" id="tot_amt" readonly>
                                     </td>
-                <!-- <td>
-                <input type="hidden" name="gst_rt[]" class="form-control  gst_rt" value="<?=$proddtls->gst_rt?>" id="gst_rt" required>
-            </td> -->
+              
                                    
                                 </tr>
 
-<?php } ?>
+                <?php } ?>
 
                             </tbody>
 
@@ -454,6 +501,9 @@ $(document).ready(function(){
 			$('#gstin').val(gstin);
 			$('#soc_add').val(soc_add);
 		});
+
+
+
 	});
 
 </script>

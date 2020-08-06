@@ -26,10 +26,10 @@
 
 		public function js_get_stock_point(){
 
-			$ro = $this->input->get('ro');
+			//$ro = $this->input->get('ro');
 			$dist_id = $this->session->userdata['loggedin']['branch_id'];
 		
-			$result = $this->SaleModel->js_get_stock_point($ro,$dist_id);		
+			$result = $this->SaleModel->js_get_stock_point($dist_id);
 			
  			echo json_encode($result);
 
@@ -355,31 +355,36 @@ public function saleAdd(){   //================================================
             
 			}else {
 				
-				$select3        = array("comp_id","comp_name");
-				$product['compdtls']   = $this->SaleModel->f_select('mm_company_dtls',$select3,NULL,0);
+			 $select3        = array("comp_id","comp_name");
+			 $product['compdtls']   = $this->SaleModel->f_select('mm_company_dtls',$select3,NULL,0);
 
-				$where  =   array(
+			// $where  =   array(
 
-					'comp_id'     => $this->input->get('comp_id'));
+			// 		'comp_id'     => $this->input->get('comp_id'));
 					
-				$select2         = array("ro_no","qty");
+			$select2         = array("ro_no","qty");
 
-				$product['rodtls']   = $this->SaleModel->f_select('td_purchase',$select2,NULL,0);
-			// echo $this->db->last_query();
-			// die();
+			$product['rodtls']   = $this->SaleModel->f_select('td_purchase',$select2,NULL,0);
+
+			$where1  =   array(
+
+					'district'     => $this->session->userdata['loggedin']['branch_id']);
+			
 			$select1          = array("soc_id","soc_name","soc_add","gstin");
-			$product['socdtls']   = $this->SaleModel->f_select('mm_ferti_soc',$select1,NULL,0);
+			$product['socdtls']   = $this->SaleModel->f_select('mm_ferti_soc',$select1,$where1,0);
 
 			$select          = array("prod_id","prod_desc","gst_rt");
 			$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
-            $product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array( "trans_do" => $this->input->get('trans_do')),0);
+            $product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("trans_do" => $this->input->get('trans_do')),0);
+
+
 		
 	        $this->load->view('post_login/fertilizer_main');
 
-	       $this->load->view("sale/edits",$product);
+	        $this->load->view("sale/edits",$product);
 
 	        $this->load->view('post_login/footer');
-}
+    }
 
 }
 	

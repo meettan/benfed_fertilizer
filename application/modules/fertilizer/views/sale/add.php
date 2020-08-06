@@ -145,23 +145,14 @@
                             <thead>
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
-                               
-                                <th style= "text-align: center">Stock 
-                                                                Point</th>
-                                <th style= "text-align: center">Rate 
-                                                                Catg</th>
-                                <th style= "text-align: center">Govt.
-                                                                Rate</th>
-                               
+                                <th style= "text-align: center">Stock Point</th>
+                                <th style= "text-align: center">Rate Catg</th>
+                                <th style= "text-align: center">Govt.Rate</th>
                                 <th style= "text-align: center">Stock Qty</th>
                                 <th style= "text-align: center">Qty</th>
 								<th style= "text-align: center">Sale Rate</th>
 								<th style= "text-align: center">Taxable Amt</th>
                          
-								<!-- <th style= "text-align: center">CGST</th>
-
-								<th style= "text-align: center">SGST</th> -->
-                                <!--<th style= "text-align: center">Discount</th>-->
 								<th style= "text-align: center">Net Amt</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
@@ -207,10 +198,6 @@
               
                                          </select> 
                                     
-                                    </td>
-                                      
-
-                                   
                                     </td>
                                       <td>
                                          <select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required>
