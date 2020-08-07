@@ -509,20 +509,26 @@ $(document).ready(function(){
     {
         $('#intro').on( "change", ".ro", function()                     //Getting Product name and stock quantity on supplying RO
         {
-            //console.log($(this).val());
+                $('.stock_qty').eq($('.ro').index(this)).val("0"); 
+                $('.prod_id').eq($('.ro').index(this)).val(""); 
+                $('.prod_desc').eq($('.ro').index(this)).val(""); 
+                $('.gst_rt').eq($('.ro').index(this)).val(""); 
+                $('.unit').eq($('.ro').index(this)).val('');
+                $('.units').eq($('.ro').index(this)).val('');
+             
+                $('.qty').eq($('.ro').index(this)).val(0);  
+                $('.gov_sale_rt option:first').prop('selected', 'selected');
+                $('.taxable_amt').eq($('.ro').index(this)).val(0);
+                $('.cgst').eq($('.ro').index(this)).val(0);  
+                $('.sgst').eq($('.ro').index(this)).val(0);
+                
+                $('.tot_amt').eq($('.ro').index(this)).val(0);
             $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
                                                                             
             .done(function(data)
             {
                 
                 var unitData = JSON.parse(data);
-            
-            //     var string = '<option value="">Select</option>';
-            //     $.each(JSON.parse(unitData), function( index, value ) {
-            //     string += '<option value="' + value.prod_id + '">' + value.prod_desc + '</option>'
-
-            // });
-            //     $('#prod_id').val(string);
                 
                 $('.stock_qty').eq($('.ro').index(this)).val(unitData.stkqty); 
                 $('.prod_id').eq($('.ro').index(this)).val(unitData.prod_id); 
@@ -530,9 +536,9 @@ $(document).ready(function(){
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
                 $('.unit').eq($('.ro').index(this)).val('MT');
                 $('.units').eq($('.ro').index(this)).val('MT');
-                //$('.sale_rt').eq($('.ro').index(this)).val(unitData.govt_sale_rt);
+             
                 $('.qty').eq($('.ro').index(this)).val(0);  
-                // $('.sale_rt').eq($('.ro').index(this)).val(0);  
+
                 $('.taxable_amt').eq($('.ro').index(this)).val(0);
                 $('.cgst').eq($('.ro').index(this)).val(0);  
                 $('.sgst').eq($('.ro').index(this)).val(0);
@@ -546,7 +552,10 @@ $(document).ready(function(){
 
          $('#intro').on( "change", ".ro", function()
         {
-            //console.log($(this).val());
+
+              $('.stock_point').eq($('.ro').index(this)).val(""); 
+              $('.stock_name').eq($('.ro').index(this)).val(""); 
+           
             $.get('<?php echo site_url("trade/js_get_stock_point");?>',{ ro: $(this).val() })
                                                                             
             
@@ -564,7 +573,10 @@ $(document).ready(function(){
 ///Getting the sale category with district,company,supplied ro date and product
          $('#intro').on( "change", ".ro", function()
         {
-            //console.log($(this).val());
+           var string = '<option value="">Select</option>';
+
+              //  $('.sale_rt').eq($('.ro').index(this)).val("0"); 
+              $('.sale_category').eq($('.ro').index(this)).html(string); 
             $.get('<?php echo site_url("trade/get_sale_rate");?>',{ ro: $(this).val(),comp_id:$("#comp_id").val() })
                                                                             
             
@@ -585,6 +597,65 @@ $(document).ready(function(){
         });
 
     });
+
+
+      ///       get Sale rate In MT
+    $('#intro').on( "change", ".sale_category", function(){   
+
+        var row = $(this).closest('tr');
+
+          $('.gov_sale_rt option:first').prop('selected', 'selected');
+          $('.qty').eq($('.ro').index(this)).val(0);
+          $('.sale_rt').eq($('.ro').index(this)).val(0);  
+          $('.taxable_amt').eq($('.ro').index(this)).val(0);
+          $('.tot_amt').eq($('.ro').index(this)).val(0);
+        var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
+                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
+       
+        $.get('<?php echo site_url("trade/get_salerate");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category: $(this).val() })
+
+                                                                  
+        .done(function(data)
+        {
+         
+            var unitData = JSON.parse(data);
+           
+           row.find('td:eq(7) .sale_rt').val(unitData.sp_mt);
+                      
+        });
+         
+       
+     });
+
+       ///       get Gov rate In MT
+    $('#intro').on( "change", ".gov_sale_rt", function(){
+
+
+          $('.qty').eq($('.ro').index(this)).val(0);
+          $('.sale_rt').eq($('.ro').index(this)).val(0);  
+          $('.taxable_amt').eq($('.ro').index(this)).val(0);
+          $('.tot_amt').eq($('.ro').index(this)).val(0);   
+
+        var row = $(this).closest('tr');
+
+        var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
+        var sale_category =  $(this).closest('tr').find('td:eq(3) .sale_category').val();
+                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
+       
+        $.get('<?php echo site_url("trade/get_govsalert");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category:sale_category,gov_sale_rt: $(this).val() })
+
+                                                                  
+        .done(function(data)
+        {
+         
+            var unitData = JSON.parse(data);
+           
+           row.find('td:eq(7) .sale_rt').val(unitData.rate);
+                      
+        });
+         
+       
+     });
 
 </script>
 
@@ -667,78 +738,11 @@ $(document).ready(function()
     
         })
 
-    ///       get Sale rate In MT
-    $('#intro').on( "change", ".sale_category", function(){   
+  
 
-        var row = $(this).closest('tr');
+  
 
-        var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
-                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
-       
-        $.get('<?php echo site_url("trade/get_salerate");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category: $(this).val() })
-
-                                                                  
-        .done(function(data)
-        {
-         
-            var unitData = JSON.parse(data);
-           
-           row.find('td:eq(7) .sale_rt').val(unitData.sp_mt);
-                      
-        });
-         
-       
-     });
-
-     ///       get Gov rate In MT
-    $('#intro').on( "change", ".gov_sale_rt", function(){   
-
-        var row = $(this).closest('tr');
-
-        var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
-        var sale_category =  $(this).closest('tr').find('td:eq(3) .sale_category').val();
-                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
-       
-        $.get('<?php echo site_url("trade/get_govsalert");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category:sale_category,gov_sale_rt: $(this).val() })
-
-                                                                  
-        .done(function(data)
-        {
-         
-            var unitData = JSON.parse(data);
-           
-           row.find('td:eq(7) .sale_rt').val(unitData.rate);
-                      
-        });
-         
-       
-     });
-
- // $('.table tbody').on('change', '.dis', function(){
-
- //       var sum    = 0;
- //       var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
- //       var qty = $('.qty').eq($('.ro').index(this)).val();
- //       var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
- //       var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
- //       var cgst =parseFloat(taxable_amt * gst_rt/100/2).toFixed('2')
- //       var tot_amt = parseFloat(taxable_amt + cgst*2).toFixed('2')
- //       var total =0.00;
- //       total = parseFloat(total) + parseFloat(tot_amt); 
-           
-           
-         
- //          $("input[class *= 'tot_amt']").each(function(){
- //           sum += parseFloat($(this).val());
-                      
- //            });
- //            let row   = $(this).closest('tr');
- //             var dis        = parseFloat(row.find('td:eq(8) .dis').val());
- //            var tot_amt   = row.find('td:eq(9) .tot_amt').val();
-        
- //                           row.find('td:eq(9) .tot_amt').val(total-dis);
- //            $("#total").val("0");
- //            $("#total").val(sum).toFixed(2);
+ 
            
                       
             })
@@ -834,8 +838,6 @@ $(document).ready(function()
             var output = d.getFullYear() + '-' +
             (month<10 ? '0' : '') + month + '-' +
             (day<10 ? '0' : '') + day;
-
-            // console.log(trans_dt,output);
 
             if(new Date(output) >new Date(ro_dt))
             {
