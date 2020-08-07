@@ -580,9 +580,9 @@ $(document).ready(function()
 
        var gst_rt=$('.gst_rt').eq($('.ro').index(this)).val();
 
-       var qty = $('.qty').eq($('.ro').index(this)).val();
+       var qty = parseFloat($('.qty').eq($('.ro').index(this)).val());
        var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
-      var stkqty = $('.stock_qty').eq($('.ro').index(this)).val();
+      var stkqty = parseFloat($('.stock_qty').eq($('.ro').index(this)).val());
     //   alert(stkqty);
     //    if (sale_rt==0){
     //     alert('Sale rate Can not be zero');
@@ -591,12 +591,12 @@ $(document).ready(function()
     // return false;
     //    }
 
-    //    if (qty>stkqty){
-    //     alert('Quantity Can not Greater Than Stock Quantity ');
-    //     var txtBox=document.getElementById("qty" );
-    //     txtBox.focus();
-    // return false;
-    //    }
+       if (qty > stkqty){
+        alert('Quantity Can not Greater Than Stock Quantity ');
+        $('.qty').eq($('.ro').index(this)).val("");
+        //txtBox.focus();
+    return false;
+       }
        var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
        var cgst = parseFloat(taxable_amt * gst_rt/100/2).toFixed('2');
 
