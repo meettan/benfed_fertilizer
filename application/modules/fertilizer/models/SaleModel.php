@@ -101,15 +101,19 @@
 			return $sql->row();
 		}
 
-		public function js_get_stock_point($dist_id){
+		public function js_get_stock_point($ro_no){
 
-				$this->db->select('soc_id,soc_name');
-				$this->db->from('mm_ferti_soc');
-				$this->db->where('district', $dist_id);
-				$this->db->where('stock_point_flag', "Y");
-				$query = $this->db->get();
 
-				return $query->result();
+			$query = $this->db->query("select a.soc_id,a.soc_name
+									from  mm_ferti_soc a,td_purchase b    							   							
+					  where  a.soc_id = b.stock_point
+					  and    a.stock_point_flag = 'Y'
+					  and    b.ro_no            = '$ro_no'
+					   ");
+
+				
+			
+				return $query->row();
 		}
 
 		public function get_advance($soc_id){

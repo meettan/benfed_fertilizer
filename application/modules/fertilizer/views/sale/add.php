@@ -184,11 +184,8 @@
                                     </td>
 
                                     <td>
-
-                                        <select name="stock_point[]" id="stock_point" style="width:110px"class="form-control stock_point" required>
-                                            <option value="">Select</option>
-              
-                                        </select> 
+                                         <input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point">  
+                                     <input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" readonly>     
                                     
                                     </td>
                                        <td>
@@ -324,7 +321,7 @@ $.each(JSON.parse(data), function( index, value ) {
            +'</select> '
                                 +'</td>'
                                 +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'
-                                +'   <td><select name="stock_point[]" id="ro" style="width:110px"class="form-control stock_point" required><option value="">Select</option></select>'             
+                                +'<td><input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point"><input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" readonly>'             
                                 +'<td><select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
                                     +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
                                 +'</td>'
@@ -357,8 +354,41 @@ $.each(JSON.parse(data), function( index, value ) {
 });
         // For remove row 
         $("#intro").on("click","#removeRow", function(){
+
+
             $(this).parents('tr').remove();
-            $('.total').change();
+
+
+          var tottaxable  = 0;
+          var cgst        = 0;
+          var qty         = 0;
+          var rate        = 0;
+          var gst_rt      = 0;
+
+
+               $('#intro tr').each(function() {
+
+
+                 var qty = $(this).find('td:eq(6) .qty').val();
+                 var rate = $(this).find('td:eq(7) .sale_rt').val();
+                 var gst_rt = $(this).find('td:eq(8) .gst_rt').val();
+                 
+             
+                 tottaxable += parseFloat(qty*rate);
+
+                 cgst += parseFloat((qty*rate) * gst_rt/100/2);
+                   
+            });
+             
+            $("#tot_taxable_amt").html("");
+            $("#tot_taxable_amt").html(tottaxable);
+            $("#tot_cgst").html("");    
+            $("#tot_cgst").html(cgst.toFixed('2')); 
+            $("#tot_sgst").html(cgst.toFixed('2')); 
+            $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
+
+
+            //$('.total').change();
         });
 
         // For getting total amount after giving nt_amount
@@ -522,18 +552,10 @@ $(document).ready(function(){
             
             .done(function(data){
 
-            var string = '<option value="">Select</option>';
+                   var unitData = JSON.parse(data);
 
-            $.each(JSON.parse(data), function( index, value ) {
-
-                string += '<option value="' + value.soc_id + '">' + value.soc_name + '</option>'
-
-            });
-
-             $('.stock_point').eq($('.ro').index(this)).html(string); 
-
-            //$('#stock_point').html(string);
-
+                $('.stock_point').eq($('.ro').index(this)).val(unitData.soc_id); 
+                $('.stock_name').eq($('.ro').index(this)).val(unitData.soc_name); 
 
           });
 
@@ -592,8 +614,8 @@ $(document).ready(function()
     //    }
 
        if (qty > stkqty){
-        alert('Quantity Can not Greater Than Stock Quantity ');
-        $('.qty').eq($('.ro').index(this)).val("");
+        alert('Quantity cannot be greater than stock quantity');
+        $('.qty').eq($('.ro').index(this)).val("0");
         //txtBox.focus();
     return false;
        }
@@ -616,13 +638,9 @@ $(document).ready(function()
          
           var tottaxable  = 0;
           var cgst        = 0;
-         // var sgst        = 0;
           var qty         = 0;
           var rate        = 0;
           var gst_rt      = 0;
-         
-          //  $("input[class *= 'Net_Price']").each(function(){
-         //   let row          = $(this).closest('tr');
 
 
                $('#intro tr').each(function() {
@@ -631,9 +649,6 @@ $(document).ready(function()
                  var qty = $(this).find('td:eq(6) .qty').val();
                  var rate = $(this).find('td:eq(7) .sale_rt').val();
                  var gst_rt = $(this).find('td:eq(8) .gst_rt').val();
-
-                
-             //   var tot_amt += parseFloat(taxable_amt + cgst*2).toFixed('2')
                  
              
                  tottaxable += parseFloat(qty*rate);

@@ -26,10 +26,10 @@
 
 		public function js_get_stock_point(){
 
-			//$ro = $this->input->get('ro');
+			$ro = $this->input->get('ro');
 			$dist_id = $this->session->userdata['loggedin']['branch_id'];
 		
-			$result = $this->SaleModel->js_get_stock_point($dist_id);
+			$result = $this->SaleModel->js_get_stock_point($ro);
 			
  			echo json_encode($result);
 
@@ -173,7 +173,7 @@ public function saleAdd(){   //================================================
 			  for($i = 0; $i < count($prod_id); $i++){
 			   
 			   $data     = array(
-									'trans_do' =>  'SRO/'.$dist_sort_code.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no,
+									'trans_do' =>  'INV/'.$dist_sort_code.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no,
 								   
 									'trans_no'  =>  $trans_no->trans_no ,
 									 
@@ -291,7 +291,7 @@ public function saleAdd(){   //================================================
 	$this->load->view("sale/add",$product);
 
 	$this->load->view('post_login/footer');
-}
+ }
 
 }
 
