@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 30, 2020 at 02:46 PM
--- Server version: 5.7.31-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.6
+-- Host: 127.0.0.1
+-- Generation Time: Aug 07, 2020 at 02:41 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -49,15 +49,9 @@ CREATE TABLE `mm_ferti_soc` (
 --
 
 INSERT INTO `mm_ferti_soc` (`soc_id`, `soc_name`, `soc_add`, `district`, `ph_no`, `email`, `gstin`, `mfms`, `status`, `stock_point_flag`, `buffer_flag`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(1, 'abcd', 'xyz', '337', '121233', 'qwq@gmail.com', NULL, NULL, NULL, 'Y', 'B', 'synergic', '2020-03-06 00:00:00', 'synergic', '2020-03-06 00:00:00'),
-(2, 'sss', 'hgh', '338', '45345556', 'abc@gmail.com', NULL, NULL, NULL, 'Y', 'N', 'synergic', '2020-03-06 00:00:00', 'synergic', '2020-03-06 00:00:00'),
-(3, 'test', 'KOSBA,KOLKATA 700107', '337', '78899999', 'abcs@gmail.com', '44444', 'vv556', 'N', 'Y', 'B', 'synergic', '2020-07-09 00:00:00', '', '2020-03-06 00:00:00'),
-(4, 'asdfghjl;loueyewtw4t4wtw4tw4etwe4', 'fegegesgesggrrgrsgbsdbvsdkbsdbkhkhfuehfuohefoaef\r\nqfqaefhleahfheuofhuoeyfryohfahfhalfhlahflahslfhslh', '338', '12222', 'opentech4u@gmail.com', 'gegeg', 'fsfesdg', 'N', 'Y', 'I', 'synergic', '2020-07-10 00:00:00', 'synergic', '2020-07-10 00:00:00'),
-(5, 'SKUS', 'clscnlaskcalscnl', '329', '12588', 'eewdwdwqdwdwd', '1234566', '555', 'O', 'N', 'N', 'synergic', '2020-07-10 00:00:00', 'synergic', '2020-07-10 00:00:00'),
-(6, 'test10', 'KOSBA,KOLKATA 700107', '337', '', '', 'kgvv', '', 'N', 'Y', 'N', 'synergic', '2020-07-25 00:00:00', '', '2020-07-10 00:00:00'),
-(7, 'XYZ Skus ltd', 'Barasat 24PGS(N)', '337', '', '', '12300123', 'ASDFGHT', 'N', 'N', 'N', 'synergic', '2020-07-25 00:00:00', '', '2020-07-10 00:00:00'),
-(8, 'ABCDEFGH', ';kdjvsdv;nsd;kvjn;sdgv\r\n;sdgv;lsdjgajd;fj;', '329', '09850224189', 'opentech4u@gmail.com', 'gergrg', 'fgbrfg', 'O', 'Y', 'B', 'synergic', '2020-07-28 04:57:04', NULL, NULL),
-(9, 'dwdwdwd', 'qds', '336', '09850224189', 'opentech4u@gmail.com', 'qd', 'ddwd', 'N', 'N', 'N', 'synergic', '2020-07-28 05:00:31', NULL, NULL);
+(1, 'Dharampur SKUS Ltd', 'Dharampur,Po.: Dharampur,\r\nDist. : 24PGS(N)', '337', '1234567890', '', '19AABAD6387P3ZW', '772292', 'R', 'Y', 'I', 'synergic', '2020-08-06 10:07:33', 'synergic', '2020-08-06 10:07:46'),
+(2, 'Amdanga L/S Thana L/S PCAMS  Ltd. ', 'Vill Amdanga, \r\nNorth 24 Parganas', '337', '', '', '19AACAA1194Q1ZB', '373442', 'N', 'N', 'N', 'synergic', '2020-08-06 10:08:45', NULL, NULL),
+(3, 'Gopalpur Naigachi S.K.U,S Ltd ', 'Gopalpur Gaighata', '337', '', '', '19AABAG8780H1ZB', '387972', 'N', 'N', 'N', 'synergic', '2020-08-06 10:09:53', NULL, NULL);
 
 --
 -- Indexes for dumped tables

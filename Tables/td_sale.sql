@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 31, 2020 at 08:07 PM
--- Server version: 5.7.29-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.3
+-- Host: 127.0.0.1
+-- Generation Time: Aug 07, 2020 at 02:38 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -59,8 +59,8 @@ CREATE TABLE `td_sale` (
 --
 
 INSERT INTO `td_sale` (`trans_do`, `trans_no`, `do_dt`, `sale_due_dt`, `trans_type`, `soc_id`, `comp_id`, `sale_ro`, `prod_id`, `stock_point`, `gov_sale_rt`, `qty`, `sale_rt`, `base_price`, `taxable_amt`, `cgst`, `sgst`, `dis`, `tot_amt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `br_cd`, `fin_yr`) VALUES
-('SRO/N24/20-21/1', 1, '2020-07-31', '2020-07-31', 'Credit', 1, 1, 'raja_teat10', 19, '1', 'N', '15.000', '77.58', '0.00', '1163.70', '29.09', '29.09', '0.00', '1163.71', 'synergic', '2020-07-31', NULL, NULL, 337, '1'),
-('SRO/N24/20-21/1', 1, '2020-07-31', '2020-07-31', 'Credit', 1, 1, 'raja_test15', 19, '3', 'N', '100.000', '77.58', '0.00', '7758.00', '193.95', '193.95', '0.00', '7758.00', 'synergic', '2020-07-31', NULL, NULL, 337, '1');
+('SRO/N24/20-21/1', 1, '2020-08-02', '2020-09-30', 'Credit', 3, 1, '260443', 28, '1', 'N', '2.000', '1100.00', '0.00', '2200.00', '55.00', '55.00', '0.00', '2310.00', 'synergic', '2020-08-06', NULL, NULL, 337, '1'),
+('SRO/N24/20-21/1', 1, '2020-08-02', '2020-09-30', 'Credit', 3, 1, '80014', 80, '1', 'N', '0.500', '1700.00', '0.00', '850.00', '21.25', '21.25', '0.00', '892.50', 'synergic', '2020-08-06', NULL, NULL, 337, '1');
 
 --
 -- Indexes for dumped tables
