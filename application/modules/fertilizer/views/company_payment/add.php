@@ -163,7 +163,7 @@
                                       <input type="text" name="qty[]" style="width:150px;" class="form-control qty" value= "" id="ref_no" >
                                     </td>
                                     <td>
-                                      <input type="text" name="pay_dt[]" style="width:150px;" class="form-control pay_dt" value= "" id="ref_no" >
+                                      <input type="date" name="pay_dt[]" style="width:150px;" class="form-control pay_dt" value= "" id="ref_no" >
                                     </td>
                                     <td>    
                                        
@@ -185,7 +185,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="5">
                                         Total:
                                     </td>
                                     <td colspan="2">
@@ -204,7 +204,52 @@
 					<h4>Bank Details</h4>
 				
 				</div>
-                
+
+                <div class="form-group row">
+						<label for="bank_id" class="col-sm-1 col-form-label">Bank Name :</label>
+						<div class="col-sm-3">
+	
+							<select name="bank_id" style="width:180px" class="form-control required" id="bank_id" required>
+	
+	                            <option value="">Select</option>
+	
+                                <?php
+                                
+                                    foreach($bnkdtls as $bnk){
+                                
+                                ?>
+                                
+                                    <option value="<?php echo $bnk->sl_no;?>"><?php echo $bnk->bank_name;?></option>
+	
+	                            <?php
+	
+		                            }
+	
+	                            ?>     
+	
+	                        </select>
+						</div>
+                        <label for="ifsc" class="col-sm-1 col-form-label">IFSC Code:</label>
+						<div class="col-sm-2">
+	
+						<input type="text" style="width:160px" id="ifsc" name="ifsc" class="form-control" />
+	                    </div>
+                        <label for="ac_no" class="col-sm-1 col-form-label">A/C No. :</label>
+						<div class="col-sm-2">
+	
+						<input type="text" style="width:180px" id="ac_no" name="ifsc" class="form-control" />
+	                    </div>
+                        </div>
+                        <div class="form-group row">
+						<label for="virtual_no" class="col-sm-1 col-form-label">Virtual No. :</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:180px" id="virtual_no" name="virtual_no" class="form-control" />
+	                    </div>
+                        <label for="remarks" class="col-sm-1 col-form-label">Remarks:</label>
+                        <div class="col-sm-3">
+                        <input type="text" style="width:300px" id="remarks" name="remarks" class="form-control" />
+	                    </div>
+                        </div>
                 <div class="form-group row">
 
                     <div class="col-sm-10">
@@ -233,19 +278,22 @@
 
             var newElement = '<tr>'
                                 +'<td>'
-                               +'<select name="pay_type[]" id="pay_type" style="width:230px"class="form-control required soc_id" required>'
-                +'<option value="">Select Pay Type</option>'
-                +'<option value="1">Cash</option>'
-						+'<option value="2">Advance</option>'
-						+'<option value="3">Cheque</option>'
-                       + '<option value="4">Draft</option>'
-                      +  '<option value="5">Pay Order</option>'
+                                +'<input type="date" name="sale_dt[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >'
                                 +'</td>'
                                +'<td>'
-                                +'<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >'
+                                +' <input type="text" name="qty[]" style="width:150px;" class="form-control qty" value= "" id="ref_no" >'
+                                +'</td>'
+                                +'<td>'
+                                +'<input type="date" name="pay_dt[]" style="width:150px;" class="form-control pay_dt" value= "" id="ref_no" >'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>'
+                                    +'<input type="text" name="pay_type[]" style="width:150px;" class="form-control pay_type" value= "" id="pay_type" >'
+                                +'</td>'
+                                +'<td>'
+                                +'<input type="text" name="ref_no[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >'
+                                +'</td>'
+                                +'<td>'
+                                +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>'
                                 +'</td>'
                                 +'<td>'
                                     +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
@@ -702,3 +750,42 @@ $(document).ready(function(){
 })
 
 </script>
+       <script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#comp_id').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("compay/f_get_sale_invoice");?>',
+
+            { 
+
+                // comp_id: $(this).val(),
+                dist_id :$('#dist_id').val()
+
+            }
+
+        ).done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.sale_invoice_no + '">' + value.sale_invoice_no + '</option>'
+
+            });
+
+            $('#inv_no').html(string);
+
+
+          });
+
+
+    });
+
+});
+ </script>
