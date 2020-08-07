@@ -123,7 +123,7 @@
                         <?php if( $this->session->userdata['loggedin']['ho_flag']!="N"){?> 
                             <div class="dropdown-content">
                             <div class="sub-dropdown">
-                              <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
+                              <a href="<?php echo site_url("compay");?>">Company Payment</a>
                              
                             </div>
                           

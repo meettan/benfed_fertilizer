@@ -385,7 +385,7 @@ if ($trans_type=='2'){
        $data['comp_pay']    = $this->Company_paymentModel->f_get_comp_payment_dtls();
        $this->load->view("post_login/fertilizer_main");
    
-       $this->load->view("Company_payment/dashboard",$data);
+       $this->load->view("company_payment/dashboard",$data);
    
        $this->load->view('search/search');
    
