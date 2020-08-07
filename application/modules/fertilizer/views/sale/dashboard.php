@@ -27,12 +27,10 @@
 
                     <tr>
                     	<th>Sl No.</th>
-                        <th>Sale Ro No</th>
-            			<!-- <th>comp Id</th>  -->
-                        <th>Sale RO Date</th>
-                        <th>Transaction Type</th>
+                        <th>Invoice No</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Type</th>
                         <th>Amout</th>
-                        <!-- <th>Invoice FLAG</th> -->
             			<th>View</th>
                         <th>Delete</th>
                     </tr>
@@ -91,14 +89,12 @@
 
                     <tr>
                     
-                    <th>Sl No.</th>
-                        <th>Sale Ro No</th>
-            			<!-- <th>Prod Id</th> -->
-                        <th>Sale RO Date</th>
-                        <th>Transaction Type</th>
+                        <th>Sl No.</th>
+                        <th>Invoice No</th>
+                        <th>Invoice Date</th>
+                        <th>Invoice Type</th>
                         <th>Amout</th>
-                        <!-- <th>Invoice FLAG</th> -->
-            			<th>View</th>
+                        <th>View</th>
                         <th>Delete</th>
                     </tr>
                 
