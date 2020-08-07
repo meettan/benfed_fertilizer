@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Society Payment</strong></h1>
+                <h1><strong>Customer Payment</strong></h1>
 
             </div>
 
@@ -26,8 +26,9 @@
                 <thead>
 
                     <tr>
-                    	<th>Paid No.</th>
-                        <th>Paid Date</th>
+                         <th>Sl No.</th>
+                    	<th>Receipt No.</th>
+                        <th>Receipt Date</th>
                         <th>Society</th>
                         <th>Amout</th>
                      
@@ -45,6 +46,7 @@
 		    ?>
 
                             <tr>   
+                            <td><?php echo $pay->sl_no; ?></td>
                                 <td><?php echo $pay->paid_id; ?></td>
                                 <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
                                 <td><?php echo $pay->soc_name; ?></td>
@@ -84,8 +86,9 @@
 
                     <tr>
                     
-                    <th>Paid No.</th>
-                        <th>Paid Date</th>
+                    <th>Sl No.</th>
+                    	<th>Receipt No.</th>
+                        <th>Receipt Date</th>
                         <th>Society</th>
                         <th>Amout</th>
                   

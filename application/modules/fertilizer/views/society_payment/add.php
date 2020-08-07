@@ -34,7 +34,7 @@
 	
 	                        </select>
 						</div>
-                        <label for="paid_dt" class="col-sm-2 col-form-label">Paid Date:</label>
+                        <label for="paid_dt" class="col-sm-2 col-form-label">Receipt Date:</label>
 						<div class="col-sm-4">
 	
 						<input type="date" style="width:200px" id="paid_dt" name="paid_dt" class="form-control"/>
@@ -42,7 +42,7 @@
                         <!-- </div> -->
                       </div>
                       <div class="form-group row">
-                      <label for="trans_do" class="col-sm-2 col-form-label">Sale Invoice No:</label>
+                      <label for="trans_do" class="col-sm-2 col-form-label">Invoice No:</label>
 						<div class="col-sm-3">
 	                <select name="trans_do" style="width:180px" class="form-control required" id="trans_do">
                     <option value="">Select</option>
@@ -53,7 +53,7 @@
                 <?php    }    ?>     
                 </select>
 	                    </div>
-                      <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
+                      <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
 						<div class="col-sm-2">
 	
 						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" readonly/>
@@ -112,6 +112,14 @@
                         <label for="net_amt" class="col-sm-2 col-form-label">Net Amount<br>(Total Amount - Paid Amount):</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
+                        </div>
+                        
+                        </div>
+                        <div class="form-group row">
+                        <label for="remarks" class="col-sm-2 col-form-label">Remarks :</label>
+						<div class="col-sm-3">
+                        <!-- <input type="text" style="width:180px" id="remarks" name="remarks"value=""  class="form-control"  /> -->
+                        <textarea rows="3" cols="90" name="remarks" id="remarks"></textarea>
                         </div>
                         </div>
                         <div class="form-group row">
@@ -449,6 +457,45 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- <script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#soc_id').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("socpay/f_getdo_dtl");?>',
+
+            { 
+
+                soc_id: $(this).val()
+
+            }
+
+        ).done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.trans_do + '">' + value.trans_do + '</option>'
+
+            });
+
+            $('#trans_do').html(string);
+
+
+          });
+
+
+    });
+
+});
+</script> -->
+
 <script>
 
 $(document).ready(function(){
@@ -687,3 +734,58 @@ $(document).ready(function(){
 })
 
 </script>
+  <!-- </script> -->
+
+<script>
+$(document).ready(function(){
+$("#paid_dt").change(function(){
+
+var ro_dt = $('#paid_dt').val();
+
+
+
+var d = new Date();
+
+var month = d.getMonth()+1;
+var day = d.getDate();
+
+var output = d.getFullYear() + '-' +
+(month<10 ? '0' : '') + month + '-' +
+(day<10 ? '0' : '') + day;
+
+// console.log(trans_dt,output);
+
+if(new Date(output) <new Date(ro_dt))
+{
+alert("Receipt Date Can Not Be Greater Than Current Date");
+$('#submit').attr('type', 'buttom');
+return false;
+}else{
+   $('#submit').attr('type', 'submit');
+}
+})
+});
+</script>
+
+  <!-- </script> -->
+
+<script>
+$(document).ready(function(){
+$("#sale_ro").change(function(){
+
+var ro_dt = $('#paid_dt').val();
+var invoice_dt = $('#do_dt').val();
+
+if(new Date(invoice_dt) >new Date(ro_dt))
+{
+alert("Receipt Date Can Not Be less Than invoice Date");
+$('#submit').attr('type', 'buttom');
+return false;
+}else{
+   $('#submit').attr('type', 'submit');
+}
+})
+});
+</script>
+
+

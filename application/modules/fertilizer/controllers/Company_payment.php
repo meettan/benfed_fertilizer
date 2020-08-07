@@ -150,6 +150,8 @@ if ($trans_type=='2'){
                 
                     }else {
 
+                        $select        = array("sl_no","bank_name");
+                        $product['bnkdtls']   = $this->Company_paymentModel->f_select('mm_feri_bank',$select,NULL,0);
                         $select2         = array("comp_id","comp_name");
                         $product['compdtls']   = $this->Company_paymentModel->f_select('mm_company_dtls',$select2,NULL,0);
 
@@ -1471,6 +1473,30 @@ public function f_get_product(){
     echo json_encode($product);
 
 }
+
+
+
+public function f_get_sale_invoice(){
+	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+	$fin_id=$this->session->userdata['loggedin']['fin_id'];
+    $select = array("a.sale_invoice_no " );
+       		
+			$where      =   array(
+
+			
+			// "a.comp_id"    =>  $this->input->get('comp_id'),
+			  "a.branch_id"=> $this->input->get('dist_id'),
+			"fin_yr"=>$fin_id );
+			   
+			$ro   = $this->Company_paymentModel->f_select('tdf_payment_recv a',$select,$where,0);
+			
+			// echo $this->db->last_query();
+			// die();
+			echo json_encode($ro);
+
+	        }
+
+
 
 public function f_get_sale_ro(){
 	// echo 'hi';

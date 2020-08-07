@@ -54,7 +54,7 @@
         
         public function f_get_soc_payment_dtls(){
 
-            $data = $this->db->query("select a.paid_id,a.paid_dt,a.soc_id,b.soc_name,sum(a.paid_amt)amount
+            $data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,sum(a.paid_amt)amount
 		                            	from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id
 										group by a.paid_id,a.paid_dt,a.soc_id,b.soc_name ");
     
@@ -101,17 +101,25 @@
 		}
 
         //  Function For Credit Note Developed By Lokesh  11/04/2020//
-		public function f_getdo_dtl($branch_id){
+		public function f_getdo_dtl($br_cd){
 	
-		$data = $this->db->query("select trans_do
+		// $data = $this->db->query("select distinct trans_do
+		// 							from td_sale 
+		// 							where br_cd = '$br_cd'
+        //                              and tot_amt
+		// 							");
+             $data = $this->db->query("select distinct trans_do as trans_do, sum(tdf_payment_recv.paid_amt)tot_paid ,sum(td_sale.tot_amt) tot_payble
 									from td_sale 
-									where br_cd = '$branch_id'
-
-									");
-	
+									LEFT JOIN tdf_payment_recv ON td_sale.trans_do = tdf_payment_recv.sale_invoice_no
+									where td_sale.br_cd = '$br_cd'
+									and td_sale.br_cd =tdf_payment_recv.branch_id
+									group by  trans_do
+									having  sum(tot_amt) - sum(tdf_payment_recv.paid_amt)>0");
+									
 		return $data->result();
 			
 		}
+		
 
 		public function f_get_advamt_dr_dtls($soc_id) // For Jquery
         {
@@ -127,7 +135,7 @@
 
 		public function get_soc_pay_code($branch,$fin){
 
-            $data   =   $this->db->query("select ifnull(max(paid_id),0) +1 sl_no
+            $data   =   $this->db->query("select ifnull(max(sl_no),0) +1 sl_no
                                           from   tdf_payment_recv
                                           where  branch_id = '$branch'
                                           and    fin_yr    = '$fin'");
@@ -146,10 +154,20 @@
 			WHERE a.soc_id ='$soc_id'
 			and sale_invoice_no='$sale_invoice_no'
 			and ro_no='$ro_no' )as net_amt
-			from  td_sale where  trans_do = '$sale_invoice_no'");
+			from  td_sale where  trans_do = '$sale_invoice_no'
+			and sale_ro='$ro_no'");
             return $sql->result();
 
 		}
+
+// 		public function f_get_ro_dt_dtls($sale_invoice_no)
+// 		{
+// 			$sql = $this->db->query("select  distinct a.do_dt,a.sale_ro,a.tot_amt
+// 									from  td_sale a,(select ifnull(sum(paid_amt),0)paid_amt from  tdf_payment_recv where sale_invoice_no ='$sale_invoice_no')b
+// 									where  a.trans_do ='$sale_invoice_no'
+// 									and a.tot_amt - b.paid_amt>0");
+//  return $sql->result();
+// 		}
 
 		public function f_get_ro_dtls($ro_no) // For Jquery
         {
