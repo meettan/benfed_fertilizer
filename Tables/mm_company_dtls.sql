@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 30, 2020 at 02:44 PM
--- Server version: 5.7.31-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.6
+-- Host: 127.0.0.1
+-- Generation Time: Aug 07, 2020 at 02:42 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -55,9 +55,7 @@ INSERT INTO `mm_company_dtls` (`COMP_ID`, `COMP_NAME`, `short_name`, `COMP_PN_NO
 (5, 'Khatian', NULL, '', '', 'synergic', '2020-03-04 00:00:00', 'synergic', '2020-03-06 00:00:00', '46, C RAFI AHMEND KIDWAI ROAD, KOLKATA\r\n   ', '', '19AAACK2342Q1Z7', NULL, NULL),
 (6, 'JAYASHREE', NULL, '033-2282-7531;9827;9436 ', 'JCF@JAYSHREETEA.COM', 'synergic', '2020-03-04 00:00:00', 'synergic', '2020-03-06 00:00:00', '       INDUSTRY , 15TH FLOOR, 10 CAMAC STREET, KOLKATA-700017  \r\n   ', '', '19AAACJ7788D1Z7', NULL, NULL),
 (7, 'MOSAIC', NULL, '', '', 'synergic', '2020-03-04 00:00:00', 'synergic', '2020-03-06 00:00:00', '11TH FLOOR,DLF CYBER CITY-II ; GURGAON, HARYANA-122002\r\n   ', '', '19AACCC4033C1Z6', NULL, NULL),
-(8, 'Others', NULL, '', '', 'synergic', '2020-03-13 00:00:00', '', '2020-06-30 00:00:00', '', '', '', NULL, NULL),
-(9, 'Synergic Fertilizer Ltd', 'SFL', '25664312', 'dd@ljcnaldn.com', 'synergic', '2020-07-28 00:00:00', '', '2020-06-30 00:00:00', '7/18 Acropolis\r\nKolakaya', 'dwdwde', 'dwdqwd23', 'wde', ''),
-(10, 'AXCVB', 'CDC', '25664312', 'ldkvnla@nldasnl.com', 'synergic', '2020-07-28 02:36:35', 'synergic', '2020-07-28 02:48:13', ';njadjf;adjf;oaf\\', '125', '848', 'sdsdc', 'scsc');
+(8, 'Others', NULL, '', '', 'synergic', '2020-03-13 00:00:00', '', '2020-06-30 00:00:00', '', '', '', NULL, NULL);
 
 --
 -- Indexes for dumped tables

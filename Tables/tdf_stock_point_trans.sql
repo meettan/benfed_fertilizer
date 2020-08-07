@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 30, 2020 at 02:43 PM
--- Server version: 5.7.31-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.6
+-- Host: 127.0.0.1
+-- Generation Time: Aug 07, 2020 at 02:40 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -40,6 +40,17 @@ CREATE TABLE `tdf_stock_point_trans` (
   `modified_by` varchar(50) DEFAULT NULL,
   `modified_dt` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tdf_stock_point_trans`
+--
+
+INSERT INTO `tdf_stock_point_trans` (`trans_dt`, `ro_inv_no`, `branch_id`, `fin_yr`, `point_id`, `trans_type`, `unit`, `quantity`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+('2020-08-06', '2001140', 337, 1, 1, 'I', 1, '50', 'synergic', '2020-08-06 11:07:45', NULL, NULL),
+('2020-08-06', '260443', 337, 1, 1, 'I', 1, '30', 'synergic', '2020-08-06 10:45:17', NULL, NULL),
+('2020-08-06', '80014', 337, 1, 1, 'I', 1, '50', 'synergic', '2020-08-06 01:58:14', NULL, NULL),
+('2020-09-30', '260443', 337, 1, 1, 'O', 0, '2', 'synergic', '2020-08-06 02:34:32', NULL, NULL),
+('2020-09-30', '80014', 337, 1, 1, 'O', 0, '1', 'synergic', '2020-08-06 02:34:32', NULL, NULL);
 
 --
 -- Indexes for dumped tables

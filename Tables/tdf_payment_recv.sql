@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2020 at 01:33 PM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.2.24
+-- Generation Time: Aug 07, 2020 at 02:40 AM
+-- Server version: 5.7.14
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sssproje_benfed`
+-- Database: `benfed`
 --
 
 -- --------------------------------------------------------
@@ -55,7 +53,7 @@ CREATE TABLE `tdf_payment_recv` (
 --
 
 INSERT INTO `tdf_payment_recv` (`paid_id`, `paid_dt`, `soc_id`, `sale_invoice_no`, `sale_invoice_dt`, `ro_no`, `pay_type`, `ref_no`, `tot_recvble_amt`, `adj_dr_note_amt`, `adj_adv_amt`, `net_recvble_amt`, `paid_amt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `branch_id`, `fin_yr`) VALUES
-(1, 2020, 8, 'SRO/JPG/20-21/8', '2020-07-20 00:00:00', 'raja_test_4', '2', NULL, '3879.00', '0.00', '5000.00', '3879.00', '2000.00', 'synergic', '2020-08-04 00:00:00', '', '0000-00-00 00:00:00', 328, 1);
+(1, 2020, 3, 'SRO/N24/20-21/1', '2020-08-02 00:00:00', '260443', '4', NULL, '2310.00', '0.00', '100000.00', '3202.50', '500.00', 'synergic', '2020-08-06 00:00:00', '', '0000-00-00 00:00:00', 337, 1);
 
 --
 -- Indexes for dumped tables
@@ -66,7 +64,6 @@ INSERT INTO `tdf_payment_recv` (`paid_id`, `paid_dt`, `soc_id`, `sale_invoice_no
 --
 ALTER TABLE `tdf_payment_recv`
   ADD PRIMARY KEY (`paid_id`,`paid_dt`,`soc_id`,`pay_type`,`paid_amt`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
