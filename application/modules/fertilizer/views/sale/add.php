@@ -230,7 +230,7 @@
                                     <input type="text" name="dis[]" class="form-control dis required" value= "0" id="dis" required>
                                     </td>--->
 									<td>
-                          <input type="text" name="tot_amt[]"  class="form-control tot_amt" value="0" id="tot_amt" required>
+                          <input type="text" name="tot_amt[]"  class="form-control tot_amt" value="0" id="tot_amt" readonly>
                                     </td>
                                     <td>
                                        <button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>
@@ -251,7 +251,7 @@
                                         <!--<div class="col-md-2">Discount:<span id="tot_dis"></span></div>-->
                                         <div class="col-md-3">Net Payable:<span id="tot_payble_amt"></span></div>
                                    
-                                        <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total">  
+                                        <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" >  
                                     </td>
                                 </tr>
                             </tfoot>
@@ -341,7 +341,7 @@ $.each(JSON.parse(data), function( index, value ) {
                                     +'<input type="text" name="dis[]" class="form-control dis" value= "0" id="dis" required>'
                                 +'</td>'*/
 								+'<td>'
-                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" required>'
+                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" readonly>'
                                 +'</td>'
                                 +'<td>'
                                     +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
