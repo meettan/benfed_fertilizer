@@ -119,7 +119,7 @@
                         <label for="remarks" class="col-sm-2 col-form-label">Remarks :</label>
 						<div class="col-sm-3">
                         <!-- <input type="text" style="width:180px" id="remarks" name="remarks"value=""  class="form-control"  /> -->
-                        <textarea rows="3" cols="90" name="remarks" id="remarks"></textarea>
+                        <textarea class="form-control" style="width:650px" name="remarks" id="remarks"></textarea>
                         </div>
                         </div>
                         <div class="form-group row">
