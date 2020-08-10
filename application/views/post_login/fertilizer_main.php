@@ -147,6 +147,7 @@
                         <?php if( $this->session->userdata['loggedin']['ho_flag']!="N"){?> 
                             <div class="dropdown-content">
                             <div class="sub-dropdown">
+                            <a href="<?php echo site_url("adv/company_advance");?>">Company Advance</a>
                               <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
                              
                             </div>

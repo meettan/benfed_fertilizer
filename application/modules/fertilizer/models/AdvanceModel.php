@@ -50,7 +50,17 @@
  
 			return $result;
 		 }
-																			/*Select Maximun product Code*/			
+		 public function f_get_comp_advance_code($branch,$fin){
+
+            $data   =   $this->db->query("select ifnull(max(sl_no),0) +1 sl_no
+                                          from   tdf_company_advance 
+                                          where  branch_id = '$branch'
+                                          and    fin_yr    = '$fin'");
+
+			$result = $data->row();  
+ 
+			return $result;
+		 }																	/*Select Maximun product Code*/			
 		public function get_product_code(){
 
 			$this->db->select_max('prod_id');

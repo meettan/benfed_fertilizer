@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Customer Payment</strong></h1>
+                <h1><strong>Company Advance</strong></h1>
 
             </div>
 
@@ -13,7 +13,7 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-		        <small><a href="<?php echo site_url("socpay/society_payAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
+		        <small><a href="<?php echo site_url("adv/company_advAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
                 <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -26,48 +26,66 @@
                 <thead>
 
                     <tr>
-                         <th>Sl No.</th>
-                    	<th>Receipt No.</th>
-                        <th>Receipt Date</th>
-                        <th>Society</th>
-                        <th>Amout</th>
-                        <th>Forward</th>
-                        <th>Edit/Delete</th>
+                        <th>Sl.No.</th>
+
+                        <th>Date</th>
+
+            			<th>Receipt No.</th>
+
+                        <th>Company Name</th>
+
+                        <th>Transaction Type</th>
+
+                        <th>Transaction Type</th>
+
+                        <th>Delete</th>
+                       
                     </tr>
 
                 </thead>
 
                 <tbody> 
 
-                    <?php
+                    <?php 
                         $i=0;
-                    if($soc_pay) {
-                            foreach($soc_pay as $pay) {
-		    ?>
+                        if($data) {
+                                foreach($data as $value) {
+		            ?>
 
                             <tr>   
-                            <td><?php echo $pay->sl_no; ?></td>
-                                <td><?php echo $pay->paid_id; ?></td>
-                                <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
-                                <td><?php echo $pay->soc_name; ?></td>
-                                <td><?php echo $pay->amount; ?></td>
-                                <td>  
-                            <a href="drnote_edit?trans_do=<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
-                            
+                                <td><?php echo ++$i; ?></td>
+                
+                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
+
+                                <td><?php echo $value->receipt_no; ?></td>
+
+                                <td><?php echo $value->comp_name; ?></td>
+
+                                <td><?php if($value->trans_type == 'I'){
+
+                                                echo "Deposit";
+                                            }else{
+                                                 
+                                                echo "Adjustment";
+                                            } 
+                                    ?>
                                 </td>
-			 	                <td><a href="drnote_edit?trans_do=<?=$pay->paid_id;?>" 
+
+			 	                <td><a href="company_editadv?rcpt=<?php echo $value->receipt_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
-                               
-                               <button type="button" class="delete" paid_id="<?=$pay->paid_id;?>"    
+                                </td>
+
+                                <td><button type="button" class="delete" id="<?php echo $value->receipt_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                 </td>
+
                             </tr>
 
                     <?php
@@ -89,14 +107,20 @@
 
                     <tr>
                     
-                    <th>Sl No.</th>
-                    	<th>Receipt No.</th>
-                        <th>Receipt Date</th>
-                        <th>Society</th>
-                        <th>Amout</th>
-                  
-                        <th>Forward</th>
-                        <th>Edit/Delete</th>
+                        <th>Sl.No.</th>
+
+                        <th>Date</th>
+
+                        <th>Receipt No.</th>
+
+                        <th>Company Name</th>
+
+                        <th>Transaction Type</th>
+
+                        <th>Transaction Type</th>
+
+                        <th>Delete</th>
+
                     </tr>
                 
                 </tfoot>
@@ -114,22 +138,21 @@
         $('.delete').click(function () {
             
             var id = $(this).attr('id');
-            // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+            
             var result = confirm("Do you really want to delete this record?");
-           
+        
             if(result) {
 
-                window.location = "<?php echo site_url('socpay/deletedr_note?trans_do="+id+"');?>";
+                window.location = "<?php echo site_url('adv/company_advDel?receipt_no="+id+"');?>";
 
             }
             
         });
 
     });
-
 </script>
 
-<!-- <script>
+<script>
 
     $(document).ready(function() {
 
@@ -138,6 +161,4 @@
     });
 
     <?php } ?>
-</script> -->
-
-
+</script>
