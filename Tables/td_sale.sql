@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2020 at 02:38 AM
--- Server version: 5.7.14
--- PHP Version: 7.0.10
+-- Generation Time: Aug 10, 2020 at 07:47 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.2.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `benfed`
+-- Database: `sssproje_benfed`
 --
 
 -- --------------------------------------------------------
@@ -38,14 +40,15 @@ CREATE TABLE `td_sale` (
   `prod_id` int(10) NOT NULL,
   `stock_point` varchar(50) NOT NULL,
   `gov_sale_rt` enum('Y','N') NOT NULL,
-  `qty` decimal(10,3) NOT NULL DEFAULT '0.000',
-  `sale_rt` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `base_price` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `taxable_amt` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `cgst` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `sgst` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `dis` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `tot_amt` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `qty` decimal(10,3) NOT NULL DEFAULT 0.000,
+  `sale_rt` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `base_price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `taxable_amt` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cgst` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `sgst` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `dis` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `tot_amt` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `paid_amt` decimal(20,2) NOT NULL,
   `created_by` varchar(30) DEFAULT NULL,
   `created_dt` date DEFAULT NULL,
   `modified_by` varchar(30) DEFAULT NULL,
@@ -58,9 +61,9 @@ CREATE TABLE `td_sale` (
 -- Dumping data for table `td_sale`
 --
 
-INSERT INTO `td_sale` (`trans_do`, `trans_no`, `do_dt`, `sale_due_dt`, `trans_type`, `soc_id`, `comp_id`, `sale_ro`, `prod_id`, `stock_point`, `gov_sale_rt`, `qty`, `sale_rt`, `base_price`, `taxable_amt`, `cgst`, `sgst`, `dis`, `tot_amt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `br_cd`, `fin_yr`) VALUES
-('SRO/N24/20-21/1', 1, '2020-08-02', '2020-09-30', 'Credit', 3, 1, '260443', 28, '1', 'N', '2.000', '1100.00', '0.00', '2200.00', '55.00', '55.00', '0.00', '2310.00', 'synergic', '2020-08-06', NULL, NULL, 337, '1'),
-('SRO/N24/20-21/1', 1, '2020-08-02', '2020-09-30', 'Credit', 3, 1, '80014', 80, '1', 'N', '0.500', '1700.00', '0.00', '850.00', '21.25', '21.25', '0.00', '892.50', 'synergic', '2020-08-06', NULL, NULL, 337, '1');
+INSERT INTO `td_sale` (`trans_do`, `trans_no`, `do_dt`, `sale_due_dt`, `trans_type`, `soc_id`, `comp_id`, `sale_ro`, `prod_id`, `stock_point`, `gov_sale_rt`, `qty`, `sale_rt`, `base_price`, `taxable_amt`, `cgst`, `sgst`, `dis`, `tot_amt`, `paid_amt`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `br_cd`, `fin_yr`) VALUES
+('SRO/N24/20-21/1', 1, '2020-08-02', '2020-09-30', 'Credit', 3, 1, '260443', 28, '1', 'N', '2.000', '1100.00', '0.00', '2200.00', '55.00', '55.00', '0.00', '2310.00', '2310.00', 'synergic', '2020-08-06', NULL, NULL, 337, '1'),
+('SRO/N24/20-21/1', 1, '2020-08-02', '2020-09-30', 'Credit', 3, 1, '80014', 80, '1', 'N', '0.500', '1700.00', '0.00', '850.00', '21.25', '21.25', '0.00', '892.50', '0.00', 'synergic', '2020-08-06', NULL, NULL, 337, '1');
 
 --
 -- Indexes for dumped tables
@@ -71,6 +74,7 @@ INSERT INTO `td_sale` (`trans_do`, `trans_no`, `do_dt`, `sale_due_dt`, `trans_ty
 --
 ALTER TABLE `td_sale`
   ADD PRIMARY KEY (`trans_do`,`do_dt`,`sale_ro`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

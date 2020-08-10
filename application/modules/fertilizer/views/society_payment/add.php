@@ -86,7 +86,7 @@
 							</select>
 	                    </div>
                       
-                        <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Amount:</label>
+                        <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total RO Amount:</label>
 						<div class="col-sm-3">
 	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
 						<input type="text" style="width:200px" id="tot_recvble_amt" name="tot_recvble_amt" value="0" class="form-control" readonly />
@@ -109,7 +109,7 @@
                         </div>
                         <div class="form-group row">
                        
-                        <label for="net_amt" class="col-sm-2 col-form-label">Net Amount<br>(Total Amount - Paid Amount):</label>
+                        <label for="net_amt" class="col-sm-2 col-form-label">RO Net Amount<br>(Total Amount - Paid Amount):</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
                         </div>
@@ -534,6 +534,9 @@ $(document).ready(function(){
 
 });
 </script>
+
+
+
 <script>
 
 $(document).ready(function(){
@@ -549,6 +552,7 @@ $(document).ready(function(){
             { 
 
                 trans_do: $('#trans_do').val()
+                // sale_ro: $('#sale_ro').val()
 
             }
 
@@ -558,11 +562,11 @@ $(document).ready(function(){
             
 			var tot_recvble_amt = parseData[0].tot_amt;
             // var sale_ro = parseData[0].sale_ro;
-			$('#tot_recvble_amt').val(tot_recvble_amt);
+			// $('#tot_recvble_amt').val(tot_recvble_amt);
             // $('#sale_ro').val(sale_ro)
             var tot_dr_amt = parseFloat($('#tot_dr_amt').val());
             var adv_amt = parseFloat($('#adv_amt').val());
-            var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
+            // var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
             // var net_amt = tot_recvble_amt - 
           });
 
@@ -632,6 +636,9 @@ $(document).ready(function(){
             var parseData = JSON.parse(data);
             
 			var net_amt = parseData[0].net_amt;
+            var tot_ro_amt = parseData[0].tot_ro_amt;
+            $('#tot_recvble_amt').val(tot_ro_amt);
+//  var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
            
 			 $('#net_amt').val(net_amt);
              

@@ -1161,14 +1161,19 @@ public function viewinvoice(){
 		}
 
 		public function f_get_ro_dt(){
+			// $soc_id = $this->input->get('soc_id');
+            // $trans_do = $this->input->get('trans_do');
 
 			$select          = array("do_dt","sale_ro","tot_amt");
 			
 		   $where=array(
-			   "trans_do" =>$this->input->get("trans_do")
+			   "trans_do" =>$this->input->get("trans_do"),
+			   "tot_amt - ifnull(paid_amt,0) >" =>0
+			   
 			   ) ;
 			   
 			$comp    = $this->Society_paymentModel->f_select('td_sale',$select,$where,0);
+			// $comp    = $this->Society_paymentModel->f_get_sale_ro($soc_id,$trans_do);
 			// echo $this->db->last_query();
 			// die();
 			echo json_encode($comp);

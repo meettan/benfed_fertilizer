@@ -108,13 +108,9 @@
 		// 							where br_cd = '$br_cd'
         //                              and tot_amt
 		// 							");
-             $data = $this->db->query("select distinct trans_do as trans_do, sum(tdf_payment_recv.paid_amt)tot_paid ,sum(td_sale.tot_amt) tot_payble
-									from td_sale 
-									LEFT JOIN tdf_payment_recv ON td_sale.trans_do = tdf_payment_recv.sale_invoice_no
-									where td_sale.br_cd = '$br_cd'
-									and td_sale.br_cd =tdf_payment_recv.branch_id
-									group by  trans_do
-									having  sum(tot_amt) - sum(tdf_payment_recv.paid_amt)>0");
+             $data = $this->db->query("select distinct trans_do
+			 							from td_sale 
+			 						where br_cd = '$br_cd'");
 									
 		return $data->result();
 			
@@ -153,7 +149,7 @@
 			FROM tdf_payment_recv a 
 			WHERE a.soc_id ='$soc_id'
 			and sale_invoice_no='$sale_invoice_no'
-			and ro_no='$ro_no' )as net_amt
+			and ro_no='$ro_no' )as net_amt,sum(tot_amt)as tot_ro_amt
 			from  td_sale where  trans_do = '$sale_invoice_no'
 			and sale_ro='$ro_no'");
             return $sql->result();
