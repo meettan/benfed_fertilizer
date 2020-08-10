@@ -56,7 +56,7 @@
 
             $data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,sum(a.paid_amt)amount
 		                            	from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id
-										group by a.paid_id,a.paid_dt,a.soc_id,b.soc_name ");
+										group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name ");
     
             
              return $data->result();
