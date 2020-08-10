@@ -2,7 +2,7 @@
             
 			<div class="col-md-12 container form-wraper">
 	
-				<form method="POST" action="<?php echo site_url("trade/saleAdd") ?>" id="form" >
+				<form method="POST" action="<?php echo site_url("trade/saleAdd") ?>" onsubmit="return valid_data()">
 	
 					<div class="form-header">
 					
@@ -178,14 +178,14 @@
 
                                     <td>    
                                         <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id">  
-                                        <input type="text" name="prod_desc[]"  class="form-control prod_desc" value= "" id="prod_desc" readonly
-                                        title=""
-                                        > 
+                                        <input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
+                       
+                                        
                                     </td>
 
                                     <td>
-                                     <input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point">  
-                                     <input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" title="" readonly>     
+                                         <input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point">  
+                                     <input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" readonly>     
                                     
                                     </td>
                                        <td>
@@ -206,7 +206,9 @@
                                     </td>
 
                                     <td>
-                                        <input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>  </td>
+                                        <input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly> 
+                                    </td>
+
                                     <td>
                                         <input type="text" name="qty[]" class="form-control qty" value= "0" id="qty" required>
                                     </td>
@@ -228,7 +230,7 @@
                                     <input type="text" name="dis[]" class="form-control dis required" value= "0" id="dis" required>
                                     </td>--->
 									<td>
-                          <input type="text" name="tot_amt[]"  class="form-control tot_amt" value="0" id="tot_amt" readonly>
+                          <input type="text" name="tot_amt[]"  class="form-control tot_amt" value="0" id="tot_amt" required>
                                     </td>
                                     <td>
                                        <button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>
@@ -284,8 +286,7 @@
 
 <!-- For Add row table -->
 <script>
- $(".prod_desc").tooltip();
- $(".stock_name").tooltip();
+
     $(document).ready(function(){
 
         // For add row option
@@ -319,7 +320,7 @@ $.each(JSON.parse(data), function( index, value ) {
                  
            +'</select> '
                                 +'</td>'
-                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:110px" class="form-control prod_desc" value= "" id="prod_desc"  title="" readonly> </td>'
+                                +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'
                                 +'<td><input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point"><input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" readonly>'             
                                 +'<td><select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
                                     +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
@@ -340,7 +341,7 @@ $.each(JSON.parse(data), function( index, value ) {
                                     +'<input type="text" name="dis[]" class="form-control dis" value= "0" id="dis" required>'
                                 +'</td>'*/
 								+'<td>'
-                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" readonly>'
+                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" required>'
                                 +'</td>'
                                 +'<td>'
                                     +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
@@ -531,8 +532,7 @@ $(document).ready(function(){
                 
                 $('.stock_qty').eq($('.ro').index(this)).val(unitData.stkqty); 
                 $('.prod_id').eq($('.ro').index(this)).val(unitData.prod_id); 
-                $('.prod_desc').eq($('.ro').index(this)).val(unitData.prod_desc);
-                $('.prod_desc').eq($('.ro').index(this)).prop('title', unitData.prod_desc); 
+                $('.prod_desc').eq($('.ro').index(this)).val(unitData.prod_desc); 
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
                 $('.unit').eq($('.ro').index(this)).val('MT');
                 $('.units').eq($('.ro').index(this)).val('MT');
@@ -565,7 +565,7 @@ $(document).ready(function(){
 
                 $('.stock_point').eq($('.ro').index(this)).val(unitData.soc_id); 
                 $('.stock_name').eq($('.ro').index(this)).val(unitData.soc_name); 
-                $('.stock_name').eq($('.ro').index(this)).prop('title', unitData.soc_name); 
+
           });
 
         });
@@ -848,30 +848,5 @@ $(document).ready(function()
                $('#submit').attr('type', 'submit');
             }
             })
-            });
-
-
-            $('#form').submit(function(event){
-           
-            $('#intro tr').each(function() {
-
-
-                 var qty = $(this).find('td:eq(6) .qty').val();
-
-               
-                    if(qty < 1){
-                        $(this).find('td:eq(6) .qty').focus();
-                        
-                        $('#submit').attr('type', 'buttom');
-              
-                        event.preventDefault();
-                   }
-                    else 
-                       {
-                      $('#submit').attr('type', 'submit');
-                      }
-            });
-     
-                  
             });
             </script>
