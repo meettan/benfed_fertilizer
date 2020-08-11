@@ -687,7 +687,7 @@ $(document).ready(function(){
             { 
 
                 soc_id: $('#soc_id').val(),
-                trans_do: $('#trans_do').val()
+                
 
             }
 

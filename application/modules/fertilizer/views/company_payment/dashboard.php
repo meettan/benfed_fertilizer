@@ -47,17 +47,17 @@
                             <tr>   
                                 <td><?php echo $pay->pay_no	; ?></td>
                                 <!-- <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td> -->
-                                <td><?php echo $pay->inv_no; ?></td>
+                                <td><?php echo $pay->sale_inv_no; ?></td>
                                 <td><?php echo $pay->pur_inv_no; ?></td>
                                 <td><?php echo $pay->paid_amt; ?></td>
                                
-			 	                <td><a href="drnote_edit?trans_do=<?=$pay->paid_id;?>" 
+			 	                <td><a href="drnote_edit?trans_do=<?=$pay->pay_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
-                               <button type="button" class="delete" paid_id="<?=$pay->paid_id;?>"    
+                               <button type="button" class="delete" paid_id="<?=$pay->pay_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 

@@ -30,7 +30,8 @@
                     	<th>Receipt No.</th>
                         <th>Receipt Date</th>
                         <th>Society</th>
-                        <th>Amout</th>
+                        <th>Amount</th>
+                        <!-- <th>RO</th> -->
                         <th>Forward</th>
                         <th>Edit/Delete</th>
                     </tr>
@@ -51,9 +52,11 @@
                                 <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
                                 <td><?php echo $pay->soc_name; ?></td>
                                 <td><?php echo $pay->amount; ?></td>
+                                <!-- <td style="visibility:hidden"><?php echo $pay->ro_no; ?></td> -->
                                 <td>  
-                            <a href="drnote_edit?trans_do=<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
-                            
+                                <?php if($pay->approval_status == 'U') { ?>
+                            <a href="<?php echo site_url("socpay/f_cust_pay_forward");?>?ro_no=<?=$pay->ro_no;?>,<?=$pay->comp_id;?>,<?=$pay->prod_id;?>,<?=$pay->rate;?>,<?=$pay->pur_inv;?>,<?=$pay->sale_qty;?>,<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
+                            <?php } ?> 
                                 </td>
 			 	                <td><a href="drnote_edit?trans_do=<?=$pay->paid_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
@@ -93,8 +96,7 @@
                     	<th>Receipt No.</th>
                         <th>Receipt Date</th>
                         <th>Society</th>
-                        <th>Amout</th>
-                  
+                        <th>Amount</th>
                         <th>Forward</th>
                         <th>Edit/Delete</th>
                     </tr>

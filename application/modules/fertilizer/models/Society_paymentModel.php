@@ -50,13 +50,47 @@
 		$sql = $this->db->query("SELECT a.stock_qty -  (select  ifnull(sum(qty) ,0) from td_sale where sale_ro ='$ro') stkqty,a.prod_id ,b.gst_rt ,a.govt_sale_rt FROM td_purchase a ,mm_product b WHERE a.prod_id=b.prod_id and  a.ro_no = '$ro'");
 			return $sql->row();
 		}
+		public function check_soc_pay($ro_no,$br_cd){
+
+			$sql="select count(*) counts from tdf_company_payment where pur_ro = '$ro_no' 
+				and district = '$br_cd'";
+			$data = $this->db->query($sql);
+			return $data->row();
+		}
+
+		public function f_forward_pay_recv($ro_no,$comp_id,$prod_id,$rate,$pur_inv,$sale_inv,$sale_qty,$br_cd)
+		{
+			
+			$sql="INSERT INTO  tdf_company_payment(pur_ro,comp_id,prod_id,purchase_rt,pur_inv_no,sale_inv_no,qty,district)
+				  values('$ro_no',$comp_id,$prod_id,$rate,'$pur_inv','$sale_inv',$sale_qty,$br_cd)";
+			$this->db->query($sql);
+		}
+		public function f_forward_pay_recv_upd($ro_no,$sale_qty,$br_cd)
+		{
+		  $sql="UPDATE tdf_company_payment SET qty = qty+  $sale_qty 
+				WHERE pur_ro = '$ro_no'
+				AND district = $br_cd";
+			
+			$this->db->query($sql);
+		}
+
+		public function f_upd_pay_recv($sale_inv)
+		{
+		  $sql="UPDATE tdf_payment_recv SET approval_status ='A'
+				WHERE paid_id = '$sale_inv'";
+			
+			$this->db->query($sql);
+		}
         
         
         public function f_get_soc_payment_dtls(){
 
-            $data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,sum(a.paid_amt)amount
-		                            	from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id
-										group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name ");
+				$data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,sum(d.QTY)sale_qty
+											from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,td_sale d
+											where a.soc_id=b.soc_id
+											and a.ro_no=c.ro_no
+											and c.ro_no=d.sale_ro
+											group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status");
     
             
              return $data->result();
@@ -120,11 +154,13 @@
 		public function f_get_advamt_dr_dtls($soc_id) // For Jquery
         {
 
-            $sql = $this->db->query("SELECT ifnull(sum(a.adv_amt),0) -(select  ifnull(sum(adv_amt),0) from tdf_advance WHERE a.soc_id ='$soc_id'
-			and trans_type='O')as adv_amt
+            $sql = $this->db->query("SELECT ifnull(sum(a.adv_amt),0) -(select  ifnull(sum(adv_amt),0) 
+																		from tdf_advance 
+																		WHERE a.soc_id ='$soc_id'
+																		and trans_type='I')as adv_amt
 			FROM tdf_advance a 
 			WHERE a.soc_id ='$soc_id'
-			and trans_type='I'");
+			and a.trans_type='O'");
             return $sql->result();
 
 		}
@@ -181,11 +217,15 @@
 		public function f_get_amt_dr_dtls($soc_id,$trans_do) // For Jquery
         {
 
-            $sql = $this->db->query("SELECT tot_amt
-			FROM tdf_dr_cr_note
-			WHERE soc_id='$soc_id'
-			and invoice_no='$trans_do'
-			");
+            $sql = $this->db->query("SELECT ifnull(sum(tot_amt),0) -(select  ifnull(sum(tot_amt),0) 
+																	FROM tdf_dr_cr_note
+																	WHERE soc_id='$soc_id'
+																	and note_type='D' 
+																	and trans_flag='A') AS tot_amt
+									FROM tdf_dr_cr_note
+									WHERE soc_id='$soc_id'
+									and note_type='D' 
+									and trans_flag='R'");
             return $sql->result();
 
 		}

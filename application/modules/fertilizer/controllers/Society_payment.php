@@ -31,14 +31,11 @@
             $adv_receipt         = 'Adv/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$adv_transCd->sl_no;
 			$cust_pay_recipt     = 'RCPT/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transCd->sl_no;
 			// echo ($cust_pay_recipt);
-			// die();  
+		   // die();  
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 				
-    
                      $pay_type = $this->input->post('pay_type');
 					 
-					
-
                       for($i = 0; $i < count($pay_type); $i++){
 						$trans_type=$_POST['pay_type'][$i];
 						$paid_amt=$_POST['paid_amt'][$i];
@@ -48,7 +45,7 @@
 						$pay_soc_id=$_POST['soc_id'];
 						// echo ($pay_soc_id);
 						// die();
-                      $data     = array( 'sl_no'             => $transCd->sl_no,
+                      $data     = array(    'sl_no'             => $transCd->sl_no,
                                             
                                             'paid_id'        	=> $cust_pay_recipt,
         
@@ -82,10 +79,11 @@
     
                                             'branch_id'          => $br_cd,
     
-                                            'fin_yr'             => $fin_id
-                                        );
+											'fin_yr'             => $fin_id,
+											
+										    'approval_status'     =>'U');
         
-						$this->Society_paymentModel->f_insert('tdf_payment_recv', $data);
+$this->Society_paymentModel->f_insert('tdf_payment_recv', $data);
 
 if ($trans_type=='2'){
 						$total = $_POST['paid_amt'][$i];
@@ -140,11 +138,13 @@ if ($trans_type=='2'){
 
 													'trans_flag'   => 'A',
 
+													'note_type'    => 'D',
+
 													'branch_id'    => $br_cd,
 
 													'fin_yr'       => $fin_id,
 
-													'remarks'      => 'ADV ADJ',
+													'remarks'      => 'Dr Note AdJusted',
 													
 													'created_by'    => $this->session->userdata['loggedin']['user_name'],
 
@@ -158,7 +158,7 @@ if ($trans_type=='2'){
         
                     redirect('socpay/society_payment');
                 
-                    }else {
+             }else {
     
                     $select4        = array("id","branch_name");
                     $product['brdtls']   = $this->Society_paymentModel->f_select('md_branch',$select4,NULL,0);
@@ -181,13 +181,13 @@ if ($trans_type=='2'){
             	$this->load->view('post_login/footer');
         }
         
-        }
+}
 
 
-
-        public function society_payment(){
+          public function society_payment(){
 			$this->sysdate  = $_SESSION['sys_date'];
 		   $data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls();
+
 		   $this->load->view("post_login/fertilizer_main");
 	   
 		   $this->load->view("society_payment/dashboard",$data);
@@ -197,7 +197,38 @@ if ($trans_type=='2'){
 		   $this->load->view('post_login/footer');
        }
        
+public function f_cust_pay_forward() {
 
+			$data=explode (",", $this->input->get('ro_no'));
+			$ro_no = $data["0"];
+			$comp_id = $data["1"];
+			$prod_id = $data["2"];
+			$rate= $data["3"];
+			$pur_inv=$data["4"];
+			$sale_qty=$data["5"];
+			$sale_inv =$data["6"];
+			$br_cd=$this->session->userdata['loggedin']['branch_id'];
+		
+			$this->Society_paymentModel->f_upd_pay_recv($sale_inv);
+
+			$cnt = $this->Society_paymentModel->check_soc_pay($ro_no,$br_cd)->counts;
+	if($cnt == 0){
+			$this->Society_paymentModel->f_forward_pay_recv($ro_no,$comp_id,$prod_id,$rate,$pur_inv,$sale_inv,$sale_qty,$br_cd);
+	}else{
+		$this->Society_paymentModel->f_forward_pay_recv_upd($ro_no,$sale_qty,$br_cd);
+		// echo "<script>
+		// 			alert('update');
+		// 			window.location.href='society_payment';
+		// 			</script>";
+		}
+			
+	
+				echo "<script>
+					alert('Customer Payment data forwarded successfully');
+					window.location.href='society_payment';
+					</script>";
+	   
+		}
 
 		public function dr_note(){
 			$this->sysdate  = $_SESSION['sys_date'];

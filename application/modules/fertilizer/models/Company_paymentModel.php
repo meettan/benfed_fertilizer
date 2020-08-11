@@ -56,7 +56,8 @@
 
             $data = $this->db->query("select a.paid_id,a.paid_dt,a.soc_id,b.soc_name,sum(a.paid_amt)amount
 		                            	from  tdf_payment_recv a , mm_ferti_soc b where a.soc_id=b.soc_id
-										group by a.paid_id,a.paid_dt,a.soc_id,b.soc_name ");
+										group by a.paid_id,a.paid_dt,a.soc_id,b.soc_name
+										 ");
     
             
              return $data->result();
@@ -66,9 +67,10 @@
 
             public function f_get_comp_payment_dtls(){
 
-                $data = $this->db->query("select pay_no,district,comp_id,inv_no,pur_ro,pur_inv_no,purchase_rt,
+                $data = $this->db->query("select pay_no,district,comp_id,sale_inv_no,pur_ro,pur_inv_no,purchase_rt,
                                          bnk_id,pay_mode,paid_amt,ref_no,bnk_ac_no,ifcs_code,virtual_ac,remarks,fin_yr
-                                            from tdf_company_payment");
+											from tdf_company_payment
+											where paid_amt>0");
         
                 
                  return $data->result();

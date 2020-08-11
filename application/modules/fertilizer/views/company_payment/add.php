@@ -61,59 +61,38 @@
                         
                         </div>
 
-                        <div class="form-group row">
-                      <label for="inv_no" class="col-sm-2 col-form-label">Sale Invoice No:</label>
+                        <!-- <div class="form-group row"> -->
+                      <!-- <label for="inv_no" class="col-sm-2 col-form-label">Sale Invoice No:</label>
 						<div class="col-sm-3">
 	
-						<!-- <input type="text" style="width:180px" id="sale_ro" name="sale_ro" class="form-control"  /> -->
+						
                         <select name="inv_no" class="form-control required" id="inv_no"style="width:180px" required>
 
 							<option value="">Select</option>
 
-							<!-- <?php
-
-								foreach($proddtls as $prod){
-
-							?>
-
-								<option value="<?php echo $prod->prod_id;?>"><?php echo $prod->prod_desc;?></option>
-
-							<?php
-
-								}
-
-							?>      -->
+						
 
 							</select>
-	                    </div>
-                        <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
+	                    </div> -->
+                        <!-- <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
 						<div class="col-sm-2">
 	
 						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" />
-	                    </div>
+	                    </div> -->
+                        <!-- </div> -->
 
-                        <!-- <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Amount:</label>
-						<div class="col-sm-3">
-	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
-						<input type="text" style="width:200px" id="tot_recvble_amt" name="tot_recvble_amt" value="0" class="form-control" readonly />
-	                    </div> -->
-                        </div>
-                        <div class="form-group row">
-                      <!-- <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Receivable Amount:</label>
-						<div class="col-sm-3">
-	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
-						<input type="text" style="width:180px" id="tot_recvble_amt" name="tot_recvble_amt" class="form-control" readonly />
-	                    </div> -->
-                        <label for="pur_ro" class="col-sm-2 col-form-label">Purchase Ro:</label>
+                        <!-- <div class="form-group row"> -->
+                   
+                        <!-- <label for="pur_ro" class="col-sm-2 col-form-label">Purchase Ro:</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="pur_ro" name="pur_ro" value="" class="form-control"  readonly />
-                        </div>
-                         <label for="pur_ro_dt" class="col-sm-2 col-form-label">Purchase RO Date:</label>
+                        </div> -->
+                         <!-- <label for="pur_ro_dt" class="col-sm-2 col-form-label">Purchase RO Date:</label>
 						<div class="col-sm-3">
                         <input type="date" style="width:200px" id="pur_ro_dt" name="pur_ro_dt" value="" class="form-control" readonly  />
-                        </div>
-                        </div>
-                        <div class="form-group row">
+                        </div> -->
+                        <!-- </div> -->
+                        <!-- <div class="form-group row">
                         <label for="prod_id" class="col-sm-2 col-form-label">Product:</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="prod_id" name="prod_id"value=""  class="form-control" readonly />
@@ -122,7 +101,7 @@
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
                         </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                         
                         </div>
