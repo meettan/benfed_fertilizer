@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Cr Note Entry</strong></h1>
+                <h1><strong>Credit Note</strong><h1>
 
             </div>
 
@@ -13,7 +13,7 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-		        <small><a href="<?php echo site_url("fertilizer/crnoteAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
+		        <small><a href="<?php echo site_url("drcrnote/crnoteAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
                 <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -27,14 +27,11 @@
 
                     <tr>
                     	<th>Sl No.</th>
+                        <th>Date</th>
+                        <!--<th>Type</th>-->
                         <th>Company</th>
-                        <th>Do No</th>
-            			<!-- <th>Prod Id</th> -->
-                        <th>Do_dt</th>
-                        <th>Invoice NO</th>
-                        <th>Amout</th>
-                        <!-- <th>Invoice FLAG</th> -->
-            			
+                        <th>Amount</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
 
@@ -44,25 +41,34 @@
 
                     <?php
                         $i=0;
-                    if($credit_notes) {
-                            foreach($credit_notes as $credit) {
-		    ?>
+                        if($cr_notes) {
+                                foreach($cr_notes as $cr) {
+		            ?>
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                                <td><?php echo $credit->COMP_NAME; ?></td>
-                                <td><?php echo $credit->do_no; ?></td>
-                                <td><?php echo date("d/m/Y",strtotime($credit->do_dt)); ?></td>
-				                <td><?php echo $credit->invoice_no; ?></td>
-                                <td><?php echo $credit->tot_amt; ?></td>
-                               
-			 	                <td><a href="crnote_edit?trans_do=<?=$credit->comp_id;?>/<?=$credit->do_no;?>" 
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                
+                                <td><?php echo date("d/m/Y",strtotime($cr->trans_dt)); ?></td>
 
+                                <!--<td><?php /*if($dr->trans_flag=='R'){
+                                                echo "Raised";
+                                            }else{
+                                                echo "Adjusted";
+                                            }*/ 
+                                    ?>
+                                </td>-->
+
+                                <td><?php echo $cr->COMP_NAME; ?></td>
+
+				                <td><?php echo $cr->tot_amt; ?></td>
+                               
+			 	                <td><a href="crnote_edit?trans_dt=<?=$cr->trans_dt;?>&trans_no=<?=$cr->trans_no;?>" 
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
-                               
-                               <button type="button" class="delete" id="<?=$credit->comp_id;?>/<?=$credit->do_no;?>"    
+                                </td>
+                                <td>
+                                    <button type="button" class="delete" id="<?=$cr->trans_dt;?>&trans_no=<?=$cr->trans_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
@@ -89,16 +95,12 @@
                 <tfoot>
 
                     <tr>
-                    
-                    <th>Sl No.</th>
+                        <th>Sl No.</th>
+                        <th>Date</th>
+                        <!--<th>Type</th>-->
                         <th>Company</th>
-                        <th>Do No</th>
-            			<!-- <th>Prod Id</th> -->
-                        <th>Do_dt</th>
-                        <th>Invoice NO</th>
-                        <th>Amout</th>
-                        <!-- <th>Invoice FLAG</th> -->
-            		
+                        <th>Total</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 
@@ -122,7 +124,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('fertilizer/deletecr_note?trans_do="+id+"');?>";
+                window.location = "<?php echo site_url('drcrnote/deletecr_note?trans_dt="+id+"');?>";
 
             }
             
@@ -132,7 +134,7 @@
 
 </script>
 
-<!-- <script>
+<script>
 
     $(document).ready(function() {
 
@@ -141,6 +143,4 @@
     });
 
     <?php } ?>
-</script> -->
-
-
+</script>

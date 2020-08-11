@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Dr Note</strong></h1>
+                <h1><strong>Debit Note</strong><h1>
 
             </div>
 
@@ -27,12 +27,11 @@
 
                     <tr>
                     	<th>Sl No.</th>
-                      <!--   <th>Company</th>
-                        <th>Ro No</th>
-                        <th>Ro dt</th> -->
-                        <th>Invoice NO</th>
-                        <th>Amout</th>
-                     
+                        <th>Date</th>
+                        <!--<th>Type</th>-->
+                        <th>Company</th>
+                        <th>Customer</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
 
@@ -42,25 +41,34 @@
 
                     <?php
                         $i=0;
-                    if($dr_notes) {
-                            foreach($dr_notes as $dr) {
-		    ?>
+                        if($dr_notes) {
+                                foreach($dr_notes as $dr) {
+		            ?>
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                                <!-- <td><?php //echo $dr->COMP_NAME; ?></td>
-                                <td><?php //echo $dr->ro_no; ?></td>
-                                <td><?php //echo date("d/m/Y",strtotime($dr->ro_dt)); ?></td> -->
-				                <td><?php echo $dr->invoice_no; ?></td>
-                                <td><?php echo $dr->tot_amt; ?></td>
-                               
-			 	                <td><a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&invoice_no=<?=$dr->invoice_no;?>" 
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                
+                                <td><?php echo date("d/m/Y",strtotime($dr->trans_dt)); ?></td>
 
+                                <!--<td><?php /*if($dr->trans_flag=='R'){
+                                                echo "Raised";
+                                            }else{
+                                                echo "Adjusted";
+                                            } */
+                                    ?>
+                                </td>-->
+
+                                <td><?php echo $dr->COMP_NAME; ?></td>
+
+				                <td><?php echo $dr->soc_name; ?></td>
+                               
+			 	                <td><a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>" 
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
-                               
-                               <button type="button" class="delete" id="<?=$dr->trans_dt;?>&invoice_no=<?=$dr->invoice_no;?>"    
+                                </td>
+                                <td>
+                                    <button type="button" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
@@ -87,16 +95,12 @@
                 <tfoot>
 
                     <tr>
-                    
-                    <th>Sl No.</th>
-                       <!--  <th>Company</th>
-                        <th>Do No</th>
-            			
-                        <th>Do_dt</th> -->
-                        <th>Invoice NO</th>
-                        <th>Amout</th>
-                  
-            		
+                        <th>Sl No.</th>
+                        <th>Date</th>
+                        <!--<th>Type</th>-->
+                        <th>Company</th>
+                        <th>Customer</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 
@@ -130,7 +134,7 @@
 
 </script>
 
-<!-- <script>
+<script>
 
     $(document).ready(function() {
 
@@ -139,6 +143,6 @@
     });
 
     <?php } ?>
-</script> -->
+</script>
 
 

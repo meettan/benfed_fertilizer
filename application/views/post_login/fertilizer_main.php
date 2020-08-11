@@ -137,7 +137,7 @@
                               <a href="<?php echo site_url("stock/stock_entry");?>">Purchase</a>
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("socpay/society_payment");?>">Customer Payment</a>
-                              <a href="<?php echo site_url("drcrnote/dr_note");?>">Dr Note</a>
+                              <a href="<?php echo site_url("drcrnote/dr_note");?>">Debit Note</a>
                               
                             </div>
                           
@@ -147,8 +147,9 @@
                         <?php if( $this->session->userdata['loggedin']['ho_flag']!="N"){?> 
                             <div class="dropdown-content">
                             <div class="sub-dropdown">
-                            <a href="<?php echo site_url("adv/company_advance");?>">Company Advance</a>
-                              <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
+                            <a href="<?php echo site_url("adv/company_advance");?>">Advance To Company</a>
+                            <a href="<?php echo site_url("drcrnote/cr_note");?>">Credit Note</a>
+                            <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
                              
                             </div>
                           
