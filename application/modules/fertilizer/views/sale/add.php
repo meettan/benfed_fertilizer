@@ -129,11 +129,11 @@
                       </div>
                       </div>
                         
-						<div class="form-header">
-					
-					<h4>Ro And Product Details</h4>
-				
-				</div>
+                    <div class="form-header">
+                        
+                        <h4>Ro And Product Details</h4>
+                    
+                    </div>
                 <hr>
 
                 <div class="row" style ="margin: 5px;">
@@ -152,7 +152,6 @@
                                 <th style= "text-align: center">Qty</th>
 								<th style= "text-align: center">Sale Rate</th>
 								<th style= "text-align: center">Taxable Amt</th>
-                         
 								<th style= "text-align: center">Net Amt</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
@@ -500,14 +499,12 @@ $(document).ready(function(){
 
 </script>
 
-
-
-
 <script>
 
     $(document).ready(function()
     {
-        $('#intro').on( "change", ".ro", function()                     //Getting Product name and stock quantity on supplying RO
+        $('#intro').on( "change", ".ro", function()                    
+         //Getting Product name and stock quantity on supplying RO
         {
                 $('.stock_qty').eq($('.ro').index(this)).val("0"); 
                 $('.prod_id').eq($('.ro').index(this)).val(""); 
@@ -515,13 +512,11 @@ $(document).ready(function(){
                 $('.gst_rt').eq($('.ro').index(this)).val(""); 
                 $('.unit').eq($('.ro').index(this)).val('');
                 $('.units').eq($('.ro').index(this)).val('');
-             
                 $('.qty').eq($('.ro').index(this)).val(0);  
                 $('.gov_sale_rt option:first').prop('selected', 'selected');
                 $('.taxable_amt').eq($('.ro').index(this)).val(0);
                 $('.cgst').eq($('.ro').index(this)).val(0);  
                 $('.sgst').eq($('.ro').index(this)).val(0);
-                
                 $('.tot_amt').eq($('.ro').index(this)).val(0);
             $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
                                                                             
@@ -536,13 +531,10 @@ $(document).ready(function(){
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
                 $('.unit').eq($('.ro').index(this)).val('MT');
                 $('.units').eq($('.ro').index(this)).val('MT');
-             
                 $('.qty').eq($('.ro').index(this)).val(0);  
-
                 $('.taxable_amt').eq($('.ro').index(this)).val(0);
                 $('.cgst').eq($('.ro').index(this)).val(0);  
                 $('.sgst').eq($('.ro').index(this)).val(0);
-                
                 $('.tot_amt').eq($('.ro').index(this)).val(0);
                 
             
@@ -579,7 +571,6 @@ $(document).ready(function(){
               $('.sale_category').eq($('.ro').index(this)).html(string); 
             $.get('<?php echo site_url("trade/get_sale_rate");?>',{ ro: $(this).val(),comp_id:$("#comp_id").val() })
                                                                             
-            
             .done(function(data){
 
             var string = '<option value="">Select</option>';
@@ -610,7 +601,7 @@ $(document).ready(function(){
           $('.taxable_amt').eq($('.ro').index(this)).val(0);
           $('.tot_amt').eq($('.ro').index(this)).val(0);
         var ro =  $(this).closest('tr').find('td:eq(0) .ro').val();
-                    $(this).closest('tr').find('td:eq(6) .qty').val("0");
+                  $(this).closest('tr').find('td:eq(6) .qty').val("0");
        
         $.get('<?php echo site_url("trade/get_salerate");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category: $(this).val() })
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2020 at 01:50 PM
+-- Generation Time: Aug 14, 2020 at 02:04 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tdf_company_payment` (
+  `sl_no` int(11) NOT NULL,
   `pay_no` varchar(20) NOT NULL,
   `pay_dt` datetime NOT NULL,
   `district` int(10) NOT NULL,
@@ -42,11 +43,12 @@ CREATE TABLE `tdf_company_payment` (
   `bnk_id` int(10) NOT NULL,
   `pay_mode` int(5) NOT NULL,
   `paid_amt` decimal(20,2) NOT NULL,
-  `ref_no` varchar(20) NOT NULL,
+  `ref_no` varchar(20) DEFAULT NULL,
+  `ref_dt` date DEFAULT NULL,
   `bnk_ac_no` varchar(20) NOT NULL,
-  `ifcs_code` varchar(20) NOT NULL,
-  `virtual_ac` varchar(20) NOT NULL,
-  `remarks` varchar(30) NOT NULL,
+  `ifsc` varchar(20) NOT NULL,
+  `virtual_ac` varchar(20) DEFAULT NULL,
+  `remarks` varchar(30) DEFAULT NULL,
   `fin_yr` int(10) NOT NULL,
   `created_by` varchar(20) NOT NULL,
   `created_dt` datetime NOT NULL,
@@ -58,8 +60,8 @@ CREATE TABLE `tdf_company_payment` (
 -- Dumping data for table `tdf_company_payment`
 --
 
-INSERT INTO `tdf_company_payment` (`pay_no`, `pay_dt`, `district`, `comp_id`, `prod_id`, `qty`, `sale_inv_no`, `pur_ro`, `pur_inv_no`, `purchase_rt`, `bnk_id`, `pay_mode`, `paid_amt`, `ref_no`, `bnk_ac_no`, `ifcs_code`, `virtual_ac`, `remarks`, `fin_yr`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-('', '0000-00-00 00:00:00', 337, 1, 42, '2400.00', 'RCPT/N24/2020-21/1', 'RO-1234', 'INV-1234', '53.44', 0, 0, '0.00', '', '', '', '', '', 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00');
+INSERT INTO `tdf_company_payment` (`sl_no`, `pay_no`, `pay_dt`, `district`, `comp_id`, `prod_id`, `qty`, `sale_inv_no`, `pur_ro`, `pur_inv_no`, `purchase_rt`, `bnk_id`, `pay_mode`, `paid_amt`, `ref_no`, `ref_dt`, `bnk_ac_no`, `ifsc`, `virtual_ac`, `remarks`, `fin_yr`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+(0, 'PMT/2020-21/1', '2020-08-14 00:00:00', 337, 1, 42, '2400.00', 'RCPT/N24/2020-21/1', 'RO-1234', 'INV-1234', '53.44', 0, 0, '21376.00', '', NULL, '', '', '', '', 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

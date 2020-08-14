@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2020 at 02:01 PM
+-- Generation Time: Aug 14, 2020 at 02:05 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -35,6 +35,7 @@ CREATE TABLE `mm_feri_bank` (
   `branch_name` varchar(100) CHARACTER SET latin1 NOT NULL,
   `ac_type` varchar(5) CHARACTER SET latin1 NOT NULL,
   `ac_no` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `ifsc` varchar(25) NOT NULL,
   `created_by` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
   `created_dt` datetime DEFAULT NULL,
   `modified_by` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
@@ -45,14 +46,24 @@ CREATE TABLE `mm_feri_bank` (
 -- Dumping data for table `mm_feri_bank`
 --
 
-INSERT INTO `mm_feri_bank` (`sl_no`, `acc_code`, `bank_name`, `branch_name`, `ac_type`, `ac_no`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(1, '10185', 'Axis Bank  -  1726', '', 'S', '915010065341726', 'Synergic Softek', '2018-10-10 01:25:09', NULL, NULL),
-(2, '10188', 'Axis Bank  G.  C.  Ave.  A/c.  -  1146', 'G.C Avenue', 'C', '910020036541146', 'Synergic Softek', '2018-10-22 08:40:33', NULL, NULL),
-(3, '10184', 'Allahabad  Bank  Int.  A/c.  No.  1404', '', 'C', '50057591404', 'Synergic Softek', '2018-10-22 08:42:23', NULL, NULL),
-(4, '10207', 'S.B.I.  Park  St. CD I  A/c.  No.  0851', 'Park Street', 'C', '30147550851', 'Synergic Softek', '2018-10-22 08:43:39', NULL, NULL),
-(5, '10208', 'SBI  Park  St CD II  A/c.  No.  2309', 'Park Street', 'C', '30379602309', 'Synergic Softek', '2018-10-22 08:44:17', NULL, NULL),
-(6, '10210', 'S.B.I-Suravi  A/c.Sys.(Todiman).', '', 'C', '31426358521', 'Synergic Softek', '2018-10-22 08:45:15', NULL, NULL),
-(7, '10010', 'S.B.L-TodiM..Empl.G.Grattiity  Fund', '', 'C', '31895922163', 'Synergic Softek', '2018-10-22 08:45:42', NULL, NULL);
+INSERT INTO `mm_feri_bank` (`sl_no`, `acc_code`, `bank_name`, `branch_name`, `ac_type`, `ac_no`, `ifsc`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+(1, '10185', 'Axis Bank', '', 'S', '915010065341726', '122333333333', 'Synergic Softek', '2018-10-10 01:25:09', NULL, NULL),
+(2, '10188', 'Axis Bank  G.  C.  Ave.  A/c. ', 'G.C Avenue', 'C', '910020036541146', '5889996333', 'Synergic Softek', '2018-10-22 08:40:33', NULL, NULL),
+(3, '10184', 'Allahabad  Bank  Int.  A/c. ', '', 'C', '50057591404', '920011111114444', 'Synergic Softek', '2018-10-22 08:42:23', NULL, NULL),
+(4, '10207', 'S.B.I.  Park  St. CD I  A/c.  ', 'Park Street', 'C', '30147550851', '32211111117', 'Synergic Softek', '2018-10-22 08:43:39', NULL, NULL),
+(5, '10208', 'SBI  Park  St CD II  A/c.  No.', 'Park Street', 'C', '30379602309', '2111111111144444', 'Synergic Softek', '2018-10-22 08:44:17', NULL, NULL),
+(6, '10210', 'S.B.I-Suravi  A/c.Sys.(Todiman).', '', 'C', '31426358521', '6622444444', 'Synergic Softek', '2018-10-22 08:45:15', NULL, NULL),
+(7, '10010', 'S.B.L-TodiM..Empl.G.Grattiity  Fund', '', 'C', '31895922163', '011554555555', 'Synergic Softek', '2018-10-22 08:45:42', NULL, NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `mm_feri_bank`
+--
+ALTER TABLE `mm_feri_bank`
+  ADD PRIMARY KEY (`sl_no`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

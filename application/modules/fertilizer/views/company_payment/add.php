@@ -1,8 +1,8 @@
 <div class="wraper">      
             
-			<div class="col-md-10 container form-wraper">
+			<div class="col-md-14 container form-wraper">
 	
-				<form method="POST" action="<?php echo site_url("socpay/society_payAdd") ?>" onsubmit="return valid_data()" id="form">
+				<form method="POST" action="<?php echo site_url("compay/company_payAdd") ?>" onsubmit="return valid_data()" id="form">
 	
 					<div class="form-header">
 					
@@ -53,64 +53,18 @@
                 <?php    }    ?>     
                 </select>
 	                    </div>
-                      <!-- <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
-						<div class="col-sm-2">
-	
-						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" />
-	                    </div> -->
-                        
+                
                         </div>
-
-                        <!-- <div class="form-group row"> -->
-                      <!-- <label for="inv_no" class="col-sm-2 col-form-label">Sale Invoice No:</label>
-						<div class="col-sm-3">
-	
-						
-                        <select name="inv_no" class="form-control required" id="inv_no"style="width:180px" required>
-
-							<option value="">Select</option>
-
-						
-
-							</select>
-	                    </div> -->
-                        <!-- <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
-						<div class="col-sm-2">
-	
-						<input type="date" style="width:200px" id="do_dt" name="do_dt" class="form-control" />
-	                    </div> -->
-                        <!-- </div> -->
-
-                        <!-- <div class="form-group row"> -->
-                   
-                        <!-- <label for="pur_ro" class="col-sm-2 col-form-label">Purchase Ro:</label>
-						<div class="col-sm-3">
-                        <input type="text" style="width:180px" id="pur_ro" name="pur_ro" value="" class="form-control"  readonly />
-                        </div> -->
-                         <!-- <label for="pur_ro_dt" class="col-sm-2 col-form-label">Purchase RO Date:</label>
-						<div class="col-sm-3">
-                        <input type="date" style="width:200px" id="pur_ro_dt" name="pur_ro_dt" value="" class="form-control" readonly  />
-                        </div> -->
-                        <!-- </div> -->
                         <!-- <div class="form-group row">
-                        <label for="prod_id" class="col-sm-2 col-form-label">Product:</label>
-						<div class="col-sm-3">
-                        <input type="text" style="width:180px" id="prod_id" name="prod_id"value=""  class="form-control" readonly />
-                        </div>
-                        <label for="net_amt" class="col-sm-2 col-form-label">Total Amount Sold:</label>
-						<div class="col-sm-3">
-                        <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
-                        </div>
-                        </div> -->
-                        <div class="form-group row">
                         
-                        </div>
+                        </div> -->
 
-						<div class="form-header">
+				<div class="form-header">
 					
 					<h4>Pay Type and Paid Details</h4>
 				
 				</div>
+
                 <hr>
 
                 <div class="row" style ="margin: 5px;">
@@ -120,11 +74,12 @@
                         <table class= "table table-striped table-bordered table-hover">
 
                             <thead>
-                                <th style= "text-align: center;width:100px">Sale Date</th>
+                                <th style= "text-align: center;width:100px">Purchase Invoice</th>
+                                <th style= "text-align: center;width:100px">Product</th>
+                                <th style= "text-align: center;width:100px">Purchase Ro</th>
+                                <th style= "text-align: center;width:100px">Purchase Ro Date</th>
                                 <th style= "text-align: center;width:100px">Quantity</th>
-                                <th style= "text-align: center;width:100px">Payment Date</th>
-                                <th style= "text-align: center;width:100px">Pay Mode</th>
-                                <th style= "text-align: center;width:100px">Quantity</th>
+                                <th style= "text-align: center;width:100px">Rate</th>
 								<th style= "text-align: center;width:100px">Amount</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
@@ -135,26 +90,39 @@
                             <tbody id= "intro">
                                 <tr>
                                 
-                                <td>
-                                      <input type="date" name="sale_dt[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >
-                                    </td>
-                                    <td>
-                                      <input type="text" name="qty[]" style="width:150px;" class="form-control qty" value= "" id="ref_no" >
-                                    </td>
-                                    <td>
-                                      <input type="date" name="pay_dt[]" style="width:150px;" class="form-control pay_dt" value= "" id="ref_no" >
-                                    </td>
                                     <td>    
                                        
-                 
-                 <input type="text" name="pay_type[]" style="width:150px;" class="form-control pay_type" value= "" id="pay_type" >
+                                       <select name="pur_inv[]" id="pur_inv" style="width:100px"class="form-control required pur_inv" required>
+                                      <option value="">Select RO</option>
+                                      <!-- <?php
+                                          foreach($rodtls as $key1)
+                                          { ?>
+                                              <option value="<?php echo $key1->ro_no; ?>"><?php echo $key1->ro_no; ?></option>
+                                          <?php
+                                          } ?> -->
+                                  </select> 
+                                                          </td>
+                      
+
+                                    <td>
+                                      <input type="hidden" name="prod_id[]" style="width:150px;" class="form-control prod_id" value= "" id="prod_id" >
+                                      <input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
                                     </td>
                                     <td>
-                                      <input type="text" name="ref_no[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >
+                                      <input type="text" name="pur_ro[]" style="width:150px;" class="form-control pur_ro" value= "" id="pur_ro" readonly >
+                                    </td>
+                                    <td>
+                                      <input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >
+                                    </td>
+                                    <td>    
+                                    <input type="text" name="qty[]" style="width:100px;" class="form-control qty" value= "" id="qty" readonly >
+                                    </td>
+                                    <td>
+                                      <input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" readonly >
                                     </td>
 
 									<td>
-                                      <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>
+                                      <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" readonly>
                                     </td>
                                     
                                    
@@ -164,7 +132,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         Total:
                                     </td>
                                     <td colspan="2">
@@ -208,15 +176,15 @@
 	
 	                        </select>
 						</div>
-                        <label for="ifsc" class="col-sm-1 col-form-label">IFSC Code:</label>
+                        <label for="ifsc" class="col-sm-1 col-form-label">IFSC :</label>
 						<div class="col-sm-2">
 	
-						<input type="text" style="width:160px" id="ifsc" name="ifsc" class="form-control" />
+						<input type="text" style="width:160px" id="ifsc" name="ifsc" class="form-control"readonly />
 	                    </div>
                         <label for="ac_no" class="col-sm-1 col-form-label">A/C No. :</label>
 						<div class="col-sm-2">
 	
-						<input type="text" style="width:180px" id="ac_no" name="ifsc" class="form-control" />
+						<input type="text" style="width:180px" id="ac_no" name="ifsc" class="form-control"readonly />
 	                    </div>
                         </div>
                         <div class="form-group row">
@@ -224,9 +192,32 @@
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="virtual_no" name="virtual_no" class="form-control" />
 	                    </div>
+                        <label for="pay_mode" class="col-sm-1 col-form-label">Pay Mode:</label>
+					<div class="col-sm-2">
+					<select class="form-control" id="pay_mode" name="pay_mode" style="width:180px" required>
+						
+						<option value="">Select</option>
+						<option value="1">Cheque</option>
+						<option value="2">Draft</option>
+						<option value="3">NEFT/RTGS</option>
+						
+					</select>
+					</div>
+                    <label for="ref_no" class="col-sm-1 col-form-label">Referece No. :</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:180px" id="ref_no" name="ref_no" class="form-control" />
+	                    </div>
+                    
+                        </div>
+                        <div class="form-group row">
                         <label for="remarks" class="col-sm-1 col-form-label">Remarks:</label>
-                        <div class="col-sm-3">
-                        <input type="text" style="width:300px" id="remarks" name="remarks" class="form-control" />
+                        <div class="col-sm-6">
+                       
+                        <textarea style="width:570px;height:60px"  id=remarks name="remarks" class="form-control"  /></textarea>
+	                    </div>
+                        <label for="ref_dt" class="col-sm-1 col-form-label">Referece Date. :</label>
+						<div class="col-sm-3">
+                        <input type="date" style="width:180px" id="ref_dt" name="ref_dt" class="form-control" />
 	                    </div>
                         </div>
                 <div class="form-group row">
@@ -251,38 +242,67 @@
 <script>
 
     $(document).ready(function(){
-
-        // For add row option
         $('#addrow').click(function(){
+
+      $.get( 
+
+'<?php echo site_url("compay/f_get_comppay_ro");?>',
+
+{ 
+
+comp_id: $('#comp_id').val(),
+dist_id: $('#dist_id').val()
+
+}
+
+).done(function(data){
+
+var string = '<option value="">Select Ro</option>';
+//console.log(data);
+$.each(JSON.parse(data), function( index, value ) {
+
+    string += '<option value="' + value.pur_inv_no + '">' + value.pur_inv_no + '</option>'
+
+});
+        // For add row option
+        // $('#addrow').click(function(){
 
             var newElement = '<tr>'
                                 +'<td>'
-                                +'<input type="date" name="sale_dt[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >'
-                                +'</td>'
-                               +'<td>'
-                                +' <input type="text" name="qty[]" style="width:150px;" class="form-control qty" value= "" id="ref_no" >'
+                                // +'<input type="text" name="pur_inv[]" style="width:150px;" class="form-control pur_inv" value= "" id="pur_inv" >'
+                                +'<select name="pur_inv[]" id="pur_inv" style="width:100px"class="form-control required pur_inv" required>'
+                                // +'<option value="">Select RO</option>'
+                                +' <option value=" '+ string +'</option>'
+                                +'</select> '
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="date" name="pay_dt[]" style="width:150px;" class="form-control pay_dt" value= "" id="ref_no" >'
+                                +' <input type="hidden" name="prod_id[]" style="width:150px;" class="form-control prod_id" value= "" id="prod_id" >'
+                                +'<input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly>'
+                                +'</td>'
+                                +'<td>'
+                                +'<input type="text" name="pur_ro[]" style="width:150px;" class="form-control pur_ro" value= "" id="pur_ro" readonly>'
+                                +'</td>'
+                                +'<td>'
+                                +'<input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >'
                                 +'</td>'
 								+'<td>'
-                                    +'<input type="text" name="pay_type[]" style="width:150px;" class="form-control pay_type" value= "" id="pay_type" >'
+                                +'<input type="text" name="qty[]" style="width:100px;" class="form-control qty" value= "" id="qty" readonly >'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="text" name="ref_no[]" style="width:150px;" class="form-control ref_no" value= "" id="ref_no" >'
+                                +'<input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>'
+                                +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                    +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
+                                +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
                                 +'</td>'
                             '</tr>';
 
             $("#intro").append($(newElement));
 
         });
-
+        });
         // $("#intro").on("click","#removeRow", function(){
         //     $(this).parents('tr').remove();
         //     var sum =0;        
@@ -296,10 +316,10 @@
         //     $("#total").val(sum.toFixed(2));
         // });
 
-        $('#nt').on("change", function(){
-            var total = $(this).val();
-            $('#total').val(total);
-        })
+        // $('#nt').on("change", function(){
+        //     var total = $(this).val();
+        //     $('#total').val(total);
+        // })
 
 
         $('.total').change(function(){
@@ -349,8 +369,6 @@ $(document).ready(function(){
 
     var i = 2;
 
-  
-
      $('#do_no').change(function(){
 
         $.get( 
@@ -367,7 +385,6 @@ $(document).ready(function(){
 
             var datas = JSON.parse(data);
             
-           
             $('#ro_dt').val(datas.do_dt);
             $('#invoice_no').val(datas.invoice_no);
             $('#invoice_dt').val(datas.invoice_dt);
@@ -385,14 +402,10 @@ $(document).ready(function(){
  $('.table tbody').on('change', '.qty', function(){
 
    
-          
             let row          = $(this).closest('tr');
             var qty          = row.find('td:eq(3) .qty').val();
-        
-            
             var stock        = row.find('td:eq(2) .stock_qty').val();
 
-         
                 if (parseFloat(qty)>parseFloat(stock)  ){
               //  var zero_qty          = null;
                
@@ -404,7 +417,7 @@ $(document).ready(function(){
            
                       
             })
- $('.table tbody').on('change', '.soc_amt', function(){
+ $('.table tbody').on('change', '.paid_amt', function(){
    
            var sum =0;
             let row   = $(this).closest('tr');
@@ -419,22 +432,18 @@ $(document).ready(function(){
                       
             })
 
-        
+
    $('#form').submit(function(event){
 
-          
                  var tot_cr_amt = parseFloat($('#tot_amt').val());
-
-
                  var sum =0;
+
             let row   = $(this).closest('tr');
                     
             $("input[class *= 'soc_amt']").each(function(){
             sum += parseFloat($(this).val());
                       
             });
-
-
                  var total      = parseFloat($('#total').val());
 
                     if(tot_cr_amt < sum) {
@@ -451,7 +460,6 @@ $(document).ready(function(){
                       }
         });
 </script>
-
 
 <script>
 
@@ -492,210 +500,33 @@ $(document).ready(function(){
 </script>
 
 <script>
-
-$(document).ready(function(){
-
-    var i = 0;
-
-    $('#trans_do').change(function(){
-
-        $.get( 
-
-            '<?php echo site_url("socpay/f_get_ro_dt");?>',
-
-            { 
-
-                trans_do: $(this).val()
-
-            }
-
-        ).done(function(data){
-
-            var string = '<option value="">Select</option>';
-
-            $.each(JSON.parse(data), function( index, value ) {
-
-                string += '<option value="' + value.sale_ro + '">' + value.sale_ro + '</option>'
-
-            });
-
-            $('#sale_ro').html(string);
-
-
-          });
-
-
-    });
-
-});
-</script>
-<script>
-
-$(document).ready(function(){
-
-    var i = 0;
-
-    $('#sale_ro').change(function(){
-
-        $.get( 
-
-            '<?php echo site_url("socpay/f_get_ro_dt");?>',
-
-            { 
-
-                trans_do: $('#trans_do').val()
-
-            }
-
-        ).done(function(data){
-
-            var parseData = JSON.parse(data);
-            
-			var tot_recvble_amt = parseData[0].tot_amt;
-            // var sale_ro = parseData[0].sale_ro;
-			$('#tot_recvble_amt').val(tot_recvble_amt);
-            // $('#sale_ro').val(sale_ro)
-            var tot_dr_amt = parseFloat($('#tot_dr_amt').val());
-            var adv_amt = parseFloat($('#adv_amt').val());
-            var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
-            // var net_amt = tot_recvble_amt - 
-          });
-
-
-    });
-
-});
-</script>
-
-<script>
-
-$(document).ready(function(){
-
-    var i = 0;
-
-    $('#sale_ro').change(function(){
-
-        $.get( 
-
-            '<?php echo site_url("socpay/f_get_advamt_dr");?>',
-
-            { 
-
-                soc_id: $('#soc_id').val()
-
-            }
-
-        ).done(function(data){
-
-            var parseData = JSON.parse(data);
-            
-			var adv_amt = parseData[0].adv_amt;
-           
-			 $('#adv_amt').val(adv_amt);
-             
-          });
-
-
-    });
-
-});
-</script>
-
-<script>
-
-$(document).ready(function(){
-
-    var i = 0;
-
-    $('#sale_ro').change(function(){
-
-        $.get( 
-
-            '<?php echo site_url("socpay/f_get_adv_net_amt");?>',
-
-            { 
-
-                soc_id: $('#soc_id').val(),
-                trans_do: $('#trans_do').val(),
-                sale_ro: $('#sale_ro').val(),
-                // tot_recvble_amt: $('#tot_recvble_amt').val()
-
-            }
-
-        ).done(function(data){
-
-            var parseData = JSON.parse(data);
-            
-			var net_amt = parseData[0].net_amt;
-           
-			 $('#net_amt').val(net_amt);
-             
-          });
-
-
-    });
-
-});
-</script>
-
-<script>
 $(document).ready(function(){
     
-$('#intro').on( "change", ".paid_amt", function(){
+// $('#intro').on( "change", ".pur_inv", function(){
+// //$('#pur_inv').change(function(){
+// $("#total").val('0');
 
-$("#total").val('');
-var total = 0;
-$('.paid_amt').each(function(){
-    total += +$(this).val();
-})
-$("#total").val(total);
+// var total = 0;
+// $('.paid_amt').each(function(){
+//     total += $(this).val();
+// })
+// $("#total").val(total);
 
-});
+// });
+
 $("#intro").on("click","#removeRow", function(){
     console.log('ok');
 
-    $(this).parent().parent().remove();
-    $('.paid_amt').change();
-})
-});
-</script>
-
-<script>
-
-$(document).ready(function(){
-
-    var i = 0;
-
-    $('#sale_ro').change(function(){
-
-        $.get( 
-
-            '<?php echo site_url("socpay/f_get_amt_dr");?>',
-
-            { 
-
-                soc_id: $('#soc_id').val(),
-                trans_do: $('#trans_do').val(),
-
-            }
-
-        ).done(function(data){
-
-            var parseData = JSON.parse(data);
+            $(this).parent().parent().remove();
+            var total=0;
+         $('.paid_amt').each(function(){
             
-			var tot_dr_amt = parseData[0].tot_amt;
-           
-			 $('#tot_dr_amt').val(tot_dr_amt);
-             
-          });
-
-
-    });
-
+           total += +$(this).val();
+            })
+            $("#total").val(total);
+    })
 });
 </script>
-
-
 
 <script>
 
@@ -729,7 +560,8 @@ $(document).ready(function(){
 })
 
 </script>
-       <script>
+
+<script>
 
 $(document).ready(function(){
 
@@ -768,3 +600,157 @@ $(document).ready(function(){
 
 });
  </script>
+
+ <script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#dist_id').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("compay/f_get_comppay_company");?>',
+
+            { 
+
+                dist_id: $(this).val()
+
+            }
+
+        ).done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.comp_id + '">' + value.comp_name + '</option>'
+
+            });
+
+            $('#comp_id').html(string);
+
+
+          });
+
+
+    });
+
+});
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#comp_id').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("compay/f_get_comppay_ro");?>',
+
+            { 
+
+                comp_id: $(this).val(),
+                dist_id: $('#dist_id').val()
+
+            }
+
+        ).done(function(data){
+
+            var string = '<option value="">Select</option>';
+
+            $.each(JSON.parse(data), function( index, value ) {
+
+                string += '<option value="' + value.pur_inv_no + '">' + value.pur_inv_no + '</option>'
+
+            });
+
+            $('#pur_inv').html(string);
+
+
+          });
+
+
+    });
+
+});
+</script>
+
+<script>
+
+$(document).ready(function()
+{
+    $('#intro').on( "change", ".pur_inv", function()                     
+    {
+            $('.pur_ro').eq($('.pur_inv').index(this)).val(""); 
+           
+         
+            
+        $.get('<?php echo site_url("compay/f_get_comppay_ro_dtls");?>',{ pur_inv: $(this).val() })
+                                                                        
+        .done(function(data)
+        {
+            
+        var unitData = JSON.parse(data);
+        var qty = $('.qty').eq($('.pur_inv').index(this)).val(unitData.qty);
+        var rate =  $('.rate').eq($('.pur_inv').index(this)).val(unitData.purchase_rt);
+         $('.prod_id').eq($('.pur_inv').index(this)).val(unitData.prod_id); 
+         $('.prod_desc').eq($('.pur_inv').index(this)).val(unitData.prod_desc);  
+         $('.pur_ro').eq($('.pur_inv').index(this)).val(unitData.pur_ro); 
+         $('.pur_ro_dt').eq($('.pur_inv').index(this)).val(unitData.ro_dt);   
+         $('.qty').eq($('.pur_inv').index(this)).val(unitData.qty);
+         $('.rate').eq($('.pur_inv').index(this)).val(unitData.purchase_rt);      
+       
+         $('.paid_amt').eq($('.pur_inv').index(this)).val(parseFloat(unitData.tot_amt).toFixed('2'));  
+            var total=0;
+         $('.paid_amt').each(function(){
+            
+           total += +$(this).val();
+            })
+         $("#total").val(total);
+        
+        });
+
+    });
+});
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#bank_id').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("compay/f_get_bank_dtls");?>',
+
+            { 
+
+                bank_id: $(this).val(),
+               
+
+            }
+
+        ).done(function(data){
+
+            var parseData = JSON.parse(data);
+            
+            var ac_no = parseData[0].ac_no;
+			var ifsc = parseData[0].ifsc;
+			$('#ac_no').val(ac_no);
+			$('#ifsc').val(ifsc);
+
+          });
+
+
+    });
+
+});
+</script>

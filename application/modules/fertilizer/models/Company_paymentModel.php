@@ -65,10 +65,21 @@
                 
             }
 
+
+			public function get_payment_code($fin){
+
+				$data   =   $this->db->query("select ifnull(max(sl_no),0) +1 sl_no
+											  from   tdf_company_payment
+											");
+	
+				$result = $data->row();  
+	 
+				return $result;
+			 }
             public function f_get_comp_payment_dtls(){
 
                 $data = $this->db->query("select pay_no,district,comp_id,sale_inv_no,pur_ro,pur_inv_no,purchase_rt,
-                                         bnk_id,pay_mode,paid_amt,ref_no,bnk_ac_no,ifcs_code,virtual_ac,remarks,fin_yr
+                                         bnk_id,pay_mode,paid_amt,ref_no,bnk_ac_no,ifsc,virtual_ac,remarks,fin_yr
 											from tdf_company_payment
 											where paid_amt>0");
         
@@ -168,7 +179,7 @@
 		public function f_get_ro_dtls($ro_no) // For Jquery
         {
 
-            $sql = $this->db->query("SELECT a.invoice_no,a.invoice_dt,a.due_dt,a.qty,a.no_of_bags ,a.comp_id,a.prod_id,b.gst_no,c.hsn_code,b.comp_name,c.gst_rt,a.br
+            $sql = $this->db->query("SELECT a.invoice_no,a.invoice_dt,a.due_dt,a.qty,a.no_of_bags ,a.comp_id,a.prod_id,b.gst_no,c.hsn_code,b.comp_name,c.gst_rt,a.br,b.short_name
 			FROM td_purchase a ,mm_company_dtls b,mm_product c
 			WHERE a.ro_no ='$ro_no'
 			and a.comp_id=b.comp_id

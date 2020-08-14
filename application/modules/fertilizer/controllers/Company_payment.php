@@ -23,14 +23,14 @@
 			$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
 			$transCd 	= $this->Company_paymentModel->get_soc_pay_code($br_cd,$fin_id);
 
-			$select_dist         = array("dist_sort_code" );
+			$select_dist         = array("short_name" );
 
-            $where_dist          = array("district_code"     =>  $br_cd );
+            $where_dist          = array("comp_id"     => $this->input->post('comp_id') );
 
-            $brn                 = $this->AdvanceModel->f_select("md_district",$select_dist,$where_dist,1);  
-            $adv_transCd 	    = $this->AdvanceModel->get_advance_code($br_cd,$fin_id);
-            $receipt            = 'PMT/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$adv_transCd->sl_no;
-
+            $brn                = $this->Company_paymentModel->f_select("mm_company_dtls ",$select_dist,$where_dist,1);  
+            $adv_transCd 	    = $this->Company_paymentModel->get_payment_code($fin_id);
+            // $receipt            = 'PMT/'.$brn->short_name.'/'.$fin_year.'/'.$adv_transCd->sl_no;
+			$receipt            = 'PMT/'.$fin_year.'/'.$adv_transCd->sl_no;
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 				
     
@@ -43,40 +43,26 @@
 						// die();
                       $data     = array(
                                             
-                                            'paid_id'        	=> $transCd->sl_no,
+                                            'pay_no'        	=> $receipt ,
         
-                                            'paid_dt'           => $this->input->post('paid_dt'),
+                                            'pay_dt'           => $this->input->post('pay_dt'),
+											'bnk_id'           => $this->input->post('bank_id'),
+											'ifsc'             => $this->input->post('ifsc'),
+											'bnk_ac_no'       => $this->input->post('ac_no'),
+											'ref_no'           => $this->input->post('ref_no'),
+											'ref_dt'           => $this->input->post('ref_dt'),
+                                            'paid_amt'           => $_POST['paid_amt'][$i]);
         
-                                            'soc_id'            => $this->input->post('soc_id'),
-    
-                                            'sale_invoice_no'   => $this->input->post('trans_do'),
-    
-                                            'sale_invoice_dt'    =>  $this->input->post('do_dt'),
-        
-                                            'ro_no'              => $this->input->post('sale_ro'),
+						// $this->Company_paymentModel->f_insert('tdf_payment_recv', $data);
+					$where  =   array(
+		   
+					'pur_inv_no'      => $_POST['pur_inv'][$i],
 
-                                            'adj_dr_note_amt'    => $this->input->post('tot_dr_amt'),
+					'pur_ro'      => $_POST['pur_ro'][$i],
 
-                                            'adj_adv_amt'        => $this->input->post('adv_amt'),
+					'prod_id'      => $_POST['prod_id'][$i] );
 
-                                            'net_recvble_amt'    => $this->input->post('net_amt'),
-                                            
-                                            'tot_recvble_amt'    => $this->input->post('tot_recvble_amt'),
-
-                                            'pay_type'           => $_POST['pay_type'][$i],
-        
-                                            'paid_amt'           => $_POST['paid_amt'][$i],
-                                            
-                                            "created_by"         =>  $this->session->userdata['loggedin']['user_name'],
-        
-                                            "created_dt"         =>  date('Y-m-d'),
-    
-                                            'branch_id'          => $br_cd,
-    
-                                            'fin_yr'             => $fin_id
-                                        );
-        
-						$this->Company_paymentModel->f_insert('tdf_payment_recv', $data);
+					$this->Company_paymentModel->f_edit('tdf_company_payment', $data, $where);
 
 if ($trans_type=='2'){
 						$total = $_POST['paid_amt'][$i];
@@ -109,40 +95,10 @@ if ($trans_type=='2'){
 	   
 						   $this->Company_paymentModel->f_insert('tdf_advance', $data_adv_pay);
 }
-						// echo $this->db->last_query();
-						// die();
+						
 					}
 					
-					if ($trans_type=='6'){
-					// 	$total_cr = $_POST['paid_amt'][$i];
-					//    print_r($total_cr);
-					//    die();
-						$data_dr_cr_note     = array('trans_dt'    =>date('Y-m-d'),
-
-													'invoice_no'   => $this->input->post('trans_do'),
-
-													'invoice_dt'   => $this->input->post('do_dt'),
-
-													'ro_no'        => $this->input->post('sale_ro'),
-
-													'soc_id'       => $this->input->post('soc_id'),
-
-													'tot_amt'      => $paid_amt,
-
-													'trans_flag'   => 'A',
-
-													'branch_id'    => $br_cd,
-
-													'fin_yr'       => $fin_id,
-
-													'remarks'      => 'ADV ADJ',
-													
-													'created_by'    => $this->session->userdata['loggedin']['user_name'],
-
-													'created_dt'    => date('Y-m-d'));
-
-						$this->DrcrnoteModel->f_insert('tdf_dr_cr_note',$data_dr_cr_note);
-					}
+				
 				
                     $this->session->set_flashdata('msg', 'Successfully Added');
         
@@ -152,13 +108,15 @@ if ($trans_type=='2'){
 
                         $select        = array("sl_no","bank_name");
                         $product['bnkdtls']   = $this->Company_paymentModel->f_select('mm_feri_bank',$select,NULL,0);
-                        $select2         = array("comp_id","comp_name");
-                        $product['compdtls']   = $this->Company_paymentModel->f_select('mm_company_dtls',$select2,NULL,0);
+						$select2 = array("b.comp_id","b.comp_name");
+						$where2  = array('a.comp_id=b.comp_id'   => NULL );
 
-                        $select3         = array("district_code","district_name");
-					// $where3  =   array('district'   => $br_cd );
+                        $product['compdtls']   = $this->Company_paymentModel->f_select('tdf_company_payment a,mm_company_dtls b',$select2,$where2,0);
 
-                    $product['distdtls']   = $this->Company_paymentModel->f_select('md_district',$select3,NULL,0);
+                        $select3         = array("b.district_code","b.district_name");
+					$where3  =   array('a.district=b.district_code'   =>Null );
+
+                    $product['distdtls']   = $this->Company_paymentModel->f_select('tdf_company_payment a ,md_district b',$select3,$where3,0);
     
                     $select4        = array("id","branch_name");
                     $product['brdtls']   = $this->Company_paymentModel->f_select('md_branch',$select4,NULL,0);
@@ -365,8 +323,6 @@ if ($trans_type=='2'){
         
         }
 
-
-
         public function society_payment(){
 			$this->sysdate  = $_SESSION['sys_date'];
 		   $data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls();
@@ -392,6 +348,57 @@ if ($trans_type=='2'){
        $this->load->view('post_login/footer');
    }
    
+public function f_get_comppay_ro(){
+	// echo 'hi';
+	// die();
+    $select = array("pur_inv_no " );
+       		
+			$where      =   array(
+
+			"comp_id"    =>  $this->input->get('comp_id'),
+            "district"  =>  $this->input->get('dist_id')
+                );
+			   
+			$pur_inv_ro   = $this->Company_paymentModel->f_select('tdf_company_payment',$select,$where,0);
+			
+			// echo $this->db->last_query();
+			// die();
+			echo json_encode($pur_inv_ro);
+
+			}
+			
+			public function f_get_bank_dtls(){
+
+				$select = array("sl_no","bank_name","ifsc","ac_no");
+				$where      =   array(
+					"sl_no"  =>  $this->input->get('bank_id')
+				);
+				$bank_dtl   = $this->Company_paymentModel->f_select('mm_feri_bank',$select,$where ,0);
+				echo json_encode($bank_dtl);
+
+			}
+
+
+			public function f_get_comppay_ro_dtls(){
+				 // echo 'hi';
+				// die();
+				$select = array("sum(c.qty)as qty","a.sale_inv_no","a.pur_ro","a.purchase_rt" ,"b.ro_dt","sum(c.qty)* a.purchase_rt as tot_amt" ,"a.prod_id","d.prod_desc" );
+						   
+						$where      =   array(
+												"a.pur_inv_no"    =>  $this->input->get('pur_inv'),
+												"a.pur_ro=b.ro_no"=>NULL,
+												"a.pur_ro=c.sale_ro"=>NULL	,
+												"a.prod_id =d.prod_id"=>NULL);
+						   
+						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_select('tdf_company_payment a ,td_purchase b,td_sale c,mm_product d',$select,$where,1);
+						
+						// echo $this->db->last_query();
+						// die();
+						echo json_encode($pur_inv_ro_dtl);
+			
+						}
+			
+
 		public function dr_note(){
 			$this->sysdate  = $_SESSION['sys_date'];
 		   $data['dr_notes']    = $this->FertilizerModel->f_get_drnote_dtls();
@@ -1474,8 +1481,20 @@ public function f_get_product(){
 
 }
 
+public function f_get_comppay_company(){
 
+	$select          = array("b.comp_id","b.comp_name");
+	
+   $where=array(
+	   "a.comp_id=b.comp_id" =>NULL,
+	   "a.district" =>$this->input->get("dist_id")
+	   ) ;
 
+	$company    = $this->Company_paymentModel->f_select(' tdf_company_payment a,mm_company_dtls b',$select,$where,0);
+
+    echo json_encode($company);
+
+}
 public function f_get_sale_invoice(){
 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 	$fin_id=$this->session->userdata['loggedin']['fin_id'];
@@ -1495,6 +1514,27 @@ public function f_get_sale_invoice(){
 			echo json_encode($ro);
 
 	        }
+
+
+// public function f_get_sale_invoice(){
+// 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+// 	$fin_id=$this->session->userdata['loggedin']['fin_id'];
+//     $select = array("a.sale_invoice_no " );
+       		
+// 			$where      =   array(
+
+			
+// 			// "a.comp_id"    =>  $this->input->get('comp_id'),
+// 			  "a.branch_id"=> $this->input->get('dist_id'),
+// 			"fin_yr"=>$fin_id );
+			   
+// 			$ro   = $this->Company_paymentModel->f_select('tdf_payment_recv a',$select,$where,0);
+			
+// 			// echo $this->db->last_query();
+// 			// die();
+// 			echo json_encode($ro);
+
+// 	        }
 
 
 
