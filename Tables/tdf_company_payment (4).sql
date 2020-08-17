@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2020 at 02:04 PM
+-- Generation Time: Aug 17, 2020 at 01:23 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -61,7 +61,28 @@ CREATE TABLE `tdf_company_payment` (
 --
 
 INSERT INTO `tdf_company_payment` (`sl_no`, `pay_no`, `pay_dt`, `district`, `comp_id`, `prod_id`, `qty`, `sale_inv_no`, `pur_ro`, `pur_inv_no`, `purchase_rt`, `bnk_id`, `pay_mode`, `paid_amt`, `ref_no`, `ref_dt`, `bnk_ac_no`, `ifsc`, `virtual_ac`, `remarks`, `fin_yr`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(0, 'PMT/2020-21/1', '2020-08-14 00:00:00', 337, 1, 42, '2400.00', 'RCPT/N24/2020-21/1', 'RO-1234', 'INV-1234', '53.44', 0, 0, '21376.00', '', NULL, '', '', '', '', 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00');
+(5, '', '0000-00-00 00:00:00', 337, 1, 42, '400.00', 'RCPT/N24/2020-21/1', 'RO-1234', 'INV-1234', '53.44', 0, 0, '0.00', NULL, NULL, '', '', NULL, NULL, 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00'),
+(6, 'PMT/KRIBHCO/2020-21/', '2020-08-17 00:00:00', 337, 2, 10, '325.00', 'RCPT/N24/2020-21/7', 'RO-999', 'INV-999', '48.55', 1, 1, '15778.75', '56666', '2020-08-10', '915010065341726', '122333333333', '455555', 'gggg', 1, 'synergic', '2020-08-17 00:00:00', '', '0000-00-00 00:00:00');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tdf_company_payment`
+--
+ALTER TABLE `tdf_company_payment`
+  ADD PRIMARY KEY (`sl_no`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tdf_company_payment`
+--
+ALTER TABLE `tdf_company_payment`
+  MODIFY `sl_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -30,7 +30,7 @@
             $brn                = $this->Company_paymentModel->f_select("mm_company_dtls ",$select_dist,$where_dist,1);  
             $adv_transCd 	    = $this->Company_paymentModel->get_payment_code($fin_id);
             // $receipt            = 'PMT/'.$brn->short_name.'/'.$fin_year.'/'.$adv_transCd->sl_no;
-			$receipt            = 'PMT/'.$fin_year.'/'.$adv_transCd->sl_no;
+			// $receipt            = 'PMT/'.$fin_year.'/'.$adv_transCd->sl_no;
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 				
     
@@ -39,21 +39,27 @@
                       for($i = 0; $i < count($paid_amt); $i++){
 						$trans_type=$_POST['pay_type'][$i];
 						$paid_amt=$_POST['paid_amt'][$i];
+						$receipt            = 'PMT/'.$brn->short_name.'/'.$fin_year.'/'.$adv_transCd->sl_no;
 						// echo $paid_amt;
 						// die();
                       $data     = array(
                                             
-                                            'pay_no'        	=> $receipt ,
-        
+                                            'pay_no'           => $receipt ,
                                             'pay_dt'           => $this->input->post('pay_dt'),
 											'bnk_id'           => $this->input->post('bank_id'),
 											'ifsc'             => $this->input->post('ifsc'),
-											'bnk_ac_no'       => $this->input->post('ac_no'),
+											'bnk_ac_no'        => $this->input->post('ac_no'),
 											'ref_no'           => $this->input->post('ref_no'),
 											'ref_dt'           => $this->input->post('ref_dt'),
-                                            'paid_amt'           => $_POST['paid_amt'][$i]);
+											'pay_mode'         => $this->input->post('pay_mode'),
+											'virtual_ac'       =>$this->input->post('virtual_no'),
+											'remarks'          =>$this->input->post('remarks'),
+											'created_by'       => $this->session->userdata['loggedin']['user_name'],
+											'created_dt'       => date('Y-m-d'),
+											'fin_yr'           =>$fin_id  ,
+                                            'paid_amt'         => $_POST['paid_amt'][$i]);
         
-						// $this->Company_paymentModel->f_insert('tdf_payment_recv', $data);
+		// $this->Company_paymentModel->f_insert('tdf_payment_recv', $data);
 					$where  =   array(
 		   
 					'pur_inv_no'      => $_POST['pur_inv'][$i],
@@ -356,8 +362,8 @@ public function f_get_comppay_ro(){
 			$where      =   array(
 
 			"comp_id"    =>  $this->input->get('comp_id'),
-            "district"  =>  $this->input->get('dist_id')
-                );
+            "district"  =>  $this->input->get('dist_id'),
+             "paid_amt=0" =>NULL  );
 			   
 			$pur_inv_ro   = $this->Company_paymentModel->f_select('tdf_company_payment',$select,$where,0);
 			

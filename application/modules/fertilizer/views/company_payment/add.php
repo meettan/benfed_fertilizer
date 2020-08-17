@@ -12,9 +12,9 @@
 
                     <div class="form-group row">
 						<label for="dist_id" class="col-sm-2 col-form-label">District :</label>
-						<div class="col-sm-3">
+						<div class="col-sm-4">
 	
-							<select name="dist_id" style="width:180px" class="form-control required" id="dist_id" required>
+							<select name="dist_id" style="width:250px" class="form-control required" id="dist_id" required>
 	
 	                            <option value="">Select</option>
 	
@@ -37,14 +37,14 @@
                         <label for="pay_dt" class="col-sm-2 col-form-label">Date Of Payment:</label>
 						<div class="col-sm-4">
 	
-						<input type="date" style="width:200px" id="pay_dt" name="pay_dt" class="form-control"/>
+						<input type="date" style="width:170px" id="pay_dt" name="pay_dt" class="form-control"/>
 	                    </div>
                         <!-- </div> -->
                       </div>
                       <div class="form-group row">
                       <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
 						<div class="col-sm-3">
-	                <select name="comp_id" style="width:180px" class="form-control required" id="comp_id">
+	                <select name="comp_id" style="width:250px" class="form-control required" id="comp_id">
                     <option value="">Select</option>
                     <?php
                        foreach($compdtls as $comp){
@@ -92,7 +92,7 @@
                                 
                                     <td>    
                                        
-                                       <select name="pur_inv[]" id="pur_inv" style="width:100px"class="form-control required pur_inv" required>
+                                       <select name="pur_inv[]" id="pur_inv" style="width:150px"class="form-control pur_inv"  required>
                                       <option value="">Select RO</option>
                                       <!-- <?php
                                           foreach($rodtls as $key1)
@@ -106,13 +106,13 @@
 
                                     <td>
                                       <input type="hidden" name="prod_id[]" style="width:150px;" class="form-control prod_id" value= "" id="prod_id" >
-                                      <input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
+                                      <input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
                                     </td>
                                     <td>
                                       <input type="text" name="pur_ro[]" style="width:150px;" class="form-control pur_ro" value= "" id="pur_ro" readonly >
                                     </td>
                                     <td>
-                                      <input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >
+                                      <input type="date" name="pur_ro_dt[]" style="width:160px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >
                                     </td>
                                     <td>    
                                     <input type="text" name="qty[]" style="width:100px;" class="form-control qty" value= "" id="qty" readonly >
@@ -184,11 +184,11 @@
                         <label for="ac_no" class="col-sm-1 col-form-label">A/C No. :</label>
 						<div class="col-sm-2">
 	
-						<input type="text" style="width:180px" id="ac_no" name="ifsc" class="form-control"readonly />
+						<input type="text" style="width:180px" id="ac_no" name="ac_no" class="form-control"readonly />
 	                    </div>
                         </div>
                         <div class="form-group row">
-						<label for="virtual_no" class="col-sm-1 col-form-label">Virtual No. :</label>
+						<label for="virtual_no" class="col-sm-1 col-form-label">Virtual No:</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="virtual_no" name="virtual_no" class="form-control" />
 	                    </div>
@@ -270,20 +270,20 @@ $.each(JSON.parse(data), function( index, value ) {
             var newElement = '<tr>'
                                 +'<td>'
                                 // +'<input type="text" name="pur_inv[]" style="width:150px;" class="form-control pur_inv" value= "" id="pur_inv" >'
-                                +'<select name="pur_inv[]" id="pur_inv" style="width:100px"class="form-control required pur_inv" required>'
+                                +'<select name="pur_inv[]" id="pur_inv" style="width:150px"class="form-control pur_inv"  required>'
                                 // +'<option value="">Select RO</option>'
                                 +' <option value=" '+ string +'</option>'
                                 +'</select> '
                                 +'</td>'
                                 +'<td>'
                                 +' <input type="hidden" name="prod_id[]" style="width:150px;" class="form-control prod_id" value= "" id="prod_id" >'
-                                +'<input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly>'
+                                +'<input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly>'
                                 +'</td>'
                                 +'<td>'
                                 +'<input type="text" name="pur_ro[]" style="width:150px;" class="form-control pur_ro" value= "" id="pur_ro" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >'
+                                +'<input type="date" name="pur_ro_dt[]" style="width:160px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >'
                                 +'</td>'
 								+'<td>'
                                 +'<input type="text" name="qty[]" style="width:100px;" class="form-control qty" value= "" id="qty" readonly >'
@@ -754,3 +754,44 @@ $(document).ready(function(){
 
 });
 </script>
+<script>
+$(document).ready(function(){
+$("#pay_dt").change(function(){
+
+var ro_dt = $('#pay_dt').val();
+
+
+
+var d = new Date();
+
+var month = d.getMonth()+1;
+var day = d.getDate();
+
+var output = d.getFullYear() + '-' +
+(month<10 ? '0' : '') + month + '-' +
+(day<10 ? '0' : '') + day;
+
+// console.log(trans_dt,output);
+
+if(new Date(output) <new Date(ro_dt))
+{
+alert("Paid Date Can Not Be Greater Than Current Date");
+$('#submit').attr('type', 'buttom');
+return false;
+}else{
+   $('#submit').attr('type', 'submit');
+}
+})
+});
+</script>
+<!-- <script type="text/javascript">
+    function DeleteValues() {
+        var dropDown = document.getElementById("pur_inv");
+        for (var i = 0; i <= dropDown.options.length; i++) {
+            if (dropDown.options[i].selected) {
+                dropDown.removeChild(dropDown.options[i]);
+                break;
+            }
+        }
+    }
+</script> -->
