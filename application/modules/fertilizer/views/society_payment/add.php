@@ -41,6 +41,7 @@
 	                    </div>
                         <!-- </div> -->
                       </div>
+
                       <div class="form-group row">
                       <label for="trans_do" class="col-sm-2 col-form-label">Invoice No:</label>
 						<div class="col-sm-3">
@@ -49,10 +50,11 @@
                     <?php
                        foreach($ro_dtls as $ro){
                             ?>
-                <option value="<?php echo $ro->trans_do;?>"><?php echo $ro->trans_do;?></option>
-                <?php    }    ?>     
-                </select>
-	                    </div>
+                    <option value="<?php echo $ro->trans_do;?>"><?php echo $ro->trans_do;?></option>
+                    <?php    }    ?>     
+                    </select>
+                    </div>
+
                       <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
 						<div class="col-sm-2">
 	
@@ -113,13 +115,38 @@
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
                         </div>
+                        <label for="bnk_id" class="col-sm-2 col-form-label">Bank Name :</label>
+						<div class="col-sm-3">
+                        <!-- <input type="text" style="width:200px" id="bnk_id" name="bnk_id"value=""  class="form-control"  /> -->
+                        <select name="bnk_id" style="width:180px" class="form-control bnk_id" id="bnk_id">
+                    <option value="">Select</option>
+                    <?php
+                       foreach($bnk_dtls as $bnk){
+                            ?>
+                <option value="<?php echo $bnk->sl_no;?>"><?php echo $bnk->bank_name;?></option>
+                <?php    }    ?>     
+                </select>
+                        </div>
+                        </div>
+                        <div class="form-group row">
+                        <!-- <label for="remarks" class="col-sm-2 col-form-label">Remarks :</label>
+						<div class="col-sm-3">
+                        <textarea class="form-control" style="width:200px;height:80px" name="remarks" id="remarks"></textarea>
+                        </div> -->
                         
+                        <label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:180px" id="ifsc" name="ifsc"value=""  class="form-control" readonly />
+                        </div>
+                        <label for="ac_no" class="col-sm-2 col-form-label">A/C No:</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:200px" id="ac_no" name="ac_no"value=""  class="form-control" readonly />
+                        </div>
                         </div>
                         <div class="form-group row">
                         <label for="remarks" class="col-sm-2 col-form-label">Remarks :</label>
 						<div class="col-sm-3">
-                        <!-- <input type="text" style="width:180px" id="remarks" name="remarks"value=""  class="form-control"  /> -->
-                        <textarea class="form-control" style="width:650px" name="remarks" id="remarks"></textarea>
+                        <textarea class="form-control" style="width:590px" name="remarks" id="remarks"></textarea>
                         </div>
                         </div>
                         <div class="form-group row">
@@ -141,7 +168,8 @@
 
                             <thead>
                                 <th style= "text-align: center;width:100px">Pay Type</th>
-                                <th style= "text-align: center;width:100px">Reference No.</th>
+                                <th style= "text-align: center;width:100px">Reference Date.</th>
+                                <th style= "text-align: center;width:100px">Reference NO.</th>
 								<th style= "text-align: center;width:100px">Amount</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
@@ -169,6 +197,9 @@
             </select> 
                                     </td>
                                     <td>
+                                      <input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt" value= "" id="ref_dt" >
+                                    </td>
+                                    <td>
                                       <input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >
                                     </td>
 									<td>
@@ -182,7 +213,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         Total:
                                     </td>
                                     <td colspan="2">
@@ -233,6 +264,9 @@
 						+'<option value="3">Cheque</option>'
                        + '<option value="4">Draft</option>'
                       +  '<option value="5">Pay Order</option>'
+                                +'</td>'
+                                +'<td>'
+                                + '<input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt" value= "" id="ref_dt" >'
                                 +'</td>'
                                +'<td>'
                                 +'<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >'
@@ -418,7 +452,6 @@ $(document).ready(function(){
         });
 </script>
 
-
 <script>
 
 $(document).ready(function(){
@@ -444,11 +477,8 @@ $(document).ready(function(){
 			var parseData = JSON.parse(data);
 			
 			var do_dt = parseData[0].do_dt;
-            // var sale_ro = parseData[0].sale_ro;
 			$('#do_dt').val(do_dt);
-            // $('#sale_ro').val(sale_ro);
-            
-			
+           
 		});
         
 
@@ -457,7 +487,7 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- <script>
+<script>
 
 $(document).ready(function(){
 
@@ -467,7 +497,7 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("socpay/f_getdo_dtl");?>',
+            '<?php echo site_url("socpay/f_get_payro");?>',
 
             { 
 
@@ -494,7 +524,7 @@ $(document).ready(function(){
     });
 
 });
-</script> -->
+</script>
 
 <script>
 
@@ -795,4 +825,39 @@ return false;
 });
 </script>
 
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#bnk_id').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("socpay/f_get_dist_bnk_dtls");?>',
+			{ 
+
+				bnk_id: $(this).val(),
+				
+				
+			}
+
+		)
+		.done(function(data){
+
+			//console.log(data);
+			var parseData = JSON.parse(data);
+			var ac_no = parseData[0].ac_no;
+			var ifsc = parseData[0].ifsc;
+            $('#ac_no').val(ac_no);
+			$('#ifsc').val(ifsc);
+           
+		});
+        
+
+	});
+
+});
+</script>
 

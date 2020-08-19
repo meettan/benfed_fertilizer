@@ -647,7 +647,7 @@ $(document).ready(function(){
     var i = 0;
 
     $('#comp_id').change(function(){
-
+       
         $.get( 
 
             '<?php echo site_url("compay/f_get_comppay_ro");?>',
@@ -670,6 +670,14 @@ $(document).ready(function(){
             });
 
             $('#pur_inv').html(string);
+            $('#prod_desc').val('');
+            $('#pur_ro').val('');
+            $('#pur_ro_dt').val('');
+            $('#qty').val('0');
+            $('#rate').val('0');
+            $('#paid_amt').val('0');
+            $('#total').val('0');
+
 
 
           });
@@ -754,7 +762,7 @@ $(document).ready(function(){
 
 });
 </script>
-<script>
+<!-- <script>
 $(document).ready(function(){
 $("#pay_dt").change(function(){
 
@@ -783,7 +791,7 @@ return false;
 }
 })
 });
-</script>
+</script> -->
 <!-- <script type="text/javascript">
     function DeleteValues() {
         var dropDown = document.getElementById("pur_inv");

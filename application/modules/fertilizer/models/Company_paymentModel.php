@@ -137,7 +137,15 @@
 		return $data->result();
 			
 		}
+		public function f_get_dist(){
+			$data = $this->db->query("select distinct b.district_code,b.district_name
+			from tdf_company_payment a ,md_district  b
+			where a.district=b.district_code");
 
+       return $data->result();	
+		}
+
+		
 		public function f_get_advamt_dr_dtls($soc_id) // For Jquery
         {
 

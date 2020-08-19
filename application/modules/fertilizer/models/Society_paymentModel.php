@@ -83,13 +83,14 @@
 		}
         
         
-        public function f_get_soc_payment_dtls(){
+        public function f_get_soc_payment_dtls($br_cd){
 
 				$data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,sum(d.QTY)sale_qty
 											from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,td_sale d
 											where a.soc_id=b.soc_id
 											and a.ro_no=c.ro_no
 											and c.ro_no=d.sale_ro
+											and a.branch_id=$br_cd
 											group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status");
     
             
@@ -134,22 +135,38 @@
 				return $data->result();
 		}
 
-        //  Function For Credit Note Developed By Lokesh  11/04/2020//
-		public function f_getdo_dtl($br_cd){
+        
+		public function f_getdo_dtl($br_cd,$soc_id){
 	
-		// $data = $this->db->query("select distinct trans_do
-		// 							from td_sale 
-		// 							where br_cd = '$br_cd'
-        //                              and tot_amt
-		// 							");
              $data = $this->db->query("select distinct trans_do
 			 							from td_sale 
-			 						where br_cd = '$br_cd'");
+									 where br_cd = '$br_cd'
+									 and soc_id='$soc_id'");
 									
 		return $data->result();
 			
 		}
-		
+
+
+	// 	public function f_distinct_ro($br_cd,$soc_id){
+	
+	// 		$data = $this->db->query("select distinct trans_do
+	// 									from td_sale 
+	// 								where br_cd = '$br_cd'
+	// 								and soc_id='$soc_id'");
+								   
+	//    return $data->result();
+		   
+	//    }
+		public function f_getbnk_dtl($br_cd){
+	
+			$data = $this->db->query("select sl_no, bank_name,ifsc,ac_no
+										from mm_dist_bank 
+									where br_cd = '$br_cd'");
+								   
+	   return $data->result();
+		   
+	   }
 
 		public function f_get_advamt_dr_dtls($soc_id) // For Jquery
         {

@@ -1078,111 +1078,109 @@ public function stockAdd(){
 		// "kms_year"      =>  $this->kms_year,
 			$fin_year=  $this->session->userdata['loggedin']['fin_yr'];
 			$fin_id=$this->session->userdata['loggedin']['fin_id'];
-			    // $br_cd = $this->session->userdata['loggedin']['branch_id'];
-			   // echo $kms_year;
-			  // die();
-			 $comp_id = $this->input->post('comp_id');
+			  
+			$comp_id     = $this->input->post('comp_id');
 			 
-			$prod_id = $this->input->post('prod_id');
+			$prod_id       = $this->input->post('prod_id');
 
-			$ro_no = $this->input->post('ro_no');
+			$ro_no         = $this->input->post('ro_no');
 
-			$ro_dt = $this->input->post('ro_dt');
+			$ro_dt         = $this->input->post('ro_dt');
 			
-			$due_dt    = $this->input->post('due_dt');
+			$due_dt        = $this->input->post('due_dt');
 
-			$invoice_no = $this->input->post('invoice_no');
+			$invoice_no    = $this->input->post('invoice_no');
 
-			$invoice_dt = $this->input->post('invoice_dt');
+			$invoice_dt    = $this->input->post('invoice_dt');
 
-			$qty = $this->input->post('qty');
+			$qty           = $this->input->post('qty');
 
-			$unit = $this->input->post('unit');
+			$unit           = $this->input->post('unit');
 
-			$rate = $this->input->post('rate');
+			$rate           = $this->input->post('rate');
 
-			$base_price = $this->input->post('base_price');
+			$base_price     = $this->input->post('base_price');
 
-			$cgst = $this->input->post('cgst');
+			$cgst           = $this->input->post('cgst');
 
-			$sgst = $this->input->post('sgst');
+			$sgst           = $this->input->post('sgst');
 
-			$retlr_margin= $this->input->post('retlr_margin');
+			$retlr_margin   = $this->input->post('retlr_margin');
 
-			$spl_rebt= $this->input->post('spl_rebt');
+			$spl_rebt       = $this->input->post('spl_rebt');
 
-			$add_adj_amt= $this->input->post('adj_amt');
+			$add_adj_amt    = $this->input->post('adj_amt');
 
-			$less_adj_amt= $this->input->post('less_amt');
+			$less_adj_amt   = $this->input->post('less_amt');
 
-			$net_amt= $this->input->post('net_amt');
+			$net_amt        = $this->input->post('net_amt');
 
-			$rbt_add= $this->input->post('rbt_add');
+			$rbt_add        = $this->input->post('rbt_add');
 
-			$rbt_less= $this->input->post('rbt_less');
+			$rbt_less       = $this->input->post('rbt_less');
 
-			$rnd_of_add= $this->input->post('rnd_of_add');
+			$rnd_of_add     = $this->input->post('rnd_of_add');
 
-			$rnd_of_less= $this->input->post('rnd_of_less');
+			$rnd_of_less    = $this->input->post('rnd_of_less');
 
-			$tot_amt= $this->input->post('tot_amt');
+			$tot_amt        = $this->input->post('tot_amt');
 
-			$no_of_bags =  $this->input->post('no_of_bags');
+			$no_of_bags     =  $this->input->post('no_of_bags');
 
-			$reck_pt_rt=  $this->input->post('reck_pt_rt');
+			$reck_pt_rt     =  $this->input->post('reck_pt_rt');
 
-			$reck_pt_n_rt=  $this->input->post('reck_pt_n_rt');
+			$reck_pt_n_rt   =  $this->input->post('reck_pt_n_rt');
 
-			$govt_sale_rt=  $this->input->post('govt_sale_rt');
+			$govt_sale_rt   =  $this->input->post('govt_sale_rt');
 
-			$iffco_buf_rt=  $this->input->post('iffco_buf_rt');
+			$iffco_buf_rt   =  $this->input->post('iffco_buf_rt');
 
-			$iffco_n_buff_rt=  $this->input->post('iffco_n_buff_rt');
+			$iffco_n_buff_rt =  $this->input->post('iffco_n_buff_rt');
 
-			$delivery_mode= $this->input->post('delivery_mode');
+			$delivery_mode  = $this->input->post('delivery_mode');
 
-			$trans_flag='1';
+			$trans_flag     ='1';
 			
-			$stock_point = $this->input->post('stkpnt_id');
+			$stock_point    = $this->input->post('stkpnt_id');
 
-			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+			$br_cd          = $this->session->userdata['loggedin']['branch_id'];
 			// print_r($br_cd );
 			// die();
 			$data_array = array (
 
-					"comp_id" => $comp_id,
+					"comp_id"      => $comp_id,
 			
-					"prod_id" => $prod_id,
+					"prod_id"      => $prod_id,
 
-					"ro_no"   => $ro_no,
+					"ro_no"        => $ro_no,
 
-					"ro_dt"   => $ro_dt,
+					"ro_dt"        => $ro_dt,
 
-					"due_dt"    => $due_dt,
+					"due_dt"        => $due_dt,
 
-					"invoice_no" => $invoice_no,
+					"invoice_no"    => $invoice_no,
 				
-					"invoice_dt" =>  $invoice_dt,
+					"invoice_dt"    =>  $invoice_dt,
 
-					"qty" =>  $qty,
+					"qty"           =>  $qty,
 
-					"unit" => $unit,
+					"unit"          => $unit,
 
-					"rate" =>  $rate,
+					"rate"           =>  $rate,
 
-					"base_price" => $base_price,
+					"base_price"     => $base_price,
 
-					"cgst"        => $cgst,
+					"cgst"           => $cgst,
 
-					"sgst"        => $sgst,
+					"sgst"           => $sgst,
 
 					"retlr_margin"   => $retlr_margin,
 					
 					"spl_rebt"       => $spl_rebt,
 
-					"add_adj_amt" => $add_adj_amt,
+					"add_adj_amt"    => $add_adj_amt,
 
-					"less_adj_amt" => $less_adj_amt,
+					"less_adj_amt"   => $less_adj_amt,
 
 					"net_amt"        => $net_amt,
 
@@ -1194,62 +1192,61 @@ public function stockAdd(){
 
 					"rnd_of_less"   => $rnd_of_less,
 
-					"tot_amt"        => $tot_amt,
+					"tot_amt"       => $tot_amt,
 
-					"stock_qty" =>  $qty,
+					"stock_qty"     =>  $qty,
 					
-					"no_of_bags"  => $no_of_bags,
+					"no_of_bags"    => $no_of_bags,
 
-					"delivery_mode" =>$delivery_mode,
+					"delivery_mode"  =>$delivery_mode,
 
-					"reck_pt_rt"=> $reck_pt_rt,
+					"reck_pt_rt"     => $reck_pt_rt,
 
-					"reck_pt_n_rt"=>$reck_pt_n_rt,
+					"reck_pt_n_rt"   =>$reck_pt_n_rt,
 
-					"govt_sale_rt"=>0,
+					"govt_sale_rt"   =>0,
 					
-					"iffco_buf_rt"=>$iffco_buf_rt,
+					"iffco_buf_rt"   =>$iffco_buf_rt,
 
 					"iffco_n_buff_rt"=>$iffco_n_buff_rt,
 
-					"trans_dt" => date('Y-m-d h:i:s'),
+					"trans_dt"       => date('Y-m-d h:i:s'),
 
-					 "trans_flag" =>$trans_flag,
+					 "trans_flag"    =>$trans_flag,
 
-				    "challan_flag"    => 'N',
+				    "challan_flag"   => 'N',
 
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+					"created_by"     =>  $this->session->userdata['loggedin']['user_name'],
 
-					"created_dt"    =>  date('Y-m-d h:i:s'),
+					"created_dt"     =>  date('Y-m-d h:i:s'),
 
-					"br"     => $this->session->userdata['loggedin']['branch_id'],
+					"br"             => $this->session->userdata['loggedin']['branch_id'],
 
-					"fin_yr"   =>$fin_id,
+					"fin_yr"         =>$fin_id,
 
-					"stock_point" => $stock_point
-				);
+					"stock_point"    => $stock_point);
 			 
 				$data_array1 = array (
-					"trans_dt" => date('Y-m-d h:i:s'),
+					"trans_dt"    => date('Y-m-d h:i:s'),
 
-					"ro_inv_no"   => $ro_no    ,   
+					"ro_inv_no"  => $ro_no    ,   
 					          
-					"branch_id" => $this->session->userdata['loggedin']['branch_id'],
+					"branch_id"  => $this->session->userdata['loggedin']['branch_id'],
 
-					"fin_yr"	 =>$fin_id,
+					"fin_yr"	 => $fin_id,
 
-					"point_id"	=>$stock_point,
+					"point_id"	 => $stock_point,
 
 					"trans_type" => "I",
 
-					"unit"=>$unit,
+					"unit"       => $unit,
 
-					"quantity" =>  $qty,	
+					"quantity"   => $qty,	
 
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+					"created_by" => $this->session->userdata['loggedin']['user_name'],
 
-					"created_dt"    =>  date('Y-m-d h:i:s'),
-				);
+					"created_dt" => date('Y-m-d h:i:s'));
+
 				$this->PurchaseModel->f_insert('tdf_stock_point_trans', $data_array1);
 
 				$this->PurchaseModel->f_insert('td_purchase', $data_array);
@@ -1259,8 +1256,8 @@ public function stockAdd(){
 					redirect('stock/stock_entry');
 			}else {
 				$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-				$select2 =  array("soc_id","soc_name");
-				$where2 = array(
+				$select2    =  array("soc_id","soc_name");
+				$where2     = array(
 					"stock_point_flag"    =>  'Y',
 					"district" => $br_cd  );
 

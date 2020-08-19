@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2020 at 01:23 PM
+-- Generation Time: Aug 19, 2020 at 04:45 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.2.24
 
@@ -61,8 +61,10 @@ CREATE TABLE `tdf_company_payment` (
 --
 
 INSERT INTO `tdf_company_payment` (`sl_no`, `pay_no`, `pay_dt`, `district`, `comp_id`, `prod_id`, `qty`, `sale_inv_no`, `pur_ro`, `pur_inv_no`, `purchase_rt`, `bnk_id`, `pay_mode`, `paid_amt`, `ref_no`, `ref_dt`, `bnk_ac_no`, `ifsc`, `virtual_ac`, `remarks`, `fin_yr`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(5, '', '0000-00-00 00:00:00', 337, 1, 42, '400.00', 'RCPT/N24/2020-21/1', 'RO-1234', 'INV-1234', '53.44', 0, 0, '0.00', NULL, NULL, '', '', NULL, NULL, 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00'),
-(6, 'PMT/KRIBHCO/2020-21/', '2020-08-17 00:00:00', 337, 2, 10, '325.00', 'RCPT/N24/2020-21/7', 'RO-999', 'INV-999', '48.55', 1, 1, '15778.75', '56666', '2020-08-10', '915010065341726', '122333333333', '455555', 'gggg', 1, 'synergic', '2020-08-17 00:00:00', '', '0000-00-00 00:00:00');
+(7, '', '0000-00-00 00:00:00', 338, 4, 15, '800.00', 'RCPT/HOG/2020-21/1', 'RO-98', 'INV-711', '80.55', 0, 0, '0.00', NULL, NULL, '', '', NULL, NULL, 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00'),
+(8, '', '0000-00-00 00:00:00', 338, 1, 42, '400.00', 'RCPT/HOG/2020-21/2', 'RO-1234', 'INV-1234', '53.44', 0, 0, '0.00', NULL, NULL, '', '', NULL, NULL, 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00'),
+(9, '', '0000-00-00 00:00:00', 337, 2, 10, '1200.00', 'RCPT/N24/2020-21/1', 'RO-558', 'INV8922', '53.44', 0, 0, '0.00', NULL, NULL, '', '', NULL, NULL, 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00'),
+(10, '', '0000-00-00 00:00:00', 337, 1, 42, '400.00', 'RCPT/N24/2020-21/2', 'RO-1234', 'INV-1234', '53.44', 0, 0, '0.00', NULL, NULL, '', '', NULL, NULL, 0, '', '0000-00-00 00:00:00', '', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -82,7 +84,7 @@ ALTER TABLE `tdf_company_payment`
 -- AUTO_INCREMENT for table `tdf_company_payment`
 --
 ALTER TABLE `tdf_company_payment`
-  MODIFY `sl_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `sl_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
