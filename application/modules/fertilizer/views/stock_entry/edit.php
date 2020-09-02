@@ -123,7 +123,7 @@
 
                 <div class="form-group row">
 
-                <label for="ro_no" class="col-sm-1 col-form-label">Ro No.:</label>
+                <label for="ro_no" class="col-sm-1 col-form-label">RO/DO No::</label>
 
                 <div class="col-sm-3">
 

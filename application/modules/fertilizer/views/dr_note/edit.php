@@ -6,7 +6,7 @@
 	
 					<div class="form-header">
 					
-						<h4>Edit Debit Note</h4>
+						<h4>Edit Credit Note</h4>
 					
 					</div>
 									
@@ -48,7 +48,32 @@
 
                     </div>
 
+                    <div class="form-group row">
 
+<label for="inv_no" class="col-sm-2 col-form-label">Invoice No:</label>
+
+<div class="col-sm-4">
+<input type="text" id="inv_no" name="trans_dt" class="form-control" value="<?php echo $dr_dtls->invoice_no; ?>" readonly />
+</div>
+
+<label for="ro_no" class="col-sm-2 col-form-label">Ro_no:</label>
+
+<div class="col-sm-4">
+<input type="text" id="ro_no" name="ro_no" class="form-control" value="<?php echo $dr_dtls->ro; ?>" readonly />
+</div>
+
+
+</div>
+<div class="form-group row">
+<label for="cat_id" class="col-sm-2 col-form-label">Type:</label>
+
+<div class="col-sm-4">
+<input type="text" id="cat_id" name="cat_id" class="form-control" value="<?php echo $dr_dtls->cat_desc; ?>" readonly />
+</div>
+
+
+</div>
+<!-- </div> -->
 
                     <div class="form-group row">
 
@@ -73,7 +98,7 @@
                         <label for="dr_amt" class="col-sm-2 col-form-label">Remarks:</label>
 
                         <div class="col-sm-10">
-                          <textarea id="remarks" name="remarks" class="form-control"><?php echo $dr_dtls->remarks; ?></textarea>
+                          <textarea id="remarks" name="remarks" class="form-control" readonly><?php echo $dr_dtls->remarks; ?></textarea >
                        
                         </div>
 
@@ -82,7 +107,7 @@
                     </div>
 						
              
-                
+<!--                 
                  <div class="form-group row">
 
                     <div class="col-sm-10">
@@ -91,7 +116,7 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
             </form>
 

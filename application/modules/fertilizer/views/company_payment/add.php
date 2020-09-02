@@ -81,6 +81,7 @@
                                 <th style= "text-align: center;width:100px">Quantity</th>
                                 <th style= "text-align: center;width:100px">Rate</th>
 								<th style= "text-align: center;width:100px">Amount</th>
+                                <th style= "text-align: center;width:100px">Virtual No.</th>
                                 <th>
                                     <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
                                 </th>
@@ -106,16 +107,16 @@
 
                                     <td>
                                       <input type="hidden" name="prod_id[]" style="width:150px;" class="form-control prod_id" value= "" id="prod_id" >
-                                      <input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
+                                      <input type="text" name="prod_desc[]" style="width:140px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
                                     </td>
                                     <td>
-                                      <input type="text" name="pur_ro[]" style="width:150px;" class="form-control pur_ro" value= "" id="pur_ro" readonly >
+                                      <input type="text" name="pur_ro[]" style="width:120px;" class="form-control pur_ro" value= "" id="pur_ro" readonly >
                                     </td>
                                     <td>
-                                      <input type="date" name="pur_ro_dt[]" style="width:160px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >
+                                      <input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >
                                     </td>
                                     <td>    
-                                    <input type="text" name="qty[]" style="width:100px;" class="form-control qty" value= "" id="qty" readonly >
+                                    <input type="text" name="qty[]" style="width:90px;" class="form-control qty" value= "" id="qty" readonly >
                                     </td>
                                     <td>
                                       <input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" readonly >
@@ -124,8 +125,10 @@
 									<td>
                                       <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" readonly>
                                     </td>
+                                    <td>
+                                      <input type="text" name="virtual_no[]" style="width:100px;" class="form-control virtual_no" value= "" id="virtual_no" >
+                                    </td>
                                     
-                                   
                                 </tr>
 
                             </tbody>
@@ -188,12 +191,12 @@
 	                    </div>
                         </div>
                         <div class="form-group row">
-						<label for="virtual_no" class="col-sm-1 col-form-label">Virtual No:</label>
+						<!-- <label for="virtual_no" class="col-sm-1 col-form-label">Virtual No:</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="virtual_no" name="virtual_no" class="form-control" />
-	                    </div>
+	                    </div> -->
                         <label for="pay_mode" class="col-sm-1 col-form-label">Pay Mode:</label>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 					<select class="form-control" id="pay_mode" name="pay_mode" style="width:180px" required>
 						
 						<option value="">Select</option>
@@ -277,16 +280,16 @@ $.each(JSON.parse(data), function( index, value ) {
                                 +'</td>'
                                 +'<td>'
                                 +' <input type="hidden" name="prod_id[]" style="width:150px;" class="form-control prod_id" value= "" id="prod_id" >'
-                                +'<input type="text" name="prod_desc[]" style="width:150px" class="form-control required prod_desc" value= "" id="prod_desc" readonly>'
+                                +'<input type="text" name="prod_desc[]" style="width:140px" class="form-control required prod_desc" value= "" id="prod_desc" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="text" name="pur_ro[]" style="width:150px;" class="form-control pur_ro" value= "" id="pur_ro" readonly>'
+                                +'<input type="text" name="pur_ro[]" style="width:120px;" class="form-control pur_ro" value= "" id="pur_ro" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="date" name="pur_ro_dt[]" style="width:160px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >'
+                                +'<input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >'
                                 +'</td>'
 								+'<td>'
-                                +'<input type="text" name="qty[]" style="width:100px;" class="form-control qty" value= "" id="qty" readonly >'
+                                +'<input type="text" name="qty[]" style="width:90px;" class="form-control qty" value= "" id="qty" readonly >'
                                 +'</td>'
                                 +'<td>'
                                 +'<input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" readonly>'
@@ -294,6 +297,10 @@ $.each(JSON.parse(data), function( index, value ) {
                                 +'<td>'
                                 +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" readonly>'
                                 +'</td>'
+                                +'<td>'
+                                +'<input type="text" name="virtual_no[]" style="width:100px;" class="form-control virtual_no" value= "" id="virtual_no" >'
+                                +'</td>'
+                                
                                 +'<td>'
                                 +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
                                 +'</td>'

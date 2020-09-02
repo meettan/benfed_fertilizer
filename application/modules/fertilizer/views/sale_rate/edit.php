@@ -256,3 +256,43 @@ $('#checkAll').click(function () {
      $('input:checkbox').prop('checked', this.checked);    
  });
 </script>
+
+<script>
+
+$(document).ready(function(){
+
+    var i = 0;
+
+    $('#sp_mt').change(function(){
+
+        $.get( 
+
+            '<?php echo site_url("fertilizer/f_get_prod_per_bag");?>',
+
+            { 
+
+                prod_id: $('#prod_id').val()
+
+            }
+
+        ).done(function(data){
+
+          var parseData = JSON.parse(data);
+
+          var bag = parseData[0].qty_per_bag;
+
+           var sp_mt=$('#sp_mt').val(); 
+
+		   var per_bag_price =Math.round(parseFloat(sp_mt/bag));
+
+            $('#sp_bag').val(per_bag_price);
+
+
+          });
+
+
+    });
+
+});
+</script> 
+

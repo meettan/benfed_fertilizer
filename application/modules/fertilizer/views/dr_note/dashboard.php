@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Debit Note</strong><h1>
+                <h1><strong>Credit Note</strong><h1>
 
             </div>
 
@@ -27,12 +27,13 @@
 
                     <tr>
                     	<th>Sl No.</th>
+                        <th>Receipt No</th>
                         <th>Date</th>
-                        <!--<th>Type</th>-->
                         <th>Company</th>
                         <th>Customer</th>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>Print</th>
                     </tr>
 
                 </thead>
@@ -47,7 +48,7 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                                
+                                <td><?php echo $dr->recpt_no;?></td>
                                 <td><?php echo date("d/m/Y",strtotime($dr->trans_dt)); ?></td>
 
                                 <!--<td><?php /*if($dr->trans_flag=='R'){
@@ -75,6 +76,13 @@
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                 </td>
+                                <td>
+                              <a href="<?php echo site_url('drcrnote/drnoteReport?receipt_no='.$dr->trans_no.''); ?>" title="Print">
+
+                              <i class="fa fa-print fa-2x" style="color: #bd2130"></i>  
+                             
+                              </a>
+                            </td>
                             </tr>
 
                     <?php
@@ -96,12 +104,14 @@
 
                     <tr>
                         <th>Sl No.</th>
+                        <th>Receipt No</th>
                         <th>Date</th>
                         <!--<th>Type</th>-->
                         <th>Company</th>
                         <th>Customer</th>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>Print</th>
                     </tr>
                 
                 </tfoot>

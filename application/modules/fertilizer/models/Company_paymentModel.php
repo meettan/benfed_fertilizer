@@ -64,7 +64,18 @@
             
                 
             }
+			public function f_get_comppay_ro_gb_dtls($pur_inv){
+				$data = $this->db->query("select sum(c.qty)as qty,a.sale_inv_no,a.pur_ro,a.purchase_rt ,b.ro_dt,sum(c.qty)* a.purchase_rt as tot_amt ,a.prod_id,d.prod_desc
+				from  tdf_company_payment a ,td_purchase b,td_sale c,mm_product d
+				where a.pur_inv_no ='$pur_inv'
+				and a.pur_ro=b.ro_no
+				and a.pur_ro=c.sale_ro
+				and a.prod_id =d.prod_id
+				group by a.sale_inv_no,a.pur_ro,a.purchase_rt ,b.ro_dt ,a.prod_id,d.prod_desc");
 
+
+return $data->row();
+			}
 
 			public function get_payment_code($fin){
 

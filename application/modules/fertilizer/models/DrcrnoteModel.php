@@ -33,6 +33,18 @@
 			}
 		}
 		
+
+		public function f_get_receiptReport_dtls($receipt_no)
+		{
+	
+		  $sql = $this->db->query(" select a.trans_dt,a.recpt_no,a.trans_no,a.soc_id,b.soc_name,b.gstin,a.comp_id,a.invoice_no,a.ro,a.catg,a.tot_amt,a.trans_flag,a.note_type,a.remarks
+                                    from tdf_dr_cr_note a ,mm_ferti_soc b
+									 where a.soc_id=b.soc_id
+									 and trans_no='$receipt_no'");			
+		  return $sql->row();
+	
+		}
+		
 		public function get_trans_no($fin_id){
 
 			$sql="select ifnull(max(trans_no),0) + 1 trans_no

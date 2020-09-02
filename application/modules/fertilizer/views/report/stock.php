@@ -91,9 +91,6 @@ tr:hover {background-color: #f5f5f5;}
 
                 </div>
 
-             
-
-
                 <div class="form-group row">
 
                     <div class="col-sm-10">
@@ -130,7 +127,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h4>Southend Conclave, 3rd Floor,1582 Rajdanga Main Road,Kolkata - 700 107.</h4>
 
-                        <h4>Stock Report Till Today</h4>
+                        <h4>Stock Report Till Today </h4>
 
                     </div>
                     
@@ -140,6 +137,8 @@ tr:hover {background-color: #f5f5f5;}
                         <thead>
                             <tr>
                                 <th>Sl No.</th>
+                                <!-- <th>Transaction Date</th>
+                                <th>Transaction Type</th> -->
                                 <th>Product Name</th>
                                 <th>Quantity</th>
                             </tr>
@@ -158,6 +157,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr>
                                      <td><?php echo $i++; ?></td>
+                                     <!-- <td><?php echo $stock->trans_dt; ?></td>
+                                     <td><?php echo $stock->Transaction; ?></td> -->
                                      <td><?php echo $stock->PROD_DESC; ?></td>
                                      <td><?php echo $stock->qty; ?></td>
                                 </tr>

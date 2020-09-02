@@ -10,10 +10,29 @@
 
 /******************************************Debit Note For Customer ********************************************/		
 
+public function drnoteReport()
+{
+	$receipt_no = $this->input->get('receipt_no');
+	$cr['data']    = $this->DrcrnoteModel->f_get_receiptReport_dtls($receipt_no);
+	
+	$cr['receipt_no'] = $receipt_no;
+	// echo $this->db->last_query();
+	// die();
+$this->load->view("post_login/fertilizer_main");
+
+	// $this->load->view("advance/dashboard",$result);
+
+	// $this->load->view('search/search');
+
+	// $this->load->view('post_login/footer');
+	$this->load->view('report/cr_note_report', $cr);
+}
+
+
 //Dashboard
 		public function dr_note(){
 		 
-			$select	=	array(
+			$select	=	array("a.recpt_no",
 				"a.trans_dt","a.trans_no","a.soc_id","a.comp_id","a.tot_amt","a.trans_flag",
 				"b.soc_name","c.COMP_NAME"
 			);
@@ -46,15 +65,54 @@
 	    }
 
  
+		public function f_get_sale_inv(){
+
+			$select          = array("trans_do","sale_ro");
+			
+		   $where=array(
+			   "soc_id" =>$this->input->get("soc_id")
+			   ) ;
+		
+			$inv    = $this->DrcrnoteModel->f_select(' td_sale',$select,$where,0);
+		
+			echo json_encode($inv);
+		
+		}
+		public function f_get_sale_invro(){
+
+			$select          = array("sale_ro");
+			
+		   $where=array(
+			   "soc_id" =>$this->input->get("soc_id"),
+			   "trans_do" =>$this->input->get("inv_no")) ;
+		
+			$ro    = $this->DrcrnoteModel->f_select(' td_sale',$select,$where,0);
+		
+			echo json_encode($ro);
+		
+		}
 
 //ADD
 	public function drnoteAdd(){
 
 			if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-			   $transNo = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
-					
-	           $data  = array (
+				$branch         = $this->session->userdata['loggedin']['branch_id'];
+
+				$finYr          = $this->session->userdata['loggedin']['fin_id'];
+	
+				$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
+
+				$select         = array("dist_sort_code");
+				$where          = array("district_code"     =>  $branch);
+
+                 $brn           = $this->DrcrnoteModel->f_select("md_district",$select,$where,1); 
+
+			   $transNo         = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
+			   $receipt         = 'Crnote/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
+// echo ( $receipt );
+// die();
+	           $data  = array ('recpt_no' => $receipt ,
 					'soc_id'      => $this->input->post('soc_id'),
 
 					'trans_dt'    =>  $this->input->post('trans_dt'),
@@ -63,7 +121,13 @@
 
 					'tot_amt'     => $this->input->post('tot_amt'),
 
-					"comp_id"	  => $this->input->post('comp_id'),		
+					"comp_id"	  => $this->input->post('comp_id'),	
+					
+					"invoice_no"  => $this->input->post('inv_no'),	
+
+					"ro"         => $this->input->post('ro_no'),	
+					
+					"catg"        =>  $this->input->post('cat_id'),
 
 					'branch_id'   => $this->session->userdata['loggedin']['branch_id'],
 
@@ -102,6 +166,17 @@
 					$select = array("COMP_ID comp_id","COMP_NAME comp_name");
 
 					$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select,NULL,0);
+
+					$select_cat = array("sl_no","cat_desc");
+
+					$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',$select_cat,NULL,0);
+// echo $this->db->last_query();
+// die();
+					$select = array("trans_do");
+					$whereinv=array(
+						"soc_id" =>$this->input->get("soc_id")
+						) ;
+					$product['saleinv']   = $this->DrcrnoteModel->f_select('td_sale',$select,$whereinv,0);
 		
 					$this->load->view('post_login/fertilizer_main');
 				
@@ -127,6 +202,12 @@
 
 						'comp_id'       => $this->input->post('comp_id'),
 
+						'invoice_no'    => $this->input->post('inv_no'),
+
+						 'ro'           => $this->input->post('ro_no'),
+						 
+						'catg'          => $this->input->post('cat_id'),
+
 						'modified_by'   => $this->session->userdata['loggedin']['user_name'],
 
 						'modified_dt'   =>  date('Y-m-d'),
@@ -137,7 +218,8 @@
 
                  'trans_dt'     => $this->input->post('trans_dt'),
 
-                 'trans_no'   	=> $this->input->post('trans_no'),
+				 'tr
+				 ans_no'   	=> $this->input->post('trans_no'),
 
             );
 
@@ -162,13 +244,26 @@
 			$select        = array("soc_id","soc_name","soc_add","gstin");
 
 			$select1       = array("COMP_ID comp_id","COMP_NAME comp_name");
+
+			$select3       =array("a.trans_dt",
+									"a.trans_no",
+									"a.soc_id",
+									"a.comp_id",
+									"a.invoice_no",
+									"a.ro",
+									"a.catg",
+									"a.tot_amt",
+									"a.trans_flag",
+									"a.note_type",
+									"a.remarks,b.cat_desc");
+									$where =array("a.catg=b.sl_no"=>NULL);
 			 
 			$product['socdtls']    = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select,NULL,0);
 			
 			$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select1,NULL,0);
 
 
-			$product['dr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note',NULL,$where,1);
+			$product['dr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note a,mm_cr_note_category b ',NULL,$where,1);
 
 		
 	        $this->load->view('post_login/fertilizer_main');

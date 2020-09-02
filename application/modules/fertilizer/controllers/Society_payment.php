@@ -9,23 +9,52 @@
 		$this->load->model('DrcrnoteModel');
 		$this->session->userdata('fin_yr');
 		}
-        
+		
+	public function money_recptReport()
+{
+	$receipt_no = $this->input->get('paid_id');
+	$money_recpt['data']    = $this->Society_paymentModel->f_get_receiptReport_dtls($receipt_no);
+	
+	$money_recpt['paid_id'] = $receipt_no;
+	// echo $this->db->last_query();
+	// die();
+$this->load->view("post_login/fertilizer_main");
+
+	// $this->load->view("advance/dashboard",$result);
+
+	// $this->load->view('search/search');
+
+	// $this->load->view('post_login/footer');
+	$this->load->view('report/money_Recpt', $money_recpt);
+}
+
+
         public function society_payAdd(){
 
             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
 			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
 			$fin_year   = $this->session->userdata['loggedin']['fin_yr'];
 			$transCd 	= $this->Society_paymentModel->get_soc_pay_code($br_cd,$fin_id);
-            $soc_id     =$this->input->post('soc_id');
+			$soc_id     = $this->input->post('soc_id');
+			$month     =date('m');
+			// echo ( $this->input->post('sale_ro'));
+			// die();
 			$select_dist         = array("dist_sort_code" );
-            $where_dist          = array("district_code"     =>  $br_cd );
-
+			$where_dist          = array("district_code"     =>  $br_cd );
+			
             $brn                 = $this->AdvanceModel->f_select("md_district",$select_dist,$where_dist,1);  
             $adv_transCd 	     = $this->AdvanceModel->get_advance_code($br_cd,$fin_id);
             $adv_receipt         = 'Adv/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$adv_transCd->sl_no;
-			$cust_pay_recipt     = 'RCPT/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transCd->sl_no;
-			  
+			
+		
             if($_SERVER['REQUEST_METHOD'] == "POST") {
+				$ro          = $this->input->post('sale_ro');
+				$select_comp = array("short_name" );
+			    $where_comp  = array("b.sale_ro" => $ro,
+									 "a.comp_id=b.comp_id"=>NULL );
+			$comp_short_name  = $this->Society_paymentModel->f_get_distinct('mm_company_dtls a,td_sale b',$select_comp,$where_comp,1);
+			// echo ($comp_short_name);
+			// die();
 				
                      $pay_type = $this->input->post('pay_type');
 					 
@@ -34,7 +63,8 @@
 						$trans_type=$_POST['pay_type'][$i];
 						$paid_amt=$_POST['paid_amt'][$i];
 						$pay_soc_id=$_POST['soc_id'];
-						// echo ($pay_soc_id);
+						$cust_pay_recipt     = 'RCPT/'.$brn->dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year.'/'.$transCd->sl_no;
+						// echo ( $cust_pay_recipt);
 						// die();
                       $data     = array(    'sl_no'             => $transCd->sl_no,
                                             
@@ -59,6 +89,8 @@
 											'tot_recvble_amt'    => $this->input->post('tot_recvble_amt'),
 											
 											'remarks'           => $this->input->post('remarks'),
+
+											'bnk_id'            => $this->input->post('bnk_id'),
 											
                                             'pay_type'           => $_POST['pay_type'][$i],
         

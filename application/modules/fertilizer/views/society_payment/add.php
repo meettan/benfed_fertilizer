@@ -87,8 +87,7 @@
 
 							</select>
 	                    </div>
-                      
-                        <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total RO Amount:</label>
+                      <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Total Invoice RO Amount:</label>
 						<div class="col-sm-3">
 	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
 						<input type="text" style="width:200px" id="tot_recvble_amt" name="tot_recvble_amt" value="0" class="form-control" readonly />
@@ -184,8 +183,6 @@
                                        
                  <select name="pay_type[]" id="pay_type" style="width:230px"class="form-control required pay_type" required>
                 <option value="">Select Pay Type</option>
-               
-                      
 						<option value="1">Cash</option>
 						<option value="2">Advance</option>
 						<option value="3">Cheque</option>
@@ -595,7 +592,7 @@ $(document).ready(function(){
 			// $('#tot_recvble_amt').val(tot_recvble_amt);
             // $('#sale_ro').val(sale_ro)
             var tot_dr_amt = parseFloat($('#tot_dr_amt').val());
-            var adv_amt = parseFloat($('#adv_amt').val());
+            var adv_amt    = parseFloat($('#adv_amt').val());
             // var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
             // var net_amt = tot_recvble_amt - 
           });

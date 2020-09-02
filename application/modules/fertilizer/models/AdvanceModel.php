@@ -38,7 +38,19 @@
 				return $value->result();
 			}
 		}
-																			/*Select Maximun advance code districtwise and financial yearwise*/					
+			
+		public function f_get_receiptReport_dtls($receipt_no)
+		{
+	
+		  $sql = $this->db->query(" select  a.trans_dt,a.sl_no,a.receipt_no,a.soc_id,b.soc_name,a.trans_type, a.adv_amt,a.inv_no,a.ro_no,a.remarks
+                                     from tdf_advance a ,mm_ferti_soc b
+									 where a.soc_id=b.soc_id
+									 and receipt_no='$receipt_no'");			
+		  return $sql->row();
+	
+		}
+		
+		/*Select Maximun advance code districtwise and financial yearwise*/					
 		public function get_advance_code($branch,$fin){
 
             $data   =   $this->db->query("select ifnull(max(sl_no),0) +1 sl_no

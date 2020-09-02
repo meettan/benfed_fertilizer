@@ -133,6 +133,16 @@
 
 		}
 		
+		public function get_recv_amt($soc_id){
+
+			$sql = $this->db->query("select ifnull(sum(tot_amt),0)- ifnull(sum(paid_amt),0) as recv_amt
+			                         from td_sale
+									  where soc_id = '$soc_id' ");
+				return $sql->row();
+	
+			}
+			
+
 		public function f_get_drnote_dtls(){
 
 		$data = $this->db->query("select a.comp_id,a.ro_no,a.ro_dt,a.invoice_no, sum(a.soc_amt) as tot_amt,b.COMP_NAME COMP_NAME

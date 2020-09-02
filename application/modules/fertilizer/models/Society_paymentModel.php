@@ -34,6 +34,37 @@
 			}
 		}
 		
+
+		public function f_get_distinct($table_name, $select=NULL, $where=NULL,$type) {
+			$this->db->distinct();
+			if(isset($select)) {
+				$this->db->select($select);
+			}
+	
+			if(isset($where)) {
+				$this->db->where($where);
+			}
+			$value		=	$this->db->get($table_name);
+			if($type==1){
+				return $value->row();
+			}else{
+				return $value->result();
+			}
+			
+		}
+
+		public function f_get_receiptReport_dtls($receipt_no)
+		{
+	
+		  $sql = $this->db->query("SELECT a.paid_id,a.paid_dt,b.soc_name,c.bank_name,a.sale_invoice_no,a.bnk_id,a.remarks,sum(a.paid_amt)as amt 
+									FROM tdf_payment_recv a,mm_ferti_soc b,mm_feri_bank c
+									WHERE a.soc_id=b.soc_id
+									and a.bnk_id=c.sl_no
+									and a.paid_id='$receipt_no'
+									group by a.paid_id,a.paid_dt,b.soc_name,a.sale_invoice_no,a.bnk_id,c.bank_name,a.remarks");			
+		  return $sql->row();
+	
+		 }
 		public function get_trans_no($fin_id,$branch_id){
 
 			$sql="select ifnull(max(trans_no),0) + 1 trans_no
@@ -192,6 +223,17 @@
 			$result = $data->row();  
  
 			return $result;
+		 }
+		 public function f_get_comp_short_nm($ro){
+
+            $sql   =   $this->db->query("select distinct a.short_name  short_nm
+                                          from   mm_company_dtls a,td_sale b
+                                          where  a.comp_id = b.comp_id
+                                          and    b.sale_ro = '$ro'");
+
+			// $result = $data->row();  
+ 
+			return $sql->row();
 		 }
 
 		public function f_get_adv_net_amt_dtls($soc_id,$sale_invoice_no,$ro_no) // For Jquery

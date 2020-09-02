@@ -19,7 +19,70 @@
 			return;
 
 		}
-																				/*Select Data from a table*/				
+		public function stockreport($start_dt,$br){
+		
+			$data=$this->db->query("Select a.PROD_ID PROD_ID,a.COMPANY COMPANY,
+									a.PROD_DESC PROD_DESC,
+										sum(b.qty)
+						- (select ifnull(sum(d.qty),0) from td_sale d where  d.br_cd='$br'  and d.prod_id=a.prod_id )qty
+									from   mm_product a,
+									td_purchase b    							   							
+									where  a.PROD_ID = b.prod_id
+									and b.br='$br'
+									and qty>0
+									group by PROD_DESC,PROD_ID,COMPANY
+															");
+ 
+				 return $data->result();
+		 }
+
+		 public function stockledgreport($start_dt,$br){
+		
+			$data=$this->db->query("Select DATE_FORMAT(b.trans_dt, '%d/%m/%Y')trans_dt,'Opening Stock'as TRANSACTION ,a.PROD_ID PROD_ID,a.COMPANY COMPANY,a.PROD_DESC           
+			PROD_DESC,sum(b.qty)qty
+			From   mm_product a,td_purchase b   
+			where  a.PROD_ID = b.prod_id
+			and b.br='$br'
+			and qty>0
+			and trans_flag='2'
+			and DATE_FORMAT(b.trans_dt,'%d/%m/%Y')<='$start_dt'
+			group by trans_dt,PROD_DESC,PROD_ID,COMPANY
+			UNION
+           Select DATE_FORMAT(b.trans_dt, '%d/%m/%Y')trans_dt,'Purchase'as TRANSACTION,a.PROD_ID PROD_ID,a.COMPANY COMPANY,a.PROD_DESC           
+			PROD_DESC,sum(b.qty)qty
+			From   mm_product a,td_purchase b    							   										
+			where  a.PROD_ID = b.prod_id
+			and b.br='$br'
+			and qty>0
+			and trans_flag='1'
+			and b.trans_dt<='$start_dt'
+			group by trans_dt,PROD_DESC,PROD_ID,COMPANY
+			UNION
+			select DATE_FORMAT(b.do_dt, '%d/%m/%Y')do_dt,'Sale',a.prod_id,a.company,a.prod_desc,sum(b.qty)qty
+			 from mm_product a,td_sale b
+			 where  a.PROD_ID = b.prod_id
+			 and b.do_dt<='$start_dt'
+			 and b.br_cd='$br'
+			 group by do_dt,a.prod_id,a.company,a.prod_desc
+			 union
+			 Select DATE_FORMAT(CURDATE(),'%d/%m/%Y'),'Closing Stock'
+								,a.prod_id,'',a.prod_desc,
+										sum(b.qty)
+						- (select ifnull(sum(d.qty),0) from td_sale d where  d.br_cd='$br'  and d.prod_id=a.prod_id and d.do_dt<='$start_dt' )qty
+									from   mm_product a,
+									td_purchase b    							   							
+									where  a.PROD_ID = b.prod_id
+									and b.br='$br'
+									and b.trans_dt<='$start_dt'
+									and qty>0
+									group by a.prod_id,a.prod_desc
+			order by prod_id,trans_dt");
+ 
+				 return $data->result();
+		 }
+																	 /*Select Data from a table*/
+																	 
+																	 
 		public function f_select($table,$select=NULL,$where=NULL,$type){
 
 			if(isset($select)){

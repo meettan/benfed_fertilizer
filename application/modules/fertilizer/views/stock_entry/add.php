@@ -155,7 +155,7 @@
 			</div>
 					<div class="form-group row">
 
-					<label for="ro_no" class="col-sm-1 col-form-label">Ro No.:</label>
+					<label for="ro_no" class="col-sm-1 col-form-label">RO/DO No:</label>
 					<div class="col-sm-3">
 					<input type="text"  style="width:180px" id=ro_no name="ro_no" class="form-control" required />
 					</div>

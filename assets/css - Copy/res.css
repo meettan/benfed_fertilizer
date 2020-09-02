@@ -1,0 +1,15 @@
+
+
+
+@media only screen and (max-width: 767px) {
+	.servicesTabArea .wrapper_fixed{padding: 0 15px;}
+	.servicesTabArea h2.resp-tab-active{background: #00a8ff !important; color: #fff !important;}
+	h2.resp-accordion{background: #fff !important; color: #000 !important;}
+
+	.tabContentArea .imgArea {padding-top: 15px; padding-bottom: 15px;}
+	.tabContentArea .imgRightContent{padding-top: 15px; padding-bottom: 15px;}
+	
+	h2.resp-tab-active span.resp-arrow{border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 12px solid #FFF;}
+	.resp-vtabs .resp-tab-content{border-top: none;}
+}
+

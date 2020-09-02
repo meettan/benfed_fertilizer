@@ -141,7 +141,7 @@
 				$this->session->set_userdata('cashcode', $this->Login_Process->f_get_parameters(13));
 				$_SESSION['cash_code']=$this->session->userdata('cashcode')->param_value;
 
-				$fin_id=$this->session->userdata['loggedin']['fin_id'];
+				$fin_id=$this->session->userdata['loggedin']['fin_id'];  
 				$branch_id = $this->session->userdata['loggedin']['branch_id'];
 				
 				// $dash_data["tot_paddy_procurement"]= $this->Login_Process->f_get_tot_paddy_procurement($kms_id,$branch_id);

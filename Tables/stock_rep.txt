@@ -1,0 +1,20 @@
+Select DATE_FORMAT(b.trans_dt, "%d/%m/%Y")trans_dt,'opening'as "TRANSACTION",a.PROD_ID PROD_ID,a.COMPANY COMPANY,a.PROD_DESC           
+                                    PROD_DESC,sum(b.qty)
+                                    From   mm_product a,td_purchase b    							   										where  a.PROD_ID = b.prod_id
+									and b.br='337'
+									and qty>0
+                                    and trans_flag='2'
+									and DATE_FORMAT(b.trans_dt,"%d/%m/%Y")<='22/08/2020'
+									group by trans_dt,PROD_DESC,PROD_ID,COMPANY
+                                    UNION
+                                    
+Select DATE_FORMAT(b.trans_dt, "%d/%m/%Y")trans_dt,'Purchase'as "TRANSACTION",a.PROD_ID PROD_ID,a.COMPANY COMPANY,a.PROD_DESC           
+                                    PROD_DESC,sum(b.qty)
+                                    From   mm_product a,td_purchase b    							   										where  a.PROD_ID = b.prod_id
+									and b.br='337'
+									and qty>0
+                                    and trans_flag='1'
+									and DATE_FORMAT(b.trans_dt,"%d/%m/%Y")<='22/08/2020'
+									group by trans_dt,PROD_DESC,PROD_ID,COMPANY
+                                    
+                                    order by prod_id,trans_dt

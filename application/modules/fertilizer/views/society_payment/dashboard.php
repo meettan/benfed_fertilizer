@@ -34,6 +34,7 @@
                         <!-- <th>RO</th> -->
                         <th>Forward</th>
                         <th>Edit/Delete</th>
+                        <th>Print</th>
                     </tr>
 
                 </thead>
@@ -71,6 +72,13 @@
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                 </td>
+                                <td>
+                              <a href="<?php echo site_url('socpay/money_recptReport?paid_id='.$pay->paid_id.''); ?>" title="Print">
+
+                              <i class="fa fa-print fa-2x" style="color: #bd2130"></i>  
+                             
+                              </a>
+                            </td>
                             </tr>
 
                     <?php
@@ -99,6 +107,7 @@
                         <th>Amount</th>
                         <th>Forward</th>
                         <th>Edit/Delete</th>
+                        <th>Print</th>
                     </tr>
                 
                 </tfoot>

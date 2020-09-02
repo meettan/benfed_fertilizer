@@ -140,13 +140,13 @@
 
 public function saleAdd(){   //================================================
 	
-	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+	$br_cd             = $this->session->userdata['loggedin']['branch_id'];
 	$dist_sort_code    = $this->session->userdata['loggedin']['dist_sort_code'];
 	$fin_year_sort_code=substr($this->session->userdata['loggedin']['fin_yr'],2);
 	$fin_id=$this->session->userdata['loggedin']['fin_id'];
 	$trans_no = $this->SaleModel->get_trans_no($fin_id,$br_cd);
+	$month     =date('m');
 
-	
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		
 			$prod_id = $this->input->post('prod_id');
@@ -170,10 +170,16 @@ public function saleAdd(){   //================================================
 			$br_cd      = $this->session->userdata['loggedin']['branch_name'];
 			// echo ($prod_id);
 			//    die();
+			$comp_id        = $this->input->post('comp_id');
+			$select_comp         = array("short_name" );
+			$where_comp          = array("comp_id" =>$comp_id   );
+			$comp_short_name     = $this->SaleModel->f_select('mm_company_dtls ',$select_comp,$where_comp,1);
+			// echo ($comp_short_name);
+			// die();
 			  for($i = 0; $i < count($prod_id); $i++){
 			   
 			   $data     = array(
-									'trans_do' =>  'INV/'.$dist_sort_code.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no,
+									'trans_do' =>  'INV/'.$dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no,
 								   
 									'trans_no'  =>  $trans_no->trans_no ,
 									 
@@ -373,8 +379,6 @@ public function saleAdd(){   //================================================
 			$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
             $product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("trans_do" => $this->input->get('trans_do')),0);
 
-
-		
 	        $this->load->view('post_login/fertilizer_main');
 
 	        $this->load->view("sale/edits",$product);
@@ -443,6 +447,8 @@ redirect("trade/sale");
 			echo json_encode($comp);
 		
 		}
+
+
 		public function f_get_soc(){
 
 			$select          = array("soc_id","soc_add","gstin");
@@ -459,6 +465,21 @@ redirect("trade/sale");
 		
 		}
 
+
+
+		public function f_get_recv_amt(){
+
+			//	$select          = array("soc_id","soc_add","gstin");
+				
+			   $soc_id = $this->input->get("soc_id");
+			
+				   
+				$soc    = $this->SaleModel->get_recv_amt($soc_id);
+				// echo $this->db->last_query();
+				// die();
+				echo json_encode($soc);
+			
+			}
 		public function f_get_adv(){
 
 		//	$select          = array("soc_id","soc_add","gstin");
@@ -472,6 +493,8 @@ redirect("trade/sale");
 			echo json_encode($soc);
 		
 		}
+
+
 		public function f_get_hsn(){
 
 			$select          = array("hsn_code","gst_rt");
@@ -503,6 +526,7 @@ redirect("trade/sale");
 			echo json_encode($prod);
 		
 		}	
+		
 //View Stock RO
 
 public function f_get_product(){
@@ -522,7 +546,7 @@ public function f_get_product(){
 public function f_get_sale_ro(){
 	// echo 'hi';
 	// die();
-    $select = array("a.ro_no " );
+    $select = array("a.ro_no ","b.short_name" );
        		
 			$where      =   array(
 

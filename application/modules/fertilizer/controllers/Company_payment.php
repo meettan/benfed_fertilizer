@@ -18,7 +18,9 @@
 			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
 			$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
 			$transCd 	= $this->Company_paymentModel->get_soc_pay_code($br_cd,$fin_id);
-
+			$month     =date('m');
+			// echo ($month);
+			// die();
 			$select_dist         = array("short_name" );
             $where_dist          = array("comp_id"     => $this->input->post('comp_id') );
 
@@ -34,8 +36,8 @@
 
 						$trans_type=$_POST['pay_type'][$i];
 						$paid_amt=$_POST['paid_amt'][$i];
-						$receipt            = 'PMT/'.$brn->short_name.'/'.$fin_year.'/'.$adv_transCd->sl_no;
-						// echo $paid_amt;
+						$receipt            = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$adv_transCd->sl_no;
+						// echo $receipt;
 						// die();
                       $data     = array(
                                             'pay_no'           => $receipt ,
@@ -46,7 +48,7 @@
 											'ref_no'           => $this->input->post('ref_no'),
 											'ref_dt'           => $this->input->post('ref_dt'),
 											'pay_mode'         => $this->input->post('pay_mode'),
-											'virtual_ac'       =>$this->input->post('virtual_no'),
+											// 'virtual_ac'       =>$this->input->post('virtual_no'),
 											'remarks'          =>$this->input->post('remarks'),
 											'created_by'       => $this->session->userdata['loggedin']['user_name'],
 											'created_dt'       => date('Y-m-d'),
@@ -60,7 +62,9 @@
 
 					'pur_ro'      => $_POST['pur_ro'][$i],
 
-					'prod_id'      => $_POST['prod_id'][$i] );
+					'prod_id'      => $_POST['prod_id'][$i],
+
+					'virtual_no'      => $_POST['virtual_no'][$i] );
 
 					$this->Company_paymentModel->f_edit('tdf_company_payment', $data, $where);
 
@@ -371,16 +375,17 @@ public function f_get_bank_dtls()
 			public function f_get_comppay_ro_dtls(){
 				 // echo 'hi';
 				// die();
-				$select = array("sum(c.qty)as qty","a.sale_inv_no","a.pur_ro","a.purchase_rt" ,"b.ro_dt","sum(c.qty)* a.purchase_rt as tot_amt" ,"a.prod_id","d.prod_desc" );
+				$pur_inv = $this->input->get('pur_inv');
+				// $select = array("sum(c.qty)as qty","a.sale_inv_no","a.pur_ro","a.purchase_rt" ,"b.ro_dt","sum(c.qty)* a.purchase_rt as tot_amt" ,"a.prod_id","d.prod_desc" );
 						   
-						$where      =   array(
-												"a.pur_inv_no"    =>  $this->input->get('pur_inv'),
-												"a.pur_ro=b.ro_no"=>NULL,
-												"a.pur_ro=c.sale_ro"=>NULL	,
-												"a.prod_id =d.prod_id"=>NULL);
+				// 		$where      =   array(
+				// 								"a.pur_inv_no"    =>  $this->input->get('pur_inv'),
+				// 								"a.pur_ro=b.ro_no"=>NULL,
+				// 								"a.pur_ro=c.sale_ro"=>NULL	,
+				// 								"a.prod_id =d.prod_id"=>NULL);
 						   
-						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_select('tdf_company_payment a ,td_purchase b,td_sale c,mm_product d',$select,$where,1);
-						
+				// 		$pur_inv_ro_dtl   = $this->Company_paymentModel->f_select('tdf_company_payment a ,td_purchase b,td_sale c,mm_product d',$select,$where,1);
+						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_get_comppay_ro_gb_dtls($pur_inv);
 						// echo $this->db->last_query();
 						// die();
 						echo json_encode($pur_inv_ro_dtl);

@@ -14,7 +14,43 @@
 			$this->session->userdata('fin_yr');
 		}
 		
+		public function stock_report(){
 
+			if($_SERVER['REQUEST_METHOD']=="POST"){
+				
+				$to_date	= $_POST['to_date'];
+				$br_cd               = $this->session->userdata['loggedin']['branch_id'];
+				$row['stocks']=$this->FertilizerModel->stockreport($to_date,$br_cd);
+
+				$this->load->view('post_login/fertilizer_main');
+				$this->load->view('report/stock',$row);
+				$this->load->view('post_login/footer');
+						
+			}else{
+				$this->load->view('post_login/fertilizer_main');
+				$this->load->view('report/stock');
+				$this->load->view('post_login/footer');
+			}	
+		}
+
+		public function stock_ledg_report(){
+
+			if($_SERVER['REQUEST_METHOD']=="POST"){
+				
+				$to_date	= $_POST['to_date'];
+				$br_cd               = $this->session->userdata['loggedin']['branch_id'];
+				$row['stocks']=$this->FertilizerModel->stockledgreport($to_date,$br_cd);
+
+				$this->load->view('post_login/fertilizer_main');
+				$this->load->view('report/stock_ledg',$row);
+				$this->load->view('post_login/footer');
+						
+			}else{
+				$this->load->view('post_login/fertilizer_main');
+				$this->load->view('report/stock_ledg');
+				$this->load->view('post_login/footer');
+			}	
+		}
 /****************************************************Society Master************************************ */
 
 //Dashboard
@@ -35,7 +71,25 @@ public function soceity(){
 	$this->load->view('post_login/footer');
 }
 
+
+
+public function f_get_pan_cnt(){
+
+	$select          = array("count(*)cnt");
+	
+   $where=array(
+	   "pan" =>$this->input->get("pan")
+	   ) ;
+	   
+	$pan    = $this->FertilizerModel->f_select(' mm_ferti_soc',$select,$where,0);
+	// echo $this->db->last_query();
+	// die();
+	echo json_encode($pan);
+
+}
+
 // Add Soceity
+
 public function soceityAdd(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -63,6 +117,8 @@ public function soceityAdd(){
 					"ph_no"    			=> $this->input->post('ph_no'),
 
 					"email" 			=> $this->input->post('email'),
+
+					"pan"               =>  $this->input->post('pan'),
 				
 					"stock_point_flag"  => $this->input->post('stock_point_flag'),
 
@@ -114,6 +170,8 @@ public function editsoceity(){
 				
 				"email"         		=>  $this->input->post('email'),
 
+				"pan"                   => $this->input->post('pan'),
+
 				"ph_no"        			=>  $this->input->post('ph_no'),
 				 
 				"stock_point_flag"      =>  $this->input->post('stock_point_flag'),
@@ -153,6 +211,8 @@ public function editsoceity(){
 						"district",
 					
 						"email",
+
+						"pan" ,
 					
 						"ph_no",
 					
@@ -910,6 +970,19 @@ public function sale_rate(){
 
 
 }
+
+
+public function f_get_prod_per_bag(){
+	$select = array("qty_per_bag");
+	$where = array(
+		"prod_id" => $this->input->get('prod_id')
+		);
+
+	$result = $this->FertilizerModel->f_select('mm_product',$select,$where,0);	
+	
+	 echo json_encode($result);
+
+} 
 
 public function f_get_product(){
 

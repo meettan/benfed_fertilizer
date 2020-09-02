@@ -104,7 +104,7 @@
                                 ?>     
 
                             </select>
-
+                            <!-- <input type="text" style="width:350px" name="comp_short" id="comp_short" class="form-control comp_short" required /> -->
 					    </div>
                     </div>
 
@@ -113,6 +113,12 @@
                             <div class="col-sm-4">
     
                                 <input type="date" style="width:350px" name="sale_due_dt" id="sale_due_dt" class="form-control" required />
+                            </div>
+
+                            <label for="recv_amt"  class="col-sm-2 col-form-label">Recivable Amount:</label>
+                            <div class="col-sm-4">
+                            <span id="recv_amt" style="width:350px;color: #0d7d8ef5;font-weight: bold;font-size:20px;"></span>
+                                <!-- <input type="text" style="width:250px" name="recv_amt" id="recv_amt" class="form-control recv_amt" readonly /> -->
                             </div>
                         </div>
 
@@ -183,7 +189,7 @@
                                     </td>
 
                                     <td>
-                                         <input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point">  
+                                         <input type="hidden" name="stock_point[]" class="form-control stock_point" value= "" id="stock_point">  
                                      <input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" readonly>     
                                     
                                     </td>
@@ -499,6 +505,45 @@ $(document).ready(function(){
 
 </script>
 
+ <script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#soc_id').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("trade/f_get_recv_amt");?>',
+			{ 
+
+				soc_id: $(this).val(),
+				
+			}
+
+		)
+		.done(function(data){
+
+			//console.log(data);
+			var parseData = JSON.parse(data);
+			
+			// var recv_amt = parseData[0].recv_amt;
+			var recv_amt = parseData.recv_amt;
+          
+            $('#recv_amt').html(recv_amt);
+			// $('#recv_amt').val(recv_amt);
+			
+			
+		});
+
+	});
+
+});
+
+</script> 
+
+
 <script>
 
     $(document).ready(function()
@@ -771,8 +816,11 @@ $(document).ready(function()
                             });
 
                             $('#ro').html(string);
-
-
+                            // $('#comp_short').html( value.short_name);
+            //                 var parseData = JSON.parse(data);
+            
+            // var comp_short = parseData.short_name;
+            // $('#comp_short').html(comp_short);
                           });
 
 

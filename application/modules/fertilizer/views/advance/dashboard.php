@@ -36,9 +36,11 @@
 
                         <th>Transaction Type</th>
 
-                        <th>Transaction Type</th>
-
+                        <th>Edit</th>
+                      
                         <th>Delete</th>
+                          
+                        <th>Print</th>
                        
                     </tr>
 
@@ -85,6 +87,14 @@
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                 </td>
+                                <td>
+                              <a href="<?php echo site_url('adv/socadvReport?receipt_no='.$value->receipt_no.''); ?>" title="Print">
+
+                            
+                              <i class="fa fa-print fa-2x" style="color: #bd2130"></i>  
+                              <!-- <span class="mdi mdi-printer"></span> -->
+                              </a>
+                            </td>
 
                             </tr>
 
@@ -117,10 +127,11 @@
 
                         <th>Transaction Type</th>
 
-                        <th>Transaction Type</th>
+                        <th>Edit</th>
 
                         <th>Delete</th>
 
+                        <th>Print</th>
                     </tr>
                 
                 </tfoot>

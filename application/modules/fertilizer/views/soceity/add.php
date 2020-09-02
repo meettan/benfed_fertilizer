@@ -90,9 +90,16 @@
 
 			<div class="form-group row">
 				<label for="ph_no" class="col-sm-2 col-form-label">Ph No:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-4">
 
 					<input type="text" id=ph_no name="ph_no" class="form-control"  />
+
+				</div>
+				
+				<label for="pan" class="col-sm-1 col-form-label">PAN:</label>
+				<div class="col-sm-4">
+
+					<input type="text" id=pan name="pan" class="form-control" >
 
 				</div>
 			</div>
@@ -223,4 +230,48 @@
 
 		});
 	});
+</script>
+
+
+
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#pan').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("key/f_get_pan_cnt");?>',
+			{ 
+
+				pan: $(this).val(),
+				//dist_cd: $(this).val(),
+				// dist_cd : $('#dist_cd').val()
+				
+			}
+
+		)
+		.done(function(data){
+
+			//console.log(data);
+			var parseData = JSON.parse(data);
+			
+			var cnt = parseData[0].cnt;
+			
+	//  alert(salerate);
+	if(cnt>=1){
+		alert('PAN already Exists');
+		$('#submit').attr('type', 'buttom');
+		event.preventDefault();
+	}else{
+	$('#submit').attr('type', 'submit');
+	}
+		});
+
+	});
+
+});
 </script>
