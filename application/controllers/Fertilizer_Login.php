@@ -142,20 +142,40 @@
 				$_SESSION['cash_code']=$this->session->userdata('cashcode')->param_value;
 
 				$fin_id=$this->session->userdata['loggedin']['fin_id'];  
+				$fin_yr=$this->session->userdata['loggedin']['fin_yr'];
 				$branch_id = $this->session->userdata['loggedin']['branch_id'];
+
+				$first_month_day = date("Y-m-01", strtotime($_SESSION['sys_date']));
+
+				$last_month_day  = date("Y-m-t", strtotime($_SESSION['sys_date']));
+
 				
-				// $dash_data["tot_paddy_procurement"]= $this->Login_Process->f_get_tot_paddy_procurement($kms_id,$branch_id);
-				// $dash_data["tot_paddy_procurement_ho"]= $this->Login_Process->f_get_tot_paddy_procurement_ho($kms_id);
-				// $dash_data["tot_cheque_cleared"]= $this->Login_Process->f_get_tot_cheque_cleared($kms_id,$branch_id);
-				// $dash_data["tot_cheque_cleared_ho"]= $this->Login_Process->f_get_tot_cheque_cleared_ho($kms_id);
-				// $dash_data["tot_cmr_offered"]= $this->Login_Process->f_get_tot_cmr_offered($kms_id,$branch_id);
-				// $dash_data["tot_cmr_offered_ho"]= $this->Login_Process->f_get_tot_cmr_offered_ho($kms_id,$branch_id);
-				// $dash_data["tot_cmr_delivery"]= $this->Login_Process->f_get_tot_cmr_delivery($kms_id,$branch_id);
-				// $dash_data["tot_cmr_delivery_ho"]= $this->Login_Process->f_get_tot_cmr_delivery_ho($kms_id);
-				
+				$from_fin_yr = substr($fin_yr,0,4);
+				$to_fin_yr   = ($from_fin_yr + 1);
+				$from_yr_day = date('Y-m-d',strtotime($from_fin_yr.'-04-01'));
+				$to_yr_day 	 = date('Y-m-d',strtotime($to_fin_yr.'-03-31'));
+ 
+				$dash_data["purchase_day"]			= $this->Fertilizer_Process->f_get_tot_purchase($branch_id,$_SESSION['sys_date'],$_SESSION['sys_date']);
+				$dash_data["ho_purchase_day"]		= $this->Fertilizer_Process->f_get_tot_purchase_ho($_SESSION['sys_date'],$_SESSION['sys_date']);
+
+				$dash_data["purchase_month"]		= $this->Fertilizer_Process->f_get_tot_purchase($branch_id,$first_month_day,$last_month_day);
+				$dash_data["ho_purchase_month"]		= $this->Fertilizer_Process->f_get_tot_purchase_ho($first_month_day,$last_month_day);
+
+				$dash_data["purchase_yr"]			= $this->Fertilizer_Process->f_get_tot_purchase($branch_id,$from_yr_day,$to_yr_day);
+				$dash_data["ho_purchase_yr"]		= $this->Fertilizer_Process->f_get_tot_purchase_ho($from_yr_day,$to_yr_day);
+
+				$dash_data["sale_day"]				= $this->Fertilizer_Process->f_get_tot_sale($branch_id,$_SESSION['sys_date'],$_SESSION['sys_date']);
+				$dash_data["ho_sale_day"]			= $this->Fertilizer_Process->f_get_tot_sale_ho($_SESSION['sys_date'],$_SESSION['sys_date']);
+
+				$dash_data["sale_month"]			= $this->Fertilizer_Process->f_get_tot_sale($branch_id,$first_month_day,$last_month_day);
+				$dash_data["ho_sale_month"]			= $this->Fertilizer_Process->f_get_tot_sale_ho($first_month_day,$last_month_day);
+
+				$dash_data["sale_yr"]				= $this->Fertilizer_Process->f_get_tot_sale($branch_id,$from_yr_day,$to_yr_day);
+				$dash_data["ho_sale_yr"]			= $this->Fertilizer_Process->f_get_tot_sale_ho($from_yr_day,$to_yr_day);
+
 
 				$this->load->view('post_login/fertilizer_main');
-				$this->load->view('post_login/fertilizer_home');
+				$this->load->view('post_login/fertilizer_home',$dash_data);
 				$this->load->view('post_login/footer');
 
 			}
