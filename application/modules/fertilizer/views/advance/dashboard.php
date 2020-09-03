@@ -37,10 +37,10 @@
                         <th>Transaction Type</th>
 
                         <th>Edit</th>
+
+                        <th>Print</th>
                       
                         <th>Delete</th>
-                          
-                        <th>Print</th>
                        
                     </tr>
 
@@ -80,21 +80,22 @@
                                     </a> 
                                 </td>
 
-                                <td><button type="button" class="delete" id="<?php echo $value->receipt_no;?>"    
-                                       
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
-
-                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                    </button> 
-                                </td>
                                 <td>
                               <a href="<?php echo site_url('adv/socadvReport?receipt_no='.$value->receipt_no.''); ?>" title="Print">
 
                             
-                              <i class="fa fa-print fa-2x" style="color: #bd2130"></i>  
+                              <i class="fa fa-print fa-2x" style="color:green;"></i>  
                               <!-- <span class="mdi mdi-printer"></span> -->
                               </a>
                             </td>
+
+                            <td><button type="button" class="delete" id="<?php echo $value->receipt_no;?>"    
+                                       
+                                       data-toggle="tooltip" data-placement="bottom" title="Delete">
+
+                                       <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
+                                   </button> 
+                               </td>
 
                             </tr>
 
@@ -129,9 +130,9 @@
 
                         <th>Edit</th>
 
-                        <th>Delete</th>
-
                         <th>Print</th>
+
+                        <th>Delete</th>
                     </tr>
                 
                 </tfoot>

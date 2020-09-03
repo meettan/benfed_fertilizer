@@ -32,8 +32,9 @@
                         <th>Company</th>
                         <th>Customer</th>
                         <th>Edit</th>
-                        <th>Delete</th>
                         <th>Print</th>
+                        <th>Delete</th>
+                        
                     </tr>
 
                 </thead>
@@ -69,6 +70,13 @@
                                     </a> 
                                 </td>
                                 <td>
+                                    <a href="<?php echo site_url('drcrnote/drnoteReport?receipt_no='.$dr->trans_no.''); ?>" title="Print">
+
+                                    <i class="fa fa-print fa-2x" style="color:green;"></i>  
+                             
+                                    </a>
+                                </td>
+                                <td>
                                     <button type="button" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
@@ -76,13 +84,6 @@
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                 </td>
-                                <td>
-                              <a href="<?php echo site_url('drcrnote/drnoteReport?receipt_no='.$dr->trans_no.''); ?>" title="Print">
-
-                              <i class="fa fa-print fa-2x" style="color: #bd2130"></i>  
-                             
-                              </a>
-                            </td>
                             </tr>
 
                     <?php
@@ -110,8 +111,8 @@
                         <th>Company</th>
                         <th>Customer</th>
                         <th>Edit</th>
-                        <th>Delete</th>
                         <th>Print</th>
+                        <th>Delete</th>
                     </tr>
                 
                 </tfoot>

@@ -13,19 +13,16 @@
 	public function money_recptReport()
 {
 	$receipt_no = $this->input->get('paid_id');
+
 	$money_recpt['data']    = $this->Society_paymentModel->f_get_receiptReport_dtls($receipt_no);
 	
 	$money_recpt['paid_id'] = $receipt_no;
-	// echo $this->db->last_query();
-	// die();
-$this->load->view("post_login/fertilizer_main");
+	 
+	$this->load->view("post_login/fertilizer_main");
 
-	// $this->load->view("advance/dashboard",$result);
-
-	// $this->load->view('search/search');
-
-	// $this->load->view('post_login/footer');
 	$this->load->view('report/money_Recpt', $money_recpt);
+
+	$this->load->view('post_login/footer');
 }
 
 

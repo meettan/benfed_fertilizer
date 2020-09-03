@@ -235,16 +235,13 @@ public function socadvReport()
 	$adv['data']    = $this->AdvanceModel->f_get_receiptReport_dtls($receipt_no);
 	
 	$adv['receipt_no'] = $receipt_no;
-	// echo $this->db->last_query();
-	// die();
-$this->load->view("post_login/fertilizer_main");
+	
+	$this->load->view("post_login/fertilizer_main");
 
-	// $this->load->view("advance/dashboard",$result);
-
-	// $this->load->view('search/search');
-
-	// $this->load->view('post_login/footer');
 	$this->load->view('report/adv_receipt', $adv);
+
+	$this->load->view('post_login/footer');
+	
 }
 // Add Advance
 public function advAdd(){

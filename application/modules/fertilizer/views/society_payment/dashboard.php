@@ -33,8 +33,8 @@
                         <th>Amount</th>
                         <!-- <th>RO</th> -->
                         <th>Forward</th>
-                        <th>Edit/Delete</th>
                         <th>Print</th>
+                        <th>Edit/Delete</th>
                     </tr>
 
                 </thead>
@@ -59,6 +59,14 @@
                             <a href="<?php echo site_url("socpay/f_cust_pay_forward");?>?ro_no=<?=$pay->ro_no;?>,<?=$pay->comp_id;?>,<?=$pay->prod_id;?>,<?=$pay->rate;?>,<?=$pay->pur_inv;?>,<?=$pay->sale_qty;?>,<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
                             <?php } ?> 
                                 </td>
+                            
+                                <td>
+                              <a href="<?php echo site_url('socpay/money_recptReport?paid_id='.$pay->paid_id.''); ?>" title="Print">
+
+                              <i class="fa fa-print fa-2x" style="color:green;"></i>  
+                             
+                              </a>
+                            </td>
 			 	                <td><a href="drnote_edit?trans_do=<?=$pay->paid_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
@@ -72,13 +80,7 @@
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                 </td>
-                                <td>
-                              <a href="<?php echo site_url('socpay/money_recptReport?paid_id='.$pay->paid_id.''); ?>" title="Print">
-
-                              <i class="fa fa-print fa-2x" style="color: #bd2130"></i>  
-                             
-                              </a>
-                            </td>
+                                
                             </tr>
 
                     <?php
@@ -106,8 +108,8 @@
                         <th>Society</th>
                         <th>Amount</th>
                         <th>Forward</th>
-                        <th>Edit/Delete</th>
                         <th>Print</th>
+                        <th>Edit/Delete</th>
                     </tr>
                 
                 </tfoot>
