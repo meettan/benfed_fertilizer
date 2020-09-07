@@ -67,7 +67,7 @@
                              
                               </a>
                             </td>
-			 	                <td><a href="drnote_edit?trans_do=<?=$pay->paid_id;?>" 
+			 	                <td><a href="society_payEdit?trans_do=<?=$pay->paid_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
