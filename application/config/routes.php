@@ -77,10 +77,11 @@ $route['rateslab']         = 'fertilizer/fertilizer/sale_rate';                 
 $route['trade/(:any)']     = 'fertilizer/sale/$1';                                  //Sale
 $route['stock/(:any)']     = 'fertilizer/purchase/$1';                              //Purchase
 $route['adv/(:any)']       = 'fertilizer/advance/$1'; 
- 
+$route['crCatg']           = 'fertilizer/fertilizer/cr_note_catg';                  //credit note category
 $route['socpay/(:any)']    = 'fertilizer/society_payment/$1';                       //Advance
 $route['drcrnote/(:any)']  = 'fertilizer/drcrnote/$1'; 
-$route['compay/(:any)']    = 'fertilizer/company_payment/$1'; 
+$route['compay/(:any)']    = 'fertilizer/company_payment/$1';
+$route['BNK']              = 'fertilizer/fertilizer/bank';                          //Bank Master 
 //For Add New
 
 //$route['add_new/(:any)/(:any)'] = 'paddys/add_new/f_$1_$2';

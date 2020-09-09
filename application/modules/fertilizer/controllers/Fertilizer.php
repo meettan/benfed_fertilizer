@@ -1198,6 +1198,226 @@ public function deletesalerate(){
 
 	}
 
-	
+//*********************************************Credit Note Category Master*********************************************************/
+
+//Dashboard
+	public function cr_note_catg(){
+		$select         = array("sl_no","cat_desc");
+
+		$bank['data']   = $this->FertilizerModel->f_select('mm_cr_note_category',$select,NULL,0);
+
+		$this->load->view("post_login/fertilizer_main");
+
+		$this->load->view("credit_note_catg/dashboard",$bank);
+
+		$this->load->view('search/search');
+
+		$this->load->view('post_login/footer');
+	}
+
+	//Add Unit
+	public function crNoteCatgAdd(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+			$data_array = array (
+
+					"cat_desc" 		=> $this->input->post('catg_name'),
+				
+					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+
+					"created_dt"    =>  date('Y-m-d h:i:s')
+				);
+				
+				$this->FertilizerModel->f_insert('mm_cr_note_category', $data_array);
+					
+				$this->session->set_flashdata('msg', 'Successfully Added');
+
+				redirect('crCatg');
+		}else 
+		
+			{
+						
+				$this->load->view('post_login/fertilizer_main');
+
+				$this->load->view("credit_note_catg/add");
+
+				$this->load->view('post_login/footer');
+		}
+	}
+			
+	//Edit Unit		
+	public function editcrNoteCatg(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+			$data_array = array(
+
+					"sl_no"        =>  $this->input->post('sl_no'),
+
+					"cat_desc"     =>  $this->input->post('cat_desc'),
+
+					"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+
+					"modified_dt"  =>  date('Y-m-d h:i:s')
+			);
+
+			$where = array(
+					"sl_no" => $this->input->post('sl_no')
+			);
+				
+
+			$this->FertilizerModel->f_edit('mm_cr_note_category', $data_array, $where);
+
+			$this->session->set_flashdata('msg', 'Successfully Updated');
+
+			redirect('crCatg');
+
+		}else
+
+		{
+				$select = array(
+						"sl_no",
+
+						"cat_desc"                           
+				);
+
+				$where = array(
+
+					"sl_no" => $this->input->get('id')
+
+					);
+
+				$sch['schdtls'] = $this->FertilizerModel->f_select("mm_cr_note_category",$select,$where,1);
+																																
+				$this->load->view('post_login/fertilizer_main');
+
+				$this->load->view("credit_note_catg/edit",$sch);
+
+				$this->load->view("post_login/footer");
+		}
+	}
+
+	/****************************************************Society Master************************************ */
+
+	//Dashboard
+	public function bank(){
+
+		$select	=	array("sl_no","bank_name","ac_no","ifsc");
+
+		$where  =	array("dist_cd" => $this->session->userdata['loggedin']['branch_id']);
+
+		$bank['data']    = $this->FertilizerModel->f_select('mm_feri_bank',$select,$where,0);
+
+		$this->load->view("post_login/fertilizer_main");
+
+		$this->load->view("bank/dashboard",$bank);
+
+		$this->load->view('search/search');
+
+		$this->load->view('post_login/footer');
+	}
+
+
+
+// Add bank
+
+	public function bankAdd(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+				$data_array = array (
+				
+						"bank_name" 		=> $this->input->post('bank_name'),
+
+						"branch_name"   	=> $this->input->post('branch_name'),
+
+						"ac_no"				=> $this->input->post('bank_ac'),
+
+						"ifsc" 				=> $this->input->post('ifs'),
+
+						"dist_cd"  			=> $this->session->userdata['loggedin']['branch_id'],
+						
+						"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
+
+						"created_dt"    	=>  date('Y-m-d h:i:s')
+					);
+
+					$this->FertilizerModel->f_insert('mm_feri_bank', $data_array);
+		
+					$this->session->set_flashdata('msg', 'Successfully Added');
+
+					redirect('BNK');
+
+				}else {
+						
+					$this->load->view('post_login/fertilizer_main');
+
+					$this->load->view("bank/add");
+
+					$this->load->view('post_login/footer');
+				}
+	}
+
+	//Edit Bank
+	public function editbank(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+			$data_array = array(
+
+					"bank_name"   			=>  $this->input->post('bank_name'),
+
+					"branch_name"    		=>  $this->input->post('branch_name'),
+
+					"ac_no"					=> $this->input->post('bank_ac'),
+
+					"ifsc" 					=> $this->input->post('ifs'),
+
+					"modified_by"  			=>  $this->session->userdata['loggedin']['user_name'],
+
+					"modified_dt"  			=>  date('Y-m-d h:i:s')	
+				);
+
+			$where = array(
+					"sl_no" => $this->input->post('bank_id')
+			);
+			
+
+			$this->FertilizerModel->f_edit('mm_feri_bank', $data_array, $where);
+
+			$this->session->set_flashdata('msg', 'Successfully Updated');
+
+			redirect('BNK');
+
+		}else{
+				$select = array(
+							"sl_no",
+
+							"bank_name",
+
+							"branch_name",
+						
+							"ac_no",
+						
+							"ifsc"                             
+					);
+
+				$where = array(
+
+					"sl_no" => $this->input->get('id')
+					
+					);
+
+			$sch['schdtls'] = $this->FertilizerModel->f_select("mm_feri_bank",$select,$where,1);
+																																
+			$this->load->view('post_login/fertilizer_main');
+
+			$this->load->view("bank/edit",$sch);
+
+			$this->load->view("post_login/footer");
+		}
+	}
+
 }
 ?>

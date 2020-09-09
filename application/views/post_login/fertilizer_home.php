@@ -36,7 +36,7 @@
     <div class="col-sm-4">
         <div class="daseSmBox">
             <div class="subBox">
-                <div class="icon"><img src="<?php echo base_url('assets/images/box_a.png'); ?>"></div>
+                <div class="icon"><img src="<?php echo base_url('assets/images/box_f_a.png'); ?>"></div>
                 <div class="value"><strong>&#2352;</strong>
                 <?php
                   if($this->session->userdata['loggedin']['ho_flag']=="Y")
@@ -109,7 +109,7 @@
     <div class="col-sm-4">
         <div class="daseSmBox">
             <div class="subBox">
-                <div class="icon5"><img src="<?php echo base_url('assets/images/box_e.png'); ?>"></div>
+                <div class="icon5"><img src="<?php echo base_url('assets/images/box_f_e.png'); ?>"></div>
                 <div class="value"><strong>&#2352;</strong>
                 <?php
                   if($this->session->userdata['loggedin']['ho_flag']=="Y")

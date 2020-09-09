@@ -94,7 +94,7 @@
                     <a href="<?php echo site_url("Fertilizer_Login/main");?>" style="color: white; text-decoration: none;"><i class="fa fa-home"></i> Home</a>
                     </div> 
                     </div>
-                    <?php if($this->session->userdata['loggedin']['user_type']=="A" /*&& $this->session->userdata['loggedin']['ho_flag']=="Y"*/){?>   
+                    <?php if($this->session->userdata['loggedin']['user_type']!="U" /*&& $this->session->userdata['loggedin']['ho_flag']=="Y"*/){?>   
                     <div class="dropdown">
                         <div class="dropbtn">
                             <i class="fa fa-university" aria-hidden="true"></i>
@@ -104,17 +104,19 @@
                         <div class="dropdown-content">
                           
                         <div class="sub-dropdown">
-                             <?php if($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
+                             <?php if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
                                 
                                 <a href="<?php echo site_url("source");?>">Company</a>
                             <a href="<?php echo site_url("measurement");?>">Unit</a>
+                            <a href="<?php echo site_url("crCatg");?>">Credit Note Category</a>
                             <a href="<?php echo site_url("material");?>">Product</a>
-                            <!---<a href="<?php echo site_url("customer");?>">Society</a>-->
-                            <a href="<?php echo site_url("category");?>">Category</a>
-                            <a href="<?php echo site_url("fertilizer/sale_rate");?>">Sale Rate</a>
+                            <a href="<?php echo site_url("category");?>">Sale Rate Category</a>
+                            <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
+                            <a href="<?php echo site_url("BNK");?>">Bank Master</a>
                             
-                             <?php }elseif($this->session->userdata['loggedin']['user_type']=="A" && $this->session->userdata['loggedin']['ho_flag']!="Y"){ ?>    
+                             <?php }elseif($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']!="Y"){ ?>    
                            <a href="<?php echo site_url("customer");?>">Society</a>
+                           <a href="<?php echo site_url("BNK");?>">Bank Master</a>
                             <!--<a href="<?php //echo site_url("finance/view_bank_master");?>">Bank</a>-->
                           <?php } ?>
                         </div>
