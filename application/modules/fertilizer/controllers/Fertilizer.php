@@ -527,6 +527,10 @@ public function productAdd(){
 
 						"qty_per_bag"  			=> $this->input->post('bag'),
 
+						"unit"  				=> $this->input->post('unit'),
+
+						"storage"  				=> $this->input->post('storage'),
+
 						"created_by"   	 		=>  $this->session->userdata['loggedin']['user_name'],
 
 						"created_dt"    		=>  date('Y-m-d h:i:s')
@@ -542,6 +546,10 @@ public function productAdd(){
 				$select          		= array("comp_id","comp_name");
 
 				$product['compdtls']    = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
+
+				$select1          		= array("id","unit_name");
+
+				$product['unitdtls']    = $this->FertilizerModel->f_select('mm_unit',$select1,NULL,0);
 				
 				$this->load->view('post_login/fertilizer_main');
 
@@ -568,7 +576,11 @@ public function editproduct(){
 
 				"hsn_code"    =>  $this->input->post('hsn_code'),
 
-				"qty_per_bag"  =>  $this->input->post('bag'),
+				"qty_per_bag" =>  $this->input->post('bag'),
+
+				"unit"  	  => $this->input->post('unit'),
+
+				"storage"  	  => $this->input->post('storage'),
 			   
 				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -603,7 +615,11 @@ public function editproduct(){
 					
 					"a.qty_per_bag",
 					
-					"b.comp_name"  
+					"b.comp_name",
+					
+					"a.storage",
+
+					"a.unit"
 				);
 
 			$where = array(
@@ -618,6 +634,10 @@ public function editproduct(){
 			$select          		= array("comp_id","comp_name");
 
 			$product['compdtls']    = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
+
+			$select1          		= array("id","unit_name");
+
+			$product['unitdtls']    = $this->FertilizerModel->f_select('mm_unit',$select1,NULL,0);
 
 		
 			$this->load->view('post_login/fertilizer_main');

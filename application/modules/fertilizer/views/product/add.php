@@ -12,8 +12,8 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="comp_id" class="col-sm-3 col-form-label">Company :</label>
-				<div class="col-sm-9">
+				<label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
+				<div class="col-sm-10">
 
 					<select name="comp_id" class="form-control required" id="comp_id">
 
@@ -41,9 +41,9 @@
 
 			<div class="form-group row">
 
-				<label for="Prod_type" class="col-sm-3 col-form-label">Type:</label>
+				<label for="Prod_type" class="col-sm-2 col-form-label">Type:</label>
 
-				<div class="col-sm-9">
+				<div class="col-sm-10">
 
 					<select class="form-control required" id="prod_type" name="prod_type"  required>
 						
@@ -62,9 +62,9 @@
 			
 			<div class="form-group row">
 				
-				<label for="prod_desc" class="col-sm-3 col-form-label">Name:</label>
+				<label for="prod_desc" class="col-sm-2 col-form-label">Name:</label>
 
-				<div class="col-sm-9">
+				<div class="col-sm-10">
 
 					<input type="text" id=prod_desc name="prod_desc" class="form-control" required />
 
@@ -74,9 +74,9 @@
 
 			<div class="form-group row">
 
-				<label for="gst_rt" class="col-sm-3 col-form-label">GST Rate:</label>
+				<label for="gst_rt" class="col-sm-2 col-form-label">GST Rate:</label>
 				
-				<div class="col-sm-9">
+				<div class="col-sm-10">
 
 					<input type="text" id=gst_rt name="gst_rt" class="form-control" required />
 
@@ -86,9 +86,9 @@
 
 			<div class="form-group row">
 
-				<label for="hsn_code" class="col-sm-3 col-form-label">HSN:</label>
+				<label for="hsn_code" class="col-sm-2 col-form-label">HSN:</label>
 
-				<div class="col-sm-9">
+				<div class="col-sm-10">
 
 					<input type="text" id=hsn_code name="hsn_code" class="form-control" required />
 
@@ -97,9 +97,56 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="bag" class="col-sm-3 col-form-label">Qty per bag(In Kg) :</label>
 
-				<div class="col-sm-9">
+				<label for="unit" class="col-sm-2 col-form-label">Unit:</label>
+
+				<div class="col-sm-4">
+
+					<select name="unit" class="form-control required" id="unit">
+
+						<option value="">Select Unit</option>
+
+							<?php
+
+								foreach($unitdtls as $unit){
+
+							?>
+
+								<option value="<?php echo $unit->id;?>"><?php echo $unit->unit_name;?></option>
+
+							<?php
+
+							}
+
+							?>     
+
+					</select>
+
+				</div>
+
+				<label for="storage" class="col-sm-2 col-form-label">Storage:</label>
+
+				<div class="col-sm-4">
+
+					<select class="form-control required" id="storage" name="storage"  required>
+						
+						<option value="">Select Storage</option>
+
+						<option value="B">Bag</option>
+						
+						<option value="T">Bucket</option>
+
+						<option value="P">Packet</option>
+					
+					</select>
+				</div>
+
+			</div>
+
+			<div class="form-group row">
+				<label for="bag" class="col-sm-2 col-form-label">Quantity per storage:</label>
+
+				<div class="col-sm-10">
 
 					<input type="text" id=bag name="bag" class="form-control" required />
 				 
@@ -122,3 +169,7 @@
 	</div>	
 
 </div>
+
+<script>
+	
+</script>

@@ -80,7 +80,7 @@
 						$loggedin['dist_sort_code']   	= $dist_data->dist_sort_code;
 						$loggedin['districts_catered']  = $user_data->districts_catered;
 
-						$fin_data 	 = $this->Login_Process->f_get_fin_inf($fin_yr);
+						$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
 						$loggedin['fin_id']  			= $fin_data->sl_no;
 						$loggedin['fin_yr']   			= $fin_data->fin_yr;
 

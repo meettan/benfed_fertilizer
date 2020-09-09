@@ -113,11 +113,58 @@
                     </div>
 
                 </div>
+
+                <div class="form-group row">
+
+				<label for="unit" class="col-sm-2 col-form-label">Unit:</label>
+
+				<div class="col-sm-4">
+
+					<select name="unit" class="form-control required" id="unit">
+
+						<option value="">Select Unit</option>
+
+							<?php
+
+								foreach($unitdtls as $unit){
+
+							?>
+
+                                <option value="<?php echo $unit->id;?>" <?php if($unit->id == $schdtls->unit) {echo "Selected";}?>><?php echo $unit->unit_name;?></option>
+
+							<?php
+
+							}
+
+							?>     
+
+					</select>
+
+				</div>
+
+				<label for="storage" class="col-sm-2 col-form-label">Storage:</label>
+
+				<div class="col-sm-4">
+
+					<select class="form-control required" id="storage" name="storage"  required>
+						
+						<option value="">Select Storage</option>
+
+                        <option value="B" <?php echo ($schdtls->storage == 'B')? 'selected' : '';?>>Bag</option>
+
+                        <option value="T" <?php echo ($schdtls->storage == 'T')? 'selected' : '';?>>Bucket</option>
+
+                        <option value="P" <?php echo ($schdtls->storage == 'P')? 'selected' : '';?>>Packet</option>
+
+					</select>
+				</div>
+
+			</div>
 			
 
                 <div class="form-group row">
 
-                    <label for="bag" class="col-sm-2 col-form-label">Qty per bag(In KG):</label>
+                    <label for="bag" class="col-sm-2 col-form-label">Quantity per storage:</label>
 
                     <div class="col-sm-10">
 
