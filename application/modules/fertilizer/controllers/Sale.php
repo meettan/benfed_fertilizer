@@ -122,6 +122,22 @@
 
 		}
 		
+		public function saleinvoice_rep()
+		{
+			$trans_do = $this->input->get('trans_do');
+			$sale['data']    = $this->SaleModel->f_get_receiptReport_dtls($trans_do);
+			// echo $this->db->last_query();
+			// die();
+			$sale['trans_do'] = $trans_do;
+		 
+			$this->load->view("post_login/fertilizer_main");
+		
+			$this->load->view('report/sale_invoice',$sale);
+		
+			$this->load->view('post_login/footer');
+			
+		}
+
 		public function sale(){
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 			$fin_id     = $this->session->userdata['loggedin']['fin_id'];

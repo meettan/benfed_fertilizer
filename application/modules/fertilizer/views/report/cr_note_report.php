@@ -122,17 +122,15 @@ tr:hover {background-color: #f5f5f5;}
 		
 	</div>
 
-  <p align="justify" >Company's Pan: <strong>ANNKJKL1257</strong><br>
+  <p align="justify" >Benfed Pan: <strong>AABAT0010H</strong><br>
   </p>
   <h5>For The West Bengal State Co-operative Marketing Federation Ltd.</h5>
   <h3 >&nbsp;</h3>
   <div class="billDateGroop">
-   					                                <div class="dateTop"><strong>Authorised Signature</strong></div></div>
+  <div class="dateTop"><strong>Authorised Signature</strong></div></div>
   <br clear="all">
    
 </div>
-
-
     
   </div>
 

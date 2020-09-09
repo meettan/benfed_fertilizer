@@ -31,7 +31,8 @@
                         <th>Invoice Date</th>
                         <th>Invoice Type</th>
                         <th>Amout</th>
-            			<th>View</th>
+                        <th>View</th>
+                        <th>Print</th>
                         <th>Delete</th>
                     </tr>
 
@@ -60,6 +61,13 @@
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
+                                </td>
+                                <td>
+                                <a href="<?php echo site_url('sale/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print">
+
+<i class="fa fa-print fa-2x" style="color:green;"></i>  
+
+</a>
                                 </td>
                                 <td><button type="button" class="delete" id="<?php echo $value->trans_do;?>"    
                                        
@@ -95,6 +103,7 @@
                         <th>Invoice Type</th>
                         <th>Amout</th>
                         <th>View</th>
+                        <th>Print</th>
                         <th>Delete</th>
                     </tr>
                 
