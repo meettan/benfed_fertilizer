@@ -75,6 +75,21 @@
 						</div>
 				
 				   </div>
+
+				   <div class="form-group row">
+						<label for="unit" class="col-sm-2 col-form-label">Unit:</label>
+						<div class="col-sm-4">
+
+							<input type="text" id="unit" name="unit" class="form-control" readonly />
+
+						</div>
+						<label for="storage" class="col-sm-2 col-form-label">Storage:</label>
+						<div class="col-sm-4">
+
+							<input type="text" id="storage" name="storage" class="form-control" readonly />
+
+						</div>
+				   </div>
 					
 					<div class="form-group row">
 						<label for="frm_dt" class="col-sm-2 col-form-label">From Date:</label>
@@ -96,25 +111,25 @@
 
 
 					<div class="form-group row">
-					<label for="sp_mt" class="col-sm-2 col-form-label">Sale Price in MT:</label>
-					<div class="col-sm-4">
+						<label for="sp_mt" class="col-sm-2 col-form-label">Sale Price Per Unit:</label>
+						<div class="col-sm-4">
 
-						<input type="text" id="sp_mt" name="sp_mt" class="form-control" required />
+							<input type="text" id="sp_mt" name="sp_mt" class="form-control" required />
 
-					</div>
-					<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price per Bag:</label>
-					<div class="col-sm-4">
+						</div>
+						<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price Per Storage:</label>
+						<div class="col-sm-4">
 
-						<input type="text" id="sp_bag" name="sp_bag" class="form-control" required />
+							<input type="text" id="sp_bag" name="sp_bag" class="form-control" required />
 
-					</div>
+						</div>
 				   </div>
 
 				   	<div class="form-group row">
-					<label for="sp_govt" class="col-sm-2 col-form-label">Gov Sale rate:</label>
+					<label for="sp_govt" class="col-sm-2 col-form-label">Govt. Sale Rate:</label>
 					<div class="col-sm-4">
 
-						<input type="text" id="sp_govt" name="sp_govt" class="form-control" required />
+						<input type="text" id="sp_govt" name="sp_govt" class="form-control" value=0 required />
 
 					</div>
 					
@@ -390,6 +405,50 @@ $(document).ready(function(){
 
 
     });
+
+	///////////////
+	$('#prod_id').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("fertilizer/f_get_unit");?>',
+
+			{ 
+
+				prod_id: $('#prod_id').val()
+
+			}
+
+		).done(function(data){
+
+		var parseData = JSON.parse(data);
+
+		var unit = parseData[0].unit_name;
+
+		var storage = '';
+
+		if(parseData[0].storage = 'B'){
+
+			storage = 'Bag';
+
+		}else if(parseData[0].storage = 'T'){
+
+			storage = 'Bucket';
+
+		}else if(parseData[0].storage = 'P'){
+
+			storage = 'Packet';
+		}
+
+			$('#unit').val(unit);
+
+			$('#storage').val(storage);
+
+
+		});
+
+
+	});
 
 });
 </script> 

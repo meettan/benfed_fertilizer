@@ -12,7 +12,7 @@
 
 <?php
 
-    if($_SERVER['REQUEST_METHOD'] == 'GET') {
+   // if($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 ?>  
 
@@ -27,14 +27,14 @@
 
 <br>
 
-                <form method="POST" action="<?php echo site_url("fertilizer/sale_rate") ?>" >
+                <!---<form method="POST" action="<?php echo site_url("fertilizer/sale_rate") ?>" >
                 <div class="form-group row">
                     
 
                         <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
                         <div class="col-sm-4">
 
-                            <!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
+                            
                             <select name="comp_id" class="form-control required" id="comp_id" required>
 
                         <option value="">Select</option>
@@ -117,14 +117,14 @@
 
                 </div>
 
-                    </form>
+                    </form>--->
         </div>
 
  <?php
 
-    }
+    //}
     
-    else { 
+    //else { 
 
        
      
@@ -236,7 +236,7 @@
             
         </div>
 
-<?php } ?>
+<?php //} ?>
 
 
     </div>

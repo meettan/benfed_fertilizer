@@ -158,6 +158,18 @@
 		 
 			 return;
 		}
+
+		public function f_max_id($fin_id){
+
+			$this->db->select_max('bulk_id');
+
+			$this->db->where('fin_id',$fin_id);
+
+			$result = $this->db->get('mm_sale_rate')->row()->bulk_id;
+
+			return ($result+1);
+
+		}
  
 	}
 ?>
