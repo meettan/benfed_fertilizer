@@ -1027,6 +1027,23 @@ public function f_get_category(){
 
 } 
 
+public function f_get_unit(){
+
+	$where = array(
+		"a.unit = b.id" => NULL,
+		"a.prod_id" => $this->input->get('prod_id')
+		);
+
+	$select = array(
+		"a.unit","b.unit_name","a.storage"
+	);
+
+	$result = $this->FertilizerModel->f_select('mm_product a,mm_unit b',$select,$where,0);	
+	
+	 echo json_encode($result);
+
+} 
+
 //Add sale rate
 public function salerateAdd(){
 
@@ -1043,11 +1060,16 @@ public function salerateAdd(){
 		   $frm_dt     = $this->input->post('frm_dt');
 		   $to_dt      = $this->input->post('to_dt');
 
-		  
+		   $fin_id	   = $this->session->userdata['loggedin']['fin_id'];
+
+		   $bulk_id    = $this->FertilizerModel->f_max_id($fin_id);
 		
            for ($i = 0;$i < count($district); $i++){
 			
 			$data_array = array (
+					"bulk_id" => $bulk_id,
+					
+					"fin_id"  => $fin_id,
 
 					"prod_id" => $prod_id,
 			
