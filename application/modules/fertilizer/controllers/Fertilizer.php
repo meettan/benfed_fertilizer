@@ -934,60 +934,29 @@ public function categoryedit(){
 //Dashboard
 public function sale_rate(){
 
+	$select     = array("a.bulk_id","a.frm_dt","a.to_dt","a.comp_id","b.comp_name","a.catg_id","c.cate_desc","a.prod_id","d.prod_desc");
+	
+	$where 		= array(
 
+		"a.comp_id = b.COMP_ID" =>  NULL,
 
-	 if($_SERVER['REQUEST_METHOD'] == "POST") {
+		"a.catg_id = c.sl_no"   =>  NULL,
 
-	 		$comp_id    = $this->input->post('comp_id');
-		   	$catg_id    = $this->input->post('catg_id');
-		   	$prod_id   = $this->input->post('prod_id');
-		   	$frm_dt   = $this->input->post('frm_dt');
-		   	$to_dt    = $this->input->post('to_dt');
+		"a.prod_id = d.PROD_ID" =>  NULL,
 
+		"a.fin_id"	   => $this->session->userdata['loggedin']['fin_id']
+	
+	);
+	
+	$data['ratedtls']   = $this->FertilizerModel->f_select_distinct('mm_sale_rate a,mm_company_dtls b,mm_category c,mm_product d',$select,$where,0);
 
-			$select = array("a.frm_dt","a.to_dt","b.comp_name","a.comp_id","c.prod_desc","a.prod_id","d.cate_desc","a.catg_id");
+	$this->load->view("post_login/fertilizer_main");
 
-			$where      =   array(
+	$this->load->view("sale_rate/dashboard",$data);
 
-				"a.comp_id = b.comp_id"  => NULL,
-				"a.prod_id= c.prod_id"=>NULL,
-				"a.catg_id=d.sl_no"=>NULL,
-				"a.catg_id" => $catg_id,
-				"a.prod_id" => $prod_id,
-				"a.comp_id" => $comp_id,
-				"a.frm_dt"  => $frm_dt,
-				"a.to_dt"   => $to_dt
+	$this->load->view('search/search');
 
-			);
-				   
-			$bank['data']   = $this->FertilizerModel->f_select_distinct('mm_sale_rate a,mm_company_dtls b,mm_product c,mm_category d',$select,$where,0);
-
-			// echo $this->db->last_query();
-			// die();
-
-			$this->load->view("post_login/fertilizer_main");
-
-			$this->load->view("sale_rate/dashboard",$bank);
-
-			$this->load->view('search/search');
-
-			$this->load->view('post_login/footer');
-
-	  }else{
-
-		  	$select1          = array("comp_id","comp_name");
-			$data['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
-
-		    $this->load->view("post_login/fertilizer_main");
-
-			$this->load->view("sale_rate/dashboard",$data);
-
-			$this->load->view('search/search');
-
-			$this->load->view('post_login/footer');
-
-	  }
-
+	$this->load->view('post_login/footer');
 
 }
 
