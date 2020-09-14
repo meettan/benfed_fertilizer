@@ -159,6 +159,22 @@
 			 return;
 		}
 
+public function  f_get_sale_rt_catg($comp_id){
+$sql ="select * from  mm_category where comp_id='$comp_id'";
+$result = $this->db->query($sql);     
+	  
+return $result->row();
+}
+
+public function f_district($bulk_id,$fin_id){
+    $sql   ="select district from mm_sale_rate where bulk_id='$bulk_id' and fin_id='$fin_id'";
+	//$sql   ="select  STRING_AGG(district,',') from mm_sale_rate where bulk_id='$bulk_id'";
+	$result=$this->db->query($sql);
+
+	return $result->result_array();
+
+}
+
 		public function f_max_id($fin_id){
 
 			$this->db->select_max('bulk_id');

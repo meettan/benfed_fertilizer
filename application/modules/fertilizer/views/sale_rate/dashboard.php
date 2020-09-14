@@ -39,6 +39,8 @@
                         <th>Product</th>
 
             			<th>Edit</th>
+
+                        <th>Delete</th>
                        
                     </tr>
 
@@ -56,7 +58,8 @@
                                 <td><?php echo ++$i; ?></td>
                               
 				                <td style="display:none;"><?php echo $value->bulk_id; ?></td>
-                                 
+                                <td style="display:none;"><?php echo $value->fin_id; ?></td>
+                                <td style="display:none;"><?php echo $value->comp_id; ?></td>
                                 <td><?php echo $value->frm_dt; ?></td>
 
                                 <td><?php echo $value->to_dt; ?></td>
@@ -67,11 +70,19 @@
 
                                 <td><?php echo $value->prod_desc; ?></td>
 
-			 	                <td><a href="key/editsoceity?soc_id=<?php //echo $value->soc_id;?>" 
+			 	                <td><a href="fertilizer/editsalerate?bulk_id=<?php echo $value->bulk_id;?>/fin_id=<?php echo $value->fin_id;?>/comp_id=<?php echo $value->comp_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
+                                </td>
+                                <td>
+                                <button type="button" class="delete" bulk_id="<?=$value->bulk_id;?>&fin_id=<?=$value->fin_id;?>"    
+                                       
+                                       data-toggle="tooltip" data-placement="bottom" title="Delete">
+
+                                       <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
+                                   </button> 
                                 </td>
                             </tr>
 
@@ -107,6 +118,7 @@
                         <th>Product</th>
 
                         <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 
                 </tfoot>
@@ -126,4 +138,26 @@
     });
 
     <?php } ?>
+</script>
+
+<script>
+
+    $(document).ready( function (){
+
+        $('.delete').click(function () {
+            
+            var bulk_id = $(this).attr('bulk_id');
+            // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+            var result = confirm("Do you really want to delete this record?");
+           
+            if(result) {
+
+                window.location = "<?php echo site_url('fertilizer/deletesalerate?bulk_id="+bulk_id+"');?>";
+
+            }
+            
+        });
+
+    });
+
 </script>

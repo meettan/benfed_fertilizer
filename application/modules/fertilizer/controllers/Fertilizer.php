@@ -934,7 +934,7 @@ public function categoryedit(){
 //Dashboard
 public function sale_rate(){
 
-	$select     = array("a.bulk_id","a.frm_dt","a.to_dt","a.comp_id","b.comp_name","a.catg_id","c.cate_desc","a.prod_id","d.prod_desc");
+	$select     = array("a.bulk_id","a.fin_id","a.frm_dt","a.to_dt","a.comp_id","b.comp_name","a.catg_id","c.cate_desc","a.prod_id","d.prod_desc");
 	
 	$where 		= array(
 
@@ -991,6 +991,8 @@ public function f_get_category(){
 				);
 		
 			$result = $this->FertilizerModel->f_select('mm_category',NULL,$where,0);	
+			// echo $this->db->last_query();
+			// die();
 			
  			echo json_encode($result);
 
@@ -1048,19 +1050,19 @@ public function salerateAdd(){
 
 					"district" => $district[$i],
 					
-					"sp_mt" =>  $sp_mt,
+					"sp_mt"    =>  $sp_mt,
 
-					"sp_bag" =>  $sp_bag,
+					"sp_bag"   =>  $sp_bag,
 
-					"sp_govt" =>  $sp_govt,
+					"sp_govt"  =>  $sp_govt,
 
-					"frm_dt" =>  $frm_dt,
+					"frm_dt"   =>  $frm_dt,
 
-					"to_dt" =>  $to_dt,
+					"to_dt"     =>  $to_dt,
 
-					"created_by"    =>  $this->session->userdata['loggedin']['user_name'],
+					"created_by" =>  $this->session->userdata['loggedin']['user_name'],
 
-					"created_dt"    =>  date('Y-m-d h:i:s'));
+					"created_dt" =>  date('Y-m-d h:i:s'));
 			 
 				$this->FertilizerModel->f_insert('mm_sale_rate', $data_array);
 				
@@ -1069,14 +1071,15 @@ public function salerateAdd(){
 
 					redirect('fertilizer/sale_rate');
 			}else {
-				$select1          = array("comp_id","comp_name");
+				$select1               = array("comp_id","comp_name");
 				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
 				
-				$select2          = array("prod_id","prod_desc");
+				$select2               = array("prod_id","prod_desc");
 				$product['proddtls']   = $this->FertilizerModel->f_select('mm_product',$select2,NULL,0);
 				
 			
 				$product['distdtls']   = $this->FertilizerModel->f_select('md_district',NULL,NULL,0);
+
 	$this->load->view('post_login/fertilizer_main');
 
 	$this->load->view("sale_rate/add",$product);
@@ -1087,101 +1090,104 @@ public function salerateAdd(){
 
 public function editsalerate(){
 
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
+	$fin_id	   = $this->session->userdata['loggedin']['fin_id'];
 
+	
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+		
 		$data_array = array(
+
+			     "bulk_id"    =>  $this->input->post('bulk_id'),
 
 				"prod_id"     =>  $this->input->post('prod_id'),
 
-				"comp_id"   =>  $this->input->post('comp_id'),
+				"comp_id"     =>  $this->input->post('comp_id'),
 				
-				"district"   =>$this->input->post('district'),
+				// "district"   =>$this->input->post('district'),
+				 "sp_mt"      =>  $this->input->post('sp_mt'),
+
+				 "sp_bag"     =>  $this->input->post('sp_bag'),
+
+				 "sp_govt"    =>  $this->input->post('sp_govt'),
+
+				"fin_id"      =>  $fin_id,
 
 				"frm_dt"      =>  $this->input->post('frm_dt'),
 
-				"to_dt"    =>  $this->input->post('to_dt'),
-
-				"rate"     =>  $this->input->post('rate'),
+				"to_dt"       =>  $this->input->post('to_dt'),
 			   
-				// "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
 				"modified_dt"  =>  date('Y-m-d h:i:s')
 		);
 
-		$where = array(
-				"catg_id" 		=> $this->input->post('catg_id'),
+		$where = array("fin_id" => $fin_id,
 
-				"prod_id"     	=>  $this->input->post('prod_id'),
-
-				"comp_id"   	=>  $this->input->post('comp_id'),
-
-				"frm_dt"      	=>  $this->input->post('frm_dt'),
-
-				"to_dt"    		=>  $this->input->post('to_dt')
-				
+		             "bulk_id"   => $this->input->post('bulk_id')		
 		);
 		 
 
 		$this->FertilizerModel->f_edit('mm_sale_rate', $data_array, $where);
-		
+
 		$this->session->set_flashdata('msg', 'Successfully Updated');
 
 		redirect('fertilizer/sale_rate');
 
 	}else{
-			$select = array(
-					"a.prod_id",
+			$select = array("a.bulk_id",
+							"a.prod_id",
 
-					"a.comp_id",
+							"a.comp_id",
 
-					"a.district" ,
+							"a.fin_id",
 
-					"a.catg_id",
+							"a.catg_id",
 
-					"a.frm_dt",
+							"a.frm_dt",
 
-					"a.to_dt"  ,
+							"a.to_dt"  ,
 
-					"a.sp_mt","a.sp_bag","a.sp_govt",
+							"a.sp_mt",
+							
+							"a.sp_bag",
+							
+							"a.sp_govt",
 
-					"b.prod_desc",
+							"b.prod_desc",
 
-					"c.comp_name" ,
+							"c.comp_name" ,
 
-					"d.district_name" ,
+							"e.cate_desc" );
 
-					"e.cate_desc"
-				);
+			$where = array("a.bulk_id"            => $this->input->get('bulk_id'),
 
-			$where = array(
-				"a.prod_id" => $this->input->get('prod_id'),
+							"a.fin_id"            => $fin_id,
 
-				"a.comp_id" =>  $this->input->get('comp_id'),
+							"a.prod_id=b.prod_id"  => NULL,
 
-				"a.frm_dt" =>  $this->input->get('frm_dt'),
+							"a.comp_id=c.comp_id"  => NULL,
 
-				"a.to_dt" =>  $this->input->get('to_dt'),
-
-				"a.catg_id" =>  $this->input->get('catg_id'),
-
-				"a.prod_id=b.prod_id"=>NULL,
-
-				"a.comp_id=c.comp_id"=>NULL,
-
-				"a.catg_id=e.sl_no" =>NULL
-
-				);
-			
-			$wheres = array(
-				"comp_id" =>  $this->input->get('comp_id'),
-				);
-
-		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d,mm_category e",$select,$where,1);
+							"a.catg_id=e.sl_no"     => NULL);
 		
-		$sch['cat_names'] = $this->FertilizerModel->f_select("mm_category",NULL,$wheres,0);
-		$sch['distdtls']   = $this->FertilizerModel->f_select('md_district',NULL,NULL,0);
+			
+		$wheres = array("comp_id"=> $this->input->get('comp_id')	);
+
+		$sch['schdtls']   = $this->FertilizerModel->f_select_distinct("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d,mm_category e",$select,$where,1);
+
+		$sch['dist']      = $this->FertilizerModel->f_district($this->input->get('bulk_id'),$fin_id);
+
+		$select_cat          = array("sl_no","cate_desc");
+
+		$sch['cat_names'] = $this->FertilizerModel->f_select("mm_category",$select_cat,$wheres,0);
+
+		// echo $this->db->last_query();
+		// die();
+
+		$sch['distdtls']  = $this->FertilizerModel->f_select('md_district',NULL,NULL,0);
 		$select1          = array("comp_id","comp_name");
-		$sch['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
+		$sch['compdtls']  = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
+
+		// $sch['catg']  = $this->FertilizerModel->f_select('mm_category',$select1,NULL,0);
 		$this->load->view('post_login/fertilizer_main');
 
 		$this->load->view("sale_rate/edit",$sch);
@@ -1193,17 +1199,12 @@ public function editsalerate(){
 public function deletesalerate(){
 
 
-
-	 $where = array(  "district"  =>  $this->input->get('district'),
-                     "prod_id"    =>  $this->input->get('prod_id'),
-                     "comp_id"    =>  $this->input->get('comp_id'),
-                     "frm_dt"    =>  $this->input->get('frm_dt'),
-                     "to_dt"    =>  $this->input->get('to_dt')
-            
-        );
+	$fin_id	   = $this->session->userdata['loggedin']['fin_id'];
+	 $where    = array(  "bulk_id"  =>  $this->input->get('bulk_id'),
+                     "fin_id"    => $fin_id	 );
 	
         $this->FertilizerModel->f_delete('mm_sale_rate', $where);        
-       $this->session->set_flashdata('msg', 'Successfully Deleted!');
+        $this->session->set_flashdata('msg', 'Successfully Deleted!');
 
        redirect('fertilizer/sale_rate');
 
