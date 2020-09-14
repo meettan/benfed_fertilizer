@@ -96,13 +96,13 @@
 
 
 					<div class="form-group row">
-					<label for="sp_mt" class="col-sm-2 col-form-label">Sale Price in MT:</label>
+					<label for="sp_mt" class="col-sm-2 col-form-label">Sale Price Per Unit:</label>
 					<div class="col-sm-4">
 
 						<input type="text" id="sp_mt" name="sp_mt" class="form-control" required />
 
 					</div>
-					<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price per Bag:</label>
+					<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price per Storage:</label>
 					<div class="col-sm-4">
 
 						<input type="text" id="sp_bag" name="sp_bag" class="form-control" required />

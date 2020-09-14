@@ -36,15 +36,19 @@
 		public function f_get_receiptReport_dtls($trans_do)
 		{
 	
-		  $sql = $this->db->query(" select a.trans_do,a.trans_no,a.do_dt,a.sale_due_dt,a.trans_type,a.soc_id,a.comp_id,
-        a.sale_ro,b.prod_desc,a.stock_point,a.gov_sale_rt,a.qty,a.sale_rt,a.base_price,a.taxable_amt,a.cgst,a.sgst,dis,tot_amt,paid_amt,
-                                    from td_sale a ,mm_product b
-									 where a.prod_id=b.prod_id
-									  and a.trans_no='$trans_do'");			
+		  $sql = $this->db->query("SELECT a.trans_do ,b.prod_desc ,b.hsn_code,b.gst_rt,c.soc_name,c.soc_add,c.gstin,
+		  c.mfms,a.trans_no,a.do_dt,a.sale_due_dt,a.trans_type,a.soc_id,a.comp_id, a.sale_ro,
+		  a.stock_point,a.gov_sale_rt,a.qty,a.sale_rt,a.base_price,a.taxable_amt,a.cgst,a.sgst,
+		  a.dis,a.tot_amt,a.paid_amt
+		  from td_sale a  ,mm_product b,mm_ferti_soc c
+		  where a.prod_id=b.prod_id
+		  and a.soc_id=c.soc_id
+		  and a.trans_do='$trans_do'");
+											
 		  return $sql->row();
 	
 		}
-
+   
 		public function get_trans_no($fin_id,$branch_id){
 
 			$sql="select ifnull(max(trans_no),0) + 1 trans_no

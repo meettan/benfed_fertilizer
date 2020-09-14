@@ -220,8 +220,8 @@
 		public function f_getbnk_dtl($br_cd){
 	
 			$data = $this->db->query("select sl_no, bank_name,ifsc,ac_no
-										from mm_dist_bank 
-									where br_cd = '$br_cd'");
+										from mm_feri_bank 
+									where dist_cd = '$br_cd'");
 								   
 	   return $data->result();
 		   

@@ -125,14 +125,16 @@
 		public function saleinvoice_rep()
 		{
 			$trans_do = $this->input->get('trans_do');
-			$sale['data']    = $this->SaleModel->f_get_receiptReport_dtls($trans_do);
+// echo $trans_do;
+// die();
+			$sale_rep['data'] = $this->SaleModel->f_get_receiptReport_dtls($trans_do);
 			// echo $this->db->last_query();
 			// die();
-			$sale['trans_do'] = $trans_do;
+			$sale_rep['trans_do'] = $trans_do;
 		 
 			$this->load->view("post_login/fertilizer_main");
 		
-			$this->load->view('report/sale_invoice',$sale);
+			$this->load->view('report/sale_invoice',$sale_rep);
 		
 			$this->load->view('post_login/footer');
 			

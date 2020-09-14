@@ -1,21 +1,65 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Bill Print</title>
+<style>
+table {
+    border-collapse: collapse;
+}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+table, td, th {
+    border: 1px solid #dddddd;
 
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-	
-<link rel="stylesheet" type="text/css" href="css/apps.css">
-<link rel="stylesheet" type="text/css" href="css/res.css">
-	
-	
-</head>
+    padding: 6px;
 
-<body>
+    font-size: 12px;
+}
+
+th {
+
+    text-align: center;
+
+}
+
+tr:hover {background-color: #f5f5f5;}
+
+</style>
+
+<script>
+  function printDiv() {
+
+        var divToPrint = document.getElementById('divToPrint');
+
+        var WindowObject = window.open('', 'Print-Window');
+        WindowObject.document.open();
+        WindowObject.document.writeln('<!DOCTYPE html>');
+        WindowObject.document.writeln('<html><head><title></title><style type="text/css">');
+
+
+        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+            '                                         .inline { display: inline; }' +
+            '                                         .underline { text-decoration: underline; }' +
+            '                                         .left { margin-left: 315px;} ' +
+            '                                         .right { margin-right: 375px; display: inline; }' +
+            '                                          table { border-collapse: collapse; font-size: 12px;}' +
+            '                                          th, td { border: 1px solid black; border-collapse: collapse; padding: 6px;}' +
+            '                                           th, td { }' +
+            '                                         .border { border: 1px solid black; } ' +
+            '                                         .bottom { bottom: 5px; width: 100%; position: fixed ' +
+            '                                       ' +
+            '                                   } } </style>');
+        WindowObject.document.writeln('</head><body onload="window.print()">');
+        WindowObject.document.writeln(divToPrint.innerHTML);
+        WindowObject.document.writeln('</body></html>');
+        WindowObject.document.close();
+        setTimeout(function () {
+            WindowObject.close();
+        }, 10);
+
+  }
+</script>
+
+<div class="wraper"> 
+
+  <div class="col-lg-12 container contant-wraper">
+                    
+    <div id="divToPrint">
 <div class="wrapper_fixed">
 
 	
@@ -31,16 +75,19 @@
       <td scope="col" class="tax_1" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
           <tr>
-            <td class="tax_border_bot" style="border-top: none; border-left: none; height: 89px;"><p>Lorem Ipsum is simply dummy text of the printing and<br>
-typesetting industry.<br>
+            <td class="tax_border_bot" style="border-top: none; border-left: none; height: 89px;">
+            <p>The West Bengal State Co-operative Marketing Federation Ltd.<br>
+            Southend Conclave, 3rd Floor,1582 Rajdanga Main Road,Kolkata - 700 107.<br>
+<!-- <h2 style="text-align:center">The West Bengal State Co-operative Marketing Federation Ltd.</h2>
+  <h4 style="text-align:center">Southend Conclave, 3rd Floor,1582 Rajdanga Main Road,Kolkata - 700 107.</h4> -->
             </p></td>
             </tr>
           <tr>
             <td class="tax_border_bot" style="border-top: none; border-left: none; border-bottom: none !important;"><p>Buyer</p>
-              <p>                <strong>Lorem Ipsum is simply dummy text of the printing and</strong></p>
-              <p>                Pesetting industr: Lorem Ipsum<br>
-                Pesetting industr: Lorem Ipsum<br>
-                Pesetting industr: Lorem Ipsum              </p></td>
+              <p>                <strong><?php echo  $data->soc_name;?></strong></p>
+              <p> Address :<?php echo  $data->soc_add;?><br>
+              GSTIN: <?php echo  $data->gstin;?><br>
+              mfms: <?php echo  $data->mfms;?>             </p></td>
           </tr>
         </tbody>
       </table></td>
@@ -48,9 +95,9 @@ typesetting industry.<br>
         <tbody>
           <tr>
             <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Invoice No.<br>
-              <strong>ADSSS12546</strong></td>
+              <strong><?php echo  $data->trans_do;?></strong></td>
             <td class="tax_border_bot_left" style="border-top: none;">Date<br>
-              <strong>2-Jul-2020</strong></td>
+              <strong><?php echo date("d-m-Y", strtotime( $data->do_dt));?></strong></td>
           </tr>
           <tr>
             <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
@@ -116,7 +163,7 @@ typesetting industry.<br>
 			  <td scope="col" class="col_13_10" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 			    <tbody>
 			      <tr>
-			        <td style=" border: none !important;">Central Tax</td>
+			        <td style=" border: none !important;">State Tax</td>
 			        </tr>
 			      <tr>
 			        <td style="padding: 0; margin: 0;  border-right: none !important;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -136,49 +183,55 @@ typesetting industry.<br>
         <tbody>
           <tr>
             <td scope="row">1</td>
-            <td align="left" valign="top"><p><strong>Boron (Iffco)<br>
-              Godown: 316545455</strong></p>
-              <p><strong>Batch: EFFFFFLOKO</strong></p>
+            <td align="left" valign="top"><p><strong><?php echo  $data->prod_desc;?><br>
+              <!-- Godown: 316545455 -->
+              </strong></p>
+              <!-- <p><strong>Batch: EFFFFFLOKO</strong></p> -->
               <p>&nbsp;</p></td>
-            <td align="left" valign="top">3</td>
-            <td align="left" valign="top"><p><strong>0.254 Mt.<br>
-              </strong>0.254 Mt.</p>
-              <p><strong>0.254 Mt.</strong> <strong><br>
+            <td align="left" valign="top"><?php echo  $data->hsn_code;?></td>
+            <td align="left" valign="top"><p><strong><?php echo  $data->qty;?><br>
+              </strong>
+              <!-- 0.254 Mt. -->
+              </p>
+              <!-- <p><strong>0.254 Mt.</strong> <strong><br> -->
               </strong></p></td>
-            <td align="left" valign="top">67.251</td>
+            <td align="left" valign="top"><?php echo  $data->sale_rt;?></td>
 			  <td align="left" valign="top">Mt.</td>
-            <td align="left" valign="top">2,254.37</td>
-            <td align="left" valign="top">27852</td>
+            <td align="left" valign="top"><?php echo  $data->taxable_amt;?></td>
+            <td align="left" valign="top"><?php echo  $data->taxable_amt;?></td>
             <td rowspan="3" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;">9%</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">243.25</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;"><?php echo  $data->gst_rt;?>%</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $data->cgst;?></td>
                 </tr>
               </tbody>
             </table></td>
             <td rowspan="3" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;">9%</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">255.35</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;"><?php echo  $data->gst_rt;?>%</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $data->sgst;?></td>
                 </tr>
               </tbody>
             </table></td>
-			  <td align="left" valign="top">31254.79</td>
+			  <td align="left" valign="top"><?php echo  $data->tot_amt;?></td>
 			  </tr>
           <tr>
             <td scope="row">&nbsp;</td>
             <td align="left" valign="top"><p style="text-align: right;"><strong><em>Central Tax (GST) (Output)<br>
-              Central Tax (GST) (Output)<br>
-              Round Of</em></strong></p></td>
+              State Tax (GST) (Output)<br>
+              <!-- Round Of -->
+              </em>
+              </strong></p></td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
-            <td align="left" valign="top">273.21<br>
-              542.25<br>
-              452.25</td>
+            <td align="left" valign="top"><?php echo  $data->cgst;?><br>
+            <?php echo  $data->sgst;?><br>
+              <!-- 452.25 -->
+              </td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
           </tr>
@@ -369,9 +422,33 @@ typesetting industry.<br>
   </div>
 
   
-  
-	<h2>Subjet to Realisation </h2>
+  <p align="justify" ><br>
+</p>
+<div class="billDateGroop">
+  <!-- <div class="crmBill"><strong><?php echo "**"."&#2352;".$data->adv_amt."/-";?></strong></div>	 -->
+<!-- <div class="dateTop">Date: <strong><?php echo  date("d-m-Y", strtotime($data->trans_dt));?></strong></div></div> -->
+<br clear="all">
+  **Subjet to Realisation &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+  &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; Authorised Signatory
+<br>
+
 </div>
 
-</body>
-</html>
+
+    
+  </div>
+
+            
+                    <div style="text-align: center;">
+    
+                        <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+    
+                    </div>
+   </div>
+</div>
+

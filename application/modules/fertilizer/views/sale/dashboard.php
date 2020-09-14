@@ -63,7 +63,7 @@
                                     </a> 
                                 </td>
                                 <td>
-                                <a href="<?php echo site_url('sale/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print">
+                                <a href="<?php echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print">
 
 <i class="fa fa-print fa-2x" style="color:green;"></i>  
 
