@@ -160,26 +160,32 @@
                     
                     </div> 
                     
-                      <div class="dropdown">
+                    <div class="dropdown">
                         <div class="dropbtn">
                             <i class="fa fa-university" aria-hidden="true"></i>
                                 Report
                             <i class="fa fa-angle-down"></i>
                         </div>  
+
+                        
                         <div class="dropdown-content">
-                          
                             <div class="sub-dropdown">
-                               <!-- <a href="<?php echo site_url("fsertilizer/sale_report");?>">Sale Report</a>
-                               <a href="<?php echo site_url("fertilizer/sale_reportdis");?>">Sale Report(District Wise)</a>
-                                <a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
-                                    
-                                    <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a> -->
-                                    <a href="<?php echo site_url("fertilizer/stock_report");?>">Purchase Stock Report</a>
-                                    <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a>
-                                     <!-- <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a> -->
-                                    <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a>   -->
+
+                                <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>
+
+                                    <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
+                                    <a href="<?php echo site_url("fert/rep/stkStmt");?>">Consolidated Stock</a>
+                                        <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
+                                            
+                                            <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a> -->
+                                            
+                                            <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a>
+                                            <!-- <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a> -->
+                                            <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a>   -->
+                                <?php } ?>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- <div class="dropdown">
