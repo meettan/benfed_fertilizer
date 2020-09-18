@@ -92,9 +92,9 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Opening</th>
 
-                                <th>Purchase</th>
+                                <th>Purchase during the period</th>
 
-                                <th>Sale</th>
+                                <th>Sale during the period</th>
 
                                 <th>Closing</th>
 
@@ -109,16 +109,17 @@ tr:hover {background-color: #f5f5f5;}
                                 if($product){ 
 
                                     $i = 1;
+                                    $total = 0.00;
+                                    $val =0;
 
                                         foreach($product as $prodtls){
-
                             ?>
 
-                                <tr>
-                                     <td><?php echo $i++; ?></td>
-                                     <td><?php echo $prodtls->short_name; ?>
-                                     <td><?php echo $prodtls->PROD_DESC; ?>
-                                     <td><?php if($prodtls->unit==3){
+                                <tr class="rep">
+                                     <td class="report"><?php echo $i++; ?></td>
+                                     <td class="report"><?php echo $prodtls->short_name; ?>
+                                     <td class="report"><?php echo $prodtls->PROD_DESC; ?>
+                                     <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
                                                 }else if ($prodtls->unit==5){
                                                   echo "Litre"; 
@@ -127,14 +128,50 @@ tr:hover {background-color: #f5f5f5;}
                                                 } 
                                         ?>
                                      </td>
-                                     <td><?php //echo date('d/m/Y',strtotime($ratedtls->to_dt)); ?></td>
-                                     <td><?php //echo $ratedtls->sp_mt; ?></td>
-                                     <td><?php //echo $ratedtls->sp_bag; ?></td>
-                                     <td><?php //echo $ratedtls->sp_govt; ?></td>
+                                     <td class="report opening" id="opening">
+                                        <?php 
+                                            foreach($opening as $opndtls){
+                                                if($prodtls->prod_id==$opndtls->prod_id){
+                                                    echo $opndtls->opn_qty;
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+                                     <td class="report purchase" id="purchase">
+                                        <?php 
+                                            foreach($purchase as $purdtls){
+                                                if($prodtls->prod_id==$purdtls->prod_id){
+                                                    echo $purdtls->tot_pur;
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+                                     <td class="report sale" id="sale">
+                                        <?php 
+                                            foreach($sale as $saledtls){
+                                                if($prodtls->prod_id==$saledtls->prod_id){
+                                                    echo $saledtls->tot_sale;
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+
+                                     <td class="report closing" id="closing">
+                                        <?php 
+                                            foreach($closing as $clsdtls){
+                                                if($prodtls->prod_id==$clsdtls->prod_id){
+                                                    echo $clsdtls->opn_qty;               
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+                                   
                                 </tr>
  
-                                <?php   }
-                              ?>
+                                <?php  
+                                                        
+                                    }
+                                ?>
 
  
                                 <?php 
@@ -163,13 +200,3 @@ tr:hover {background-color: #f5f5f5;}
             </div>
             
         </div>
-        
-    <script type="text/javascript">
-        /*$(function () {
-            $("#btnExport").click(function () {
-                $("#example").table2excel({
-                    filename: "Cheque status for <?php //echo get_district_name($this->input->post("branch_id")) ?> branch for paddy procurement between Block Societywise Paddy Procurement Between <?php echo date("d-m-Y", strtotime($this->input->post('from_date'))).' To '.date("d-m-Y", strtotime($this->input->post('to_date')));?>.xls"
-                });
-            });
-        });*/
-    </script>

@@ -83,9 +83,36 @@
 
                 $to_dt      =   $_POST['to_date'];
 
-                $_SESSION['date']   =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+                $mth        =  date('n',strtotime($from_dt));
+
+                $yr         =  date('Y',strtotime($from_dt));
+
+                if($mth > 3){
+
+                    $year = $yr;
+
+                }else{
+
+                    $year = $yr - 1;
+                }
+
+                $opndt      =  date($year.'-04-01');
+
+                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
                 $data['product']     =   $this->ReportModel->f_get_product_list();
+
+                $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
+
+                $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
+
+                $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
+
+                $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
