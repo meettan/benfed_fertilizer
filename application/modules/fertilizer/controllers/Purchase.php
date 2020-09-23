@@ -1087,6 +1087,8 @@ public function stockAdd(){
 
 			$ro_dt         = $this->input->post('ro_dt');
 			
+			$trans_dt      = $this->input->post('trans_dt');
+
 			$due_dt        = $this->input->post('due_dt');
 
 			$invoice_no    = $this->input->post('invoice_no');
@@ -1210,7 +1212,7 @@ public function stockAdd(){
 
 					"iffco_n_buff_rt"=>$iffco_n_buff_rt,
 
-					"trans_dt"       => date('Y-m-d h:i:s'),
+					"trans_dt"       => $trans_dt,
 
 					 "trans_flag"    =>$trans_flag,
 
@@ -1227,7 +1229,7 @@ public function stockAdd(){
 					"stock_point"    => $stock_point);
 			 
 				$data_array1 = array (
-					"trans_dt"    => date('Y-m-d h:i:s'),
+					"trans_dt"    => $trans_dt,
 
 					"ro_inv_no"  => $ro_no    ,   
 					          
@@ -1369,7 +1371,7 @@ public function viewstock(){
 
 			"iffco_n_buff_rt"=>  $this->input->post('iffco_n_buff_rt'),
 
-			"trans_dt" =>  $this->input->post(date('Y-m-d h:i:s')),
+			"trans_dt" =>  $this->input->post('trans_dt'),
 
 			"challan_flag"    =>  $this->input->post('N'),
 
@@ -1402,6 +1404,7 @@ public function viewstock(){
 					"prod_id",
 					"ro_no",
 					"ro_dt",
+					"trans_dt",
 					"due_dt",
 					"invoice_no",
 					"invoice_dt" ,
@@ -1450,7 +1453,7 @@ public function viewstock(){
 				$product['proddtls']   = $this->PurchaseModel->f_select('mm_product a,td_purchase b',$select1,$where2,1);	
 // echo $this->db->last_query();
 // 				die();
-				$select2=  array("qty","ro_no","invoice_no","invoice_dt","challan_flag","due_dt","no_of_bags","ro_dt","delivery_mode","
+				$select2=  array("qty","ro_no","trans_dt","invoice_no","invoice_dt","challan_flag","due_dt","no_of_bags","ro_dt","delivery_mode","
 				rate","reck_pt_rt","reck_pt_n_rt","iffco_buf_rt","iffco_n_buff_rt","base_price","net_amt","retlr_margin","spl_rebt","add_adj_amt","less_adj_amt","cgst","sgst",
 				"rbt_add","rbt_less","rnd_of_add","rnd_of_less","tot_amt","stock_point");
 

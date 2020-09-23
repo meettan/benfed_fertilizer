@@ -268,6 +268,11 @@
 
 					<input type="text" style="width:150px" id=reck_pt_n_rt name="reck_pt_n_rt" class="form-control" value="0"  />
 					</div> 
+					<label for="trans_dt" class="col-sm-1 col-form-label">*Purchase Date:</label>
+					<div class="col-sm-3">
+
+					<input type="date" style="width:150px" id=trans_dt name="trans_dt" class="form-control"  required />
+					</div> 
 				</div>
 				<!-- <div class="form-group row">
 					<label for="govt_sale_rt" class="col-sm-2 col-form-label">Govt Sale Rate:</label>
