@@ -1,275 +1,304 @@
-    <div class="wraper">      
+<div class="wraper">      
 
-        <div class="col-md-11 container form-wraper">
+    <div class="col-md-11 container form-wraper">
 
-            <form method="POST" id="form" action="<?php echo site_url("stock/viewstock");?>"  onsubmit="myFunction()">
+        <form method="POST" id="form" action="<?php echo site_url("stock/viewstock");?>" >
 
-                <div class="form-header">
+            <div class="form-header">
                 
-                    <h4>View Purchase</h4>
+            	<h4>Edit Purchase</h4>
                 
-                </div>
+            </div>
 
-               
-                <!-- <div class="form-group row"> -->
+            <div class="form-group row">
 
-<div class="form-group row">
+				<label for="comp_id" class="col-sm-1 col-form-label">Company:</label>
 
-<label for="comp_id" class="col-sm-1 col-form-label">Company:</label>
+					<div class="col-sm-3">
 
-<div class="col-sm-3">
+						<input type="hidden" style="width:200px"  name="comp_id" class="form-control required"  
+        					value = "<?php echo $stock->comp_id; ?>" readonly 
+						/>
 
-     <input type="hidden" style="width:200px"  name="comp_id" class="form-control required"  
-        value = "<?php echo $compdtls->comp_id; ?>" readonly />
-        <input type="text" style="width:200px"  name="comp_desc" class="form-control required"  
-        value = "<?php echo $compdtls->comp_name; ?>" readonly />
+        				<input type="text" style="width:200px"  name="comp_desc" class="form-control required"  
+        					value = "<?php echo $stock->COMP_NAME; ?>" readonly 
+						/>
  
-</div>
-<label for="gst_no" class="col-sm-1 col-form-label">GSTIN:</label>
+					</div>
+
+				<label for="gst_no" class="col-sm-1 col-form-label">GSTIN:</label>
+
 					<div class="col-sm-3">
 
-                    <input type="text" style="width:200px"  name="gst_no" class="form-control required"  
-        value = "<?php echo $compdtls->gst_no; ?>" readonly />
+                    	<input type="text" style="width:200px"  name="gst_no" class="form-control required"  
+        					value = "<?php echo $stock->GST_NO; ?>" readonly 
+						/>
 
 					</div>
-                    <label for="cin" class="col-sm-1 col-form-label">CIN:</label>
+
+                <label for="cin" class="col-sm-1 col-form-label">CIN:</label>
+					
 					<div class="col-sm-3">
 
-					<input type="text" style="width:150px" id=cin name="cin"class="form-control required"  
-        value = "<?php echo $compdtls->cin; ?>" readonly />
+						<input type="text" style="width:150px" id=cin name="cin"class="form-control required"  
+        					value = "<?php echo $stock->CIN; ?>" readonly 
+						/>
 
 					</div>
-</div>
-<div class="form-group row">
-					<label for="comp_add" class="col-sm-1 col-form-label">Address:</label>
+			</div>
+
+			<div class="form-group row">
+
+				<label for="comp_add" class="col-sm-1 col-form-label">Address:</label>
+					
 					<div class="col-sm-4">
 
-					<textarea style="width:580px;height:70px"  id=comp_add name="comp_add" class="form-control required"  
-        readonly /> <?php echo $compdtls->comp_add; ?></textarea>
+						<textarea style="width:580px;height:70px"  id=comp_add name="comp_add" class="form-control required"readonly><?php echo $stock->COMP_ADD; ?>
+						</textarea>
 
 					</div>
-					<!-- <label for="cin" class="col-sm-2 col-form-label">CIN:</label>
-					<div class="col-sm-3">
+				
+            </div>
 
-					<input type="text" style="width:200px" id=cin name="cin"class="form-control required"  
-        value = "<?php echo $compdtls->cin; ?>" readonly />
-
-					</div> -->
-                    </div>
-<div class="form-header">
+			<div class="form-header">
                 
-  <h4>Product Details</h4>
+  				<h4>Product Details</h4>
             
-</div>
+			</div>
 
-<div class="form-group row">
+			<div class="form-group row">
 
-<label for="prod_id" class="col-sm-1 col-form-label">Product:</label>
-<div class="col-sm-3">
-<input type="hidden" style="width:200px"  name="prod_id" class="form-control required"  
-        value = "<?php echo $proddtls->prod_id; ?>" readonly />
-        <input type="text" style="width:200px"  name="prod_desc" class="form-control required"  
-        value = "<?php echo $proddtls->prod_desc; ?>" readonly />
-     
-</div>
-<label for="hsn_code" class="col-sm-1 col-form-label">HSN:</label>
+				<label for="prod_id" class="col-sm-1 col-form-label">Product:</label>
+
 					<div class="col-sm-3">
 
-                    <input type="text" style="width:200px"  name="hsn_code" class="form-control required"  
-        value = "<?php echo $proddtls->hsn_code; ?>" readonly />
+						<input type="hidden" style="width:200px"  name="prod_id" class="form-control required"  
+        					value = "<?php echo $stock->PROD_ID; ?>" readonly 
+						/>
+
+        				<input type="text" style="width:200px"  name="prod_desc" class="form-control required"  
+        					value = "<?php echo $stock->PROD_DESC; ?>" readonly 
+						/>
+     
+					</div>
+
+				<label for="hsn_code" class="col-sm-1 col-form-label">HSN:</label>
+					
+					<div class="col-sm-3">
+
+                    	<input type="text" style="width:200px"  name="hsn_code" class="form-control required"  
+        					value = "<?php echo $stock->HSN_CODE; ?>" readonly 
+						/>
 
 					</div>
-                    <label for="gst_rt" class="col-sm-1 col-form-label">GST RT:</label>
-						<div class="col-sm-3">
+                    
+				<label for="gst_rt" class="col-sm-1 col-form-label">GST RT:</label>
+					
+					<div class="col-sm-3">
 	
-							<input type="text" style="width:150px" id=gst_rt name="gst_rt" class="form-control" 
-                            value = "<?php echo $proddtls->gst_rt; ?>" readonly />
+						<input type="text" style="width:150px" id=gst_rt name="gst_rt" class="form-control" 
+							value = "<?php echo $stock->GST_RT; ?>" readonly 
+						/>
 	
-						</div>
-</div>
-<div class="form-group row">
-					<label for="stkpnt_id" class="col-sm-1 col-form-label">Stock Point:</label>
+					</div>
+			</div>
+
+			<div class="form-group row">
+				
+				<label for="stkpnt_id" class="col-sm-1 col-form-label">Stock Point:</label>
 
 					<div class="col-sm-3">
-						<!-- <input type="text" id=prod_id name="prod_id" class="form-control" required /> -->
+						
 						<select name="stkpnt_id" style="width:200px" class="form-control required" id="stkpnt_id" required>
 
 							<option value="">Select</option>
 
-							<?php
+								<?php
 
-								foreach($stockpoint as $stkpnt){
+									foreach($stockpoint as $stkpnt){
 
-							?>
+								?>
+									<option value="<?php echo $stkpnt->soc_id;?>"<?php if($stock->stock_point==$stkpnt->soc_id) {echo "selected"; }?>><?php echo $stkpnt->soc_name;?></option>
+									
+								<?php
 
-								<!-- <option value="<?php echo $stkpnt->soc_id;?>"><?php echo $stkpnt->soc_name;?></option> -->
-								<option value="<?php echo $stkpnt->soc_id;?>"  <?php if($schdtls->stock_point==$stkpnt->soc_id) {echo "selected"; }?>><?php echo $stkpnt->soc_name;?></option>
-							<?php
+									}
 
-								}
+								?>     
 
-							?>     
-
-							</select>
+						</select>
 
 					</div>
-					</div>
+					
+			</div>
 
-                <div class="form-header">
+            <div class="form-header">
                                 
                 <h4>Stock Details</h4>
                             
-                </div>
+            </div>
 
-                <div class="form-group row">
+            <div class="form-group row">
 
                 <label for="ro_no" class="col-sm-1 col-form-label">RO/DO No::</label>
 
-                <div class="col-sm-3">
+					<div class="col-sm-3">
 
-                    <input type="text" style="width:200px"  name="ro_no" class="form-control required"  
-                        value = "<?php echo $schdtls->ro_no; ?>"  />
+						<input type="text" style="width:200px"  name="ro_no" class="form-control required"  
+							value = "<?php echo $stock->ro_no; ?>"  readonly
+						/>
+							
 						<input type="hidden" style="width:200px"  name="challan_flag" id="challan_flag" class="form-control required"  
-                        value = "<?php echo $schdtls->challan_flag; ?>"  />
-                </div>
+							value = "<?php echo $stock->challan_flag; ?>"  
+						/>
+						
+					</div>
 
                 <label for="ro_dt" class="col-sm-1 col-form-label">Ro Date:</label>
-                <div class="col-sm-3">
-                <input type="date" style="width:200px"  name="ro_dt" class="form-control required"  
-                        value = "<?php echo $schdtls->ro_dt; ?>"  />
-                </div>
-                <label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
-                <div class="col-sm-3">
-                <input type="date" style="width:150px"  name="due_dt" class="form-control required"  
-                        value = "<?php echo $schdtls->due_dt; ?>"  />
-                </div>
-                </div>
 
-                <div class="form-group row">
+                	<div class="col-sm-3">
+                
+						<input type="date" style="width:200px"  name="ro_dt" class="form-control required"  
+                        	value = "<?php echo $stock->ro_dt; ?>"  
+						/>
 
-                <!-- <label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
-                <div class="col-sm-3">
-                <input type="text" style="width:200px"  name="due_dt" class="form-control required"  
-                        value = "<?php echo $schdtls->due_dt; ?>" readonly />
-                </div> -->
-                <label for="delivery_mode" class="col-sm-1 col-form-label">Stock Point:</label>
+                	</div>
+                
+				<label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
+                
+					<div class="col-sm-3">
+                
+						<input type="date" style="width:150px"  name="due_dt" class="form-control required"  
+                        	value = "<?php echo $stock->due_dt; ?>"  
+						/>
+                	</div>
+                
+			</div>
 
-<div class="col-sm-3">
+            <div class="form-group row">
 
+                <label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
 
-    <select class="col-sm-3"
-                        name="delivery_mode"
-                        id="delivery_mode" style="width:200px;height:40px"
-                    >
+					<div class="col-sm-3">
+
+    					<select  class="form-control required" style="width:200px;" name="delivery_mode" id="delivery_mode" >
                     
-                    <option value="">Select</option>
-                    <option value="1" <?php echo ($schdtls->delivery_mode == 1)? 'selected' : '';?>>EX GODOWN/RAIL BUFFER</option>
-                    <option value="2" <?php echo ($schdtls->delivery_mode == 2)? 'selected' : '';?>>EX GODOWN/RAIL NON BUFFER</option>
-                    <option value="3" <?php echo ($schdtls->delivery_mode == 3)? 'selected' : '';?>>FOR-FOL</option>
-                </select>  
-</div>
-<label for="invoice_no" class="col-sm-1 col-form-label">Invoice No:</label>
+                    		<option value="">Select</option>
+                    
+							<option value="1" <?php echo ($stock->delivery_mode == 1)? 'selected' : '';?>>EX GODOWN/RAIL BUFFER</option>
+                    
+							<option value="2" <?php echo ($stock->delivery_mode == 2)? 'selected' : '';?>>EX GODOWN/RAIL NON BUFFER</option>
+                    
+							<option value="3" <?php echo ($stock->delivery_mode == 3)? 'selected' : '';?>>FOR-FOL</option>
+                		</select>  
+					
+					</div>
 
-<div class="col-sm-3">
+				<label for="invoice_no" class="col-sm-1 col-form-label">Invoice No:</label>
 
- <input type="text" style="width:200px"  name="invoice_no" class="form-control required"  
-          value = "<?php echo $schdtls->invoice_no; ?>"  />
-</div>
-<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
+					<div class="col-sm-3">
 
-<div class="col-sm-3">
+ 						<input type="text" style="width:200px"  name="invoice_no" class="form-control required"  
+          					value = "<?php echo $stock->invoice_no; ?>"  
+						/>
+					</div>
 
-<input type="date" style="width:150px"   name="invoice_dt" class="form-control required"  
-value = "<?php echo $schdtls->invoice_dt; ?>"   />
+				<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
 
-</div>
-                </div>
+					<div class="col-sm-3">
 
-                <div class="form-group row">
+						<input type="date" style="width:150px"   name="invoice_dt" class="form-control required"  
+							value = "<?php echo $stock->invoice_dt; ?>"   
+						/>
 
-                  <!-- <label for="invoice_no" class="col-sm-1 col-form-label">Invoice No:</label>
+					</div>
+                
+			</div>
 
-                  <div class="col-sm-3">
+			<div class="form-group row">
 
-                   <input type="text" style="width:200px"  name="invoice_no" class="form-control required"  
-                            value = "<?php echo $schdtls->invoice_no; ?>" readonly />
-		          </div> -->
+				<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
 
-                  <!-- <label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
+					<div class="col-sm-3">
 
-                    <div class="col-sm-3">
+ 						<input type="text" style="width:200px"  name="qty" id="qty" class="form-control required"  
+          					value = "<?php echo $stock->qty; ?>"  
+						/>
 
-                    <input type="text" style="width:200px"   name="invoice_dt" class="form-control required"  
-                    value = "<?php echo $schdtls->invoice_dt; ?>" readonly  />
+					</div>
+			</div>
 
-                   </div> -->
-		</div>
+			<div class="form-group row">
 
-<div class="form-group row">
+				<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
 
-<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
+					<div class="col-sm-3">
 
-<div class="col-sm-3">
+							<input type="text" style="width:200px"  name="unit_name" class="form-control required"  
+									value = "<?php 
+													foreach($unit as $unitdtls){
+														if($unitdtls->id == $stock->unit){
+															echo $unitdtls->unit_name;
+														} 
+													}
+											?>" readonly 
+							/>
+					
+					</div>
 
- <input type="text" style="width:200px"  name="qty" id="qty" class="form-control required"  
-          value = "<?php echo $schdtls->qty; ?>"  />
-</div>
-<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
+				<label for="no_of_bags" class="col-sm-1 col-form-label">No.of Storage Unit:</label>
 
-<div class="col-sm-3">
+  					<div class="col-sm-3">
 
-     <input type="hidden" style="width:200px"  name="unit" class="form-control required"  
-        value = "<?php echo $unitdtls->id; ?>" readonly />
-        <input type="text" style="width:200px"  name="unit_name" class="form-control required"  
-        value = "<?php echo $unitdtls->unit_name; ?>" readonly />
+						<input type="text" style="width:150px"   name="no_of_bags" class="form-control required"  
+							value = "<?php echo $stock->no_of_bags; ?>"  readonly 
+						/>
+
+					</div>
+
+ 				<label for="storage" class="col-sm-1 col-form-label">Storage Type:</label>
+
+					<div class="col-sm-3">
+
+  						<input type="text" style="width:150px"   name="storage_type" class="form-control required"  
+							  value = "<?php 
+							  					if($stock->storage =='B'){
+													$strg = 'Bag';
+												}else if($stock->storage =='T'){
+													$strg = 'Bucket';
+												}else if($stock->storage =='T'){
+													$strg = 'Packet';
+												}
+				
+												echo $strg; ?>"  readonly 
+						/>
+
+ 					</div>
+					 
+			</div>
+
+
  
-</div>
-<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
-
-  <div class="col-sm-3">
-
-  <input type="text" style="width:150px"   name="no_of_bags" class="form-control required"  
-  value = "<?php echo $schdtls->no_of_bags; ?>"  readonly />
-
- </div>
-</div>
-<div class="form-group row">
-<!-- <label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
-
-  <div class="col-sm-3">
-
-  <input type="text" style="width:150px"   name="no_of_bags" class="form-control required"  
-  value = "<?php echo $schdtls->no_of_bags; ?>"   />
-
- </div> -->
- <!-- <label for="govt_sale_rt" class="col-sm-1 col-form-label">Sale Rate:</label>
-					<div class="col-sm-4">
-
-						<input type="text" style="width:150px" id=govt_sale_rt name="govt_sale_rt" class="form-control" 
-						value = "<?php echo $schdtls->no_of_bags; ?>"  readonly />
-
-					</div> -->
-</div>
 <div class="form-group row">
 					<label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label>
 					<div class="col-sm-3">
 
 						<input type="text" style="width:180px" id="reck_pt_rt" name="reck_pt_rt" class="form-control" 
-						value = "<?php echo $schdtls->reck_pt_rt; ?>" />
+						value = "<?php echo $stock->reck_pt_rt; ?>" />
 
 					</div>
 					<label for="reck_pt_n_rt" class="col-sm-1 col-form-label">Non Reck Pt Entry Rate:</label>
 					<div class="col-sm-3">
 
 					<input type="text" style="width:150px" id="reck_pt_n_rt" name="reck_pt_n_rt" class="form-control" 
-					value = "<?php echo $schdtls->reck_pt_n_rt; ?>"  />
+					value = "<?php echo $stock->reck_pt_n_rt; ?>"  />
 					</div> 
 
 					<label for="trans_dt" class="col-sm-1 col-form-label">Purchase Date:</label>
 					<div class="col-sm-3">
 
 					<input type="date" style="width:150px" id="trans_dt" name="trans_dt" class="form-control" 
-					value = "<?php echo $schdtls->trans_dt; ?>"  />
+					value = "<?php echo $stock->trans_dt; ?>"  />
 					</div> 
 				</div>
 
@@ -278,14 +307,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 					<div class="col-sm-3">
 
 						<input type="text" style="width:180px" id="iffco_buf_rt" name="iffco_buf_rt" class="form-control"
-						value = "<?php echo $schdtls->iffco_buf_rt; ?>"  />
+						value = "<?php echo $stock->iffco_buf_rt; ?>"  />
 
 					</div>
 					<label for="iffco_n_buff_rt" class="col-sm-1 col-form-label">IFFCO Non Buffer Rate:</label>
 					<div class="col-sm-3">
 
 						<input type="text" style="width:150px" id="iffco_n_buff_rt" name="iffco_n_buff_rt" class="form-control"
-						value = "<?php echo $schdtls->iffco_n_buff_rt; ?>" />
+						value = "<?php echo $stock->iffco_n_buff_rt; ?>" />
 
 					</div>
 				</div>
@@ -300,7 +329,7 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id="rate" name="rate" class="form-control required" 
-                            value = "<?php echo $schdtls->rate; ?>"    />
+                            value = "<?php echo $stock->rate; ?>"    />
 			
 						</div>
 						
@@ -308,14 +337,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id="base_price" name="base_price" class="form-control" 
-                            value = "<?php echo $schdtls->base_price; ?>"   readonly />
+                            value = "<?php echo $stock->base_price; ?>"   readonly />
 						   
 						</div>
 						<label for="net_amt" class="col-sm-1 col-form-label">Taxable Amt:</label>
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id="net_amt" name="net_amt" class="form-control" 
-                            value = "<?php echo $schdtls->net_amt; ?>" readonly />
+                            value = "<?php echo $stock->net_amt; ?>" readonly />
 						   
 						</div>
                         </div>
@@ -324,14 +353,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id="retlr_margin" name="retlr_margin" class="form-control"  
-                        value = "<?php echo $schdtls->retlr_margin; ?>"  />
+                        value = "<?php echo $stock->retlr_margin; ?>"  />
 						</div> 
 	
 						<label for="spl_rebt" class="col-sm-1 col-form-label">Less Special Rebate:</label>
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id="spl_rebt" name="spl_rebt" class="form-control" 
-                            value = "<?php echo $schdtls->spl_rebt; ?>"   />
+                            value = "<?php echo $stock->spl_rebt; ?>"   />
 						   
 						</div>
                         </div>
@@ -340,14 +369,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id="adj_amt" name="adj_amt" class="form-control"  
-                        value = "<?php echo $schdtls->add_adj_amt; ?>"   />
+                        value = "<?php echo $stock->add_adj_amt; ?>"   />
 						</div> 
 	
 						 <label for="less_adj_amt" class="col-sm-1 col-form-label">Less Adj Amt:</label>
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id="less_amt" name="less_adj_amt" class="form-control" 
-                            value = "<?php echo $schdtls->less_adj_amt; ?>"   />
+                            value = "<?php echo $stock->less_adj_amt; ?>"   />
 						   
 						</div> 
 						
@@ -357,14 +386,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id=cgst name="cgst" class="form-control" 
-                        value = "<?php echo $schdtls->cgst; ?>" readonly  />
+                        value = "<?php echo $stock->cgst; ?>" readonly  />
 						</div> 
 	
 						<label for="sgst" class="col-sm-1 col-form-label">SGST:</label>
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id=sgst name="sgst" class="form-control" 
-                            value = "<?php echo $schdtls->sgst; ?>"  readonly  />
+                            value = "<?php echo $stock->sgst; ?>"  readonly  />
 						   
 						</div>
 						
@@ -374,14 +403,14 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id="rbt_add" name="rbt_add" class="form-control" 
-                        value = "<?php echo $schdtls->rbt_add; ?>"    />
+                        value = "<?php echo $stock->rbt_add; ?>"    />
 						</div> 
 	
 						<label for="rbt_less" class="col-sm-1 col-form-label">Rebate Less:</label>
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id="rbt_less" name="rbt_less" class="form-control" 
-                        value = "<?php echo $schdtls->rbt_less; ?>"    />
+                        value = "<?php echo $stock->rbt_less; ?>"    />
 						</div> 
 						</div>
                         <div class="form-group row">
@@ -389,20 +418,20 @@ value = "<?php echo $schdtls->invoice_dt; ?>"   />
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id="rnd_of_add" name="rnd_of_add" class="form-control" 
-                        value = "<?php echo $schdtls->rnd_of_add; ?>"    />
+                        value = "<?php echo $stock->rnd_of_add; ?>"    />
 						</div> 
 	
 						<label for="rnd_of_less" class="col-sm-1 col-form-label">Round Off Less:</label>
 						<div class="col-sm-3">
 	
 						<input type="text" style="width:150px" id="rnd_of_less" name="rnd_of_less" class="form-control"
-                        value = "<?php echo $schdtls->rnd_of_less; ?>"     />
+                        value = "<?php echo $stock->rnd_of_less; ?>"     />
 						</div> 
 						<label for="tot_amt" class="col-sm-1 col-form-label">Total Amt:</label>
 						<div class="col-sm-2">
 	
 							<input type="text" style="width:150px" id=tot_amt name="tot_amt" class="form-control" 
-                            value = "<?php echo $schdtls->tot_amt; ?>"  readonly />
+                            value = "<?php echo $stock->tot_amt; ?>"  readonly />
 						   
 						</div>
 						</div>

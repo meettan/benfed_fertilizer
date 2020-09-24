@@ -104,7 +104,7 @@
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
-                $data['product']     =   $this->ReportModel->f_get_product_list();
+                $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
 
                 $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
 

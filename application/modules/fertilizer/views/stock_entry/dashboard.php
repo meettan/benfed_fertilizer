@@ -27,6 +27,7 @@
 
                     <tr>
                     	<th>Sl No.</th>
+                        <th>Purchase Date</th>
                         <th>Ro No</th>
             			<th>Ro Date</th>
                         <th>Invoice no</th>
@@ -48,6 +49,9 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
+                                <td style="display:none"><?php echo date('Y',strtotime($value->trans_dt)); ?></td>
+                                <td style="display:none"><?php echo date('m',strtotime($value->trans_dt)); ?></td>
+                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
                                 <td><?php echo $value->ro_no; ?></td>
                                 <td><?php echo date('d/m/Y',strtotime($value->ro_dt)); ?></td>
                                 
@@ -59,7 +63,7 @@
                                   <!-- <td>   -->
                                     <input type="hidden" name="challan_flag" id="challan_flag" value="<?php echo $value->challan_flag; ?>">
                                 <!-- </td> -->
-			 	                <td><a href="viewstock?ro_no=<?php echo $value->ro_no;?>" 
+			 	                <td><a href="viewstock?ro_no=<?php echo $value->ro_no;?>&comp=<?php echo $value->comp_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>

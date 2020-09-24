@@ -22,7 +22,7 @@
 			}
         }
 
-        public function f_get_product_list(){
+        public function f_get_product_list($branch,$frmDt){
             /*$query  = $this->db->query("select a.PROD_ID,a.PROD_DESC,a.COMPANY,a.unit,b.COMP_ID,
                                      b.COMP_NAME,b.short_name
                               from   mm_product a,mm_company_dtls b
@@ -34,6 +34,8 @@
                                 from   td_purchase a,mm_product b,mm_company_dtls c
                                 where  a.prod_id = b.PROD_ID
                                 and    a.comp_id = c.COMP_ID
+                                and    a.trans_dt >= '$frmDt'
+                                and     a.br       = $branch
                                 order by a.comp_id,a.prod_id");
 
             return $query->result();

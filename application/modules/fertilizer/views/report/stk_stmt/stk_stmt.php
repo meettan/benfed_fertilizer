@@ -122,10 +122,18 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
                                                 }else if ($prodtls->unit==5){
-                                                  echo "Litre"; 
-                                                }else{
+                                                  echo "ML"; 
+                                                }else if ($prodtls->unit==1){
                                                     echo "MT";
-                                                } 
+                                                }else if ($prodtls->unit==2){ 
+                                                    echo "Kg";
+                                                }else if ($prodtls->unit==4){ 
+                                                    echo "Quintal";
+                                                }else if ($prodtls->unit==6){
+                                                    echo "Gm";
+                                                }else if ($prodtls->unit==7){
+                                                    echo "Pc";
+                                                }
                                         ?>
                                      </td>
                                      <td class="report opening" id="opening">
