@@ -949,7 +949,8 @@ public function sale_rate(){
 	);
 	
 	$data['ratedtls']   = $this->FertilizerModel->f_select_distinct('mm_sale_rate a,mm_company_dtls b,mm_category c,mm_product d',$select,$where,0);
-
+// echo $this->db->last_query();
+// die();
 	$this->load->view("post_login/fertilizer_main");
 
 	$this->load->view("sale_rate/dashboard",$data);
@@ -1007,10 +1008,11 @@ public function f_get_unit(){
 
 	$select = array(
 		"a.unit","b.unit_name","a.storage"
-	);
+	);   
 
 	$result = $this->FertilizerModel->f_select('mm_product a,mm_unit b',$select,$where,0);	
-	
+	// echo $this->db->last_query();
+	// 		die();
 	 echo json_encode($result);
 
 } 
@@ -1023,11 +1025,12 @@ public function salerateAdd(){
 		   $prod_id    = $this->input->post('prod_id');
 		   $comp_id    = $this->input->post('comp_id');
 		   $district   = $this->input->post('district');
+		   $unit       = $this->input->post('unit');
 		   $catg_id    = $this->input->post('catg_id');
 		   $sp_mt      = $this->input->post('sp_mt');
 		   $sp_bag     = $this->input->post('sp_bag');
 		   $sp_govt    = $this->input->post('sp_govt');
-		
+		   
 		   $frm_dt     = $this->input->post('frm_dt');
 		   $to_dt      = $this->input->post('to_dt');
 
@@ -1045,11 +1048,13 @@ public function salerateAdd(){
 					"prod_id" => $prod_id,
 			
 					"comp_id" => $comp_id,
-
+                   
 					"catg_id" => $catg_id,
 
 					"district" => $district[$i],
-					
+
+					"unit"     => $unit,
+
 					"sp_mt"    =>  $sp_mt,
 
 					"sp_bag"   =>  $sp_bag,
@@ -1079,6 +1084,7 @@ public function salerateAdd(){
 				
 			
 				$product['distdtls']   = $this->FertilizerModel->f_select('md_district',NULL,NULL,0);
+				$product['unit']   = $this->FertilizerModel->f_select('mm_unit',NULL,NULL,0);
 
 	$this->load->view('post_login/fertilizer_main');
 
@@ -1099,9 +1105,11 @@ public function editsalerate(){
 
 			     "bulk_id"    =>  $this->input->post('bulk_id'),
 
-				"prod_id"     =>  $this->input->post('prod_id'),
+				"prod_id"  =>  $this->input->post('prod_id'),
 
-				"comp_id"     =>  $this->input->post('comp_id'),
+				"comp_id"  =>  $this->input->post('comp_id'),
+
+				"unit"        =>  $this->input->post('unit'),
 				
 				// "district"   =>$this->input->post('district'),
 				 "sp_mt"      =>  $this->input->post('sp_mt'),
@@ -1143,6 +1151,8 @@ public function editsalerate(){
 
 							"a.catg_id",
 
+							"a.unit" ,
+                           
 							"a.frm_dt",
 
 							"a.to_dt"  ,
@@ -1167,13 +1177,17 @@ public function editsalerate(){
 
 							"a.comp_id=c.comp_id"  => NULL,
 
-							"a.catg_id=e.sl_no"     => NULL);
+							"a.catg_id=e.sl_no"     => NULL,
+
+						    "a.unit=f.id"           =>NULL);
 		
 			
 		$wheres = array("comp_id"=> $this->input->get('comp_id')	);
 
-		$sch['schdtls']   = $this->FertilizerModel->f_select_distinct("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d,mm_category e",$select,$where,1);
+		$sch['schdtls']   = $this->FertilizerModel->f_select_distinct("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d,mm_category e, mm_unit f",$select,$where,1);
 
+		// echo $this->db->last_query();
+		// die();
 		$sch['dist']      = $this->FertilizerModel->f_district($this->input->get('bulk_id'),$fin_id);
 
 		$select_cat          = array("sl_no","cate_desc");
@@ -1184,6 +1198,7 @@ public function editsalerate(){
 		// die();
 
 		$sch['distdtls']  = $this->FertilizerModel->f_select('md_district',NULL,NULL,0);
+		$sch['unit']  = $this->FertilizerModel->f_select('mm_unit',NULL,NULL,0);
 		$select1          = array("comp_id","comp_name");
 		$sch['compdtls']  = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
 

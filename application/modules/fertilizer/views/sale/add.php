@@ -128,11 +128,11 @@
                         <span id="advance" style="width:350px;color: #0d7d8ef5;font-weight: bold;font-size:20px;"></span>
                      <!--  <input type="text" name="advance"   class="form-control advance" value=""  readonly> -->
                       </div>
-                      <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
+                      <!-- <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
                       <div class="col-sm-3">
                       <input type="text" name="units" class="form-control unit" value="" id="units" readonly="">
                       <input type="hidden" name="unit" class="form-control units" value="" id="unit">
-                      </div>
+                      </div> -->
                       </div>
                         
                     <div class="form-header">
@@ -146,11 +146,12 @@
 
                     <div class="form-group">
 
-                        <table class= "table table-striped table-bordered table-hover">
+                        <table class= "table table-striped table-bordered table-hover" >
 
                             <thead>
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
+                                <th style= "text-align: center">Unit</th>
                                 <th style= "text-align: center">Stock Point</th>
                                 <th style= "text-align: center">Rate Catg</th>
                                 <th style= "text-align: center">Govt.Rate</th>
@@ -184,6 +185,13 @@
                                     <td>    
                                         <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id">  
                                         <input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
+                       
+                                        
+                                    </td>
+
+                                    <td>    
+                                        <input type="hidden" name="unit[]" class="form-control unit" value= "" id="unit">  
+                                        <input type="text" name="unit_name[]" style="width:50px" class="form-control required unit_name" value= "" id="unit_name" readonly> 
                        
                                         
                                     </td>
@@ -326,9 +334,10 @@ $.each(JSON.parse(data), function( index, value ) {
            +'</select> '
                                 +'</td>'
                                 +'<td> <input type="hidden" name="prod_id[]" class="form-control prod_id" value= "" id="prod_id"><input type="text" name="prod_desc[]" style="width:110px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> </td>'
+                                +'<td> <input type="hidden" name="unit[]" class="form-control unit" value= "" id="unit"><input type="text" name="unit_name[]" style="width:50px" class="form-control required unit_name" value= "" id="unit_name" readonly>  </td>'
                                 +'<td><input type="hidden" name="stock_point[]" class="form-control prod_id" value= "" id="stock_point"><input type="text" name="stock_name[]" class="form-control stock_name" value= "" id="stock_name" readonly>'             
                                 +'<td><select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required><option value="">Select</option></select>  </td><td><select name="gov_sale_rt[]" id="gov_sale_rt" style="width:55px" class="form-control gov_sale_rt" required><option value="N">No</option><option value="Y">Yes</option></select>  </td>'+'<td>'
-                                    +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
+                                +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "0" id="stock_qty" readonly>'
                                 +'</td>'
                                 +'<td>'
                                     +'<input type="text" name="qty[]" class="form-control qty" value= "0" id="qty" required>'
@@ -374,9 +383,9 @@ $.each(JSON.parse(data), function( index, value ) {
                $('#intro tr').each(function() {
 
 
-                 var qty = $(this).find('td:eq(6) .qty').val();
-                 var rate = $(this).find('td:eq(7) .sale_rt').val();
-                 var gst_rt = $(this).find('td:eq(8) .gst_rt').val();
+                 var qty = $(this).find('td:eq(7) .qty').val();
+                 var rate = $(this).find('td:eq(8) .sale_rt').val();
+                 var gst_rt = $(this).find('td:eq(9) .gst_rt').val();
                  
              
                  tottaxable += parseFloat(qty*rate);
@@ -556,7 +565,7 @@ $(document).ready(function(){
                 $('.prod_desc').eq($('.ro').index(this)).val(""); 
                 $('.gst_rt').eq($('.ro').index(this)).val(""); 
                 $('.unit').eq($('.ro').index(this)).val('');
-                $('.units').eq($('.ro').index(this)).val('');
+                $('.unit_name').eq($('.ro').index(this)).val('');
                 $('.qty').eq($('.ro').index(this)).val(0);  
                 $('.gov_sale_rt option:first').prop('selected', 'selected');
                 $('.taxable_amt').eq($('.ro').index(this)).val(0);
@@ -574,8 +583,9 @@ $(document).ready(function(){
                 $('.prod_id').eq($('.ro').index(this)).val(unitData.prod_id); 
                 $('.prod_desc').eq($('.ro').index(this)).val(unitData.prod_desc); 
                 $('.gst_rt').eq($('.ro').index(this)).val(unitData.gst_rt); 
-                $('.unit').eq($('.ro').index(this)).val('MT');
-                $('.units').eq($('.ro').index(this)).val('MT');
+                $('.unit').eq($('.ro').index(this)).val(unitData.unit);
+                // $('.unit').eq($('.ro').index(this)).val(unitData.unit);
+                $('.unit_name').eq($('.ro').index(this)).val(unitData.unit_name);
                 $('.qty').eq($('.ro').index(this)).val(0);  
                 $('.taxable_amt').eq($('.ro').index(this)).val(0);
                 $('.cgst').eq($('.ro').index(this)).val(0);  
@@ -656,7 +666,7 @@ $(document).ready(function(){
          
             var unitData = JSON.parse(data);
            
-           row.find('td:eq(7) .sale_rt').val(unitData.sp_mt);
+           row.find('td:eq(8) .sale_rt').val(unitData.sp_mt);
                       
         });
          
@@ -753,9 +763,9 @@ $(document).ready(function()
                $('#intro tr').each(function() {
 
 
-                 var qty = $(this).find('td:eq(6) .qty').val();
-                 var rate = $(this).find('td:eq(7) .sale_rt').val();
-                 var gst_rt = $(this).find('td:eq(8) .gst_rt').val();
+                 var qty = $(this).find('td:eq(7) .qty').val();
+                 var rate = $(this).find('td:eq(8) .sale_rt').val();
+                 var gst_rt = $(this).find('td:eq(9) .gst_rt').val();
                  
              
                  tottaxable += parseFloat(qty*rate);
@@ -773,21 +783,13 @@ $(document).ready(function()
 
     
         })
-
-  
-
-  
-
- 
            
                       
-            })
+            })      
 
-                
+</script>
 
-        </script>
-
-                <script>
+<script>
 
                 $(document).ready(function(){
 

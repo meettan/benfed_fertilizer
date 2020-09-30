@@ -80,8 +80,27 @@
 						<label for="unit" class="col-sm-2 col-form-label">Unit:</label>
 						<div class="col-sm-4">
 
-							<input type="text" id="unit" name="unit" class="form-control" readonly />
+							<!-- <input type="text" id="unit" name="unit" class="form-control" readonly /> -->
+							<select name="unit" class="form-control required" id="unit" required>
 
+							<option value="">Select</option>
+							
+
+								<?php
+
+									foreach($unit as $unt){
+
+								?>
+
+									<option value="<?php echo $unt->id;?>"><?php echo $unt->unit_name;?></option>
+
+								<?php
+
+									}
+
+								?> 
+
+							</select>
 						</div>
 						<label for="storage" class="col-sm-2 col-form-label">Storage:</label>
 						<div class="col-sm-4">
@@ -423,7 +442,16 @@ $(document).ready(function(){
 
 		var parseData = JSON.parse(data);
 
-		var unit = parseData[0].unit_name;
+		// var unit = parseData[0].unit_name;
+// 		var string = '<option value="">Select</option>';
+
+// $.each(JSON.parse(data), function( index, value ) {
+
+// 	string += '<option value="' + value.id + '">' + value.unit_name + '</option>'
+
+// });
+
+// $('#unit').html(string);
 
 		var storage = '';
 
@@ -440,7 +468,8 @@ $(document).ready(function(){
 			storage = 'Packet';
 		}
 
-			$('#unit').val(unit);
+			// $('#unit').val(unit);
+		
 
 			$('#storage').val(storage);
 

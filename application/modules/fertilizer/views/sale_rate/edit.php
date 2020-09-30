@@ -87,6 +87,30 @@
 							</select> -->
 
 						</div>
+						<label for="unit" class="col-sm-2 col-form-label">Unit :</label>
+						<div class="col-sm-4">
+
+						 <!-- <input type="text" id=unit name="unit" class="form-control" value="<?=$schdtls->cate_desc?>" readonly /> -->
+							 <select name="unit"  class="form-control required" id="unit" required> 
+
+							
+							<option value="">Select</option>
+
+							<?php
+
+								foreach($unit as $unt){
+
+							?>
+
+								
+								<option value="<?php echo $unt->id;?>"  <?php if($schdtls->unit==$unt->id) {echo "selected"; }?>><?php echo $unt->unit_name;?></option>
+							<?php
+
+								}
+
+							?>     
+                          </select> 
+						</div>
 				
 				   </div>
 					
