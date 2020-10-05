@@ -58,7 +58,8 @@
 	  
 		  return $result->row();
 
-      }
+	  }
+	  
 		public function js_get_stock_qty($ro)
 		{
 
@@ -79,6 +80,7 @@
 			                             and '$ro_dt' BETWEEN a.frm_dt and a.to_dt");
 			return $sql->result();
 		}
+
 		public function get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category)
 		{
 

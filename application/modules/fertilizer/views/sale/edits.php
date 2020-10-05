@@ -14,7 +14,7 @@
                         foreach($prod_dtls as $prodd);
                         ?>
     		
-                                   <input type="hidden" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>"/>						
+                        <input type="hidden" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>"/>						
 						<div class="form-group row">
 						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
 						<div class="col-sm-4">
@@ -101,12 +101,12 @@
                                 <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>" readonly />
                             </div>
 
-                            <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
+                            <!-- <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
 
                             <div class="col-sm-3">
     
                                 <input type="text" name="unit" id="unit" class="form-control" value="MT"  readonly/>
-                            </div>
+                            </div> -->
                         </div>
 
 
@@ -127,7 +127,8 @@
 
                                 <th style= "text-align: center">Ro</th>
                                 <th style= "text-align: center">Product</th>
-                                  <th style= "text-align: center">Stock Point</th>
+                                <th style= "text-align: center">Unit</th>
+                                <th style= "text-align: center">Stock Point</th>
                                 <th style= "text-align: center">Rate Catg</th>
                                 <th style= "text-align: center">Govt.Rate</th>
                                 <th style= "text-align: center">Stock Qty</th>
@@ -177,6 +178,20 @@
                     </select> 
                                         
                             </td>
+                            <td>    
+                                      
+                                      <select name="unit[]" id="unit" style="width:70px"class="form-control required unit" disabled >
+                                      <option value="">Select unit</option>
+                                      <?php
+                                      foreach($unit as $unt)
+                                      { ?>
+                                          <option value="<?php echo $unt->id; ?>" <?php if($prodd->unit==$unt->id) echo "selected" ?> ><?php echo $unt->unit_name; ?></option>
+                                      <?php
+                                      } ?>
+                                      </select> 
+                                                          
+                                              </td>
+                                        
                               <td>
                                         <select name="stock_point[]" id="stock_point" style="width:110px"class="form-control stock_point" required>
                                             <option value="">Select</option>
@@ -217,16 +232,20 @@
   
 
                                             $comp_id    = $prodd->comp_id;
+                                            // echo $comp_id;
+                                            // die();
                                             $ro_dt      = $ros->ro_dt;
+                                            
                                             $prod_id    = $prodd->prod_id;
                                             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
-
+                                           
                                             $result = $this->SaleModel->js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id);
 
-                                            foreach ($result as $res ) {
+                                            // foreach ($result as $res ) {
+                                                foreach ($catg as $cat){
                                            
                                          ?>
-                                          <option value="<?=$res->catg_id?>" <?php if($res->catg_id==$prodd->catg_id) {echo "selected";}?> ><?=$res->cate_desc?></option>
+                                          <option value="<?=$cat->sl_no?>" <?php if($cat->sl_no==$prodd->catg_id) {echo "selected";}?> ><?=$cat->cate_desc?></option>
 
                                       <?php } ?>
               

@@ -172,6 +172,8 @@ public function saleAdd(){   //================================================
 
 			$stock_point = $this->input->post('stock_point');
 
+			$catg_id = $this->input->post('catg_id');
+
 			$gov_sale_rt = $this->input->post('gov_sale_rt');
 
 			$qty         = $this->input->post('qty');
@@ -216,7 +218,9 @@ public function saleAdd(){   //================================================
 
 									'unit'      => $_POST['unit'][$i],
 
-                                    'prod_id'      => $_POST['prod_id'][$i],
+									'prod_id'      => $_POST['prod_id'][$i],
+									
+									'catg_id'      => $_POST['sale_category'][$i],
 
 									'stock_point'  => $_POST['stock_point'][$i],
 
@@ -245,9 +249,10 @@ public function saleAdd(){   //================================================
 									 "fin_yr"      => $fin_id
                                 );
 								
-		
-		
 				$this->SaleModel->f_insert('td_sale', $data);
+
+				// echo $this->db->last_query();
+				// die();
 
 			}
 
@@ -296,13 +301,13 @@ public function saleAdd(){   //================================================
 
 				// 	'comp_id'     => $this->input->post('comp_id'));
 				$select2         = array("a.ro_no","a.qty","a.unit","b.unit_name");
-				$where           =   array('a.br'  => $this->session->userdata['loggedin']['branch_id'],
+				$where           = array('a.br'  => $this->session->userdata['loggedin']['branch_id'],
 			                               "a.unit=b.id"=>NULL);
 					
 				$product['rodtls']   = $this->SaleModel->f_select('td_purchase a,mm_unit b',$select2,$where,0);
 
 				$select1             = array("soc_id","soc_name","soc_add","gstin");
-				$where1              =   array('district'     => $this->session->userdata['loggedin']['branch_id']);
+				$where1              = array('district'     => $this->session->userdata['loggedin']['branch_id']);
 				$product['socdtls']  = $this->SaleModel->f_select('mm_ferti_soc',$select1,$where1,0);
 
 				
@@ -334,29 +339,31 @@ public function saleAdd(){   //================================================
 
 								   'sale_due_dt'  => $this->input->post('sale_due_dt'), 
 
-								   'comp_id'  => $this->input->post('comp_id'),
+								   'comp_id'      => $this->input->post('comp_id'),
 
                                    'sale_ro'      => $_POST['ro'][$i],
 
-                                    'prod_id'      => $_POST['prod_id'][$i],
-
-                                    'qty'          => $_POST['qty'][$i],
-
-                                    'sale_rt'      => $_POST['sale_rt'][$i],
-
-									'taxable_amt'  => $_POST['taxable_amt'][$i],
+									'prod_id'     => $_POST['prod_id'][$i],
 									
-									'gst_rt'        => $_POST['gst_rt'][$i],
+									'unit'        => $_POST['unit'][$i],
+
+                                    'qty'         => $_POST['qty'][$i],
+
+                                    'sale_rt'     => $_POST['sale_rt'][$i],
+
+									'taxable_amt' => $_POST['taxable_amt'][$i],
+									
+									'gst_rt'       => $_POST['gst_rt'][$i],
 									
                                     'cgst'         => $_POST['cgst'][$i],
 
-                                    'sgst'        => $_POST['sgst'][$i],
+                                    'sgst'         => $_POST['sgst'][$i],
 
-                                    'tot_amt'     => $_POST['tot_amt'][$i],
+                                    'tot_amt'      => $_POST['tot_amt'][$i],
 
                                     "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
-				                    "modified_dt"    =>  date('Y-m-d h:i:s'),
+				                    "modified_dt"   =>  date('Y-m-d h:i:s'),
 
                                 );
 
@@ -378,22 +385,34 @@ public function saleAdd(){   //================================================
            
             
 			}else {
+
+			$select5                = array("sl_no","cate_desc");
+			// $comp_id    = $prodd->comp_id;
+			// echo $comp_id;
+			// die();
+			// $ro_dt      = $ros->ro_dt;
+			
+			// $prod_id    = $prodd->prod_id;
+			// $br_cd      = $this->session->userdata['loggedin']['branch_id'];
+			// $where5                 =  array('district'     => $this->session->userdata['loggedin']['branch_id']);
+			$product['catg']        = $this->SaleModel->f_select('mm_category',$select5,NULL,0);
 				
-			 $select3        = array("comp_id","comp_name");
+			$select4                = array("id","unit_name");
+			$product['unit']        = $this->SaleModel->f_select('mm_unit',$select4,NULL,0);
+
+			 $select3               = array("comp_id","comp_name");
 			 $product['compdtls']   = $this->SaleModel->f_select('mm_company_dtls',$select3,NULL,0);
 					
-			$select2         = array("ro_no","qty");
+			$select2                = array("ro_no","qty");
 
-			$product['rodtls']   = $this->SaleModel->f_select('td_purchase',$select2,NULL,0);
+			$product['rodtls']      = $this->SaleModel->f_select('td_purchase',$select2,NULL,0);
 
-			$where1  =   array(
-
-					'district'     => $this->session->userdata['loggedin']['branch_id']);
+			$where1                 =  array('district'     => $this->session->userdata['loggedin']['branch_id']);
 			
-			$select1          = array("soc_id","soc_name","soc_add","gstin");
-			$product['socdtls']   = $this->SaleModel->f_select('mm_ferti_soc',$select1,$where1,0);
+			$select1                = array("soc_id","soc_name","soc_add","gstin");
+			$product['socdtls']     = $this->SaleModel->f_select('mm_ferti_soc',$select1,$where1,0);
 
-			$select          = array("prod_id","prod_desc","gst_rt");
+			$select                = array("prod_id","prod_desc","gst_rt");
 			$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
             $product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("trans_do" => $this->input->get('trans_do')),0);
 

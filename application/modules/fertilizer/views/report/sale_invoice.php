@@ -100,29 +100,29 @@ tr:hover {background-color: #f5f5f5;}
               <strong><?php echo date("d-m-Y", strtotime( $data->do_dt));?></strong></td>
           </tr>
           <tr>
-            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
-            <td class="tax_border_bot_left" style="border-top: none;">Lorem Ipsum is simply dummy tex</td>
+            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Delivery Note</td>
+            <td class="tax_border_bot_left" style="border-top: none;">Mode/terms of payment</td>
           </tr>
           <tr>
-            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
-            <td class="tax_border_bot_left" style="border-top: none;">Lorem Ipsum is simply</td>
+            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Bayer's Order No</td>
+            <td class="tax_border_bot_left" style="border-top: none;">Dated</td>
           </tr>
           <tr>
-            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
-            <td class="tax_border_bot_left" style="border-top: none;">Lorem Ipsum is simply dummy tex</td>
+            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Despatched document No</td>
+            <td class="tax_border_bot_left" style="border-top: none;">Delivery Note Date</td>
           </tr>
           <tr>
+            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Despatch Through</td>
+            <td class="tax_border_bot_left" style="border-top: none;">Destination</td>
+          </tr>
+          <!-- <tr>
             <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
             <td class="tax_border_bot_left" style="border-top: none;">Lorem Ipsum is simply dummy tex</td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
             <td class="tax_border_bot_left" style="border-top: none;">Lorem Ipsum is simply dummy tex</td>
-          </tr>
-          <tr>
-            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Lorem Ipsum is simply</td>
-            <td class="tax_border_bot_left" style="border-top: none;">Lorem Ipsum is simply dummy tex</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
 		<p style="padding: 5px;">Terms Of Delivery</p>
@@ -317,7 +317,7 @@ tr:hover {background-color: #f5f5f5;}
             <td scope="col" class="col_13_10" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td style=" border: none !important;">Central Tax</td>
+                  <td style=" border: none !important;">State Tax</td>
                 </tr>
                 <tr>
                   <td style="padding: 0; margin: 0;  border-right: none !important;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -404,8 +404,8 @@ tr:hover {background-color: #f5f5f5;}
     </tr>
     <tr>
       <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;"><strong>Declaration:</strong><br>
-        Lorem Ipsum is simply dummy text of the printing and   typesetting industry. Lorem Ipsum has been the industry's standard dummy   text ever since the 1500s,</td>
-      <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;"><p style="padding: 0; margin: 0; float: right; text-align: right"><strong>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</strong></p></td>
+We declare that this invoice shows the actual price of goods described and particulars are true and correct,</td>
+      <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;"><p style="padding: 0; margin: 0; float: right; text-align: right"><strong>For The West Bengal State Co-operative Marketing Federation Ltd</strong></p></td>
     </tr>
     <tr>
       <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;">&nbsp;</td>
