@@ -109,25 +109,40 @@
                     </div>
 
                         <div class="form-group row">
+
+                        <label for="no_of_days"  class="col-sm-2 col-form-label">No Of Days:</label>
+                            <div class="col-sm-4">
+    
+                                <input type="text" style="width:100px" name="no_of_days" id="no_of_days" class="form-control" onchange="endDt()" required />
+                            </div>
+
                             <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
                             <div class="col-sm-4">
     
-                                <input type="date" style="width:350px" name="sale_due_dt" id="sale_due_dt" class="form-control" required />
+                                <input type="date" style="width:250px" name="sale_due_dt" id="sale_due_dt" class="form-control" required />
+                            </div>
                             </div>
 
+                            <div class="form-group row">
+                          
                             <label for="recv_amt"  class="col-sm-2 col-form-label">Recivable Amount:</label>
                             <div class="col-sm-4">
                             <span id="recv_amt" style="width:350px;color: #0d7d8ef5;font-weight: bold;font-size:20px;"></span>
                                 <!-- <input type="text" style="width:250px" name="recv_amt" id="recv_amt" class="form-control recv_amt" readonly /> -->
                             </div>
+                            <label for="gst_rt"  class="col-sm-2 col-form-label">Advance:</label>
+                      <div class="col-sm-4">
+                        <span id="advance" style="width:350px;color: #0d7d8ef5;font-weight: bold;font-size:20px;"></span>
+                     
+                      </div>
                         </div>
 
                         <div class="form-group row">
-                      <label for="gst_rt"  class="col-sm-2 col-form-label">Advance:</label>
+                      <!-- <label for="gst_rt"  class="col-sm-2 col-form-label">Advance:</label>
                       <div class="col-sm-4">
                         <span id="advance" style="width:350px;color: #0d7d8ef5;font-weight: bold;font-size:20px;"></span>
-                     <!--  <input type="text" name="advance"   class="form-control advance" value=""  readonly> -->
-                      </div>
+                     
+                      </div> -->
                       <!-- <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
                       <div class="col-sm-3">
                       <input type="text" name="units" class="form-control unit" value="" id="units" readonly="">
@@ -819,10 +834,11 @@ $(document).ready(function()
 
                             $('#ro').html(string);
                             // $('#comp_short').html( value.short_name);
-            //                 var parseData = JSON.parse(data);
+                           //var parseData = JSON.parse(data);
             
-            // var comp_short = parseData.short_name;
-            // $('#comp_short').html(comp_short);
+                         // var comp_short = parseData.short_name;
+                        // $('#comp_short').html(comp_short);
+
                           });
 
 
@@ -863,13 +879,11 @@ $(document).ready(function()
             });
             </script>
 
-            <script>
+            <!-- <script>
             $(document).ready(function(){
             $("#sale_due_dt").change(function(){
 
             var ro_dt = $('#sale_due_dt').val();
-
-
 
             var d = new Date();
 
@@ -890,4 +904,43 @@ $(document).ready(function()
             }
             })
             });
-            </script>
+            </script> -->
+
+    <script>
+		function endDt(){
+			var frmDt = document.getElementById("ro_dt").value;
+			var days  = document.getElementById("no_of_days").value;
+			var day;
+
+			var year;
+
+			days = (days - 1);
+			
+			toDt   = new Date(frmDt);
+
+			toDt.setDate(toDt.getDate() + days);
+
+			var dd = toDt.getDate();
+    		var mm = toDt.getMonth() + 1;
+    		var y  = toDt.getFullYear();
+
+    		if(dd <= 9){
+    			dd = '0' + dd;
+    		}else{
+    			dd = dd;
+    		}
+
+    		if(mm <= 9){
+    			mm = '0' + mm;
+    		}else{
+    			mm = mm;
+    		}
+
+			var format = y + '-' + mm + '-' + dd;
+
+			document.getElementById("sale_due_dt").value = format;
+			
+		}
+
+		
+</script>

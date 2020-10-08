@@ -163,20 +163,30 @@
 						/>
 
                 	</div>
-                
-				<label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
+					<label for="no_of_days" class="col-sm-1 col-form-label">No Of Days:</label>
+					<div class="col-sm-3">
+					<input type="text" style="width:80px" id=no_of_days name="no_of_days" class="form-control" value="<?php echo $stock->no_of_days; ?>" required />
+					</div>
+				<!-- <label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
                 
 					<div class="col-sm-3">
                 
 						<input type="date" style="width:150px"  name="due_dt" class="form-control required"  
                         	value = "<?php echo $stock->due_dt; ?>"  
 						/>
-                	</div>
+                	</div> -->
                 
 			</div>
 
             <div class="form-group row">
-
+			<label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
+                
+				<div class="col-sm-3">
+			
+					<input type="date" style="width:150px"  name="due_dt" class="form-control required"  
+						value = "<?php echo $stock->due_dt; ?>"  
+					/>
+				</div>
                 <label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
 
 					<div class="col-sm-3">
@@ -203,7 +213,20 @@
 						/>
 					</div>
 
-				<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
+				<!-- <label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
+
+					<div class="col-sm-3">
+
+						<input type="date" style="width:150px"   name="invoice_dt" class="form-control required"  
+							value = "<?php echo $stock->invoice_dt; ?>"   
+						/>
+
+					</div> -->
+                
+			</div>
+
+			<div class="form-group row">
+			<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
 
 					<div class="col-sm-3">
 
@@ -212,10 +235,6 @@
 						/>
 
 					</div>
-                
-			</div>
-
-			<div class="form-group row">
 
 				<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
 
@@ -226,11 +245,7 @@
 						/>
 
 					</div>
-			</div>
-
-			<div class="form-group row">
-
-				<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
+					<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
 
 					<div class="col-sm-3">
 
@@ -245,6 +260,25 @@
 							/>
 					
 					</div>
+			</div>
+
+			<div class="form-group row">
+
+				<!-- <label for="unit" class="col-sm-1 col-form-label">Unit:</label>
+
+					<div class="col-sm-3">
+
+							<input type="text" style="width:200px"  name="unit_name" class="form-control required"  
+									value = "<?php 
+													foreach($unit as $unitdtls){
+														if($unitdtls->id == $stock->unit){
+															echo $unitdtls->unit_name;
+														} 
+													}
+											?>" readonly 
+							/>
+					
+					</div> -->
 
 				<label for="no_of_bags" class="col-sm-1 col-form-label">No.of Storage Unit:</label>
 
@@ -256,7 +290,7 @@
 
 					</div>
 
- 				<label for="storage" class="col-sm-1 col-form-label">Storage Type:</label>
+ 				<!-- <label for="storage" class="col-sm-1 col-form-label">Storage Type:</label>
 
 					<div class="col-sm-3">
 
@@ -273,35 +307,42 @@
 												echo $strg; ?>"  readonly 
 						/>
 
- 					</div>
+ 					</div> -->
+					 
+					 <label for="trans_dt" class="col-sm-1 col-form-label">Purchase Date:</label>
+					<div class="col-sm-3">
+
+					<input type="date" style="width:150px" id="trans_dt" name="trans_dt" class="form-control" 
+					value = "<?php echo $stock->trans_dt; ?>"  />
+					</div> 
 					 
 			</div>
 
 
  
 <div class="form-group row">
-					<label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label>
+					<!-- <label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label>
 					<div class="col-sm-3">
 
 						<input type="text" style="width:180px" id="reck_pt_rt" name="reck_pt_rt" class="form-control" 
 						value = "<?php echo $stock->reck_pt_rt; ?>" />
 
-					</div>
-					<label for="reck_pt_n_rt" class="col-sm-1 col-form-label">Non Reck Pt Entry Rate:</label>
+					</div> -->
+					<!-- <label for="reck_pt_n_rt" class="col-sm-1 col-form-label">Non Reck Pt Entry Rate:</label>
 					<div class="col-sm-3">
 
 					<input type="text" style="width:150px" id="reck_pt_n_rt" name="reck_pt_n_rt" class="form-control" 
 					value = "<?php echo $stock->reck_pt_n_rt; ?>"  />
-					</div> 
+					</div>  -->
 
-					<label for="trans_dt" class="col-sm-1 col-form-label">Purchase Date:</label>
+					<!-- <label for="trans_dt" class="col-sm-1 col-form-label">Purchase Date:</label>
 					<div class="col-sm-3">
 
 					<input type="date" style="width:150px" id="trans_dt" name="trans_dt" class="form-control" 
 					value = "<?php echo $stock->trans_dt; ?>"  />
-					</div> 
+					</div>  -->
 				</div>
-
+<!-- 
 				<div class="form-group row">
 					<label for="iffco_buf_rt" class="col-sm-1 col-form-label">IFFCO Buffer Rate:</label>
 					<div class="col-sm-3">
@@ -317,7 +358,7 @@
 						value = "<?php echo $stock->iffco_n_buff_rt; ?>" />
 
 					</div>
-				</div>
+				</div> -->
 <div class="form-header">
                 
                 <h4>Price Details</h4>
@@ -1304,4 +1345,43 @@ $(document).ready(function(){
 
 
 });
+</script>
+
+<script>
+		function endDt(){
+			var frmDt = document.getElementById("ro_dt").value;
+			var days  = document.getElementById("no_of_days").value;
+			var day;
+
+			var year;
+
+			days = (days - 1);
+			
+			toDt   = new Date(frmDt);
+
+			toDt.setDate(toDt.getDate() + days);
+
+			var dd = toDt.getDate();
+    		var mm = toDt.getMonth() + 1;
+    		var y  = toDt.getFullYear();
+
+    		if(dd <= 9){
+    			dd = '0' + dd;
+    		}else{
+    			dd = dd;
+    		}
+
+    		if(mm <= 9){
+    			mm = '0' + mm;
+    		}else{
+    			mm = mm;
+    		}
+
+			var format = y + '-' + mm + '-' + dd;
+
+			document.getElementById("due_dt").value = format;
+			
+		}
+
+		
 </script>

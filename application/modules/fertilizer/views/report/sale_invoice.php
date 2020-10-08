@@ -176,7 +176,7 @@ tr:hover {background-color: #f5f5f5;}
 			          </table></td>
 			        </tr>
 			      </tbody>
-			    </table></td>
+			    </table></td>  
 			  <td scope="col" class="col_13_11">Total Amount</td>
 			  </tr>
         </thead>
@@ -239,7 +239,7 @@ tr:hover {background-color: #f5f5f5;}
             <td scope="row">&nbsp;</td>
             <td align="left" valign="top"><p><strong><u>Bill Details</u></strong></p>
               <p>                New Ref
-                JHGJJUI &nbsp;&nbsp;&nbsp;&nbsp;3500.55 Dr</p></td>
+                JHGJJUI &nbsp;&nbsp;&nbsp;&nbsp;<?php echo  $sum_data->to_amt_rnd;?> Dr</p></td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
@@ -252,16 +252,16 @@ tr:hover {background-color: #f5f5f5;}
             <td scope="row">&nbsp;</td>
             <td align="left" valign="top" style="text-align: right;"><strong style="text-align: right;">Total</strong></td>
             <td align="left" valign="top">&nbsp;</td>
-            <td align="left" valign="top">0.52145Mt.</td>
+            <td align="left" valign="top"><?php echo  $sum_data->qty;?>Mt.</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
-            <td align="left" valign="top"><strong>Rs.3.521</strong></td>
-            <td align="left" valign="top">2.5200</td>
+            <td align="left" valign="top"><strong><?php echo  $sum_data->tot_amt;?></strong></td>
+            <td align="left" valign="top"><?php echo  $sum_data->taxable_amt;?></td>
             <td align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
                   <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">&nbsp;</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">243.25</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->cgst;?></td>
                 </tr>
               </tbody>
             </table></td>
@@ -269,7 +269,7 @@ tr:hover {background-color: #f5f5f5;}
               <tbody>
                 <tr>
                   <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">&nbsp;</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">243.25</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->sgst;?></td>
                 </tr>
               </tbody>
             </table></td>
@@ -336,12 +336,12 @@ tr:hover {background-color: #f5f5f5;}
         </thead>
         <tbody>
           <tr>
-            <td align="left" valign="top">27852</td>
+            <td align="left" valign="top"><?php echo  $sum_data->taxable_amt;?></td>
             <td rowspan="2" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">9%</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">243.25</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">5%</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->cgst;?></td>
                 </tr>
                 <tr>
                   <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">&nbsp;</td>
@@ -352,8 +352,8 @@ tr:hover {background-color: #f5f5f5;}
             <td rowspan="2" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">9%</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">255.35</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">5%</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->sgst;?></td>
                 </tr>
                 <tr>
                   <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">&nbsp;</td>
@@ -361,19 +361,19 @@ tr:hover {background-color: #f5f5f5;}
                 </tr>
               </tbody>
             </table></td>
-            <td align="left" valign="top">31254.79</td>
+            <td align="left" valign="top"><?php echo  $sum_data->tot_amt;?></td>
           </tr>
           <tr>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
           </tr>
           <tr>
-            <td align="left" valign="top">2.5200</td>
+            <td align="left" valign="top"><?php echo  $sum_data->taxable_amt;?></td>
             <td align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
                   <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">&nbsp;</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">243.25</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->cgst;?></td>
                   </tr>
                 </tbody>
               </table></td>
@@ -381,7 +381,7 @@ tr:hover {background-color: #f5f5f5;}
               <tbody>
                 <tr>
                   <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">&nbsp;</td>
-                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;">243.25</td>
+                  <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->sgst;?></td>
                   </tr>
                 </tbody>
               </table></td>

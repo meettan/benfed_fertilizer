@@ -164,23 +164,31 @@
 					<div class="col-sm-3">
 					<input type="date" style="width:150px" id=ro_dt name="ro_dt" class="form-control" required />
 					</div>
+					<label for="no_of_days" class="col-sm-1 col-form-label">No Of Days:</label>
+					<div class="col-sm-3">
+					<input type="text" style="width:80px" id=no_of_days name="no_of_days" class="form-control" onchange="endDt()" required />
+					</div>
+					<!-- <label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
+					<div class="col-sm-3">
+					<input type="date" style="width:150px" id=due_dt name="due_dt" class="form-control" required />
+					</div> -->
+					</div>
 
+					<div class="form-group row">
 					<label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
 					<div class="col-sm-3">
 					<input type="date" style="width:150px" id=due_dt name="due_dt" class="form-control" required />
 					</div>
-					</div>
-
-					<div class="form-group row">
-
 					<label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
 					<div class="col-sm-3">
 					<select class="form-control" id="delivery_mode" name="delivery_mode" style="width:180px" required>
 						
 						<option value="">Select</option>
-						<option value="1">EX GODOWN/RAIL BUFFER</option>
-						<option value="2">EX GODOWN/RAIL NON BUFFER</option>
-						<option value="3">FOR-FOL</option>
+						<option value="1">EX GODOWN</option>
+						<option value="2">EX RAIL </option>
+						<option value="3">BUFFER </option>
+						<option value="4">NON BUFFER</option>
+						<option value="5">FOR-FOL</option>
 						
 					</select>
 					</div>
@@ -190,15 +198,20 @@
 					<input type="text" style="width:150px" id=invoice_no name="invoice_no" class="form-control" required />
 					</div>
 
-					<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Dt:</label>
+					<!-- <label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Dt:</label>
 					<div class="col-sm-3">
 
 					<input type="date" style="width:150px" id=invoice_dt name="invoice_dt" class="form-control" required />
-					</div> 
+					</div>  -->
 					</div>
 				
 			
 				<div class="form-group row">
+				<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Dt:</label>
+					<div class="col-sm-3">
+
+					<input type="date" style="width:150px" id=invoice_dt name="invoice_dt" class="form-control" required />
+					</div> 
 				<label for="unit" class="col-sm-1 col-form-label">Unit:</label>
 		<div class="col-sm-3">
 
@@ -232,12 +245,12 @@
 
 					<!-- <div class="form-group row"> -->
 	
-					<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
+					<!-- <label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
 					<div class="col-sm-3">
 
 					<input type="number" style="width:150px" id=no_of_bags name="no_of_bags" class="form-control" value="0"  required readonly />
 					</div> 
-					
+					 -->
 					</div> 
 					
 					<!-- <div class="form-group row"> -->
@@ -257,17 +270,23 @@
 				</div> -->
 
 				<div class="form-group row">
-					<label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label>
+				<label for="no_of_bags" class="col-sm-1 col-form-label">No Of Bags/Bucket:</label>
 					<div class="col-sm-3">
 
-						<input type="text" style="width:180px" id=reck_pt_rt name="reck_pt_rt" class="form-control" value="0"  />
-
-					</div>
-					<label for="reck_pt_n_rt" class="col-sm-1 col-form-label">Non Reck Pt Entry Rate:</label>
-					<div class="col-sm-3">
-
-					<input type="text" style="width:150px" id=reck_pt_n_rt name="reck_pt_n_rt" class="form-control" value="0"  />
+					<input type="number" style="width:150px" id=no_of_bags name="no_of_bags" class="form-control" value="0"  required readonly />
 					</div> 
+					
+					<!-- <label for="reck_pt_rt" class="col-sm-1 col-form-label">Reck Pt Entry Rate:</label> -->
+					<!-- <div class="col-sm-3"> -->
+
+						<input type="hidden" style="width:180px" id=reck_pt_rt name="reck_pt_rt" class="form-control" value="0"  />
+
+					<!-- </div> -->
+					<!-- <label for="reck_pt_n_rt" class="col-sm-1 col-form-label">Non Reck Pt Entry Rate:</label> -->
+					<!-- <div class="col-sm-3"> -->
+
+					<input type="hidden" style="width:150px" id=reck_pt_n_rt name="reck_pt_n_rt" class="form-control" value="0"  />
+					<!-- </div>  -->
 					<label for="trans_dt" class="col-sm-1 col-form-label">*Purchase Date:</label>
 					<div class="col-sm-3">
 
@@ -283,20 +302,20 @@
 					</div>
 				</div> -->
 				
-				<div class="form-group row">
-					<label for="iffco_buf_rt" class="col-sm-1 col-form-label">IFFCO Buffer Rate:</label>
+				<!-- <div class="form-group row"> -->
+					<!-- <label for="iffco_buf_rt" class="col-sm-1 col-form-label">IFFCO Buffer Rate:</label> -->
 					<div class="col-sm-3">
 
-						<input type="text" style="width:180px" id=iffco_buf_rt name="iffco_buf_rt" class="form-control" value="0"  />
+						<input type="hidden" style="width:180px" id=iffco_buf_rt name="iffco_buf_rt" class="form-control" value="0"  />
 
 					</div>
-					<label for="iffco_n_buff_rt" class="col-sm-1 col-form-label">IFFCO Non Buffer Rate:</label>
+					<!-- <label for="iffco_n_buff_rt" class="col-sm-1 col-form-label">IFFCO Non Buffer Rate:</label> -->
 					<div class="col-sm-3">
 
-						<input type="text" style="width:150px" id=iffco_n_buff_rt name="iffco_n_buff_rt" class="form-control" value="0"  />
+						<input type="hidden" style="width:150px" id=iffco_n_buff_rt name="iffco_n_buff_rt" class="form-control" value="0"  />
 
 					</div>
-				</div>
+				<!-- </div> -->
 				<div class="form-header">
 					
 					<h4>Price Details</h4>
@@ -321,7 +340,7 @@
 						<label for="net_amt" class="col-sm-1 col-form-label">Taxable Amt:</label>
 						<div class="col-sm-3">
 	
-							<input type="text" style="width:150px" id=net_amt name="net_amt" class="form-control" readonly  />
+							<input type="text" style="width:150px" id=net_amt name="net_amt" class="form-control"   />
 						   
 						</div>
 						</div>
@@ -365,13 +384,13 @@
 					<label for="cgst" class="col-sm-1 col-form-label">CGST:</label>
 						<div class="col-sm-3">
 	
-						<input type="text" style="width:150px" id=cgst name="cgst" class="form-control" value="0"  readonly  />
+						<input type="text" style="width:150px" id=cgst name="cgst" class="form-control" value="0"    />
 						</div> 
 	
 						<label for="sgst" class="col-sm-1 col-form-label">SGST:</label>
 						<div class="col-sm-3">
 	
-							<input type="text" style="width:150px" id=sgst name="sgst" class="form-control"  value="0" readonly  />
+							<input type="text" style="width:150px" id=sgst name="sgst" class="form-control"  value="0"   />
 						   
 						</div>
 						
@@ -404,7 +423,7 @@
 						<label for="tot_amt" class="col-sm-1 col-form-label">Total Amt:</label>
 						<div class="col-sm-2">
 	
-							<input type="text" style="width:150px" id=tot_amt name="tot_amt" class="form-control" readonly />
+							<input type="text" style="width:150px" id=tot_amt name="tot_amt" class="form-control"  />
 						   
 						</div>
 						</div>
@@ -1054,7 +1073,7 @@ $(document).ready(function(){
 				base_price =tot_qty * $('#rate').val() 
 				base_price=parseFloat(base_price).toFixed(2)
 				retlr_margin = $('#retlr_margin').val() 
-				spl_rebt  = $('#spl_rebt').val() 
+				spl_rebt  = $('#spl_rebt').val()   
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
 				rbt_add  = $('#less_amt').val() 
@@ -1435,4 +1454,50 @@ function myFunction() {
 	$('#submit').attr('type', 'submit');
 	}
 }
+</script>
+
+
+<!-- <script>
+var d = new Date();
+d.setDate(d.getDate() + 50);
+document.getElementById("demo").innerHTML = d;
+</script> -->
+
+<script>
+		function endDt(){
+			var frmDt = document.getElementById("ro_dt").value;
+			var days  = document.getElementById("no_of_days").value;
+			var day;
+
+			var year;
+
+			days = (days - 1);
+			
+			toDt   = new Date(frmDt);
+
+			toDt.setDate(toDt.getDate() + days);
+
+			var dd = toDt.getDate();
+    		var mm = toDt.getMonth() + 1;
+    		var y  = toDt.getFullYear();
+
+    		if(dd <= 9){
+    			dd = '0' + dd;
+    		}else{
+    			dd = dd;
+    		}
+
+    		if(mm <= 9){
+    			mm = '0' + mm;
+    		}else{
+    			mm = mm;
+    		}
+
+			var format = y + '-' + mm + '-' + dd;
+
+			document.getElementById("due_dt").value = format;
+			
+		}
+
+		
 </script>

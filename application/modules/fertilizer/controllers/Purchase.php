@@ -1089,6 +1089,8 @@ public function stockAdd(){
 			
 			$trans_dt      = $this->input->post('trans_dt');
 
+			$no_of_days    = $this->input->post('no_of_days');
+
 			$due_dt        = $this->input->post('due_dt');
 
 			$invoice_no    = $this->input->post('invoice_no');
@@ -1158,6 +1160,8 @@ public function stockAdd(){
 
 					"ro_dt"        => $ro_dt,
 
+					"no_of_days"   => $no_of_days,
+					
 					"due_dt"        => $due_dt,
 
 					"invoice_no"    => $invoice_no,

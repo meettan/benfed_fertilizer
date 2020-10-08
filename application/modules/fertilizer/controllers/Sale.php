@@ -129,6 +129,8 @@
 // echo $trans_do;
 // die();
 			$sale_rep['data'] = $this->SaleModel->f_get_receiptReport_dtls($trans_do);
+
+			$sale_rep['sum_data'] = $this->SaleModel->f_get_saleinv_tot($trans_do);
 			// echo $this->db->last_query();
 			// die();
 			$sale_rep['trans_do'] = $trans_do;
@@ -206,7 +208,9 @@ public function saleAdd(){   //================================================
 									 
                                     'do_dt'        => $this->input->post('ro_dt'),
 
-                                    'sale_due_dt'  => $this->input->post('sale_due_dt'),
+									'sale_due_dt'  => $this->input->post('sale_due_dt'),
+									
+									'no_of_days'   => $this->input->post('no_of_days'),
 
                                     'trans_type'   => $this->input->post('trans_type'),
 
@@ -216,7 +220,7 @@ public function saleAdd(){   //================================================
 
 									'sale_ro'      => $_POST['ro'][$i],
 
-									'unit'      => $_POST['unit'][$i],
+									'unit'         => $_POST['unit'][$i],
 
 									'prod_id'      => $_POST['prod_id'][$i],
 									

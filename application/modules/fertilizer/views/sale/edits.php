@@ -95,6 +95,11 @@
                         </div>
 
                           <div class="form-group row">
+                          <label for="no_of_days"  class="col-sm-2 col-form-label">No Of Days:</label>
+                            <div class="col-sm-4">
+    
+                                <input type="text" style="width:100px" name="no_of_days" id="no_of_days" class="form-control" value="<?=$prodd->no_of_days?>"  onchange="endDt()" required />
+                            </div>
                             <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
                             <div class="col-sm-4">
     
@@ -674,6 +679,43 @@ txtBox.focus();
                       
             })
 
-        
+</script>
 
+<script>
+		function endDt(){
+			var frmDt = document.getElementById("ro_dt").value;
+			var days  = document.getElementById("no_of_days").value;
+			var day;
+
+			var year;
+
+			days = (days - 1);
+			
+			toDt   = new Date(frmDt);
+
+			toDt.setDate(toDt.getDate() + days);
+
+			var dd = toDt.getDate();
+    		var mm = toDt.getMonth() + 1;
+    		var y  = toDt.getFullYear();
+
+    		if(dd <= 9){
+    			dd = '0' + dd;
+    		}else{
+    			dd = dd;
+    		}
+
+    		if(mm <= 9){
+    			mm = '0' + mm;
+    		}else{
+    			mm = mm;
+    		}
+
+			var format = y + '-' + mm + '-' + dd;
+
+			document.getElementById("sale_due_dt").value = format;
+			
+		}
+
+		
 </script>

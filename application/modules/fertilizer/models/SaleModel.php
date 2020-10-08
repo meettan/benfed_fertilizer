@@ -48,6 +48,20 @@
 		  return $sql->row();
 	
 		}
+
+
+		public function f_get_saleinv_tot($trans_do)
+		{
+	
+		  $sql = $this->db->query("SELECT a.trans_do ,sum(a.qty)as qty,sum(a.base_price) as base_price,
+		  sum(a.taxable_amt)as taxable_amt,sum(a.cgst)as cgst,sum(a.sgst)as sgst,
+		  sum(a.dis)as dis,sum(a.tot_amt)as tot_amt,sum(a.paid_amt) as paid_amt,ROUND(sum(a.tot_amt))as to_amt_rnd
+		  from td_sale a 
+		  where  a.trans_do='$trans_do'");
+											
+		  return $sql->row();
+	
+		}
    
 		public function get_trans_no($fin_id,$branch_id){
 
