@@ -175,11 +175,12 @@
 
                                     <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
                                     <a href="<?php echo site_url("fert/rep/stkStmt");?>">Consolidated Stock</a>
+                                    <a href="<?php echo site_url("fert/rep/stkScomp");?>">Stock (Companywise)</a>
                                     <a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Record</a>
                                     <a href="<?php echo site_url("fert/rep/salerep");?>">Sale Record</a>
                                         <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
                                         <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a> -->
-                                        <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a>
+                                    <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a>
                                         <!-- <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a> -->
                                         <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a> -->
                                 <?php } ?>

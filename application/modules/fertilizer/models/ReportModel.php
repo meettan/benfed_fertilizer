@@ -41,6 +41,22 @@
             return $query->result();
         }
 
+        public function f_get_product_list_companywise($branch,$frmDt,$comp_id){
+           
+
+            $query  = $this->db->query("select Distinct a.prod_id,a.ro_no,b.PROD_DESC,a.comp_id,a.unit,
+                                        c.COMP_NAME,c.short_name
+                                from   td_purchase a,mm_product b,mm_company_dtls c
+                                where  a.prod_id = b.PROD_ID
+                                and    a.comp_id = c.COMP_ID
+                                and    a.comp_id = '$comp_id'
+                                and    a.trans_dt >= '$frmDt'
+                                and     a.br       = $branch
+                                order by a.comp_id,a.prod_id");
+
+            return $query->result();
+        }
+
         public function f_get_balance($branch,$frmDt,$toDt){
 
             $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - tot_sale),0) as opn_qty,0 tot_pur,0 tot_sale

@@ -131,21 +131,20 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr class="rep">
                                     <td class="report"><?php echo $i++; ?></td>
-                                    <td class="report"><?php echo $purc->short_name; ?></td>
-                                    <td class="report"><?php echo $purc->PROD_DESC; ?></td>
-                                    <td class="report"><?php echo $purc->soc_id; ?></td>
-                                    <td class="report"><?php echo $purc->trans_do; ?></td>
-                                    <td class="report"><?php echo $purc->do_dt; ?></td>
-                                    <td class="report"><?php echo $purc->trans_type; ?></td>
-                                    <td class="report"><?php echo $purc->sale_ro; ?></td>
-                                    <td class="report"><?php echo $purc->qty; ?></td>
-                                    <td class="report"><?php echo $purc->sale_rt; ?></td>
-                                    <td class="report"><?php echo $purc->taxable_amt; ?></td>
-                                    <td class="report"><?php echo $purc->cgst; ?></td>
-                                    <td class="report"><?php echo $purc->sgst; ?></td>
-                                    <td class="report"><?php echo $purc->dis; ?></td>
-                                    <td class="report"><?php echo $purc->tot_amt; ?></td>
-                                   
+                                    <td class="report"><?php echo $sal->short_name; ?></td>
+                                    <td class="report"><?php echo $sal->PROD_DESC; ?></td>
+                                    <td class="report"><?php echo $sal->soc_id; ?></td>
+                                    <td class="report"><?php echo $sal->trans_do; ?></td>
+                                    <td class="report"><?php echo date("d/m/y",strtotime($sal->do_dt)); ?></td>
+                                    <td class="report"><?php echo $sal->trans_type; ?></td>
+                                    <td class="report"><?php echo $sal->sale_ro; ?></td>
+                                    <td class="report"><?php echo $sal->qty; ?></td>
+                                    <td class="report"><?php echo $sal->sale_rt; ?></td>
+                                    <td class="report"><?php echo $sal->taxable_amt; ?></td>
+                                    <td class="report"><?php echo $sal->cgst; ?></td>
+                                    <td class="report"><?php echo $sal->sgst; ?></td>
+                                    <td class="report"><?php echo $sal->dis; ?></td>
+                                    <td class="report"><?php echo $sal->tot_amt; ?></td>
                                    
                                 </tr>
  
