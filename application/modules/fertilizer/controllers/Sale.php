@@ -597,11 +597,29 @@ public function f_get_sale_ro(){
 			   
 			$ro   = $this->SaleModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
 			
-			// echo $this->db->last_query();
-			// die();
+			
 			echo json_encode($ro);
 
-	        }
+}
+
+public function f_get_prodsale_ro(){
+	
+        $select = array("a.ro_no ","b.short_name" );
+       		
+		$where      =   array(
+
+		"a.comp_id = b.comp_id"  => NULL,
+		"a.comp_id"              =>  $this->input->get('company'),
+		"a.prod_id"              =>  $this->input->get('prod_id')
+
+        );
+		   
+		$ro   = $this->SaleModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
+		
+		
+		echo json_encode($ro);
+
+}
 
 public function deletero() {
 

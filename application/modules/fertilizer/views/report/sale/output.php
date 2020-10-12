@@ -94,9 +94,9 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Do dt</th>
 
-                                <th>Trans type</th>
+                               <!--  <th>Trans type</th> -->
 
-                                <th>Purchase ro</th>
+                               <!--  <th>Purchase ro</th> -->
 
                                 <th>Qty</th>
 
@@ -133,11 +133,11 @@ tr:hover {background-color: #f5f5f5;}
                                     <td class="report"><?php echo $i++; ?></td>
                                     <td class="report"><?php echo $sal->short_name; ?></td>
                                     <td class="report"><?php echo $sal->PROD_DESC; ?></td>
-                                    <td class="report"><?php echo $sal->soc_id; ?></td>
+                                    <td class="report"><?php echo get_fersociety_name($sal->soc_id);?></td>
                                     <td class="report"><?php echo $sal->trans_do; ?></td>
                                     <td class="report"><?php echo date("d/m/y",strtotime($sal->do_dt)); ?></td>
-                                    <td class="report"><?php echo $sal->trans_type; ?></td>
-                                    <td class="report"><?php echo $sal->sale_ro; ?></td>
+                                    <!-- <td class="report"><?php //echo $sal->trans_type; ?></td> -->
+                                   <!--  <td class="report"><?php //echo $sal->sale_ro; ?></td> -->
                                     <td class="report"><?php echo $sal->qty; ?></td>
                                     <td class="report"><?php echo $sal->sale_rt; ?></td>
                                     <td class="report"><?php echo $sal->taxable_amt; ?></td>

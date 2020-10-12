@@ -70,11 +70,12 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Purchase Statement Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
+                        <h5 style="text-align:left"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></h5>
 
                     </div>
-                    <br>  
+                  
 
                     <table style="width: 100%;" id="example">
 
@@ -84,35 +85,21 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
 
-                                <th>Company</th>
+                              <!--   <th>Company</th> -->
 
                                 <th>Product</th>
 
-                                <th>Ro No</th>
-
-                                <th>Ro Dt</th>
-
-                               <!--  <th>Invoice no</th> -->
-
-                                <!-- <th>Invoice Dt</th> -->
-
-                                <th>Qty</th>
+                                <th>Ro</th>
 
                                 <th>Unit</th>
 
-                                <th>Stock Qty</th>
+                                <th>Opening</th>
 
-                                <th>Rate</th>
+                                <th>Purchase during the period</th>
 
-                                <th>Base Price</th>
+                                <th>Sale during the period</th>
 
-                                <th>Cgst</th>
-
-                                <th>Sgst</th>
-
-                                <th>Total amt</th>
-
-                                <th>No of Bag</th>
+                                <th>Closing</th>
 
                             </tr>
 
@@ -122,50 +109,74 @@ tr:hover {background-color: #f5f5f5;}
 
                             <?php
 
-                                if($purchase){ 
+                                if($product){ 
 
                                     $i = 1;
                                     $total = 0.00;
                                     $val =0;
 
-                                        foreach($purchase as $purc){
+                                        foreach($product as $prodtls){
                             ?>
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                     <td class="report"><?php echo $purc->short_name; ?></td>
-                                     <td class="report"><?php echo $purc->PROD_DESC; ?></td>
-                                     <td class="report"><?php echo $purc->ro_no; ?></td>
-                                     <td class="report"><?php echo date("d/m/y",strtotime($purc->ro_dt)); ?></td>
-                                     <!-- <td class="report"><?php //echo $purc->invoice_no; ?></td> -->
-                                     <!-- <td class="report"><?php //echo date("d/m/y",strtotime($purc->invoice_dt)); ?></td> -->
-                                     <td class="report"><?php echo $purc->qty; ?></td>
-                                     <td class="report"><?php if($purc->unit==3){
+                                 <!--     <td class="report"><?php //echo $prodtls->short_name; ?> -->
+                                     <td class="report"><?php echo $prodtls->PROD_DESC; ?>
+                                     <td class="report"><?php echo $prodtls->ro_no; ?>
+                                     <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
-                                                }else if ($purc->unit==5){
+                                                }else if ($prodtls->unit==5){
                                                   echo "ML"; 
-                                                }else if ($purc->unit==1){
+                                                }else if ($prodtls->unit==1){
                                                     echo "MT";
-                                                }else if ($purc->unit==2){ 
+                                                }else if ($prodtls->unit==2){ 
                                                     echo "Kg";
-                                                }else if ($purc->unit==4){ 
+                                                }else if ($prodtls->unit==4){ 
                                                     echo "Quintal";
-                                                }else if ($purc->unit==6){
+                                                }else if ($prodtls->unit==6){
                                                     echo "Gm";
-                                                }else if ($purc->unit==7){
+                                                }else if ($prodtls->unit==7){
                                                     echo "Pc";
                                                 }
                                         ?>
                                      </td>
-                                    
-                                    
-                                     <td class="report"><?php echo $purc->stock_qty; ?></td>
-                                     <td class="report"><?php echo $purc->rate; ?></td>
-                                     <td class="report"><?php echo $purc->base_price; ?></td>
-                                     <td class="report"><?php echo $purc->cgst; ?></td>
-                                     <td class="report"><?php echo $purc->sgst; ?></td>
-                                     <td class="report"><?php echo $purc->tot_amt; ?></td>
-                                     <td class="report"><?php echo $purc->no_of_bags; ?></td>
+                                     <td class="report opening" id="opening">
+                                        <?php 
+                                            foreach($opening as $opndtls){
+                                                if($prodtls->prod_id==$opndtls->prod_id){
+                                                    echo $opndtls->opn_qty;
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+                                     <td class="report purchase" id="purchase">
+                                        <?php 
+                                            foreach($purchase as $purdtls){
+                                                if($prodtls->prod_id==$purdtls->prod_id){
+                                                    echo $purdtls->tot_pur;
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+                                     <td class="report sale" id="sale">
+                                        <?php 
+                                            foreach($sale as $saledtls){
+                                                if($prodtls->prod_id==$saledtls->prod_id){
+                                                    echo $saledtls->tot_sale;
+                                                }
+                                            }
+                                        ?>
+                                     </td>
+
+                                     <td class="report closing" id="closing">
+                                        <?php 
+                                            foreach($closing as $clsdtls){
+                                                if($prodtls->prod_id==$clsdtls->prod_id){
+                                                    echo $clsdtls->opn_qty;               
+                                                }
+                                            }
+                                        ?>
+                                     </td>
                                    
                                 </tr>
  
@@ -179,7 +190,7 @@ tr:hover {background-color: #f5f5f5;}
                                        }
                                 else{
 
-                                    echo "<tr><td colspan='16' style='text-align:center;'>No Data Found</td></tr>";
+                                    echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
 
                                 }   
 
