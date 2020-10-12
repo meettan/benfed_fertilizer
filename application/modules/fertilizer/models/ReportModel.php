@@ -84,6 +84,8 @@
             return $query->result();
         }
 
+
+
         public function f_get_sale($branch,$frmDt,$toDt){
             $query  = $this->db->query("select prod_id, ifnull(sum(qty),0)tot_sale
                                         from td_sale
@@ -93,5 +95,34 @@
 
             return $query->result();
         }
+
+        public function f_get_purchaserep($branch,$frmDt,$toDt){
+            $query  = $this->db->query("select a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,
+                                               a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,c.short_name,b.PROD_DESC
+
+                                        from td_purchase a,mm_product b,mm_company_dtls c
+                                        where  a.prod_id = b.PROD_ID
+                                        and    a.comp_id = c.COMP_ID
+                                        and    a.br        = '$branch'
+                                        and    a.trans_dt between '$frmDt' and '$toDt'
+                                        and    a.trans_flag = 1");
+
+            return $query->result();
+        }
+
+         public function f_get_sales($branch,$frmDt,$toDt){
+            $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,
+                                               a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
+
+                                        from td_sale a,mm_product b,mm_company_dtls c
+                                        where  a.prod_id = b.PROD_ID
+                                        and    a.comp_id = c.COMP_ID
+                                       
+                                        and    a.br_cd   = '$branch'
+                                        and    a.do_dt between '$frmDt' and '$toDt'");
+
+            return $query->result();
+        }
+
     }
 ?>

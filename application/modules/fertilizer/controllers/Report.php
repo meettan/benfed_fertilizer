@@ -130,6 +130,103 @@
             }
 
         }
+
+
+        public function purrep(){
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $from_dt    =   $_POST['from_date'];
+
+                $to_dt      =   $_POST['to_date'];
+
+                $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+                $mth        =  date('n',strtotime($from_dt));
+
+                $yr         =  date('Y',strtotime($from_dt));
+
+                if($mth > 3){
+
+                    $year = $yr;
+
+                }else{
+
+                    $year = $yr - 1;
+                }
+
+                $opndt      =  date($year.'-04-01');
+
+                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                
+                $data['purchase']    =   $this->ReportModel->f_get_purchaserep($branch,$from_dt,$to_dt);
+
+                $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+
+                $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/purchase/pur_stmt',$data);
+                $this->load->view('post_login/footer');
+
+            }else{
+
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/purchase/pur_stmt_ip');
+                $this->load->view('post_login/footer');
+            }
+
+        }
+
+        public function salerep(){
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $from_dt    =   $_POST['from_date'];
+
+                $to_dt      =   $_POST['to_date'];
+
+                $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+                $mth        =  date('n',strtotime($from_dt));
+
+                $yr         =  date('Y',strtotime($from_dt));
+
+                if($mth > 3){
+
+                    $year = $yr;
+
+                }else{
+
+                    $year = $yr - 1;
+                }
+
+                $opndt      =  date($year.'-04-01');
+
+                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                
+                $data['sales']    =   $this->ReportModel->f_get_sales($branch,$from_dt,$to_dt);
+
+                $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+
+                $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/sale/output',$data);
+                $this->load->view('post_login/footer');
+
+            }else{
+
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/sale/input');
+                $this->load->view('post_login/footer');
+            }
+
+        }
         
     }
 ?>
