@@ -143,7 +143,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report opening" id="opening">
                                         <?php 
                                             foreach($opening as $opndtls){
-                                                if($prodtls->prod_id==$opndtls->prod_id){
+                                                if($prodtls->ro_no==$opndtls->ro_no){
                                                     echo $opndtls->opn_qty;
                                                 }
                                             }
@@ -152,7 +152,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report purchase" id="purchase">
                                         <?php 
                                             foreach($purchase as $purdtls){
-                                                if($prodtls->prod_id==$purdtls->prod_id){
+                                                if($prodtls->ro_no==$purdtls->ro_no){
                                                     echo $purdtls->tot_pur;
                                                 }
                                             }
@@ -161,7 +161,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report sale" id="sale">
                                         <?php 
                                             foreach($sale as $saledtls){
-                                                if($prodtls->prod_id==$saledtls->prod_id){
+                                                if($prodtls->ro_no==$saledtls->sale_ro){
                                                     echo $saledtls->tot_sale;
                                                 }
                                             }
@@ -171,7 +171,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report closing" id="closing">
                                         <?php 
                                             foreach($closing as $clsdtls){
-                                                if($prodtls->prod_id==$clsdtls->prod_id){
+                                                if($prodtls->ro_no==$clsdtls->ro_no){
                                                     echo $clsdtls->opn_qty;               
                                                 }
                                             }
