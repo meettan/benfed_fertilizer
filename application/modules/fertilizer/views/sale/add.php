@@ -24,7 +24,7 @@
 						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
 						<div class="col-sm-4">
 	
-							<select name="soc_id" style="width:350px" class="form-control required" id="soc_id" required>
+							<select name="soc_id" style="width:350px" class="form-control sch_cd required" id="soc_id" required>
 	
 	                            <option value="">Select</option>
 	

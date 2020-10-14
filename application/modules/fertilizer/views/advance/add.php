@@ -14,7 +14,7 @@
 				<label for="society" class="col-sm-2 col-form-label">Society:</label>
 				<div class="col-sm-4">
 
-					<select name="society" class="form-control required" id="society" required>
+					<select name="society" class="form-control sch_cd required" id="society" required>
 
 						<option value="">Select Society</option>
 
@@ -76,7 +76,7 @@
 				<label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
 				<div class="col-sm-10">
 
-                    <textarea id=remarks name="remarks" class="form-control"  ></textarea>
+                    <textarea id=remarks name="remarks" class="form-control"></textarea>
                 </div>
             </div>
 
@@ -93,3 +93,9 @@
 	</div>	
 
 </div>
+
+<script>
+	
+	 $(".sch_cd").select2();
+
+</script>

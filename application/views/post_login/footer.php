@@ -1,3 +1,8 @@
+<script>
+	
+	 $(".sch_cd").select2();   // Code For Select Write Option
+</script>
+
         </section>
 
         <footer class="sticky-footer" style="background-color: #a0a7ac; text-align: center;">

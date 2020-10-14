@@ -15,7 +15,7 @@
                       <label for="ro_no" class="col-sm-2 col-form-label">Society:</label>
 						<div class="col-sm-4">
 
-                           <select name="soc_id" id="soc_id" class="form-control soc_id" required>
+                           <select name="soc_id" id="soc_id" class="form-control sch_cd soc_id" required>
                               <option value="">Select Society</option>
                             <?php
                             foreach($socdtls as $key1)
@@ -65,7 +65,7 @@
 
  <div class="col-sm-4">
 
-      <select name="ro_no" id="ro_no" class="form-control ro_no" required>
+      <select name="ro_no" id="ro_no" class="form-control sch_cd ro_no" required>
         <option value="">Select Ro</option>
       <!-- <?php
           foreach($compdtls as $row)
@@ -154,6 +154,9 @@
 </div>
 
 <script>
+
+
+
 $(document).ready(function(){
 
 var i = 0;

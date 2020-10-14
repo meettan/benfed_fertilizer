@@ -57,28 +57,28 @@
             return $query->result();
         }
 
-<<<<<<< HEAD
-         public function f_get_product_comp_prod_ro($branch,$frmDt,$comp_id,$prod_id,$ro){
+
+        //  public function f_get_product_comp_prod_ro($branch,$frmDt,$comp_id,$prod_id,$ro){
            
 
-            $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,d.do_dt,d.trans_do,
-                                        c.COMP_NAME,c.short_name
-                                from   td_purchase a,mm_product b,mm_company_dtls c,td_sale d
-                                where  a.prod_id = b.PROD_ID
-                                and    a.comp_id = c.COMP_ID
-                                and    a.ro_no   = d.sale_ro
-                                and    a.comp_id = '$comp_id'
-                                and    a.prod_id = '$prod_id'
-                                and    d.sale_ro   = '$ro'
-                                and    d.sale_due_dt >= '$frmDt'
-                                and    a.br       = $branch
-                                order by a.comp_id");
+        //     $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,d.do_dt,d.trans_do,
+        //                                 c.COMP_NAME,c.short_name
+        //                         from   td_purchase a,mm_product b,mm_company_dtls c,td_sale d
+        //                         where  a.prod_id = b.PROD_ID
+        //                         and    a.comp_id = c.COMP_ID
+        //                         and    a.ro_no   = d.sale_ro
+        //                         and    a.comp_id = '$comp_id'
+        //                         and    a.prod_id = '$prod_id'
+        //                         and    d.sale_ro   = '$ro'
+        //                         and    d.sale_due_dt >= '$frmDt'
+        //                         and    a.br       = $branch
+        //                         order by a.comp_id");
 
-            return $query->result();
+        //     return $query->result();
+        // }
 
-=======
          public function f_get_product_comp_prod_ro($branch,$frmDt,$to_dt,$comp_id,$prod_id,$ro){
->>>>>>> 8c02b574e336f63f00e21d64813ef4dede8e2db4
+
            
             // $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,
             //                             c.COMP_NAME,c.short_name

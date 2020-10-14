@@ -19,7 +19,7 @@
 						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
 						<div class="col-sm-4">
 	
-						<select name="soc_id"  class="form-control required" id="soc_id" disabled>
+						<select name="soc_id"  class="form-control sch_cd required" id="soc_id" disabled>
 	
                     	<option value="">Select</option>
                     	
@@ -244,6 +244,8 @@
 
 <!-- For Add row table -->
 <script>
+
+    $(".sch_cd").select2();   // Code For Select Write Option
 
     $(document).ready(function(){
 

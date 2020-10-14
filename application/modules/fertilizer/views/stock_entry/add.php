@@ -85,7 +85,7 @@
 
 					<div class="col-sm-3">
 						<!-- <input type="text" id=prod_id name="prod_id" class="form-control" required /> -->
-						<select name="prod_id" class="form-control required" id="prod_id" required>
+						<select name="prod_id" class="form-control sch_cd required" id="prod_id" required>
 
 							<option value="">Select</option>
 
@@ -125,8 +125,7 @@
 					<label for="stkpnt_id" class="col-sm-1 col-form-label">Stock Point:</label>
 
 					<div class="col-sm-3">
-						<!-- <input type="text" id=prod_id name="prod_id" class="form-control" required /> -->
-						<select name="stkpnt_id" class="form-control required" id="stkpnt_id" required>
+						<select name="stkpnt_id" class="form-control sch_cd required" id="stkpnt_id" required>
 
 							<option value="">Select</option>
 
@@ -447,6 +446,10 @@
 	</div>
 
 	<script>
+	
+	 $(".sch_cd").select2();   // Code For Select Write Option
+
+
 
 $(document).ready(function(){
 

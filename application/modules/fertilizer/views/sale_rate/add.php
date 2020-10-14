@@ -64,7 +64,7 @@
 						<div class="col-sm-4">
 
 							<!-- <input type="text" id=comp_id name="comp_id" class="form-control"  /> -->
-							<select name="prod_id" class="form-control required" id="prod_id" required>
+							<select name="prod_id" class="form-control sch_cd required" id="prod_id" required>
 
 							<option value="">Select</option>
 

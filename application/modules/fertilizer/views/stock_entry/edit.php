@@ -109,7 +109,7 @@
 
 					<div class="col-sm-3">
 						
-						<select name="stkpnt_id" style="width:200px" class="form-control required" id="stkpnt_id" required>
+						<select name="stkpnt_id" style="width:200px" class="form-control sch_cd required" id="stkpnt_id" required>
 
 							<option value="">Select</option>
 
@@ -497,6 +497,8 @@
 
 
     <script>
+
+    	 $(".sch_cd").select2();   // Code For Select Write Option
 	
 	$(document).ready(function(){
 	

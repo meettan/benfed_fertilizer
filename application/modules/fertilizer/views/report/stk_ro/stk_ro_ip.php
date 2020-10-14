@@ -98,7 +98,7 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-6">
 
                         <select type="text"
-                            class="form-control required"
+                            class="form-control sch_cd required"
                             name="product"
                             id="product">
 
@@ -119,7 +119,7 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-6">
 
                         <select type="text"
-                            class="form-control required"
+                            class="form-control sch_cd required"
                             name="ro"
                             id="ro">
 
