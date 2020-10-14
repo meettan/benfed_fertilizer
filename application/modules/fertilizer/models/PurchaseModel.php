@@ -451,8 +451,12 @@
 		}
 
 		public function f_get_stock_view($banch_id,$fin_id){
-			$data=$this->db->query("select trans_dt,ro_no,ro_dt,invoice_no,invoice_dt,challan_flag,comp_id from td_purchase
-									where br='$banch_id' and fin_yr='$fin_id' and trans_flag=1 order by trans_dt,ro_dt,ro_no");
+			$data=$this->db->query("select a.trans_dt,a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,a.challan_flag,a.comp_id,b.PROD_DESC
+			                        from td_purchase a,mm_product b
+									where  a.prod_id = b.PROD_ID
+									and    a.br      ='$banch_id' 
+									and    a.fin_yr  ='$fin_id' 
+									and    a.trans_flag=1 order by a.trans_dt,a.ro_dt,a.ro_no");
 			return $data->result();
 
 		}

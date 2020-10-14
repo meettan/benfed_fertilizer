@@ -1056,11 +1056,12 @@ public function f_get_sale_ro(){
 
 
  public function stock_entry(){
-	 $br_cd      = $this->session->userdata['loggedin']['branch_id'];
-	 $fin_id=$this->session->userdata['loggedin']['fin_id'];
-	$bank['data']    = $this->PurchaseModel->f_get_stock_view( $br_cd ,$fin_id);
-	// echo $this->db->last_query();
-	// die();
+
+	$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+	$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+	$bank['data']  = $this->PurchaseModel->f_get_stock_view($br_cd,$fin_id);
+
+	
 	$this->load->view("post_login/fertilizer_main");
 
 	$this->load->view("stock_entry/dashboard",$bank);

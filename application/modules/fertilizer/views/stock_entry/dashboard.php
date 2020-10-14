@@ -28,11 +28,12 @@
                     <tr>
                     	<th>Sl No.</th>
                         <th>Purchase Date</th>
+                        <th>Product</th>
+                        <th>Qty</th>
                         <th>Ro No</th>
             			<th>Ro Date</th>
                         <th>Invoice no</th>
                         <th>Invoice Date</th>
-                        <!-- <th>Invoice FLAG</th> -->
             			<th>View</th>
                         <th>Delete</th>
                     </tr>
@@ -52,6 +53,8 @@
                                 <td style="display:none"><?php echo date('Y',strtotime($value->trans_dt)); ?></td>
                                 <td style="display:none"><?php echo date('m',strtotime($value->trans_dt)); ?></td>
                                 <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
+                                <td><?php echo $value->PROD_DESC; ?></td>
+                                <td><?php echo $value->qty; ?></td>
                                 <td><?php echo $value->ro_no; ?></td>
                                 <td><?php echo date('d/m/Y',strtotime($value->ro_dt)); ?></td>
                                 
@@ -96,14 +99,15 @@
                 <tfoot>
 
                     <tr>
-                    
-                    <th>Sl No.</th>
+                        <th>Sl No.</th>
+                        <th>Purchase Date</th>
+                        <th>Product</th>
+                        <th>Qty</th>
                         <th>Ro No</th>
-            			 <th>Ro Date</th>
+                        <th>Ro Date</th>
                         <th>Invoice no</th>
                         <th>Invoice Date</th>
-                        <!-- <th>Invoice FLAG</th> -->
-            			<th>View</th>
+                        <th>View</th>
                         <th>Delete</th>
                     </tr>
                 

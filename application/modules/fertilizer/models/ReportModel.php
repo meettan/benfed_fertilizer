@@ -60,7 +60,7 @@
          public function f_get_product_comp_prod_ro($branch,$frmDt,$comp_id,$prod_id,$ro){
            
 
-            $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,
+            $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,d.do_dt,d.trans_do,
                                         c.COMP_NAME,c.short_name
                                 from   td_purchase a,mm_product b,mm_company_dtls c,td_sale d
                                 where  a.prod_id = b.PROD_ID

@@ -186,7 +186,7 @@
                                 
                                     <td>    
                                        
-                 <select name="ro[]" id="ro" style="width:100px"class="form-control required ro" required>
+                 <select name="ro[]" id="ro" style="width:100px"class="form-control sch_cd ro" required>
                 <option value="">Select RO</option>
                 <!-- <?php
                     foreach($rodtls as $key1)
@@ -309,6 +309,12 @@
     </div>
 
 </div>
+<script>
+
+
+    $( ".sch_cd" ).select2();
+
+</script>
 
 
 
@@ -341,7 +347,7 @@ $.each(JSON.parse(data), function( index, value ) {
 });
             var newElement = '<tr>'
                                 +'<td>'
-                               +'<select name="ro[]" id="ro" style="width:100px"class="form-control required ro" required>'
+                               +'<select name="ro[]" id="ro" style="width:100px"class="form-control sch_cd ro" required>'
                 
                 
                        +' <option value=" '+ string +'</option>'
