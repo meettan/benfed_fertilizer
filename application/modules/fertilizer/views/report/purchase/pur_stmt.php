@@ -100,11 +100,18 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Unit</th>
 
-                                <th>Stock Qty</th>
+                                <!-- <th>Stock Qty</th> -->
 
                                 <th>Rate</th>
 
                                 <th>Base Price</th>
+
+                                <th>Add RTL Margin</th>
+                                <th>Less Spl Rebt</th>
+                                <th>Add Rebt</th>
+                                <th>Less Rebt</th>
+                                <th>Add Rnd off</th>
+                                <th>Less Rnd off</th>
 
                                 <th>Cgst</th>
 
@@ -112,7 +119,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Total amt</th>
 
-                                <th>No of Bag</th>
+                                <!-- <th>No of Bag</th> -->
 
                             </tr>
 
@@ -157,15 +164,20 @@ tr:hover {background-color: #f5f5f5;}
                                                 }
                                         ?>
                                      </td>
-                                    
-                                    
-                                     <td class="report"><?php echo $purc->stock_qty; ?></td>
+                                 
+                                   
                                      <td class="report"><?php echo $purc->rate; ?></td>
                                      <td class="report"><?php echo $purc->base_price; ?></td>
+                                     <td class="report"><?php echo $purc->retlr_margin; ?></td>
+                                     <td class="report"><?php echo $purc->spl_rebt; ?></td>
+                                     <td class="report"><?php echo $purc->rbt_add; ?></td>
+                                     <td class="report"><?php echo $purc->rbt_less; ?></td>
+                                     <td class="report"><?php echo $purc->rnd_of_add; ?></td>
+                                     <td class="report"><?php echo $purc->rnd_of_less; ?></td>
                                      <td class="report"><?php echo $purc->cgst; ?></td>
                                      <td class="report"><?php echo $purc->sgst; ?></td>
                                      <td class="report"><?php echo $purc->tot_amt; ?></td>
-                                     <td class="report"><?php echo $purc->no_of_bags; ?></td>
+                                     <!-- <td class="report"><?php //echo $purc->no_of_bags; ?></td> -->
                                    
                                 </tr>
  

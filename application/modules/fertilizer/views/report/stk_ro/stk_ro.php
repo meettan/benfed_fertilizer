@@ -72,9 +72,18 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
+<<<<<<< HEAD
                         <h5 style="text-align:left"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);
                             echo $prodtls->short_name;
                           }?></h5>
+=======
+                        <h5 style="text-align:left"><label>Company: </label> <?php  
+                        if($product){ foreach($product as $prodtls);
+                            echo $prodtls->COMP_NAME;}?></h5>
+                            <h5 style="text-align:left"><label>Product: </label> <?php  
+                        if($product){ foreach($product as $prodtls);
+                           echo $prodtls->PROD_DESC;}?></h5>
+>>>>>>> 8c02b574e336f63f00e21d64813ef4dede8e2db4
 
                     </div>
                   
@@ -89,7 +98,11 @@ tr:hover {background-color: #f5f5f5;}
 
                               <!--   <th>Company</th> -->
 
+<<<<<<< HEAD
                                 <!-- <th>Product</th> -->
+=======
+                              
+>>>>>>> 8c02b574e336f63f00e21d64813ef4dede8e2db4
 
                                 <th>Trans Date</th>
 
@@ -127,9 +140,14 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
                                  <!--     <td class="report"><?php //echo $prodtls->short_name; ?> -->
+<<<<<<< HEAD
                                     <td class="report"><?php echo $prodtls->do_dt; ?> </td>
                                     <td class="report"><?php echo $prodtls->trans_do; ?> </td>
                                  
+=======
+                                     
+                                     <td class="report"><?php echo $prodtls->ro_no; ?>
+>>>>>>> 8c02b574e336f63f00e21d64813ef4dede8e2db4
                                      <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
                                                 }else if ($prodtls->unit==5){
@@ -150,7 +168,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report opening" id="opening">
                                         <?php 
                                             foreach($opening as $opndtls){
-                                                if($prodtls->prod_id==$opndtls->prod_id){
+                                                if($prodtls->ro_no==$opndtls->ro_no){
                                                     echo $opndtls->opn_qty;
                                                 }
                                             }
@@ -159,7 +177,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report purchase" id="purchase">
                                         <?php 
                                             foreach($purchase as $purdtls){
-                                                if($prodtls->prod_id==$purdtls->prod_id){
+                                                if($prodtls->ro_no==$purdtls->ro_no){
                                                     echo $purdtls->tot_pur;
                                                 }
                                             }
@@ -168,7 +186,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report sale" id="sale">
                                         <?php 
                                             foreach($sale as $saledtls){
-                                                if($prodtls->prod_id==$saledtls->prod_id){
+                                                if($prodtls->ro_no==$saledtls->sale_ro){
                                                     echo $saledtls->tot_sale;
                                                 }
                                             }
@@ -178,7 +196,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report closing" id="closing">
                                         <?php 
                                             foreach($closing as $clsdtls){
-                                                if($prodtls->prod_id==$clsdtls->prod_id){
+                                                if($prodtls->ro_no==$clsdtls->ro_no){
                                                     echo $clsdtls->opn_qty;               
                                                 }
                                             }
