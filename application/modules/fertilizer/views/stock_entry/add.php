@@ -356,6 +356,12 @@
 							<input type="text" style="width:150px" id=spl_rebt name="spl_rebt" class="form-control" value="0"   />
 						   
 						</div>
+						<!-- <label for="trd_mgr" class="col-sm-1 col-form-label">Less Trade margin:</label>
+						<div class="col-sm-3">
+	
+							<input type="text" style="width:150px" id=trd_mgr name="trd_mgr" class="form-control" value="0"   />
+						   
+						</div> -->
 	
 						<!-- <label for="net_amt" class="col-sm-1 col-form-label">Taxable Amt:</label>
 						<div class="col-sm-2">
@@ -377,8 +383,34 @@
 							<input type="text" style="width:150px" id=less_amt name="less_amt" class="form-control" value="0"  />
 						   
 						</div>
+						<!-- <label for="les_oth_dis" class="col-sm-1 col-form-label">Less Oth discount:</label>
+						<div class="col-sm-3">
+	
+							<input type="text" style="width:150px" id=les_oth_dis name="les_oth_dis" class="form-control" value="0"  />
+						   
+						</div> -->
 						
 					  </div>
+					  <div class="form-group row">
+					  <label for="trd_mgr" class="col-sm-1 col-form-label">Less Trade margin:</label>
+						<div class="col-sm-3">
+	
+							<input type="text" style="width:150px" id=trd_mgr name="trd_mgr" class="form-control" value="0"   />
+						   
+						</div>
+					  <label for="les_oth_dis" class="col-sm-1 col-form-label">Less Oth discount:</label>
+						<div class="col-sm-3">
+	
+							<input type="text" style="width:150px" id=les_oth_dis name="les_oth_dis" class="form-control" value="0"  />
+						   
+						</div>
+						<label for="les_oth_dis" class="col-sm-1 col-form-label">Less Freight Subsidy:</label>
+						<div class="col-sm-3">
+	
+							<input type="frt_subsidy" style="width:150px" id=frt_subsidy name="frt_subsidy" class="form-control" value="0"  />
+						   
+						</div>
+						</div>
 					  <div class="form-group row">
 					<label for="cgst" class="col-sm-1 col-form-label">CGST:</label>
 						<div class="col-sm-3">
@@ -1503,4 +1535,232 @@ document.getElementById("demo").innerHTML = d;
 		}
 
 		
+</script>
+<script>
+	
+	$(document).ready(function(){
+	
+		var i = 2;
+		var tot_qty     =0.00;
+		var base_price  =0.00;
+		var gst_rt      =0.00;
+		var gst         =0.00;
+		var spl_rebt    =0.00;
+		var retlr_margin=0.00;
+		var tot_amt     =0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+		var less_trad_margin=0.00;
+
+		$('#trd_mgr').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+                less_trad_margin=$('#trd_mgr').val() 
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				
+			});
+	
+		});
+	
+	});
+	
+</script>
+
+<script>
+	
+	$(document).ready(function(){
+	
+		var i = 2;
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+                var less_trad_margin=0.00;
+                var less_oth_dis    =0.00;
+
+		$('#les_oth_dis').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+                                less_trad_margin=$('#trd_mgr').val() 
+                                less_oth_dis    =$('#les_oth_dis').val()
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				
+			});
+	
+		});
+	
+	});
+	
+</script>
+<script>
+	
+	$(document).ready(function(){
+	
+		var i = 2;
+		var tot_qty  =0.00;
+		var base_price =0.00;
+		var gst_rt =0.00;
+		var gst=0.00;
+		var spl_rebt=0.00;
+		var retlr_margin=0.00;
+		var tot_amt = 0.00;
+		var rbt_add= 0.00;
+		var rbt_less= 0.00;
+		var rnd_of_add= 0.00;
+		var rnd_of_less= 0.00;
+		var add_adj_amt =0.00;
+		var less_adj_amt=0.00;
+        var less_trad_margin=0.00;
+        var less_oth_dis    =0.00;
+        var less_frt_subsidy     =0.00;
+		$('#frt_subsidy').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				//console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+                less_trad_margin=$('#trd_mgr').val() 
+                less_oth_dis    =$('#les_oth_dis').val()
+				less_frt_subsidy =$('#frt_subsidy').val()
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)-parseFloat(less_frt_subsidy)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			       // console.log(parseData[0].allot_qty_qnt);
+			      // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				
+			});
+	
+		});
+	
+	});
+	
 </script>

@@ -1080,7 +1080,7 @@ public function stockAdd(){
 			$fin_year=  $this->session->userdata['loggedin']['fin_yr'];
 			$fin_id=$this->session->userdata['loggedin']['fin_id'];
 			  
-			$comp_id     = $this->input->post('comp_id');
+			$comp_id       = $this->input->post('comp_id');
 			 
 			$prod_id       = $this->input->post('prod_id');
 
@@ -1127,6 +1127,12 @@ public function stockAdd(){
 			$rnd_of_add     = $this->input->post('rnd_of_add');
 
 			$rnd_of_less    = $this->input->post('rnd_of_less');
+
+			$less_trad_margin= $this->input->post('trd_mgr');
+
+			$less_oth_dis    = $this->input->post('les_oth_dis');
+
+			$less_frt_subsidy = $this->input->post('frt_subsidy');
 
 			$tot_amt        = $this->input->post('tot_amt');
 
@@ -1198,6 +1204,12 @@ public function stockAdd(){
 					"rnd_of_add"     => $rnd_of_add,
 
 					"rnd_of_less"   => $rnd_of_less,
+
+					"trad_margin"   => $less_trad_margin,
+
+					"oth_dis"       => $less_oth_dis    ,
+
+					"frt_subsidy"   => $less_frt_subsidy ,
 
 					"tot_amt"       => $tot_amt,
 
@@ -1297,7 +1309,7 @@ public function deletero() {
 		
 
 );
-
+ 
 
 	$this->PurchaseModel->f_delete('td_purchase', $where);
 	$this->PurchaseModel->f_delete('tdf_stock_point_trans', $where1);
@@ -1387,6 +1399,12 @@ public function viewstock(){
 			"rnd_of_add" 		=> $this->input->post('rnd_of_add'),
 
 			"rnd_of_less" 		=> $this->input->post('rnd_of_less'),
+
+			"trad_margin"       => $this->input->post('trd_mgr'),
+
+			"oth_dis"           => $this->input->post('les_oth_dis'),
+
+			"frt_subsidy"      => $this->input->post('frt_subsidy'),
 			
 			"tot_amt"			=> $this->input->post('tot_amt'),
 

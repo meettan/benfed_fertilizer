@@ -422,6 +422,26 @@
 						</div> 
 						
 					  </div>
+					  <div class="form-group row">
+					  <label for="trd_mgr" class="col-sm-1 col-form-label">Less Trade margin:</label>
+						<div class="col-sm-3">
+	
+							<input type="text" style="width:150px" id=trd_mgr name="trd_mgr" class="form-control" value="<?php echo $stock->trad_margin; ?>"   />
+						   
+						</div>
+					  <label for="les_oth_dis" class="col-sm-1 col-form-label">Less Oth discount:</label>
+						<div class="col-sm-3">
+	
+							<input type="text" style="width:150px" id=les_oth_dis name="les_oth_dis" class="form-control" value="<?php echo $stock->oth_dis; ?>"  />
+						   
+						</div>
+						<label for="les_oth_dis" class="col-sm-1 col-form-label">Less Freight Subsidy:</label>
+						<div class="col-sm-3">
+	
+							<input type="frt_subsidy" style="width:150px" id=frt_subsidy name="frt_subsidy" class="form-control" value="<?php echo $stock->frt_subsidy; ?>" />
+						   
+						</div>
+						</div>
                       <div class="form-group row">
 					<label for="cgst" class="col-sm-1 col-form-label">CGST:</label>
 						<div class="col-sm-3">
