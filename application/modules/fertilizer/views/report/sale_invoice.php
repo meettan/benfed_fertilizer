@@ -281,7 +281,7 @@ tr:hover {background-color: #f5f5f5;}
       </table></td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="padding: 5px; background: #d9d9d9;"><p style="padding: 0; margin: 0; float: left">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      <td align="left" valign="top" style="padding: 5px; background: #d9d9d9;"><p style="padding: 0; margin: 0; float: left">Amount Chargable(in words)INR <?php echo getIndianCurrency($sum_data->tot_amt);?></p>
 		<p style="padding: 0; margin: 0; float: right; text-align: right">E.&amp; O.	E</p>
 		</td>
     </tr>
@@ -391,7 +391,7 @@ tr:hover {background-color: #f5f5f5;}
       </table></td>
     </tr>
     <tr>
-      <td style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;"><p style="padding: 0; margin: 0; float: left">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></td>
+      <td style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;"><p style="padding: 0; margin: 0; float: left">Tax Amount(in words)INR <?php echo getIndianCurrency($sum_data->tot_gst);?></p></td>
       <td style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;">&nbsp;</td>
     </tr>
     <tr>
@@ -451,4 +451,5 @@ We declare that this invoice shows the actual price of goods described and parti
                     </div>
    </div>
 </div>
+
 

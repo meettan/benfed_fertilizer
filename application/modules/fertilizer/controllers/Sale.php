@@ -143,21 +143,7 @@
 			
 		}
 
-		public function sale(){
-			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
-			
-			$bank['data']    = $this->SaleModel->f_get_sales_dtls($br_cd,$fin_id);
-	
-		   $this->load->view("post_login/fertilizer_main");
-	   
-		   $this->load->view("sale/dashboard",$bank);
-	   
-		   $this->load->view('search/search');
-	   
-		   $this->load->view('post_login/footer');
-	   }
-
+		
 
 public function saleAdd(){   //================================================
 	
@@ -429,6 +415,21 @@ public function saleAdd(){   //================================================
 
 }
 	
+public function sale(){
+	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+	$fin_id     = $this->session->userdata['loggedin']['fin_id'];
+	
+	$bank['data']    = $this->SaleModel->f_get_sales_dtls($br_cd,$fin_id);
+
+   $this->load->view("post_login/fertilizer_main");
+
+   $this->load->view("sale/dashboard",$bank);
+
+   $this->load->view('search/search');
+
+   $this->load->view('post_login/footer');
+}
+
 public function deletesale() {
 
 	$where = array(

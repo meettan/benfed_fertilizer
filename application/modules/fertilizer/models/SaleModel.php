@@ -36,14 +36,14 @@
 		public function f_get_receiptReport_dtls($trans_do)
 		{
 	
-		  $sql = $this->db->query("SELECT a.trans_do ,b.prod_desc ,b.hsn_code,b.gst_rt,c.soc_name,c.soc_add,c.gstin,
-		  c.mfms,a.trans_no,a.do_dt,a.sale_due_dt,a.trans_type,a.soc_id,a.comp_id, a.sale_ro,
-		  a.stock_point,a.gov_sale_rt,a.qty,a.sale_rt,a.base_price,a.taxable_amt,a.cgst,a.sgst,
-		  a.dis,a.tot_amt,a.paid_amt
-		  from td_sale a  ,mm_product b,mm_ferti_soc c
-		  where a.prod_id=b.prod_id
-		  and a.soc_id=c.soc_id
-		  and a.trans_do='$trans_do'");
+		  $sql = $this->db->query("SELECT a.trans_do ,b.prod_desc ,b.hsn_code,b.gst_rt,c.soc_name,c.soc_add,
+		                           c.gstin,c.mfms,a.trans_no,a.do_dt,a.sale_due_dt,a.trans_type,a.soc_id,
+								   a.comp_id, a.sale_ro,a.stock_point,a.gov_sale_rt,a.qty,a.sale_rt,
+								   a.base_price,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,a.paid_amt
+								   from td_sale a  ,mm_product b,mm_ferti_soc c
+								   where a.prod_id=b.prod_id
+								   and a.soc_id=c.soc_id
+								   and a.trans_do='$trans_do'");
 											
 		  return $sql->row();
 	
@@ -54,10 +54,11 @@
 		{
 	
 		  $sql = $this->db->query("SELECT a.trans_do ,sum(a.qty)as qty,sum(a.base_price) as base_price,
-		  sum(a.taxable_amt)as taxable_amt,sum(a.cgst)as cgst,sum(a.sgst)as sgst,
-		  sum(a.dis)as dis,sum(a.tot_amt)as tot_amt,sum(a.paid_amt) as paid_amt,ROUND(sum(a.tot_amt))as to_amt_rnd
-		  from td_sale a 
-		  where  a.trans_do='$trans_do'");
+									sum(a.taxable_amt)as taxable_amt,sum(a.cgst)as cgst,sum(a.sgst)as sgst,
+									sum(a.cgst+a.sgst)as tot_gst,sum(a.dis)as dis,sum(a.tot_amt)as tot_amt,
+									sum(a.paid_amt) as paid_amt,ROUND(sum(a.tot_amt))as to_amt_rnd
+									from td_sale a 
+									where  a.trans_do='$trans_do'");
 											
 		  return $sql->row();
 	
@@ -73,6 +74,8 @@
 		  return $result->row();
 
 	  }
+	  
+
 	  
 		public function js_get_stock_qty($ro)
 		{
