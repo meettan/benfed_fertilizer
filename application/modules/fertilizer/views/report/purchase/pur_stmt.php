@@ -112,7 +112,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Less Rebt</th>
                                 <th>Add Rnd off</th>
                                 <th>Less Rnd off</th>
-
+                                <th>Less Trade Margin</th>
+                                <th>Less Other Discount</th>
+                                <th>Less Freight Subsidy</th>
                                 <th>Cgst</th>
 
                                 <th>Sgst</th>
@@ -174,9 +176,15 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $purc->rbt_less; ?></td>
                                      <td class="report"><?php echo $purc->rnd_of_add; ?></td>
                                      <td class="report"><?php echo $purc->rnd_of_less; ?></td>
+                                     <td class="report"><?php echo $purc->trad_margin; ?></td>
+                                     <td class="report"><?php echo $purc->oth_dis; ?></td>
+                                     <td class="report"><?php echo $purc->frt_subsidy; ?></td>
                                      <td class="report"><?php echo $purc->cgst; ?></td>
                                      <td class="report"><?php echo $purc->sgst; ?></td>
                                      <td class="report"><?php echo $purc->tot_amt; ?></td>
+                                     
+
+
                                      <!-- <td class="report"><?php //echo $purc->no_of_bags; ?></td> -->
                                    
                                 </tr>

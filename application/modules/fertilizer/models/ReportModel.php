@@ -229,8 +229,8 @@
         public function f_get_purchaserep($branch,$frmDt,$toDt){
             $query  = $this->db->query("select a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,a.retlr_margin,
                                         a.spl_rebt,a.rbt_add,a.rbt_less,a.rnd_of_add,a.rnd_of_less,
-                                        a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,c.short_name,b.PROD_DESC
-
+                                        a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
+                                        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy
                                         from td_purchase a,mm_product b,mm_company_dtls c
                                         where  a.prod_id = b.PROD_ID
                                         and    a.comp_id = c.COMP_ID
