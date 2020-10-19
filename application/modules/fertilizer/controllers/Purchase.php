@@ -6,10 +6,14 @@
 		parent::__construct();	
 		$this->load->model('PurchaseModel');
 		// $this->load->helper('paddyrate_helper');
-		// $data       = $this->FertilizerModel->f_get_particulars_in('md_parameters', array(16, 17), array(""));
-
-		// $this->kms_year   = substr($data[0]->param_value, 0,4).'-'.substr($data[1]->param_value, 2,2);
+		
 		$this->session->userdata('kms_yr');
+
+		   if(!isset($this->session->userdata['loggedin']['user_id'])){
+            
+            redirect('User_Login/login');
+
+            }
 		}
 		
 		public function dr_note(){

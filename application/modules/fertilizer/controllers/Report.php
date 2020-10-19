@@ -10,6 +10,12 @@
             $this->load->helper('paddyrate');
 
             $this->session->userdata('fin_yr');
+
+            if(!isset($this->session->userdata['loggedin']['user_id'])){
+            
+            redirect('User_Login/login');
+
+            }
         }
 
         public function rateslab(){

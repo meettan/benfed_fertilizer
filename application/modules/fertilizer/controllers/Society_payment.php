@@ -8,6 +8,12 @@
 		$this->load->model('AdvanceModel');
 		$this->load->model('DrcrnoteModel');
 		$this->session->userdata('fin_yr');
+
+		   if(!isset($this->session->userdata['loggedin']['user_id'])){
+            
+            redirect('User_Login/login');
+
+            }
 		}
 		
 	public function money_recptReport()

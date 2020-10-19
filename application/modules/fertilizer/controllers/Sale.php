@@ -10,6 +10,12 @@
 
 		// $this->kms_year   = substr($data[0]->param_value, 0,4).'-'.substr($data[1]->param_value, 2,2);
 		$this->session->userdata('fin_yr');
+
+		    if(!isset($this->session->userdata['loggedin']['user_id'])){
+            
+            redirect('User_Login/login');
+
+            }
 		}
 		
 //Getting Product name and stock quantity on supplying RO

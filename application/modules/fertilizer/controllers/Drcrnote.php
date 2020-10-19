@@ -6,6 +6,12 @@
 		parent::__construct();	
 		$this->load->model('DrcrnoteModel');
 		$this->load->helper('paddyrate_helper');
+
+		    if(!isset($this->session->userdata['loggedin']['user_id'])){
+            
+            redirect('User_Login/login');
+
+            }
 		}
 
 /******************************************Debit Note For Customer ********************************************/		
