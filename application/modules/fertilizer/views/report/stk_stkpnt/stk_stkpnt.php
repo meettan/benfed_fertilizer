@@ -70,13 +70,12 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Sale Statement Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                         <h5 style="text-align:left"><label>Society: </label> <?php 
-                              if($sales){ foreach($sales as $sal); echo get_fersociety_name($sal->soc_id);;} ?></h5>
+                        
 
                     </div>
-                    <br>  
+                  
 
                     <table style="width: 100%;" id="example">
 
@@ -85,28 +84,15 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
-
+                                <th>Stock Point</th>
                                 <th>Company</th>
-
                                 <th>Product</th>
 
-                                <th>Sale invoice</th>
-
-                                <th>Do dt</th>
+                                
 
                                 <th>Qty</th>
 
-                                <th>Sale Rate</th>
-
-                                <th>Taxable Amt</th>
-
-                                <th>Cgst</th>
-
-                                <th>Sgst</th>
-
-                               <!--  <th>Discount</th> -->
-
-                                <th>Total amt</th>
+                               
 
                             </tr>
 
@@ -116,76 +102,55 @@ tr:hover {background-color: #f5f5f5;}
 
                             <?php
 
-                                if($sales){ 
+                                if($stocks){ 
 
                                     $i = 1;
-                                    
-                                    $taxable = 0.00;
-                                    $cgst    = 0.00;
-                                    $sgst    = 0.00;
-                                    $disc    = 0.00;
-                                    $total   = 0.00;
-
+                                    $total = 0.00;
                                     $val =0;
 
-                                        foreach($sales as $sal){
+                                        foreach($stocks as $stock){
                             ?>
 
                                 <tr class="rep">
-                                    <td class="report"><?php echo $i++; ?></td>
-                                    <td class="report"><?php echo $sal->short_name; ?></td>
-                                    <td class="report"><?php echo $sal->PROD_DESC; ?></td>
-                                    <td class="report"><?php echo $sal->trans_do; ?></td>
-                                    <td class="report"><?php echo date("d/m/y",strtotime($sal->do_dt)); ?></td>
-                                    <td class="report"><?php echo $sal->qty; ?></td>
-                                    <td class="report"><?php echo $sal->sale_rt; ?></td>
-                                    <td class="report"><?php echo $sal->taxable_amt;
-                                                                  $taxable += $sal->taxable_amt;
-                                     ?></td>
-                                    <td class="report"><?php echo $sal->cgst;
-                                                                  $cgst += $sal->cgst;
+                                     <td class="report"><?php echo $i++; ?></td>
+                           
+                                    <td class="report"><?php echo $stock->soc_name; ?> </td>
+                                    <td class="report"><?php echo $stock->COMP_NAME; ?> </td>
+                                    <td class="report">
+                                        <?php 
+                                            foreach($product as $prod){
+                                                if($stock->prod_id==$prod->prod_id){
+                                                    echo $prod->PROD_DESC;
+                                                }
+                                            }
+                                        ?>
+                                    </td>
+                                    <td class="report"><?php echo $stock->qty; ?> </td>
 
-                                     ?></td>
-                                    <td class="report"><?php echo $sal->sgst;
-                                                                  $sgst += $sal->sgst;
 
-                                     ?></td>
-                                   <!--  <td class="report"><?php //echo $sal->dis; 
-                                                                 // $disc += $sal->dis;
 
-                                    ?></td> -->
-                                    <td class="report"><?php echo $sal->tot_amt;
-                                                                  $total += $sal->tot_amt;
 
-                                     ?></td>
-                                   
+                                 
+                                 
                                 </tr>
  
                                 <?php  
                                                         
                                     }
-                              
+                                ?>
+
+ 
+                                <?php 
                                        }
                                 else{
 
-                                    echo "<tr><td colspan='15' style='text-align:center;'>No Data Found</td></tr>";
+                                    echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
 
                                 }   
 
                             ?>
 
                         </tbody>
-                        <tfooter>
-                            <tr>
-                               <td class="report" colspan="7" style="text-align:right">Total</td> 
-                               <td class="report"><?=$taxable?></td>
-                               <td class="report"><?=$cgst?></td>
-                               <td class="report"><?=$sgst?></td>
-                             <!--   <td class="report"><?=$disc?></td>  -->
-                               <td class="report"><?=$total?></td>  
-
-                            </tr>
-                        </tfooter>
 
                     </table>
 

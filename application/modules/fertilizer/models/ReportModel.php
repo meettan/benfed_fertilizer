@@ -268,5 +268,32 @@
             return $query->result();
         }
 
+        public function f_get_stock_stockwise($branch,$frmDt,$toDt){
+
+            $data = $this->db->query("select a.prod_id,a.stock_point,sum(a.qty) as qty,a.soc_name,b.COMP_NAME
+                                       from(select a.prod_id as prod_id,a.comp_id as comp_id,a.stock_point as stock_point,ifnull(sum(a.qty),0) as qty, b.soc_name as soc_name 
+                                           from td_purchase a,mm_ferti_soc b where a.stock_point = b.soc_id and a.trans_dt between '$frmDt' and '$toDt' and a.br = '$branch' 
+                                           group by a.stock_point,b.soc_name,a.prod_id,a.comp_id 
+                                           UNION 
+                                           select a.prod_id as prod_id,a.comp_id as comp_id,a.stock_point as stock_point,ifnull(sum(a.qty),0)*-1 as qty , b.soc_name as soc_name 
+                                           from td_sale a,mm_ferti_soc b 
+                                           where a.stock_point = b.soc_id 
+                                           and a.br_cd = '$branch' and a.do_dt between '$frmDt' 
+                                           and '$toDt' 
+                                           group by a.stock_point,b.soc_name,a.prod_id,a.comp_id)a,mm_company_dtls b
+                                           where a.comp_id = b.COMP_ID
+                                           group by a.prod_id,a.stock_point,a.soc_name,b.COMP_NAME
+                                           order by a.soc_name
+                                           "
+                                     );
+
+            if($data->num_rows() > 0 ){
+                $row = $data->result();
+            }else{
+                $row = 0;
+            }
+            return $row;
+        }
+
     }
 ?>

@@ -174,12 +174,21 @@
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>
 
                                     <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
+
                                     <a href="<?php echo site_url("fert/rep/stkStmt");?>">Consolidated Stock</a>
+
                                     <a href="<?php echo site_url("fert/rep/stkScomp");?>">Stock (Companywise)</a>
+
+                                    <a href="<?php echo site_url("fert/rep/stkstkpnt");?>">Stock (Stokpoint Wise)</a>
+
                                     <a href="<?php echo site_url("fert/rep/stkSprodro");?>">Product (RO wise)</a>
+
                                     <a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
+
                                     <a href="<?php echo site_url("fert/rep/salerep");?>">Sale Ledger</a>
+
                                     <a href="<?php echo site_url("fert/rep/salerepsoc");?>">Sale Ledger(Society Wise)</a>
+
                                         <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
                                         <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a> -->
                                    <!--  <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a> -->
@@ -193,7 +202,7 @@
 
                     <!-- <div class="dropdown">
                     <div class="dropbtn">
-                    <a href="<?php echo site_url("fertilizer/aprvVouDashboard");?>" style="color: white; text-decoration: none;"> Approve</a>
+                    <a href="<?php //echo site_url("fertilizer/aprvVouDashboard");?>" style="color: white; text-decoration: none;"> Approve</a>
                     </div> 
                     </div> -->
 
