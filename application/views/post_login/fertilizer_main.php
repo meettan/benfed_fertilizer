@@ -195,6 +195,13 @@
                                         <!-- <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a> -->
                                         <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a> -->
                                 <?php } ?>
+                                <?php if( $this->session->userdata['loggedin']['ho_flag']="Y"){?>
+                                echo ("raja");
+                                <!-- die(); -->
+                                    <a href="<?php echo site_url("fert/rep/salerepsoc");?>">Branch Wise Sale</a>
+                                    
+                                <?php } ?>
+
                             </div>
                         </div>
 

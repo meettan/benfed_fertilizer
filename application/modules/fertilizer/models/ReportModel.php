@@ -268,6 +268,21 @@
             return $query->result();
         }
 
+
+        public function f_get_sales_branch($frmDt,$toDt,$br){
+            $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,
+                                               a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
+
+                                        from td_sale a,mm_product b,mm_company_dtls c
+                                        where  a.prod_id = b.PROD_ID
+                                        and    a.comp_id = c.COMP_ID
+                                      
+                                        and    a.br_cd   = '$br'
+                                        and    a.do_dt between '$frmDt' and '$toDt'");
+
+            return $query->result();
+        }
+
         public function f_get_stock_stockwise($branch,$frmDt,$toDt){
 
             $data = $this->db->query("select a.prod_id,a.stock_point,sum(a.qty) as qty,a.soc_name,b.COMP_NAME

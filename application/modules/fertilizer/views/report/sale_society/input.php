@@ -67,20 +67,21 @@ tr:hover {background-color: #f5f5f5;}
                 </div>  
 
                 <div class="form-group row">
-                <label for="society" class="col-sm-2 col-form-label">Society:</label>
+                <label for="branch" class="col-sm-2 col-form-label">Branch:</label>
                 <div class="col-sm-6">
 
-                    <select name="soc_id" class="form-control sch_cd required" id="soc_id" required>
+                    <select name="br" class="form-control sch_cd required" id="br" required>
 
-                        <option value="">Select Society</option>
+                        <option value="">Select Branch</option>
 
                         <?php
 
-                            foreach($societyDtls as $soc){
+                            foreach($all_branch as $br){
 
+                                
                         ?>
 
-                        <option value="<?php echo $soc->soc_id;?>"><?php echo $soc->soc_name;?></option>
+                        <option value="<?php echo $br->district_code;?>"><?php echo $br->district_name;?></option>
 
                         <?php
 
