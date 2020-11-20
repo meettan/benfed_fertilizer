@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Customer Payment</strong></h1>
+                <h1><strong>Virtual Stock Point</strong></h1>
 
             </div>
 
@@ -13,7 +13,7 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-		        <small><a href="<?php echo site_url("socpay/society_payAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
+		        <small><a href="<?php echo site_url("virtualpnt/virtual_stk_pointAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
                 <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -26,15 +26,13 @@
                 <thead>
 
                     <tr>
-                         <th>Sl No.</th>
-                    	<th>Receipt No.</th>
-                        <th>Receipt Date</th>
-                        <th>Society</th>
-                        <th>Amount</th>
-                        <!-- <th>RO</th> -->
-                        <th>Forward</th>
-                        <th>Print</th>
-                        <th>Edit/Delete</th>
+                    	
+                        <th>RO</th>
+                        <th>RO Date</th>
+                        <th>Virtual Stock Point</th>
+                        <th>Total Qty</th>
+                     
+                        <th>Edit</th>
                     </tr>
 
                 </thead>
@@ -43,44 +41,31 @@
 
                     <?php
                         $i=0;
-                    if($soc_pay) {
-                            foreach($soc_pay as $pay) {
+                    if($virtualpnt) {
+                            foreach($virtualpnt as $pay) {
 		    ?>
 
                             <tr>   
-                            <td style="display:none;"><?php echo ++$i; ?></td>
-                                <td><?php echo $pay->paid_id; ?></td>
-                                <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
+                                
+                                <td><?php echo $pay->ro_no; ?></td>
+                                <td><?php echo date("d/m/Y",strtotime($pay->ro_dt)); ?></td>
+                                
                                 <td><?php echo $pay->soc_name; ?></td>
-                                <td><?php echo $pay->amount; ?></td>
-                                <!-- <td style="visibility:hidden"><?php echo $pay->ro_no; ?></td> -->
-                                <td>  
-                                <?php if($pay->approval_status == 'U') { ?>
-                            <a href="<?php echo site_url("socpay/f_cust_pay_forward");?>?ro_no=<?=$pay->ro_no;?>,<?=$pay->comp_id;?>,<?=$pay->prod_id;?>,<?=$pay->rate;?>,<?=$pay->pur_inv;?>,<?=$pay->sale_qty;?>,<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
-                            <?php } ?> 
-                                </td>
-                            
-                                <td>
-                              <a href="<?php echo site_url('socpay/money_recptReport?paid_id='.$pay->paid_id.''); ?>" title="Print">
-
-                              <i class="fa fa-print fa-2x" style="color:green;"></i>  
-                             
-                              </a>
-                            </td>
-			 	                <td><a href="society_payEdit?trans_do=<?=$pay->paid_id;?>" 
+                                <td><?php echo $pay->qty; ?></td>
+                               
+			 	                <td><a href="drnote_edit?ro_no=<?=$pay->ro_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
-                               <button type="button" class="delete" paid_id="<?=$pay->paid_id;?>"    
+                               <!-- <button type="button" class="delete" ro_no="<?=$pay->ro_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                    </button> 
+                                    </button>  -->
                                 </td>
-                                
                             </tr>
 
                     <?php
@@ -102,14 +87,12 @@
 
                     <tr>
                     
-                    <th>Sl No.</th>
-                    	<th>Receipt No.</th>
-                        <th>Receipt Date</th>
-                        <th>Society</th>
-                        <th>Amount</th>
-                        <th>Forward</th>
-                        <th>Print</th>
-                        <th>Edit/Delete</th>
+                    <!-- <th>Sl_no</th> -->
+                        <th>RO</th>
+                        <th>RO Date</th>
+                        <th>Virtual Stock Point</th>
+                        <th>Qty</th>
+                        <th>Edit</th>
                     </tr>
                 
                 </tfoot>
@@ -126,13 +109,14 @@
 
         $('.delete').click(function () {
             
-            var id = $(this).attr('id');
+            var ro_no = $(this).attr('ro_no');
+            console.log(ro_no);
             // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
             var result = confirm("Do you really want to delete this record?");
            
             if(result) {
 
-                window.location = "<?php echo site_url('socpay/deletedr_note?trans_do="+id+"');?>";
+                window.location = "<?php echo site_url('virtualpnt/deletevirtual_stock?ro_no="+ro_no+"');?>";
 
             }
             
