@@ -1000,6 +1000,7 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				$('#adj_amt').val(add_adj_amt);
 	} else {
 		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)-parseFloat(less_adj_amt)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
@@ -1022,6 +1023,7 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				$('#adj_amt').val(add_adj_amt);
 
 	}
 });
@@ -1125,7 +1127,7 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
-				// $('#less_amt').val(less_amt);
+				$('#less_amt').val(less_adj_amt);
 				
 	} else {
 		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)
@@ -1150,7 +1152,7 @@ $('input').on('click',function () {
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
 				$('#add_adj_amt').val(add_adj_amt);
-				// $('#less_amt').val(less_amt);
+				$('#less_amt').val(less_adj_amt);
 	}
 });
 				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
