@@ -66,16 +66,16 @@ tr:hover {background-color: #f5f5f5;}
                 
                 <div id="divToPrint">
 
-                    <div style="text-a  lign:center;">
+                    <div style="text-align:center;">
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Sale Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
                         
-                         <h4 style="text-align:left"><label>Society: </label> <?php 
+                         <!-- <h5 style="text-align:left"><label>Society: </label> <?php 
                               if($sales){ foreach($sales as $sal);
-                               echo $sal->soc_name;} ?></h4> 
+                               echo get_fersociety_name($sal->soc_id);;} ?></h5> -->
 
                     </div>
                     <br>  
@@ -118,7 +118,7 @@ tr:hover {background-color: #f5f5f5;}
 
                             <?php
 
-                                if($sales){ 
+                                if($br_sales){ 
 
                                     $i = 1;
                                     
@@ -130,7 +130,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                     $val =0;
 
-                                        foreach($sales as $sal){
+                                        foreach($br_sales as $sal){
                             ?>
 
                                 <tr class="rep">
@@ -182,9 +182,9 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report" colspan="7" style="text-align:right">Total</td> 
                                <td class="report"><?=$taxable?></td>
                                <td class="report"><?=$cgst?></td>
-                               <td class="report"><?=$sgst?></td> 
-                               
-                                <td class="report"><?=$total?></td>  
+                               <td class="report"><?=$sgst?></td>
+                               <!-- <td class="report"><?=$disc?></td>  -->
+                               <td class="report"><?=$total?></td>  
 
                             </tr>
                         </tfooter>

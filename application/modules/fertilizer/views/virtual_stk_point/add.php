@@ -11,7 +11,7 @@
 					</div>
 
                     <div class="form-group row">
-						<label for="sec_soc_id" class="col-sm-2 col-form-label">Virtual Stock Point :</label>
+						<label for="sec_soc_id" class="col-sm-2 col-form-label">Secondary Stock Point :</label>
 						<div class="col-sm-4">
 	
 							<select name="sec_soc_id" style="width:250px" class="form-control required" id="dist_id" required>
@@ -37,7 +37,7 @@
                         <label for="tot_qty" class="col-sm-2 col-form-label">Total Qty:</label>
                        
                         <div class="col-sm-3">
-                        <input type="text" style="width:170px" id="tot_qty" name="tot_qty" class="form-control"/>
+                        <input type="text" style="width:170px" id="tot_qty" name="tot_qty" class="form-control" readonly/>
                         </div>
                         <!-- <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
 						<div class="col-sm-3">
@@ -61,7 +61,7 @@
                       <label for="ro_dt" class="col-sm-2 col-form-label">Ro Date:</label>
 						<div class="col-sm-4">
 	
-						<input type="date" style="width:170px" id="ro_dt" name="ro_dt" class="form-control"/>
+						<input type="date" style="width:170px" id="ro_dt" name="ro_dt" class="form-control" readonly/>
 	                    </div> 
                      
                         </div>
@@ -82,7 +82,7 @@
                         <table class= "table table-striped table-bordered table-hover">
 
                             <thead>
-                                <th style= "text-align: center;width:100px">Actual Stock Point</th>
+                                <th style= "text-align: center;width:100px">PrimaryStock Point</th>
                                 <th style= "text-align: center;width:100px">Qty</th>
                                
                                 <th>

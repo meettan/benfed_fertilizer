@@ -423,7 +423,7 @@ redirect('fertilizer/cr_note');
 	   }
 //***************************************f_select*
 
-//     addsale code written by Lokesh kumar jha 31/03/2020"
+// addsale code written by Lokesh kumar jha 31/03/2020"
 public function saleAdd(){
 	
 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
@@ -941,7 +941,8 @@ public function viewinvoice(){
 						// die();
 						$this->session->set_flashdata('msg', 'Successfully Added');
 		
-							redirect('fertilizer/invoice_entry');
+							// redirect('fertilizer/invoice_entry');
+							redirect('virtualpnt/virtual_stk_pointAdd');
 					}else {
 				
 
@@ -1080,7 +1081,7 @@ public function stockAdd(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-		// "kms_year"      =>  $this->kms_year,
+		
 			$fin_year=  $this->session->userdata['loggedin']['fin_yr'];
 			$fin_id=$this->session->userdata['loggedin']['fin_id'];
 			  
@@ -1138,25 +1139,33 @@ public function stockAdd(){
 
 			$less_frt_subsidy = $this->input->post('frt_subsidy');
 
-			$tot_amt        = $this->input->post('tot_amt');
+			$tot_amt          = $this->input->post('tot_amt');
 
-			$no_of_bags     =  $this->input->post('no_of_bags');
+			$no_of_bags       =  $this->input->post('no_of_bags');
 
-			$reck_pt_rt     =  $this->input->post('reck_pt_rt');
+			$reck_pt_rt       =  $this->input->post('reck_pt_rt');
 
-			$reck_pt_n_rt   =  $this->input->post('reck_pt_n_rt');
+			$reck_pt_n_rt     =  $this->input->post('reck_pt_n_rt');
 
-			$govt_sale_rt   =  $this->input->post('govt_sale_rt');
+			$govt_sale_rt     =  $this->input->post('govt_sale_rt');
 
-			$iffco_buf_rt   =  $this->input->post('iffco_buf_rt');
+			$iffco_buf_rt     =  $this->input->post('iffco_buf_rt');
 
-			$iffco_n_buff_rt =  $this->input->post('iffco_n_buff_rt');
+			$iffco_n_buff_rt  =  $this->input->post('iffco_n_buff_rt');
 
-			$delivery_mode  = $this->input->post('delivery_mode');
+			$delivery_mode    = $this->input->post('delivery_mode');
 
 			$trans_flag     ='1';
 			
 			$stock_point    = $this->input->post('stkpnt_id');
+
+			$add_ret_margin_flag= $this->input->post('add_ret_margin_flag');
+			$less_spl_rbt_flag= $this->input->post('less_spl_rbt_flag');
+			$add_adj_amt_flag= $this->input->post('add_adj_amt_flag');
+			$less_adj_amt_flag= $this->input->post('less_adj_amt_flag');
+			$less_trad_margin_flag= $this->input->post('less_trad_margin_flag');
+			$less_oth_dis_flag= $this->input->post('less_oth_dis_flag');
+			$less_frght_subsdy_flag= $this->input->post('less_frght_subsdy_flag');
 
 			$br_cd          = $this->session->userdata['loggedin']['branch_id'];
 			// print_r($br_cd );
@@ -1173,45 +1182,45 @@ public function stockAdd(){
 
 					"no_of_days"   => $no_of_days,
 					
-					"due_dt"        => $due_dt,
+					"due_dt"       => $due_dt,
 
-					"invoice_no"    => $invoice_no,
+					"invoice_no"   => $invoice_no,
 				
-					"invoice_dt"    =>  $invoice_dt,
+					"invoice_dt"   =>  $invoice_dt,
 
-					"qty"           =>  $qty,
+					"qty"          =>  $qty,
 
-					"unit"          => $unit,
+					"unit"         => $unit,
 
-					"rate"           =>  $rate,
+					"rate"         =>  $rate,
 
-					"base_price"     => $base_price,
+					"base_price"   => $base_price,
 
-					"cgst"           => $cgst,
+					"cgst"         => $cgst,
 
-					"sgst"           => $sgst,
+					"sgst"         => $sgst,
 
-					"retlr_margin"   => $retlr_margin,
+					"retlr_margin" => $retlr_margin,
 					
-					"spl_rebt"       => $spl_rebt,
+					"spl_rebt"     => $spl_rebt,
 
-					"add_adj_amt"    => $add_adj_amt,
+					"add_adj_amt"  => $add_adj_amt,
 
-					"less_adj_amt"   => $less_adj_amt,
+					"less_adj_amt" => $less_adj_amt,
 
-					"net_amt"        => $net_amt,
+					"net_amt"      => $net_amt,
 
-					"rbt_add"        => $rbt_add,
+					"rbt_add"      => $rbt_add,
 
-					"rbt_less"       => $rbt_less,
+					"rbt_less"     => $rbt_less,
 
-					"rnd_of_add"     => $rnd_of_add,
+					"rnd_of_add"   => $rnd_of_add,
 
-					"rnd_of_less"   => $rnd_of_less,
+					"rnd_of_less"  => $rnd_of_less,
 
-					"trad_margin"   => $less_trad_margin,
+					"trad_margin"  => $less_trad_margin,
 
-					"oth_dis"       => $less_oth_dis    ,
+					"oth_dis"      => $less_oth_dis    ,
 
 					"frt_subsidy"   => $less_frt_subsidy ,
 
@@ -1237,8 +1246,21 @@ public function stockAdd(){
 
 					 "trans_flag"    =>$trans_flag,
 
-				    "challan_flag"   => 'N',
+					"challan_flag"   => 'N',
+					"add_ret_margin_flag"=>$add_ret_margin_flag,
 
+					"less_spl_rbt_flag"=>$less_spl_rbt_flag,
+
+					"add_adj_amt_flag"=>$add_adj_amt_flag,
+
+					"less_adj_amt_flag"=>$less_adj_amt_flag,
+
+					"less_trad_margin_flag"=>$less_trad_margin_flag,
+
+					"less_oth_dis_flag"=>$less_oth_dis_flag,
+
+					"less_frght_subsdy_flag"=>$less_frght_subsdy_flag,
+					
 					"created_by"     =>  $this->session->userdata['loggedin']['user_name'],
 
 					"created_dt"     =>  date('Y-m-d h:i:s'),
@@ -1276,13 +1298,13 @@ public function stockAdd(){
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
-					redirect('stock/stock_entry');
+					// redirect('stock/stock_entry');
+					redirect('virtualpnt/virtual_stk_pointAdd');
 			}else {
 				$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 				$select2    =  array("soc_id","soc_name");
-				$where2     = array(
-					"stock_point_flag"    =>  'Y',
-					"district" => $br_cd  );
+				$where2     = array("stock_point_flag"    =>  'Y',
+					                "district" => $br_cd  );
 
 				$product['socdtls']   = $this->PurchaseModel->f_select('mm_ferti_soc',$select2,$where2,0);
 			//   echo $this->db->last_query();
@@ -1299,8 +1321,9 @@ public function stockAdd(){
 	$this->load->view("stock_entry/add",$product);
 
 	$this->load->view('post_login/footer');
+ }
 }
-}
+
 public function deletero() {
 
 	$where = array(
@@ -1314,7 +1337,6 @@ public function deletero() {
 
 );
  
-
 	$this->PurchaseModel->f_delete('td_purchase', $where);
 	$this->PurchaseModel->f_delete('tdf_stock_point_trans', $where1);
 

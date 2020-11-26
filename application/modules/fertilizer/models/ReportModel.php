@@ -255,20 +255,30 @@
             return $query->result();
         }
         public function f_get_sales_society($branch,$frmDt,$toDt,$soc_id){
-            $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,
-                                               a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
+            $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,
+                                               a.sale_rt,a.taxable_amt taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
 
-                                        from td_sale a,mm_product b,mm_company_dtls c
+                                        from td_sale a,mm_product b,mm_company_dtls c,mm_ferti_soc d
                                         where  a.prod_id = b.PROD_ID
                                         and    a.comp_id = c.COMP_ID
                                         and    a.soc_id  = '$soc_id'
                                         and    a.br_cd   = '$branch'
+                                        and    a.soc_id  = d.soc_id
                                         and    a.do_dt between '$frmDt' and '$toDt'");
 
             return $query->result();
         }
 
+		public function get_fersociety_name($soc_id){
 
+			$sql="select soc_name
+			     from mm_ferti_soc where soc_id = '$soc_id' ";
+
+		  $result = $this->db->query($sql);     
+	  
+		  return $result->row();
+
+  }
         public function f_get_sales_branch($frmDt,$toDt,$br){
             $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,
                                                a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC

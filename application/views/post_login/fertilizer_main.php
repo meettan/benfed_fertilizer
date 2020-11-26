@@ -106,7 +106,7 @@
                         <div class="sub-dropdown">
                              <?php if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
                                 
-                                <a href="<?php echo site_url("source");?>">Company</a>
+                            <a href="<?php echo site_url("source");?>">Company</a>
                             <a href="<?php echo site_url("measurement");?>">Unit</a>
                             <a href="<?php echo site_url("crCatg");?>">Credit Note Category</a>
                             <a href="<?php echo site_url("material");?>">Product</a>
@@ -147,7 +147,7 @@
                         </div>
                         <?php } ?>
 
-                        <?php if( $this->session->userdata['loggedin']['ho_flag']!="N"){?> 
+                        <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?> 
                             <div class="dropdown-content">
                             <div class="sub-dropdown">
                             <a href="<?php echo site_url("adv/company_advance");?>">Advance To Company</a>
@@ -171,7 +171,7 @@
                         
                         <div class="dropdown-content">
                             <div class="sub-dropdown">
-
+                                  
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>
 
                                     <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
@@ -196,10 +196,9 @@
                                         <!-- <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a> -->
                                         <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a> -->
                                 <?php } ?>
-                                <?php if( $this->session->userdata['loggedin']['ho_flag']="Y"){?>
-                                echo ("raja");
-                                <!-- die(); -->
-                                    <a href="<?php echo site_url("fert/rep/salerepsoc");?>">Branch Wise Sale</a>
+                                <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
+                                
+                                    <a href="<?php echo site_url("fert/rep/salerepbr");?>">Branch Wise Sale</a>
                                     
                                 <?php } ?>
 

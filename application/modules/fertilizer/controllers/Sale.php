@@ -528,6 +528,21 @@ redirect("trade/sale");
 				echo json_encode($soc);
 			
 			}
+			public function f_get_virtual_point(){
+
+				//	$select          = array("soc_id","soc_add","gstin");
+					
+				   $ro = $this->input->get("ro");
+				
+					   
+					$ro_no    = $this->SaleModel->get_virtual_point($ro);
+					// echo $this->db->last_query();
+					// die();
+					echo json_encode($ro_no);
+				
+				}
+	
+			
 		public function f_get_adv(){
 
 		//	$select          = array("soc_id","soc_add","gstin");

@@ -950,3 +950,49 @@ $(document).ready(function()
 
 		
 </script>
+
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#ro').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("trade/f_get_virtual_point");?>',
+			{ 
+
+				ro: $(this).val(),
+				
+			}
+
+		)
+		.done(function(data){
+
+			console.log(data);
+			var parseData = JSON.parse(data);
+			
+			// var recv_amt = parseData[0].recv_amt;
+			var ro_cnt= parseData.ro_cnt;
+          
+            //$('#recv_amt').html(recv_amt);
+			// $('#recv_amt').val(recv_amt);
+			
+if(ro_cnt==0)
+            {
+            alert("Virtual Stock Point not given");
+            $('#submit').attr('type', 'buttom');
+            return false;
+            }else{
+               $('#submit').attr('type', 'submit');
+            }
+			
+		});
+
+	});
+
+});
+
+</script>

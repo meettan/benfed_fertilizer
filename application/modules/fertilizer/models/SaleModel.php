@@ -102,8 +102,7 @@
 		{
 
 		$sql = $this->db->query("SELECT sp_mt
-									from  mm_sale_rate
-	   					                 					   							
+									from  mm_sale_rate		   							
 					                     where  catg_id = '$category'
 					                     and district='$br_cd'
 			                             and comp_id='$comp_id'
@@ -177,7 +176,15 @@
 	
 			}
 			
+			public function get_virtual_point($ro){
 
+				$sql = $this->db->query("select count(*) as ro_cnt
+										 from tdf_virtual_stk_pnt
+										  where ro_no = '$ro' ");
+					return $sql->row();
+		
+				}
+			
 		public function f_get_drnote_dtls(){
 
 		$data = $this->db->query("select a.comp_id,a.ro_no,a.ro_dt,a.invoice_no, sum(a.soc_amt) as tot_amt,b.COMP_NAME COMP_NAME
