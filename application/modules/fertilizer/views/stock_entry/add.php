@@ -383,7 +383,7 @@
 						<label for="frt_subsidy" class="col-sm-1 col-form-label">Less Freight Subsidy:</label>
 						<div class="col-sm-2">
 	
-							<input type="frt_subsidy" style="width:120px" id=frt_subsidy name="frt_subsidy" class="form-control" value="0"  />
+							<input type="frt_subsidy" style="width:150px" id=frt_subsidy name="frt_subsidy" class="form-control" value="0"  />
 						   
 						</div>
 						<div class="col-sm-1">
