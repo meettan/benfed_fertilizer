@@ -367,8 +367,9 @@
 						</div>
 						<div class="col-sm-1">
 						<label for="less_trad_margin_flag" style="color:green;">GST</label>
-					<input type="checkbox" id="less_trad_margin_flag" name="less_trad_margin_flag" value="Y">
-					</div>
+						<input type="checkbox" id="less_trad_margin_flag" name="less_trad_margin_flag" value="Y">
+						</div>
+
 					  <label for="les_oth_dis" class="col-sm-1 col-form-label">Less Oth discount:</label>
 						<div class="col-sm-2">
 	
@@ -417,6 +418,11 @@
 	
 						<input type="text" style="width:150px" id=rbt_less name="rbt_less" class="form-control" value="0"   />
 						</div> 
+						<label for="tot_pur_rt" class="col-sm-1 col-form-label" style="color:Blue;">Net Rate/Unit:</label>
+						<div class="col-sm-3">
+	
+						<input type="text" style="width:150px" id=tot_pur_rt name="tot_pur_rt" class="form-control" value="0"   />
+						</div> 
 						</div>
 						<div class="form-group row">
 					<label for="rnd_of_add" class="col-sm-1 col-form-label">Round Off Add:</label>
@@ -437,8 +443,6 @@
 						   
 						</div>
 						</div>
-
-
 
 				<div class="form-group row">
 
@@ -527,8 +531,8 @@ $(document).ready(function(){
 			console.log(data);
 			var parseData = JSON.parse(data);
 			var rate=parseData.rate;
-		//    var gst_no = parseData[0].gst_no;
-		// 	var comp_add= parseData[0].comp_add;
+		  //var gst_no = parseData[0].gst_no;
+		 // var comp_add= parseData[0].comp_add;
 		// 	var cin= parseData[0].cin;
 		// 	$('#gst_no').val(gst_no);
 		// 	$('#comp_add').val(comp_add);
@@ -625,17 +629,18 @@ $(document).ready(function(){
 	$(document).ready(function(){
 	
 		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var tot_amt= 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
+		var tot_qty      = 0.00;
+		var base_price   = 0.00;
+		var gst_rt       = 0.00;
+		var gst          = 0.00;
+		var tot_amt      = 0.00;
+		var rbt_add      = 0.00;
+		var rbt_less     = 0.00;
+		var rnd_of_add   = 0.00;
+		var rnd_of_less  = 0.00;
+		var add_adj_amt  = 0.00;
+		var less_adj_amt = 0.00;
+		var net_rt       = 0.00;
 		$('#rate').change(function(){
 	
 			$.get( 
@@ -663,6 +668,7 @@ $(document).ready(function(){
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst)*2
 				tot_amt=Math.round(parseFloat(tot_amt))
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
 				//console.log(parseData);
 				//  console.log(parseData[0].qty);
 				// console.log(parseData[0].allot_qty_qnt);
@@ -680,6 +686,7 @@ $(document).ready(function(){
 				$('#rnd_of_less').val(0);
 				$('#adj_amt').val(0);
 				$('#less_amt').val(0);
+				$('#tot_pur_rt').val(net_rt);
 			});
 	
 		});
@@ -691,22 +698,22 @@ $(document).ready(function(){
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
+		var i           = 2;
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
 	
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+        var net_rt      = 0.00;
 		$('#retlr_margin').change(function(){
 			let row = $(this).closest('tr');
 			$.get( 
@@ -755,6 +762,8 @@ $('input').on('click',function () {
 				$('#rnd_of_less').val(0);
 				$('#adj_amt').val(0);
 				$('#less_amt').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+               $('#tot_pur_rt').val(net_rt);
 	} else {
 		// alert('You Un-Checked it');
 		taxable_amt= parseFloat(base_price) + -parseFloat(spl_rebt)
@@ -775,29 +784,31 @@ $('input').on('click',function () {
 				$('#rnd_of_less').val(0);
 				$('#adj_amt').val(0);
 				$('#less_amt').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                 $('#tot_pur_rt').val(net_rt);
 	}
 });
 				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
 			
 				// taxable_amt =parseFloat(taxable_amt).toFixed(2)
-				gst=(taxable_amt * gst_rt/100)/2
-				gst=parseFloat(gst).toFixed(2)
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// gst=(taxable_amt * gst_rt/100)/2
+				// gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				// tot_amt=Math.round(parseFloat(tot_amt))
 				
-				$('#base_price').val(base_price);
-				// $('#net_amt').val(taxable_amt);
-				$('#tot_amt').val(tot_amt);
-				$('#retlr_margin').val(retlr_margin);
-				$('#spl_rebt').val(spl_rebt);
-				$('#cgst').val(gst);
-				$('#sgst').val(gst);
-				$('#rbt_add').val(0);
-				$('#rbt_less').val(0);
-				$('#rnd_of_add').val(0);
-				$('#rnd_of_less').val(0);
-				$('#adj_amt').val(0);
-				$('#less_amt').val(0);
+				// $('#base_price').val(base_price);
+				// // $('#net_amt').val(taxable_amt);
+				// $('#tot_amt').val(tot_amt);
+				// $('#retlr_margin').val(retlr_margin);
+				// $('#spl_rebt').val(spl_rebt);
+				// $('#cgst').val(gst);
+				// $('#sgst').val(gst);
+				// $('#rbt_add').val(0);
+				// $('#rbt_less').val(0);
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				// $('#adj_amt').val(0);
+				// $('#less_amt').val(0);
 				
 			});
 	
@@ -810,21 +821,21 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var i            = 2;
+		var tot_qty      = 0.00;
+		var base_price   = 0.00;
+		var gst_rt       = 0.00;
+		var gst          = 0.00;
+		var spl_rebt     = 0.00;
+		var retlr_margin = 0.00;
+		var tot_amt      = 0.00;
+		var rbt_add      = 0.00;
+		var rbt_less     = 0.00;
+		var rnd_of_add   = 0.00;
+		var rnd_of_less  = 0.00;
+		var add_adj_amt  = 0.00;
+		var less_adj_amt = 0.00;
+        var net_rt       = 0.00;
 		$('#spl_rebt').change(function(){
 	
 			$.get( 
@@ -874,9 +885,10 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
-
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 	} else {
-		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin)
+		        taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
@@ -897,30 +909,32 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 
 	}
 });
 				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
 				// taxable_amt =parseFloat(taxable_amt).toFixed(2)
-				gst=(taxable_amt * gst_rt/100)/2
-				gst=parseFloat(gst).toFixed(2)
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// gst=(taxable_amt * gst_rt/100)/2
+				// gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				// tot_amt=Math.round(parseFloat(tot_amt))
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
 			  // console.log(qty);
-				$('#base_price').val(base_price);
-				$('#net_amt').val(taxable_amt);
-				$('#tot_amt').val(tot_amt);
-				$('#retlr_margin').val(retlr_margin);
-				$('#spl_rebt').val(spl_rebt);
-				$('#cgst').val(gst);
-				$('#sgst').val(gst);
-				$('#rbt_add').val(0);
-				$('#rbt_less').val(0);
-				$('#rnd_of_add').val(0);
-				$('#rnd_of_less').val(0);
+				// $('#base_price').val(base_price);
+				// $('#net_amt').val(taxable_amt);
+				// $('#tot_amt').val(tot_amt);
+				// $('#retlr_margin').val(retlr_margin);
+				// $('#spl_rebt').val(spl_rebt);
+				// $('#cgst').val(gst);
+				// $('#sgst').val(gst);
+				// $('#rbt_add').val(0);
+				// $('#rbt_less').val(0);
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
 				
 			});
 	
@@ -935,20 +949,20 @@ $('input').on('click',function () {
 	$(document).ready(function(){
 	
 		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var net_rt      = 0.00;
 		$('#adj_amt').change(function(){
 	
 			$.get( 
@@ -1001,8 +1015,10 @@ $('input').on('click',function () {
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
 				$('#adj_amt').val(add_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 	} else {
-		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)-parseFloat(less_adj_amt)
+		       taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)-parseFloat(less_adj_amt)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
@@ -1024,6 +1040,8 @@ $('input').on('click',function () {
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
 				$('#adj_amt').val(add_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 
 	}
 });
@@ -1061,21 +1079,21 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var i           = 2;
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+        var net_rt      = 0.00;
 		$('#less_amt').change(function(){
 	
 			$.get( 
@@ -1128,6 +1146,8 @@ $('input').on('click',function () {
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
 				$('#less_amt').val(less_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 				
 	} else {
 		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)
@@ -1153,6 +1173,8 @@ $('input').on('click',function () {
 				$('#rnd_of_less').val(0);
 				$('#add_adj_amt').val(add_adj_amt);
 				$('#less_amt').val(less_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 	}
 });
 				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
@@ -1189,20 +1211,21 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		
 		$('#rbt_add').change(function(){
 	
@@ -1246,7 +1269,8 @@ $('input').on('click',function () {
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -1259,21 +1283,22 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
-		
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
+		var net_rt      = 0.00;
 		$('#rbt_less').change(function(){
 	
 			$.get( 
@@ -1318,7 +1343,8 @@ $('input').on('click',function () {
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -1332,20 +1358,21 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		
 		$('#rnd_of_add').change(function(){
 	
@@ -1394,7 +1421,8 @@ $('input').on('click',function () {
 			
 				$('#tot_amt').val(tot_amt);
 			
-				
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 			});
 	
 		});
@@ -1407,21 +1435,21 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
-		
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		$('#rnd_of_less').change(function(){
 	
 			$.get( 
@@ -1468,7 +1496,8 @@ $('input').on('click',function () {
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                 $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -1476,7 +1505,8 @@ $('input').on('click',function () {
 	
 	});
 	
-</script> 
+</script>
+
 <script>
 $(document).ready(function(){
 $("#ro_dt").change(function(){
@@ -1727,22 +1757,22 @@ document.getElementById("demo").innerHTML = d;
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty     =0.00;
-		var base_price  =0.00;
-		var gst_rt      =0.00;
-		var gst         =0.00;
-		var spl_rebt    =0.00;
-		var retlr_margin=0.00;
-		var tot_amt     =0.00;
-		var rbt_add     = 0.00;
-		var rbt_less    = 0.00;
-		var rnd_of_add  = 0.00;
-		var rnd_of_less = 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var less_trad_margin=0.00;
-
+		var i               = 2;
+		var tot_qty         = 0.00;
+		var base_price      = 0.00;
+		var gst_rt          = 0.00;
+		var gst             = 0.00;
+		var spl_rebt        = 0.00;
+		var retlr_margin    = 0.00;
+		var tot_amt         = 0.00;
+		var rbt_add         = 0.00;
+		var rbt_less        = 0.00;
+		var rnd_of_add      = 0.00;
+		var rnd_of_less     = 0.00;
+		var add_adj_amt     = 0.00;
+		var less_adj_amt    = 0.00;
+		var less_trad_margin= 0.00;
+		var net_rt          = 0.00;
 		$('#trd_mgr').change(function(){
 	
 			$.get( 
@@ -1794,6 +1824,8 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 	} else {
 
 		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
@@ -1817,6 +1849,8 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 	}
 });
 				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)
@@ -1853,22 +1887,23 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-                var less_trad_margin=0.00;
-                var less_oth_dis    =0.00;
+		var i               = 2;
+		var tot_qty         = 0.00;
+		var base_price      = 0.00;
+		var gst_rt          = 0.00;
+		var gst             = 0.00;
+		var spl_rebt        = 0.00;
+		var retlr_margin    = 0.00;
+		var tot_amt         = 0.00;
+		var rbt_add         = 0.00;
+		var rbt_less        = 0.00;
+		var rnd_of_add      = 0.00;
+		var rnd_of_less     = 0.00;
+		var add_adj_amt     = 0.00;
+		var less_adj_amt    = 0.00;
+        var less_trad_margin= 0.00;
+        var less_oth_dis    = 0.00;
+		var net_rt          = 0.00;
 
 		$('#les_oth_dis').change(function(){
 	
@@ -1923,6 +1958,8 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 
 	} else {
 
@@ -1947,6 +1984,8 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 
 	}
 });		
@@ -1984,23 +2023,24 @@ $('input').on('click',function () {
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-        var less_trad_margin=0.00;
-        var less_oth_dis    =0.00;
-        var less_frt_subsidy     =0.00;
+		var i               = 2;
+		var tot_qty         = 0.00;
+		var base_price      = 0.00;
+		var gst_rt          = 0.00;
+		var gst             = 0.00;
+		var spl_rebt        = 0.00;
+		var retlr_margin    = 0.00;
+		var tot_amt         = 0.00;
+		var rbt_add         = 0.00;
+		var rbt_less        = 0.00;
+		var rnd_of_add      = 0.00;
+		var rnd_of_less     = 0.00;
+		var add_adj_amt     = 0.00;
+		var less_adj_amt    = 0.00;
+        var less_trad_margin= 0.00;
+        var less_oth_dis    = 0.00;
+        var less_frt_subsidy= 0.00;
+		var net_rt          = 0.00;
 		$('#frt_subsidy').change(function(){
 	
 			$.get( 
@@ -2054,9 +2094,11 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 		
 	} else {
-		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)
+		        taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
@@ -2077,6 +2119,8 @@ $('input').on('click',function () {
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 		
 	}
 });
@@ -2109,17 +2153,4 @@ $('input').on('click',function () {
 	});
 	
 </script>
-<!-- <script>
-function getValue(value){
-	// if (value=='Y'){
-	// 	alert(value);
-	// }
-	var status = document.getElementById("add_ret_margin_flag").checked;
-   if (status) {
-      alert("Yes");
-   } else {
-      alert("No");
-   }
-    
-}
-</script> -->
+

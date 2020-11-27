@@ -212,16 +212,6 @@
           					value = "<?php echo $stock->invoice_no; ?>"  
 						/>
 					</div>
-
-				<!-- <label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Date:</label>
-
-					<div class="col-sm-3">
-
-						<input type="date" style="width:150px"   name="invoice_dt" class="form-control required"  
-							value = "<?php echo $stock->invoice_dt; ?>"   
-						/>
-
-					</div> -->
                 
 			</div>
 
@@ -264,21 +254,7 @@
 
 			<div class="form-group row">
 
-				<!-- <label for="unit" class="col-sm-1 col-form-label">Unit:</label>
-
-					<div class="col-sm-3">
-
-							<input type="text" style="width:200px"  name="unit_name" class="form-control required"  
-									value = "<?php 
-													foreach($unit as $unitdtls){
-														if($unitdtls->id == $stock->unit){
-															echo $unitdtls->unit_name;
-														} 
-													}
-											?>" readonly 
-							/>
-					
-					</div> -->
+			
 
 				<label for="no_of_bags" class="col-sm-1 col-form-label">No.of Storage Unit:</label>
 
@@ -290,25 +266,6 @@
 
 					</div>
 
- 				<!-- <label for="storage" class="col-sm-1 col-form-label">Storage Type:</label>
-
-					<div class="col-sm-3">
-
-  						<input type="text" style="width:150px"   name="storage_type" class="form-control required"  
-							  value = "<?php 
-							  					if($stock->storage =='B'){
-													$strg = 'Bag';
-												}else if($stock->storage =='T'){
-													$strg = 'Bucket';
-												}else if($stock->storage =='T'){
-													$strg = 'Packet';
-												}
-				
-												echo $strg; ?>"  readonly 
-						/>
-
- 					</div> -->
-					 
 					 <label for="trans_dt" class="col-sm-1 col-form-label">Purchase Date:</label>
 					<div class="col-sm-3">
 
@@ -370,7 +327,7 @@
 						<div class="col-sm-3">
 	
 							<input type="text" style="width:150px" id="rate" name="rate" class="form-control required" 
-                            value = "<?php echo $stock->rate; ?>"    />
+                            value = "<?php echo $stock->rate; ?>"  readonly   />
 			
 						</div>
 						
@@ -391,55 +348,157 @@
                         </div>
                         <div class="form-group row">
 					<label for="retlr_margin" class="col-sm-1 col-form-label">Add Retailer margin:</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 	
 						<input type="text" style="width:150px" id="retlr_margin" name="retlr_margin" class="form-control"  
-                        value = "<?php echo $stock->retlr_margin; ?>"  />
+                        value = "<?php echo $stock->retlr_margin; ?>" readonly />
 						</div> 
-	
+						<div class="col-sm-1">
+					<label for="add_ret_margin_flag" style="color:green;">GST</label>
+					<input type="checkbox" id="add_ret_margin_flag" name="add_ret_margin_flag" value = "Y" class="checkbox_check"
+					disabled
+					
+					<?php 
+				   
+					   if ($stock->add_ret_margin_flag=='Y'){
+						   echo "checked";
+						   }
+					   
+					   
+					   ?>
+					   >
+				   
+                    
+					</div>
 						<label for="spl_rebt" class="col-sm-1 col-form-label">Less Special Rebate:</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 	
 							<input type="text" style="width:150px" id="spl_rebt" name="spl_rebt" class="form-control" 
-                            value = "<?php echo $stock->spl_rebt; ?>"   />
+                            value = "<?php echo $stock->spl_rebt; ?>" readonly  />
 						   
 						</div>
-                        </div>
+						<div class="col-sm-2">
+					<label for="less_spl_rbt_flag" style="color:green;">GST</label>
+					<input type="checkbox" id="less_spl_rbt_flag" name="less_spl_rbt_flag" value = "Y" class="checkbox_check"
+					
+					disabled
+					<?php 
+				   
+					   if ($stock->less_spl_rbt_flag=='Y'){
+						   echo "checked";
+						   }
+					   
+					   
+					   ?>>
+					</div>
+                     </div>
+
                         <div class="form-group row">
 					<label for="adj_amt" class="col-sm-1 col-form-label">Add Adj Amt:</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 	
 						<input type="text" style="width:150px" id="adj_amt" name="adj_amt" class="form-control"  
-                        value = "<?php echo $stock->add_adj_amt; ?>"   />
+                        value = "<?php echo $stock->add_adj_amt; ?>" readonly  />
 						</div> 
-	
+
+					<div class="col-sm-1">
+					<label for="add_adj_amt_flag" style="color:green;">GST</label>
+					<input type="checkbox" id="add_adj_amt_flag" name="add_adj_amt_flag" value="Y"
+					disabled
+					 <?php 
+					
+						if ($stock->add_adj_amt_flag=='Y'){
+							echo "checked";
+							}
+						
+						
+						?>>
+					
+					</div>
+
 						 <label for="less_adj_amt" class="col-sm-1 col-form-label">Less Adj Amt:</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 	
 							<input type="text" style="width:150px" id="less_amt" name="less_adj_amt" class="form-control" 
-                            value = "<?php echo $stock->less_adj_amt; ?>"   />
+                            value = "<?php echo $stock->less_adj_amt; ?>" readonly  />
 						   
 						</div> 
-						
+						<div class="col-sm-1">
+					<label for="less_adj_amt_flag" style="color:green;">GST</label>
+					<input type="checkbox" id="less_adj_amt_flag" name="less_adj_amt_flag"  value = "Y" class="checkbox_check"
+					disabled
+					
+					<?php 
+				   
+					   if ($stock->less_adj_amt_flag=='Y'){
+						   echo "checked";
+						   }
+					   
+					   
+					   ?>>
+					</div>
 					  </div>
+
 					  <div class="form-group row">
 					  <label for="trd_mgr" class="col-sm-1 col-form-label">Less Trade margin:</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 	
-							<input type="text" style="width:150px" id=trd_mgr name="trd_mgr" class="form-control" value="<?php echo $stock->trad_margin; ?>"   />
+							<input type="text" style="width:150px" id=trd_mgr name="trd_mgr" class="form-control" value="<?php echo $stock->trad_margin; ?>" readonly  />
 						   
+						</div>
+						<div class="col-sm-1">
+						<label for="less_trad_margin_flag" style="color:green;">GST</label>
+						<input type="checkbox" id="less_trad_margin_flag" name="less_trad_margin_flag" value = "Y" class="checkbox_check"
+				          disabled
+					
+					<?php 
+				   
+					   if ($stock->less_trad_margin_flag=='Y'){
+						   echo "checked";
+						   }
+					   
+					   
+					   ?>>
 						</div>
 					  <label for="les_oth_dis" class="col-sm-1 col-form-label">Less Oth discount:</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
 	
-							<input type="text" style="width:150px" id=les_oth_dis name="les_oth_dis" class="form-control" value="<?php echo $stock->oth_dis; ?>"  />
+							<input type="text" style="width:150px" id=les_oth_dis name="les_oth_dis" class="form-control" value="<?php echo $stock->oth_dis; ?>" readonly />
 						   
 						</div>
-						<label for="les_oth_dis" class="col-sm-1 col-form-label">Less Freight Subsidy:</label>
-						<div class="col-sm-3">
+					<div class="col-sm-1">
+					<label for="less_oth_dis_flag" style="color:green;">GST</label>
+					<input type="checkbox" id="less_oth_dis_flag" name="less_oth_dis_flag" value = "Y" class="checkbox_check"
+				disabled
+					
+					<?php 
+				   
+					   if ($stock->less_oth_dis_flag=='Y'){
+						   echo "checked";
+						   }
+					   
+					   
+					   ?>>
+					</div>
+						<label for="frt_subsidy" class="col-sm-1 col-form-label">Less Freight Subsidy:</label>
+						<div class="col-sm-2">
 	
-							<input type="frt_subsidy" style="width:150px" id=frt_subsidy name="frt_subsidy" class="form-control" value="<?php echo $stock->frt_subsidy; ?>" />
+						<input type="frt_subsidy" style="width:120px" id=frt_subsidy name="frt_subsidy" class="form-control" value="<?php echo $stock->frt_subsidy; ?>" readonly />
 						   
+						</div>
+						<div class="col-sm-1">
+						<label for="less_frght_subsdy_flag" style="color:green;">GST</label>
+						<input type="checkbox" id="less_frght_subsdy_flag" name="less_frght_subsdy_flag"value = "Y" class="checkbox_check"
+					
+					disabled
+					<?php 
+				   
+					   if ($stock->less_frght_subsdy_flag=='Y'){
+						   echo "checked";
+						   }
+					   
+					   
+					   ?>>
 						</div>
 						</div>
                       <div class="form-group row">
@@ -472,6 +531,12 @@
 	
 						<input type="text" style="width:150px" id="rbt_less" name="rbt_less" class="form-control" 
                         value = "<?php echo $stock->rbt_less; ?>"    />
+						</div> 
+						<label for="tot_pur_rt" class="col-sm-1 col-form-label" style="color:Blue;">Net Rate/Unit:</label>
+						<div class="col-sm-3">
+	
+						<input type="text" style="width:150px" id=tot_pur_rt name="tot_pur_rt" class="form-control"
+						 value= "<?php echo number_format($stock->tot_amt/$stock->qty,3); ?>" readonly  />
 						</div> 
 						</div>
                         <div class="form-group row">
@@ -580,26 +645,26 @@
 	});
 	
 	</script>
-	<script>
+<script>
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
+		var i           = 2;
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
 	
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+        var net_rt      = 0.00;
 		$('#retlr_margin').change(function(){
 			let row = $(this).closest('tr');
 			$.get( 
@@ -618,17 +683,46 @@
 				var parseData = JSON.parse(data);
 				tot_qty=$('#qty').val() 
 				gst_rt =$('#gst_rt').val() 
-				base_price =tot_qty * $('#rate').val() 
+				base_price =tot_qty * $('#rate').val()
+				base_price=parseFloat(base_price).toFixed(2)
+				
 				retlr_margin = $('#retlr_margin').val() 
 				spl_rebt  = $('#spl_rebt').val() 
-				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
-				gst=(taxable_amt * gst_rt/100)/2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				//console.log(parseData);
-				//  console.log(parseData[0].qty);
-				// console.log(parseData[0].allot_qty_qnt);
-				console.log(qty);
-				$('#base_price').val(base_price);
+				var ckbox = $('#add_ret_margin_flag');
+
+$('input').on('click',function () {
+	if (ckbox.is(':checked')) {
+		// alert('You have Checked it');
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
+		taxable_amt =parseFloat(taxable_amt).toFixed(2)
+		gst=(taxable_amt * gst_rt/100)/2
+		gst=parseFloat(gst).toFixed(2)
+		tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+		tot_amt=Math.round(parseFloat(tot_amt))
+		// alert(gst);
+		$('#net_amt').val(taxable_amt);
+		// $('#cgst').val(gst);
+		$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				$('#adj_amt').val(0);
+				$('#less_amt').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+               $('#tot_pur_rt').val(net_rt);
+	} else {
+		// alert('You Un-Checked it');
+		taxable_amt= parseFloat(base_price) + -parseFloat(spl_rebt)
+		taxable_amt =parseFloat(taxable_amt).toFixed(2)
+		gst=(taxable_amt * gst_rt/100)/2
+		gst=parseFloat(gst).toFixed(2)
+		tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+		tot_amt=Math.round(parseFloat(tot_amt))
 				$('#net_amt').val(taxable_amt);
 				$('#tot_amt').val(tot_amt);
 				$('#retlr_margin').val(retlr_margin);
@@ -641,34 +735,58 @@
 				$('#rnd_of_less').val(0);
 				$('#adj_amt').val(0);
 				$('#less_amt').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                 $('#tot_pur_rt').val(net_rt);
+	}
+});
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
+			
+				// taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				// gst=(taxable_amt * gst_rt/100)/2
+				// gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				
+				// $('#base_price').val(base_price);
+				// // $('#net_amt').val(taxable_amt);
+				// $('#tot_amt').val(tot_amt);
+				// $('#retlr_margin').val(retlr_margin);
+				// $('#spl_rebt').val(spl_rebt);
+				// $('#cgst').val(gst);
+				// $('#sgst').val(gst);
+				// $('#rbt_add').val(0);
+				// $('#rbt_less').val(0);
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				// $('#adj_amt').val(0);
+				// $('#less_amt').val(0);
 				
 			});
 	
 		});
 	
 	});
-	
-	</script>
-	
-	<script>
+</script>
+
+<script>
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var i            = 2;
+		var tot_qty      = 0.00;
+		var base_price   = 0.00;
+		var gst_rt       = 0.00;
+		var gst          = 0.00;
+		var spl_rebt     = 0.00;
+		var retlr_margin = 0.00;
+		var tot_amt      = 0.00;
+		var rbt_add      = 0.00;
+		var rbt_less     = 0.00;
+		var rnd_of_add   = 0.00;
+		var rnd_of_less  = 0.00;
+		var add_adj_amt  = 0.00;
+		var less_adj_amt = 0.00;
+        var net_rt       = 0.00;
 		$('#spl_rebt').change(function(){
 	
 			$.get( 
@@ -688,12 +806,21 @@
 				tot_qty=$('#qty').val() 
 				gst_rt =$('#gst_rt').val() 
 				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
 				retlr_margin = $('#retlr_margin').val() 
 				spl_rebt  = $('#spl_rebt').val() 
-				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
-				gst=(taxable_amt * gst_rt/100)/2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
 
+				var ckbox2 = $('#less_spl_rbt_flag');
+
+$('input').on('click',function () {
+
+	if (ckbox2.is(':checked')) {
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -709,14 +836,63 @@
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
+	} else {
+		        taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
+
+	}
+});
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)
+				// taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				// gst=(taxable_amt * gst_rt/100)/2
+				// gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				// $('#base_price').val(base_price);
+				// $('#net_amt').val(taxable_amt);
+				// $('#tot_amt').val(tot_amt);
+				// $('#retlr_margin').val(retlr_margin);
+				// $('#spl_rebt').val(spl_rebt);
+				// $('#cgst').val(gst);
+				// $('#sgst').val(gst);
+				// $('#rbt_add').val(0);
+				// $('#rbt_less').val(0);
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
 				
 			});
 	
 		});
 	
 	});
-	
-	</script>
+</script>
 
 
 <script>
@@ -724,20 +900,20 @@
 	$(document).ready(function(){
 	
 		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var net_rt      = 0.00;
 		$('#adj_amt').change(function(){
 	
 			$.get( 
@@ -757,14 +933,23 @@
 				tot_qty=$('#qty').val() 
 				gst_rt =$('#gst_rt').val() 
 				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
 				retlr_margin = $('#retlr_margin').val() 
 				spl_rebt  = $('#spl_rebt').val() 
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
-				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
-				gst=(taxable_amt * gst_rt/100)/2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
 
+				var ckbox3 = $('#add_adj_amt_flag');
+
+$('input').on('click',function () {
+
+	if (ckbox3.is(':checked')) {
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -780,6 +965,58 @@
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				$('#adj_amt').val(add_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+	} else {
+		       taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				$('#adj_amt').val(add_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
+
+	}
+});
+			// 	taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+			// 	taxable_amt =parseFloat(taxable_amt).toFixed(2)
+			// 	gst=(taxable_amt * gst_rt/100)/2
+			// 	gst=parseFloat(gst).toFixed(2)
+			// 	tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			// 	tot_amt=Math.round(parseFloat(tot_amt))
+			// 	 // console.log(parseData);
+			// 	// console.log(parseData[0].qty);
+			//    // console.log(parseData[0].allot_qty_qnt);
+			//   // console.log(qty);
+			// 	$('#base_price').val(base_price);
+			// 	$('#net_amt').val(taxable_amt);
+			// 	$('#tot_amt').val(tot_amt);
+			// 	$('#retlr_margin').val(retlr_margin);
+			// 	$('#spl_rebt').val(spl_rebt);
+			// 	$('#cgst').val(gst);
+			// 	$('#sgst').val(gst);
+			// 	$('#rbt_add').val(0);
+			// 	$('#rbt_less').val(0);
+			// 	$('#rnd_of_add').val(0);
+			// 	$('#rnd_of_less').val(0);
 				
 			});
 	
@@ -787,27 +1024,27 @@
 	
 	});
 	
-	</script>
+</script>
 
 <script>
 	
 	$(document).ready(function(){
 	
-		var i = 2;
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-
+		var i           = 2;
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+        var net_rt      = 0.00;
 		$('#less_amt').change(function(){
 	
 			$.get( 
@@ -827,14 +1064,49 @@
 				tot_qty=$('#qty').val() 
 				gst_rt =$('#gst_rt').val() 
 				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
 				retlr_margin = $('#retlr_margin').val() 
 				spl_rebt  = $('#spl_rebt').val() 
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
-				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
-				gst=(taxable_amt * gst_rt/100)/2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				var ckbox4 = $('#less_adj_amt_flag');
 
+$('input').on('click',function () {
+
+	if (ckbox4.is(':checked')) {
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#add_adj_amt').val(add_adj_amt);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				$('#less_amt').val(less_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+				
+	} else {
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -850,6 +1122,33 @@
 				$('#rbt_less').val(0);
 				$('#rnd_of_add').val(0);
 				$('#rnd_of_less').val(0);
+				$('#add_adj_amt').val(add_adj_amt);
+				$('#less_amt').val(less_adj_amt);
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
+	}
+});
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				// taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				// gst=(taxable_amt * gst_rt/100)/2
+				// gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				// $('#base_price').val(base_price);
+				// $('#net_amt').val(taxable_amt);
+				// $('#tot_amt').val(tot_amt);
+				// $('#retlr_margin').val(retlr_margin);
+				// $('#spl_rebt').val(spl_rebt);
+				// $('#cgst').val(gst);
+				// $('#sgst').val(gst);
+				// $('#rbt_add').val(0);
+				// $('#rbt_less').val(0);
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
 				
 			});
 	
@@ -857,26 +1156,27 @@
 	
 	});
 	
-	</script>
+</script>
+
 	 <script>
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
+		var tot_qty     =0.00;
+		var base_price  =0.00;
+		var gst_rt      =0.00;
+		var gst         =0.00;
+		var spl_rebt    =0.00;
 		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
 		var add_adj_amt =0.00;
 		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
-		
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		$('#rbt_add').change(function(){
 	
 			$.get( 
@@ -936,7 +1236,8 @@
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -949,21 +1250,21 @@
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
-		
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		$('#rbt_less').change(function(){
 	
 			$.get( 
@@ -1008,7 +1309,8 @@
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -1022,21 +1324,21 @@
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
-		
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		$('#rnd_of_add').change(function(){
 	
 			$.get( 
@@ -1083,7 +1385,8 @@
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+			    net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -1097,21 +1400,21 @@
 	
 	$(document).ready(function(){
 	
-		var tot_qty  =0.00;
-		var base_price =0.00;
-		var gst_rt =0.00;
-		var gst=0.00;
-		var spl_rebt=0.00;
-		var retlr_margin=0.00;
-		var tot_amt = 0.00;
-		var rbt_add= 0.00;
-		var rbt_less= 0.00;
-		var rnd_of_add= 0.00;
-		var rnd_of_less= 0.00;
-		var add_adj_amt =0.00;
-		var less_adj_amt=0.00;
-		var tot_amt = 0.00;
-		
+		var tot_qty     = 0.00;
+		var base_price  = 0.00;
+		var gst_rt      = 0.00;
+		var gst         = 0.00;
+		var spl_rebt    = 0.00;
+		var retlr_margin= 0.00;
+		var tot_amt     = 0.00;
+		var rbt_add     = 0.00;
+		var rbt_less    = 0.00;
+		var rnd_of_add  = 0.00;
+		var rnd_of_less = 0.00;
+		var add_adj_amt = 0.00;
+		var less_adj_amt= 0.00;
+		var tot_amt     = 0.00;
+		var net_rt      = 0.00;
 		$('#rnd_of_less').change(function(){
 	
 			$.get( 
@@ -1158,7 +1461,8 @@
 				tot_amt=Math.round(parseFloat(tot_amt))
 			
 				$('#tot_amt').val(tot_amt);
-			
+			    net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
+                 $('#tot_pur_rt').val(net_rt);
 				
 			});
 	
@@ -1168,19 +1472,6 @@
 	
 </script> 
 
-<!-- <script>
-function myFunction() {
-	var salerate = $('#govt_sale_rt').val();
-//  alert(salerate);
-  if(salerate==0){
-	alert('Sale Rate Cant not zero');
-	$('#submit').attr('type', 'buttom');
-	event.preventDefault();
-}else{
-   $('#submit').attr('type', 'submit');
-}
-}
-</script> -->
 <script>
 $(document).ready(function(){
 $("#ro_dt").change(function(){
@@ -1279,6 +1570,7 @@ return false;
 })
 });
 </script>
+
 <script>
 
 $(document).ready(function(){
@@ -1406,4 +1698,404 @@ $(document).ready(function(){
 		}
 
 		
+</script>
+<script>
+	
+	$(document).ready(function(){
+	
+		var i               = 2;
+		var tot_qty         = 0.00;
+		var base_price      = 0.00;
+		var gst_rt          = 0.00;
+		var gst             = 0.00;
+		var spl_rebt        = 0.00;
+		var retlr_margin    = 0.00;
+		var tot_amt         = 0.00;
+		var rbt_add         = 0.00;
+		var rbt_less        = 0.00;
+		var rnd_of_add      = 0.00;
+		var rnd_of_less     = 0.00;
+		var add_adj_amt     = 0.00;
+		var less_adj_amt    = 0.00;
+		var less_trad_margin= 0.00;
+		var net_rt          = 0.00;
+		$('#trd_mgr').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+                less_trad_margin=$('#trd_mgr').val() 
+				var ckbox5 = $('#less_trad_margin_flag');
+
+$('input').on('click',function () {
+
+	if (ckbox5.is(':checked')) {
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+	} else {
+
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+	}
+});
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)
+			// 	taxable_amt =parseFloat(taxable_amt).toFixed(2)
+			// 	gst=(taxable_amt * gst_rt/100)/2
+			// 	gst=parseFloat(gst).toFixed(2)
+			// 	tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			// 	tot_amt=Math.round(parseFloat(tot_amt))
+			// 	 // console.log(parseData);
+			// 	// console.log(parseData[0].qty);
+			//    // console.log(parseData[0].allot_qty_qnt);
+			//   // console.log(qty);
+			// 	$('#base_price').val(base_price);
+			// 	$('#net_amt').val(taxable_amt);
+			// 	$('#tot_amt').val(tot_amt);
+			// 	$('#retlr_margin').val(retlr_margin);
+			// 	$('#spl_rebt').val(spl_rebt);
+			// 	$('#cgst').val(gst);
+			// 	$('#sgst').val(gst);
+			// 	$('#rbt_add').val(0);
+			// 	$('#rbt_less').val(0);
+			// 	$('#rnd_of_add').val(0);
+			// 	$('#rnd_of_less').val(0);
+				
+			});
+	
+		});
+	
+	});
+	
+</script>
+
+<script>
+	
+	$(document).ready(function(){
+	
+		var i               = 2;
+		var tot_qty         = 0.00;
+		var base_price      = 0.00;
+		var gst_rt          = 0.00;
+		var gst             = 0.00;
+		var spl_rebt        = 0.00;
+		var retlr_margin    = 0.00;
+		var tot_amt         = 0.00;
+		var rbt_add         = 0.00;
+		var rbt_less        = 0.00;
+		var rnd_of_add      = 0.00;
+		var rnd_of_less     = 0.00;
+		var add_adj_amt     = 0.00;
+		var less_adj_amt    = 0.00;
+        var less_trad_margin= 0.00;
+        var less_oth_dis    = 0.00;
+		var net_rt          = 0.00;
+
+		$('#les_oth_dis').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				     //console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+                                less_trad_margin=$('#trd_mgr').val() 
+                                less_oth_dis    =$('#les_oth_dis').val()
+								var ckbox6 = $('#less_oth_dis_flag');
+
+$('input').on('click',function () {
+
+	if (ckbox6.is(':checked')) {
+		
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+
+	} else {
+
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			   // console.log(parseData[0].allot_qty_qnt);
+			  // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+
+	}
+});		
+
+			// 	taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)
+			// 	taxable_amt =parseFloat(taxable_amt).toFixed(2)
+			// 	gst=(taxable_amt * gst_rt/100)/2
+			// 	gst=parseFloat(gst).toFixed(2)
+			// 	tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+			// 	tot_amt=Math.round(parseFloat(tot_amt))
+			// 	 // console.log(parseData);
+			// 	// console.log(parseData[0].qty);
+			//    // console.log(parseData[0].allot_qty_qnt);
+			//   // console.log(qty);
+			// 	$('#base_price').val(base_price);
+			// 	$('#net_amt').val(taxable_amt);
+			// 	$('#tot_amt').val(tot_amt);
+			// 	$('#retlr_margin').val(retlr_margin);
+			// 	$('#spl_rebt').val(spl_rebt);
+			// 	$('#cgst').val(gst);
+			// 	$('#sgst').val(gst);
+			// 	$('#rbt_add').val(0);
+			// 	$('#rbt_less').val(0);
+			// 	$('#rnd_of_add').val(0);
+			// 	$('#rnd_of_less').val(0);
+				
+			});
+	
+		});
+	
+	});
+	
+</script>
+<script>
+	
+	$(document).ready(function(){
+	
+		var i               = 2;
+		var tot_qty         = 0.00;
+		var base_price      = 0.00;
+		var gst_rt          = 0.00;
+		var gst             = 0.00;
+		var spl_rebt        = 0.00;
+		var retlr_margin    = 0.00;
+		var tot_amt         = 0.00;
+		var rbt_add         = 0.00;
+		var rbt_less        = 0.00;
+		var rnd_of_add      = 0.00;
+		var rnd_of_less     = 0.00;
+		var add_adj_amt     = 0.00;
+		var less_adj_amt    = 0.00;
+        var less_trad_margin= 0.00;
+        var less_oth_dis    = 0.00;
+        var less_frt_subsidy= 0.00;
+		var net_rt          = 0.00;
+		$('#frt_subsidy').change(function(){
+	
+			$.get( 
+	
+				'<?php echo site_url("stock/f_get_ro");?>',
+				{ 
+	
+					rate: $(this).val()
+					
+				}
+	
+			)
+			.done(function(data){
+	
+				//console.log(data);
+				var parseData = JSON.parse(data);
+				tot_qty=$('#qty').val() 
+				gst_rt =$('#gst_rt').val() 
+				base_price =tot_qty * $('#rate').val() 
+				base_price=parseFloat(base_price).toFixed(2)
+				retlr_margin = $('#retlr_margin').val() 
+				spl_rebt  = $('#spl_rebt').val() 
+				add_adj_amt=$('#adj_amt').val() 
+				less_adj_amt =$('#less_amt').val() 
+                less_trad_margin=$('#trd_mgr').val() 
+                less_oth_dis    =$('#les_oth_dis').val()
+				less_frt_subsidy =$('#frt_subsidy').val()
+				var ckbox7 = $('#less_frght_subsdy_flag');
+
+$('input').on('click',function () {
+
+	if (ckbox7.is(':checked')) {
+		taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)-parseFloat(less_frt_subsidy)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				 // console.log(parseData);
+				// console.log(parseData[0].qty);
+			       // console.log(parseData[0].allot_qty_qnt);
+			      // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+		
+	} else {
+		        taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)
+				taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				gst=(taxable_amt * gst_rt/100)/2
+				gst=parseFloat(gst).toFixed(2)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				tot_amt=Math.round(parseFloat(tot_amt))
+				   // console.log(parseData);
+				  // console.log(parseData[0].qty);
+			     // console.log(parseData[0].allot_qty_qnt);
+			    // console.log(qty);
+				$('#base_price').val(base_price);
+				$('#net_amt').val(taxable_amt);
+				$('#tot_amt').val(tot_amt);
+				$('#retlr_margin').val(retlr_margin);
+				$('#spl_rebt').val(spl_rebt);
+				$('#cgst').val(gst);
+				$('#sgst').val(gst);
+				$('#rbt_add').val(0);
+				$('#rbt_less').val(0);
+				$('#rnd_of_add').val(0);
+				$('#rnd_of_less').val(0);
+				net_rt =parseFloat(tot_amt/tot_qty);
+                $('#tot_pur_rt').val(net_rt);
+		
+	}
+});
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)-parseFloat(less_frt_subsidy)
+				// taxable_amt =parseFloat(taxable_amt).toFixed(2)
+				// gst=(taxable_amt * gst_rt/100)/2
+				// gst=parseFloat(gst).toFixed(2)
+				// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				//  // console.log(parseData);
+				// // console.log(parseData[0].qty);
+			    //    // console.log(parseData[0].allot_qty_qnt);
+			    //   // console.log(qty);
+				// $('#base_price').val(base_price);
+				// $('#net_amt').val(taxable_amt);
+				// $('#tot_amt').val(tot_amt);
+				// $('#retlr_margin').val(retlr_margin);
+				// $('#spl_rebt').val(spl_rebt);
+				// $('#cgst').val(gst);
+				// $('#sgst').val(gst);
+				// $('#rbt_add').val(0);
+				// $('#rbt_less').val(0);
+				// $('#rnd_of_add').val(0);
+				// $('#rnd_of_less').val(0);
+				
+			});
+	
+		});
+	
+	});
+	
 </script>

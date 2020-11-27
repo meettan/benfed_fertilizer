@@ -1247,6 +1247,7 @@ public function stockAdd(){
 					 "trans_flag"    =>$trans_flag,
 
 					"challan_flag"   => 'N',
+
 					"add_ret_margin_flag"=>$add_ret_margin_flag,
 
 					"less_spl_rbt_flag"=>$less_spl_rbt_flag,
@@ -1406,7 +1407,7 @@ public function viewstock(){
 
 			"net_amt"			=> $this->input->post('net_amt'),
 
-			"retlr_margin" 		=> $this->input->post('net_amt'),
+			"retlr_margin" 		=> $this->input->post('retlr_margin'),
 
 			"spl_rebt" 			=> $this->input->post('spl_rebt'),
 
@@ -1433,6 +1434,21 @@ public function viewstock(){
 			"frt_subsidy"      => $this->input->post('frt_subsidy'),
 			
 			"tot_amt"			=> $this->input->post('tot_amt'),
+
+			"add_ret_margin_flag"=> $this->input->post('add_ret_margin_flag'),
+
+			"less_spl_rbt_flag"=> $this->input->post('less_spl_rbt_flag'),
+
+			"add_adj_amt_flag"=>  $this->input->post('add_adj_amt_flag'),
+
+			"less_adj_amt_flag"=> $this->input->post('less_adj_amt_flag'),
+
+			"less_trad_margin_flag"=> $this->input->post('less_trad_margin_flag'),
+
+			"less_oth_dis_flag"=> $this->input->post('less_oth_dis_flag'),
+
+			"less_frght_subsdy_flag"=> $this->input->post('less_frght_subsdy_flag'),
+
 
 			"modified_by"    	=>  $this->session->userdata['loggedin']['user_name'],
 
@@ -1539,7 +1555,8 @@ public function viewstock(){
 			);	
 
 			$product['stock'] = $this->PurchaseModel->f_select("td_purchase a,mm_company_dtls b,mm_product c",Null,$where,1);
-
+		//    echo $this->db->last_query();
+		//    die();
 			$stk_pt = array("soc_id","soc_name");
 				
 			$where_stk = array(
