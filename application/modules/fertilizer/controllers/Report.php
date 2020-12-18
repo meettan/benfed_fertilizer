@@ -469,7 +469,7 @@
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
                 $this->load->view('post_login/fertilizer_main');
-                $this->load->view('report/sale_society/output',$data);
+                $this->load->view('report/sale_society/salesocrep',$data);
                 $this->load->view('post_login/footer');
 
             }else{

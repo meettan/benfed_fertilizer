@@ -261,9 +261,9 @@
                                         from td_sale a,mm_product b,mm_company_dtls c,mm_ferti_soc d
                                         where  a.prod_id = b.PROD_ID
                                         and    a.comp_id = c.COMP_ID
-                                        and    a.soc_id  = '$soc_id'
+                                        and    a.stock_point  = '$soc_id'
                                         and    a.br_cd   = '$branch'
-                                        and    a.soc_id  = d.soc_id
+                                        and    a.stock_point  = d.soc_id
                                         and    a.do_dt between '$frmDt' and '$toDt'");
 
             return $query->result();
