@@ -30,9 +30,13 @@ class Admins extends MX_Controller {
         
         //Retriving User Details
         if($this->session->userdata['loggedin']['user_type']=="M")  {   
+
         $user['user_dtls']    =   $this->Admin->f_get_particulars("md_users", NULL,array( "user_type!=" =>"A"), 0);
+
         }else{
-        $user['user_dtls']    =   $this->Admin->f_get_particulars("md_users", NULL,NULL, 0);   
+
+        $user['user_dtls']    =   $this->Admin->f_get_particulars("md_users", NULL,NULL, 0);  
+         
         }
         
         if ($_SESSION['module'] == 'F'){
@@ -55,11 +59,6 @@ class Admins extends MX_Controller {
     public function f_user_add() {
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-           /// $emp_cd = $_POST['emp_cd'];
-
-            //$empName = $this->Admin->f_get_employeeName($emp_cd);
-           // $user_name = $empName->emp_name;
             
             $data_array = array(
 
@@ -83,36 +82,6 @@ class Admins extends MX_Controller {
 
             );
 
-            /*for($i = 0; $i < count($this->input->post('depts')); $i++){
-                
-                switch($this->input->post('depts')[$i]){
-
-                case 'f' :
-                        $data_array = array_merge($data_array, array('accounts' => 1));
-                        break;
-
-                case 'pr' :
-                        $data_array = array_merge($data_array, array('payroll' => 1));
-                        break;
-
-                case 'pd' :
-                        $data_array = array_merge($data_array, array('paddy' => 1));
-                        break;
-
-                case 'd' :
-                        $data_array = array_merge($data_array, array('dm' => 1));
-                        break;
-
-                case 's' :
-                        $data_array = array_merge($data_array, array('sw' => 1));
-                        break;
-
-                case 'st' :
-                        $data_array = array_merge($data_array, array('st' => 1));
-                        break;
-
-                }
-            }*/
             
             $this->Admin->f_insert('md_users', $data_array);
 
@@ -128,7 +97,7 @@ class Admins extends MX_Controller {
             //$user['user_dtls']   =  $this->Admin->f_get_distinct("md_employee", array( "emp_name" ), NULL);
            // $user['data']          =    $this->Admin->f_get_employee_dtls();
 
-            $this->load->view('post_login/main');
+            $this->load->view('post_login/fertilizer_main');
 
             //$this->load->view("user/add", $user);
             $this->load->view("user/add");

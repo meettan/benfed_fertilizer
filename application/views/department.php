@@ -3,11 +3,8 @@
 <link rel="icon" href="favicon.ico">
  
  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
- <link rel="stylesheet" type="text/css" href="<?php echo base_url("/assets/css/style1.css");?>">
+<link href="<?php echo base_url("/assets/css/bootstrap.min.css");?>" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url("/assets/css/style1.css");?>">
  <title>The West Bengal State Co-operative Marketing Federation Ltd.</title>
 </head>
 <style>
@@ -41,27 +38,24 @@ a:hover{
 	<div class="">
     	<div class="header">
     		<div class="row">
-        <div class="col-md-4"></div><div class="col-md-1">  </div>
-        <div class="col-md-4"><img src="<?=base_url()?>benfed.png"/> </div>
-    	    </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+        	<center><img src="<?=base_url()?>benfed.png"/></center>
+
+        	 </div>
+    	 </div>
     	</div>
 		 
 		<div class="row">
 		
 		 <div class="col-md-4">
-			<a class="text-white hover" href="<?=base_url()?>index.php/User_Login/login">
+			<!-- <a class="text-white hover" href="<?=base_url()?>index.php/User_Login/login">
 				<div class="block index_btn1">
 					Paddy<br>Procurement
 				</div>    
-			</a>
+			</a> -->
 		 </div>  
-		 <!--<div class="col-md-4">
-			<a class="text-white" href="<?=base_url()?>index.php/Finance_Login/login">
-				<div class="block index_btn2">
-					Finance<br>Management
-				</div>  
-			</a>	
-		 </div>-->
+		
 	    <div class="col-md-4">
 			<a class="text-white" href="<?=base_url()?>index.php/Fertilizer_Login/login">
 				<div class="block index_btn3">

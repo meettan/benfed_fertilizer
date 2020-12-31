@@ -326,46 +326,31 @@ public function saleAdd(){   //================================================
 
 }
 
-     public function saleedit(){
+  public function saleedit(){
 
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-            	$prod_id = $this->input->post('prod_id');
 				
-				
-			  for($i = 0; $i < count($prod_id); $i++){
+			 // for($i = 0; $i < count($prod_id); $i++){
 
 			  $data     = array(
-                                  'do_dt'        => $this->input->post('ro_dt'),
+                                   'trans_type'   => $this->input->post('trans_type'),
 
 								   'sale_due_dt'  => $this->input->post('sale_due_dt'), 
 
-								   'comp_id'      => $this->input->post('comp_id'),
+                                   'qty'          => $_POST['qty'],
 
-                                   'sale_ro'      => $_POST['ro'][$i],
-
-									'prod_id'     => $_POST['prod_id'][$i],
+								   'taxable_amt'  => $_POST['taxable_amt'],
 									
-									'unit'        => $_POST['unit'][$i],
+	                               'cgst'         => $_POST['cgst'],
 
-                                    'qty'         => $_POST['qty'][$i],
+                                   'sgst'         => $_POST['sgst'],
 
-                                    'sale_rt'     => $_POST['sale_rt'][$i],
+                                   'tot_amt'      => $_POST['tot_amt'],
 
-									'taxable_amt' => $_POST['taxable_amt'][$i],
-									
-									'gst_rt'       => $_POST['gst_rt'][$i],
-									
-                                    'cgst'         => $_POST['cgst'][$i],
+                                   "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
-                                    'sgst'         => $_POST['sgst'][$i],
-
-                                    'tot_amt'      => $_POST['tot_amt'][$i],
-
-                                    "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-
-				                    "modified_dt"   =>  date('Y-m-d h:i:s'),
+				                   "modified_dt"  =>  date('Y-m-d h:i:s'),
 
                                 );
 
@@ -373,16 +358,19 @@ public function saleAdd(){   //================================================
 
                  'trans_do'     => $this->input->post('trans_do'),
 
-                 'sale_ro'      => $_POST['ro'][$i]
+                 'sale_ro'      => $this->input->post('ro')
 
             );
 
+
+
             $this->SaleModel->f_edit('td_sale', $data, $where);
-							}
+
+			//}
 				
 				$this->session->set_flashdata('msg', 'Successfully Updated');
 
-			redirect('fertilizer/sale');
+			redirect('trade/sale');
 		
            
             

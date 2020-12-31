@@ -16,123 +16,208 @@
     		
                         <input type="hidden" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>"/>						
 						<div class="form-group row">
+						<label for="soc_id" class="col-sm-2 col-form-label">Society :</label>
+						<div class="col-sm-4">
+	
+						<select name="soc_id"  class="form-control required" id="soc_id" disabled>
+                    	<option value="">Select</option>
+                    	
+                    	<?php
+                    	
+                    		foreach($socdtls as $soc){
+                    	
+                    	?>
+                    		<option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
+                    	<?php
+                    	
+                    		}
+                    	
+                    	?>     
+                    	</select>
+						</div>
+						<label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
+						<div class="col-sm-3">
+						<input type="text"  id=gstin name="gstin" class="form-control" readonly />
+						</div>
+						</div>
+	
+						<div class="form-group row">
+						<label for="soc_add" class="col-sm-2 col-form-label">Address:</label>
+						<div class="col-sm-4">
+	
+					   <textarea style="width:350px;height:70px"  id=soc_add name="soc_add" class="form-control" readonly /></textarea>
+	
+						</div>
+						 <label for="cin" class="col-sm-2 col-form-label">Invoice Type:</label>
+						<div class="col-sm-3">
+	
+						<select name="trans_type" class="form-control" disabled>
+                            <option value="Credit" <?php if($prodd->trans_type=="Credit") echo "selected" ?>  >Credit</option>
+                            <option value="Cash" <?php if($prodd->trans_type=="Cash") echo "selected" ?>>Cash</option>
+                        </select>
+	
+						</div> 
+					  </div>
+                      <div class="form-group row">
 
-                             <label for="cin" class="col-sm-2 col-form-label">Invoice Type:</label>
+                        <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
                         <div class="col-sm-4">
     
-                        <select name="trans_type" class="form-control" >
-                            <option value="Credit" <?php if($prodd->trans_type == "Credit") echo "selected" ?>  >Credit</option>
-                            <option value="Cash" <?php if($prodd->trans_type == "Cash") echo "selected" ?>>Cash</option>
-                        </select>
-    
-                        </div> 
-
-						    
-    						
-						  <label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
-    						<div class="col-sm-4">
-    						<input type="text"  id=gstin name="gstin" class="form-control" readonly />
-    						</div>
-
+                            <input type="date" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>" readonly/>
+                        </div>
+	                
+     
+                        <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
+						<div class="col-sm-3">
+	
+							<select name="comp_id" class="form-control required" id="comp_id" disabled>
+	
+                    	<option value="">Select</option>
+                    	
+                    	<?php
+                    	
+                    		foreach($compdtls as $comp){
+                    	
+                    	?>
+                    	
+                    		<option value="<?php echo $comp->comp_id;?>"  <?php if($prodd->comp_id==$comp->comp_id) echo "selected" ?>><?php echo $comp->comp_name;?></option>
+                    	
+                    	<?php
+                    	
+                    		}
+                    	
+                    	?>     
+                    	
+                    	</select>
 						</div>
 
-                    <div class="form-group row">
+                        </div>
 
-                        <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
-                        <div class="col-sm-4">
+                          <div class="form-group row">
+                          <label for="no_of_days"  class="col-sm-2 col-form-label">No Of Days:</label>
+                            <div class="col-sm-4">
     
-                            <select name="comp_id" class="form-control required" id="comp_id" disabled>
+                                <input type="text" style="width:100px" name="no_of_days" id="no_of_days" class="form-control" value="<?=$prodd->no_of_days?>"  onchange="endDt()" required />
+                            </div>
+                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
+                            <div class="col-sm-4">
     
-                        <option value="">Select</option>
-                        
+                                <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>" readonly />
+                            </div>
+
+                            <!-- <label for="unit"  class="col-sm-2 col-form-label">Unit:</label>
+
+                            <div class="col-sm-3">
+    
+                                <input type="text" name="unit" id="unit" class="form-control" value="MT"  readonly/>
+                            </div> -->
+                        </div>
+
+
+						<div class="form-header">
+					
+					<h4>Ro And Product Details</h4>
+				
+				</div>
+                <hr>
+
+                <div class="row" style ="margin: 5px;">
+
+                    <div class="form-group">
+
+                        <table class= "table table-striped table-bordered table-hover">
+
+                            <thead>
+
+                                <th style= "text-align: center">Ro</th>
+                                <th style= "text-align: center">Product</th>
+                                <th style= "text-align: center">Unit</th>
+                                <th style= "text-align: center">Stock Point</th>
+                                <th style= "text-align: center">Rate Catg</th>
+                                <th style= "text-align: center">Govt.Rate</th>
+                                <th style= "text-align: center">Stock Qty</th>
+                                <th style= "text-align: center">Qty</th>
+								<th style= "text-align: center">Sale Rate</th>
+								<th style= "text-align: center">Taxable Amt</th>
+								<!-- <th style= "text-align: center">CGST</th>
+								<th style= "text-align: center">SGST</th>
+                                <th style= "text-align: center">Dis</th> -->
+								<th style= "text-align: center">Total Amt</th>
+                         
+
+                            </thead>
+
+                            <tbody id= "intro">
+                     <?php          $sum=0;
+                                     $taxable_amt=0;
+                                      $cgst=0;
+                                       $sgst=0;
+                    foreach($prod_dtls as $prodd)
+                    { ?>
+                                <tr>
+                                
+                                    <td>    
+                                    
+                     <select name="ro[]" id="ro" style="width:150px"class="form-control required ro" disabled >
+                     <option value="">Select Project</option>
+                     <?php
+                    foreach($rodtls as $key1)
+                    { ?>
+                        <option value="<?php echo $key1->ro_no; ?>" <?php if($prodd->sale_ro==$key1->ro_no) echo "selected" ?>   ><?php echo $key1->ro_no; ?></option>
+                    <?php
+                    } ?>
+                    </select> 
+                                    </td>
+
+                                    <td>    
+                                      
+                    <select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id"  disabled />
+                    <option value="">Select product</option>
+                    <?php
+                    foreach($proddtls as $key1)
+                    { ?>
+                        <option value="<?php echo $key1->prod_id; ?>" <?php if($prodd->prod_id==$key1->prod_id) echo "selected" ?> ><?php echo $key1->prod_desc; ?></option>
+                    <?php
+                    } ?>c
+                    </select> 
+                                        
+                            </td>
+                            <td>    
+                                      
+                                      <select name="unit[]" id="unit" style="width:70px"class="form-control required unit" disabled >
+                                      <option value="">Select unit</option>
+                                      <?php
+                                      foreach($unit as $unt)
+                                      { ?>
+                                          <option value="<?php echo $unt->id; ?>" <?php if($prodd->unit==$unt->id) echo "selected" ?> ><?php echo $unt->unit_name; ?></option>
+                                      <?php
+                                      } ?>
+                                      </select> 
+                                                          
+                                              </td>
+                                        
+                              <td>
+                                        <select name="stock_point[]" id="stock_point" style="width:110px"class="form-control stock_point" required>
+                                            <option value="">Select</option>
                         <?php
-                        
-                            foreach($compdtls as $comp){
+
+                        foreach($socdtls as $soc){
                         
                         ?>
-                        
-                            <option value="<?php echo $comp->comp_id;?>"  <?php if($prodd->comp_id==$comp->comp_id) echo "selected" ?>><?php echo $comp->comp_name;?></option>
-                        
+                            <option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
                         <?php
                         
                             }
                         
                         ?>     
-                        
-                        </select>
-                        </div>
+                            </select> 
+                                    
+                                </td>
+                                       <td>
 
-                         <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
-                        <div class="col-sm-4">
-    
-                            <input type="date" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>" readonly/>
-                        </div>
-
-                    </div>
+                                    <select name="sale_category[]" id="sale_category" style="width:110px"class="form-control sale_category" required>
 
 
-                        <div class="form-group row">
-                          <label for="no_of_days"  class="col-sm-2 col-form-label">No Of Days:</label>
-                            <div class="col-sm-4">
-                                <input type="text" style="width:100px" name="no_of_days" id="no_of_days" class="form-control" value="<?=$prodd->no_of_days?>"  onchange="endDt()"  />
-                            </div>
-                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
-                            <div class="col-sm-4">
-    
-                                <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>"  />
-                            </div>
-                           
-                        </div>
-
-                        <div class="form-group row">
-                          <label for="no_of_days"  class="col-sm-2 col-form-label">Ro No:</label>
-                            <div class="col-sm-4">
-                                <input type="text" style="" name="ro" id="ro" class="form-control" value="<?=$prodd->sale_ro?>"  readonly/>
-                            </div>
-                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Product:</label>
-                            <div class="col-sm-4">
-
-                             <input type="text"  name="prod_desc" id="prod_desc" class="form-control" 
-                             value="<?php  foreach($proddtls as $key1) {  
-
-                                    if($prodd->prod_id == $key1->prod_id) {echo $key1->prod_desc;} 
-                        
-                                    } ?>" readonly />
-                    <input type="hidden" name="gst_rt"  class="form-control gst_rt" value="" id="gst_rt" value="">
-                            </div>
-                           
-                        </div>
-                        <div class="form-group row">
-                             
-                        <label for="comp_id" class="col-sm-2 col-form-label">UNIT :</label>
-                        <div class="col-sm-4">
-
-                        <input type="text"  id="unit" name="unit" class="form-control" 
-
-                        value="<?php    foreach($unit as $unt)
-                                      { 
-                                        if($prodd->unit == $unt->id) {   echo $unt->unit_name; } 
-                                      } ?>"
-
-
-                        readonly />    
-                       
-                           
-                        </div>
-
-                         <label for="do_dt" class="col-sm-2 col-form-label">Secondary Stock Point:</label>
-                        <div class="col-sm-4">
-    
-                            <input type="text"  id=stock_name name="stock_name" class="form-control" readonly />
-                        </div>
-
-                        </div>
-
-                        <div class="form-group row">
-                             
-                            <label for="comp_id" class="col-sm-2 col-form-label">Sale Category :</label>
-                            <div class="col-sm-4">
-                           <select name="sale_category[]" id="sale_category" class="form-control sale_category" disabled>
                                          <option value="">Select</option>
                                          <?php 
 
@@ -159,7 +244,7 @@
                                            
                                             $result = $this->SaleModel->js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id);
 
-                                    
+                                            // foreach ($result as $res ) {
                                                 foreach ($catg as $cat){
                                            
                                          ?>
@@ -168,106 +253,45 @@
                                       <?php } ?>
               
                                          </select> 
-                               
-                            </div>
-
-                             <label for="do_dt" class="col-sm-2 col-form-label">Govt Sale Rate:</label>
-                             <div class="col-sm-4"> 
-                        <select name="gov_sale_rt" id="gov_sale_rt" class="form-control gov_sale_rt" disabled>
-                        <option value="N" <?php if($prodd->gov_sale_rt == 'N') { echo "selected"; }?> >No</option>
-                        <option value="Y" <?php if($prodd->gov_sale_rt == 'Y') { echo "selected"; }?>>Yes</option>
-                        </select> 
-                        </div>
-
-                        </div>
-
-                        <div class="form-group row">
-                             
-                            <label for="comp_id" class="col-sm-2 col-form-label">Stock Qty :</label>
-                            <div class="col-sm-4">
-                           <input type="text" name="stock_qty[]" class="form-control stock_qty" value="<?php  
-                    echo $this->SaleModel->js_get_stock_qty($prodd->sale_ro)->stkqty;?>" id="stock_qty" readonly >
-                               
-                            </div>
-
-                             <label for="do_dt" class="col-sm-2 col-form-label">Sale Rate:</label>
-                            <div class="col-sm-4">
-        
-                             <input type="text" name="sale_rt" class="form-control sale_rt" value="<?=$prodd->sale_rt?>" id="sale_rt" readonly> 
-                            </div>
-
-                        </div>
-
-
-
-						<div class="form-header">
-					
-					<h4>Product Details</h4>
-				
-				</div>
-                <hr>
-
-                <div class="row" style ="margin: 5px;">
-
-                    <div class="form-group">
-
-                        <table class= "table table-striped table-bordered table-hover">
-
-                            <thead>
-                                <th style= "text-align: center;width: 30%;">Stock Point</th>
-                                <th style= "text-align: center">Qty</th>
-								<th style= "text-align: center">Taxable Amt</th>
-								<!-- <th style= "text-align: center">CGST</th>
-								<th style= "text-align: center">SGST</th>
-                                <th style= "text-align: center">Dis</th> -->
-								<th style= "text-align: center">Total Amt</th>
-                            </thead>
-
-                            <tbody id= "intro">
-                     <?php          $sum=0;
-                                     $taxable_amt=0;
-                                      $cgst=0;
-                                       $sgst=0;
-                    foreach($prod_dtls as $prodd)
-                    { ?>
-                <tr>
-
-                    <td>
-                                <select name="stock_point" id="stock_point" class="form-control stock_point" required>
-                                            <option value="">Select</option>
-                                <?php
-                                        foreach($socdtls as $soc){
-                                ?>
-                                    <option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
-                                <?php
-                                
-                                    }
-                                 ?>     
-                                 </select> 
                                     
-                    </td>
+                                    </td>
+                                      <td>
+                                         <select name="gov_sale_rt[]" id="gov_sale_rt" class="form-control gov_sale_rt" required>
+             
+                                          <option value="N" <?php if($prodd->gov_sale_rt == "N") {echo "selected";}?> >No</option>
+                                          <option value="Y" <?php if($prodd->gov_sale_rt == "Y") {echo "selected";}?> >Yes</option>
+                                        </select> 
+                                        
+                                    </td>
 
-                    <td>
-                    <input type="text" name="qty" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" >
-                    </td>
+                                    <td>
+                    <input type="text" name="stock_qty[]" class="form-control stock_qty" value="<?php  
+                    echo $this->SaleModel->js_get_stock_qty($prodd->sale_ro)->stkqty;?>" id="stock_qty" readonly > 
+                                    </td>
 
-					<td>
-                    <input type="text" name="taxable_amt" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
+                                    <td>
+                    <input type="text" name="qty[]" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" >
+                                    </td>
+									<td>
+                    <input type="text" name="sale_rt[]" class="form-control required sale_rt" value="<?=$prodd->sale_rt?>" id="sale_rt" readonly>
+                                    </td>
+									<td>
+                    <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
                     <?php $taxable_amt +=$prodd->taxable_amt;?>
-                    <input type="hidden" name="cgst" class="form-control required cgst" value= "<?=$prodd->cgst?>" id="cgst" readonly>
+                    <input type="hidden" name="cgst[]" class="form-control required cgst" value= "<?=$prodd->cgst?>" id="cgst" readonly>
                      <?php $cgst +=$prodd->cgst;?>
-                       <input type="hidden" name="sgst" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
+                       <input type="hidden" name="sgst[]" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
                         <?php $sgst +=$prodd->sgst;?>
-                    </td>
+                                    </td>
 									
                
-					<td>
-                    <input type="text" name="tot_amt" class="form-control tot_amt required" value="<?php echo ($prodd->taxable_amt+$prodd->cgst+$prodd->sgst);
+									<td>
+                    <input type="text" name="tot_amt[]" class="form-control tot_amt required" value="<?php echo ($prodd->taxable_amt+$prodd->cgst+$prodd->sgst);
                                         $sum +=($prodd->taxable_amt+$prodd->cgst+$prodd->sgst); ?>" id="tot_amt" readonly>
-                    </td>
+                                    </td>
               
                                    
-                    </tr>
+                                </tr>
 
                 <?php } ?>
 
@@ -275,10 +299,10 @@
 
                             <tfoot>
                                 <tr>
-                                    <td >
+                                    <td colspan="2">
                                         <strong>Total:</strong>
                                     </td>
-                                     <td colspan="4">
+                                     <td colspan="9">
                                          <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"><?=$taxable_amt?></span></div>
                                         <div class="col-md-2">CGST:<span id="tot_cgst"><?=$cgst?></span></div>
                                         <div class="col-md-2">SGST:<span id="tot_sgst"><?=$sgst?></span></div>
@@ -295,7 +319,8 @@
 
                 </div>
 
-                <div class="form-group row">
+                
+              <!--   <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -303,7 +328,7 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
             </form>
 
@@ -452,70 +477,6 @@ $.each(JSON.parse(data), function( index, value ) {
 
 </script>
 
-<script>
-
-$(document).ready(function()
-{
-
-
-        $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: '<?=$prodd->sale_ro?>' })
-
-        .done(function(data)
-        {
-             var unitData = JSON.parse(data);
-            $('#gst_rt').val(unitData.gst_rt);
-        });
-
-
-    $('#intro').on('change', '.qty', function(){
-
-          var tottaxable  = 0;
-          var cgst        = 0;
-          var qty         = 0;
-          var rate        = 0;
-          var gst_rt      = 0;
-          var tot_qty     = 0;
-          var stkqty      = 0;
-          var stkqty      = $('#stock_qty').val();
-               $('#intro tr').each(function() {
-          var qty = $(this).find('td:eq(1) .qty').val();
-          var rate= $('#sale_rt').val();
-          var gst_rt= $('#gst_rt').val(); 
-        
-                 tottaxable += parseFloat(qty*rate);
-                 cgst += parseFloat((qty*rate) * gst_rt/100/2);
-                 tot_qty += parseFloat(qty); 
-                 $(this).find('td:eq(2) .taxable_amt').val(tottaxable.toFixed('2'));  
-                 $(this).find('td:eq(3) .tot_amt').val((tottaxable + cgst*2).toFixed('2'));  
-            });
-             
-            $("#tot_taxable_amt").html("");
-            $("#tot_taxable_amt").html(tottaxable.toFixed('2'));
-            $("#tot_cgst").html("");   
-            $("#tot_sgst").html("");    
-            $("#tot_cgst").html(cgst.toFixed('2')); 
-            $("#tot_sgst").html(cgst.toFixed('2')); 
-            $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
-            $("#tot_qty").html("");  
-            $("#tot_qty").html(tot_qty.toFixed('2'));
-            sumqty =tot_qty; 
-         
-            if ( sumqty>stkqty ) {
-            alert('Quantity cannot be greater than stock quantity');
-            $('.qty').eq($('.ro').index(this)).val("0");
-            $('.taxable_amt').eq($('.ro').index(this)).val("0");
-            $('.cgst').eq($('.ro').index(this)).val("0");
-            $('.sgst').eq($('.ro').index(this)).val("0");
-            $('.tot_amt').eq($('.ro').index(this)).val("0");
-         
-            return false;
-           }
-       })
-                   
-    })      
-
-</script>
-
 
 <script>
 
@@ -575,25 +536,6 @@ $(document).ready(function(){
 
 
 	});
-
-      $(document).ready(function(){
-      //  $('#ro').change(function(){
-
-             // $('.stock_point').eq($('.ro').index(this)).val(""); 
-              $('.stock_name').eq($('.ro').index(this)).val(""); 
-           
-            $.get('<?php echo site_url("trade/js_get_stock_point");?>',{ ro: '<?=$prodd->sale_ro?>' })
-                                                                            
-            .done(function(data){
-
-                   var unitData = JSON.parse(data);
-
-               // $('.stock_point').eq($('.ro').index(this)).val(unitData.soc_id); 
-                $('#stock_name').val(unitData.soc_name); 
-
-            });
-
-        });
 
 </script>
 

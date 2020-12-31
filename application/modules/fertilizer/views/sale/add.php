@@ -16,7 +16,7 @@
 					</div>
 	
 					<div class="form-group row">
-						<label for="trans_type" class="col-sm-2 col-form-label">Invoice Type:</label>
+						    <label for="trans_type" class="col-sm-2 col-form-label">Invoice Type:</label>
 						    <div class="col-sm-3">
                                 <select name="trans_type" id="trans_type" class="form-control required" required>
                                     <option value="">Select</option>
@@ -146,21 +146,14 @@
                                 
                                 <option value="">Select</option>
 
-                                <?php
-                                
-                                    foreach($socdtls as $soc){
-                                
-                                ?>
+                                <?php  foreach($socdtls as $soc){  ?>
                                 
                                     <option value="<?php echo $soc->soc_id;?>"><?php echo $soc->soc_name;?></option>
 
-                                <?php
+                                <?php  }  ?>     
 
-                                    }
-
-                                ?>     
-
-                            </select>
+                                </select>
+                                
                             </td>
 
                                     <td>
@@ -684,10 +677,7 @@ $(document).ready(function()
         $('.cgst').eq($('.ro').index(this)).val("0");
         $('.sgst').eq($('.ro').index(this)).val("0");
         $('.tot_amt').eq($('.ro').index(this)).val("0");
-        // $("#tot_taxable_amt").html("");
-        // $("#tot_cgst").html(""); 
-        // $("#tot_sgst").html(""); 
-        // $("#tot_qty").html(""); 
+        
     return false;
        }
         })
@@ -834,7 +824,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("trade/f_get_virtual_point");?>',
+			'<?php //echo site_url("trade/f_get_virtual_point");?>',
 			{ 
 
 				ro: $(this).val(),
