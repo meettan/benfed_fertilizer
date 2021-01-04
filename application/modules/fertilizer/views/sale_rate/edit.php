@@ -121,13 +121,13 @@
 							<input type="date" id=frm_dt name="frm_dt" class="form-control"  value="<?=$schdtls->frm_dt?>"  />
 
 						</div>
-					<label for="to_dt" class="col-sm-2 col-form-label">To Date:</label>
+					<!-- <label for="to_dt" class="col-sm-2 col-form-label">To Date:</label>
 					<div class="col-sm-4">
 
 
 						<input type="date" id=to_dt name="to_dt" class="form-control" value="<?=$schdtls->to_dt?>"   />
 
-					</div>
+					</div> -->
 					</div>
 
 
