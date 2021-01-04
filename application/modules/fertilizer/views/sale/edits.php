@@ -295,7 +295,7 @@
 
                 </div>
 
-                <div class="form-group row">
+               <!--  <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -303,7 +303,7 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
             </form>
 

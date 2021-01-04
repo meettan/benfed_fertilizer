@@ -202,11 +202,11 @@
 
 				$this->session->unset_userdata('loggedin');
 				
-				redirect('Welcome/index');
+				redirect('Fertilizer_Login/login');
 
 			}else{
 
-				redirect('Welcome/index');
+				redirect('Fertilizer_Login/login');
 
 			}
 		}

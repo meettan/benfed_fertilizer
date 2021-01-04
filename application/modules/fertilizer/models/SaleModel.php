@@ -87,27 +87,44 @@
 		public function js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id)
 		{
 
-		$sql = $this->db->query("SELECT a.catg_id,b.cate_desc
+		/*$sql = $this->db->query("SELECT a.catg_id,b.cate_desc
 									from  mm_sale_rate a,
 	   					                  mm_category b    							   							
 					                     where  a.catg_id = b.sl_no
 					                     and a.district='$br_cd'
 			                             and a.comp_id='$comp_id'
 			                             and a.prod_id ='$prod_id'
-			                             and '$ro_dt' BETWEEN a.frm_dt and a.to_dt");
+			                             and '$ro_dt' BETWEEN a.frm_dt and a.to_dt");  */
+
+			                             $sql = $this->db->query("SELECT a.catg_id,b.cate_desc
+									from  mm_sale_rate a,
+	   					                  mm_category b    							   							
+					                     where  a.catg_id = b.sl_no
+					                     and a.district='$br_cd'
+			                             and a.comp_id='$comp_id'
+			                             and a.prod_id ='$prod_id'
+			                         and a.frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt')");
+
 			return $sql->result();
 		}
 
 		public function get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category)
 		{
 
-		$sql = $this->db->query("SELECT sp_mt
+		/*$sql = $this->db->query("SELECT sp_mt
 									from  mm_sale_rate		   							
 					                     where  catg_id = '$category'
 					                     and district='$br_cd'
 			                             and comp_id='$comp_id'
 			                             and prod_id ='$prod_id'
-			                             and '$ro_dt' BETWEEN frm_dt and to_dt");
+			                             and '$ro_dt' BETWEEN frm_dt and to_dt");*/
+		 $sql = $this->db->query("SELECT sp_mt
+									from  mm_sale_rate		   							
+					                     where  catg_id = '$category'
+					                     and district='$br_cd'
+			                             and comp_id='$comp_id'
+			                             and prod_id ='$prod_id'
+			                             and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt')");
 			return $sql->row();
 		}
 		public function get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt)

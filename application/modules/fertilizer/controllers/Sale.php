@@ -66,8 +66,7 @@
             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
 
             $result = $this->SaleModel->js_get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id);		
-			// echo $this->db->last_query();
-			// die();
+			
  			echo json_encode($result);
 
 		} 
@@ -377,9 +376,7 @@ public function saleAdd(){   //================================================
 			}else {
 
 			$select5                = array("sl_no","cate_desc");
-			// $comp_id    = $prodd->comp_id;
-			// echo $comp_id;
-			// die();
+		
 			// $ro_dt      = $ros->ro_dt;
 			
 			// $prod_id    = $prodd->prod_id;

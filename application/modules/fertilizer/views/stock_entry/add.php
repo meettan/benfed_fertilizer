@@ -181,7 +181,6 @@
 					<label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
 					<div class="col-sm-3">
 					<select class="form-control" id="delivery_mode" name="delivery_mode" style="width:180px" required>
-						
 						<option value="">Select</option>
 						<option value="1">EX GODOWN</option>
 						<option value="2">EX RAIL </option>

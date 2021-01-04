@@ -38,7 +38,7 @@
 
                 "a.comp_id"     =>  $company,
 
-                "a.prod_id"     =>  $product,
+                "a.prod_id"     =>  $_POST['product'],
 
                 "a.district"    =>  $this->session->userdata['loggedin']['branch_id'],
 
@@ -46,15 +46,21 @@
 
                );
 
-               $data['rate']        =   $this->ReportModel->f_select("mm_sale_rate a,mm_category b", $select, $where, 0);
+               $data['rate']       =   $this->ReportModel->f_select("mm_sale_rate a,mm_category b", $select, $where, 0);
 
-               $data['company']     =   $this->ReportModel->f_select("mm_company_dtls", NULL, $this->input->POST['company'], 1);
+               $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, $this->input->POST['company'], 1);
 
-               $data['product']     =   $this->ReportModel->f_select("mm_product", NULL, $this->input->POST['product'], 1);
+               $wheres      = array(
 
-               $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+                "prod_id"     =>  $_POST['product']
 
-               $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1, 1);
+               );
+
+               $data['product']    =   $this->ReportModel->f_select("mm_product", NULL,$wheres, 1);
+
+               $where1             =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+
+               $data['branch']     =   $this->ReportModel->f_select("md_district", NULL, $where1, 1);
               
                $this->load->view('post_login/fertilizer_main');
                $this->load->view('report/rate_slab/rate_slab.php',$data);

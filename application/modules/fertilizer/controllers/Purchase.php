@@ -1299,8 +1299,8 @@ public function stockAdd(){
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
-					// redirect('stock/stock_entry');
-					redirect('virtualpnt/virtual_stk_pointAdd');
+					redirect('stock/stock_entry');
+					//redirect('virtualpnt/virtual_stk_pointAdd');
 			}else {
 				$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 				$select2    =  array("soc_id","soc_name");
@@ -1317,12 +1317,12 @@ public function stockAdd(){
 				$select  =array("id","unit_name");
 				$product['unitdtls']   = $this->PurchaseModel->f_select('mm_unit',$select,NULL,0);
 				
-	$this->load->view('post_login/fertilizer_main');
+		$this->load->view('post_login/fertilizer_main');
 
-	$this->load->view("stock_entry/add",$product);
+		$this->load->view("stock_entry/add",$product);
 
-	$this->load->view('post_login/footer');
- }
+		$this->load->view('post_login/footer');
+    }
 }
 
 public function deletero() {

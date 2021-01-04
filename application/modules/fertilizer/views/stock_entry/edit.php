@@ -190,16 +190,22 @@
                 <label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
 
 					<div class="col-sm-3">
-
-    					<select  class="form-control required" style="width:200px;" name="delivery_mode" id="delivery_mode" >
+  
+    					<select  class="form-control" style="width:200px;" name="delivery_mode" id="delivery_mode" >
                     
                     		<option value="">Select</option>
+
+                    <option value="1" <?php echo ($stock->delivery_mode == 1)? 'selected' : '';?> >EX GODOWN</option>
+						<option value="2" <?php echo ($stock->delivery_mode == 2)? 'selected' : '';?>>EX RAIL </option>
+						<option value="3" <?php echo ($stock->delivery_mode == 3)? 'selected' : '';?> >BUFFER </option>
+						<option value="4" <?php echo ($stock->delivery_mode == 4)? 'selected' : '';?> >NON BUFFER</option>
+						<option value="5" <?php echo ($stock->delivery_mode == 5)? 'selected' : '';?>>FOR-FOL</option>
                     
-							<option value="1" <?php echo ($stock->delivery_mode == 1)? 'selected' : '';?>>EX GODOWN/RAIL BUFFER</option>
+							<!-- <option value="1" <?php //echo ($stock->delivery_mode == 1)? 'selected' : '';?>>EX GODOWN/RAIL BUFFER</option>
                     
-							<option value="2" <?php echo ($stock->delivery_mode == 2)? 'selected' : '';?>>EX GODOWN/RAIL NON BUFFER</option>
+							<option value="2" <?php //echo ($stock->delivery_mode == 2)? 'selected' : '';?>>EX GODOWN/RAIL NON BUFFER</option>
                     
-							<option value="3" <?php echo ($stock->delivery_mode == 3)? 'selected' : '';?>>FOR-FOL</option>
+							<option value="3" <?php //echo ($stock->delivery_mode == 3)? 'selected' : '';?>>FOR-FOL</option> -->
                 		</select>  
 					
 					</div>
