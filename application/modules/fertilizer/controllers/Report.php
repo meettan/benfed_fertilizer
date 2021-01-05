@@ -77,6 +77,44 @@
             }
 
         }
+         public function rateslabho(){
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $comp_id  = $_POST['company'];
+
+                $district = $this->input->post('district');
+
+                $frm_date = $this->input->post('fr_date');
+
+                $to_date  = $this->input->post('to_date');
+
+                $fin_id   = $this->session->userdata['loggedin']['fin_id'];
+
+               $data['rate']     = $this->ReportModel->f_get_salerateho($comp_id,$district,$frm_date,$to_date,$fin_id);
+
+               $data['company']  =  $this->ReportModel->f_select("mm_company_dtls", NULL, $this->input->POST['company'], 1);
+
+               $where1           =  array("district_code"  =>  $this->input->post('district'));
+
+               $data['branch']   =  $this->ReportModel->f_select("md_district", NULL, $where1, 1);
+              
+               $this->load->view('post_login/fertilizer_main');
+               $this->load->view('report/rate_slabho/rate_slab.php',$data);
+               $this->load->view('post_login/footer');
+
+            }else{
+
+                $data['branch']     =   $this->ReportModel->f_get_district_asc();
+
+                $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);
+
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/rate_slabho/rate_slab_ip.php',$data);
+                $this->load->view('post_login/footer');
+            }
+
+        }
 
         public function popProd(){
 

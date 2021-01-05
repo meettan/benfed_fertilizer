@@ -57,6 +57,24 @@
             return $query->result();
         }
 
+        public function f_get_district_asc(){
+
+            $query  = $this->db->query("SELECT * FROM `md_branch` order by branch_name asc");
+            
+            return $query->result();
+
+        }
+
+        public function f_get_salerateho($comp_id,$district,$frm_date,$to_date,$fin_id){
+
+            $sql ="SELECT `a`.`frm_dt`, `a`.`to_dt`, `a`.`catg_id`, `a`.`sp_mt`, `a`.`sp_bag`, `a`.`sp_govt`, `b`.`cate_desc`, `c`.`PROD_DESC` FROM `mm_sale_rate` `a`, `mm_category` `b`, `mm_product` `c` WHERE `a`.`catg_id` = `b`.`sl_no` AND `a`.`prod_id` = `c`.`PROD_ID` AND `a`.`comp_id` = '$comp_id' AND `a`.`district` = '$district' AND `a`.`frm_dt` >= '$frm_date' AND `a`.`frm_dt` <= '$to_date' AND `a`.`fin_id` = '$fin_id' order by c.PROD_DESC,b.cate_desc,a.frm_dt" ;
+            
+            $query  = $this->db->query($sql);
+
+            return $query->result();
+
+        }
+
 
         //  public function f_get_product_comp_prod_ro($branch,$frmDt,$comp_id,$prod_id,$ro){
            
@@ -308,9 +326,7 @@
                                            group by a.stock_point,b.soc_name,a.prod_id,a.comp_id)a,mm_company_dtls b
                                            where a.comp_id = b.COMP_ID
                                            group by a.prod_id,a.stock_point,a.soc_name,b.COMP_NAME
-                                           order by a.soc_name
-                                           "
-                                     );
+                                           order by a.soc_name");
 
             if($data->num_rows() > 0 ){
                 $row = $data->result();

@@ -68,7 +68,7 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>Sale Rate Slab</h4>
                         <h5 style="text-align:right"><label>District: </label> <?php echo $branch->district_name; ?></h5>
                         <h5 style="text-align:left"><label>Company:</label> <?php echo $company->COMP_NAME; ?></h5>
-                        <h5 style="text-align:left"><label>Product:</label> <?php echo $product->PROD_DESC; ?></h5>
+                     <!--<h5 style="text-align:left"><label>Product:</label> <?php //echo $product->PROD_DESC; ?></h5>-->
 
                     </div>
                     <br>  
@@ -80,6 +80,7 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
+                                <th>Product Name.</th>
 
                                 <th>Category</th>
 
@@ -111,6 +112,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr>
                                      <td><?php echo $i++; ?></td>
+                                     <td><?php echo $ratedtls->PROD_DESC; ?></td>
                                      <td><?php echo $ratedtls->cate_desc; ?></td>
                                      <td><?php echo date('d/m/Y',strtotime($ratedtls->frm_dt)); ?></td>
                                    <!--   <td><?php //echo date('d/m/Y',strtotime($ratedtls->to_dt)); ?></td> -->

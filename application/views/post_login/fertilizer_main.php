@@ -197,6 +197,7 @@
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
                                 
                                     <a href="<?php echo site_url("fert/rep/salerepbr");?>">Branch Wise Sale</a>
+                                    <a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
                                     
                                 <?php } ?>
 
