@@ -600,13 +600,14 @@ public function f_get_product(){
 public function f_get_sale_ro(){
 	// echo 'hi';
 	// die();
+	$dist_id = $this->session->userdata['loggedin']['branch_id'];
     $select = array("a.ro_no ","b.short_name" );
        		
 			$where      =   array(
 
 			"a.comp_id = b.comp_id"  => NULL,
-			"a.comp_id"    =>  $this->input->get('comp_id')
-                );
+			"a.comp_id"    =>  $this->input->get('comp_id'),
+             "a.br" =>$dist_id  );
 			   
 			$ro   = $this->SaleModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
 			
