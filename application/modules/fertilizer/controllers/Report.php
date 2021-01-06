@@ -357,6 +357,62 @@
             }
 
         }
+        public function purrepbr(){
+
+            if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $from_dt    =   $_POST['from_date'];
+
+                $to_dt      =   $_POST['to_date'];
+
+                // $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+                $branch     =  $_POST['br'];
+                $mth        =  date('n',strtotime($from_dt));
+
+                $yr         =  date('Y',strtotime($from_dt));
+
+                if($mth > 3){
+
+                    $year = $yr;
+
+                }else{
+
+                    $year = $yr - 1;
+                }
+
+                $opndt      =  date($year.'-04-01');
+
+                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+                $all_data            =   array($from_dt,$to_dt,$branch);
+                //$all_data            =   array('2020-04-01','2021-01-06','337');
+                // print_r($all_data);
+                // die();
+
+                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                
+                // $data['purchase']    =   $this->ReportModel->f_get_purchaserep($branch,$from_dt,$to_dt);
+                
+                // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+                $where1              =   array("district_code"  => $branch);
+                $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+                $select1      = array("district_code","district_name");
+                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+                $data['purchase']=$this->ReportModel->pc($all_data);
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/purchase_br/pur_stmt',$data);
+                $this->load->view('post_login/footer');
+
+            }else{
+                $select1      = array("district_code","district_name");
+                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+                $this->load->view('post_login/fertilizer_main');
+                $this->load->view('report/purchase_br/pur_stmt_ip',$data);
+                $this->load->view('post_login/footer');
+            }
+
+        }
 
         public function salerep(){
 

@@ -244,6 +244,31 @@
             return $query->result();
         }
 
+        public function pc($all_data)
+        {
+            
+            try {
+                $this->db->reconnect();
+                
+                $sql = "CALL `p_purchase_all`(?,?,?)";
+             
+                $data_w = $this->db->query($sql,$all_data); 
+// echo $this->db->last_query();
+// die();
+//                 // array(‘first’=>’Foo’,’last’=>’Bar’,’mood’=>’Testy’) 
+               
+                $this->db->close();
+    
+    
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            // return $result;
+            return $data_w->result();
+            // return $data->result_object();
+        
+        }
+
         public function f_get_purchaserep($branch,$frmDt,$toDt){
             $query  = $this->db->query("select a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,a.retlr_margin,
                                         a.spl_rebt,a.rbt_add,a.rbt_less,a.rnd_of_add,a.rnd_of_less,

@@ -138,7 +138,7 @@
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("socpay/society_payment");?>">Customer Payment</a>
                               <a href="<?php echo site_url("drcrnote/dr_note");?>">Credit Note</a>
-                              <a href="<?php echo site_url("virtualpnt/virtual_stk_point");?>">Secondary Stock Point</a>
+                              <!-- <a href="<?php echo site_url("virtualpnt/virtual_stk_point");?>">Secondary Stock Point</a> -->
                               
                             </div>
                           
@@ -195,7 +195,7 @@
                                         <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a> -->
                                 <?php } ?>
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
-                                
+                                    <a href="<?php echo site_url("fert/rep/purrepbr");?>">Branch Wise Purchase</a>
                                     <a href="<?php echo site_url("fert/rep/salerepbr");?>">Branch Wise Sale</a>
                                     <a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
                                     

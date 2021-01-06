@@ -666,7 +666,8 @@ $(document).ready(function(){
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst)*2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
 				//console.log(parseData);
 				//  console.log(parseData[0].qty);
@@ -746,7 +747,8 @@ $('input').on('click',function () {
 		gst=(taxable_amt * gst_rt/100)/2
 		gst=parseFloat(gst).toFixed(2)
 		tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-		tot_amt=Math.round(parseFloat(tot_amt))
+		// tot_amt=Math.round(parseFloat(tot_amt))
+		tot_amt=parseFloat(tot_amt).toFixed(2)
 		// alert(gst);
 		$('#net_amt').val(taxable_amt);
 		// $('#cgst').val(gst);
@@ -770,7 +772,8 @@ $('input').on('click',function () {
 		gst=(taxable_amt * gst_rt/100)/2
 		gst=parseFloat(gst).toFixed(2)
 		tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-		tot_amt=Math.round(parseFloat(tot_amt))
+		// tot_amt=Math.round(parseFloat(tot_amt))
+		tot_amt=parseFloat(tot_amt).toFixed(2)
 				$('#net_amt').val(taxable_amt);
 				$('#tot_amt').val(tot_amt);
 				$('#retlr_margin').val(retlr_margin);
@@ -868,7 +871,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -892,7 +896,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -997,7 +1002,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1022,7 +1028,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1127,7 +1134,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1154,7 +1162,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1265,7 +1274,8 @@ $('input').on('click',function () {
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less)
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 			
 				$('#tot_amt').val(tot_amt);
 				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
@@ -1339,8 +1349,8 @@ $('input').on('click',function () {
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less)
-				tot_amt=Math.round(parseFloat(tot_amt))
-			
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				$('#tot_amt').val(tot_amt);
 				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
                 $('#tot_pur_rt').val(net_rt);
@@ -1416,8 +1426,8 @@ $('input').on('click',function () {
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
-				tot_amt=Math.round(parseFloat(tot_amt))
-			
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				$('#tot_amt').val(tot_amt);
 			
 				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
@@ -1492,8 +1502,8 @@ $('input').on('click',function () {
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
-				tot_amt=Math.round(parseFloat(tot_amt))
-			
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2);
 				$('#tot_amt').val(tot_amt);
 				net_rt =parseFloat(tot_amt/tot_qty).toFixed(3);
                  $('#tot_pur_rt').val(net_rt);
@@ -1807,7 +1817,7 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1832,7 +1842,7 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1941,7 +1951,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -1967,7 +1978,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			   // console.log(parseData[0].allot_qty_qnt);
@@ -2077,7 +2089,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				 // console.log(parseData);
 				// console.log(parseData[0].qty);
 			       // console.log(parseData[0].allot_qty_qnt);
@@ -2102,7 +2115,8 @@ $('input').on('click',function () {
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
 				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-				tot_amt=Math.round(parseFloat(tot_amt))
+				// tot_amt=Math.round(parseFloat(tot_amt))
+				tot_amt=parseFloat(tot_amt).toFixed(2)
 				   // console.log(parseData);
 				  // console.log(parseData[0].qty);
 			     // console.log(parseData[0].allot_qty_qnt);
