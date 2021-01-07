@@ -102,9 +102,9 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Taxable Amt</th>
 
-                                <th>Cgst</th>
+                                <th>CGST</th>
 
-                                <th>Sgst</th>
+                                <th>SGST</th>
 
                                <!--  <th>Discount</th> -->
 
@@ -138,7 +138,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td class="report"><?php echo $sal->short_name; ?></td>
                                     <td class="report"><?php echo $sal->PROD_DESC; ?></td>
                                     <td class="report"><?php echo $sal->trans_do; ?></td>
-                                    <td class="report"><?php echo date("d/m/y",strtotime($sal->do_dt)); ?></td>
+                                    <td class="report"><?php echo date("d/m/yy",strtotime($sal->do_dt)); ?></td>
                                     <td class="report"><?php echo $sal->qty; ?></td>
                                     <td class="report"><?php echo $sal->sale_rt; ?></td>
                                     <td class="report"><?php echo $sal->taxable_amt;

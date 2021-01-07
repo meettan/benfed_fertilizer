@@ -443,7 +443,7 @@
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
                 
-                $data['sales']    =   $this->ReportModel->f_get_sales($branch,$from_dt,$to_dt);
+                $data['sales']       =   $this->ReportModel->f_get_sales($branch,$from_dt,$to_dt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
@@ -473,7 +473,7 @@
 
                 $soc_id     =   $this->input->post('soc_id');
 
-                $br     =   $this->input->post('br');
+                $br         =   $this->input->post('br');
 
                 $branch     =   $this->session->userdata['loggedin']['branch_id'];
 
@@ -494,18 +494,17 @@
 
                 $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
-                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                $_SESSION['date']   =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
                 
-                $data['sales']       =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);
-                $data['br_sales']       =   $this->ReportModel->f_get_sales_branch($from_dt,$to_dt,$br);
+                $data['sales']      =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);
+                $data['br_sales']   =   $this->ReportModel->f_get_sales_branch($from_dt,$to_dt,$br);
                 // echo $this->db->last_query();
                 // die();
-                $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+                $where1             =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
                 $where2             =   array("district_code"  => $br);
-                $select1      = array("district_code","district_name");
-                $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where2,1);
-                //  die();
-                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+                $select1            =   array("district_code","district_name");
+                $data['branch']     =   $this->ReportModel->f_select("md_district", NULL, $where2,1);
+                $data['all_branch'] =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
                 // echo $this->db->last_query();
                 // die();
                 $this->load->view('post_login/fertilizer_main');
@@ -515,12 +514,11 @@
             }else{
 
                 $select      = array("soc_id","soc_name");
-                $select1      = array("district_code","district_name");
-                
+                $select1     = array("district_code","district_name");
                 $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $society['societyDtls']   = $this->ReportModel->f_select('mm_ferti_soc',$select,$where,0);
-                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+                $data['all_branch']       = $this->ReportModel->f_select("md_district", $select1, NULL,0);
                 $this->load->view('post_login/fertilizer_main');
                 // $this->load->view('report/sale_society/input',$society);
                 $this->load->view('report/sale_br/input',$data);
@@ -535,7 +533,7 @@
                 $from_dt    =   $_POST['from_date'];
 
                 $to_dt      =   $_POST['to_date'];
-
+                // $branch  =  $_POST['br'];
                 $soc_id     =   $this->input->post('soc_id');
                 $soc_name = $this->ReportModel->get_fersociety_name($soc_id );
             //    echo $soc_id;
@@ -545,7 +543,7 @@
                 $mth        =  date('n',strtotime($from_dt));
 
                 $yr         =  date('Y',strtotime($from_dt));
-
+                $all_data   =  array($from_dt,$to_dt,$branch,$soc_id );
                 if($mth > 3){
 
                     $year = $yr;
@@ -561,13 +559,13 @@
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
                 
-                $data['sales']       =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);
-            //   echo $this->db->last_query();
+              // $data['sales']    =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);  
+             //   echo $this->db->last_query();
             //   die();
+            
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
-
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-
+                $data['sales']=$this->ReportModel->p_soc_wise_sale($all_data);
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/sale_society/salesocrep',$data);
                 $this->load->view('post_login/footer');

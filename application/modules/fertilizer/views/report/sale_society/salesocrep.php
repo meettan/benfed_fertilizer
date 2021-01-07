@@ -102,9 +102,9 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Taxable Amt</th>
 
-                                <th>Cgst</th>
+                                <th>CGST</th>
 
-                                <th>Sgst</th>
+                                <th>SGST</th>
 
                                <!--  <th>Discount</th> -->
 
@@ -117,16 +117,16 @@ tr:hover {background-color: #f5f5f5;}
                         <tbody>
 
                             <?php
-
+                            $taxable_amt = 0.00;
+                            $cgst    = 0.00;
+                            $sgst    = 0.00;
+                            $disc    = 0.00;
+                            $total   = 0.00;
                                 if($sales){ 
 
                                     $i = 1;
                                     
-                                    $taxable = 0.00;
-                                    $cgst    = 0.00;
-                                    $sgst    = 0.00;
-                                    $disc    = 0.00;
-                                    $total   = 0.00;
+                                   
 
                                     $val =0;
 
@@ -142,7 +142,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td class="report"><?php echo $sal->qty; ?></td>
                                     <td class="report"><?php echo $sal->sale_rt; ?></td>
                                     <td class="report"><?php echo $sal->taxable_amt;
-                                                                  $taxable += $sal->taxable_amt;
+                                                                  $taxable_amt += $sal->taxable_amt;
                                      ?></td>
                                     <td class="report"><?php echo $sal->cgst;
                                                                   $cgst += $sal->cgst;
@@ -180,7 +180,7 @@ tr:hover {background-color: #f5f5f5;}
                         <tfooter>
                             <tr>
                                <td class="report" colspan="7" style="text-align:right">Total</td> 
-                               <td class="report"><?=$taxable?></td>
+                               <td class="report"><?=$taxable_amt?></td>
                                <td class="report"><?=$cgst?></td>
                                <td class="report"><?=$sgst?></td> 
                                

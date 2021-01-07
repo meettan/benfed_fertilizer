@@ -111,16 +111,23 @@
             //                     and    a.br       = $branch
             //                     order by a.comp_id");
 
-            $query =$this->db->query("select a.prod_id,a.ro_no,a.comp_id,a.unit,b.COMP_NAME,c.PROD_DESC,b.short_name
-                                            from td_purchase a,mm_company_dtls b,mm_product c
-                                            where a.comp_id =b.comp_id
-                                            and   a.prod_id = c.prod_id
-                                            and a.br  = $branch
-                                            and   a.trans_dt between '$frmDt' and '$to_dt'
-                                            and   a.trans_flag = 1
-                                            and   a.ro_no      = '$ro'
+            $query =$this->db->query("select a.prod_id,a.ro_no, (select GROUP_CONCAT(trans_do) 
+                                                                from td_sale a,mm_company_dtls b,mm_product c
+                                                                where a.comp_id =b.comp_id
+                                                                and   a.prod_id = c.prod_id
+                                                                and a.br_cd     = $branch
+                                                                and   a.do_dt between '$frmDt' and '$to_dt'
+                                                                and   a.sale_ro    ='$ro')sale_trans_ro,
+                                        a.comp_id,a.unit,b.COMP_NAME,c.PROD_DESC,b.short_name
+                                                                        from td_purchase a,mm_company_dtls b,mm_product c
+                                                                        where a.comp_id =b.comp_id
+                                                                        and   a.prod_id = c.prod_id
+                                                                        and a.br  = $branch
+                                                                        and   a.trans_dt between '$frmDt' and '$to_dt'
+                                                                        and   a.trans_flag = 1
+                                                                        and   a.ro_no      = '$ro'
                                             UNION
-                                            select a.prod_id,a.sale_ro,a.comp_id,a.unit,b.COMP_NAME,c.PROD_DESC,b.short_name
+                                            select a.prod_id,a.sale_ro,GROUP_CONCAT(trans_do) sale_trans_ro,a.comp_id,a.unit,b.COMP_NAME,c.PROD_DESC,b.short_name
                                             from td_sale a,mm_company_dtls b,mm_product c
                                             where a.comp_id =b.comp_id
                                             and   a.prod_id = c.prod_id
@@ -297,6 +304,31 @@
 
             return $query->result();
         }
+        public function p_soc_wise_sale($all_data)
+        {
+            
+            try {
+                $this->db->reconnect();
+                
+                $sql = "CALL `p_soc_wise_sale`(?,?,?,?)";
+             
+                $data_w = $this->db->query($sql,$all_data); 
+// echo $this->db->last_query();
+// die();
+//                 // array(‘first’=>’Foo’,’last’=>’Bar’,’mood’=>’Testy’) 
+               
+                $this->db->close();
+    
+    
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            // return $result;
+            return $data_w->result();
+            // return $data->result_object();
+        
+        }
+
         public function f_get_sales_society($branch,$frmDt,$toDt,$soc_id){
             $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,
                                                a.sale_rt,a.taxable_amt taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
