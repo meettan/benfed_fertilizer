@@ -72,8 +72,11 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        <h5 style="text-align:left"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);
-                            echo $prodtls->short_name;
+                        <h5 style="text-align:left"><label>Company: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
+                            echo $prodtls->Company;
+                          }?></h5>
+                        <h5 style="text-align:left"><label>Product: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
+                            echo $prodtls->Product;
                           }?></h5>
 
                     </div>
@@ -86,24 +89,15 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
-
                               <!--   <th>Company</th> -->
-
-
-                                <!-- <th>Trans Date</th> -->
-
+                                <th>Purchase Date</th>
                                 <th>Purchse DO No</th>
-
                                 <th>Sale invoice No</th>
-
-                                <th>Unit</th>
-
+                                <th>Sale Date</th>
+                                <!-- <th>Unit</th> -->
                                 <th>Opening</th>
-
                                 <th>Purchase during the period</th>
-
                                 <th>Sale during the period</th>
-
                                 <th>Closing</th>
 
                             </tr>
@@ -120,16 +114,17 @@ tr:hover {background-color: #f5f5f5;}
                                     $total = 0.00;
                                     $val =0;
 
-                                        foreach($product as $prodtls){
+                                        foreach($all_data as $prodtls){
                             ?>
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                 <!--     <td class="report"><?php //echo $prodtls->short_name; ?> -->
-                                    <!-- <td class="report"><?php echo $prodtls->do_dt; ?> </td> -->
-                                    <td class="report"><?php echo $prodtls->ro_no; ?> </td>
-                                    <td class="report"><?php echo $prodtls->sale_trans_ro; ?> </td>
-                                     <td class="report"><?php if($prodtls->unit==3){
+                                     <!-- <td class="report"><?php //echo $prodtls->short_name; ?> -->
+                                    <td class="report"><?php echo $prodtls->Purchase_Date; ?> </td>
+                                    <td class="report"><?php echo $prodtls->Purchase_RO; ?> </td>
+                                    <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
+                                    <td class="report"><?php echo $prodtls->sale_dt; ?> </td>
+                                     <!-- <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
                                                 }else if ($prodtls->unit==5){
                                                   echo "ML"; 
@@ -145,44 +140,13 @@ tr:hover {background-color: #f5f5f5;}
                                                     echo "Pc";
                                                 }
                                         ?>
-                                     </td>
-                                     <td class="report opening" id="opening">
-                                        <?php 
-                                            foreach($opening as $opndtls){
-                                                if($prodtls->ro_no==$opndtls->ro_no){
-                                                    echo $opndtls->opn_qty;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-                                     <td class="report purchase" id="purchase">
-                                        <?php 
-                                            foreach($purchase as $purdtls){
-                                                if($prodtls->ro_no==$purdtls->ro_no){
-                                                    echo $purdtls->tot_pur;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-                                     <td class="report sale" id="sale">
-                                        <?php 
-                                            foreach($sale as $saledtls){
-                                                if($prodtls->ro_no==$saledtls->sale_ro){
-                                                    echo $saledtls->tot_sale;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-
-                                     <td class="report closing" id="closing">
-                                        <?php 
-                                            foreach($closing as $clsdtls){
-                                                if($prodtls->ro_no==$clsdtls->ro_no){
-                                                    echo $clsdtls->opn_qty;               
-                                                }
-                                            }
-                                        ?>
-                                     </td>
+                                     </td> -->
+                                     
+                                     <td class="report"><?php echo $prodtls->Opening_Stock; ?> </td>
+                                     <td class="report"><?php echo $prodtls->Pruchase_qty; ?> </td>
+                                     <td class="report"><?php echo $prodtls->Sale_qty; ?> </td>
+                                     <td class="report"><?php echo $prodtls->closing_Stock; ?> </td>
+                                     
                                    
                                 </tr>
  

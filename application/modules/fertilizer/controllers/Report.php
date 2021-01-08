@@ -264,7 +264,7 @@
                 $mth        =  date('n',strtotime($from_dt));
 
                 $yr         =  date('Y',strtotime($from_dt));
-
+                $all_data            =   array($from_dt,$to_dt,$branch,$ro );
                 if($mth > 3){
 
                     $year = $yr;
@@ -282,12 +282,12 @@
 
                 $data['product']     =   $this->ReportModel->f_get_product_comp_prod_ro($branch,$from_dt,$to_dt,$comp_id,$prod_id,$ro);
 
-                $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+                // $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
 
-                $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
+                // $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
 
-                $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
-
+                // $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
+                $data['all_data']=$this->ReportModel->p_sale_purchase($all_data);
                 $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
