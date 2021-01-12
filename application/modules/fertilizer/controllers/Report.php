@@ -121,9 +121,11 @@
             $where  = array('company' => $this->input->get('company'));
 
             $data     = $this->ReportModel->f_select("mm_product", NULL, $where, 0);
-
+   
             echo json_encode($data);
         }
+
+        
 
         public function stkStmt(){
 
@@ -167,7 +169,7 @@
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-
+                
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/stk_stmt/stk_stmt',$data);
                 $this->load->view('post_login/footer');
@@ -288,12 +290,13 @@
 
                 // $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
                 $data['all_data']=$this->ReportModel->p_sale_purchase($all_data);
+
                 $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-
+                
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/stk_ro/stk_ro',$data);
                 $this->load->view('post_login/footer');
@@ -309,6 +312,27 @@
 
         }
 
+
+        public function f_get_prodsale_ro(){
+            $dist_id = $this->session->userdata['loggedin']['branch_id'];
+                $select = array("a.ro_no ","b.short_name" );
+                       
+                $where      =   array(
+        
+                "a.comp_id = b.comp_id"  => NULL,
+                "a.comp_id"              =>  $this->input->get('company'),
+                "a.prod_id"              =>  $this->input->get('prod_id'),
+                "a.br"                  => $dist_id
+                );
+                   
+             $ro   = $this->ReportModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
+                
+                // echo $this->db->last_query();
+                //  die();
+                echo json_encode($ro);
+        
+        }
+        
 
         public function purrep(){
 

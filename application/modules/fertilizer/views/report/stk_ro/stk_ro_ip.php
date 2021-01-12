@@ -114,7 +114,7 @@ tr:hover {background-color: #f5f5f5;}
 
                 <div class="form-group row">
 
-                    <label for="product" class="col-sm-2 col-form-label">Ro:</label>
+                    <label for="ro" class="col-sm-2 col-form-label">Ro:</label>
 
                     <div class="col-sm-6">
 
@@ -181,8 +181,9 @@ tr:hover {background-color: #f5f5f5;}
 
             $.get(
 
-                '<?php echo site_url("trade/f_get_prodsale_ro");?>',
-
+                // '<?php echo site_url("trade/f_get_prodsale_ro");?>',
+                '<?php echo site_url("fert/rep/f_get_prodsale_ro");?>',
+                
                 {
                     company : $('#company').val(),
                     prod_id : $(this).val()

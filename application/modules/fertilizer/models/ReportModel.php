@@ -229,6 +229,17 @@
             return $query->result();
         }
 
+        // public function f_get_purchase_all_ro($branch,$frmDt,$toDt,$comp_id,$prod_id){
+        //     $query  = $this->db->query("select ro_no
+        //                                 from td_purchase
+        //                                 where br        = $branch
+        //                                 and   trans_dt between '$frmDt' and '$toDt'
+        //                                 and   comp_id = $comp_id
+        //                                 and   prod_id =$prod_id
+        //                                 group by prod_id,ro_no");
+
+        //     return $query->result();
+        // }
 
 
         public function f_get_sale($branch,$frmDt,$toDt){

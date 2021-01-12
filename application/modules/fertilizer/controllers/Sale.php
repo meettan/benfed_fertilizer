@@ -617,7 +617,7 @@ public function f_get_sale_ro(){
 }
 
 public function f_get_prodsale_ro(){
-	
+	$dist_id = $this->session->userdata['loggedin']['branch_id'];
         $select = array("a.ro_no ","b.short_name" );
        		
 		$where      =   array(
@@ -630,10 +630,13 @@ public function f_get_prodsale_ro(){
 		   
 		$ro   = $this->SaleModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
 		
-		
+		// echo $this->db->last_query();
+		// die();
 		echo json_encode($ro);
 
 }
+
+
 
 public function deletero() {
 
