@@ -180,7 +180,7 @@
 
                                     <a href="<?php echo site_url("fert/rep/stkstkpnt");?>">Stock (Stokpoint Wise)</a>
 
-                                    <a href="<?php echo site_url("fert/rep/stkSprodro");?>">Product (RO wise)</a>
+                                    <a href="<?php echo site_url("fert/rep/stkSprodro");?>">RO Wise Purchase & Sale</a>
 
                                     <a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
 
