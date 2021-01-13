@@ -312,7 +312,84 @@
 
         }
 
+/********************************************************************************************* */
 
+public function stkwsestprep(){
+    $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $from_dt    =   $_POST['from_date'];
+
+        $to_dt      =   $_POST['to_date'];
+
+        $comp_id    =   $this->input->post('company');
+
+        $prod_id    =   $this->input->post('product');
+
+        // $ro         =   $this->input->post('ro');
+        $soc_id     =   $this->input->post('soc_id');
+
+        // $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+        $mth        =  date('n',strtotime($from_dt));
+
+        $yr         =  date('Y',strtotime($from_dt));
+        $all_data            =   array($from_dt,$to_dt,$comp_id  ,$branch,$soc_id, $prod_id );
+        if($mth > 3){
+
+            $year = $yr;
+
+        }else{
+
+            $year = $yr - 1;
+        }
+
+        $opndt      =  date($year.'-04-01');
+
+        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+
+        $data['product']     =   $this->ReportModel->f_get_product_dtls_stkp_wse($branch,$from_dt,$to_dt,$comp_id,$prod_id);
+            //  echo $this->db->last_query();
+            //     die();
+        // $data['product']     =   $this->ReportModel->f_get_product_comp_prod_ro($branch,$from_dt,$to_dt,$comp_id,$prod_id,$ro);
+
+        // $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+
+        // $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
+
+        // $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
+      
+        // echo $this->db->last_query();
+        // die();
+        // $data['all_data']=$this->ReportModel->p_soc_wse_sale_purchase($all_data);
+        // echo $this->db->last_query();
+        //         die();
+        // $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
+
+        $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+
+        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        $data['all_data']=$this->ReportModel->p_soc_wse_sale_purchase($all_data);
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/stk_wse_p_s/stk_ro',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+        $data['stockpoint']    =   $this->ReportModel->f_get_scendry_stk_point($branch); 
+        
+        $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);
+
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/stk_wse_p_s/stk_ro_ip',$data);
+        $this->load->view('post_login/footer');
+    }
+
+}
+
+/********************************************************************************************* */
         public function f_get_prodsale_ro(){
             $dist_id = $this->session->userdata['loggedin']['branch_id'];
                 $select = array("a.ro_no ","b.short_name" );
@@ -586,7 +663,7 @@
               // $data['sales']    =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);  
              //   echo $this->db->last_query();
             //   die();
-            
+               
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
                 $data['sales']=$this->ReportModel->p_soc_wise_sale($all_data);
@@ -613,7 +690,7 @@
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-                $from_dt    =   $_POST['from_date'];
+                // $from_dt    =   $_POST['from_date'];
 
                 $to_dt      =   $_POST['to_date'];
 
@@ -621,10 +698,13 @@
 
                 $branch     =   $this->session->userdata['loggedin']['branch_id'];
 
-                $mth        =  date('n',strtotime($from_dt));
+                // $mth        =  date('n',strtotime($from_dt));
 
-                $yr         =  date('Y',strtotime($from_dt));
+                // $yr         =  date('Y',strtotime($from_dt));
 
+                $mth        =  date('n',strtotime($to_dt));
+
+                $yr         =  date('Y',strtotime($to_dt));
                 if($mth > 3){
 
                     $year = $yr;
@@ -636,13 +716,13 @@
 
                 $opndt      =  date($year.'-04-01');
 
-                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+                // $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
-                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
-
+                // $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                $_SESSION['date']    =   date('d/m/Y',strtotime($to_dt));
                 $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
 
-                $data['stocks']      =   $this->ReportModel->f_get_stock_stockwise($branch,$from_dt,$to_dt);
+                $data['stocks']      =   $this->ReportModel->f_get_stock_stockwise($branch,$to_dt);
 
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);

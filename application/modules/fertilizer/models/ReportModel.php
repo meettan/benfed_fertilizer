@@ -75,6 +75,15 @@
 
         }
 
+        public function  f_get_scendry_stk_point($branch){
+            $query =$this->db->query("select  distinct a.stock_point as soc_id,b.soc_name as soc_name
+                                        from td_purchase a,mm_ferti_soc b
+                                        where a.stock_point=b.soc_id
+                                        and  a.br=$branch");
+                                        // echo $this->db->last_query();
+                                        // die();
+            return $query->result(); 
+        }
 
         //  public function f_get_product_comp_prod_ro($branch,$frmDt,$comp_id,$prod_id,$ro){
            
@@ -95,6 +104,22 @@
         //     return $query->result();
         // }
 
+
+        public function f_get_product_dtls_stkp_wse($branch,$frmDt,$to_dt,$comp_id,$prod_id){
+
+            $query =$this->db->query("select b.PROD_DESC,c.COMP_NAME,d.soc_name
+            from td_sale a ,mm_product b ,mm_company_dtls c,mm_ferti_soc d
+            where a.prod_id=b.prod_id
+            and a.comp_id=c.comp_id
+            and a.soc_id=d.soc_id
+            and a.prod_id=$prod_id
+            and a.br_cd=$branch
+            and do_dt between '$frmDt' and   '$to_dt' ");
+
+            
+            return $query->result();     
+
+        }
          public function f_get_product_comp_prod_ro($branch,$frmDt,$to_dt,$comp_id,$prod_id,$ro){
 
            
@@ -145,9 +170,9 @@
 
         public function f_get_balance($branch,$frmDt,$toDt){
 
-            $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - tot_sale),0) as opn_qty,0 tot_pur,0 tot_sale
+            $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - ifnull(tot_sale,0)),0) as opn_qty,0 tot_pur,0 tot_sale
 									  from (
-                                            select prod_id,ifnull(qty,0)qty,0 tot_pur,0 tot_sale
+                                            select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
 											from tdf_opening_stock
                                             where branch_id	    = $branch
                                             and   balance_dt    = '$frmDt'
@@ -326,17 +351,16 @@
                 $data_w = $this->db->query($sql,$all_data); 
 // echo $this->db->last_query();
 // die();
-//                 // array(‘first’=>’Foo’,’last’=>’Bar’,’mood’=>’Testy’) 
-               //p_sale_purchase
+//              
                 $this->db->close();
     
     
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
-            // return $result;
+           
             return $data_w->result();
-            // return $data->result_object();
+           
         
         }
 
@@ -351,21 +375,41 @@
              
                 $data_w = $this->db->query($sql,$all_data); 
 // echo $this->db->last_query();
-// die();
-//                 // array(‘first’=>’Foo’,’last’=>’Bar’,’mood’=>’Testy’) 
-               //p_sale_purchase
+// die();        
                 $this->db->close();
     
     
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
-            // return $result;
+          
             return $data_w->result();
-            // return $data->result_object();
+           
         
         }
 
+        public function p_soc_wse_sale_purchase($all_data)
+        {
+            
+            try {
+                $this->db->reconnect();
+                
+                $sql = "CALL `p_soc_wse_sale_purchase`(?,?,?,?,?,?)";
+             
+                $data_x = $this->db->query($sql,$all_data); 
+// echo $this->db->last_query();
+// die();
+                $this->db->close();
+    
+    
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            
+            return $data_x->result();
+        
+        
+        }
 
         public function f_get_sales_society($branch,$frmDt,$toDt,$soc_id){
             $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,
@@ -406,18 +450,17 @@
             return $query->result();
         }
 
-        public function f_get_stock_stockwise($branch,$frmDt,$toDt){
+        public function f_get_stock_stockwise($branch,$toDt){
 
             $data = $this->db->query("select a.prod_id,a.stock_point,sum(a.qty) as qty,a.soc_name,b.COMP_NAME
                                        from(select a.prod_id as prod_id,a.comp_id as comp_id,a.stock_point as stock_point,ifnull(sum(a.qty),0) as qty, b.soc_name as soc_name 
-                                           from td_purchase a,mm_ferti_soc b where a.stock_point = b.soc_id and a.trans_dt between '$frmDt' and '$toDt' and a.br = '$branch' 
+                                           from td_purchase a,mm_ferti_soc b where a.stock_point = b.soc_id and a.trans_dt <='$toDt' and a.br = '$branch' 
                                            group by a.stock_point,b.soc_name,a.prod_id,a.comp_id 
                                            UNION 
                                            select a.prod_id as prod_id,a.comp_id as comp_id,a.stock_point as stock_point,ifnull(sum(a.qty),0)*-1 as qty , b.soc_name as soc_name 
                                            from td_sale a,mm_ferti_soc b 
                                            where a.stock_point = b.soc_id 
-                                           and a.br_cd = '$branch' and a.do_dt between '$frmDt' 
-                                           and '$toDt' 
+                                           and a.br_cd = '$branch' and a.do_dt<='$toDt' 
                                            group by a.stock_point,b.soc_name,a.prod_id,a.comp_id)a,mm_company_dtls b
                                            where a.comp_id = b.COMP_ID
                                            group by a.prod_id,a.stock_point,a.soc_name,b.COMP_NAME

@@ -70,10 +70,18 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Stock Statement As On: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        
-
+                        <h5 style="text-align:left"><label>Company: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
+                            echo $prodtls->Company;
+                          }?></h5>
+                          
+                        <h5 style="text-align:left"><label>Product: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
+                            echo $prodtls->Product;
+                          }?></h5>
+                       <!-- <h5 style="text-align:left"><label>Stock Point: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
+                            echo $prodtls->Soc_id;
+                          }?></h5> -->
                     </div>
                   
 
@@ -84,15 +92,16 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
-                                <th>Stock Point</th>
-                                <th>Company</th>
-                                <th>Product</th>
-
-                                
-
-                                <th>Qty</th>
-
-                               
+                              <!--   <th>Company</th> -->
+                                <!-- <th>Purchase Date</th>
+                                <th>Purchse DO No</th> -->
+                                <th>Sale invoice No</th>
+                                <th>Sale Date</th>
+                                <!-- <th>Unit</th> -->
+                                <!-- <th>Opening</th> -->
+                                <!-- <th>Purchase during the period</th> -->
+                                <th>Sale during the period</th>
+                                <th>Closing</th>
 
                             </tr>
 
@@ -102,36 +111,46 @@ tr:hover {background-color: #f5f5f5;}
 
                             <?php
 
-                                if($stocks){ 
+                                if($product){ 
 
                                     $i = 1;
                                     $total = 0.00;
                                     $val =0;
 
-                                        foreach($stocks as $stock){
+                                        foreach($all_data as $prodtls){
                             ?>
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                           
-                                    <td class="report"><?php echo $stock->soc_name; ?> </td>
-                                    <td class="report"><?php echo $stock->COMP_NAME; ?> </td>
-                                    <td class="report">
-                                        <?php 
-                                            foreach($product as $prod){
-                                                if($stock->prod_id==$prod->prod_id){
-                                                    echo $prod->PROD_DESC;
+                                     <!-- <td class="report"><?php //echo $prodtls->short_name; ?> -->
+                                    <!-- <td class="report"><?php echo $prodtls->Purchase_Date; ?> </td>
+                                    <td class="report"><?php echo $prodtls->Purchase_RO; ?> </td> -->
+                                    <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
+                                    <td class="report"><?php echo $prodtls->sale_dt; ?> </td>
+                                     <!-- <td class="report"><?php if($prodtls->unit==3){
+                                                  echo "Litre";
+                                                }else if ($prodtls->unit==5){
+                                                  echo "ML"; 
+                                                }else if ($prodtls->unit==1){
+                                                    echo "MT";
+                                                }else if ($prodtls->unit==2){ 
+                                                    echo "Kg";
+                                                }else if ($prodtls->unit==4){ 
+                                                    echo "Quintal";
+                                                }else if ($prodtls->unit==6){
+                                                    echo "Gm";
+                                                }else if ($prodtls->unit==7){
+                                                    echo "Pc";
                                                 }
-                                            }
                                         ?>
-                                    </td>
-                                    <td class="report"><?php echo $stock->qty; ?> </td>
-
-
-
-
-                                 
-                                 
+                                     </td> -->
+                                     
+                                     <!-- <td class="report"><?php echo $prodtls->Opening_Stock; ?> </td> -->
+                                     <!-- <td class="report"><?php echo $prodtls->Pruchase_qty; ?> </td> -->
+                                     <td class="report"><?php echo $prodtls->Sale_qty; ?> </td>
+                                     <td class="report"><?php echo $prodtls->closing_Stock; ?> </td>
+                                     
+                                   
                                 </tr>
  
                                 <?php  

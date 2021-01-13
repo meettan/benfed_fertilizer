@@ -31,11 +31,11 @@ tr:hover {background-color: #f5f5f5;}
 
                 <div class="form-header">
                 
-                    <h4>Date range For StockPointwise Stock Statement</h4>
+                    <h4>Date For StockPointwise Stock Statement</h4>
                 
                 </div>
 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
 
                     <label for="from_dt" class="col-sm-2 col-form-label">From Date:</label>
 
@@ -49,7 +49,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
 
-                </div>
+                </div> -->
 
                 <div class="form-group row">
 
