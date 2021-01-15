@@ -55,11 +55,6 @@ tr:hover {background-color: #f5f5f5;}
   }
 </script>
 
-
-
-
-    
-
         <div class="wraper"> 
 
             <div class="col-lg-12 container contant-wraper">
@@ -79,9 +74,9 @@ tr:hover {background-color: #f5f5f5;}
                         <h5 style="text-align:left"><label>Product: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
                             echo $prodtls->Product;
                           }?></h5>
-                       <!-- <h5 style="text-align:left"><label>Stock Point: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
-                            echo $prodtls->Soc_id;
-                          }?></h5> -->
+                       <h5 style="text-align:left"><label>Stock Point: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
+                            echo $prodtls->secon_stk_pnt;
+                          }?></h5>
                     </div>
                   
 
@@ -93,13 +88,13 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
                               <!--   <th>Company</th> -->
-                                <!-- <th>Purchase Date</th>
-                                <th>Purchse DO No</th> -->
+                                <th>Purchase Date</th>
+                                <th>Purchse DO No</th>
                                 <th>Sale invoice No</th>
                                 <th>Sale Date</th>
                                 <!-- <th>Unit</th> -->
                                 <!-- <th>Opening</th> -->
-                                <!-- <th>Purchase during the period</th> -->
+                                <th>Purchase during the period</th>
                                 <th>Sale during the period</th>
                                 <th>Closing</th>
 
@@ -123,8 +118,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
                                      <!-- <td class="report"><?php //echo $prodtls->short_name; ?> -->
-                                    <!-- <td class="report"><?php echo $prodtls->Purchase_Date; ?> </td>
-                                    <td class="report"><?php echo $prodtls->Purchase_RO; ?> </td> -->
+                                    <td class="report"><?php echo $prodtls->Purchase_Date; ?> </td>
+                                    <td class="report"><?php echo $prodtls->Purchase_RO; ?> </td>
                                     <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
                                     <td class="report"><?php echo $prodtls->sale_dt; ?> </td>
                                      <!-- <td class="report"><?php if($prodtls->unit==3){
@@ -146,7 +141,7 @@ tr:hover {background-color: #f5f5f5;}
                                      </td> -->
                                      
                                      <!-- <td class="report"><?php echo $prodtls->Opening_Stock; ?> </td> -->
-                                     <!-- <td class="report"><?php echo $prodtls->Pruchase_qty; ?> </td> -->
+                                     <td class="report"><?php echo $prodtls->Pruchase_qty; ?> </td>
                                      <td class="report"><?php echo $prodtls->Sale_qty; ?> </td>
                                      <td class="report"><?php echo $prodtls->closing_Stock; ?> </td>
                                      
