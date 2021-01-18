@@ -138,7 +138,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     <select name="soc_id" class="form-control sch_cd required" id="soc_id" >
 
-                        <option value="">Select Society</option>
+                        <option value="">Select Stock Point</option>
 
                         <?php
 

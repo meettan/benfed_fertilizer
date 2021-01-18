@@ -65,7 +65,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Stock Point Wise Product Wise Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
                         <h5 style="text-align:left"><label>Company: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
                             echo $prodtls->Company;
@@ -89,11 +89,11 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Sl No.</th>
                               <!--   <th>Company</th> -->
                                 <th>Purchase Date</th>
-                                <th>Purchse DO No</th>
-                                <th>Sale invoice No</th>
+                                <th>Purchse RO No</th>
                                 <th>Sale Date</th>
+                                <th>Sale invoice No</th>
                                 <!-- <th>Unit</th> -->
-                                <!-- <th>Opening</th> -->
+                                <th>Opening</th>
                                 <th>Purchase during the period</th>
                                 <th>Sale during the period</th>
                                 <th>Closing</th>
@@ -118,10 +118,31 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
                                      <!-- <td class="report"><?php //echo $prodtls->short_name; ?> -->
-                                    <td class="report"><?php echo $prodtls->Purchase_Date; ?> </td>
-                                    <td class="report"><?php echo $prodtls->Purchase_RO; ?> </td>
-                                    <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
+                                   
+                                    <td class="report">
+                                    <b>
+                                    <?php 
+                                    if( $prodtls->Pruchase_qty>0)
+                                    {
+                                        echo $prodtls->Purchase_Date; 
+                                    }
+                                    ?> 
+                                    </b>
+                                    </td>
+                                
+                                    <td class="report"><b>
+                                    <?php 
+                                     if( $prodtls->Pruchase_qty>0)
+                                     {
+                                        echo $prodtls->Purchase_RO;
+                                     }
+                                    
+                                     ?> 
+                                     </b>
+                                     </td>
                                     <td class="report"><?php echo $prodtls->sale_dt; ?> </td>
+                                    <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
+                                    
                                      <!-- <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
                                                 }else if ($prodtls->unit==5){
@@ -140,10 +161,56 @@ tr:hover {background-color: #f5f5f5;}
                                         ?>
                                      </td> -->
                                      
-                                     <!-- <td class="report"><?php echo $prodtls->Opening_Stock; ?> </td> -->
-                                     <td class="report"><?php echo $prodtls->Pruchase_qty; ?> </td>
-                                     <td class="report"><?php echo $prodtls->Sale_qty; ?> </td>
-                                     <td class="report"><?php echo $prodtls->closing_Stock; ?> </td>
+                                     <td class="report">
+                                     <b>
+                                     <?php 
+                                    
+                                     if( $prodtls->Pruchase_qty>0)
+                                     {
+                                     echo $prodtls->Opening_Stock;
+                                     }
+                                      ?> 
+                                      </b>
+                                      </td>
+                                     <td class="report">
+                                     <b>
+                                     <?php 
+                                      if( $prodtls->Pruchase_qty>0)
+                                      {
+                                     echo $prodtls->Pruchase_qty;
+                                      }
+                                      ?>
+                                      </b>
+                                     </td>
+                                     <td class="report">
+                                     <?php 
+                                      if( $prodtls->Sale_qty>0)
+                                      {
+                                     echo $prodtls->Sale_qty;
+                                      }
+                                      ?> 
+
+                                      </td>
+                                     <td class="report">
+                                     <?php
+                             if( $prodtls->Pruchase_qty>0)   {
+                                echo "<b>$prodtls->closing_Stock</b>"; 
+                             }  elseif($prodtls->closing_Stock==0 ){
+                                   
+                                    echo "<font color='blue'><b>$prodtls->closing_Stock</font></b>"; 
+                          
+                                } else {
+                                   
+                                    echo $prodtls->closing_Stock; 
+                          
+                                }
+                                     
+                               
+                                      
+                                    
+                                     
+                                     ?>
+                                     </td>
                                      
                                    
                                 </tr>
