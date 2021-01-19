@@ -1318,21 +1318,27 @@ $('input').on('click',function () {
 			.done(function(data){
 	
 				     //console.log(data);
+					 console.log('hi');
 				var parseData = JSON.parse(data);
 				tot_qty=$('#qty').val() 
 				gst_rt =$('#gst_rt').val() 
 				base_price =tot_qty * $('#rate').val() 
 				base_price=parseFloat(base_price).toFixed(2)
 				retlr_margin = $('#retlr_margin').val() 
+				less_trad_margin= $('#trd_mgr').val() 
+				less_oth_dis = $('#les_oth_dis').val() 
+				less_frt_subsidy= $('#frt_subsidy').val() 
 				spl_rebt  = $('#spl_rebt').val() 
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
 				rbt_add  = $('#less_amt').val() 
 				rnd_of_add = $('#rnd_of_add').val() 
+				rnd_of_add =parseFloat(rnd_of_add).toFixed(2) 
 				rnd_of_less =$('#rnd_of_less').val() 
 				// $('#rbt_add').val(0);
 			
-				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)-parseFloat(less_trad_margin)-parseFloat(less_oth_dis)-parseFloat(less_frt_subsidy)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)
@@ -1345,7 +1351,7 @@ $('input').on('click',function () {
 				// tot_amt=$('#tot_amt').val() 
 				// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
 				// tot_amt = taxable_amt + parseFloat(gst) *2
-				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add)- parseFloat(rnd_of_less)
 				// tot_amt=Math.round(parseFloat(tot_amt))
 				tot_amt=parseFloat(tot_amt).toFixed(2)
 				$('#tot_amt').val(tot_amt);
@@ -1400,6 +1406,9 @@ $('input').on('click',function () {
 				base_price =tot_qty * $('#rate').val() 
 				base_price=parseFloat(base_price).toFixed(2)
 				retlr_margin = $('#retlr_margin').val() 
+				less_trad_margin= $('#trd_mgr').val() 
+				less_oth_dis = $('#les_oth_dis').val() 
+				less_frt_subsidy= $('#frt_subsidy').val() 
 				spl_rebt  = $('#spl_rebt').val() 
 				add_adj_amt=$('#adj_amt').val() 
 				less_adj_amt =$('#less_amt').val() 
@@ -1408,7 +1417,8 @@ $('input').on('click',function () {
 				rnd_of_less =$('#rnd_of_less').val() 
 				// $('#rbt_add').val(0);
 			
-				taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				// taxable_amt= parseFloat(base_price) +  parseFloat(retlr_margin) -parseFloat(spl_rebt)+parseFloat(add_adj_amt)-parseFloat(less_adj_amt)
+				tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2 + parseFloat(rbt_add) - parseFloat(rbt_less) + parseFloat(rnd_of_add)- parseFloat(rnd_of_less)
 				taxable_amt =parseFloat(taxable_amt).toFixed(2)
 				gst=(taxable_amt * gst_rt/100)/2
 				gst=parseFloat(gst).toFixed(2)

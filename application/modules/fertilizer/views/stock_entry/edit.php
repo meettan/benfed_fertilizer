@@ -245,14 +245,9 @@
 
 					<div class="col-sm-3">
 
-							<input type="text" style="width:200px"  name="unit_name" class="form-control required"  
-									value = "<?php 
-													foreach($unit as $unitdtls){
-														if($unitdtls->id == $stock->unit){
-															echo $unitdtls->unit_name;
-														} 
-													}
-											?>" readonly 
+							<input type="text" style="width:200px"  name="unit_name" class="form-control required" 
+							value = "<?php echo $stock->unit_name; ?>"   
+							readonly		
 							/>
 					
 					</div>

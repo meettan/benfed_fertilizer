@@ -1129,9 +1129,9 @@ public function stockAdd(){
 
 			$rbt_less       = $this->input->post('rbt_less');
 
-			$rnd_of_add     = $this->input->post('rnd_of_add');
+			// $rnd_of_add     = $this->input->post('rnd_of_add');
 
-			$rnd_of_less    = $this->input->post('rnd_of_less');
+			// $rnd_of_less    = $this->input->post('rnd_of_less');
 
 			$less_trad_margin= $this->input->post('trd_mgr');
 
@@ -1166,10 +1166,14 @@ public function stockAdd(){
 			$less_trad_margin_flag= $this->input->post('less_trad_margin_flag');
 			$less_oth_dis_flag= $this->input->post('less_oth_dis_flag');
 			$less_frght_subsdy_flag= $this->input->post('less_frght_subsdy_flag');
-
+			$rnd_of_add  = $this->input->post('rnd_of_add'); 
+			$rnd_of_less = $this->input->post('rnd_of_less'); 
 			$br_cd          = $this->session->userdata['loggedin']['branch_id'];
 			// print_r($br_cd );
 			// die();
+			// echo $this->input->post('rnd_of_less'); 
+			// echo $this->input->post('rnd_of_add'); 
+			//  die();
 			$data_array = array (
 
 					"comp_id"      => $comp_id,
@@ -1214,9 +1218,7 @@ public function stockAdd(){
 
 					"rbt_less"     => $rbt_less,
 
-					"rnd_of_add"   => $rnd_of_add,
-
-					"rnd_of_less"  => $rnd_of_less,
+					
 
 					"trad_margin"  => $less_trad_margin,
 
@@ -1261,7 +1263,10 @@ public function stockAdd(){
 					"less_oth_dis_flag"=>$less_oth_dis_flag,
 
 					"less_frght_subsdy_flag"=>$less_frght_subsdy_flag,
-					
+
+					"rnd_of_add"   =>  $this->input->post('rnd_of_add'),
+
+					"rnd_of_less"  => $this->input->post('rnd_of_less'),
 					"created_by"     =>  $this->session->userdata['loggedin']['user_name'],
 
 					"created_dt"     =>  date('Y-m-d h:i:s'),
@@ -1270,8 +1275,9 @@ public function stockAdd(){
 
 					"fin_yr"         =>$fin_id,
 
-					"stock_point"    => $stock_point);
-			 
+					"stock_point"    => $stock_point );
+
+				
 				$data_array1 = array (
 					"trans_dt"    => $trans_dt,
 
@@ -1296,6 +1302,10 @@ public function stockAdd(){
 				$this->PurchaseModel->f_insert('tdf_stock_point_trans', $data_array1);
 
 				$this->PurchaseModel->f_insert('td_purchase', $data_array);
+
+
+				// echo $this->db->last_query();
+				// die();
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
@@ -1545,16 +1555,17 @@ public function viewstock(){
 			$branch_id  = $this->session->userdata['loggedin']['branch_id'];
 
 			$select = array(
-				"a.*","b.*","c.*"
+				"a.*","b.*","c.*","d.*"
 			);		
 
 			$where	=	array(
 				"a.comp_id = b.COMP_ID" => Null,
 				"a.prod_id = c.PROD_ID" => Null,
-				"ro_no" => $this->input->get('ro_no')				
+				"ro_no" => $this->input->get('ro_no'),
+				"a.unit = d.id"=>NULL			
 			);	
 
-			$product['stock'] = $this->PurchaseModel->f_select("td_purchase a,mm_company_dtls b,mm_product c",Null,$where,1);
+			$product['stock'] = $this->PurchaseModel->f_select("td_purchase a,mm_company_dtls b,mm_product c,mm_unit d",Null,$where,1);
 		//    echo $this->db->last_query();
 		//    die();
 			$stk_pt = array("soc_id","soc_name");
@@ -1569,7 +1580,8 @@ public function viewstock(){
 
 
 			$product['unit'] = $this->PurchaseModel->f_select("mm_unit",Null,Null,0);
-													
+				// echo $this->db->last_query();
+				// die();									
 		$this->load->view('post_login/fertilizer_main');
 
 		$this->load->view("stock_entry/edit",$product);
@@ -2043,10 +2055,10 @@ public function f_get_salerate(){
 
 
 $prod_id  = $this->input->get('prod_id');
-$comp_id = $this->input->get('comp_id');
-$ro_dt   = $this->input->get('ro_dt');
+$comp_id  = $this->input->get('comp_id');
+$ro_dt    = $this->input->get('ro_dt');
 
-$sql = $this->db->query("SELECT rate from mm_sale_rate where comp_id='$comp_id' and prod_id='$prod_id' and '$ro_dt' >=frm_dt and '$ro_dt'<=to_dt");
+$sql = $this->db->query("SELECT ifnull(sp_mt,0) from mm_sale_rate where comp_id='$comp_id' and prod_id='$prod_id' and '$ro_dt' >=frm_dt and '$ro_dt'<=to_dt");
 $result = $sql->row();
 // echo $this->db->last_query();
 // die();

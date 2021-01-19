@@ -133,7 +133,7 @@ tr:hover {background-color: #f5f5f5;}
 
                 </div>    -->
                 <div class="form-group row">
-                <label for="branch" class="col-sm-2 col-form-label">Society:</label>
+                <label for="branch" class="col-sm-2 col-form-label">Stock Point:</label>
                 <div class="col-sm-6">
 
                     <select name="soc_id" class="form-control sch_cd required" id="soc_id" >

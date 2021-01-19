@@ -17,7 +17,22 @@ th {
 
 }
 
-tr:hover {background-color: #f5f5f5;}
+/* tr:hover {background-color: #f5f5f5;}
+div#example_filter label {
+    display: none;
+
+    
+}
+table.dataTable thead .sorting_asc {
+    background-image: none !important;
+}
+table.dataTable thead .sorting {
+    background-image: inherit !important;
+}
+
+tr {
+    pointer-events: none;
+} */
 
 </style>
 
@@ -32,7 +47,7 @@ tr:hover {background-color: #f5f5f5;}
         WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title></title><style type="text/css">');
 
 
-        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+        WindowObject.document.writeln('@media print{.buttons-excel{display: none}} { .center { text-align: center;}' +
             '                                         .inline { display: inline; }' +
             '                                         .underline { text-decoration: underline; }' +
             '                                         .left { margin-left: 315px;} ' +
@@ -80,7 +95,7 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
                   
 
-                    <table style="width: 100%;" id="example">
+                    <table style="width: 100%;" id="example" RULES=ALL FRAME=BOX  >
 
                         <thead>
 
@@ -88,7 +103,7 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
                               <!--   <th>Company</th> -->
-                                <th>Purchase Date</th>
+                                <th >Purchase Date</th>
                                 <th>Purchse RO No</th>
                                 <th>Sale Date</th>
                                 <th>Sale invoice No</th>
@@ -119,7 +134,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $i++; ?></td>
                                      <!-- <td class="report"><?php //echo $prodtls->short_name; ?> -->
                                    
-                                    <td class="report">
+                                    <td class="report" height="10">
                                     <b>
                                     <?php 
                                     if( $prodtls->Pruchase_qty>0)
@@ -140,8 +155,8 @@ tr:hover {background-color: #f5f5f5;}
                                      ?> 
                                      </b>
                                      </td>
-                                    <td class="report"><?php echo $prodtls->sale_dt; ?> </td>
-                                    <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
+                                    <td class="report" width="10%" height="10"><?php echo $prodtls->sale_dt; ?> </td>
+                                    <td class="report" width="20%" height="10"><?php echo $prodtls->Sale_Ro; ?> </td>
                                     
                                      <!-- <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
@@ -247,3 +262,34 @@ tr:hover {background-color: #f5f5f5;}
             </div>
             
         </div>
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script> -->
+<!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script> -->
+
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+   $('#example').dataTable({
+    destroy: true,
+   searching: false,ordering: false,paging: false,
+
+dom: 'Bfrtip',
+buttons: [
+   {
+extend: 'excelHtml5',
+title: 'BENFED STOCK REPORT',
+text: 'Export to excel'
+//Columns to export
+// exportOptions: {
+//    columns: [0, 1, 2, 3]
+// }
+   }
+]
+   });
+</script>
