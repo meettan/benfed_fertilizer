@@ -295,7 +295,7 @@ $.each(JSON.parse(data), function( index, value ) {
           var gst_rt= $('#gst_rt').val();
           tottaxable += parseFloat(qty*rate);
           cgst += parseFloat((qty*rate) * gst_rt/100/2);
-          tot_qty += parseFloat(qty);
+          tot_qty += parseFloat(qty).toFixed('3');
 
             });
              
@@ -306,7 +306,7 @@ $.each(JSON.parse(data), function( index, value ) {
             $("#tot_sgst").html(cgst.toFixed('2')); 
             $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
             $("#tot_qty").html("");  
-            $("#tot_qty").html(tot_qty.toFixed('2'));  
+            $("#tot_qty").html(tot_qty.toFixed('3'));  
             //$('.total').change();
         });
 
@@ -641,6 +641,7 @@ $(document).ready(function()
 
  $('#intro').on('change', '.qty', function()
  {
+          var sumqty      =0;
           var tottaxable  = 0;
           var cgst        = 0;
           var qty         = 0;
@@ -666,11 +667,11 @@ $(document).ready(function()
             $("#tot_sgst").html(cgst.toFixed('2')); 
             $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
             $("#tot_qty").html("");  
-            $("#tot_qty").html(tot_qty.toFixed('2'));
-            sumqty =tot_qty; 
-            //   alert(sumqty);
+            $("#tot_qty").html(tot_qty.toFixed('3'));
+             sumqty =tot_qty.toFixed('3');
+           
             //   alert(stkqty);
-        if ( sumqty>stkqty ) {
+        if (parseFloat(sumqty) > parseFloat(stkqty) ) {
         alert('Quantity cannot be greater than stock quantity');
         $('.qty').eq($('.ro').index(this)).val("0");
         $('.taxable_amt').eq($('.ro').index(this)).val("0");

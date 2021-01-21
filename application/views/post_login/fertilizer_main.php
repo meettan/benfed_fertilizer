@@ -195,6 +195,8 @@
                                         <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a> -->
                                 <?php } ?>
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?>
+                                    <a href="<?php echo site_url("fert/rep/stkStmt_ho");?>">Branch Wise Consolidated Stock</a>
+                                    <a href="<?php echo site_url("fert/rep/stkScomp");?>">Branch Wise & Company wise Stock</a>
                                     <a href="<?php echo site_url("fert/rep/purrepbr");?>">Branch Wise Purchase</a>
                                     <a href="<?php echo site_url("fert/rep/salerepbr");?>">Branch Wise Sale</a>
                                     <a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
