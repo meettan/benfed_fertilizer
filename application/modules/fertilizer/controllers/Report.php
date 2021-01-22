@@ -309,7 +309,72 @@ public function stkStmt_ho(){
             }
 
         }
+/******************************************************* */
+public function stkScomp_ho(){
 
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $from_dt    =   $_POST['from_date'];
+
+        $to_dt      =   $_POST['to_date'];
+
+        $comp_id    =   $this->input->post('company');
+
+        // $branch     =   $this->session->userdata['loggedin']['branch_id'];
+        $branch  = $_POST['br'];
+
+
+        $mth        =  date('n',strtotime($from_dt));
+
+        $yr         =  date('Y',strtotime($from_dt));
+
+        if($mth > 3){
+
+            $year = $yr;
+
+        }else{
+
+            $year = $yr - 1;
+        }
+
+        $opndt      =  date($year.'-04-01');
+
+        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+
+        $data['product']     =   $this->ReportModel->f_get_product_list_companywise($branch,$opndt,$comp_id);
+
+        $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+
+        $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
+
+        $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
+
+        $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
+
+        // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+        $where1              =   array("district_code"  => $branch);
+        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/stk_comp/stk_comp',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+        $select1      = array("district_code","district_name");
+        $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+        $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);
+
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/stk_comp_ho/stk_comp_ip',$data);
+        $this->load->view('post_login/footer');
+    }
+
+}
+
+
+/******************************************************** */
          // Ro Wise Product Ledger 12/10/2020 //
 
         public function stkSprodro(){

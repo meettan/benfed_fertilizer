@@ -629,12 +629,13 @@ $(document).ready(function()
           tot_qty = tot_qty+ parseFloat(qty);  
           var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
           var cgst = parseFloat(taxable_amt * gst_rt/100/2).toFixed('2');
-          var tot_amt = parseFloat(taxable_amt + (cgst*2)).toFixed('2');
-
+          var tot_amt = parseFloat(taxable_amt)+ parseFloat(cgst*2);
+          tot_amt=parseFloat(tot_amt).toFixed('2');
+// alert(tot_amt);
        $('.taxable_amt').eq($('.ro').index(this)).val(taxable_amt);
        $('.cgst').eq($('.ro').index(this)).val(cgst);
        $('.sgst').eq($('.ro').index(this)).val(cgst);
-       $('.tot_amt').eq($('.ro').index(this)).val(parseFloat(taxable_amt) + parseFloat(cgst*2));
+       $('.tot_amt').eq($('.ro').index(this)).val(tot_amt);
     
    
 });
