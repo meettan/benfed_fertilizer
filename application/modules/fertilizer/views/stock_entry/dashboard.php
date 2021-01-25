@@ -27,7 +27,7 @@
 
                     <tr>
                     	<th>Sl No.</th>
-                        <th>Purchase Date</th>
+                        <th>Company</th>
                         <th>Product</th>
                         <th>Qty</th>
                         <th>Ro No</th>
@@ -50,9 +50,10 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                                <td style="display:none"><?php echo date('Y',strtotime($value->trans_dt)); ?></td>
+                                <!-- <td style="display:none"><?php echo date('Y',strtotime($value->trans_dt)); ?></td>
                                 <td style="display:none"><?php echo date('m',strtotime($value->trans_dt)); ?></td>
-                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
+                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td> -->
+                                <td><?php echo $value->short_name; ?></td>
                                 <td><?php echo $value->PROD_DESC; ?></td>
                                 <td><?php echo $value->qty; ?></td>
                                 <td><?php echo $value->ro_no; ?></td>
