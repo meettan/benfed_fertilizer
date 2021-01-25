@@ -176,6 +176,7 @@
 											from tdf_opening_stock
                                             where branch_id	    = $branch
                                             and   balance_dt    = '$frmDt'
+                                            group by prod_id
 											UNION
                                             select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale
 											from td_purchase
