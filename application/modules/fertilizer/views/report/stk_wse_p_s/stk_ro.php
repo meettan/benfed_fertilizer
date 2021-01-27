@@ -33,7 +33,9 @@ table.dataTable thead .sorting {
 tr {
     pointer-events: none;
 } */
-
+/* a.dt-button {
+    display: none;
+} */
 </style>
 
 <script>
@@ -139,7 +141,7 @@ tr {
                                     <?php 
                                     if( $prodtls->Pruchase_qty>0)
                                     {
-                                        echo $prodtls->Purchase_Date; 
+                                        echo date('d/m/Y',strtotime($prodtls->Purchase_Date)); 
                                     }
                                     ?> 
                                     </b>
@@ -155,7 +157,16 @@ tr {
                                      ?> 
                                      </b>
                                      </td>
-                                    <td class="report" width="10%" height="10"><?php echo $prodtls->sale_dt; ?> </td>
+                                     
+                                    <td class="report" width="10%" height="10">
+                                    <?php 
+                                    
+                                    if( $prodtls->Sale_qty>0)
+                                    {
+                                    echo date('d/m/Y',strtotime($prodtls->sale_dt));
+                                    }
+                                     ?> 
+                                    </td>
                                     <td class="report" width="20%" height="10"><?php echo $prodtls->Sale_Ro; ?> </td>
                                     
                                      <!-- <td class="report"><?php if($prodtls->unit==3){

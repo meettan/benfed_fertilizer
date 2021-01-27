@@ -190,6 +190,8 @@ public function saleAdd(){   //================================================
 
 			$tot_amt     = $this->input->post('tot_amt');
 
+			$round_tot_amt = $this->input->post('round_tot_amt');
+
 			$br_cd       = $this->session->userdata['loggedin']['branch_name'];
 			// echo ($prod_id);
 			//    die();
@@ -240,7 +242,9 @@ public function saleAdd(){   //================================================
 
                                     'sgst'         => $_POST['sgst'][$i],
 
-                                    'tot_amt'      => $_POST['tot_amt'][$i],
+									'tot_amt'      => $_POST['tot_amt'][$i],
+									
+									'round_tot_amt'  => $_POST['round_tot_amt'][$i],
 
                                     "created_by"   => $this->session->userdata['loggedin']['user_name'],
 

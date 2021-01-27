@@ -125,14 +125,21 @@ tr:hover {background-color: #f5f5f5;}
                                     <b>
                                     <?php 
                                     if($prodtls->Pruchase_qty>0){
-                                        echo $prodtls->Purchase_Date;
+                                        echo date('d/m/Y',strtotime($prodtls->Purchase_Date));
                                     }
                                    
                                      ?> 
                                      </b>
                                     </td>
                                     <td class="report"><b><?php echo $prodtls->Purchase_RO; ?></b> </td>
-                                    <td class="report"><?php echo $prodtls->sale_dt; ?> </td>
+                                    <td class="report">
+                                    <?php 
+                                     if( $prodtls->Sale_qty>0)
+                                     {
+                                    echo date('d/m/Y',strtotime($prodtls->sale_dt));
+                                     }
+                                     ?> 
+                                     </td>
                                     <td class="report"><?php echo $prodtls->Sale_Ro; ?> </td>
                                     
                                      <!-- <td class="report"><?php if($prodtls->unit==3){

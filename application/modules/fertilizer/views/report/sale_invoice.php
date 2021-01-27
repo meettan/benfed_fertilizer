@@ -202,7 +202,7 @@ tr:hover {background-color: #f5f5f5;}
             <td rowspan="3" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;"><?php echo  $data->gst_rt;?>%</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;"><?php echo  $data->gst_rt/2;?>%</td>
                   <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $data->cgst;?></td>
                 </tr>
               </tbody>
@@ -210,7 +210,7 @@ tr:hover {background-color: #f5f5f5;}
             <td rowspan="3" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;"><?php echo  $data->gst_rt;?>%</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important; height: 279px;"><?php echo  $data->gst_rt/2;?>%</td>
                   <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $data->sgst;?></td>
                 </tr>
               </tbody>
@@ -238,8 +238,7 @@ tr:hover {background-color: #f5f5f5;}
           <tr>
             <td scope="row">&nbsp;</td>
             <td align="left" valign="top"><p><strong><u>Bill Details</u></strong></p>
-              <p>                New Ref
-                JHGJJUI &nbsp;&nbsp;&nbsp;&nbsp;<?php echo  $sum_data->to_amt_rnd;?> Dr</p></td>
+              <p><?php echo  $sum_data->tot_amt_rnd;?> Dr</p></td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
@@ -255,7 +254,7 @@ tr:hover {background-color: #f5f5f5;}
             <td align="left" valign="top"><?php echo  $sum_data->qty;?>Mt.</td>
             <td align="left" valign="top">&nbsp;</td>
             <td align="left" valign="top">&nbsp;</td>
-            <td align="left" valign="top"><strong><?php echo  $sum_data->tot_amt;?></strong></td>
+            <td align="left" valign="top"><strong><?php echo  $sum_data->tot_amt_rnd;?></strong></td>
             <td align="left" valign="top"><?php echo  $sum_data->taxable_amt;?></td>
             <td align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
@@ -281,7 +280,7 @@ tr:hover {background-color: #f5f5f5;}
       </table></td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="padding: 5px; background: #d9d9d9;"><p style="padding: 0; margin: 0; float: left">Amount Chargable(in words)INR <?php echo getIndianCurrency($sum_data->tot_amt);?></p>
+      <td align="left" valign="top" style="padding: 5px; background: #d9d9d9;"><p style="padding: 0; margin: 0; float: left">Amount Chargable(in words)INR <?php echo getIndianCurrency($sum_data->tot_amt_rnd);?></p>
 		<p style="padding: 0; margin: 0; float: right; text-align: right">E.&amp; O.	E</p>
 		</td>
     </tr>
@@ -331,7 +330,7 @@ tr:hover {background-color: #f5f5f5;}
                 </tr>
               </tbody>
             </table></td>
-            <td scope="col" class="col_13_11">Total Amount</td>
+            <td scope="col" class="col_13_11">Total Amount(Round)</td>
           </tr>
         </thead>
         <tbody>
@@ -340,7 +339,7 @@ tr:hover {background-color: #f5f5f5;}
             <td rowspan="2" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">5%</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;"><?php echo  $data->gst_rt/2;?></td>
                   <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->cgst;?></td>
                 </tr>
                 <tr>
@@ -352,7 +351,7 @@ tr:hover {background-color: #f5f5f5;}
             <td rowspan="2" align="left" valign="top" style="padding: 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
-                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;">5%</td>
+                  <td class="col_50Per" style="border-top: none; border-left: none !important; border-bottom: none !important;"><?php echo  $data->gst_rt/2;?></td>
                   <td class="col_50Per" style="border-top: none; border-bottom: none !important; border-right: none !important;"><?php echo  $sum_data->sgst;?></td>
                 </tr>
                 <tr>
@@ -361,7 +360,7 @@ tr:hover {background-color: #f5f5f5;}
                 </tr>
               </tbody>
             </table></td>
-            <td align="left" valign="top"><?php echo  $sum_data->tot_amt;?></td>
+            <td align="left" valign="top"><?php echo  $sum_data->tot_amt_rnd;?></td>
           </tr>
           <tr>
             <td align="left" valign="top">&nbsp;</td>
@@ -395,8 +394,8 @@ tr:hover {background-color: #f5f5f5;}
       <td style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;">&nbsp;</td>
     </tr>
     <tr>
-      <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;">Company's GSTIN/UIN: <strong>121654545656566</strong><br>
-        Company's Pan:<strong> ASAJJS4555J</strong></td>
+      <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;">Company's GSTIN/UIN: <strong>19AABAT0010H2ZY</strong><br>
+        Company's Pan:<strong> AABAT0010H</strong></td>
       <td align="left" valign="top" style="border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 5px;">Company's Bank Details:<br>
         Bank Name:<br>
         A/C Number: <br>

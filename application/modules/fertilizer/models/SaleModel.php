@@ -39,7 +39,7 @@
 		  $sql = $this->db->query("SELECT a.trans_do ,b.prod_desc ,b.hsn_code,b.gst_rt,c.soc_name,c.soc_add,
 		                           c.gstin,c.mfms,a.trans_no,a.do_dt,a.sale_due_dt,a.trans_type,a.soc_id,
 								   a.comp_id, a.sale_ro,a.stock_point,a.gov_sale_rt,a.qty,a.sale_rt,
-								   a.base_price,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,a.paid_amt
+								   a.base_price,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,a.round_tot_amt,a.paid_amt
 								   from td_sale a  ,mm_product b,mm_ferti_soc c
 								   where a.prod_id=b.prod_id
 								   and a.soc_id=c.soc_id
@@ -56,7 +56,7 @@
 		  $sql = $this->db->query("SELECT a.trans_do ,sum(a.qty)as qty,sum(a.base_price) as base_price,
 									sum(a.taxable_amt)as taxable_amt,sum(a.cgst)as cgst,sum(a.sgst)as sgst,
 									sum(a.cgst+a.sgst)as tot_gst,sum(a.dis)as dis,sum(a.tot_amt)as tot_amt,
-									sum(a.paid_amt) as paid_amt,ROUND(sum(a.tot_amt))as to_amt_rnd
+									sum(a.paid_amt) as paid_amt,ROUND(sum(a.round_tot_amt))as tot_amt_rnd
 									from td_sale a 
 									where  a.trans_do='$trans_do'");
 											
@@ -294,11 +294,13 @@
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
-		$data = $this->db->query("select trans_do,do_dt,trans_type, sum(tot_amt) as tot_amt
-									from td_sale
+		$data = $this->db->query("select  a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt
+									from td_sale a,mm_ferti_soc b
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
-									group by trans_do,do_dt,trans_type");
+									and  a.soc_id=b.soc_id
+									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name");
+									
 	
 		 return $data->result();
 		

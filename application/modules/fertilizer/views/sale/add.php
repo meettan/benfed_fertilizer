@@ -132,6 +132,7 @@
                                 <th style= "text-align: center">Qty</th>
 								<th style= "text-align: center">Taxable Amt</th>
 								<th style= "text-align: center">Net Amt</th>
+                                <th style= "text-align: center">Round Net Amt</th>
                                 <th>
                                 <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
                                 </th>
@@ -169,7 +170,9 @@
 									<td>
                                     <input type="text" name="tot_amt[]"  class="form-control tot_amt" value="0" id="tot_amt" readonly>
                                     </td>
-                                    
+                                    <td>
+                                    <input type="text" name="round_tot_amt[]"  class="form-control round_tot_amt" value="0" id="round_tot_amt" readonly>
+                                    </td>
                                     <td>
                                        <button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>
                                     </td>
@@ -190,6 +193,7 @@
                                         <div class="col-md-2">CGST:<span id="tot_cgst"></span></div>
                                         <div class="col-md-2">SGST:<span id="tot_sgst"></span></div>
                                         <div class="col-md-2">Net Payable:<span id="tot_payble_amt"></span></div>
+                                        <div class="col-md-2">Net Round Payable:<span id="tot_rnd_payble_amt"></span></div>
                                         <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" >  
                                     </td>
 
@@ -267,6 +271,9 @@ $.each(JSON.parse(data), function( index, value ) {
                                 +'<input type="text" name="tot_amt[]" class="form-control tot_amt" value= "0" id="tot_amt" readonly>'
                                 +'</td>'
                                 +'<td>'
+                                +'<input type="text" name="round_tot_amt[]" class="form-control round_tot_amt" value= "0" id="round_tot_amt" readonly>'
+                                +'</td>'
+                                +'<td>'
                                 +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
                                 +'</td>'
                             '</tr>';
@@ -287,7 +294,7 @@ $.each(JSON.parse(data), function( index, value ) {
           var rate        = 0;
           var gst_rt      = 0;
           var tot_qty     = 0;
-
+          var tot_rnd_payble_amt =0;
           $('#intro tr').each(function() {
                  
           var qty = $(this).find('td:eq(1) .qty').val();
@@ -296,7 +303,7 @@ $.each(JSON.parse(data), function( index, value ) {
           tottaxable += parseFloat(qty*rate);
           cgst += parseFloat((qty*rate) * gst_rt/100/2);
           tot_qty += parseFloat(qty).toFixed('3');
-
+          tot_rnd_payble_amt+=parseFloat(round_tot_amt);
             });
              
             $("#tot_taxable_amt").html("");
@@ -305,6 +312,7 @@ $.each(JSON.parse(data), function( index, value ) {
             $("#tot_cgst").html(cgst.toFixed('2')); 
             $("#tot_sgst").html(cgst.toFixed('2')); 
             $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
+            $("#tot_rnd_payble_amt").html(tot_rnd_payble_amt);    
             $("#tot_qty").html("");  
             $("#tot_qty").html(tot_qty.toFixed('3'));  
             //$('.total').change();
@@ -621,6 +629,7 @@ $(document).ready(function()
            var cgst        = 0;
            var tot_qty     = 0;
            var sumqty      = 0;
+           var tot_rnd_amt =0;
            var gst_rt= $('#gst_rt').val();
            var qty = parseFloat($('.qty').eq($('.ro').index(this)).val());
     //    var sale_rt = $('.sale_rt').eq($('.ro').index(this)).val();
@@ -631,11 +640,13 @@ $(document).ready(function()
           var cgst = parseFloat(taxable_amt * gst_rt/100/2).toFixed('2');
           var tot_amt = parseFloat(taxable_amt)+ parseFloat(cgst*2);
           tot_amt=parseFloat(tot_amt).toFixed('2');
+          tot_rnd_amt=Math.round(parseFloat(tot_amt))
 // alert(tot_amt);
        $('.taxable_amt').eq($('.ro').index(this)).val(taxable_amt);
        $('.cgst').eq($('.ro').index(this)).val(cgst);
        $('.sgst').eq($('.ro').index(this)).val(cgst);
        $('.tot_amt').eq($('.ro').index(this)).val(tot_amt);
+       $('.round_tot_amt').eq($('.ro').index(this)).val(tot_rnd_amt);
     
    
 });
@@ -650,14 +661,17 @@ $(document).ready(function()
           var gst_rt      = 0;
           var tot_qty     = 0;
           var stkqty      = 0;
+        //   var tot_rnd_payble_amt = 0;
           var stkqty =$('#stock_qty').val();
                $('#intro tr').each(function() {
           var qty = $(this).find('td:eq(1) .qty').val();
           var rate= $('#sale_rt').val();
           var gst_rt= $('#gst_rt').val(); 
+        //   var tot_rnd_payble_amt= $(this).find('td:eq(4) .round_tot_amt').val(); 
                  tottaxable += parseFloat(qty*rate);
                  cgst += parseFloat((qty*rate) * gst_rt/100/2);
-                 tot_qty += parseFloat(qty);   
+                 tot_qty += parseFloat(qty);  
+                 tot_rnd_payble_amt += parseFloat(tot_rnd_payble_amt); 
             });
              
             $("#tot_taxable_amt").html("");
@@ -666,7 +680,9 @@ $(document).ready(function()
             $("#tot_sgst").html("");    
             $("#tot_cgst").html(cgst.toFixed('2')); 
             $("#tot_sgst").html(cgst.toFixed('2')); 
-            $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));    
+            $("#tot_payble_amt").html((tottaxable + cgst*2).toFixed('2'));
+        
+            $("#tot_rnd_payble_amt").html( Math.round(tottaxable + cgst*2));      
             $("#tot_qty").html("");  
             $("#tot_qty").html(tot_qty.toFixed('3'));
              sumqty =tot_qty.toFixed('3');
@@ -679,6 +695,7 @@ $(document).ready(function()
         $('.cgst').eq($('.ro').index(this)).val("0");
         $('.sgst').eq($('.ro').index(this)).val("0");
         $('.tot_amt').eq($('.ro').index(this)).val("0");
+        $('.round_tot_amt').eq($('.ro').index(this)).val("0");
         
     return false;
        }
