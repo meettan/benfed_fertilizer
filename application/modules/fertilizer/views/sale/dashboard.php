@@ -166,8 +166,10 @@
    $('#example').dataTable({
     destroy: true,
    searching: false,
+  
+// dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 40],
 
-dom: 'Bfrtip',
+dom: 'lrtip',
 buttons: [
    {
   
@@ -180,4 +182,20 @@ buttons: [
 
    });
 </script>
+<!-- <style>
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style> -->
 

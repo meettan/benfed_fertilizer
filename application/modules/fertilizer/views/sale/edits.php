@@ -220,11 +220,13 @@
 								<!-- <th style= "text-align: center">CGST</th>
 								<th style= "text-align: center">SGST</th>
                                 <th style= "text-align: center">Dis</th> -->
-								<th style= "text-align: center">Total Amt</th>
+								<th style= "text-align: center">Net Amount</th>
+                                <th style= "text-align: center">Round Net Amt</th>
                             </thead>
 
                             <tbody id= "intro">
                      <?php          $sum=0;
+                                   $round_tot_amt=0;
                                      $taxable_amt=0;
                                       $cgst=0;
                                        $sgst=0;
@@ -265,7 +267,10 @@
                     <input type="text" name="tot_amt" class="form-control tot_amt required" value="<?php echo ($prodd->taxable_amt+$prodd->cgst+$prodd->sgst);
                                         $sum +=($prodd->taxable_amt+$prodd->cgst+$prodd->sgst); ?>" id="tot_amt" readonly>
                     </td>
-              
+                  <td>
+                      <input type="text" name="round_tot_amt" class="form-control required round_tot_amt" value="<?=$prodd->round_tot_amt?>" id="round_tot_amt" readonly>
+                    <?php $round_tot_amt +=$prodd->round_tot_amt;?>
+                    </td>
                                    
                     </tr>
 
@@ -284,6 +289,7 @@
                                         <div class="col-md-2">SGST:<span id="tot_sgst"><?=$sgst?></span></div>
                                         <!--<div class="col-md-2">Discount:<span id="tot_dis"></span></div>-->
                                         <div class="col-md-3">Net Payable:<span id="tot_payble_amt">  <?=$sum?></span></div>
+                                        <div class="col-md-3">Net Rounded Payable:<span id="tot_rnd_payble_amt">  <?=$round_tot_amt?></span></div>
                    <!--     <input name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" value="<?=$sum?>">  --> 
                                     </td>
                                 </tr>

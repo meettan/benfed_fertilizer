@@ -349,8 +349,10 @@ public function saleAdd(){   //================================================
 
                                    'sgst'         => $_POST['sgst'],
 
-                                   'tot_amt'      => $_POST['tot_amt'],
-
+								   'tot_amt'      => $_POST['tot_amt'],
+								   
+								   'round_tot_amt' => $_POST['round_tot_amt'],
+								   
                                    "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
 				                   "modified_dt"  =>  date('Y-m-d h:i:s'),

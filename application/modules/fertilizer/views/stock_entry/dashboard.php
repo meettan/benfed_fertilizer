@@ -200,7 +200,7 @@ function myFunction() {
     destroy: true,
    searching: false,
 
-dom: 'Bfrtip',
+dom: 'lrtip',
 buttons: [
    {
   
