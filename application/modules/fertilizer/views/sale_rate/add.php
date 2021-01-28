@@ -415,7 +415,7 @@ $(document).ready(function(){
 
            var sp_mt=$('#sp_mt').val(); 
 
-		   var per_bag_price =Math.round(parseFloat(sp_mt/bag));
+		   var per_bag_price =Math.round(parseFloat(sp_mt/(1000/bag)));
 
             $('#sp_bag').val(per_bag_price);
 

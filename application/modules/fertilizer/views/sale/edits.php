@@ -7,7 +7,7 @@
                  
 					<div class="form-header">
 					
-						<h4>Edit Sale</h4>
+						<h4>Edit RO & Sale Invoice</h4>
 					
     					</div>
     	                <?php
@@ -17,7 +17,7 @@
                         <input type="hidden" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>"/>						
 						<div class="form-group row">
 
-                             <label for="cin" class="col-sm-2 col-form-label">Invoice Type:</label>
+                             <label for="cin" class="col-sm-2 col-form-label">Sale Invoice Type:</label>
                         <div class="col-sm-4">
     
                         <select name="trans_type" class="form-control" >
@@ -62,7 +62,7 @@
                         </select>
                         </div>
 
-                         <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
+                         <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
                         <div class="col-sm-4">
     
                             <input type="date" id=ro_dt name="ro_dt" class="form-control"  value="<?=$prodd->do_dt?>" readonly/>
@@ -76,7 +76,7 @@
                             <div class="col-sm-4">
                                 <input type="text" style="width:100px" name="no_of_days" id="no_of_days" class="form-control" value="<?=$prodd->no_of_days?>"  onchange="endDt()"  />
                             </div>
-                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
+                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Sale Invoice Due Date:</label>
                             <div class="col-sm-4">
     
                                 <input type="date"  name="sale_due_dt" id="sale_due_dt" class="form-control" value="<?=$prodd->sale_due_dt?>"  />
@@ -221,7 +221,7 @@
 								<th style= "text-align: center">SGST</th>
                                 <th style= "text-align: center">Dis</th> -->
 								<th style= "text-align: center">Net Amount</th>
-                                <th style= "text-align: center">Round Net Amt</th>
+                                <th style= "text-align: center">Net Amount (Rounded) </th>
                             </thead>
 
                             <tbody id= "intro">
@@ -283,13 +283,13 @@
                                     <td >
                                         <strong>Total:</strong>
                                     </td>
-                                     <td colspan="4">
+                                     <td colspan="9">
                                          <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"><?=$taxable_amt?></span></div>
-                                        <div class="col-md-2">CGST:<span id="tot_cgst"><?=$cgst?></span></div>
-                                        <div class="col-md-2">SGST:<span id="tot_sgst"><?=$sgst?></span></div>
                                         <!--<div class="col-md-2">Discount:<span id="tot_dis"></span></div>-->
-                                        <div class="col-md-3">Net Payable:<span id="tot_payble_amt">  <?=$sum?></span></div>
-                                        <div class="col-md-3">Net Rounded Payable:<span id="tot_rnd_payble_amt">  <?=$round_tot_amt?></span></div>
+                                        <div class="col-md-4">Net Payable:<span id="tot_payble_amt">  <?=$sum?></span></div>
+                                        <div class="col-md-4">Net Payable (Rounded ):<span id="tot_rnd_payble_amt">  <?=$round_tot_amt?></span></div>
+                                        <div class="col-md-3">CGST:<span id="tot_cgst"><?=$cgst?></span></div>
+                                        <div class="col-md-2">SGST:<span id="tot_sgst"><?=$sgst?></span></div>
                    <!--     <input name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" value="<?=$sum?>">  --> 
                                     </td>
                                 </tr>

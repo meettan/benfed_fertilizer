@@ -6,7 +6,7 @@
 	
 					<div class="form-header">
 					
-						<h4>RO Details</h4>
+						<h4>RO & Sale Details</h4>
 					</div>
 	
 					<div class="form-group row">
@@ -16,7 +16,7 @@
 					</div>
 	
 					<div class="form-group row">
-						    <label for="trans_type" class="col-sm-2 col-form-label">Invoice Type:</label>
+						    <label for="trans_type" class="col-sm-2 col-form-label">Sale Invoice Type:</label>
 						    <div class="col-sm-3">
                                 <select name="trans_type" id="trans_type" class="form-control required" required>
                                     <option value="">Select</option>
@@ -42,7 +42,7 @@
                         ?>     
                         </select>
 					    </div>
-                        <label for="do_dt" class="col-sm-2 col-form-label">Invoice Date:</label>
+                        <label for="do_dt" class="col-sm-2 col-form-label">Sale Invoice Date:</label>
 						<div class="col-sm-3">
 	                    <input type="date" style="width:250px" id=ro_dt name="ro_dt" class="form-control"  required/>
 	                    </div>
@@ -53,7 +53,7 @@
                             <div class="col-sm-4">
                             <input type="text" style="width:250px" name="no_of_days" id="no_of_days" class="form-control" onchange="endDt()" required />
                             </div>
-                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Invoice Due Date:</label>
+                            <label for="sale_due_dt"  class="col-sm-2 col-form-label">Sale Invoice Due Date:</label>
                             <div class="col-sm-4">
                             <input type="date" style="width:250px" name="sale_due_dt" id="sale_due_dt" class="form-control" readonly />
                             </div>
@@ -132,7 +132,7 @@
                                 <th style= "text-align: center">Qty</th>
 								<th style= "text-align: center">Taxable Amt</th>
 								<th style= "text-align: center">Net Amt</th>
-                                <th style= "text-align: center">Round Net Amt</th>
+                                <th style= "text-align: center">Net Amt (Rounded)</th>
                                 <th>
                                 <button class="btn btn-success" type="button" id="addrow" style= "border-left: 10px" data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i class="fa fa-plus" aria-hidden="true"></i></button></th>
                                 </th>
@@ -190,10 +190,11 @@
                                     <td colspan="9">
                                     <div class="col-md-2">Tot Qty:<span id="tot_qty"></span></div>
                                         <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"></span></div>
-                                        <div class="col-md-2">CGST:<span id="tot_cgst"></span></div>
+                                        <div class="col-md-3">Net Payable:<span id="tot_payble_amt"></span></div>
+                                        <!-- <div class="col-md-3">Net Payable (Rounded ):<span id="tot_rnd_payble_amt"></span></div> -->
+                                        <div class="col-md-5">CGST:<span id="tot_cgst"></span></div>
                                         <div class="col-md-2">SGST:<span id="tot_sgst"></span></div>
-                                        <div class="col-md-2">Net Payable:<span id="tot_payble_amt"></span></div>
-                                        <div class="col-md-2">Net Round Payable:<span id="tot_rnd_payble_amt"></span></div>
+                                       
                                         <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" >  
                                     </td>
 
@@ -636,7 +637,7 @@ $(document).ready(function()
           sale_rt =$('#sale_rt').val();
           var stkqty =$('#stock_qty').val();
           tot_qty = tot_qty+ parseFloat(qty);  
-          var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
+          var taxable_amt= (parseFloat(qty) * parseFloat(sale_rt)).toFixed('2');
           var cgst = parseFloat(taxable_amt * gst_rt/100/2).toFixed('2');
           var tot_amt = parseFloat(taxable_amt)+ parseFloat(cgst*2);
           tot_amt=parseFloat(tot_amt).toFixed('2');

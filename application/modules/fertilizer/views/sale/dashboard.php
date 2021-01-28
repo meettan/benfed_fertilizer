@@ -15,10 +15,10 @@
             <h3>
 		        <small><a href="<?php echo site_url("trade/saleAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
-                <div class="input-group" style="margin-left:75%;">
+                <!-- <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
-                </div>
+                </div> -->
             </h3>
 
             <table class="table table-bordered table-hover" id="example">
@@ -165,23 +165,23 @@
 <script>
    $('#example').dataTable({
     destroy: true,
-   searching: false,
-  
-// dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 40],
+   searching: true,paging: true
 
-dom: 'lrtip',
-buttons: [
-   {
+// dom: 'lrtip',
+// dom: 'Bfrtip',
+// buttons: [
+//    {
   
-// extend: 'excelHtml5',
-// title: 'BENFED STOCK REPORT',
-// text: 'Export to excel'
+// // extend: 'excelHtml5',
+// // title: 'BENFED STOCK REPORT',
+// // text: 'Export to excel'
 
-   }
-]
+//    }
+// ]
 
    });
 </script>
+
 <!-- <style>
 .pagination a {
   color: black;
