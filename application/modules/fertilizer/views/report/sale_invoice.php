@@ -101,11 +101,13 @@ tr:hover {background-color: #f5f5f5;}
           </tr>
           <tr>
             <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Delivery Note</td>
-            <td class="tax_border_bot_left" style="border-top: none;">Mode/terms of payment</td>
+            <td class="tax_border_bot_left" style="border-top: none;">Mode/terms of payment
+            </td>
           </tr>
           <tr>
-            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Bayer's Order No</td>
-            <td class="tax_border_bot_left" style="border-top: none;">Dated</td>
+            <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Due Date</td>
+            <td class="tax_border_bot_left" style="border-top: none;">
+            <strong><?php echo date("d-m-Y", strtotime( $data->sale_due_dt));?></strong></td>
           </tr>
           <tr>
             <td class="tax_border_bot_left" style="border-top: none; border-left: none !important;">Despatched document No</td>
