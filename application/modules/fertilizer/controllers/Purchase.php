@@ -1218,8 +1218,6 @@ public function stockAdd(){
 
 					"rbt_less"     => $rbt_less,
 
-					
-
 					"trad_margin"  => $less_trad_margin,
 
 					"oth_dis"      => $less_oth_dis    ,
@@ -1304,8 +1302,8 @@ public function stockAdd(){
 				$this->PurchaseModel->f_insert('td_purchase', $data_array);
 
 
-				// echo $this->db->last_query();
-				// die();
+				echo $this->db->last_query();
+				die();
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 

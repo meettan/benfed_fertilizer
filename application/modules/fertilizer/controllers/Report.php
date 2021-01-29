@@ -28,7 +28,7 @@
 
                $select      = array(
 
-                'a.frm_dt',"a.to_dt","a.catg_id","a.sp_mt","a.sp_bag","a.sp_govt","b.cate_desc"
+                'a.frm_dt',"a.to_dt","a.catg_id","a.sp_mt","a.sp_bag","a.sp_govt","b.cate_desc","c.comp_name"
 
                );
 
@@ -42,14 +42,20 @@
 
                 "a.district"    =>  $this->session->userdata['loggedin']['branch_id'],
 
-                "a.fin_id"      =>  $this->session->userdata['loggedin']['fin_id']
-
+                "a.fin_id"      =>  $this->session->userdata['loggedin']['fin_id'],
+                "a.comp_id   = c.comp_id" =>NULL
                );
 
-               $data['rate']       =   $this->ReportModel->f_select("mm_sale_rate a,mm_category b", $select, $where, 0);
+               $data['rate']       =   $this->ReportModel->f_select("mm_sale_rate a,mm_category b,mm_company_dtls c", $select, $where, 0);
 
-               $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, $this->input->POST['company'], 1);
+               $wher_comp      = array(
 
+               "comp_id"    => $_POST['company']
+
+               );
+               $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, $wher_comp, 1);
+// echo $this->db->last_query();
+// die();
                $wheres      = array(
 
                 "prod_id"     =>  $_POST['product']
@@ -93,7 +99,12 @@
 
                $data['rate']     = $this->ReportModel->f_get_salerateho($comp_id,$district,$frm_date,$to_date,$fin_id);
 
-               $data['company']  =  $this->ReportModel->f_select("mm_company_dtls", NULL, $this->input->POST['company'], 1);
+               $wher_comp      = array(
+
+                "comp_id"    => $_POST['company']
+ 
+                );
+               $data['company']  =  $this->ReportModel->f_select("mm_company_dtls", NULL,  $wher_comp, 1);
 
                $where1           =  array("district_code"  =>  $this->input->post('district'));
 
