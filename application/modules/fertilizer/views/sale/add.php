@@ -6,7 +6,7 @@
 	
 					<div class="form-header">
 					
-						<h4>RO & Sale Details</h4>
+						<h4>RO Details</h4>
 					</div>
 	
 					<div class="form-group row">
@@ -190,11 +190,10 @@
                                     <td colspan="9">
                                     <div class="col-md-2">Tot Qty:<span id="tot_qty"></span></div>
                                         <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"></span></div>
-                                        <div class="col-md-3">Net Payable:<span id="tot_payble_amt"></span></div>
-                                        <!-- <div class="col-md-3">Net Payable (Rounded ):<span id="tot_rnd_payble_amt"></span></div> -->
-                                        <div class="col-md-5">CGST:<span id="tot_cgst"></span></div>
+                                        <div class="col-md-2">CGST:<span id="tot_cgst"></span></div>
                                         <div class="col-md-2">SGST:<span id="tot_sgst"></span></div>
-                                       
+                                        <div class="col-md-2">Net Payable:<span id="tot_payble_amt"></span></div>
+                                        <div class="hidden">Net Round Payable:<span id="tot_rnd_payble_amt"></span></div>
                                         <input type="hidden" name="total" style="width:200px;" id="total" class="form-control total" placeholder="Total" >  
                                     </td>
 
@@ -637,7 +636,7 @@ $(document).ready(function()
           sale_rt =$('#sale_rt').val();
           var stkqty =$('#stock_qty').val();
           tot_qty = tot_qty+ parseFloat(qty);  
-          var taxable_amt= (parseFloat(qty) * parseFloat(sale_rt)).toFixed('2');
+          var taxable_amt= parseFloat(qty * sale_rt).toFixed('2');
           var cgst = parseFloat(taxable_amt * gst_rt/100/2).toFixed('2');
           var tot_amt = parseFloat(taxable_amt)+ parseFloat(cgst*2);
           tot_amt=parseFloat(tot_amt).toFixed('2');

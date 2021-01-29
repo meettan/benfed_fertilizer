@@ -21,7 +21,7 @@
                 </div>
             </h3>
 
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover" id="example">
 
                 <thead>
 
@@ -160,4 +160,35 @@
 
     });
 
+</script>
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script> -->
+<!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script> -->
+
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+   $('#example').dataTable({
+//     destroy: true,
+//    searching: true,paging: true
+
+// dom: 'lrtip',
+dom: 'Bfrtip',
+buttons: [
+   {
+  
+// extend: 'excelHtml5',
+// title: 'BENFED STOCK REPORT',
+// text: 'Export to excel'
+
+   }
+]
+
+   });
 </script>
