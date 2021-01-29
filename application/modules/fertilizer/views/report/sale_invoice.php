@@ -62,10 +62,14 @@ tr:hover {background-color: #f5f5f5;}
     <div id="divToPrint">
 <div class="wrapper_fixed">
 
-	
-  <h2><img src="images/benfed.png" alt=""/>
-  </h2>
-  <h2>Tax Invoice </h2>
+<!-- <div class="col-sm-2 logo_sec_main">
+                    <div class="logo_sec">
+                    <img src="<?php echo base_url("/benfed.png");?>" />
+                    </div>
+                </div> -->
+  <!-- <h5> <img src="<?php echo base_url("/benfed.png");?>" />
+  </h5> -->
+  <h3><img src="<?php echo base_url("/benfed.png");?>" />Tax Invoice </h3>
   <div class="tableBottomBorder">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tbody>
