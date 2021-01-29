@@ -63,6 +63,23 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+.dropdown {
+    padding: 0 23px;
+}
+.dropdown-content {
+   
+    min-width: 215px;
+  
+}
+.sub-dropdown-content {
+   
+    min-width: 215px;
+ 
+}
+/* .navbarSectio {
+    text-align: left !important;
+    /* padding-top: 0px; */
+} */
     </style>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet"> 
     <link href="<?php echo base_url("/assets/css/apps.css");?>" rel="stylesheet">
@@ -80,6 +97,7 @@
     
         <nav class="navbar navbar-inverse bg-primary">
             
+                <!-- <div class="col-sm-2 logo_sec_main"> -->
                 <div class="col-sm-2 logo_sec_main">
                     <div class="logo_sec">
                     <img src="<?php echo base_url("/benfed.png");?>" />
@@ -176,17 +194,22 @@
 
                                     <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
 
-                                    <!-- <div class="sub-dropdown">
+                              <div class="sub-dropdown">
                                <a class="sub-dropbtn">Stock <i class="fa fa-angle-right" style="float: right;"></i></a> 
-                               <div class="sub-dropdown-content"> -->
+                               <div class="sub-dropdown-content">
                                     <a href="<?php echo site_url("fert/rep/stkStmt");?>">Consolidated Stock</a>
 
-                                    <a href="<?php echo site_url("fert/rep/stkScomp");?>">Stock (Companywise)</a>
+                                    <a href="<?php echo site_url("fert/rep/stkScomp");?>">Companywise Stock</a>
 
-                                    <a href="<?php echo site_url("fert/rep/stkstkpnt");?>">Stock (Stokpoint Wise)</a>
-                                    <a href="<?php echo site_url("fert/rep/stkwsestprep");?>">Stock Point Wise Stock Statement</a>
-                                    <!-- </div>
-                                    </div> -->
+                                    <a href="<?php echo site_url("fert/rep/stkstkpnt");?>">Stockpoint Wise Stock</a>
+                                    <a href="<?php echo site_url("fert/rep/stkwsestprep");?>">Stock Point Wise Statement</a>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-content">
+                                    <div class="sub-dropdown">
+                               <a class="sub-dropbtn">Purchase & Sale <i class="fa fa-angle-right" style="float: right;"></i></a> 
+                               <div class="sub-dropdown-content">
                                     <a href="<?php echo site_url("fert/rep/stkSprodro");?>">RO Wise Purchase & Sale</a>
                                     
                                     <a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
@@ -194,7 +217,8 @@
                                     <a href="<?php echo site_url("fert/rep/salerep");?>">Sale Ledger</a>
 
                                     <a href="<?php echo site_url("fert/rep/salerepsoc");?>">Sale Ledger(Society Wise)</a>
-
+                                    </div>
+                                    </div>
                                         <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
                                         <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a> -->
                                    <!--  <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a> -->
