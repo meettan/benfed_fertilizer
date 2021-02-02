@@ -364,7 +364,57 @@
            
         
         }
+/***************************************** */
 
+public function p_psoc_wise_sale($all_data)
+{
+    
+    try {
+        $this->db->reconnect();
+        
+        $sql = "CALL `p_psoc_wise_sale`(?,?,?,?)";
+     
+        $data_w = $this->db->query($sql,$all_data); 
+// echo $this->db->last_query();
+// die();
+//              
+        $this->db->close();
+
+
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+   
+    return $data_w->result();
+   
+
+}
+/********************************** */
+
+
+public function p_ro_wise_prof_calc($all_data)
+{
+    
+    try {
+        $this->db->reconnect();
+        
+        $sql = "CALL `p_ro_wise_prof_calc`(?,?,?)";
+     
+        $data_w = $this->db->query($sql,$all_data); 
+// echo $this->db->last_query();
+// die();
+//              
+        $this->db->close();
+
+
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+   
+    return $data_w->result();
+   
+
+}
 
         public function p_sale_purchase($all_data)
         {

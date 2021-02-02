@@ -73,7 +73,7 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>Sale Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
                         
-                         <h4 style="text-align:left"><label>Stock Point: </label> <?php 
+                         <h4 style="text-align:left"><label>Society: </label> <?php 
                               if($sales){ foreach($sales as $sal);
                                echo $sal->soc_name;} ?></h4> 
 

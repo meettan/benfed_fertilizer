@@ -123,7 +123,7 @@
     $(document).ready( function (){
 
         $('.delete').click(function () {
-            
+            // alert('abc');
             var id = $(this).attr('id');
             // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
             var result = confirm("Do you really want to delete this record?");
@@ -140,7 +140,7 @@
 
 </script>
 
-<!-- <script>
+<script>
 
     $(document).ready(function() {
 
@@ -150,20 +150,16 @@
 
     <?php } ?>
    
-</script> -->
+</script>
 
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script>
-   $('#example').dataTable({
-    destroy: true,
-   searching: true,paging: true
-
-   });
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "pagingType": "full_numbers"
+    } );
+} );
 </script>
-

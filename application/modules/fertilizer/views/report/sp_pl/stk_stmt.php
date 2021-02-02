@@ -66,16 +66,12 @@ tr:hover {background-color: #f5f5f5;}
                 
                 <div id="divToPrint">
 
-                    <div style="text-a  lign:center;">
+                    <div style="text-align:center;">
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Sale Statement Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Purchase & Sale Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        
-                         <h4 style="text-align:left"><label>Stock Point: </label> <?php 
-                              if($sales){ foreach($sales as $sal);
-                               echo $sal->soc_name;} ?></h4> 
 
                     </div>
                     <br>  
@@ -92,23 +88,19 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Product</th>
 
-                                <th>Sale invoice</th>
+                                <th>RO</th>
 
-                                <th>Do dt</th>
+                                <th>Purcahse Rate</th>
 
-                                <th>Qty</th>
+                                <th>Purchase Amount</th>
 
-                                <th>Sale Rate</th>
+                                <th>Purchase Qty</th>
 
-                                <th>Taxable Amt</th>
+                                <th>Sale Qty</th>
 
-                                <th>CGST</th>
+                                <th>Sale Amount</th>
 
-                                <th>SGST</th>
-
-                               <!--  <th>Discount</th> -->
-
-                                <th>Total amt</th>
+                                <th>Profit( Purchase - Sale )</th>
 
                             </tr>
 
@@ -117,77 +109,47 @@ tr:hover {background-color: #f5f5f5;}
                         <tbody>
 
                             <?php
-                            $taxable_amt = 0.00;
-                            $cgst    = 0.00;
-                            $sgst    = 0.00;
-                            $disc    = 0.00;
-                            $total   = 0.00;
-                                if($sales){ 
+
+                                if($product){ 
 
                                     $i = 1;
-                                    
-                                   
-
+                                    $total = 0.00;
                                     $val =0;
 
-                                        foreach($sales as $sal){
+                                        foreach($all_data as $prodtls){
                             ?>
 
                                 <tr class="rep">
-                                    <td class="report"><?php echo $i++; ?></td>
-                                    <td class="report"><?php echo $sal->short_name; ?></td>
-                                    <td class="report"><?php echo $sal->PROD_DESC; ?></td>
-                                    <td class="report"><?php echo $sal->trans_do; ?></td>
-                                    <td class="report"><?php echo date("d/m/y",strtotime($sal->do_dt)); ?></td>
-                                    <td class="report"><?php echo $sal->qty; ?></td>
-                                    <td class="report"><?php echo $sal->sale_rt; ?></td>
-                                    <td class="report"><?php echo $sal->taxable_amt;
-                                                                  $taxable_amt += $sal->taxable_amt;
-                                     ?></td>
-                                    <td class="report"><?php echo $sal->cgst;
-                                                                  $cgst += $sal->cgst;
+                                     <td class="report"><?php echo $i++; ?></td>
+                                     <td class="report"><?php echo $prodtls->comp_name; ?>
+                                     <td class="report"><?php echo $prodtls->prod_desc; ?>
+                                     <td class="report"><?php echo $prodtls->ro_no; ?>
+                                     <td class="report"><?php echo $prodtls->rate; ?>
+                                     <td class="report"><?php echo $prodtls->pur_net_amt; ?>
+                                     <td class="report"><?php echo $prodtls->qty; ?>
+                                     <td class="report"><?php echo $prodtls->sale_qty; ?>
+                                     <td class="report"><?php echo $prodtls->sale_amt; ?>
+                                     <td class="report"><?php echo $prodtls->profit; ?>
 
-                                     ?></td>
-                                    <td class="report"><?php echo $sal->sgst;
-                                                                  $sgst += $sal->sgst;
-
-                                     ?></td>
-                                   <!--  <td class="report"><?php //echo $sal->dis; 
-                                                                 // $disc += $sal->dis;
-
-                                    ?></td> -->
-                                    <td class="report"><?php echo $sal->tot_amt;
-                                                                  $total += $sal->tot_amt;
-
-                                     ?></td>
-                                   
                                 </tr>
  
                                 <?php  
                                                         
                                     }
-                              
+                                ?>
+
+ 
+                                <?php 
                                        }
                                 else{
 
-                                    echo "<tr><td colspan='15' style='text-align:center;'>No Data Found</td></tr>";
+                                    echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
 
                                 }   
 
                             ?>
 
                         </tbody>
-                        <tfooter>
-                            <tr>
-                               <td class="report" colspan="7" style="text-align:right">Total</td> 
-                               <td class="report"><?=$taxable_amt?></td>
-                               <td class="report"><?=$cgst?></td>
-                               <td class="report"><?=$sgst?></td> 
-                               
-                                <td class="report"><?=$total?></td>  
-
-                            </tr>
-                        </tfooter>
 
                     </table>
 

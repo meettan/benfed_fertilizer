@@ -258,7 +258,66 @@ public function stkStmt_ho(){
             }
 
         }
+/************************************************************ */
+public function ps_pl(){
 
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $from_dt    =   $_POST['from_date'];
+
+        $to_dt      =   $_POST['to_date'];
+
+        $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+        $mth        =  date('n',strtotime($from_dt));
+
+        $yr         =  date('Y',strtotime($from_dt));
+        $all_data            =   array($from_dt,$to_dt,$branch );
+        if($mth > 3){
+
+            $year = $yr;
+
+        }else{
+
+            $year = $yr - 1;
+        }
+
+        $opndt      =  date($year.'-04-01');
+
+        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+
+        $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
+
+        // $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
+
+        // $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
+
+        // $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
+
+        // $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);
+
+        $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+
+        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+       
+        $data['all_data']=$this->ReportModel->p_ro_wise_prof_calc($all_data);
+    //  echo $this->db->last_query();
+    //  die();
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/sp_pl/stk_stmt',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/sp_pl/stk_stmt_ip');
+        $this->load->view('post_login/footer');
+    }
+
+}
+/************************************************************ */
         // Company Wise Stock Statement 12/10/2020 //
 
         public function stkScomp(){
@@ -823,7 +882,66 @@ public function stkwsestprep(){
             }
 
         }
+/******************************************************* */
+public function salerep_psoc(){
 
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $from_dt    =   $_POST['from_date'];
+
+        $to_dt      =   $_POST['to_date'];
+        // $branch  =  $_POST['br'];
+        $soc_id     =   $this->input->post('soc_id');
+        $soc_name = $this->ReportModel->get_fersociety_name($soc_id );
+    //    echo $soc_id;
+    //    die();
+        $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+        $mth        =  date('n',strtotime($from_dt));
+
+        $yr         =  date('Y',strtotime($from_dt));
+        $all_data   =  array($from_dt,$to_dt,$branch,$soc_id );
+        if($mth > 3){
+
+            $year = $yr;
+
+        }else{
+
+            $year = $yr - 1;
+        }
+
+        $opndt      =  date($year.'-04-01');
+
+        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+        
+      // $data['sales']    =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);  
+     //   echo $this->db->last_query();
+    //   die();
+       
+        $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        $data['sales']=$this->ReportModel->p_psoc_wise_sale($all_data);
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/sale_psociety/salerep_p_soc',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+
+        $select      = array("soc_id","soc_name");
+        
+        $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
+
+        $society['societyDtls']   = $this->ReportModel->f_select('mm_ferti_soc',$select,$where,0);
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/sale_psociety/input',$society);
+        $this->load->view('post_login/footer');
+    }
+
+}
+
+/********************************************************* */
 
         public function stkstkpnt(){
 
