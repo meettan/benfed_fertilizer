@@ -415,7 +415,7 @@ public function f_cust_pay_forward() {
 				$product['socdtls']   = $this->FertilizerModel->f_select('mm_ferti_soc',$select1,NULL,0);
 	
 				$branch_id  = $this->session->userdata['loggedin']['branch_id'];
-				$product['ro_dtls']   = $this->FertilizerModel->f_getdo_dtl($branch_id);	
+				$product['ro_dtls']   = $this->Society_paymentModel->f_getdo_dtl($branch_id);	
 	
 		$this->load->view('post_login/fertilizer_main');
 	
@@ -498,7 +498,7 @@ public function f_cust_pay_forward() {
 
 			$product['cr_detals']   = $this->FertilizerModel->f_select('td_dr_note',NULL,$where,0);
 			$branch_id  = $this->session->userdata['loggedin']['branch_id'];
-			$product['ro_dtls']   = $this->FertilizerModel->f_getdo_dtl($branch_id);	
+			$product['ro_dtls']   = $this->Society_paymentModel->f_getdo_dtl($branch_id);	
 
 	        $this->load->view('post_login/fertilizer_main');
 
@@ -1010,18 +1010,31 @@ public function f_get_payro(){
 		
 		}
 
-		public function f_get_ro_dt(){
+		// public function f_get_ro_dt(){
 			
-		   $select          = array("do_dt","sale_ro","tot_amt");
-		   $where=array(
-			   "trans_do" =>$this->input->get("trans_do"),
-			   "tot_amt - ifnull(paid_amt,0) >" =>0 ) ;
+		//    $select          = array("do_dt","sale_ro","tot_amt");
+		//    $where=array(
+		// 	   "trans_do" =>$this->input->get("trans_do"),
+		// 	   "tot_amt - ifnull(paid_amt,0) >" =>0 ) ;
 			   
-			$comp    = $this->Society_paymentModel->f_select('td_sale',$select,$where,0);
+		// 	$comp    = $this->Society_paymentModel->f_select('td_sale',$select,$where,0);
 			
-			echo json_encode($comp);
+		// 	echo json_encode($comp);
 		
-		}
+		// }
+
+		public function f_get_ro_dt(){
+			$trans_do=$this->input->get("trans_do");
+			// $select          = array("do_dt","sale_ro","tot_amt");
+			// $where=array(
+			// 	"trans_do" =>$this->input->get("trans_do"),
+			// 	"tot_amt - ifnull(paid_amt,0) >" =>0 ) ;
+				
+			//  $comp    = $this->Society_paymentModel->f_select('td_sale',$select,$where,0);
+			$comp    = $this->Society_paymentModel->f_get_ro_dt($trans_do);
+			 echo json_encode($comp);
+		 
+		 }
 
 		public function f_get_dist_bnk_dtls(){
 			

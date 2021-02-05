@@ -172,11 +172,31 @@
              $data = $this->db->query("select distinct trans_do
 			 							from td_sale 
 									 where br_cd = '$br_cd'
-									 and soc_id='$soc_id'");
+									 and soc_id='$soc_id'
+									 union
+									 select  sale_invoice_no
+									 from  tdf_payment_recv
+									 where branch_id='$br_cd'
+									 and pay_type='O' and soc_id='$soc_id'");
 									
 		return $data->result();
 			
 		}
+
+		public function f_get_ro_dt($trans_do){
+	
+			$data = $this->db->query("select do_dt,sale_ro,tot_amt
+										from td_sale 
+									where trans_do='$trans_do'
+									union
+									select  ref_dt,ro_no,tot_recvble_amt
+									from  tdf_payment_recv
+									where sale_invoice_no='$trans_do'
+									and pay_type='O'");
+								   
+	   return $data->result();
+		   
+	   }
 
 
 	// 	public function f_distinct_ro($br_cd,$soc_id){
@@ -268,14 +288,26 @@
         {
 
             $sql = $this->db->query(" select ifnull(sum(tot_amt),0) - 
-			(SELECT ifnull(sum(a.paid_amt),0)  
+			 (SELECT ifnull(sum(a.paid_amt),0)  
+									FROM tdf_payment_recv a 
+									WHERE a.soc_id ='$soc_id'
+									and sale_invoice_no='$sale_invoice_no'
+									and ro_no='$ro_no' and  a.pay_type<>'O') +
+			(SELECT ifnull(sum(a.tot_recvble_amt),0)  - ifnull(sum(a.paid_amt),0)
 			FROM tdf_payment_recv a 
 			WHERE a.soc_id ='$soc_id'
 			and sale_invoice_no='$sale_invoice_no'
-			and ro_no='$ro_no' )as net_amt,sum(tot_amt)as tot_ro_amt
-			from  td_sale where  trans_do = '$sale_invoice_no'
-			and sale_ro='$ro_no'");
-            return $sql->result();
+			and ro_no='$ro_no'  and a.pay_type='O')as net_amt,
+									ifnull(sum(tot_amt),0)+
+									(SELECT ifnull(sum(a.tot_recvble_amt),0)  - ifnull(sum(a.paid_amt),0)
+									FROM tdf_payment_recv a 
+									WHERE a.soc_id ='$soc_id'
+									and sale_invoice_no='$sale_invoice_no'
+									and ro_no='$ro_no' and a.pay_type='O' )as tot_ro_amt
+									from  td_sale where  trans_do = '$sale_invoice_no'
+									and sale_ro='$ro_no'");
+			return $sql->result();
+			// return $sql->row();
 
 		}
 

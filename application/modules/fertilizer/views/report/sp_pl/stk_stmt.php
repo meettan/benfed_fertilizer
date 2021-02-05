@@ -127,9 +127,26 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $prodtls->rate; ?>
                                      <td class="report"><?php echo $prodtls->pur_net_amt; ?>
                                      <td class="report"><?php echo $prodtls->qty; ?>
-                                     <td class="report"><?php echo $prodtls->sale_qty; ?>
+
+                                     <td class="report">
+                                     
+                                     <?php
+                                     if( $prodtls->sale_qty<>$prodtls->qty)   {
+                                        echo "<font color='blue'><b>$prodtls->sale_qty</font></b>"; 
+                                    //   echo $prodtls->sale_qty; 
+                                    } else {
+                                        echo $prodtls->sale_qty; 
+                                    }
+                                     ?>
                                      <td class="report"><?php echo $prodtls->sale_amt; ?>
-                                     <td class="report"><?php echo $prodtls->profit; ?>
+                                     <td class="report">
+                                     <?php
+                                     if($prodtls->profit<0)   {
+                                        echo "<font color='blue'><b>$prodtls->profit</font></b>"; 
+                                      } else {
+                                      echo $prodtls->profit; 
+                                    }
+                                      ?>
 
                                 </tr>
  
@@ -165,3 +182,34 @@ tr:hover {background-color: #f5f5f5;}
             </div>
             
         </div>
+
+        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script> -->
+<!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script> -->
+
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+   $('#example').dataTable({
+    destroy: true,
+   searching: false,ordering: false,paging: false,
+
+dom: 'Bfrtip',
+buttons: [
+   {
+extend: 'excelHtml5',
+title: 'BENFED All SALE PURCHASE REPORT',
+text: 'Export to excel'
+//Columns to export
+// exportOptions: {
+//    columns: [0, 1, 2, 3]
+// }
+   }
+]
+   });
+</script>

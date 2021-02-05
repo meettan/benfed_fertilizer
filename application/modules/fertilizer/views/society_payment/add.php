@@ -386,8 +386,6 @@ $(document).ready(function(){
 
  $('.table tbody').on('change', '.qty', function(){
 
-   
-          
             let row          = $(this).closest('tr');
             var qty          = row.find('td:eq(3) .qty').val();
         
@@ -664,13 +662,14 @@ $(document).ready(function(){
             }
 
         ).done(function(data){
-
+            //  console.log(data);
             var parseData = JSON.parse(data);
             
 			var net_amt = parseData[0].net_amt;
+            console.log(net_amt);
             var tot_ro_amt = parseData[0].tot_ro_amt;
             $('#tot_recvble_amt').val(tot_ro_amt);
-//  var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
+           //  var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
            
 			 $('#net_amt').val(net_amt);
              

@@ -198,9 +198,7 @@
                                <a class="sub-dropbtn">Stock <i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
                                     <a href="<?php echo site_url("fert/rep/stkStmt");?>">Consolidated Stock</a>
-
                                     <a href="<?php echo site_url("fert/rep/stkScomp");?>">Companywise Stock</a>
-
                                     <a href="<?php echo site_url("fert/rep/stkstkpnt");?>">Stockpoint Wise Stock</a>
                                     <a href="<?php echo site_url("fert/rep/stkwsestprep");?>">Stock Point Wise Statement</a>
                                     </div>
@@ -211,11 +209,8 @@
                                <a class="sub-dropbtn">Purchase & Sale <i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
                                     <a href="<?php echo site_url("fert/rep/stkSprodro");?>">RO Wise Purchase & Sale</a>
-                                    
                                     <a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
-
                                     <a href="<?php echo site_url("fert/rep/salerep");?>">Sale Ledger</a>
-
                                     <a href="<?php echo site_url("fert/rep/salerepsoc");?>">Sale Ledger(Stock point Wise)</a>
                                     <a href="<?php echo site_url("fert/rep/ps_pl");?>">All Sale Purchase </a>
                                     <a href="<?php echo site_url("fert/rep/salerep_psoc");?>">Society Wise Sale </a>
@@ -223,7 +218,7 @@
                                     </div>
                                         <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>
                                         <a href="<?php echo site_url("fertilizer/society_report");?>">Society Report</a> -->
-                                   <!--  <a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a> -->
+                                        <!--<a href="<?php echo site_url("fertilizer/stock_ledg_report");?>">Purchase Ledger</a> -->
                                         <!-- <a href="<?php echo site_url("fertilizer/stock_reportcompanywise");?>">Purchase Stock Report(Company Wise)</a> -->
                                         <!-- <a href="<?php echo site_url("fertilizer/f_trial")?>">Return Report</a> -->
                                 <?php } ?>
