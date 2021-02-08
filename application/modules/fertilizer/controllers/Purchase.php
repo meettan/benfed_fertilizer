@@ -1302,8 +1302,8 @@ public function stockAdd(){
 				$this->PurchaseModel->f_insert('td_purchase', $data_array);
 
 
-				echo $this->db->last_query();
-				die();
+				// echo $this->db->last_query();
+				// die();
 				
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
