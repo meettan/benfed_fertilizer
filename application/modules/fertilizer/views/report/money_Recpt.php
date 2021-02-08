@@ -61,8 +61,10 @@ tr:hover {background-color: #f5f5f5;}
     <div id="divToPrint">
 
     <div class="wrapper_fixed">
-<h2 style="text-align:center">The West Bengal State Co-operative Marketing Federation Ltd.</h2>
+ <div class="col-sm-1 logo_sec_main"><img src="<?php echo base_url("/benfed.png");?>"/></div>
+<h3 style="text-align:center">The West Bengal State Co-operative Marketing Federation Ltd.</h3>
 <h4 style="text-align:center">Southend Conclave, 3rd Floor,1582 Rajdanga Main Road,Kolkata - 700 107.</h4>
+		<br>
   <h4 style="text-align:center"><u>Receipt - BIR Voucher</u></h4>
 	<div class="billDateGroop">
 	  <div class="crmBill">No: <strong><?php echo  $data->paid_id;?></strong></div>	
