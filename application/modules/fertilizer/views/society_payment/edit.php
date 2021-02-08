@@ -11,7 +11,7 @@
 					
     					</div>
     	                <?php
-                        foreach($pay_dtls as $pay);
+                        foreach($paydtls as $pay);
                         ?>
     		
                                    <!-- <input type="hidden" id=trans_ro name="trans_do" class="form-control" value="<?=$prodd->trans_do?>"/>						 -->
@@ -170,7 +170,7 @@
                                      $taxable_amt=0;
                                       $cgst=0;
                                        $sgst=0;
-                    foreach($pay_dtls as $pay)
+                    foreach($paydtls as $pay)
                     { ?>
                                 <tr>
                                     

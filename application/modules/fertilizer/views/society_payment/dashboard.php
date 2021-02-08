@@ -48,7 +48,8 @@
 		    ?>
 
                             <tr>   
-                            <td style="display:none;"><?php echo ++$i; ?></td>
+                            <!-- <td style="display:none;"><?php echo ++$i; ?></td> -->
+                            <td ><?php echo ++$i; ?></td>
                                 <td><?php echo $pay->paid_id; ?></td>
                                 <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
                                 <td><?php echo $pay->soc_name; ?></td>
@@ -67,7 +68,7 @@
                              
                               </a>
                             </td>
-			 	                <td><a href="society_payEdit?trans_do=<?=$pay->paid_id;?>" 
+			 	                <td><a href="society_payEdit?paid_id=<?=$pay->paid_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>

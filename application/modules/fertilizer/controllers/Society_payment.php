@@ -101,7 +101,8 @@ public function society_payEdit(){
 			$select          = array("prod_id","prod_desc","gst_rt");
 			$product['proddtls']   = $this->Society_paymentModel->f_select('mm_product',$select,NULL,0);	
             // $product['pay_dtls']  = $this->Society_paymentModel->f_get_particulars("tdf_payment_recv", NULL, array("paid_id" => $this->input->get('trans_do')),0);
-			$product['pay_dtls']  = $this->Society_paymentModel->f_get_cust_paydtls($this->input->get('trans_do'));
+			// $product['pay_dtls']  = $this->Society_paymentModel->f_get_cust_paydtls($this->input->get('trans_do'));
+			$product['paydtls']  = $this->Society_paymentModel->f_get_cust_paydtls($this->input->get('paid_id'));
 			//  echo $this->db->last_query();
 			//  die();
 			// $product['bnk_dtls']   = $this->Society_paymentModel->f_get_custpay_bnk_dtl($this->input->post('bnk_id'));

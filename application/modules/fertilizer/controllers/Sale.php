@@ -613,11 +613,11 @@ public function f_get_sale_ro(){
 
 			"a.comp_id = b.comp_id"  => NULL,
 			"a.comp_id"    =>  $this->input->get('comp_id'),
-			 "a.br" =>$dist_id 
-			 );
+			 "a.br" =>$dist_id  );
 			   
 			$ro   = $this->SaleModel->f_select('td_purchase a,mm_company_dtls b',$select,$where,0);
-			
+			// echo $this->db->last_query();
+			// die();
 			
 			echo json_encode($ro);
 
