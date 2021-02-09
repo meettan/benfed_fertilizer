@@ -78,9 +78,9 @@ public function society_payEdit(){
 				
 				$this->session->set_flashdata('msg', 'Successfully Updated');
 
-			redirect('fertilizer/Society_payment');
+			// redirect('fertilizer/Society_payment');
 		
-           
+			redirect('Society_payment/Society_payment');
             
 			}else {
 				
@@ -1043,8 +1043,8 @@ public function f_get_payro(){
 			$where=array(
 				"sl_no" =>$this->input->get("bnk_id")) ;
 				
-			 $comp    = $this->Society_paymentModel->f_select('mm_dist_bank',$select,$where,0);
-			 
+			//  $comp    = $this->Society_paymentModel->f_select('mm_dist_bank',$select,$where,0);
+			$comp    = $this->Society_paymentModel->f_select('mm_feri_bank',$select,$where,0);
 			 echo json_encode($comp);
 		 
 		 }

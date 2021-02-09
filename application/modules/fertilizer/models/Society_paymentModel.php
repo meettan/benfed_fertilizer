@@ -116,15 +116,32 @@
         
         public function f_get_soc_payment_dtls($br_cd){
 
-				$data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,sum(d.QTY)sale_qty
-											from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,td_sale d
-											where a.soc_id=b.soc_id
-											and a.ro_no=c.ro_no
-											and c.ro_no=d.sale_ro
-											and a.branch_id=$br_cd
-											group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status");
+				// $data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,sum(d.QTY)sale_qty
+				// 							from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,td_sale d
+				// 							where a.soc_id=b.soc_id
+				// 							and a.ro_no=c.ro_no
+				// 							and c.ro_no=d.sale_ro
+				// 							and a.branch_id=$br_cd
+				// 							group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status");
     
-            
+		
+
+
+			$data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,sum(d.QTY)sale_qty
+			from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,td_sale d
+			where a.soc_id=b.soc_id
+			and a.ro_no=c.ro_no
+			and c.ro_no=d.sale_ro
+			and a.branch_id=$br_cd
+			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status
+			union
+			select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,0,0,0,a.ro_no,a.approval_status,sum(a.paid_amt)amount,0
+			from  tdf_payment_recv a , mm_ferti_soc b
+			where a.soc_id=b.soc_id	
+			and a.paid_id is not null
+			and a.branch_id=$br_cd
+			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,approval_status");
+
              return $data->result();
             
                 
@@ -252,11 +269,11 @@
 
             $sql = $this->db->query("SELECT ifnull(sum(a.adv_amt),0) -(select  ifnull(sum(adv_amt),0) 
 																		from tdf_advance 
-																		WHERE a.soc_id ='$soc_id'
-																		and trans_type='I')as adv_amt
+																		WHERE soc_id ='$soc_id'
+																		and trans_type='O')as adv_amt
 			FROM tdf_advance a 
 			WHERE a.soc_id ='$soc_id'
-			and a.trans_type='O'");
+			and a.trans_type='I'");
             return $sql->result();
 
 		}

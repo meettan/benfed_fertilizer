@@ -670,9 +670,9 @@ $(document).ready(function(){
             var tot_ro_amt = parseData[0].tot_ro_amt;
             $('#tot_recvble_amt').val(tot_ro_amt);
            //  var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
-           
-			 $('#net_amt').val(net_amt);
-             
+           var adv_amt    = parseFloat($('#adv_amt').val());
+			//  $('#net_amt').val(net_amt - adv_amt);
+            $('#net_amt').val(net_amt );
           });
 
 
