@@ -71,7 +71,15 @@
 				and a.pur_ro=b.ro_no
 				and a.pur_ro=c.sale_ro
 				and a.prod_id =d.prod_id
-				group by a.sale_inv_no,a.pur_ro,a.purchase_rt ,b.ro_dt ,a.prod_id,d.prod_desc");
+				group by a.sale_inv_no,a.pur_ro,a.purchase_rt ,b.ro_dt ,a.prod_id,d.prod_desc
+				union 
+				select 0 as qty,a.sale_inv_no,a.pur_ro,a.purchase_rt ,''ro_dt,0 as tot_amt ,a.prod_id,d.prod_desc
+				from  tdf_company_payment a ,tdf_payment_recv b,mm_product d
+				where b.ro_no ='$pur_inv'
+				and a.pur_ro=b.ro_no
+				and a.prod_id =d.prod_id
+				and pay_type='O'
+				group by a.sale_inv_no,a.pur_ro,a.purchase_rt ,a.prod_id,d.prod_desc");
 
 
 return $data->row();

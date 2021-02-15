@@ -132,10 +132,17 @@
 						<div class="col-sm-3">
                         <textarea class="form-control" style="width:200px;height:80px" name="remarks" id="remarks"></textarea>
                         </div> -->
-                        
+  
                         <label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="ifsc" name="ifsc"value=""  class="form-control" readonly />
+                        <input type="hidden" style="width:180px" id="comp_id" name="comp_id"value=""  class="form-control" readonly />
+                       
+                    
+                       <input type="hidden" style="width:180px" id="prod_id" name="prod_id"value=""  class="form-control" readonly />
+                      
+                      
+                       <input type="hidden" style="width:180px" id="ro_rt" name="ro_rt"value=""  class="form-control" readonly />
                         </div>
                         <label for="ac_no" class="col-sm-2 col-form-label">A/C No:</label>
 						<div class="col-sm-3">
@@ -577,7 +584,8 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("socpay/f_get_ro_dt");?>',
+            // '<?php echo site_url("socpay/f_get_ro_dtl");?>',
+            '<?php echo site_url("socpay/f_get_ro_trans_dtls");?>',
 
             { 
 
@@ -591,9 +599,15 @@ $(document).ready(function(){
             var parseData = JSON.parse(data);
             
 			var tot_recvble_amt = parseData[0].tot_amt;
+            var comp_id = parseData[0].comp_id;
+            var prod_id = parseData[0].prod_id;
+            var ro_rt = parseData[0].rate;
             // var sale_ro = parseData[0].sale_ro;
-			// $('#tot_recvble_amt').val(tot_recvble_amt);
-            // $('#sale_ro').val(sale_ro)
+			$('#comp_id').val(comp_id);
+            $('#prod_id').val(prod_id);
+            $('#ro_rt').val(ro_rt);
+            // $('#sale_ro').val(sale_ro)  
+          
             var tot_dr_amt = parseFloat($('#tot_dr_amt').val());
             var adv_amt    = parseFloat($('#adv_amt').val());
             // var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());

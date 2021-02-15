@@ -168,7 +168,13 @@ public function society_payEdit(){
     
                                             'sale_invoice_dt'    =>  $this->input->post('do_dt'),
         
-                                            'ro_no'              => $this->input->post('sale_ro'),
+											'ro_no'              => $this->input->post('sale_ro'),
+
+											'comp_id'             => $this->input->post('comp_id'),
+
+											'prod_id'             => $this->input->post('prod_id'),
+
+											'ro_rt'              => $this->input->post('ro_rt'),
 
                                             'adj_dr_note_amt'    => $this->input->post('tot_dr_amt'),
 
@@ -198,10 +204,11 @@ public function society_payEdit(){
     
 											'fin_yr'             => $fin_id,
 											
-										    'approval_status'     =>'U');
+										    'approval_status'      =>'U');
         
 $this->Society_paymentModel->f_insert('tdf_payment_recv', $data);
-
+// echo $this->db->last_query();
+// die();
 if ($trans_type=='2'){
 						$total = $_POST['paid_amt'][$i];
                         $soc_id= $this->input->post('soc_id');
@@ -300,7 +307,8 @@ if ($trans_type=='2'){
 			$br_cd          = $this->session->userdata['loggedin']['branch_id'];
 			$this->sysdate  = $_SESSION['sys_date'];
 		   $data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls($br_cd);
-
+// echo $this->db->last_query();
+// 					die();
 		   $this->load->view("post_login/fertilizer_main");
 	   
 		   $this->load->view("society_payment/dashboard",$data);
@@ -1033,6 +1041,23 @@ public function f_get_payro(){
 				
 			//  $comp    = $this->Society_paymentModel->f_select('td_sale',$select,$where,0);
 			$comp    = $this->Society_paymentModel->f_get_ro_dt($trans_do);
+			// echo $this->db->last_query();
+			// die();
+			 echo json_encode($comp);
+		 
+		 }
+
+		 public function f_get_ro_trans_dtls(){
+			$trans_do=$this->input->get("trans_do");
+			// $select          = array("do_dt","sale_ro","tot_amt");
+			// $where=array(
+			// 	"trans_do" =>$this->input->get("trans_do"),
+			// 	"tot_amt - ifnull(paid_amt,0) >" =>0 ) ;
+				
+			//  $comp    = $this->Society_paymentModel->f_select('td_sale',$select,$where,0);
+			$comp    = $this->Society_paymentModel->f_get_ro_trans_dtls($trans_do);
+			// echo $this->db->last_query();
+			// die();
 			 echo json_encode($comp);
 		 
 		 }

@@ -96,7 +96,7 @@
 			                             and a.prod_id ='$prod_id'
 			                             and '$ro_dt' BETWEEN a.frm_dt and a.to_dt");  */
 
-			                             $sql = $this->db->query("SELECT a.catg_id,b.cate_desc
+			                        $sql = $this->db->query("SELECT a.catg_id,b.cate_desc
 									from  mm_sale_rate a,
 	   					                  mm_category b    							   							
 					                     where  a.catg_id = b.sl_no

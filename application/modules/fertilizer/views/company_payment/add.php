@@ -110,20 +110,20 @@
                                       <input type="text" name="prod_desc[]" style="width:140px" class="form-control required prod_desc" value= "" id="prod_desc" readonly> 
                                     </td>
                                     <td>
-                                      <input type="text" name="pur_ro[]" style="width:120px;" class="form-control pur_ro" value= "" id="pur_ro" readonly >
+                                      <input type="text" name="pur_ro[]" style="width:120px;" class="form-control pur_ro" value= "" id="pur_ro"  >
                                     </td>
                                     <td>
-                                      <input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >
+                                      <input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt"  >
                                     </td>
                                     <td>    
-                                    <input type="text" name="qty[]" style="width:90px;" class="form-control qty" value= "" id="qty" readonly >
+                                    <input type="text" name="qty[]" style="width:90px;" class="form-control qty" value= "" id="qty"  >
                                     </td>
                                     <td>
-                                      <input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" readonly >
+                                      <input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate"  >
                                     </td>
 
 									<td>
-                                      <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" readonly>
+                                      <input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" >
                                     </td>
                                     <td>
                                       <input type="text" name="virtual_no[]" style="width:100px;" class="form-control virtual_no" value= "" id="virtual_no" >
@@ -283,19 +283,19 @@ $.each(JSON.parse(data), function( index, value ) {
                                 +'<input type="text" name="prod_desc[]" style="width:140px" class="form-control required prod_desc" value= "" id="prod_desc" readonly>'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="text" name="pur_ro[]" style="width:120px;" class="form-control pur_ro" value= "" id="pur_ro" readonly>'
+                                +'<input type="text" name="pur_ro[]" style="width:120px;" class="form-control pur_ro" value= "" id="pur_ro" >'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt" readonly >'
+                                +'<input type="date" name="pur_ro_dt[]" style="width:150px;" class="form-control pur_ro_dt" value= "" id="pur_ro_dt"  >'
                                 +'</td>'
 								+'<td>'
-                                +'<input type="text" name="qty[]" style="width:90px;" class="form-control qty" value= "" id="qty" readonly >'
+                                +'<input type="text" name="qty[]" style="width:90px;" class="form-control qty" value= "" id="qty"  >'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" readonly>'
+                                +'<input type="text" name="rate[]" style="width:100px;" class="form-control rate" value= "" id="rate" >'
                                 +'</td>'
                                 +'<td>'
-                                +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" readonly>'
+                                +'<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" >'
                                 +'</td>'
                                 +'<td>'
                                 +'<input type="text" name="virtual_no[]" style="width:100px;" class="form-control virtual_no" value= "" id="virtual_no" >'

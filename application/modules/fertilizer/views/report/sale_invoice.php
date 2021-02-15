@@ -59,7 +59,7 @@ tr:hover {background-color: #f5f5f5;}
 
   <div class="col-lg-12 container contant-wraper">
                     
-    <div id="divToPrint">
+<div id="divToPrint">
 <div class="wrapper_fixed">
 
 <!-- <div class="col-sm-2 logo_sec_main">
@@ -456,5 +456,6 @@ We declare that this invoice shows the actual price of goods described and parti
                     </div>
    </div>
 </div>
+
 
 

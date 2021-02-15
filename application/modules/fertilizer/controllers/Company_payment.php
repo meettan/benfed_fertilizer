@@ -70,7 +70,7 @@
 
 					'prod_id'      => $_POST['prod_id'][$i],
 
-					'virtual_no'      => $_POST['virtual_no'][$i] );
+					'virtual_ac'      => $_POST['virtual_no'][$i] );
 
 					$this->Company_paymentModel->f_edit('tdf_company_payment', $data, $where);
 

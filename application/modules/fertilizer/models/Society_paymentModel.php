@@ -124,18 +124,14 @@
 				// 							and a.branch_id=$br_cd
 				// 							group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status");
     
-		
-
-
-			$data = $this->db->query("select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,sum(d.QTY)sale_qty
-			from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,td_sale d
+			$data = $this->db->query("select distinct a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.ro_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,0 as sale_qty
+			from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c
 			where a.soc_id=b.soc_id
 			and a.ro_no=c.ro_no
-			and c.ro_no=d.sale_ro
 			and a.branch_id=$br_cd
-			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status
+			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.ro_no,approval_status
 			union
-			select a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,0,0,0,a.ro_no,a.approval_status,sum(a.paid_amt)amount,0
+			select a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,a.comp_id,a.prod_id,a.ro_rt,a.ro_no,a.approval_status,sum(a.paid_amt)amount,0
 			from  tdf_payment_recv a , mm_ferti_soc b
 			where a.soc_id=b.soc_id	
 			and a.paid_id is not null
@@ -202,11 +198,12 @@
 
 		public function f_get_ro_dt($trans_do){
 	
-			$data = $this->db->query("select do_dt,sale_ro,tot_amt
-										from td_sale 
-									where trans_do='$trans_do'
+			$data = $this->db->query("select a.do_dt,a.sale_ro,a.tot_amt,a.comp_id,a.prod_id,b.rate
+										from td_sale a ,td_purchase b
+									where a.trans_do='$trans_do'
+									and a.sale_ro=b.ro_no
 									union
-									select  ref_dt,ro_no,tot_recvble_amt
+									select  ref_dt,ro_no,tot_recvble_amt,comp_id,prod_id,ro_rt
 									from  tdf_payment_recv
 									where sale_invoice_no='$trans_do'
 									and pay_type='O'");
@@ -214,6 +211,21 @@
 	   return $data->result();
 		   
 	   }
+	   public function f_get_ro_trans_dtls($trans_do){
+	
+		$data = $this->db->query("select a.do_dt,a.sale_ro,a.tot_amt,a.comp_id,a.prod_id,b.rate
+									from td_sale a ,td_purchase b
+								where a.trans_do='$trans_do'
+								and a.sale_ro=b.ro_no
+								union
+								select  ref_dt,ro_no,tot_recvble_amt,comp_id,prod_id,ro_rt
+								from  tdf_payment_recv
+								where sale_invoice_no='$trans_do'
+								and pay_type='O'");
+							   
+   return $data->result();
+	   
+   }
 
 
 	// 	public function f_distinct_ro($br_cd,$soc_id){
