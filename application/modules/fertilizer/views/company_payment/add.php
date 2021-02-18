@@ -769,6 +769,38 @@ $(document).ready(function(){
 
 });
 </script>
+
+
+<script>
+
+$(document).ready(function()
+{
+    $('#intro').on( "change", ".qty", function()
+    {
+       
+           var sum         = 0;
+           var tot_amt     = 0;
+
+           var qty = parseFloat($('.qty').eq($('.pur_inv').index(this)).val());
+           var  rate =$('#rate').val();
+           var tot_amt= parseFloat(qty * rate).toFixed('2');
+        
+           $('.paid_amt').eq($('.pur_inv').index(this)).val(tot_amt);
+
+           $("input[class *= 'paid_amt']").each(function(){
+            sum += parseFloat($(this).val());
+                      
+            });
+
+            $("#total").val("0");
+            $("#total").val(sum).toFixed(2);
+   
+})
+                   
+ })      
+
+</script>
+
 <!-- <script>
 $(document).ready(function(){
 $("#pay_dt").change(function(){

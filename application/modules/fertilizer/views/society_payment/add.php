@@ -146,7 +146,7 @@
                         </div>
                         <label for="ac_no" class="col-sm-2 col-form-label">A/C No:</label>
 						<div class="col-sm-3">
-                        <input type="text" style="width:200px" id="ac_no" name="ac_no"value=""  class="form-control" readonly />
+                        <input type="text" style="width:200px" id="ac_no" name="ac_no"value=""  class="form-control"  />
                         </div>
                         </div>
                         <div class="form-group row">

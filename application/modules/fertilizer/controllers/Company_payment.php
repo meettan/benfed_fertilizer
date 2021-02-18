@@ -8,7 +8,7 @@
 		$this->load->model('Society_paymentModel');
 		$this->load->model('AdvanceModel');
 		$this->load->model('DrcrnoteModel');
-		
+		// $this->load->model('FertilizerModel');
 		$this->session->userdata('fin_yr');
 
 		if(!isset($this->session->userdata['loggedin']['user_id'])){
@@ -17,14 +17,104 @@
 
             }
 		}
-        
+		
+		public function cmppay_edit(){
+
+			// echo ('raja');
+			
+			// die();
+				if($_SERVER['REQUEST_METHOD'] == "POST") {
+			
+							$prod_id = $this->input->post('prod_id');
+							$pur_inv = $this->input->post('pur_inv');
+							// echo ('raja');
+			
+			die();
+							
+						  for($i = 0; $i < count($prod_id); $i++){
+			
+						  $data     = array(
+											  'dist_id'        => $this->input->post('ro_dt'),
+			
+											   'sale_due_dt'  => $this->input->post('sale_due_dt'), 
+											   'comp_id'  => $this->input->post('comp_id'),
+											   'sale_ro'      => $_POST['ro'][$i],
+			
+												'prod_id'      => $_POST['prod_id'][$i],
+			
+												'qty'          => $_POST['qty'][$i],
+			
+												'sale_rt'      => $_POST['sale_rt'][$i],
+			
+												'taxable_amt'  => $_POST['taxable_amt'][$i],
+												
+												'gst_rt'        => $_POST['gst_rt'][$i],
+												
+												'cgst'         => $_POST['cgst'][$i],
+			
+												'sgst'        => $_POST['sgst'][$i],
+			
+												'tot_amt'     => $_POST['tot_amt'][$i],
+			
+												"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+			
+												"modified_dt"    =>  date('Y-m-d h:i:s'),
+			
+											);
+			
+					   $where  =   array(
+			
+							 'trans_do'     => $this->input->post('trans_do'),
+			
+							 'sale_ro'      => $_POST['ro'][$i]
+			
+						);
+			
+						$this->FertilizerModel->f_edit('td_sale', $data, $where);
+										}
+							
+							$this->session->set_flashdata('msg', 'Successfully Updated');
+			
+						redirect('fertilizer/sale');
+					
+					   
+						
+						}else {
+							
+							$select3        = array("district_code","district_name");
+							$product['distdtls']   = $this->Company_paymentModel->f_select('md_district',$select3,NULL,0);
+							$select3        = array("comp_id","comp_name");
+							$product['compdtls']   = $this->Company_paymentModel->f_select('mm_company_dtls',$select3,NULL,0);
+
+							$select4       = array("prod_id","prod_desc");
+							$product['proddtls']   = $this->Company_paymentModel->f_select('mm_product',$select3,NULL,0);
+			
+							$where  =   array(
+			
+								'comp_id'     => $this->input->get('comp_id'));
+						
+			
+						$select          = array("prod_id","comp_id","pay_no","pay_dt","sale_inv_no","paid_amt","district","ro_no");
+					
+						$product['prod_dtls']  = $this->Company_paymentModel->f_get_particulars("tdf_company_payment", NULL, array( "pay_no" => $this->input->get('pay_no')),0);
+					
+						$this->load->view('post_login/fertilizer_main');
+			
+					   $this->load->view("company_payment/edit",$product);
+			
+						$this->load->view('post_login/footer');
+			}
+			
+			}
+			
+
         public function company_payAdd(){
 
             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
 			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
 			$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
 			$transCd 	= $this->Company_paymentModel->get_soc_pay_code($br_cd,$fin_id);
-			$month     =date('m');
+			$month      = date('m');
 			// echo ($month);
 			// die();
 			$select_dist         = array("short_name" );
@@ -40,14 +130,15 @@
                     
                       for($i = 0; $i < count($paid_amt); $i++){
 
-						$trans_type=$_POST['pay_type'][$i];
-						$paid_amt=$_POST['paid_amt'][$i];
-						$receipt            = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$adv_transCd->sl_no;
+						// $trans_type= $_POST['pay_type'][$i];
+						$paid_amt  = $_POST['paid_amt'][$i];
+						$receipt   = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$adv_transCd->sl_no;
 						// echo $receipt;
 						// die();
                       $data     = array(
                                             'pay_no'           => $receipt ,
-                                            'pay_dt'           => $this->input->post('pay_dt'),
+											'pay_dt'           => date('Y-m-d H:i:s',time(($this->input->post('pay_dt')))),
+											
 											'bnk_id'           => $this->input->post('bank_id'),
 											'ifsc'             => $this->input->post('ifsc'),
 											'bnk_ac_no'        => $this->input->post('ac_no'),
@@ -68,12 +159,13 @@
 
 					'pur_ro'      => $_POST['pur_ro'][$i],
 
-					'prod_id'      => $_POST['prod_id'][$i],
+					'prod_id'      => $_POST['prod_id'][$i]);
 
-					'virtual_ac'      => $_POST['virtual_no'][$i] );
+					// 'virtual_ac'      => $_POST['virtual_no'][$i] );
 
 					$this->Company_paymentModel->f_edit('tdf_company_payment', $data, $where);
-
+// echo $this->db->last_query();
+// die();
 if ($trans_type=='2'){
 						$total = $_POST['paid_amt'][$i];
 
@@ -114,8 +206,10 @@ if ($trans_type=='2'){
                 
                     }else {
 
-                        $select                = array("sl_no","bank_name");
-						$product['bnkdtls']    = $this->Company_paymentModel->f_select('mm_feri_bank',$select,NULL,0);
+						$select                = array("sl_no","bank_name");
+						$where_ho              = array('dist_cd'   =>'342' );
+
+						$product['bnkdtls']    = $this->Company_paymentModel->f_select('mm_feri_bank',$select,$where_ho,0);
 						
 						$select2               = array("b.comp_id","b.comp_name");
 						$where2                = array('a.comp_id=b.comp_id'   => NULL );
@@ -931,94 +1025,6 @@ public function saleAdd(){
 
 
 //     addsale code written by Lokesh kumar jha 03/04/2020"
-     public function saleedit(){
-
-
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-            	$prod_id = $this->input->post('prod_id');
-				
-				
-			  for($i = 0; $i < count($prod_id); $i++){
-
-			  $data     = array(
-                                  'do_dt'        => $this->input->post('ro_dt'),
-
-								   'sale_due_dt'  => $this->input->post('sale_due_dt'), 
-								   'comp_id'  => $this->input->post('comp_id'),
-                                   'sale_ro'      => $_POST['ro'][$i],
-
-                                    'prod_id'      => $_POST['prod_id'][$i],
-
-                                    'qty'          => $_POST['qty'][$i],
-
-                                    'sale_rt'      => $_POST['sale_rt'][$i],
-
-									'taxable_amt'  => $_POST['taxable_amt'][$i],
-									
-									'gst_rt'        => $_POST['gst_rt'][$i],
-									
-                                    'cgst'         => $_POST['cgst'][$i],
-
-                                    'sgst'        => $_POST['sgst'][$i],
-
-                                    'tot_amt'     => $_POST['tot_amt'][$i],
-
-                                    "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-
-				                    "modified_dt"    =>  date('Y-m-d h:i:s'),
-
-                                );
-
-		   $where  =   array(
-
-                 'trans_do'     => $this->input->post('trans_do'),
-
-                 'sale_ro'      => $_POST['ro'][$i]
-
-            );
-
-            $this->FertilizerModel->f_edit('td_sale', $data, $where);
-							}
-				
-				$this->session->set_flashdata('msg', 'Successfully Updated');
-
-			redirect('fertilizer/sale');
-		
-           
-            
-			}else {
-				// $comp_id	= $this->input->post('comp_id');
-				// echo $comp_id;
-				// die();
-				$select3        = array("comp_id","comp_name");
-				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select3,NULL,0);
-
-				$where  =   array(
-
-					'comp_id'     => $this->input->get('comp_id'));
-					
-				$select2         = array("ro_no","qty");
-
-				$product['rodtls']   = $this->FertilizerModel->f_select('td_purchase',$select2,NULL,0);
-			// echo $this->db->last_query();
-			// die();
-			$select1          = array("soc_id","soc_name","soc_add","gstin");
-			$product['socdtls']   = $this->FertilizerModel->f_select('mm_ferti_soc',$select1,NULL,0);
-
-			$select          = array("prod_id","prod_desc","gst_rt");
-			$product['proddtls']   = $this->FertilizerModel->f_select('mm_product',$select,NULL,0);	
-            $product['prod_dtls']  = $this->FertilizerModel->f_get_particulars("td_sale", NULL, array( "trans_do" => $this->input->get('trans_do')),0);
-		//    echo $this->db->last_query();
-		//    die();
-	        $this->load->view('post_login/fertilizer_main');
-
-	       $this->load->view("sale/edits",$product);
-
-	        $this->load->view('post_login/footer');
-}
-
-}
 	
 public function deletesale() {
 
@@ -2444,6 +2450,40 @@ public function deletecompany() {
 
 }
 
+public function delete_companypay(){
+
+	
+	if($_SERVER['REQUEST_METHOD'] == "GET") {
+
+	// 	echo 'raja';
+	// die();
+		$data_array = array(
+
+				"pay_no"     =>  NULL ,
+                               
+				"paid_amt"   =>  0,
+
+				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
+
+				"modified_dt"  =>  date('Y-m-d h:i:s')
+		);
+
+		$where = array(
+				"pay_no"     =>  $this->input->get('pay_no')
+		);
+		 
+		$this->Company_paymentModel->f_edit('tdf_company_payment', $data_array, $where);
+
+		 // echo $this->db->last_query();
+		// die();
+
+		$this->session->set_flashdata('msg', 'Successfully Updated');
+
+		redirect('compay/company_payment');
+
+	}
+}
+
 public function f_get_salerate(){
 
 
@@ -2588,8 +2628,8 @@ public function editsalerate(){
 		 
 
 		$this->FertilizerModel->f_edit('mm_sale_rate', $data_array, $where);
-		  $this->db->last_query();
-		  die();
+		//   $this->db->last_query();
+		//   die();
 		$this->session->set_flashdata('msg', 'Successfully Updated');
 
 		redirect('fertilizer/sale_rate');
@@ -3219,9 +3259,9 @@ public function deleteAccCd() {
 
                                                 "amount"                =>  $this->input->post('tot_amt'),
 
-						"approval_status"       =>  'U',
+												"approval_status"       =>  'U',
 
-						"user_flag"		=>  'M',
+												"user_flag"				=>  'M',
 
                                                 "ins_no"                =>  NULL,
 

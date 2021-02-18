@@ -1069,8 +1069,10 @@ public function f_get_payro(){
 				"sl_no" =>$this->input->get("bnk_id")) ;
 				
 			//  $comp    = $this->Society_paymentModel->f_select('mm_dist_bank',$select,$where,0);
-			$comp    = $this->Society_paymentModel->f_select('mm_feri_bank',$select,$where,0);
-			 echo json_encode($comp);
+			$bnk    = $this->Society_paymentModel->f_select('mm_feri_bank',$select,$where,0);
+// echo $this->db->last_query();
+// 			die();
+			 echo json_encode($bnk);
 		 
 		 }
 		public function f_get_amt_dr()

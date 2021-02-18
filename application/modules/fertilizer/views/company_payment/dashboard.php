@@ -30,7 +30,6 @@
                         <th>Sale Invoice No</th>
                         <th>Purchase Invoice No</th>
                         <th>Paid Amount</th>
-                     
                         <th>Edit/Delete</th>
                     </tr>
 
@@ -51,13 +50,13 @@
                                 <td><?php echo $pay->pur_inv_no; ?></td>
                                 <td><?php echo $pay->paid_amt; ?></td>
                                
-			 	                <td><a href="drnote_edit?trans_do=<?=$pay->pay_no;?>" 
+			 	                <td><a href="cmppay_edit?pay_no=<?=$pay->pay_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
-                               <button type="button" class="delete" paid_id="<?=$pay->pay_no;?>"    
+                               <button type="button" class="delete" id="<?=$pay->pay_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
@@ -112,7 +111,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('comppay/deletedr_note?trans_do="+id+"');?>";
+                window.location = "<?php echo site_url('compay/delete_companypay?pay_no="+id+"');?>";
 
             }
             
