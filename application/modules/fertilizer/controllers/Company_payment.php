@@ -25,59 +25,52 @@
 			// die();
 				if($_SERVER['REQUEST_METHOD'] == "POST") {
 			
-							$prod_id = $this->input->post('prod_id');
-							$pur_inv = $this->input->post('pur_inv');
-							// echo ('raja');
+							$pur_ro = $this->input->post('pur_ro');
+							// $pur_inv = $this->input->post('pur_inv');
+			// 				echo ('raja');
 			
-			die();
+			// die();
 							
-						  for($i = 0; $i < count($prod_id); $i++){
+						  for($i = 0; $i < count($pur_ro); $i++){
+			// 				echo ('raja');
 			
+			// die();
 						  $data     = array(
-											  'dist_id'        => $this->input->post('ro_dt'),
+											//   'district'     => $this->input->post('district'),
 			
-											   'sale_due_dt'  => $this->input->post('sale_due_dt'),
+											// 'sale_due_dt'  => $this->input->post('sale_due_dt'),
 
-											   'comp_id'      => $this->input->post('comp_id'),
+											//    'pay_dt'      => $this->input->post('pay_dt'),
 
-											   'sale_ro'      => $_POST['ro'][$i],
+											//    'pur_ro'      => $_POST['pur_ro'][$i],
 			
-												'prod_id'      => $_POST['prod_id'][$i],
+												// 'prod_id'     => $_POST['prod_id'][$i],
 			
-												'qty'          => $_POST['qty'][$i],
+												'qty'         => $_POST['qty'][$i],
 			
-												'sale_rt'      => $_POST['sale_rt'][$i],
+												// 'purchase_rt' => $_POST['purchase_rt'][$i],
 			
-												'taxable_amt'  => $_POST['taxable_amt'][$i],
+												'paid_amt'    => $_POST['paid_amt'][$i],
 												
-												'gst_rt'        => $_POST['gst_rt'][$i],
-												
-												'cgst'         => $_POST['cgst'][$i],
+												"modified_by"  => $this->session->userdata['loggedin']['user_name'],
 			
-												'sgst'        => $_POST['sgst'][$i],
-			
-												'tot_amt'     => $_POST['tot_amt'][$i],
-			
-												"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-			
-												"modified_dt"    =>  date('Y-m-d h:i:s'),
-			
-											);
+												"modified_dt"  =>  date('Y-m-d h:i:s'));
 			
 					   $where  =   array(
 			
-							 'trans_do'     => $this->input->post('trans_do'),
-			
-							 'sale_ro'      => $_POST['ro'][$i]
-			
+							 'pay_no'     => $this->input->post('pay_no')
 						);
+			// echo ('hi');
 			
-						$this->FertilizerModel->f_edit('td_sale', $data, $where);
-										}
+			// die();
+						$this->Company_paymentModel->f_edit('tdf_company_payment', $data, $where);
+						// echo $this->db->last_query();
+						// die();
+						}
 							
 							$this->session->set_flashdata('msg', 'Successfully Updated');
 			
-						redirect('fertilizer/sale');
+							redirect('compay/company_payment');
 					
 					   
 						
@@ -137,21 +130,34 @@
 						// echo $receipt;
 						// die();
                       $data     = array(
-                                            'pay_no'           => $receipt ,
+											'pay_no'           => $receipt ,
+											
 											'pay_dt'           => date('Y-m-d H:i:s',time(($this->input->post('pay_dt')))),
 											
 											'bnk_id'           => $this->input->post('bank_id'),
+
 											'ifsc'             => $this->input->post('ifsc'),
+
 											'bnk_ac_no'        => $this->input->post('ac_no'),
+
 											'ref_no'           => $this->input->post('ref_no'),
+
 											'ref_dt'           => $this->input->post('ref_dt'),
+
 											'pay_mode'         => $this->input->post('pay_mode'),
+
 											// 'virtual_ac'       =>$this->input->post('virtual_no'),
 											'remarks'          =>$this->input->post('remarks'),
+
 											'created_by'       => $this->session->userdata['loggedin']['user_name'],
+
 											'created_dt'       => date('Y-m-d'),
+
 											'fin_yr'           =>$fin_id  ,
-                                            'paid_amt'         => $_POST['paid_amt'][$i]);
+
+											'paid_amt'         => $_POST['paid_amt'][$i],
+
+											'qty'              => $_POST['qty'][$i]);
         
 		// $this->Company_paymentModel->f_insert('tdf_payment_recv', $data);
 					$where  =   array(
@@ -477,21 +483,13 @@ public function f_get_bank_dtls()
 				 // echo 'hi';
 				// die();
 				$pur_inv = $this->input->get('pur_inv');
-				// $select = array("sum(c.qty)as qty","a.sale_inv_no","a.pur_ro","a.purchase_rt" ,"b.ro_dt","sum(c.qty)* a.purchase_rt as tot_amt" ,"a.prod_id","d.prod_desc" );
-						   
-				// 		$where      =   array(
-				// 								"a.pur_inv_no"    =>  $this->input->get('pur_inv'),
-				// 								"a.pur_ro=b.ro_no"=>NULL,
-				// 								"a.pur_ro=c.sale_ro"=>NULL	,
-				// 								"a.prod_id =d.prod_id"=>NULL);
-						   
-				// 		$pur_inv_ro_dtl   = $this->Company_paymentModel->f_select('tdf_company_payment a ,td_purchase b,td_sale c,mm_product d',$select,$where,1);
+			
 						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_get_comppay_ro_gb_dtls($pur_inv);
 						// echo $this->db->last_query();
 						// die();
 						echo json_encode($pur_inv_ro_dtl);
 			
-						}
+			}
 			
 
 		public function dr_note(){
@@ -595,20 +593,19 @@ public function f_get_bank_dtls()
 
 			  	                 'comp_id'     => $this->input->post('comp_id'),
 
-                                    'ro_no'      => $this->input->post('ro_no'),
+                                  'ro_no'      => $this->input->post('ro_no'),
 	
-										'ro_dt'        => $this->input->post('ro_dt'),
+								   'ro_dt'        => $this->input->post('ro_dt'),
 	
-										'invoice_no'   => $this->input->post('invoice_no'),
+								   'invoice_no'   => $this->input->post('invoice_no'),
 
-										'invoice_dt'   => $this->input->post('invoice_dt'),
+									'invoice_dt'   => $this->input->post('invoice_dt'),
 	
-										'tot_amt'  => $this->input->post('tot_amt'),
+									'tot_amt'  => $this->input->post('tot_amt'),
 
+									'soc_id'   => $_POST['soc_id'][$i],
 	
-										'soc_id'   => $_POST['soc_id'][$i],
-	
-										'soc_amt'    => $_POST['soc_amt'][$i]
+									'soc_amt'    => $_POST['soc_amt'][$i]
 
                                 );
 
@@ -783,21 +780,21 @@ public function f_get_bank_dtls()
 			  for($i = 0; $i < count($br_amt); $i++){
 
 			  $data     = array(
-                                  'comp_id'     => $this->input->post('comp_id'),
+                                  'comp_id'       => $this->input->post('comp_id'),
 		
 									'do_no'        => $this->input->post('do_no'),
 		
 									'do_dt'        => $this->input->post('do_dt'),
 		
-											'invoice_no'   => $this->input->post('invoice_no'),
+									'invoice_no'   => $this->input->post('invoice_no'),
 
-											'invoice_dt'   => $this->input->post('invoice_dt'),
+									'invoice_dt'   => $this->input->post('invoice_dt'),
 		
-											'tot_cr_amt'  => $this->input->post('tot_cr_amt'),
+									'tot_cr_amt'   => $this->input->post('tot_cr_amt'),
 
-                                   'branch_id'   => $_POST['branch_id'][$i],
+                                   'branch_id'     => $_POST['branch_id'][$i],
 		
-											'br_amt'      => $_POST['br_amt'][$i]
+									'br_amt'      => $_POST['br_amt'][$i]
 
                         //             "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
