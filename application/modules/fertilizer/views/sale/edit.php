@@ -178,7 +178,7 @@
                     { ?>
                         <option value="<?php echo $key1->prod_id; ?>" <?php if($prodd->prod_id==$key1->prod_id) echo "selected" ?> ><?php echo $key1->prod_desc; ?></option>
                     <?php
-                    } ?>c
+                    } ?>
                     </select> 
                                         
                             </td>

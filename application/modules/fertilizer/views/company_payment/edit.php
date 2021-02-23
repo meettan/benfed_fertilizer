@@ -88,7 +88,7 @@
 
 						<div class="form-header">
 					
-					<h4>Payment Details</h4>
+					<h4>Pay Type And Paid Details</h4>
 				
 				</div>
                 <hr>
@@ -97,20 +97,22 @@
 
                     <div class="form-group">
 
-                        <!-- <table class= "table table-striped table-bordered table-hover">
+                        <table class= "table table-striped table-bordered table-hover">
 
                             <thead>
-                                <th style= "text-align: center;width: 30%;">Stock Point</th>
-                                <th style= "text-align: center">Qty</th>
-								<th style= "text-align: center">Taxable Amt</th>
-								 <th style= "text-align: center">CGST</th>
-								<th style= "text-align: center">SGST</th>
+                            
+                                <th style= "text-align: center;width: 20%;">RO No</th>
+                                <th style= "text-align: center;width: 20%;" >Product</th>
+                                 <th style= "text-align: center;width: 20%;">Qty</th>
+								<th style= "text-align: center;width: 20%;">Rate</th>
+								 <th style= "text-align: center">Amount</th>
+								<!--<th style= "text-align: center">SGST</th>
                                 <th style= "text-align: center">Dis</th>
 								<th style= "text-align: center">Net Amount</th>
-                                <th style= "text-align: center">Net Amount (Rounded) </th>
-                            </thead> -->
+                                <th style= "text-align: center">Net Amount (Rounded) </th> -->
+                            </thead>
 
-                            <!-- <tbody id= "intro">
+                          <tbody id= "intro">
                      <?php          $sum=0;
                                    $round_tot_amt=0;
                                      $taxable_amt=0;
@@ -118,7 +120,7 @@
                                        $sgst=0;
                     foreach($prod_dtls as $prodd)
                     { ?>
-                <tr> -->
+                <tr>
 <!-- 
                     <td>
                                 <select name="stock_point" id="stock_point" class="form-control stock_point" required>
@@ -134,11 +136,35 @@
                                  </select> 
                                     
                     </td> -->
+                    <td>
+                    <input type="text" name="pur_ro" class="form-control required pur_ro" value="<?=$prodd->pur_ro?>" id="pur_ro" >
+                    </td>
 
-                    <!-- <td>
-                    <input type="text" name="qty" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" >
-                    </td> -->
+                    <td>    
+                                      
+                                      <select name="prod_id[]" id="prod_id" style="width:200px"class="form-control required prod_id"  disabled />
+                                      <option value="">Select product</option>
+                                      <?php
+                                      foreach($proddtls as $key1)
+                                      { ?>
+                                          <option value="<?php echo $key1->prod_id; ?>" <?php if($prodd->prod_id==$key1->prod_id) echo "selected" ?> ><?php echo $key1->prod_desc; ?></option>
+                                      <?php
+                                      } ?>
+                                      </select> 
+                                                          
+                                              </td>
 
+                    <td>
+                    <input type="text" name="qty" style="width:200px" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" >
+                    
+                    </td>
+                    <td>
+                    <input type="text" name="purchase_rt" style="width:200px" class="form-control required purchase_rt" value="<?=$prodd->purchase_rt?>" id="purchase_rt" >
+                    </td>
+                    <td>
+                    <input type="text" name="paid_amt" style="width:200px" class="form-control required paid_amt" value="<?=$prodd->paid_amt?>" id="paid_amt" >
+                    <!-- <?php $tot_amount +=$prodd->qty;?> -->
+                    </td>
 					<!-- <td>
                     <input type="text" name="taxable_amt" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
                     <?php $taxable_amt +=$prodd->taxable_amt;?>
@@ -164,13 +190,13 @@
 
                             </tbody>
 
-                            <!-- <tfoot>
+                            <tfoot>
                                 <tr>
                                     <td >
                                         <strong>Total:</strong>
                                     </td>
                                      <td colspan="9">
-                                         <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"><?=$taxable_amt?></span></div>
+                                      <!--    <div class="col-md-3">Taxable Amt:<span id="tot_taxable_amt"><?=$taxable_amt?></span></div>
                                        <div class="col-md-2">Discount:<span id="tot_dis"></span></div>-->
                                         <!-- <div class="col-md-4">Net Payable:<span id="tot_payble_amt">  <?=$sum?></span></div>
                                         <div class="col-md-4">Net Payable (Rounded ):<span id="tot_rnd_payble_amt">  <?=$round_tot_amt?></span></div>
@@ -187,7 +213,7 @@
 
                 </div>
 
-               <!--  <div class="form-group row">
+                <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -195,7 +221,7 @@
 
                     </div>
 
-                </div> -->
+                </div>
 
             </form>
 

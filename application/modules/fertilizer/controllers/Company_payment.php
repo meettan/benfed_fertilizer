@@ -36,8 +36,10 @@
 						  $data     = array(
 											  'dist_id'        => $this->input->post('ro_dt'),
 			
-											   'sale_due_dt'  => $this->input->post('sale_due_dt'), 
-											   'comp_id'  => $this->input->post('comp_id'),
+											   'sale_due_dt'  => $this->input->post('sale_due_dt'),
+
+											   'comp_id'      => $this->input->post('comp_id'),
+
 											   'sale_ro'      => $_POST['ro'][$i],
 			
 												'prod_id'      => $_POST['prod_id'][$i],
@@ -81,23 +83,22 @@
 						
 						}else {
 							
-							$select3        = array("district_code","district_name");
+							$select3               = array("district_code","district_name");
 							$product['distdtls']   = $this->Company_paymentModel->f_select('md_district',$select3,NULL,0);
-							$select3        = array("comp_id","comp_name");
+							$select3               = array("comp_id","comp_name");
 							$product['compdtls']   = $this->Company_paymentModel->f_select('mm_company_dtls',$select3,NULL,0);
 
-							$select4       = array("prod_id","prod_desc");
-							$product['proddtls']   = $this->Company_paymentModel->f_select('mm_product',$select3,NULL,0);
+							$select4               = array("prod_id","prod_desc");
+							$product['proddtls']   = $this->Company_paymentModel->f_select('mm_product',$select4,NULL,0);
 			
-							$where  =   array(
-			
-								'comp_id'     => $this->input->get('comp_id'));
+							$where                 =   array('comp_id'     => $this->input->get('comp_id'));
 						
 			
-						$select          = array("prod_id","comp_id","pay_no","pay_dt","sale_inv_no","paid_amt","district","ro_no");
+						    $select                = array("prod_id","comp_id","pay_no","pay_dt","sale_inv_no","paid_amt","district","ro_no");
 					
-						$product['prod_dtls']  = $this->Company_paymentModel->f_get_particulars("tdf_company_payment", NULL, array( "pay_no" => $this->input->get('pay_no')),0);
-					
+						 $product['prod_dtls']      = $this->Company_paymentModel->f_get_particulars("tdf_company_payment", NULL, array( "pay_no" => $this->input->get('pay_no')),0);
+					// echo $this->db->last_query();
+					// die();
 						$this->load->view('post_login/fertilizer_main');
 			
 					   $this->load->view("company_payment/edit",$product);

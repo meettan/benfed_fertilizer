@@ -134,7 +134,7 @@
 			select a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,a.comp_id,a.prod_id,a.ro_rt,a.ro_no,a.approval_status,sum(a.paid_amt)amount,0
 			from  tdf_payment_recv a , mm_ferti_soc b
 			where a.soc_id=b.soc_id	
-			and a.paid_id is not null
+			and a.paid_dt is not null
 			and a.branch_id=$br_cd
 			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,approval_status");
 
