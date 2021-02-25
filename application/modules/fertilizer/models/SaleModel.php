@@ -103,7 +103,7 @@
 					                     and a.district='$br_cd'
 			                             and a.comp_id='$comp_id'
 			                             and a.prod_id ='$prod_id'
-			                         and a.frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt' 
+			                             and a.frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt' 
 													and district='$br_cd'
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
@@ -299,7 +299,8 @@
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
 									and  a.soc_id=b.soc_id
-									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name");
+									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name
+									order by a.do_dt");
 									
 	
 		 return $data->result();
