@@ -323,7 +323,8 @@
                                         and    a.comp_id = c.COMP_ID
                                         and    a.br        = '$branch'
                                         and    a.trans_dt between '$frmDt' and '$toDt'
-                                        and    a.trans_flag = 1");
+                                        and    a.trans_flag = 1
+                                        order by  c.short_name, a.ro_dt ");
 
             return $query->result();
         }
@@ -337,7 +338,8 @@
                                         and    a.comp_id = c.COMP_ID
                                        
                                         and    a.br_cd   = '$branch'
-                                        and    a.do_dt between '$frmDt' and '$toDt'");
+                                        and    a.do_dt between '$frmDt' and '$toDt'
+                                        order by c.short_name, a.do_dt");
 
             return $query->result();
         }
@@ -472,7 +474,8 @@ public function p_ro_wise_prof_calc($all_data)
                                         and    a.stock_point  = '$soc_id'
                                         and    a.br_cd   = '$branch'
                                         and    a.stock_point  = d.soc_id
-                                        and    a.do_dt between '$frmDt' and '$toDt'");
+                                        and    a.do_dt between '$frmDt' and '$toDt'
+                                        ");
 
             return $query->result();
         }
@@ -480,7 +483,7 @@ public function p_ro_wise_prof_calc($all_data)
 		public function get_fersociety_name($soc_id){
 
 			$sql="select soc_name
-			     from mm_ferti_soc where soc_id = '$soc_id' ";
+			     from mm_ferti_soc where soc_id = '$soc_id' order by  soc_name";
 
 		  $result = $this->db->query($sql);     
 	  
@@ -496,7 +499,8 @@ public function p_ro_wise_prof_calc($all_data)
                                         and    a.comp_id = c.COMP_ID
                                       
                                         and    a.br_cd   = '$br'
-                                        and    a.do_dt between '$frmDt' and '$toDt'");
+                                        and    a.do_dt between '$frmDt' and '$toDt'
+                                        order by a.do_dt");
 
             return $query->result();
         }
