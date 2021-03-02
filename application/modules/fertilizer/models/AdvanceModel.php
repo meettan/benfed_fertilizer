@@ -4,6 +4,11 @@
 	class AdvanceModel extends CI_Model{										/*Insert Data in Tables*/
 		public function f_insert($table_name, $data_array) {
 
+			// $sql = "INSERT INTO `tdf_advance` (`trans_dt`, `sl_no`, `receipt_no`, `fin_yr`, `branch_id`, `soc_id`, `trans_type`, `adv_amt`, `bank_id`, `remarks`, `created_by`, `created_dt`) VALUES ('2021-03-02', '26', 'Adv/BNK/2020-21/26', '1', '339', '109', 'I', '2350', '2', 'test', 'synergic', '2021-03-02 11:07:02')";
+			// $this->db->query($sql);
+			// echo $this->db->last_query();
+			// exit();
+
 			$this->db->insert($table_name, $data_array);
 
 			return;
@@ -38,7 +43,16 @@
 				return $value->result();
 			}
 		}
-			
+		public function f_getbnk_dtl($br_cd){
+	
+			$data = $this->db->query("select sl_no, bank_name,ifsc,ac_no
+										from mm_feri_bank 
+									where dist_cd = '$br_cd'");
+								   
+	   return $data->result();
+		   
+	   }	
+
 		public function f_get_receiptReport_dtls($receipt_no)
 		{
 	
@@ -50,6 +64,17 @@
 	
 		}
 		
+		public function f_get_adv_dtls($recv_no){
+			$data   =   $this->db->query("select  a.trans_dt ,a.sl_no,a.fin_yr,a.branch_id,a.soc_id,a.receipt_no,
+			a.trans_type,a.adv_amt,a.bank,a.remarks,a.inv_no,a.ro_no,a.created_by,a.created_dt,b.bank_name,b.ac_no
+			from   tdf_advance a,mm_feri_bank b
+			where  a.bank=b.sl_no
+			and receipt_no = '$recv_no'");
+
+$result = $data->row();  
+
+return $result;
+		}
 		/*Select Maximun advance code districtwise and financial yearwise*/					
 		public function get_advance_code($branch,$fin){
 

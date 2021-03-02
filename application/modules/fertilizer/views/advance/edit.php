@@ -85,7 +85,45 @@
 
 				</div>
 			</div>
+            <div class="form-group row">
+            <label for="bank"  class="col-sm-2 col-form-label">Bank:</label>
 
+<div class="col-sm-3">
+
+<select name="bank" class="form-control sch_cd required" id="bank" required>
+
+						<option value="">Select bank</option>
+
+                        <?php
+
+                            foreach($bnk_dtls as $val){
+
+                        ?>
+
+                        <option value="<?php echo $val->sl_no;?>"<?php echo($advDtls->bank==$val->sl_no)?'selected':'';?>><?php echo $val->bank_name;?></option>
+
+                        <?php
+
+                            }
+
+                        ?>     
+
+                    </select>
+</div>
+<div>
+<div class="form-group row">
+<label for="ac_no" class="col-sm-2 col-form-label">A/C No.:</label>
+<div class="col-sm-4">
+
+<input type="text" id=ac_no name="ac_no" class="form-control ac_no" 
+value="<?php echo $advDtls->ac_no; ?>" readonly/>
+						
+
+                       
+
+                      
+</div>
+</div>
             <div class="form-group row">
 				<label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
 				<div class="col-sm-10">
@@ -113,4 +151,40 @@
     
      $(".sch_cd").select2();
 
+</script>
+
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#bank').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("adv/f_get_dist_bnk_dtls");?>',
+			{ 
+
+				bnk_id: $(this).val(),
+				
+				
+			}
+
+		)
+		.done(function(data){
+
+			//console.log(data);
+			var parseData = JSON.parse(data);
+			var ac_no = parseData[0].ac_no;
+			var ifsc = parseData[0].ifsc;
+            $('#ac_no').val(ac_no);
+			// $('#ifsc').val(ifsc);
+           
+		});
+        
+
+	});
+
+});
 </script>

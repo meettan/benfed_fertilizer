@@ -54,7 +54,7 @@
 				<label for="trans_type" class="col-sm-2 col-form-label">Transaction Type:</label>
 				<div class="col-sm-4">
 
-                    <select name="trans_type" class="form-control required" id="trans_type">
+                    <select name="trans_type" class="form-control required" id="trans_type" >
 
                         <option value="I">Deposit</option>
 
@@ -71,7 +71,33 @@
 
 				</div>
 			</div>
-
+			<div class="form-group row">
+			<label for="bank_id" class="col-sm-2 col-form-label">Bank:</label>
+			<!-- <input type="text" style="width:200px" id="bank_id" name="bank_id"value=""  class="form-control bank_id"  /> -->
+						<div class="col-sm-4">
+                     
+                        <select name="bank_id" style="width:180px" class="form-control bank_id" id="bank_id" required>
+                    <option value="">Select</option>
+                    <?php
+                       foreach($bnk_dtls as $bnk){
+                            ?>
+                <option value="<?php echo $bnk->sl_no;?>"><?php echo $bnk->bank_name;?></option>
+                <?php    }    ?>     
+                </select>
+                        </div>
+						<label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
+						<div class="col-sm-4">
+                        <input type="text" style="width:180px" id="ifsc" name="ifsc"value=""  class="form-control" readonly />
+                        <!-- <input type="hidden" style="width:180px" id="comp_id" name="comp_id"value=""  class="form-control" readonly /> -->
+                       
+						</div>
+			</div>
+			<div class="form-group row">
+			<label for="ac_no" class="col-sm-2 col-form-label">A/C No:</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:200px" id="ac_no" name="ac_no"value=""  class="form-control"  readonly/>
+                        </div>
+						</div>
             <div class="form-group row">
 				<label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
 				<div class="col-sm-10">
@@ -98,4 +124,39 @@
 	
 	 $(".sch_cd").select2();
 
+</script>
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#bank_id').change(function(){
+
+		$.get( 
+
+			'<?php echo site_url("adv/f_get_dist_bnk_dtls");?>',
+			{ 
+
+				bnk_id: $(this).val(),
+				
+				
+			}
+
+		)
+		.done(function(data){
+
+			//console.log(data);
+			var parseData = JSON.parse(data);
+			var ac_no = parseData[0].ac_no;
+			var ifsc = parseData[0].ifsc;
+            $('#ac_no').val(ac_no);
+			$('#ifsc').val(ifsc);
+           
+		});
+        
+
+	});
+
+});
 </script>
