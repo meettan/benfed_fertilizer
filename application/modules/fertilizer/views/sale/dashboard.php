@@ -28,6 +28,7 @@
                     <tr>
                     	<th>Sl No.</th>
                         <th>Primay Society</th>
+                        <th>Product</th>
                         <th>Invoice No</th>
                         <th>Invoice Date</th>
                         <th>Invoice Type</th>
@@ -50,6 +51,7 @@
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
                                 <td style="width:200px"><?php echo $value->soc_name; ?></td>
+                                <td style="width:200px"><?php echo $value->prod_desc; ?></td>
                                 <td><?php echo $value->trans_do; ?></td>
                                 <!-- <td><?php echo $value->comp_id; ?></td> -->
                                 <td><?php echo date("d/m/Y",strtotime($value->do_dt)); ?></td>
@@ -101,6 +103,7 @@
                     
                         <th>Sl No.</th>
                         <th>Primay Society</th>
+                        <th>Product</th>
                         <th>Invoice No</th>
                         <th>Invoice Date</th>
                         <th>Invoice Type</th>

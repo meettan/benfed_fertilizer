@@ -56,10 +56,6 @@ tr:hover {background-color: #f5f5f5;}
 </script>
 
 
-
-
-    
-
         <div class="wraper"> 
 
             <div class="col-lg-12 container contant-wraper">
@@ -100,7 +96,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Sale Amount</th>
 
-                                <th>Profit( Purchase - Sale )</th>
+                                <th>Profit(Sale -Purchase)</th>
 
                             </tr>
 

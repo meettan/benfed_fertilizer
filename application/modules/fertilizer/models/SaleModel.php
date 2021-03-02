@@ -294,12 +294,13 @@
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
-		$data = $this->db->query("select  a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt
-									from td_sale a,mm_ferti_soc b
+		$data = $this->db->query("select  a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc
+									from td_sale a,mm_ferti_soc b,mm_product c
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
+									and a.prod_id=c.prod_id
 									and  a.soc_id=b.soc_id
-									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name
+									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc
 									order by a.do_dt");
 									
 	
