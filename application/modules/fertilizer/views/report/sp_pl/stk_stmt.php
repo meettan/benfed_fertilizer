@@ -128,7 +128,7 @@ tr:hover {background-color: #f5f5f5;}
                                      
                                      <?php
                                      if( $prodtls->sale_qty<>$prodtls->qty)   {
-                                        echo "<font color='blue'><b>$prodtls->sale_qty</font></b>"; 
+                                        echo "<font color='brown'><b>$prodtls->sale_qty</font></b>"; 
                                     //   echo $prodtls->sale_qty; 
                                     } else {
                                         echo $prodtls->sale_qty; 

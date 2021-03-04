@@ -185,7 +185,10 @@
                     <option value="2" <?php echo ($pay->pay_type == 2)? 'selected' : '';?>>Advance</option>
                     <option value="3" <?php echo ($pay->pay_type == 3)? 'selected' : '';?>>Cheque</option>
                     <option value="4" <?php echo ($pay->pay_type == 4)? 'selected' : '';?>>Draft</option>
-                    <option value="5" <?php echo ($pay->pay_type == 5)? 'selected' : '';?>>NEFT/RTGS</option>
+                    <option value="5" <?php echo ($pay->pay_type == 5)? 'selected' : '';?>>Pay Order</option>
+                    <option value="6" <?php echo ($pay->pay_type == 6)? 'selected' : '';?>>DR Note</option>
+                    <option value="7" <?php echo ($pay->pay_type == 7)? 'selected' : '';?>>NEFT/RTGS</option>
+                  
                 </select>  
                     <!-- <input type="text" name="pay_type[]" class="form-control required pay_type" value="<?=$pay->pay_type?>" id="pay_type" readonly> -->
                                     </td>

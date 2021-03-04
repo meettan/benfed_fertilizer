@@ -88,7 +88,7 @@
             <div class="form-group row">
             <label for="bank"  class="col-sm-2 col-form-label">Bank:</label>
 
-<div class="col-sm-3">
+<div class="col-sm-4">
 
 <select name="bank" class="form-control sch_cd required" id="bank" required>
 
