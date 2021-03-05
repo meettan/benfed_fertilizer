@@ -114,6 +114,7 @@
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="net_amt" name="net_amt"value="0"  class="form-control" readonly />
                         </div>
+
                         <label for="bnk_id" class="col-sm-2 col-form-label">Bank Name :</label>
 						<div class="col-sm-3">
                         <!-- <input type="text" style="width:200px" id="bnk_id" name="bnk_id"value=""  class="form-control"  /> -->
@@ -125,6 +126,15 @@
                 <option value="<?php echo $bnk->sl_no;?>"><?php echo $bnk->bank_name;?></option>
                 <?php    }    ?>     
                 </select>
+                        </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                       
+                        <label for="rndnet_amt" class="col-sm-2 col-form-label">Net Amount(Rounded)<br>(Total Amount - Paid Amount):</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:180px" id="rndnet_amt" name="rndnet_amt"value="0"  class="form-control" readonly />
                         </div>
                         </div>
                         <div class="form-group row">
@@ -679,14 +689,16 @@ $(document).ready(function(){
             //  console.log(data);
             var parseData = JSON.parse(data);
             
-			var net_amt = parseData[0].net_amt;
-            console.log(net_amt);
+			var  net_amt = parseData[0].net_amt;
+            var  rnd_net_amt = parseData[0].rnd_net_amt;
+            // console.log(net_amt);
             var tot_ro_amt = parseData[0].tot_ro_amt;
             $('#tot_recvble_amt').val(tot_ro_amt);
            //  var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
            var adv_amt    = parseFloat($('#adv_amt').val());
 			//  $('#net_amt').val(net_amt - adv_amt);
             $('#net_amt').val(net_amt );
+            $('#rndnet_amt').val(rnd_net_amt );
           });
 
 
@@ -734,7 +746,7 @@ $(document).ready(function(){
                 soc_id: $('#soc_id').val(),
                 
 
-            }
+ }
 
         ).done(function(data){
 
@@ -760,13 +772,17 @@ $(document).ready(function(){
 
     $('#intro').on("change", ".paid_amt", function(){
 
-        var net_amt    =   $('#net_amt').val();
-        var total               =   $('#total').val();
+        // var net_amt    =   $('#net_amt').val();
 
-        // console.log(tot_dist_qty_qnt);
+         var rnd_net_amt =   $('#rndnet_amt').val();
+         var total       =   $('#total').val();
+
+          // alert(rnd_net_amt);
+         // console.log(tot_dist_qty_qnt);
         // console.log(total);
 
-        if(parseFloat(total) > parseFloat(net_amt))
+        // if(parseFloat(total) > parseFloat(net_amt))
+        if(parseFloat(total) > parseFloat(rnd_net_amt))
         {
             $('#total').css('border-color', 'red');
             alert('Paid Amount Should Not Greater Than Net Amount!');
@@ -786,6 +802,7 @@ $(document).ready(function(){
 })
 
 </script>
+
   <!-- </script> -->
 
 <script>
@@ -793,8 +810,6 @@ $(document).ready(function(){
 $("#paid_dt").change(function(){
 
 var ro_dt = $('#paid_dt').val();
-
-
 
 var d = new Date();
 
@@ -819,7 +834,7 @@ return false;
 });
 </script>
 
-  <!-- </script> -->
+<!--</script>-->
 
 <script>
 $(document).ready(function(){

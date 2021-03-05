@@ -327,6 +327,17 @@
 			WHERE a.soc_id ='$soc_id'
 			and sale_invoice_no='$sale_invoice_no'
 			and ro_no='$ro_no'  and a.pay_type='O')as net_amt,
+			ifnull(sum(round_tot_amt),0) - 
+			 (SELECT ifnull(sum(a.paid_amt),0)  
+									FROM tdf_payment_recv a 
+									WHERE a.soc_id ='$soc_id'
+									and sale_invoice_no='$sale_invoice_no'
+									and ro_no='$ro_no' and  a.pay_type<>'O') +
+		 (SELECT ifnull(sum(a.tot_recvble_amt),0)  - ifnull(sum(a.paid_amt),0)
+			 FROM tdf_payment_recv a 
+			 WHERE a.soc_id ='$soc_id'
+			 and sale_invoice_no='$sale_invoice_no'
+			 and ro_no='$ro_no'  and a.pay_type='O')as rnd_net_amt,
 									ifnull(sum(tot_amt),0)+
 									(SELECT ifnull(sum(a.tot_recvble_amt),0)  - ifnull(sum(a.paid_amt),0)
 									FROM tdf_payment_recv a 

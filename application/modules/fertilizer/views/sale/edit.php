@@ -279,10 +279,10 @@
                     <input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt?>" id="taxable_amt" readonly>
                     <?php $taxable_amt +=$prodd->taxable_amt;?>
                     <input type="hidden" name="cgst[]" class="form-control required cgst" value= "<?=$prodd->cgst?>" id="cgst" readonly>
-                     <?php $cgst +=$prodd->cgst;?>
-                       <input type="hidden" name="sgst[]" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
-                        <?php $sgst +=$prodd->sgst;?>
-                                    </td>
+                    <?php $cgst +=$prodd->cgst;?>
+                    <input type="hidden" name="sgst[]" class="form-control required sgst" value= "<?=$prodd->sgst?>" id="sgst" readonly>
+                   <?php $sgst +=$prodd->sgst;?>
+                   </td>
 									
                
 									<td>

@@ -715,7 +715,7 @@ public function f_cust_pay_forward() {
 
                  	"comp_id" => explode("/",$this->input->get('trans_do'))["0"],
                     
-                "do_no" => explode("/",$this->input->get('trans_do'))["1"]
+                    "do_no" => explode("/",$this->input->get('trans_do'))["1"]
 
             );
 
