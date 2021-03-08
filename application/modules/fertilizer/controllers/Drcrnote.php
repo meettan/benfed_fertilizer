@@ -57,7 +57,7 @@ public function drnoteReport()
 			);
 		    
 		   	$data['dr_notes']    = $this->DrcrnoteModel->f_select("tdf_dr_cr_note a,mm_ferti_soc b,mm_company_dtls c",$select,$where,0);
-		   
+		    
 			$this->load->view("post_login/fertilizer_main");
 	   
 		    $this->load->view("dr_note/dashboard",$data);
@@ -217,7 +217,7 @@ public function drnoteReport()
 
 						);
 
-		   	$where  =   array(
+		   	$where3  =   array(
 
                  'trans_dt'     => $this->input->post('trans_dt'),
 
@@ -244,7 +244,11 @@ public function drnoteReport()
                 "trans_no" => $this->input->get('trans_no')
             );
 
-			$select        = array("soc_id","soc_name","soc_add","gstin");
+
+			$where1 = array(
+				"soc_id"=> $this->input->get('soc_id'),
+		);
+			$select        = array("soc_id soc_id","soc_name soc_name");
 
 			$select1       = array("COMP_ID comp_id","COMP_NAME comp_name");
 
@@ -262,6 +266,8 @@ public function drnoteReport()
 									$where =array("a.catg=b.sl_no"=>NULL);
 			 
 			$product['socdtls']    = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select,NULL,0);
+			// echo $this ->db->last_query();
+			// die();
 			
 			$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select1,NULL,0);
 

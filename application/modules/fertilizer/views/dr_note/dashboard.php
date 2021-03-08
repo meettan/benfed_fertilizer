@@ -64,7 +64,7 @@
 
 				                <td><?php echo $dr->soc_name; ?></td>
                                
-			 	                <td><a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>" 
+			 	                <td><a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>&soc_id=<?=$dr->soc_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 

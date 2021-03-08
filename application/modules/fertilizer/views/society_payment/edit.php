@@ -213,7 +213,9 @@
 
                             <tfoot>
                                 <tr> 
-                                    
+                                <td colspan="1" style="text-align:right">
+                                        <strong >Total:</strong>
+                                    </td>
                                  </tr>
                             </tfoot>
                     

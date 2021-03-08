@@ -15,15 +15,20 @@
                       <label for="ro_no" class="col-sm-2 col-form-label">Society:</label>
 						<div class="col-sm-4">
 
-                           <select name="soc_id" id="soc_id" class="form-control sch_cd soc_id" required>
+                           <select name="soc_id" id="soc_id" class="form-control  soc_id" required>
                                 <option value="">Select Society</option>
                                 <?php
-                                    foreach($socdtls as $key1){ 
-
+                                //  echo $dr_dtls->soc_id;
+                                //  die();
+                                    foreach($socdtls as $key2)
+                                    { 
+                                //   echo  $key1->soc_id();
+                                //   die();
                                 ?>
-                                    <option value="<?php echo $key1->soc_id; ?>"<?php echo($dr_dtls->soc_id==$key1->soc_id)?'selected':'';?>><?php echo $key1->soc_name; ?></option>
+                             
+                                    <option value="<?php echo  $this->input->get('soc_id'); ?>"<?php echo( $this->input->get('soc_id')==$key2->soc_id)?'selected':'';?>><?php echo $key2->soc_name; ?></option>
 
-                                <?php
+                                <?php 
                                     } 
                                 ?>
                             </select> 
@@ -39,6 +44,7 @@
                             <?php
                                 foreach($compdtls as $row)
                             { ?>
+                            
                                 <option value="<?php echo $row->comp_id; ?>"<?php echo($dr_dtls->comp_id==$row->comp_id)?'selected':'';?>><?php echo $row->comp_name; ?></option>
                             <?php
                             } ?>

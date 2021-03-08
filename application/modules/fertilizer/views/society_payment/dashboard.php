@@ -14,10 +14,10 @@
 
             <h3>
 		        <small><a href="<?php echo site_url("socpay/society_payAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
-                    <span class="confirm-div" style="float:right; color:green;"></span>
-                <div class="input-group" style="margin-left:75%;">
-                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
+                <span class="confirm-div" style="float:right; color:green;"></span>
+                <div  class="input-group" style="margin-left:75%;">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
                 </div>
             </h3>
 
@@ -74,12 +74,23 @@
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
-                               <button type="button" class="delete" paid_id="<?=$pay->paid_id;?>"    
+                               <!-- <button type="button" class="delete" paid_id="<?=$pay->paid_id;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                    </button> 
+                                    </button>  -->
+                                    <?php if($pay->approval_status == 'U') { ?>
+                                  <button type="button" class="delete" id="<?=$pay->paid_id;?>"   
+                                       
+                                       data-toggle="tooltip" data-placement="bottom" title="Delete">
+
+                                       <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
+                                   </button> 
+                                   <?php } ?> 
+                               </td>
+
+                               
                                 </td>
                                 
                             </tr>
@@ -133,7 +144,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('socpay/deletedr_note?trans_do="+id+"');?>";
+                window.location = "<?php echo site_url('socpay/deletecustpay?paid_id="+id+"');?>";
 
             }
             

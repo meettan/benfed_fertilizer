@@ -967,33 +967,36 @@ redirect('fertilizer/cr_note');
 
 // }
 	
-// public function deletesale() {
+public function deletecustpay() {
 
-// 	$where = array(
-// 				 "trans_do"    =>  $this->input->get('trans_do')
+	$where = array(
+				 "paid_id"    =>  $this->input->get('paid_id')
 				
 		
-// 	);
-// $this->FertilizerModel->f_delete('td_sale', $where);
+	);
+$this->Society_paymentModel->f_delete('tdf_payment_recv', $where);
 
-// $this->session->set_flashdata('msg', 'Successfully Deleted!');
+// echo $this->db->last_query();
+// die();
+$this->session->set_flashdata('msg', 'Successfully Deleted!');
 
-// redirect("fertilizer/fertilizer/sale");
+redirect("socpay/society_payment");
 
-// }
+//socpay/society_payment
+}
 
 //***************************/
 	
 public function f_get_payro(){
 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 	$soc_id = $this->input->get('soc_id');
-// 	$select          = array("trans_do");
+		// 	$select          = array("trans_do");
 	
-//    $where=array(
-// 	   "br_cd" =>$br_cd,
-// 	   "soc_id" => $this->input->get('soc_id') ) ;
+	//    $where=array(
+   // 	   "br_cd" =>$br_cd,
+  // 	   "soc_id" => $this->input->get('soc_id') ) ;
 
-	// $payro    = $this->Society_paymentModel->f_select(' td_sale',$select,$where,0);
+// $payro    = $this->Society_paymentModel->f_select(' td_sale',$select,$where,0);
 	$payro    = $this->Society_paymentModel->f_getdo_dtl($br_cd ,$soc_id);
 
     echo json_encode($payro);
@@ -1806,6 +1809,7 @@ public function deletesociety() {
 	$this->session->set_flashdata('msg', 'Successfully Deleted!');
 
 	redirect("fertilizer/fertilizer/soceity");
+	
 
 }
 
