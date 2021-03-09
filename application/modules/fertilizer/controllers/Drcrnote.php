@@ -221,8 +221,7 @@ public function drnoteReport()
 
                  'trans_dt'     => $this->input->post('trans_dt'),
 
-				 'tr
-				 ans_no'   	=> $this->input->post('trans_no'),
+				 'trans_no'   	=> $this->input->post('trans_no'),
 
             );
 
@@ -237,7 +236,7 @@ public function drnoteReport()
 		}else {
 
 
-            $where = array(
+            $where3 = array(
 
               	"trans_dt" => $this->input->get('trans_dt'),
                     
@@ -262,8 +261,12 @@ public function drnoteReport()
 									"a.tot_amt",
 									"a.trans_flag",
 									"a.note_type",
-									"a.remarks,b.cat_desc");
-									$where =array("a.catg=b.sl_no"=>NULL);
+									 "a.remarks",
+									"b.cat_desc");
+									$where =array("a.catg=b.sl_no"=>NULL 	,
+									"trans_dt" => $this->input->get('trans_dt'),
+                    
+									"trans_no" => $this->input->get('trans_no'));
 			 
 			$product['socdtls']    = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select,NULL,0);
 			// echo $this ->db->last_query();
@@ -272,8 +275,9 @@ public function drnoteReport()
 			$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select1,NULL,0);
 
 
-			$product['dr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note a,mm_cr_note_category b ',NULL,$where,1);
-
+			$product['dr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note a,mm_cr_note_category b ',$select3,$where,1);
+// echo $this ->db->last_query();
+// 			die();
 		
 	        $this->load->view('post_login/fertilizer_main');
 
@@ -430,7 +434,8 @@ public function drnoteReport()
 
             $this->DrcrnoteModel->f_edit('tdf_dr_cr_note', $data, $where);
 
-							
+			// echo $this->db->last_query();
+			// die();			
 			$this->session->set_flashdata('msg', 'Successfully Updated');
 
 			redirect('drcrnote/cr_note');
@@ -457,7 +462,8 @@ public function drnoteReport()
 
 			$product['cr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note',NULL,$where,1);
 
-		
+		// echo $this->db->last_query();
+		// die();
 	        $this->load->view('post_login/fertilizer_main');
 
 	        $this->load->view("cr_note/edit",$product);

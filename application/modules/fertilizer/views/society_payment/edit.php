@@ -200,11 +200,16 @@
                    </td>
                    <td>
                     <input type="text" name="paid_amt[]" class="form-control required paid_amt" value= "<?=$pay->paid_amt?>" id="paid_amt" readonly>
-                    
-                       
+                    <?php
+                                        $sum = 0;
+                                        foreach($paydtls as $pay) {
+                    $sum+= $pay->paid_amt;
+                                        }
+                                     
+                    ?>               
                                     </td>
 									              
-                                   
+                                  
                                 </tr>
 
                 <?php } ?>
@@ -213,9 +218,13 @@
 
                             <tfoot>
                                 <tr> 
-                                <td colspan="1" style="text-align:right">
-                                        <strong >Total:</strong>
+                                <td colspan="3" style="text-align:left">
+                                   <strong >Total:</strong> 
+                                   
                                     </td>
+                                    <td colspan="5"style="text-align:right">
+                                   <b> <div class="col-md-3" Total:<span id="Total"> <?php   echo $sum;?></span></div></b>
+                                   </td>
                                  </tr>
                             </tfoot>
                     
