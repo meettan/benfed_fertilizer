@@ -380,7 +380,12 @@
 																	FROM tdf_dr_cr_note
 																	WHERE soc_id='$soc_id'
 																	and note_type='D' 
-																	and trans_flag='A') AS tot_amt
+																	and trans_flag='A')  - 
+																	(select  ifnull(sum(paid_amt),0) 
+																	FROM tdf_payment_recv
+																	WHERE soc_id='$soc_id'
+																	and pay_type='6' 
+																	)  AS tot_amt
 									FROM tdf_dr_cr_note
 									WHERE soc_id='$soc_id'
 									and note_type='D' 
