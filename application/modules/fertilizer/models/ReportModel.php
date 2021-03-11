@@ -464,6 +464,22 @@ public function p_ro_wise_prof_calc($all_data)
         
         }
 
+
+        public function f_get_soc_pay($frmDt,$toDt,$branch){
+            $query  = $this->db->query("
+                                                 SELECT a.soc_id,b.soc_name,sum(a.round_tot_amt),sum(a.paid_amt)
+                                                FROM `td_sale`a ,mm_ferti_soc b
+                                               where a.br_cd=b.district
+                                              and a.br_cd=$branch
+                                             and a.soc_id=b.soc_id
+                                            group by b.soc_name,a.soc_id
+                                                                           ");
+
+            return $query->result();
+        }
+
+
+
         public function f_get_sales_society($branch,$frmDt,$toDt,$soc_id){
             $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,
                                                a.sale_rt,a.taxable_amt taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC

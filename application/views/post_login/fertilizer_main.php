@@ -212,6 +212,7 @@
                                     <a href="<?php echo site_url("fert/rep/salerepsoc");?>">Sale Ledger(Stock point Wise)</a>
                                     <a href="<?php echo site_url("fert/rep/ps_pl");?>">All Sale Purchase </a>
                                     <a href="<?php echo site_url("fert/rep/salerep_psoc");?>">Society Wise Sale </a>
+                                    <a href="<?php echo site_url("fert/rep/cust_payblepaid");?>">Society Paid and Payble Details</a>
                                     </div>
                                     </div>
                                         <!--<a href="<?php echo site_url("fertilizer/f_cash_bk");?>">Purchase Report</a>

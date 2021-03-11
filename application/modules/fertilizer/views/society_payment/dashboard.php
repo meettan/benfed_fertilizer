@@ -48,50 +48,46 @@
 		    ?>
 
                             <tr>   
-                            <!-- <td style="display:none;"><?php echo ++$i; ?></td> -->
+                            
                             <td ><?php echo ++$i; ?></td>
                                 <td><?php echo $pay->paid_id; ?></td>
                                 <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
                                 <td><?php echo $pay->soc_name; ?></td>
                                 <td><?php echo $pay->amount; ?></td>
-                                <!-- <td style="visibility:hidden"><?php echo $pay->ro_no; ?></td> -->
+                             
                                 <td>  
                                 <?php if($pay->approval_status == 'U') { ?>
-                            <a href="<?php echo site_url("socpay/f_cust_pay_forward");?>?ro_no=<?=$pay->ro_no;?>,<?=$pay->comp_id;?>,<?=$pay->prod_id;?>,<?=$pay->rate;?>,<?=$pay->pur_inv;?>,<?=$pay->sale_qty;?>,<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
-                            <?php } ?> 
+                                <a href="<?php echo site_url("socpay/f_cust_pay_forward");?>?ro_no=<?=$pay->ro_no;?>,<?=$pay->comp_id;?>,<?=$pay->prod_id;?>,<?=$pay->rate;?>,<?=$pay->pur_inv;?>,<?=$pay->sale_qty;?>,<?=$pay->paid_id;?>"><button class="btn btn-primary" id="">Forward</button></a>
+                                <?php } ?> 
                                 </td>
                             
                                 <td>
-                              <a href="<?php echo site_url('socpay/money_recptReport?paid_id='.$pay->paid_id.''); ?>" title="Print">
+                                <a href="<?php echo site_url('socpay/money_recptReport?paid_id='.$pay->paid_id.''); ?>" title="Print">
 
-                              <i class="fa fa-print fa-2x" style="color:green;"></i>  
-                             
-                              </a>
-                            </td>
+                                <i class="fa fa-print fa-2x" style="color:green;"></i>  
+                                
+                                </a>
+                               </td>
+
 			 	                <td><a href="society_payEdit?paid_id=<?=$pay->paid_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
-                               <!-- <button type="button" class="delete" paid_id="<?=$pay->paid_id;?>"    
-                                       
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
-
-                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                    </button>  -->
-                                    <?php if($pay->approval_status == 'U') { ?>
+                            
+                               <?php if($pay->approval_status == 'U') { ?>
                                   <button type="button" class="delete" id="<?=$pay->paid_id;?>"   
                                        
-                                       data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                   data-toggle="tooltip" data-placement="bottom" title="Delete">
 
-                                       <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                   </button> 
-                                   <?php } ?> 
+                                  <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
+                                  </button> 
+                                  <?php } ?> 
                                </td>
 
                                
-                                </td>
+                                <!-- </td> -->
                                 
                             </tr>
 
