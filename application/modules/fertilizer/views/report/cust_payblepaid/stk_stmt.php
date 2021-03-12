@@ -86,17 +86,17 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Society</th>
 
-                                <th>Product</th>
+                                 <!-- <th>Product</th>
 
-                                <th>Unit</th>
+                                <th>Unit</th> -->
 
                                 <th>Opening</th>
 
-                                <th>Purchase during the period</th>
+                                <th>Total Payble </th>
 
-                                <th>Sale during the period</th>
+                                <th>Total Paid</th>
 
-                                <th>Closing</th>
+                                <!-- <th>Closing</th> -->
 
                             </tr>
 
@@ -112,13 +112,13 @@ tr:hover {background-color: #f5f5f5;}
                                     $total = 0.00;
                                     $val =0;
 
-                                        foreach($product as $prodtls){
+                                        foreach($all_data as $prodtls){
                             ?>
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                     <td class="report"><?php echo $prodtls->short_name; ?>
-                                     <td class="report"><?php echo $prodtls->PROD_DESC; ?>
+                                     <td class="report"><?php echo $prodtls->soc_name; ?>
+                                     <!-- <td class="report"><?php echo $prodtls->PROD_DESC; ?>
                                      <td class="report"><?php if($prodtls->unit==3){
                                                   echo "Litre";
                                                 }else if ($prodtls->unit==5){
@@ -135,35 +135,39 @@ tr:hover {background-color: #f5f5f5;}
                                                     echo "Pc";
                                                 }
                                         ?>
-                                     </td>
+                                     </td> -->
                                      <td class="report opening" id="opening">
-                                        <?php 
+                                        <!-- <?php 
                                             foreach($opening as $opndtls){
                                                 if($prodtls->prod_id==$opndtls->prod_id){
                                                     echo $opndtls->opn_qty;
                                                 }
                                             }
-                                        ?>
+                                        ?> -->
                                      </td>
                                      <td class="report purchase" id="purchase">
-                                        <?php 
+                                     <?php echo $prodtls->tot_payble; ?>
+
+                                        <!-- <?php 
                                             foreach($purchase as $purdtls){
                                                 if($prodtls->prod_id==$purdtls->prod_id){
                                                     echo $purdtls->tot_pur;
                                                 }
                                             }
-                                        ?>
+                                        ?> -->
+                                       
                                      </td>
                                      <td class="report sale" id="sale">
-                                        <?php 
+                                     <?php echo $prodtls->tot_paid; ?>
+                                        <!-- <?php 
                                             foreach($sale as $saledtls){
                                                 if($prodtls->prod_id==$saledtls->prod_id){
                                                     echo $saledtls->tot_sale;
                                                 }
                                             }
-                                        ?>
+                                        ?> -->
                                      </td>
-
+<!-- 
                                      <td class="report closing" id="closing">
                                         <?php 
                                             foreach($closing as $clsdtls){
@@ -172,7 +176,7 @@ tr:hover {background-color: #f5f5f5;}
                                                 }
                                             }
                                         ?>
-                                     </td>
+                                     </td> -->
                                    
                                 </tr>
  

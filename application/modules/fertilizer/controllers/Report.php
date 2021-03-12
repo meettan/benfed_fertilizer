@@ -15,8 +15,8 @@
             
             redirect('User_Login/login');
 
-            }
-        }
+       }
+}
 
         public function rateslab(){
 
@@ -28,9 +28,7 @@
 
                $select      = array(
 
-                'a.frm_dt',"a.to_dt","a.catg_id","a.sp_mt","a.sp_bag","a.sp_govt","b.cate_desc","c.comp_name"
-
-               );
+                'a.frm_dt',"a.to_dt","a.catg_id","a.sp_mt","a.sp_bag","a.sp_govt","b.cate_desc","c.comp_name");
 
                $where       = array(
 
@@ -290,19 +288,19 @@ public function ps_pl(){
 
         $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
 
-        // $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
+        // $data['opening']  =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
 
-        // $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
+        // $data['purchase'] =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
 
-        // $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
+        // $data['sale']     =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
 
-        // $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);
+        // $data['closing']  =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);
 
         $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
        
-        $data['all_data']=$this->ReportModel->p_ro_wise_prof_calc($all_data);
+        $data['all_data']    =   $this->ReportModel->p_ro_wise_prof_calc($all_data);
     //  echo $this->db->last_query();
     //  die();
         $this->load->view('post_login/fertilizer_main');
@@ -423,7 +421,7 @@ public function stkScomp_ho(){
 
         $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
 
-        // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+        // $where1           =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
         $where1              =   array("district_code"  => $branch);
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
@@ -956,7 +954,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $mth        =  date('n',strtotime($from_dt));
 
     $yr         =  date('Y',strtotime($from_dt));
-    $all_data            =   array($from_dt,$to_dt,$branch );
+    $all_data   =   array($from_dt,$to_dt,$branch );
     if($mth > 3){
 
         $year = $yr;
@@ -981,6 +979,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
    
     $data['all_data']=$this->ReportModel->f_get_soc_pay($from_dt,$to_dt , $branch);
+
+    $data['paid']=$this->ReportModel->f_get_soc_paid($from_dt,$to_dt , $branch);
 //  echo $this->db->last_query();
 //  die();
     $this->load->view('post_login/fertilizer_main');

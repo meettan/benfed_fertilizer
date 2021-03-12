@@ -467,18 +467,42 @@ public function p_ro_wise_prof_calc($all_data)
 
         public function f_get_soc_pay($frmDt,$toDt,$branch){
             $query  = $this->db->query("
-                                                 SELECT a.soc_id,b.soc_name,sum(a.round_tot_amt),sum(a.paid_amt)
-                                                FROM `td_sale`a ,mm_ferti_soc b
-                                               where a.br_cd=b.district
-                                              and a.br_cd=$branch
-                                             and a.soc_id=b.soc_id
-                                            group by b.soc_name,a.soc_id
-                                                                           ");
+                                    SELECT a.soc_id,b.soc_name,sum(c.round_tot_amt) tot_payble,sum(a.paid_amt)tot_paid 
+                                    FROM `tdf_payment_recv`a ,mm_ferti_soc b ,td_sale c
+                                    where a.branch_id=b.district 
+                                    and a.branch_id=$branch
+                                    and a.soc_id=b.soc_id 
+                                    and  a.sale_invoice_no=c.trans_do
+                                    and a.ro_no=c.sale_ro
+                                    and a.paid_dt between '$frmDt' and '$toDt'
+                                    group by b.soc_name,a.soc_id 
+                                    Union
+                                    SELECT c.soc_id,b.soc_name,sum(c.round_tot_amt) tot_payble,0 tot_paid 
+                                    FROM mm_ferti_soc b ,td_sale c
+                                    where c.br_cd=b.district 
+                                    and c.br_cd=$branch
+                                    and c.soc_id=b.soc_id 
+                                    and c.do_dt between '$frmDt' and '$toDt'
+                                    and c.soc_id not in(select  soc_id from  tdf_payment_recv where  paid_dt between '$frmDt' and '$toDt')
+                                    group by b.soc_name,c.soc_id");
 
             return $query->result();
         }
 
+        
 
+        public function f_get_soc_paid($frmDt,$toDt,$branch){
+            $query  = $this->db->query("
+                                        SELECT a.soc_id,b.soc_name,sum(a.paid_amt)tot_paid 
+                                        FROM `tdf_payment_recv`a ,mm_ferti_soc b 
+                                        where a.branch_id=b.district 
+                                        and a.branch_id=$branch
+                                        and a.soc_id=b.soc_id 
+                                        and a.paid_dt between '$frmDt' and '$toDt'
+                                        group by b.soc_name,a.soc_id ");
+
+            return $query->result();
+        }
 
         public function f_get_sales_society($branch,$frmDt,$toDt,$soc_id){
             $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,
