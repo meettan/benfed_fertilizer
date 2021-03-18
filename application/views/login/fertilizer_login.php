@@ -137,35 +137,35 @@
 	<script>
 	$('#user_id').keyup(function(e) { // <--- THIS IS THE CHANGE
  
-     var user_id = $('#user_id').val();
-	 
-      $.ajax({
-	  type: "POST",
-	  url: "<?php echo site_url("User_Login/check_user") ?>",
-	  data: {user_id:user_id}, 
-	  dataType: "html",
-	  success: function(data){
-		if(data=="A"){
-		$('#test').show(data);
-		$('#test').prop('required',true);
-		}else{
-			$('#test').hide(data);	
-		}
-	  },
-	 // error: function() { alert("Error posting feed."); }
-    });
+ var user_id = $('#user_id').val();
+ 
+  $.ajax({
+  type: "POST",
+  url: "<?php echo site_url("Fertilizer_Login/check_user") ?>",
+  data: {user_id:user_id}, 
+  dataType: "html",
+  success: function(data){
+	if(data=="A"){
+	$('#test').show(data);
+	$('#test').prop('required',true);
+	}else{
+		$('#test').hide(data);	
+	}
+  },
+ // error: function() { alert("Error posting feed."); }
+});
 
-    });
+});
   </script>
 
 	<script>
 		$(document).ready(function(){
 			$("#login").on('submit',function(){
 
-				var kmyr = $("#kms_yr").val();
+				var kmyr = $("#fin_yr").val();
 
 				if(kmyr == ""){
-					alert("Please select KMS year");
+					alert("Please select financial year");
 					return false;
 				}
 			});

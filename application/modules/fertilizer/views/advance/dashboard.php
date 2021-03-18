@@ -28,11 +28,13 @@
                     <tr>
                         <th>Sl.No.</th>
 
-                        <th>Date</th>
-
+                        <th>Year</th>
+                        
             			<th>Receipt No.</th>
 
                         <th>Society Name</th>
+
+                        <th>Amount(Rs)</th>
 
                         <th>Transaction Type</th>
 
@@ -56,12 +58,14 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                
+
                                 <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
 
                                 <td><?php echo $value->receipt_no; ?></td>
 
                                 <td><?php echo $value->soc_name; ?></td>
+
+                                <td><?php echo $value->adv_amt; ?></td>
 
                                 <td><?php if($value->trans_type == 'I'){
 
@@ -125,6 +129,8 @@
                         <th>Receipt No.</th>
 
                         <th>Society Name</th>
+
+                        <th>Amount(Rs)</th>
 
                         <th>Transaction Type</th>
 

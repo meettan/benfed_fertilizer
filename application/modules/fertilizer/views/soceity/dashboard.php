@@ -4,7 +4,7 @@
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Society Master</strong></h1>
+                <h1><strong>Society/Stock Point</strong></h1>
 
             </div>
 

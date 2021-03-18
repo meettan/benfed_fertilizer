@@ -32,7 +32,7 @@
 
                         <th>From Date</th>
 
-                        <th>To Date</th>
+                        <!--<th>To Date</th>-->
 
                         <th>Company</th>
 
@@ -60,11 +60,10 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-                              
-				               
-                                <td><?php echo $value->frm_dt; ?></td>
 
-                                <td><?php echo $value->to_dt; ?></td>
+                                <td><?php echo date('d-m-Y',strtotime($value->frm_dt)); ?></td>
+
+                                <!--<td><?php //echo $value->to_dt; ?></td>-->
 
                                 <td><?php echo $value->comp_name; ?></td>
 
@@ -115,7 +114,7 @@
 
                         <th>From Date</th>
 
-                        <th>To Date</th>
+                        <!--<th>To Date</th>-->
 
                         <th>Company</th>
 

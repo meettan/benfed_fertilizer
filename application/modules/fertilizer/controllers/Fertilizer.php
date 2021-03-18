@@ -1109,15 +1109,14 @@ public function editsalerate(){
 		
 		$data_array = array(
 
-			     "bulk_id"    =>  $this->input->post('bulk_id'),
+			    //"bulk_id"    =>  $this->input->post('bulk_id'),
 
-				"prod_id"  =>  $this->input->post('prod_id'),
+				//"prod_id"  =>  $this->input->post('prod_id'),			/**Changed By Tan 18.03.21 */
 
-				"comp_id"  =>  $this->input->post('comp_id'),
+				//"comp_id"  =>  $this->input->post('comp_id'),
 
-				"unit"        =>  $this->input->post('unit'),
+				 "unit"        =>  $this->input->post('unit'),
 				
-				// "district"   =>$this->input->post('district'),
 				 "sp_mt"      =>  $this->input->post('sp_mt'),
 
 				 "sp_bag"     =>  $this->input->post('sp_bag'),
@@ -1149,6 +1148,7 @@ public function editsalerate(){
 
 	}else{
 			$select = array("a.bulk_id",
+			
 							"a.prod_id",
 
 							"a.comp_id",

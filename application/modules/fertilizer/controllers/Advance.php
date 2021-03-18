@@ -213,7 +213,7 @@ public function company_advDel(){
 //Socity Advace Dashboard
 public function advance(){
 
-    $select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name");
+    $select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt");
 
 	$where  =	array(
         "a.soc_id=b.soc_id"   => NULL,
