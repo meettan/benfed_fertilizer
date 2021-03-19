@@ -29,12 +29,13 @@
                          <th>Sl No.</th>
                     	<th>Receipt No.</th>
                         <th>Receipt Date</th>
+                        <th>Product</th>
                         <th>Society</th>
                         <th>Amount</th>
-                        <!-- <th>RO</th> -->
                         <th>Forward</th>
                         <th>Print</th>
-                        <th>Edit/Delete</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
 
                 </thead>
@@ -52,6 +53,7 @@
                             <td ><?php echo ++$i; ?></td>
                                 <td><?php echo $pay->paid_id; ?></td>
                                 <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td>
+                                <td><?php echo $pay->prod_desc;?></td>
                                 <td><?php echo $pay->soc_name; ?></td>
                                 <td><?php echo $pay->amount; ?></td>
                              
@@ -74,7 +76,9 @@
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
-                               
+                                </td>
+
+                                <td>
                             
                                <?php if($pay->approval_status == 'U') { ?>
                                   <button type="button" class="delete" id="<?=$pay->paid_id;?>"   
@@ -113,11 +117,13 @@
                     <th>Sl No.</th>
                     	<th>Receipt No.</th>
                         <th>Receipt Date</th>
+                        <th>Product</th>
                         <th>Society</th>
                         <th>Amount</th>
                         <th>Forward</th>
                         <th>Print</th>
-                        <th>Edit/Delete</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 
                 </tfoot>

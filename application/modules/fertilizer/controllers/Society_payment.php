@@ -307,8 +307,7 @@ if ($trans_type=='2'){
 			$br_cd          = $this->session->userdata['loggedin']['branch_id'];
 			$this->sysdate  = $_SESSION['sys_date'];
 		   $data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls($br_cd);
-// echo $this->db->last_query();
-// 	die();
+
 		   $this->load->view("post_login/fertilizer_main");
 	   
 		   $this->load->view("society_payment/dashboard",$data);

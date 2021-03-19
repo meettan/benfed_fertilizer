@@ -124,19 +124,21 @@
 				// 							and a.branch_id=$br_cd
 				// 							group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.invoice_no,approval_status");
     
-			$data = $this->db->query("select distinct a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.ro_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,0 as sale_qty
-			from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c
+			$data = $this->db->query("select distinct a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,d.prod_desc,c.rate,c.ro_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,0 as sale_qty
+			from  tdf_payment_recv a , mm_ferti_soc b,td_purchase c,mm_product d
 			where a.soc_id=b.soc_id
 			and a.ro_no=c.ro_no
+			and c.prod_id = d.prod_id
 			and a.branch_id=$br_cd
-			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,c.rate,c.ro_no,approval_status
+			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,c.comp_id,c.prod_id,d.prod_desc,c.rate,c.ro_no,approval_status
 			union
-			select a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,a.comp_id,a.prod_id,a.ro_rt,a.ro_no,a.approval_status,sum(a.paid_amt)amount,0
-			from  tdf_payment_recv a , mm_ferti_soc b
+			select a.paid_id,a.sl_no,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,a.comp_id,a.prod_id,d.prod_desc,a.ro_rt,a.ro_no as pur_inv,a.approval_status,sum(a.paid_amt)amount,0 as sale_qty
+			from  tdf_payment_recv a , mm_ferti_soc b, mm_product d
 			where a.soc_id=b.soc_id	
 			and a.paid_dt is not null
+			and a.prod_id = d.prod_id
 			and a.branch_id=$br_cd
-			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,approval_status");
+			group by a.sl_no,a.paid_id,a.paid_dt,a.soc_id,b.soc_name,a.ro_no,a.comp_id,a.prod_id,d.prod_desc,a.ro_rt,a.approval_status");
 
              return $data->result();
             
