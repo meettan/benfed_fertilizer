@@ -489,6 +489,12 @@ public function stkScomp_ho(){
                 // $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
                 $data['all_data']=$this->ReportModel->p_sale_purchase($all_data);
 
+                $data['stkpoint']     =   $this->ReportModel->f_get_stockpoint($ro);
+
+            //    echo  $this->db->last_query();
+            //     die();
+
+
                 $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
@@ -637,6 +643,8 @@ public function stkwsestprep(){
                 $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+
+                // $data['stkpoint']     =   $this->ReportModel->f_get_stockpoint($ro);
                 
                 $data['purchase']    =   $this->ReportModel->f_get_purchaserep($branch,$from_dt,$to_dt);
 

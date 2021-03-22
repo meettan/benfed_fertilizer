@@ -92,7 +92,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Ro Dt</th>
 
-                               <!--  <th>Invoice no</th> -->
+                                <th>Stock Point</th>
 
                                 <!-- <th>Invoice Dt</th> -->
 
@@ -135,6 +135,18 @@ tr:hover {background-color: #f5f5f5;}
 
                                     $i = 1;
                                     $total = 0.00;
+                                    $tot_sgst = 0.00;
+                                    $tot_cgst = 0.00;
+                                    $tot_frt  = 0.00;
+                                    $tot_oth  = 0.00;
+                                    $tot_trad_margin = 0.00;
+                                    $tot_rnd_of_less = 0.00;
+                                    $tot_rnd_of_add  = 0.00;
+                                    $tot_rbt_less    = 0.00;
+                                    $tot_rbt_add    =0.00;
+                                    $tot_spl_rebt   =0.00;
+                                    $tot_retlr_margin =0.00;
+                                    $tot_base_price  =0.00;
                                     $val =0;
 
                                         foreach($purchase as $purc){
@@ -146,7 +158,8 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $purc->PROD_DESC; ?></td>
                                      <td class="report"><?php echo $purc->ro_no; ?></td>
                                      <td class="report"><?php echo date("d/m/yy",strtotime($purc->ro_dt)); ?></td>
-                                     <!-- <td class="report"><?php //echo $purc->invoice_no; ?></td> -->
+
+                                     <td class="report"><?php echo $purc->soc_name; ?></td>
                                      <!-- <td class="report"><?php //echo date("d/m/y",strtotime($purc->invoice_dt)); ?></td> -->
                                      <td class="report"><?php echo $purc->qty; ?></td>
                                      <td class="report"><?php if($purc->unit==3){
@@ -169,19 +182,48 @@ tr:hover {background-color: #f5f5f5;}
                                  
                                    
                                      <td class="report"><?php echo $purc->rate; ?></td>
-                                     <td class="report"><?php echo $purc->base_price; ?></td>
-                                     <td class="report"><?php echo $purc->retlr_margin; ?></td>
-                                     <td class="report"><?php echo $purc->spl_rebt; ?></td>
-                                     <td class="report"><?php echo $purc->rbt_add; ?></td>
-                                     <td class="report"><?php echo $purc->rbt_less; ?></td>
-                                     <td class="report"><?php echo $purc->rnd_of_add; ?></td>
-                                     <td class="report"><?php echo $purc->rnd_of_less; ?></td>
-                                     <td class="report"><?php echo $purc->trad_margin; ?></td>
-                                     <td class="report"><?php echo $purc->oth_dis; ?></td>
-                                     <td class="report"><?php echo $purc->frt_subsidy; ?></td>
-                                     <td class="report"><?php echo $purc->cgst; ?></td>
-                                     <td class="report"><?php echo $purc->sgst; ?></td>
-                                     <td class="report"><?php echo $purc->tot_amt; ?></td>
+
+                                     <td class="report"><?php echo $purc->base_price; 
+                                     $tot_base_price += $purc->base_price;
+                                      $tot_base_price += $purc->base_price;?></td>
+                                     
+                                     <td class="report"><?php echo $purc->retlr_margin; 
+                                      $tot_retlr_margin += $purc->retlr_margin;?></td>
+
+                                     <td class="report"><?php echo $purc->spl_rebt; 
+                                      $tot_spl_rebt += $purc->spl_rebt;?></td>
+
+                                     <td class="report"><?php echo $purc->rbt_add;
+                                      $tot_rbt_add += $purc->rbt_add; ?></td>
+
+                                     <td class="report"><?php echo $purc->rbt_less; 
+                                      $tot_rbt_less += $purc->rbt_less;?></td>
+
+                                     <td class="report"><?php echo $purc->rnd_of_add; 
+                                      $tot_rnd_of_add += $purc->rnd_of_add;?></td>
+
+                                     <td class="report"><?php echo $purc->rnd_of_less; 
+                                     $tot_rnd_of_less += $purc->rnd_of_less;?></td>
+
+                                     <td class="report"><?php echo $purc->trad_margin; 
+                                      $tot_trad_margin += $purc->trad_margin;?></td>
+
+                                     <td class="report"><?php echo $purc->oth_dis; 
+                                      $tot_oth += $purc->oth_dis;?></td>
+
+                                     <td class="report"><?php echo $purc->frt_subsidy; 
+                                      $tot_frt += $purc->frt_subsidy;?></td>
+
+                                     <td class="report"><?php echo $purc->cgst; 
+                                     $tot_cgst += $purc->cgst; ?></td>
+
+                                     <td class="report"><?php echo $purc->sgst;
+                                      $tot_sgst += $purc->sgst; ?></td>
+
+                                     <td class="report"><?php echo $purc->tot_amt;
+                                      $total += $purc->tot_amt; ?>
+
+                                     </td>
                                      
 
 
@@ -206,7 +248,39 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                         </tbody>
-
+                        <tfooter>
+                            <tr>
+                               <td class="report" colspan="7" style="text-align:right">Total</td> 
+                               <!-- <td class="report"><?=$taxable_amt?></td>
+                               <td class="report"><?=$cgst?></td>
+                               <td class="report"><?=$sgst?></td>  -->
+                               <td class="report"></td>
+                               <td class="report"></td>
+                               <td class="report"></td>
+                               <td class="report"><?= $tot_retlr_margin?></td>
+                              
+                               <td class="report"><?=$tot_spl_rebt?></td>
+                               
+                               <td class="report"><?=$tot_rbt_add?></td> 
+                               
+                               <td class="report"><?=$tot_rbt_less?></td>
+                               
+                               <td class="report"><?=$tot_rnd_of_add?></td>
+                               <td class="report"><?=$tot_rnd_of_less?></td>
+                               
+                               
+                               <td class="report"><?=$tot_trad_margin?></td>
+                               
+                               <td class="report"><?=$tot_oth?></td>
+                               
+                               <td class="report"><?=$tot_frt?></td>
+                               <td class="report"><?=$tot_cgst?></td>
+                               <td class="report"><?=$tot_sgst?></td>
+                               
+                                <td class="report"><?=$total?></td>  
+ 
+                            </tr>
+                        </tfooter>
                     </table>
 
                 </div>   

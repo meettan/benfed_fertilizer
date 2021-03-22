@@ -78,6 +78,8 @@ tr:hover {background-color: #f5f5f5;}
                         <h5 style="text-align:left"><label>Product: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
                             echo $prodtls->Product;
                           }?></h5>
+                           <h5 style="text-align:left"><label>Stock Point: </label> <?php echo $stkpoint->soc_name; ?></h5>
+
 
                     </div>
                   
@@ -113,6 +115,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                     $i = 1;
                                     $total = 0.00;
+                                    $tot_purchase= 0.00;
+                                    $tot_sale= 0.00;
                                     $val =0;
 
                                         foreach($all_data as $prodtls){
@@ -173,6 +177,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <?php 
                                      if($prodtls->Pruchase_qty>0){
                                      echo $prodtls->Pruchase_qty; 
+                                     $tot_purchase +=$prodtls->Sale_qty;
                                      }
                                      ?>
                                      </b> </td>
@@ -180,6 +185,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <?php 
                                        if($prodtls->Sale_qty>0){ 
                                      echo $prodtls->Sale_qty;
+                                     $tot_sale +=$prodtls->Sale_qty;
                                        }
                                       ?> 
                                       </td>
@@ -187,9 +193,11 @@ tr:hover {background-color: #f5f5f5;}
                                      <?php 
                                       if( $prodtls->Pruchase_qty>0)   {
                                      echo "<b>$prodtls->closing_Stock</b>"; 
+                                     $total +=$prodtls->closing_Stock;
                                     }
                                     else{
                                         echo $prodtls->closing_Stock; 
+                                       
                                     }
                                      ?>
                                       </td>
@@ -214,7 +222,17 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                         </tbody>
+                        <tfooter>
+                            <tr>
+                               <td class="report" colspan="6" style="text-align:right">Total</td> 
+                               <!-- <td class="report"><?=$taxable_amt?></td> -->
+                               <td class="report"><?=$tot_purchase?></td>
+                               <td class="report"><?=$tot_sale?></td> 
+                               
+                                <td class="report"><?=$total?></td>  
 
+                            </tr>
+                        </tfooter>
                     </table>
 
                 </div>   

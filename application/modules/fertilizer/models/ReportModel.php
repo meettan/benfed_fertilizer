@@ -317,10 +317,11 @@
             $query  = $this->db->query("select a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,a.retlr_margin,
                                         a.spl_rebt,a.rbt_add,a.rbt_less,a.rnd_of_add,a.rnd_of_less,
                                         a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
-                                        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy
-                                        from td_purchase a,mm_product b,mm_company_dtls c
+                                        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,d.soc_name
+                                        from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d
                                         where  a.prod_id = b.PROD_ID
                                         and    a.comp_id = c.COMP_ID
+                                        and    a.stock_point=d.soc_id
                                         and    a.br        = '$branch'
                                         and    a.trans_dt between '$frmDt' and '$toDt'
                                         and    a.trans_flag = 1
@@ -489,8 +490,17 @@ public function p_ro_wise_prof_calc($all_data)
             return $query->result();
         }
 
-        
 
+        public function f_get_stockpoint($ro){
+
+            $query  = $this->db->query("select   b.soc_name as soc_name
+                                        from  td_purchase a ,mm_ferti_soc b
+                                        where  a.stock_point=b.soc_id 
+                                        and  a.ro_no='$ro'");
+        return $query->row();
+
+        }
+          
         public function f_get_soc_paid($frmDt,$toDt,$branch){
             $query  = $this->db->query("
                                         SELECT a.soc_id,b.soc_name,sum(a.paid_amt)tot_paid 
@@ -532,12 +542,10 @@ public function p_ro_wise_prof_calc($all_data)
   }
         public function f_get_sales_branch($frmDt,$toDt,$br){
             $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,
-                                               a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
-
+                                        a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
                                         from td_sale a,mm_product b,mm_company_dtls c
                                         where  a.prod_id = b.PROD_ID
                                         and    a.comp_id = c.COMP_ID
-                                      
                                         and    a.br_cd   = '$br'
                                         and    a.do_dt between '$frmDt' and '$toDt'
                                         order by a.do_dt");
