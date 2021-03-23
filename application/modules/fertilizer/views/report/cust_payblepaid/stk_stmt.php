@@ -92,11 +92,11 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Opening</th>
 
-                                <th>Total Payble </th>
+                                <th>Total Receivable</th>
 
-                                <th>Total Paid</th>
-
-                                <!-- <th>Closing</th> -->
+                                <th>Total Received</th>
+                             
+                                <th>Actual Receivable</th>
 
                             </tr>
 
@@ -110,6 +110,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                     $i = 1;
                                     $total = 0.00;
+                                    $tot_sale = 0.00;
+                                    $tot_pur  = 0.00;
                                     $val =0;
 
                                         foreach($all_data as $prodtls){
@@ -146,37 +148,22 @@ tr:hover {background-color: #f5f5f5;}
                                         ?> -->
                                      </td>
                                      <td class="report purchase" id="purchase">
-                                     <?php echo $prodtls->tot_payble; ?>
+                                     <?php echo $prodtls->tot_payble;
+                                      $tot_pur += $prodtls->tot_payble  ?>
 
-                                        <!-- <?php 
-                                            foreach($purchase as $purdtls){
-                                                if($prodtls->prod_id==$purdtls->prod_id){
-                                                    echo $purdtls->tot_pur;
-                                                }
-                                            }
-                                        ?> -->
+                                      
                                        
                                      </td>
                                      <td class="report sale" id="sale">
-                                     <?php echo $prodtls->tot_paid; ?>
-                                        <!-- <?php 
-                                            foreach($sale as $saledtls){
-                                                if($prodtls->prod_id==$saledtls->prod_id){
-                                                    echo $saledtls->tot_sale;
-                                                }
-                                            }
-                                        ?> -->
+                                     <?php echo $prodtls->tot_paid; 
+                                     $tot_sale += $prodtls->tot_paid ;?>
+                                       
                                      </td>
-<!-- 
+
                                      <td class="report closing" id="closing">
-                                        <?php 
-                                            foreach($closing as $clsdtls){
-                                                if($prodtls->prod_id==$clsdtls->prod_id){
-                                                    echo $clsdtls->opn_qty;               
-                                                }
-                                            }
-                                        ?>
-                                     </td> -->
+                                     <?php echo $prodtls->tot_payble - $prodtls->tot_paid ;
+                                         $total += $prodtls->tot_payble - $prodtls->tot_paid ; ?>  
+                                     </td>
                                    
                                 </tr>
  
@@ -197,7 +184,17 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                         </tbody>
-
+                        <tfooter>
+                            <tr>
+                               <td class="report" colspan="3" style="text-align:right">Total</td> 
+                               <td class="report"><?=$tot_pur?></td>
+                               <td class="report"><?=$tot_sale?></td>
+                               <!-- <td class="report"></td>  -->
+                               
+                                <td class="report"><?=$total?></td>  
+ 
+                            </tr>
+                        </tfooter>
                     </table>
 
                 </div>   

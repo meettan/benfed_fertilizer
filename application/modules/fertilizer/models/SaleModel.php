@@ -143,7 +143,10 @@
 										                     and district='$br_cd'
 								                             and comp_id='$comp_id'
 								                             and prod_id ='$prod_id'
-								                             and '$ro_dt' BETWEEN frm_dt and to_dt");
+															 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+										                 and district='$br_cd'
+													and comp_id='$comp_id'
+													and prod_id ='$prod_id')");
 			}else{
 									$sql = $this->db->query("SELECT sp_govt  as rate
 														     from  mm_sale_rate
@@ -151,7 +154,10 @@
 										                     and district='$br_cd'
 								                             and comp_id='$comp_id'
 								                             and prod_id ='$prod_id'
-								                             and '$ro_dt' BETWEEN frm_dt and to_dt");
+															 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+										 						and district='$br_cd'
+															and comp_id='$comp_id'
+															and prod_id ='$prod_id')");
 			}
 
 		
@@ -163,10 +169,9 @@
 
 			$query = $this->db->query("select a.soc_id,a.soc_name
 									from  mm_ferti_soc a,td_purchase b    							   							
-					  where  a.soc_id = b.stock_point
-					  and    a.stock_point_flag = 'Y'
-					  and    b.ro_no            = '$ro_no'
-					   ");
+									where  a.soc_id = b.stock_point
+									and    a.stock_point_flag = 'Y'
+									and    b.ro_no            = '$ro_no' ");
 
 				
 			

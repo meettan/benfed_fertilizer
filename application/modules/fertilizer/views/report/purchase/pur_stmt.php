@@ -184,8 +184,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $purc->rate; ?></td>
 
                                      <td class="report"><?php echo $purc->base_price; 
-                                     $tot_base_price += $purc->base_price;
-                                      $tot_base_price += $purc->base_price;?></td>
+                                     $tot_base_price += $purc->base_price; ?></td>
                                      
                                      <td class="report"><?php echo $purc->retlr_margin; 
                                       $tot_retlr_margin += $purc->retlr_margin;?></td>
@@ -256,7 +255,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><?=$sgst?></td>  -->
                                <td class="report"></td>
                                <td class="report"></td>
-                               <td class="report"></td>
+                               <td class="report"><?= $tot_base_price?></td>
                                <td class="report"><?= $tot_retlr_margin?></td>
                               
                                <td class="report"><?=$tot_spl_rebt?></td>

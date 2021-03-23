@@ -123,8 +123,13 @@ tr:hover {background-color: #f5f5f5;}
                                 if($sales){ 
 
                                     $i = 1;
-                                    $total = 0.00;
-                                    $val =0;
+                                    $total      = 0.00;
+                                    $tot_cgst   = 0.00;
+                                    $tot_sgst   = 0.00;
+                                    $tot_taxamt = 0.00;
+                                    $tot_dis    = 0.00;
+                                    $tot_qty    = 0.00;
+                                    $val        = 0;
 
                                         foreach($sales as $sal){
                             ?>
@@ -138,13 +143,21 @@ tr:hover {background-color: #f5f5f5;}
                                     <td  class="report"><?php echo date("d/m/yy",strtotime($sal->do_dt)); ?></td>
                                     <!-- <td class="report"><?php //echo $sal->trans_type; ?></td> -->
                                     <!--  <td class="report"><?php //echo $sal->sale_ro; ?></td> -->
-                                    <td class="report"><?php echo $sal->qty; ?></td>
+                                    <td class="report"><?php echo $sal->qty; 
+                                      $tot_qty += $sal->qty;?></td>
                                     <td class="report"><?php echo $sal->sale_rt; ?></td>
-                                    <td class="report"><?php echo $sal->taxable_amt; ?></td>
-                                    <td class="report"><?php echo $sal->cgst; ?></td>
-                                    <td class="report"><?php echo $sal->sgst; ?></td>
-                                    <td class="report"><?php echo $sal->dis; ?></td>
-                                    <td class="report"><?php echo $sal->tot_amt; ?></td>
+                                    <td class="report"><?php echo $sal->taxable_amt; 
+                                    $tot_taxamt += $sal->taxable_amt;?></td>
+                                    <td class="report"><?php echo $sal->cgst; 
+                                    $tot_cgst += $sal->cgst;?></td>
+                                    
+                                    <td class="report"><?php echo $sal->sgst; 
+                                     $tot_sgst += $sal->sgst;?></td>
+                                    
+                                    <td class="report"><?php echo $sal->dis;
+                                     $tot_dis += $sal->dis; ?></td>
+                                    <td class="report"><?php echo $sal->tot_amt; 
+                                      $total += $sal->tot_amt; ?></td>
                                    
                                 </tr>
  
@@ -162,7 +175,20 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                         </tbody>
-
+                        <tfooter>
+                            <tr>
+                               <td class="report" colspan="6" style="text-align:right">Total</td> 
+                               <td class="report"><?=$tot_qty?></td>
+                               <td class="report"></td>
+                               <td class="report"><?=$tot_taxamt?></td>
+                               <td class="report"><?=$tot_cgst?></td>
+                               <td class="report"><?=$tot_sgst?></td> 
+                               <td class="report"><?=$tot_dis?></td>
+                               
+                                <td class="report"><?=$total?></td>  
+ 
+                            </tr>
+                        </tfooter>
                     </table>
 
                 </div>   

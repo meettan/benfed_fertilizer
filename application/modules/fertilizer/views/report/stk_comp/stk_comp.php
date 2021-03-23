@@ -113,6 +113,9 @@ tr:hover {background-color: #f5f5f5;}
 
                                     $i = 1;
                                     $total = 0.00;
+                                    $total_sale = 0.00;
+                                    $total_pur =0.00;
+                                    $tot_op =0.00;
                                     $val =0;
 
                                         foreach($product as $prodtls){
@@ -145,6 +148,7 @@ tr:hover {background-color: #f5f5f5;}
                                             foreach($opening as $opndtls){
                                                 if($prodtls->ro_no==$opndtls->ro_no){
                                                     echo $opndtls->opn_qty;
+                                                    $tot_op +=$opndtls->opn_qty;
                                                 }
                                             }
                                         ?>
@@ -154,6 +158,7 @@ tr:hover {background-color: #f5f5f5;}
                                             foreach($purchase as $purdtls){
                                                 if($prodtls->ro_no==$purdtls->ro_no){
                                                     echo $purdtls->tot_pur;
+                                                    $total_pur +=$purdtls->tot_pur;  
                                                 }
                                             }
                                         ?>
@@ -163,6 +168,7 @@ tr:hover {background-color: #f5f5f5;}
                                             foreach($sale as $saledtls){
                                                 if($prodtls->ro_no==$saledtls->sale_ro){
                                                     echo $saledtls->tot_sale;
+                                                    $total_sale +=$saledtls->tot_sale;  
                                                 }
                                             }
                                         ?>
@@ -172,7 +178,8 @@ tr:hover {background-color: #f5f5f5;}
                                         <?php 
                                             foreach($closing as $clsdtls){
                                                 if($prodtls->ro_no==$clsdtls->ro_no){
-                                                    echo $clsdtls->opn_qty;               
+                                                    echo $clsdtls->opn_qty; 
+                                                    $total +=$clsdtls->opn_qty;              
                                                 }
                                             }
                                         ?>
@@ -197,7 +204,19 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                         </tbody>
-
+                        <tfooter>
+                            <tr>
+                               <td class="report" colspan="3" style="text-align:right">Total</td> 
+                               <td class="report"></td>
+                               <td class="report"><?=$tot_op?></td>
+                               <td class="report"><?=$total_pur?></td>
+                               <td class="report"><?=$total_sale?></td>
+                               <!-- <td class="report"></td>  -->
+                               
+                                <td class="report"><?=$total?></td>  
+ 
+                            </tr>
+                        </tfooter>
                     </table>
 
                 </div>   

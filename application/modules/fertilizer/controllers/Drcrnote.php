@@ -38,6 +38,7 @@ public function drnoteReport()
 			$select	=	array("a.recpt_no",
 				"a.trans_dt","a.trans_no","a.soc_id","a.comp_id","a.tot_amt","a.trans_flag",
 				"b.soc_name","c.COMP_NAME"
+			
 			);
 
 			$where	=	array(
@@ -52,11 +53,11 @@ public function drnoteReport()
 
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 
-				"a.fin_yr"				=>	$this->session->userdata['loggedin']['fin_id']
+				"a.fin_yr				=	'".$this->session->userdata['loggedin']['fin_id']."'ORDER BY a.trans_dt"  => NULL
 
 			);
 		    
-		   	$data['dr_notes']    = $this->DrcrnoteModel->f_select("tdf_dr_cr_note a,mm_ferti_soc b,mm_company_dtls c",$select,$where,0);
+		   	$data['dr_notes']    = $this->DrcrnoteModel->f_select("tdf_dr_cr_note a,mm_ferti_soc b,mm_company_dtls c ",$select,$where,0);
 		    
 			$this->load->view("post_login/fertilizer_main");
 	   

@@ -185,7 +185,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><?=$sgst?></td> 
                                
                                 <td class="report"><?=$total?></td>  
-
+ 
                             </tr>
                         </tfooter>
 
