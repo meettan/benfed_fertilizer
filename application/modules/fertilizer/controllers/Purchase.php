@@ -41,19 +41,19 @@
 										
 										'ro_no'        => $this->input->post('ro_no'),
 	
-										'ro_dt'        => $this->input->post('ro_dt'),
+										'ro_dt'      => $this->input->post('ro_dt'),
 	
-										'invoice_no'   => $this->input->post('invoice_no'),
+										'invoice_no' => $this->input->post('invoice_no'),
 
-										'invoice_dt'   => $this->input->post('invoice_dt'),
+										'invoice_dt' => $this->input->post('invoice_dt'),
 
-										'trans_dt'    =>  date('Y-m-d'),
+										'trans_dt'   =>  date('Y-m-d'),
 	
-										'tot_amt'  => $this->input->post('tot_amt'),
+										'tot_amt'    => $this->input->post('tot_amt'),
 
-										'comp_id'     => $this->input->post('comp_id'),
+										'comp_id'    => $this->input->post('comp_id'),
 	
-										'soc_id'   => $_POST['soc_id'][$i],
+										'soc_id'     => $_POST['soc_id'][$i],
 	
 										'soc_amt'    => $_POST['soc_amt'][$i],
 										
@@ -61,7 +61,7 @@
 	
 										"created_dt"  =>  date('Y-m-d'),
 
-										'branch_id'     =>$this->session->userdata['loggedin']['branch_id']
+										'branch_id'   =>$this->session->userdata['loggedin']['branch_id']
 
 										 
 									);
@@ -1473,7 +1473,8 @@ public function viewstock(){
 				"br" => $this->session->userdata['loggedin']['branch_id']
 			);
 					
-		
+			$product['company'] = $this->PurchaseModel->f_select("mm_company_dtls",NULL,NULL,0);
+
 		$this->PurchaseModel->f_edit('td_purchase', $data_array, $where);
         
 		$this->session->set_flashdata('msg', 'Successfully Updated');
@@ -1481,74 +1482,7 @@ public function viewstock(){
 		redirect('stock/stock_entry');
 
 	}else{
-			/*$select = array(
-					"comp_id",
-					"comp_add",
-					"gst_no",
-					"cin" ,
-					"prod_id",
-					"ro_no",
-					"ro_dt",
-					"trans_dt",
-					"due_dt",
-					"invoice_no",
-					"invoice_dt" ,
-					"qty" ,
-					"unit",
-					"rate",
-					"base_price",
-					"net_amt",
-					"no_of_bags" ,
-					"delivery_mode",
-					"reck_pt_rt",
-					"reck_pt_n_rt",
-					"govt_sale_rt",
-					"iffco_buf_rt",
-					"iffco_n_buff_rt" ,
-					"retlr_margin" ,
-					"spl_rebt" ,
-					"add_adj_amt" ,
-					"less_adj_amt" ,
-					"cgst",
-					"sgst"   ,
-					"rbt_add" ,
-					"rbt_less" ,"rnd_of_add",
-					"rnd_of_less" ,"tot_amt",
-					"stock_point"                  
-		);
-
-			$where = array(
-				"ro_no" => $this->input->get('ro_no')
-				);
-
-				$where1 = array(
-					"a.comp_id = b.comp_id"    => NULL
-					);
-		
-					$where2 = array(
-						"a.prod_id = b.prod_id"    => NULL
-						);
 			
-				$select        = array("a.comp_id","a.comp_name","a.comp_add","a.gst_no","a.cin");
-				$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls a,td_purchase b',$select,$where1,1);
-		
-				$select1          = array("a.prod_id","a.prod_desc","hsn_code","gst_rt","qty_per_bag");
-				$product['proddtls']   = $this->PurchaseModel->f_select('mm_product a,td_purchase b',$select1,$where2,1);	
-
-				$select2=  array("qty","ro_no","trans_dt","invoice_no","invoice_dt","challan_flag","due_dt","no_of_bags","ro_dt","delivery_mode","
-				rate","reck_pt_rt","reck_pt_n_rt","iffco_buf_rt","iffco_n_buff_rt","base_price","net_amt","retlr_margin","spl_rebt","add_adj_amt","less_adj_amt","cgst","sgst",
-				"rbt_add","rbt_less","rnd_of_add","rnd_of_less","tot_amt","stock_point");
-
-				$product['schdtls'] = $this->PurchaseModel->f_select("td_purchase",$select2,$where,1);
-				
-				$select3= array("id","unit_name");
-				$product['unitdtls'] = $this->PurchaseModel->f_select("mm_unit",$select3,Null,1);
-
-				$select4 = array("soc_id","soc_name");
-				$where4 = array(
-					"stock_point_flag"=>'Y'
-					);
-				$product['stockpoint'] = $this->PurchaseModel->f_select("mm_ferti_soc",$select4,$where4,0);*/
 
 			$branch_id  = $this->session->userdata['loggedin']['branch_id'];
 
@@ -1564,8 +1498,8 @@ public function viewstock(){
 			);	
 
 			$product['stock'] = $this->PurchaseModel->f_select("td_purchase a,mm_company_dtls b,mm_product c,mm_unit d",Null,$where,1);
-		//    echo $this->db->last_query();
-		//    die();
+				 //echo $this->db->last_query();
+				//die();
 			$stk_pt = array("soc_id","soc_name");
 				
 			$where_stk = array(
@@ -1576,9 +1510,12 @@ public function viewstock(){
 
 			$product['stockpoint'] = $this->PurchaseModel->f_select("mm_ferti_soc",$stk_pt,$where_stk,0);
 
-
+			$product['company'] = $this->PurchaseModel->f_select("mm_company_dtls",NULL,NULL,0);
+			$product['product'] = $this->PurchaseModel->f_select("mm_product",NULL,NULL,0);
+//  echo $this->db->last_query();
+// 	die();	
 			$product['unit'] = $this->PurchaseModel->f_select("mm_unit",Null,Null,0);
-				// echo $this->db->last_query();
+				 // echo $this->db->last_query();
 				// die();									
 		$this->load->view('post_login/fertilizer_main');
 

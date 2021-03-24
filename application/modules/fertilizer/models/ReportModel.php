@@ -468,15 +468,21 @@ public function p_ro_wise_prof_calc($all_data)
 
         public function f_get_soc_pay($frmDt,$toDt,$branch){
             $query  = $this->db->query("
-                                    SELECT a.soc_id,b.soc_name,sum(c.round_tot_amt) tot_payble,sum(a.paid_amt)tot_paid 
-                                    FROM `tdf_payment_recv`a ,mm_ferti_soc b ,td_sale c
-                                    where a.branch_id=b.district 
-                                    and a.branch_id=$branch
-                                    and a.soc_id=b.soc_id 
-                                    and  a.sale_invoice_no=c.trans_do
-                                    and a.ro_no=c.sale_ro
-                                    and a.paid_dt between '$frmDt' and '$toDt'
-                                    group by b.soc_name,a.soc_id 
+                                    select  soc_id,soc_name,sum(paybl) tot_payble,sum(paid_amt)tot_paid
+                                    from (SELECT sum(c.paid_amt)paid_amt,0 paybl,soc_name,c.soc_id
+                                        FROM tdf_payment_recv c,mm_ferti_soc b
+                                        where c.soc_id=b.soc_id
+                                        and c.branch_id=$branch
+                                        and c.paid_dt between  '$frmDt' and '$toDt'
+                                            group by soc_name,c.soc_id
+                                            UNION
+                                            SELECT 0,sum(c.round_tot_amt),soc_name,b.soc_id
+                                            FROM td_sale c,mm_ferti_soc b
+                                            where c.soc_id=b.soc_id
+                                            and c.br_cd=$branch
+                                        and c.do_dt between  '$frmDt' and '$toDt'
+                                        group by soc_name,b.soc_id)a
+                                        group by soc_id,soc_name
                                     Union
                                     SELECT c.soc_id,b.soc_name,sum(c.round_tot_amt) tot_payble,0 tot_paid 
                                     FROM mm_ferti_soc b ,td_sale c
@@ -484,7 +490,7 @@ public function p_ro_wise_prof_calc($all_data)
                                     and c.br_cd=$branch
                                     and c.soc_id=b.soc_id 
                                     and c.do_dt between '$frmDt' and '$toDt'
-                                    and c.soc_id not in(select  soc_id from  tdf_payment_recv where  paid_dt between '$frmDt' and '$toDt')
+                                    and c.soc_id not in(select  soc_id from  tdf_payment_recv where  paid_dt between '$frmDt' and '$toDt' and branch_id=$branch)
                                     group by b.soc_name,c.soc_id");
 
             return $query->result();

@@ -23,7 +23,24 @@
         				<input type="text" style="width:200px"  name="comp_desc" class="form-control required"  
         					value = "<?php echo $stock->COMP_NAME; ?>" readonly 
 						/>
- 
+						<!-- <select name="comp_id" style="width:200px" class="form-control sch_cd required" id="comp_id" required>
+
+<option value="">Select</option>
+
+	<?php
+
+		foreach($company as $comp){
+
+	?>
+		<option value="<?php echo $comp->COMP_ID;?>"<?php if($stock->comp_id==$comp->COMP_ID) {echo "selected"; }?>><?php echo $comp->COMP_NAME;?></option>
+		
+	<?php
+
+		}
+
+	?>     
+
+</select> -->
 					</div>
 
 				<label for="gst_no" class="col-sm-1 col-form-label">GSTIN:</label>
@@ -72,14 +89,32 @@
 
 					<div class="col-sm-3">
 
-						<input type="hidden" style="width:200px"  name="prod_id" class="form-control required"  
-        					value = "<?php echo $stock->PROD_ID; ?>" readonly 
-						/>
+						 <input type="hidden" style="width:200px"  name="prod_id" class="form-control required"  
+        					value = "<?php echo $stock->PROD_ID; ?>" readonly />
 
         				<input type="text" style="width:200px"  name="prod_desc" class="form-control required"  
         					value = "<?php echo $stock->PROD_DESC; ?>" readonly 
 						/>
-     
+
+						<!-- <select name="comp_id" style="width:200px" class="form-control sch_cd required" id="comp_id" required>
+
+<option value="">Select</option>
+
+	<?php
+
+		foreach($product as $prod){
+
+	?>
+		<option value="<?php echo $prod->PROD_ID;?>"<?php if($stock->PROD_ID==$prod->PROD_ID) {echo "selected"; }?>><?php echo $prod->PROD_DESC;?></option>
+		
+	<?php
+
+		}
+
+	?>     
+
+</select>
+      -->
 					</div>
 
 				<label for="hsn_code" class="col-sm-1 col-form-label">HSN:</label>
@@ -2100,3 +2135,46 @@ $('input').on('click',function () {
 	});
 	
 </script>
+
+<!-- <script>
+	
+	$(".sch_cd").select2();   // Code For Select Write Option
+
+
+
+$(document).ready(function(){
+
+   var i = 0;
+
+   $('#comp_id').change(function(){
+
+	   $.get( 
+
+		   '<?php echo site_url("stock/f_get_product");?>',
+
+		   { 
+
+			   comp_id: $(this).val()
+
+		   }
+
+	   ).done(function(data){
+
+		   var string = '<option value="">Select</option>';
+
+		   $.each(JSON.parse(data), function( index, value ) {
+
+			   string += '<option value="' + value.prod_id + '">' + value.prod_desc + '</option>'
+
+		   });
+
+		   $('#prod_id').html(string);
+
+
+		 });
+
+
+   });
+
+});
+</script> -->
