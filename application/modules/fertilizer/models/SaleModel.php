@@ -131,7 +131,8 @@
 										 and district='$br_cd'
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
-			return $sql->row();
+			// return $sql->row();
+			return $sql->result();
 		}
 		public function get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt)
 		{

@@ -23,7 +23,7 @@
         				<input type="text" style="width:200px"  name="comp_desc" class="form-control required"  
         					value = "<?php echo $stock->COMP_NAME; ?>" readonly 
 						/>
-						<!-- <select name="comp_id" style="width:200px" class="form-control sch_cd required" id="comp_id" required>
+<!-- <select name="comp_id" style="width:200px" class="form-control sch_cd required" id="comp_id" required>
 
 <option value="">Select</option>
 
@@ -96,7 +96,7 @@
         					value = "<?php echo $stock->PROD_DESC; ?>" readonly 
 						/>
 
-						<!-- <select name="comp_id" style="width:200px" class="form-control sch_cd required" id="comp_id" required>
+<!-- <select name="comp_id" style="width:200px" class="form-control sch_cd required" id="comp_id" required>
 
 <option value="">Select</option>
 

@@ -31,6 +31,7 @@
                         <th>Date</th>
                         <th>Company</th>
                         <th>Customer</th>
+                         <th>Amount</th>
                         <th>Edit</th>
                         <th>Print</th>
                         <th>Delete</th>
@@ -63,7 +64,7 @@
                                 <td><?php echo $dr->COMP_NAME; ?></td>
 
 				                <td><?php echo $dr->soc_name; ?></td>
-                               
+                                <td><?php echo $dr->tot_amt; ?></td>
 			 	                <td><a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>&soc_id=<?=$dr->soc_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
@@ -110,6 +111,7 @@
                         <!--<th>Type</th>-->
                         <th>Company</th>
                         <th>Customer</th>
+                        <th>Amount</th>
                         <th>Edit</th>
                         <th>Print</th>
                         <th>Delete</th>

@@ -110,7 +110,10 @@
             </div>
             <label for="sale_rt"  class="col-sm-2 col-form-label">Sale Rate:</label>
             <div class="col-sm-4"> 
-            <input type="text" name="sale_rt"  style="width:250px" class="form-control required sale_rt" value= "0" id="sale_rt"  readonly>
+            <!-- <input type="text" name="sale_rt"  style="width:250px" class="form-control required sale_rt" value= "0" id="sale_rt"  readonly> -->
+            <select name="sale_rt" id="sale_rt" style="width:250px"class="form-control sale_rt" required>
+                        <option value="">Select</option>
+                        </select>
             </div>    
            </div>
 
@@ -569,22 +572,42 @@ $(document).ready(function(){
         var ro= $('#ro').val();
 
         $(this).closest('tr').find('td:eq(6) .qty').val("0");
-       
+        var string = '<option value="">Select</option>';
+            $('.sale_rt').eq($('.ro').index(this)).html(string); 
         $.get('<?php echo site_url("trade/get_salerate");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category: $(this).val() })
-
-                                                                  
+                                                        
         .done(function(data)
         {
          
-            var unitData = JSON.parse(data);
-            $('.sale_rt').eq($('.ro').index(this)).val(unitData.sp_mt);
-        //    row.find('td:eq(1) .sale_rt').val(unitData.sp_mt);
+            // var unitData = JSON.parse(data);
+            // $('.sale_rt').eq($('.ro').index(this)).val(unitData.sp_mt);
+        
+
+var string = '<option value="">Select</option>';
+
+$.each(JSON.parse(data), function( index, value ) {
+
+    string += '<option value="' + value.sp_mt + '">' + value.sp_mt + '</option>'
+
+});
+
+ $('.sale_rt').eq($('.ro').index(this)).html(string); 
                       
         });
          
        
-     });
+});
 
+$('#sale_rt').change(function()
+    {
+
+          $('.qty').eq($('.ro').index(this)).val(0);
+         
+          $('.taxable_amt').eq($('.ro').index(this)).val(0);
+          $('.tot_amt').eq($('.ro').index(this)).val(0);  
+          $('.round_tot_amt').eq($('.ro').index(this)).val(0); 
+          
+        });
     ///       get Gov rate In MT
     // $('#intro').on( "change", ".gov_sale_rt", function()
     $('#gov_sale_rt').change(function()
@@ -663,7 +686,7 @@ $(document).ready(function()
           var stkqty      = 0;
         //   var tot_rnd_payble_amt = 0;
           var stkqty =$('#stock_qty').val();
-               $('#intro tr').each(function() {
+           $('#intro tr').each(function() {
           var qty = $(this).find('td:eq(1) .qty').val();
           var rate= $('#sale_rt').val();
           var gst_rt= $('#gst_rt').val(); 
@@ -878,3 +901,20 @@ if(ro_cnt==0)
 });
 
 </script> -->
+
+<script>
+
+$(document).ready(function(){
+
+	var i = 2;
+
+	$('#sale_rate').change(function(){
+
+	 $('.qty').eq($('.ro').index(this)).val(0); 	
+		
+
+	})
+
+});
+
+</script> 
