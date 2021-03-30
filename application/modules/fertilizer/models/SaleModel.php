@@ -149,7 +149,7 @@
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
 			}else{
-									$sql = $this->db->query("SELECT sp_govt  as rate
+									$sql = $this->db->query("SELECT sp_govt  
 														     from  mm_sale_rate
 										                     where  catg_id = '$category'
 										                     and district='$br_cd'
@@ -162,7 +162,8 @@
 			}
 
 		
-			return $sql->row();
+			// return $sql->row();
+			return $sql->result();
 		}
 
 		public function js_get_stock_point($ro_no){

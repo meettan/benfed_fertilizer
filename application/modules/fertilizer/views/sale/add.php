@@ -622,20 +622,35 @@ $('#sale_rt').change(function()
         var ro= $('#ro').val();
         var sale_category =$('#sale_category').val();
 
+        // $(this).closest('tr').find('td:eq(0) .qty').val("0");
         $(this).closest('tr').find('td:eq(0) .qty').val("0");
-       
+        var string1 = '<option value="">Select</option>';
         $.get('<?php echo site_url("trade/get_govsalert");?>',{ ro: ro,comp_id:$("#comp_id").val(),sale_category:sale_category,gov_sale_rt: $(this).val() })
                                                                   
         .done(function(data)
         {
-         
-        var unitData = JSON.parse(data);
-        $('.sale_rt').eq($('.ro').index(this)).val(unitData.rate);
+            var string1 = '<option value="">Select</option>';
+
+        $.each(JSON.parse(data), function( index, value ) {
+
+    string1 += '<option value="' + value.sp_govt + '">' + value.sp_govt + '</option>'
+
+        });
+
+ $('.sale_rt').eq($('.ro').index(this)).html(string1); 
                       
         });
          
        
-     });
+});
+         
+    //     var unitData = JSON.parse(data);
+    //     $('.sale_rt').eq($('.ro').index(this)).val(unitData.rate);
+                      
+    //     });
+         
+       
+    //  });
 
 </script>
 

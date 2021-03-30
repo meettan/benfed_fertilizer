@@ -198,7 +198,74 @@ public function stkStmt_ho(){
     }
 
 }
+/***********************cr note demand report*********************/
+public function soc_wse_cr_dmd(){
 
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $from_dt    =   $_POST['from_date'];
+
+        $to_dt      =   $_POST['to_date'];
+
+        // $branch     =   $this->session->userdata['loggedin']['branch_id'];
+        $branch  = $_POST['br'];
+
+        $mth        =  date('n',strtotime($from_dt));
+
+        $yr         =  date('Y',strtotime($from_dt));
+
+        if($mth > 3){
+
+            $year = $yr;
+
+        }else{
+
+            $year = $yr - 1;
+        }
+
+        $opndt      =  date($year.'-04-01');
+
+        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+
+
+        $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
+
+        // $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
+
+        // $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
+
+        // $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
+
+        // $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);
+
+       $data['crdmnd']     =   $this->ReportModel->f_get_crdemand($branch,$opndt,$to_dt);
+
+        // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+        $where1              =   array("district_code"  => $branch);
+        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        $where2             =   array("district"  => $branch);
+
+        // echo $this->db->last_query();
+        // die;
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/soc_wse_cr_dmd/stk_stmt',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+        $select1      = array("district_code","district_name");
+        $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+        // echo $this->db->last_query();
+        // die();
+        $this->load->view('post_login/fertilizer_main');
+        
+        $this->load->view('report/soc_wse_cr_dmd/stk_stmt_ip',$data);
+        $this->load->view('post_login/footer');
+    }
+
+}
+/************************************************************** */
 
 /******************************************* */
         public function stkStmt(){

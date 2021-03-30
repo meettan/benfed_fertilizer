@@ -227,6 +227,7 @@
                                     <a href="<?php echo site_url("fert/rep/purrepbr");?>">Branch Wise Purchase</a>
                                     <a href="<?php echo site_url("fert/rep/salerepbr");?>">Branch Wise Sale</a>
                                     <a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
+                                    <a href="<?php echo site_url("fert/rep/soc_wse_cr_dmd");?>"> Society wise Credit Note Demand.</a> 
                                     
                                 <?php } ?>
 

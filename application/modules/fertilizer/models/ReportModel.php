@@ -200,7 +200,38 @@
 			}
 			return $row;
         }
+////////////////////////////////////////
+public function f_get_crdemand($branch,$frmDt,$toDt){
 
+    $data = $this->db->query("select  sum(dep_amt)dep_amt,sum(adj_amt)adj_amt,sum(dep_amt)- sum(adj_amt)demand,soc_name
+                         from(
+                        select  0 dep_amt,ifnull(sum(a.paid_amt),0)adj_amt ,a.soc_id,b.soc_name
+                                FROM tdf_payment_recv a,mm_ferti_soc b
+                                WHERE a.branch_id=b.district
+                                and   a.branch_id='$branch'
+                                and a.pay_type='6'
+                                and   a.paid_dt between '$frmDt' and '$toDt'
+                        group by a.soc_id ,b.soc_name
+                        
+                        union
+                        
+                        select  ifnull(sum(a.tot_amt),0),0,a.soc_id,b.soc_name  from  tdf_dr_cr_note a,mm_ferti_soc b
+                        where a.trans_flag='R'
+                        and a.note_type='D'
+                        and a.branch_id='$branch'
+                        and a.branch_id=b.district
+                        group by a.soc_id,b.soc_name )a
+                        group by  soc_name");
+
+    if($data->num_rows() > 0 ){
+        $row = $data->result();
+    }else{
+        $row = 0;
+    }
+    return $row;
+}
+
+////////////////////////////////////////////////
         public function f_get_balance_rowise($branch,$frmDt,$toDt){
 
             $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - tot_sale),0) as opn_qty,0 tot_pur,0 tot_sale,ro_no 
