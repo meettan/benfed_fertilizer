@@ -99,7 +99,7 @@
 	                    <input type="hidden"  id="tot_amt" name="tot_amt"  />
 						<input type="text" style="width:180px" id="tot_recvble_amt" name="tot_recvble_amt" class="form-control" readonly />
 	                    </div> -->
-                        <label for="tot_dr_amt" class="col-sm-2 col-form-label">Total Dr Note Amount:</label>
+                        <label for="tot_dr_amt" class="col-sm-2 col-form-label">Total Cr Note Amount:</label>
 						<div class="col-sm-3">
                         <input type="text" style="width:180px" id="tot_dr_amt" name="tot_dr_amt" value="0" class="form-control"  readonly />
                         </div>
@@ -205,7 +205,7 @@
 						<option value="3">Cheque</option>
                         <option value="4">Draft</option>
                         <option value="5">Pay Order</option>
-                        <option value="6">DR Note</option>
+                        <option value="6">CR Note</option>
                         <option value="7">NEFT/RTGS</option>
                    
             </select> 
@@ -281,7 +281,7 @@
 						+ '<option value="3">Cheque</option>'
                         + '<option value="4">Draft</option>'
                         + '<option value="5">Pay Order</option>'
-                        + '<option value="6">DR Note</option>'
+                        + '<option value="6">CR Note</option>'
                         + '<option value="7">NEFT/RTGS</option>'
                                 +'</td>'
                                 +'<td>'

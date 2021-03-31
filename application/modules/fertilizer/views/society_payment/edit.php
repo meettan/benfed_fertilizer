@@ -92,7 +92,7 @@
                         </div>
 
                           <div class="form-group row">
-                            <label for="tot_dr_amt"  class="col-sm-2 col-form-label">Total Dr Note Amount:</label>
+                            <label for="tot_dr_amt"  class="col-sm-2 col-form-label">Total Cr Note Amount:</label>
                             <div class="col-sm-4">
     
                                 <input type="text"  name="tot_dr_amt" id="tot_dr_amt" value="<?=$pay->adj_dr_note_amt?>"class="form-control" readonly />
@@ -186,7 +186,7 @@
                     <option value="3" <?php echo ($pay->pay_type == 3)? 'selected' : '';?>>Cheque</option>
                     <option value="4" <?php echo ($pay->pay_type == 4)? 'selected' : '';?>>Draft</option>
                     <option value="5" <?php echo ($pay->pay_type == 5)? 'selected' : '';?>>Pay Order</option>
-                    <option value="6" <?php echo ($pay->pay_type == 6)? 'selected' : '';?>>DR Note</option>
+                    <option value="6" <?php echo ($pay->pay_type == 6)? 'selected' : '';?>>CR Note</option>
                     <option value="7" <?php echo ($pay->pay_type == 7)? 'selected' : '';?>>NEFT/RTGS</option>
                   
                 </select>  

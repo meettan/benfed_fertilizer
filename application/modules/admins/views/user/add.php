@@ -53,10 +53,10 @@
 <?php if($this->session->userdata['loggedin']['user_type']=="A")
     {   ?>
      <select class="form-control" name="user_type" required>
-         <option value="U">General User</option>
-         <option value="M">Manager</option>
+         <option value="U">Spacial User</option>
+         <option value="M">General User</option>
          <option value="A">Administator</option>
-        <option value="B">Bank</option>
+        <!-- <option value="B">Bank</option> -->
         </select>
 
 
