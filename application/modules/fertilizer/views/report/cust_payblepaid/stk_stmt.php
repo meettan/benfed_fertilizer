@@ -161,7 +161,7 @@ tr:hover {background-color: #f5f5f5;}
                                      </td>
 
                                      <td class="report closing" id="closing">
-                                     <?php echo $prodtls->tot_payble - $prodtls->tot_paid ;
+                                     <?php echo number_format($prodtls->tot_payble - $prodtls->tot_paid,2) ;
                                          $total += $prodtls->tot_payble - $prodtls->tot_paid ; ?>  
                                      </td>
                                    

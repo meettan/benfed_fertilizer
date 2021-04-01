@@ -45,7 +45,7 @@
                       <div class="form-group row">
                       <label for="trans_do" class="col-sm-2 col-form-label">Invoice No:</label>
 						<div class="col-sm-3">
-	                <select name="trans_do" style="width:180px" class="form-control required" id="trans_do">
+	                <select name="trans_do" style="width:180px" class="form-control sch_cd required" id="trans_do">
                     <option value="">Select</option>
                     <?php
                        foreach($ro_dtls as $ro){

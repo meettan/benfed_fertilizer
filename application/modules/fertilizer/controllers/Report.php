@@ -292,20 +292,23 @@ public function soc_wse_cr_dmd(){
                 }
 
                 $opndt      =  date($year.'-04-01');
-
+            //      echo $opndt ;
+            //   die();
                 $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
                 $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
 
-                $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
-
+                // $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
+                $data['opening']     =   $this->ReportModel->f_get_balance($branch,$from_dt,$to_dt,$opndt);
+            //  echo $this->db->last_query();
+            //  die();
                 $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
 
                 $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
 
-                $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);
+                $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt,$opndt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 

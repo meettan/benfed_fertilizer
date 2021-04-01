@@ -178,7 +178,7 @@
                                       <select class="col-sm-3"
                         name="pay_type[]"
                         id="pay_type" style="width:200px;height:40px"
-                        disabled  >
+                          >
                     
                     <option value="">Select</option>
                     <option value="1" <?php echo ($pay->pay_type == 1)? 'selected' : '';?>>Cash</option>
@@ -235,7 +235,7 @@
                 </div>
 
                 
-              <!--   <div class="form-group row">
+                <div class="form-group row">
 
                     <div class="col-sm-10">
 
@@ -243,7 +243,7 @@
 
                     </div>
 
-                </div> -->
+                </div>
 
             </form>
 

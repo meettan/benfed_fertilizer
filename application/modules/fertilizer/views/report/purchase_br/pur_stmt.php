@@ -160,7 +160,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $purc->short_name; ?></td>
                                      <td class="report"><?php echo $purc->PROD_DESC; ?></td>
                                      <td class="report"><?php echo $purc->ro_no; ?></td>
-                                     <td class="report"><?php echo date("d/m/yy",strtotime($purc->ro_dt)); ?></td>
+                                     <td class="report"><?php echo date("d/m/Y",strtotime($purc->ro_dt)); ?></td>
                                      <!-- <td class="report"><?php //echo $purc->invoice_no; ?></td> -->
                                      <!-- <td class="report"><?php //echo date("d/m/y",strtotime($purc->invoice_dt)); ?></td> -->
                                      <td class="report"><?php echo $purc->qty; ?></td>
