@@ -106,6 +106,8 @@ tr:hover {background-color: #f5f5f5;}
 
                             <?php
 
+//  print_r($opening);
+//  exit;
                                 if($product){ 
 
                                     $i = 1;
@@ -166,11 +168,17 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td class="report closing" id="closing">
                                         <?php 
-                                            foreach($closing as $clsdtls){
-                                                if($prodtls->prod_id==$clsdtls->prod_id){
-                                                    echo $clsdtls->opn_qty;               
-                                                }
+                                        foreach($opening as $opndtls){
+                                            if($prodtls->prod_id==$opndtls->prod_id){
+                                                echo $opndtls->cls_qty;
                                             }
+                                        }
+                                        
+                                            // foreach($closing as $clsdtls){
+                                            //     if($prodtls->prod_id==$clsdtls->prod_id){
+                                            //         echo $clsdtls->opn_qty;               
+                                            //     }
+                                            // }
                                         ?>
                                      </td>
                                    
