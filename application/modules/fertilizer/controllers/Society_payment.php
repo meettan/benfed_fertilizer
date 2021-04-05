@@ -36,30 +36,27 @@ public function society_payEdit(){
 
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-            	$paid_id = $this->input->post('paid_id');
+	
+				$paid_id = $this->input->post('trans_do');
+				// echo ($paid_id) ;
+				// die();
+				// $pay_type=$_POST['pay_type'][$i];
+				$paid_amt = $this->input->post('paid_amt');
 				
-				
-			  for($i = 0; $i < count($paid_id); $i++){
+			  for($i = 0; $i < count($paid_amt); $i++){
 
 			  $data     = array(     
                                   'paid_dt'        => $this->input->post('paid_dt'),
 
-								   'soc_id'  => $this->input->post('soc_id'), 
-
-								   'sale_invoice_no'  => $this->input->post('trans_do'),
-
                                    'ro_no'           => $this->input->post('sale_ro'),
 
-                                  'bnk_id'          => $this->input->post('bnk_id'),
+								   'sl_no'          => $this->input->post('sl_no'),
 
                                    'pay_type'      => $_POST['pay_type'][$i],
 
                                     'ref_dt'      => $_POST['ref_dt'][$i],
 
-                                    'qty'          => $_POST['ref_no'][$i],
-
-                                    'ref_no'      => $_POST['paid_amt'][$i],
+                                    'paid_amt'      => $_POST['paid_amt'][$i],
 
                                     "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -69,19 +66,23 @@ public function society_payEdit(){
 
 		   $where  =   array(
 
-                 'paid_id'     => $this->input->post('paid_id')
-
+				 'paid_id'     => $this->input->post('trans_do'),
+				 
+				 'sl_no'     => $this->input->post('sl_no'),
+				 
             );
 
             $this->Society_paymentModel->f_edit('tdf_payment_recv', $data, $where);
 							}
 				
+							echo $this->db->last_query();
+							die();
 				$this->session->set_flashdata('msg', 'Successfully Updated');
 
 			// redirect('fertilizer/Society_payment');
 		
-			redirect('Society_payment/Society_payment');
-            
+			// redirect('Society_payment/Society_payment');
+			redirect('socpay/society_payment');            
 			}else {
 				
 			 $select3        = array("comp_id","comp_name");
@@ -117,8 +118,6 @@ public function society_payEdit(){
 
 }
 
-
-
         public function society_payAdd(){
 
             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
@@ -127,7 +126,7 @@ public function society_payEdit(){
 			$transCd 	= $this->Society_paymentModel->get_soc_pay_code($br_cd,$fin_id);
 			$soc_id     = $this->input->post('soc_id');
 			$month     =date('m');
-			// echo ( $this->input->post('sale_ro'));
+			 // echo ( $this->input->post('sale_ro'));
 			// die();
 			$select_dist         = array("dist_sort_code" );
 			$where_dist          = array("district_code"     =>  $br_cd );
@@ -136,7 +135,6 @@ public function society_payEdit(){
             $adv_transCd 	     = $this->AdvanceModel->get_advance_code($br_cd,$fin_id);
             $adv_receipt         = 'Adv/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$adv_transCd->sl_no;
 			
-		
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 				$ro          = $this->input->post('sale_ro');
 				$select_comp = array("short_name" );

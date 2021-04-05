@@ -125,6 +125,7 @@
                             <div class="col-sm-4">
     
                                 <input type="text"  name="ifsc" id="ifsc" class="form-control" value="<?=$pay->ifsc?>" readonly />
+                                <input type="hidden"  name="sl_no" id="sl_no" class="form-control" value="<?=$pay->sl_no?>" readonly />
                             </div>
 
                             <label for="ac_no"  class="col-sm-2 col-form-label">A/C No:</label>
