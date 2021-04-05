@@ -421,14 +421,15 @@ public function ps_pl(){
 
                 $data['product']     =   $this->ReportModel->f_get_product_list_companywise($branch,$opndt,$comp_id);
 
-                $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+                // $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+                $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
 
                 $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
 
                 $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
 
-                $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
-
+                // $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
+                $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);

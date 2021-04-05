@@ -169,50 +169,31 @@
         }
 
         public function f_get_balance($branch,$frmDt,$toDt,$opndt){
+            if ($opndt>='2021-04-01') {
 
-            // $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - ifnull(tot_sale,0)),0) as opn_qty,0 tot_pur,0 tot_sale
-			// 						  from (
-            //                                 select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
-			// 								from tdf_opening_stock
-            //                                 where branch_id	    = $branch
-            //                                 and   balance_dt ='$opndt'
-            //                                 group by prod_id 
-            //                                 union
-            //                                 select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale
-			// 								from td_purchase
-            //                                 where br	    = $branch
-            //                                 and   trans_dt < '$opndt' 
-            //                                 and   trans_flag = 1
-			// 								group by prod_id
-			// 								UNION
-            //                                 select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale
-			// 								from td_purchase
-            //                                 where br	    = $branch
-            //                                 and   trans_dt between '$frmDt' and  '$toDt'
-            //                                 and   trans_flag = 1
-			// 								group by prod_id
-			// 								UNION
-			// 								select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale
-			// 								from td_sale
-            //                                 where br_cd	    = $branch
-            //                                 and   do_dt between '$frmDt' and '$toDt'
-			// 								group by prod_id)a
-            //                             group by prod_id
-            //                             order by prod_id");
-            $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty
+                $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty
             from (
-                  select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
-                  from tdf_opening_stock
-                  where branch_id	    = $branch
-                  and   balance_dt ='$opndt'
-                  group by prod_id 
-                  union
-                  select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale
-                  from td_purchase
-                  where br	    = $branch
-                  and   trans_dt < '$opndt' 
-                  and   trans_flag = 1
-                  group by prod_id
+                select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale
+                from(
+                select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
+                                from tdf_opening_stock
+                                where branch_id	    = $branch
+                                and   balance_dt ='2020-04-01'
+                                group by prod_id
+                                union
+                select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale
+                                  from td_sale
+                                  where br_cd	    = $branch
+                                  and   do_dt <'$opndt'
+                                  group by prod_id
+                UNION
+                select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale
+                                  from td_purchase
+                                  where br	    =$branch
+                                  and   trans_dt < '$opndt' 
+                                  and   trans_flag = 1
+                                  group by prod_id)a
+                                  group by prod_id
                   UNION
                   select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale
                   from td_purchase
@@ -228,7 +209,33 @@
                   group by prod_id)a
               group by prod_id
               order by prod_id");
-
+              
+             } else{
+            $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty,sum( tot_pur)tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty
+            from (
+                  select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
+                  from tdf_opening_stock
+                  where branch_id	    = $branch
+                  and   balance_dt ='$opndt'
+                  group by prod_id 
+            
+                  UNION
+                  select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale
+                  from td_purchase
+                  where br	    = $branch
+                  and   trans_dt between '$frmDt' and  '$toDt'
+                  and   trans_flag = 1
+                  group by prod_id
+                  UNION
+                  select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale
+                  from td_sale
+                  where br_cd	    = $branch
+                  and   do_dt between '$frmDt' and '$toDt'
+                  group by prod_id)a
+              group by prod_id
+              order by prod_id");
+            }
+        
 			if($data->num_rows() > 0 ){
 				$row = $data->result();
 			}else{
@@ -268,29 +275,96 @@ public function f_get_crdemand($branch,$frmDt,$toDt){
 }
 
 ////////////////////////////////////////////////
-        public function f_get_balance_rowise($branch,$frmDt,$toDt){
+        public function f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt){
 
-            $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - tot_sale),0) as opn_qty,0 tot_pur,0 tot_sale,ro_no 
-                                      from (
-                                            select prod_id,ifnull(qty,0)qty,0 tot_pur,0 tot_sale,ro_no
-                                            from tdf_opening_stock
-                                            where branch_id     = $branch
-                                            and   balance_dt    = '$frmDt'
-                                            UNION
-                                            select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
-                                            from td_purchase
-                                            where br        = $branch
-                                            and   trans_dt between '$frmDt' and '$toDt'
-                                            and   trans_flag = 1
-                                            group by prod_id,ro_no
-                                            UNION
-                                            select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
-                                            from td_sale
-                                            where br_cd     = $branch
-                                            and   do_dt between '$frmDt' and '$toDt'
-                                            group by prod_id,sale_ro)a
-                                        group by prod_id,ro_no
-                                        order by prod_id");
+            // $data = $this->db->query("Select prod_id,ifnull(Sum((qty + tot_pur) - tot_sale),0) as opn_qty,0 tot_pur,0 tot_sale,ro_no 
+            //                           from (
+            //                                 select prod_id,ifnull(qty,0)qty,0 tot_pur,0 tot_sale,ro_no
+            //                                 from tdf_opening_stock
+            //                                 where branch_id     = $branch
+            //                                 and   balance_dt    = '$frmDt'
+            //                                 UNION
+            //                                 select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
+            //                                 from td_purchase
+            //                                 where br        = $branch
+            //                                 and   trans_dt between '$frmDt' and '$toDt'
+            //                                 and   trans_flag = 1
+            //                                 group by prod_id,ro_no
+            //                                 UNION
+            //                                 select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+            //                                 from td_sale
+            //                                 where br_cd     = $branch
+            //                                 and   do_dt between '$frmDt' and '$toDt'
+            //                                 group by prod_id,sale_ro)a
+            //                             group by prod_id,ro_no
+            //                             order by prod_id");
+
+            if ($opndt>='2021-04-01') {
+
+                $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty,ro_no
+            from (
+                select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale,ro_no
+                from(
+                select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale,ro_no
+                                from tdf_opening_stock
+                                where branch_id	    = $branch
+                                and   balance_dt ='2020-04-01'
+                                group by prod_id,ro_no
+                                union
+                select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+                                  from td_sale
+                                  where br_cd	    = $branch
+                                  and   do_dt <'$opndt'
+                                  group by prod_id,sale_ro
+                UNION
+                select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale,ro_no
+                                  from td_purchase
+                                  where br	    =$branch
+                                  and   trans_dt < '$opndt' 
+                                  and   trans_flag = 1
+                                  group by prod_id,ro_no)a
+                                  group by prod_id,ro_no
+                  UNION
+                  select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
+                  from td_purchase
+                  where br	    = $branch
+                  and   trans_dt between '$from_dt' and  '$to_dt'
+                  and   trans_flag = 1
+                  group by prod_id,ro_no
+                  UNION
+                  select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+                  from td_sale
+                  where br_cd	    = $branch
+                  and   do_dt between '$from_dt' and '$to_dt'
+                  group by prod_id,sale_ro)a
+              group by prod_id,ro_no
+              order by prod_id");
+              
+             } else{
+            $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, ifnull(sum(tot_pur),0)tot_pur, ifnull(sum(tot_sale),0)tot_sale,ifnull(Sum(qty ),0) +ifnull(sum(tot_pur),0) - ifnull(sum(tot_sale),0)as  cls_qty,ro_no
+            from (
+                  select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale,ro_no
+                  from tdf_opening_stock
+                  where branch_id	    = $branch
+                  and   balance_dt ='$opndt'
+                  group by prod_id ,ro_no
+            
+                  UNION
+                  select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
+                  from td_purchase
+                  where br	    = $branch
+                  and   trans_dt between '$from_dt' and  '$to_dt'
+                  and   trans_flag = 1
+                  group by prod_id,ro_no
+                  UNION
+                  select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+                  from td_sale
+                  where br_cd	    = $branch
+                  and   do_dt between '$from_dt' and '$to_dt'
+                  group by prod_id,sale_ro)a
+              group by prod_id,ro_no
+              order by prod_id");
+            }
 
             if($data->num_rows() > 0 ){
                 $row = $data->result();

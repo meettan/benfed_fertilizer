@@ -176,12 +176,20 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td class="report closing" id="closing">
                                         <?php 
-                                            foreach($closing as $clsdtls){
-                                                if($prodtls->ro_no==$clsdtls->ro_no){
-                                                    echo $clsdtls->opn_qty; 
-                                                    $total +=$clsdtls->opn_qty;              
-                                                }
+                                            // foreach($closing as $clsdtls){
+                                            //     if($prodtls->ro_no==$clsdtls->ro_no){
+                                            //         echo $clsdtls->opn_qty; 
+                                            //         //echo $opndtls->cls_qty;
+                                            //         $total +=$clsdtls->opn_qty;  
+                                            //        // $total +=$opndtls->cls_qty;              
+                                            //     }
+                                           // }
+                                           foreach($opening as $opndtls){
+                                            if($prodtls->ro_no==$opndtls->ro_no){
+                                                echo $opndtls->cls_qty;
+                                                $total +=$opndtls->opn_qty;
                                             }
+                                        }
                                         ?>
                                      </td>
                                    
