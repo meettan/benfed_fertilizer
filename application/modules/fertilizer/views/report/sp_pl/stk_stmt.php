@@ -92,11 +92,16 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Purchase Qty</th>
 
-                                <th>Sale Qty</th>
+                                <th>Sale Rate</th>
 
+                                <th>Sale Rate With GST</th>
+ 
                                 <th>Sale Amount</th>
 
-                                <th>Profit(Sale -Purchase)</th>
+                                <th>Sale Qty</th>
+
+                                <th>(Purchase Rate - Sale Rate) * Sale Qty</th>
+                                <th> Value of Unsold Material</th>
 
                             </tr>
 
@@ -123,7 +128,9 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $prodtls->rate; ?>
                                      <td class="report"><?php echo $prodtls->pur_net_amt; ?>
                                      <td class="report"><?php echo $prodtls->qty; ?>
-
+                                     <td class="report"><?php echo $prodtls->sale_rt; ?>
+                                     <td class="report"><?php echo $prodtls->rt_gst; ?>
+                                     <td class="report"><?php echo $prodtls->sale_amt; ?>
                                      <td class="report">
                                      
                                      <?php
@@ -134,16 +141,16 @@ tr:hover {background-color: #f5f5f5;}
                                         echo $prodtls->sale_qty; 
                                     }
                                      ?>
-                                     <td class="report"><?php echo $prodtls->sale_amt; ?>
+
                                      <td class="report">
                                      <?php
                                      if($prodtls->profit<0)   {
-                                        echo "<font color='blue'><b>$prodtls->profit</font></b>"; 
+                                        echo "<font color='blue'><b>$prodtls->pro</font></b>"; 
                                       } else {
                                       echo $prodtls->profit; 
                                     }
                                       ?>
-
+                  <td class="report"><?php echo ($prodtls->qty - $prodtls->sale_qty)*$prodtls->rate; ?>
                                 </tr>
  
                                 <?php  

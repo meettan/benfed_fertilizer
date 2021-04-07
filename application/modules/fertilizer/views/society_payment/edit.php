@@ -38,7 +38,10 @@
 						</div>
 						<label for="paid_dt" class="col-sm-2 col-form-label">Receipt Date:</label>
 						<div class="col-sm-3">
-						<input type="date"  id=paid_dt name="paid_dt" class="form-control" value="<?=$pay->paid_dt?>"  readonly />
+						<input type="date"  id=paid_dt name="paid_dt" class="form-control" value="<?=$pay->paid_dt?>"
+                          readonly />
+                          <input type="hidden"  id= sale_invoice_no name="sale_invoice_no" class="form-control" value="<?=$pay->sale_invoice_no?>"
+                           />
 						</div>
 						</div>
 	

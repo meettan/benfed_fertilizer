@@ -37,14 +37,8 @@ public function society_payEdit(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 	
-				$paid_id = $this->input->post('trans_do');
-				// echo ($paid_id) ;
-				// die();
-				// $pay_type=$_POST['pay_type'][$i];
-				$paid_amt = $this->input->post('paid_amt');
 				
-			  for($i = 0; $i < count($paid_amt); $i++){
-
+	
 			  $data     = array(     
                                   'paid_dt'        => $this->input->post('paid_dt'),
 
@@ -52,11 +46,11 @@ public function society_payEdit(){
 
 								   'sl_no'          => $this->input->post('sl_no'),
 
-                                   'pay_type'      => $_POST['pay_type'][$i],
+                                   'pay_type'      => $_POST['pay_type'],
 
-                                    'ref_dt'      => $_POST['ref_dt'][$i],
+                                    'ref_dt'      => $_POST['ref_dt'],
 
-                                    'paid_amt'      => $_POST['paid_amt'][$i],
+                                    'paid_amt'      => $_POST['paid_amt'],
 
                                     "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -69,20 +63,18 @@ public function society_payEdit(){
 				 'paid_id'     => $this->input->post('trans_do'),
 				 
 				 'sl_no'     => $this->input->post('sl_no'),
+				 'sale_invoice_no' => $this->input->post('sale_invoice_no'),
 				 
             );
 
             $this->Society_paymentModel->f_edit('tdf_payment_recv', $data, $where);
-							}
-				
+							
 							echo $this->db->last_query();
 							die();
 				$this->session->set_flashdata('msg', 'Successfully Updated');
 
-			// redirect('fertilizer/Society_payment');
-		
-			// redirect('Society_payment/Society_payment');
-			redirect('socpay/society_payment');            
+			redirect('socpay/society_payment');    
+
 			}else {
 				
 			 $select3        = array("comp_id","comp_name");
@@ -92,23 +84,16 @@ public function society_payEdit(){
 
 			$product['rodtls']   = $this->Society_paymentModel->f_select('td_purchase',$select2,NULL,0);
 
-			$where1  =   array(
-
-					'district'     => $this->session->userdata['loggedin']['branch_id']);
+			$where1  =   array('district'     => $this->session->userdata['loggedin']['branch_id']);
 			
 			$select1          = array("soc_id","soc_name","soc_add","gstin");
 			$product['socdtls']   = $this->Society_paymentModel->f_select('mm_ferti_soc',$select1,$where1,0);
 
 			$select          = array("prod_id","prod_desc","gst_rt");
 			$product['proddtls']   = $this->Society_paymentModel->f_select('mm_product',$select,NULL,0);	
-            // $product['pay_dtls']  = $this->Society_paymentModel->f_get_particulars("tdf_payment_recv", NULL, array("paid_id" => $this->input->get('trans_do')),0);
-			// $product['pay_dtls']  = $this->Society_paymentModel->f_get_cust_paydtls($this->input->get('trans_do'));
+           
 			$product['paydtls']  = $this->Society_paymentModel->f_get_cust_paydtls($this->input->get('paid_id'));
-			//  echo $this->db->last_query();
-			//  die();
-			// $product['bnk_dtls']   = $this->Society_paymentModel->f_get_custpay_bnk_dtl($this->input->post('bnk_id'));
-			//  echo $this->db->last_query();
-			//  die();
+		
 	        $this->load->view('post_login/fertilizer_main');
 
 	        $this->load->view("Society_payment/edit",$product);
