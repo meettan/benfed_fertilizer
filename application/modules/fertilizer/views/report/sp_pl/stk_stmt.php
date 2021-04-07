@@ -150,7 +150,7 @@ tr:hover {background-color: #f5f5f5;}
                                       echo $prodtls->profit; 
                                     }
                                       ?>
-                  <td class="report"><?php echo ($prodtls->qty - $prodtls->sale_qty)*$prodtls->rate; ?>
+                  <td class="report"><?php echo round(($prodtls->qty - $prodtls->sale_qty)*$prodtls->rate,2); ?>
                                 </tr>
  
                                 <?php  
