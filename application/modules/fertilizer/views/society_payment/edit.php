@@ -122,7 +122,13 @@
                                 <input type="text" name="bnk_id" id="bnk_id" class="form-control" value="<?=$pay->bank_name?>"  readonly/>
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                       
+                       <label for="rndnet_amt" class="col-sm-2 col-form-label">Net Amount(Rounded)<br>(Total Amount - Paid Amount):</label>
+                       <div class="col-sm-3">
+                       <input type="text" style="width:180px" id="rndnet_amt" name="rndnet_amt"value="<?=round($pay->net_recvble_amt)?>"  class="form-control" readonly />
+                       </div>
+                       </div>
                         <div class="form-group row">
                             <label for="ifsc"  class="col-sm-2 col-form-label">IFSC</label>
                             <div class="col-sm-4">
@@ -179,6 +185,7 @@
                                 <tr>
                                     
                                       <td>
+                                      <input type='hidden' value="<?php echo $pay->pay_type; ?>" name="pay_status[]"  />
                                       <select class="col-sm-3"
                         name="pay_type[]"
                         id="pay_type" style="width:200px;height:40px"
@@ -197,13 +204,13 @@
                     <!-- <input type="text" name="pay_type[]" class="form-control required pay_type" value="<?=$pay->pay_type?>" id="pay_type" readonly> -->
                                     </td>
 									<td>
-                    <input type="text" name="ref_dt[]" class="form-control required ref_dt"  value="<?=$pay->ref_dt?>"  id="ref_dt" readonly>
+                    <input type="text" name="ref_dt[]" class="form-control required ref_dt"  value="<?=$pay->ref_dt?>"  id="ref_dt" >
                                     </td>
 									<td>
-                    <input type="text" name="ref_no[]" class="form-control required ref_no"  value="<?=$pay->ref_no?>" id="ref_no" readonly>
+                    <input type="text" name="ref_no[]" class="form-control required ref_no"  value="<?=$pay->ref_no?>" id="ref_no" >
                    </td>
                    <td>
-                    <input type="text" name="paid_amt[]" class="form-control required paid_amt" value= "<?=$pay->paid_amt?>" id="paid_amt" readonly>
+                    <input type="text" name="paid_amt[]" class="form-control required paid_amt" value= "<?=$pay->paid_amt?>" id="paid_amt" >
                     <?php
                                         $sum = 0;
                                         foreach($paydtls as $pay) {
@@ -399,7 +406,7 @@ $.each(JSON.parse(data), function( index, value ) {
 </script>
 
 
-<script>
+<!-- <script>
 
 $(document).ready(function(){
 
@@ -458,7 +465,7 @@ $(document).ready(function(){
 
 	});
 
-</script>
+</script> -->
 
 
 
@@ -601,3 +608,65 @@ txtBox.focus();
         
 
 </script>
+<script>
+
+$(document).ready(function(){
+
+    $('#intro').on("change", ".paid_amt", function(){
+ 
+        $("#total").val('');
+var total = 0;
+$('.paid_amt').each(function(){
+    total += +$(this).val();
+    alert(total);
+})
+$("#Total").html(total);
+        //  var total       =   $('#Total').html();
+       
+          // alert(rnd_net_amt);
+         // console.log(tot_dist_qty_qnt);
+        // console.log(total);
+
+        // if(parseFloat(total) > parseFloat(net_amt))
+        if(parseFloat(total) > parseFloat(rnd_net_amt))
+        {
+            $('#total').css('border-color', 'red');
+            alert('Paid Amount Should Not Greater Than Net Amount!');
+            $('#submit').prop('disabled', true);
+            
+            return false;
+        }
+        else
+        {
+            $('#submit').prop('disabled', false);
+            $('#total').css('border-color', 'gray');
+            return true;
+        }
+
+    })
+
+})
+
+</script>
+<!-- <script>
+$(document).ready(function(){
+    alert('ok'); 
+$('#intro').on( "change", ".paid_amt", function(){
+
+$("#total").val('');
+var total = 0;
+$('.paid_amt').each(function(){
+    total += +$(this).val();
+})
+$("#Total").html(total);
+
+});
+alert($total);
+// $("#intro").on("click","#removeRow", function(){
+//     console.log('ok');
+
+//     $(this).parent().parent().remove();
+//     $('.paid_amt').change();
+// })
+});
+</script> -->

@@ -37,8 +37,11 @@ public function society_payEdit(){
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 	
+		
+		$pay_type = $this->input->post('pay_type');
 				
-	
+          for($i = 0; $i < count($pay_type); $i++){
+            
 			  $data     = array(     
                                   'paid_dt'        => $this->input->post('paid_dt'),
 
@@ -46,15 +49,15 @@ public function society_payEdit(){
 
 								   'sl_no'          => $this->input->post('sl_no'),
 
-                                   'pay_type'      => $_POST['pay_type'],
+                                   'pay_type'      => $_POST['pay_type'][$i],
 
-                                    'ref_dt'      => $_POST['ref_dt'],
+                                    'ref_dt'      => $_POST['ref_dt'][$i],
 
-                                    'paid_amt'      => $_POST['paid_amt'],
+                                    'paid_amt'      => $_POST['paid_amt'][$i],
 
                                     "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
-				                    "modified_dt"    =>  date('Y-m-d h:i:s'),
+				                    "modified_dt"    =>  date('Y-m-d h:i:s')
 
                                 );
 
@@ -64,13 +67,18 @@ public function society_payEdit(){
 				 
 				 'sl_no'     => $this->input->post('sl_no'),
 				 'sale_invoice_no' => $this->input->post('sale_invoice_no'),
+				 'pay_type'      => $_POST['pay_status'][$i],
 				 
             );
 
+			 // print_r( $where);
+			// die();
+
             $this->Society_paymentModel->f_edit('tdf_payment_recv', $data, $where);
 							
-							echo $this->db->last_query();
-							die();
+			 // echo $this->db->last_query();
+			// die();
+		}
 				$this->session->set_flashdata('msg', 'Successfully Updated');
 
 			redirect('socpay/society_payment');    

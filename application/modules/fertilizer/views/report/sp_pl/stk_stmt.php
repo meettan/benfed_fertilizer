@@ -100,7 +100,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Sale Qty</th>
 
-                                <th>(Purchase Rate - Sale Rate) * Sale Qty</th>
+                                <th>( Sale Rate - Purchase Rate ) * Sale Qty</th>
                                 <th> Value of Unsold Material</th>
 
                             </tr>
