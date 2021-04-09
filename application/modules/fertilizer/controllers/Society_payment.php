@@ -49,6 +49,8 @@ public function society_payEdit(){
 
 								   'sl_no'          => $this->input->post('sl_no'),
 
+								   'remarks'          => $this->input->post('remarks'),
+
                                    'pay_type'      => $_POST['pay_type'][$i],
 
                                     'ref_dt'      => $_POST['ref_dt'][$i],
@@ -76,7 +78,7 @@ public function society_payEdit(){
 
             $this->Society_paymentModel->f_edit('tdf_payment_recv', $data, $where);
 							
-			 // echo $this->db->last_query();
+			//  echo $this->db->last_query();
 			// die();
 		}
 				$this->session->set_flashdata('msg', 'Successfully Updated');

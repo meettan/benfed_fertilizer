@@ -126,7 +126,7 @@
                        
                        <label for="rndnet_amt" class="col-sm-2 col-form-label">Net Amount(Rounded)<br>(Total Amount - Paid Amount):</label>
                        <div class="col-sm-3">
-                       <input type="text" style="width:180px" id="rndnet_amt" name="rndnet_amt"value="<?=round($pay->net_recvble_amt)?>"  class="form-control" readonly />
+                       <input type="text" style="width:180px" id="rndnet_amt" name="rndnet_amt"value="<?=round($pay->net_recvble_amt) ?>"  class="form-control" readonly />
                        </div>
                        </div>
                         <div class="form-group row">
@@ -147,8 +147,8 @@
                         <div class="form-group row">
                             <label for="remarks"  class="col-sm-2 col-form-label">Remarks</label>
                             <div class="col-sm-4">
-    
-                                <textarea  style="width:590px" name="remarks" id="remarks"  value="<?=$pay->remarks?>" class="form-control" readonly ></textarea>
+                            <!-- <input type="text" name="remarks" id="remarks" class="form-control" value="<?=$pay->remarks?>"  readonly/> -->
+                                <textarea  style="width:590px" name="remarks" id="remarks"  class="form-control"  ><?php echo $pay->remarks; ?></textarea>
                             </div>
                             </div>
 						<div class="form-header">
@@ -210,7 +210,7 @@
                     <input type="text" name="ref_no[]" class="form-control required ref_no"  value="<?=$pay->ref_no?>" id="ref_no" >
                    </td>
                    <td>
-                    <input type="text" name="paid_amt[]" class="form-control required paid_amt" value= "<?=$pay->paid_amt?>" id="paid_amt" >
+                    <input type="text" name="paid_amt[]" class="form-control required paid_amt" value= "<?=$pay->paid_amt?>" id="paid_amt" readonly>
                     <?php
                                         $sum = 0;
                                         foreach($paydtls as $pay) {

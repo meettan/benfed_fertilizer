@@ -259,7 +259,7 @@
 		a.adj_dr_note_amt,
 		a.adj_adv_amt,
 		a.net_recvble_amt,
-		a.paid_amt,b.bank_name,b.ifsc,b.ac_no,a.remarks
+		a.paid_amt,b.bank_name,b.ifsc,b.ac_no,a.remarks as remarks
 		from tdf_payment_recv a,mm_feri_bank b
 		where a.bnk_id=b.sl_no
 		and paid_id = '$bnk_id'");
