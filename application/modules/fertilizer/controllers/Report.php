@@ -292,8 +292,8 @@ public function soc_wse_cr_dmd(){
                 }
 
                 $opndt      =  date($year.'-04-01');
-             //      echo $opndt ;
-            //       die();
+                //   echo $opndt ;
+                //   die();
                 $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
@@ -484,14 +484,15 @@ public function stkScomp_ho(){
 
         $data['product']     =   $this->ReportModel->f_get_product_list_companywise($branch,$opndt,$comp_id);
 
-        $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+        // $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$prevdt);
+        $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
 
         $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
 
         $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
 
-        $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
-
+        // $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
+        $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
         // $where1           =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
         $where1              =   array("district_code"  => $branch);
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
@@ -566,7 +567,8 @@ public function stkScomp_ho(){
             //     die();
 
 
-                $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
+                // $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$opndt,$to_dt);
+                $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 

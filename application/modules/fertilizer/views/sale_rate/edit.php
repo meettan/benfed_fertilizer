@@ -164,7 +164,7 @@
 						</div>
                     <label for="salerate" class="col-sm-2 col-form-label"></label>
 						<div class="col-sm-10">
-												<div class="col-sm-2">
+												<!-- <div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="327" disabled
@@ -175,8 +175,8 @@
 					    }
 				    }
 				    ?> >DAR
-					</div>
-											<div class="col-sm-2">
+					</div> -->
+					<div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="328" disabled
@@ -208,7 +208,7 @@
 					>COOH
 					</div>
 
-						<div class="col-sm-2">
+						<!-- <div class="col-sm-2">
 							
 
 					     <input type="checkbox" name="district[]" id="checkItem" value="346" disabled
@@ -221,7 +221,7 @@
 						
 						?>
 						 >ALPD
-					    </div>
+					    </div> -->
 											<div class="col-sm-2">
 							
 
@@ -315,7 +315,7 @@
 						}
 						
 						?>
-					>EBDN
+					>BDN
 					</div>
 											<div class="col-sm-2">
 							
@@ -453,7 +453,7 @@
 					>EMDN
 					</div>
 										
-											<div class="col-sm-2">
+											<!-- <div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="347" disabled
@@ -467,7 +467,7 @@
 						
 						?>
 					>WBDN
-					</div>
+					</div> -->
 											<div class="col-sm-2">
 							
 

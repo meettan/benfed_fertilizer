@@ -160,11 +160,11 @@
 						</div>
 <label for="salerate" class="col-sm-2 col-form-label"></label>
 						<div class="col-sm-10">
-												<div class="col-sm-2">
+												<!-- <div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="327">DAR
-					</div>
+					</div> -->
 											<div class="col-sm-2">
 							
 
@@ -176,11 +176,11 @@
 					<input type="checkbox" name="district[]" id="checkItem" value="329">COOH
 					</div>
 
-						<div class="col-sm-2">
+						<!-- <div class="col-sm-2">
 							
 
 					     <input type="checkbox" name="district[]" id="checkItem" value="346">ALPD
-					    </div>
+					    </div> -->
 											<div class="col-sm-2">
 							
 
@@ -215,7 +215,7 @@
 											<div class="col-sm-2">
 							
 
-					<input type="checkbox" name="district[]" id="checkItem" value="335">EBDN
+					<input type="checkbox" name="district[]" id="checkItem" value="335">BDN
 					</div>
 											<div class="col-sm-2">
 							
@@ -263,12 +263,12 @@
 					<input type="checkbox" name="district[]" id="checkItem" value="345">EMDN
 					</div>
 										
-											<div class="col-sm-2">
+											<!-- <div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="347">WBDN
-					</div>
-											<div class="col-sm-2">
+					</div> -->
+					<div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="348">JHG
