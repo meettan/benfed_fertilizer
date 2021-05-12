@@ -19,8 +19,10 @@
 public function drnoteReport()
 {
 	$receipt_no = $this->input->get('receipt_no');
-	$cr['data']    = $this->DrcrnoteModel->f_get_receiptReport_dtls($receipt_no);
-	
+	$finYr          = $this->session->userdata['loggedin']['fin_id'];
+	$cr['data']    = $this->DrcrnoteModel->f_get_receiptReport_dtls($receipt_no,$finYr   );
+	echo $this->db->last_query();
+	die();
 	$cr['receipt_no'] = $receipt_no;
  
 	$this->load->view("post_login/fertilizer_main");
