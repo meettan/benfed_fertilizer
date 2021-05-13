@@ -94,9 +94,11 @@ tr:hover {background-color: #f5f5f5;}
                               <!--   <th>Company</th> -->
                                 <th>Purchase Date</th>
                                 <th>Purchse DO No</th>
+                                
+                                <th>Society</th>
                                 <th>Sale Date</th>
                                 <th>Sale invoice No</th>
-                               
+                                
                                 <!-- <th>Unit</th> -->
                                 <th>Opening</th>
                                 <th>Purchase during the period</th>
@@ -136,6 +138,7 @@ tr:hover {background-color: #f5f5f5;}
                                      </b>
                                     </td>
                                     <td class="report"><b><?php echo $prodtls->Purchase_RO; ?></b> </td>
+                                    <td class="report"><b><?php echo $prodtls->soc_name; ?></b> </td>
                                     <td class="report">
                                     <?php 
                                      if( $prodtls->Sale_qty>0)
@@ -172,6 +175,7 @@ tr:hover {background-color: #f5f5f5;}
                                      ?> 
                                      </td>
                                      </td>
+
                                      <td class="report">
                                      <b>
                                      <?php 
@@ -224,7 +228,7 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="6" style="text-align:right">Total</td> 
+                               <td class="report" colspan="7" style="text-align:right">Total</td> 
                                <!-- <td class="report"><?=$taxable_amt?></td> -->
                                <td class="report"><?=$tot_purchase?></td>
                                <td class="report"><?=$tot_sale?></td> 
