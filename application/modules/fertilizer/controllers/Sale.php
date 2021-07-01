@@ -135,6 +135,13 @@
 
 		}
 		
+		public function api_call()
+		{
+			$trans_do = $this->input->get('trans_do');
+			$api_query= $this->SaleModel->f_get_api_data($trans_do);
+			echo json_encode($api_query);
+		}
+
 		public function saleinvoice_rep()
 		{
 			$trans_do = $this->input->get('trans_do');

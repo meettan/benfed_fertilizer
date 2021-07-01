@@ -1,3 +1,63 @@
+<!-- <style>
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style> -->
+
+<style>
+#loader {
+    position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+/* #loader.loading { */
+	/* background: <?= base_url() . 'assets/images/ajax-loader.gif' ?> no-repeat center center;
+	width: 32px;
+	margin: auto; */
+    /* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* } */
+
+</style>
+
+    <!-- Loader -->
+    <div id="loader" class="loading img-center" style="display: none;"></div>
+    <!--End Loader-->
 <div class="wraper">      
         
         <div class="row">
@@ -20,7 +80,6 @@
                     <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
                 </div> -->
             </h3>
-
             <table class="table table-bordered table-hover" id="example">
 
                 <thead>
@@ -34,7 +93,9 @@
                         <th>Invoice Type</th>
                         <th>Amout</th>
                         <th>View</th>
-                        <th>Print</th>
+                        <th>IRN</th>
+                        <th>ACK NO</th>
+                        <th>Download</th>
                         <th>Delete</th>
                     </tr>
 
@@ -46,6 +107,7 @@
                         $i=0;
                     if($data) {
                             foreach($data as $value) {
+                                $disable_btn = $value->irn ? 'hidden' : '';
 		    ?>
 
                             <tr>   
@@ -66,16 +128,26 @@
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                 </td>
+                                <!-- <td><<a href="<?php echo site_url('trade/api_call?trans_do='.$value->trans_do.''); ?>"  -->
+                                <td id="irn_clk_td_<?= $i ?>">
+                                    <?php if($value->irn){echo $value->irn; }else{ ?>
+                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="irn" onclick="irn_clk(<?= $i ?>, '<?= $value->trans_do ?>')">
+                                        <i class="fa fa-file-o fa-2x" style="color: blue"></i>
+                                   </button>
+                                   <?php } ?> 
+                               </td>
+                               <td id="ack_clk_td_<?= $i ?>">
+                                    <?php if($value->ack){echo $value->ack; }else{ ?>
+                                   
+                                   <?php } ?> 
+                               </td>
                                 <td>
-                                <a href="<?php echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print">
-
-                                    <i class="fa fa-print fa-2x" style="color:green;"></i>  
-
-                                    </a>
+                                <!-- <a href="<?php //echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a> -->
+                                    <a href="<?php echo site_url('api/print_irn?irn='.$value->irn.''); ?>" id="down_clk_td_<?= $i ?>" title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
                                 </td>
-                                <td><button type="button" class="delete" id="<?php echo $value->trans_do;?>"    
+                                <td><button type="button" name="delete_<?= $i ?>" class="delete" id="<?php echo $value->trans_do;?>"    
                                        
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                        data-toggle="tooltip" data-placement="bottom" title="Delete" <?= $disable_btn; ?>>
 
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
@@ -109,7 +181,9 @@
                         <th>Invoice Type</th>
                         <th>Amout</th>
                         <th>View</th>
-                        <th>Print</th>
+                        <th>IRN</th>
+                        <th>ACK NO</th>
+                        <th>Download</th>
                         <th>Delete</th>
                     </tr>
                 
@@ -165,4 +239,80 @@ $(document).ready(function() {
         "pagingType": "full_numbers"
     } );
 } );
+</script>
+
+<script>
+    function irn_clk(i, trans_do){
+        // alert(i);
+        $.ajax({
+            type: "GET",
+            url: "<?php echo site_url('api/get_api_res'); ?>",
+            data: {trans_do: trans_do},
+            dataType: 'html',
+            beforeSend: function () {
+                // Show image container
+                $("#loader").show();
+                $('.wraper').hide();
+            },
+            success: function (result) {
+                // console.log(result);
+                var res = JSON.parse(result);
+                console.log(res['Success']);
+                if(res['Success'] == 'Y'){
+                    save_data(trans_do, res['Irn'],res['AckNo']);
+                    // if(save_data(trans_do, res['Irn']) > 0){
+                        $('#ack_clk_td_' + i).empty();
+                        $('#irn_clk_td_' + i).empty();
+                        $('#irn_clk_td_' + i).text(res['Irn']);
+                        $('#ack_clk_td_' + i).text(res['AckNo']);
+                        $('#down_clk_td_' + i).attr('href', '<?= site_url() ?>api/print_irn?irn='+res['Irn']);
+                        // AckNo
+                        //AckDt
+                        $('[name="delete_'+i+'"]').attr('disabled', 'disabled');
+                    // }else{
+                    //     alert('Data Not Inserted');
+                    //     $('[name="delete_'+i+'"]').removeAttr('disabled');
+                    // }
+                }else{
+                    // alert('Something Went Wrong');
+                    alert('IRN not generated! Something Went Wrong');
+                    $('[name="delete_'+i+'"]').removeAttr('disabled');
+                }
+            },
+            complete: function (data) {
+                // Hide image container
+                $("#loader").hide();
+                $('.wraper').show();
+            }
+	    });
+    }
+
+    function save_data(trans_do, irn,ack){
+        $.ajax({
+            type: "GET",
+            url: "<?php echo site_url('api/save_irn'); ?>",
+            data: {trans_do: trans_do, irn: irn,ack:ack},
+            dataType: 'html',
+            success: function (result) {
+                // console.log(result);
+                if(result == 1){
+                    return 1;
+                    // alert('IRN GENERATED SUCCESSFULLY');
+                }else{
+                    return 0;
+                }
+                // var res = JSON.parse(result);
+                // console.log(res['Success']);
+                // if(res['Success'] == 'Y'){
+                //     $('#irn_clk_td_' + i).empty();
+                //     $('#irn_clk_td_' + i).text(res['Irn']);
+                //     $('[name="delete_'+i+'"]').attr('disabled', 'disabled');
+                //     save_data(trans_do, res['Irn']);
+                // }else{
+                //     alert('Something Went Wrong');
+                //     $('[name="delete_'+i+'"]').removeAttr('disabled');
+                // }
+            }
+	    });
+    }
 </script>

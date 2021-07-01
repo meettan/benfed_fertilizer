@@ -83,3 +83,18 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+// define('SALLERGSTIN', '29AAFCD5862R000');
+define('SALLERGSTIN', '19AABAT0010H2ZY');
+// define('SALLERPIN', '560007');
+define('SALLERPIN', '700107');
+// define('SALLERSTCD', '29');
+define('SALLERSTCD', '19');
+define('SALLERPH', '9000000000');
+define('SALLEREM', 'abc@gmail.com');
+define('CURRDT', date('d/m/Y'));
+define('AUTHKOKEN', '1.d88fc2d8-64eb-40a2-96f0-16f6e7cdd286_8d583da35687c440a8ebb2f67591923df276a8b9df462fc6eb0b033c51fbe385');
+// define('OWNERID', '0411ffd4-270a-4a78-96ef-738504f31327');
+define('OWNERID', 'd5c19ef6-b179-45a9-b661-f15c507a1aa9');
+define('PRODUCT', 'EInvoice');

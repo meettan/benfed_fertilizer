@@ -33,6 +33,94 @@
 			}
 		}
 		
+public function f_get_api_data($trans_do)
+{
+	$sql = $this->db->query("SELECT 
+	 1.1 'Version',
+	 'GST' TaxSch,'B2B'  SupTyp,'Y' RegRev,null EcmGstin,'N' IgstOnIntra,
+	 'INV' Typ,concat(a.trans_do,'/1') No ,a.do_dt Dt,
+	 '19AABAT0010H2ZY' Gstin,'The West Bengal State Co-operative Marketing Federation Ltd.'LglNm,'BENFED'TrdNm,
+	 'Southend Conclave 3rd Floor,1582 Rajdanga Main Road,Kolkata'Addr1,'Southend Conclave 3rd Floor,1582 Rajdanga Main Road'Addr2,
+	 ',Kolkata'Loc,'700107'Pin,'19'Stcd,'9666666666'Ph,'abc@gmail.com'Em,
+
+	 c.gstin Gstin1,c.soc_name LglNm1,c.soc_name TrdNm1,19 Pos,c.soc_add Addr1_1,c.soc_add Addr2_1,d.district_name Loc1,'45555666',700107 Pin1,19 Stcd1,c.ph_no Ph1,c.email Em1,
+
+	 'The West Bengal State Co-operative Marketing Federation Ltd.' Nm2,'Southend Conclave 3rd Floor,1582 Rajdanga Main Road,Kolkata' Addr1_2,'' Addr2_2,'W.B' Loc2,712101 Pin2,19 Stcd2,
+	 c.gstin Gstin2,c.soc_name LglNm2,c.soc_name TrdNm2,c.soc_add Addr1_3,c.soc_add Addr2_3,'W.B' Loc3,712101 Pin3,19     Stcd3,
+	 
+	 '1' SlNo,b.prod_desc PrdDesc,'N' IsServc,b.hsn_code HsnCd,''Barcde,a.qty Qty,'0'FreeQty,e.unit_name Unit,a.sale_rt UnitPrice,
+	a.taxable_amt TotAmt,a.dis Discount, 0 PreTaxVal,a.taxable_amt AssAmt,b.gst_rt GstRt,0 IgstAmt,a.cgst  CgstAmt,a.sgst SgstAmt,
+	 0 CesRt,0 CesAmt,0 CesNonAdvlAmt,0 StateCesRt,0 StateCesAmt, 0 StateCesNonAdvlAmt,0 OthChrg,a.taxable_amt+a.cgst+a.sgst TotItemVal,
+	 0 OrdLineRef,'IN' OrgCntry,0 PrdSlNo,
+	 '' Nm4,
+     NULL   ExpDt,
+     NULL  WrDt,
+	 '' Nm5,
+     '0'  Val,
+	 a.taxable_amt AssVal,
+     a.cgst CgstVal,
+     a.sgst SgstVal,
+     0 IgstVal,
+     0 CesVal,
+     0 StCesVal,
+     0 Discount,
+     0 OthChrg,
+     0 RndOffAmt,
+     a.taxable_amt + a.cgst+ a.sgst TotInvVal,
+     0 TotInvValFc,
+	 ''  Nm6,
+	 0  AccDet,
+	 '' Mode,
+	 '' FinInsBr,
+	 '0' PayTerm,
+	 '' PayInstr,
+	 '' CrTrn,
+	 '' DirDr,
+	 0 CrDay,
+	 0 PaidAmt,
+	 0 PaymtDue,
+	 '' InvRm, 
+	 NULL InvStDt,
+	 NULL InvEndDt,
+	 '' InvNo,
+	 NULL InvDt,
+	 '' OthRefNo,
+	 '' RecAdvRef,
+	 NULL RecAdvDt,
+	 '' TendRefr,
+	 '' ContrRefr,
+	 '' ExtRefr,
+	 '' ProjRefr,
+	 '' PORefr,
+	 NULL PORefDt,
+	 'https://einv-apisandbox.nic.in'  Url,
+	 '' Docs,
+	 '' Info,
+	 '' ShipBNo,
+	  NULL ShipBDt,
+	  '' Port,
+	  '' RefClm,
+	  '' ForCur,
+	  '' CntCode,
+      ''  TransId,
+	  '' TransName,
+	  0  Distance,
+	  '' TransDocNo,
+	  NULL  TransDocDt,
+	  '' VehNo,
+	  ''  VehType,
+	  1  TransMode
+	from td_sale a  ,mm_product b,mm_ferti_soc c,md_district d,mm_unit e,mm_company_dtls f
+	where a.prod_id=b.prod_id
+	and a.soc_id=c.soc_id
+	and c.district=d.district_code
+	and a.unit=e.id
+	and a.comp_id=f.comp_id
+	and a.trans_do='$trans_do'");
+			// echo $this->db->last_query();exit; 
+return $sql->result();
+}
+
 		public function f_get_receiptReport_dtls($trans_do)
 		{
 	
@@ -301,7 +389,7 @@
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
-		$data = $this->db->query("select  a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc
+		$data = $this->db->query("select a.irn, a.ack,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc
 									from td_sale a,mm_ferti_soc b,mm_product c
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
@@ -686,6 +774,22 @@
             				group by ro_no,tot_amt,soc_name");
               
 				return $data->result();
+		}
+
+		// SAVE IRN
+		function save_irn($data){
+			$input = array(
+				'irn' => $data['irn'],
+				'ack' => $data['ack']
+			);
+			$this->db->where(array(
+				'trans_do' => $data['trans_do']
+			));
+			if($this->db->update('td_sale', $input)){
+				return 1;
+			}else{
+				return 0;
+			}
 		}
 
 
