@@ -24,10 +24,12 @@
             $str_arr = explode('/', $dt->No);
             $suf = substr($str_arr[1], 0, 4);
             $send_str = str_replace('-', '',substr($str_arr[4], 0,5));
-            // $doc_no = $suf . '/' . substr(str_replace('_', '-', $dt->No), 15, 11);
-            $doc_no = $suf . '/' .$send_str. substr(str_replace('_', '-', $dt->No), 20,6);
+            $send_str1 = str_replace('_', '-',substr($str_arr[5], 0,10));
+            // $doc_no = $suf . '/' . substr(str_replace('_', '-', $->No), 15, 11);
+            // $doc_no = $suf . '/' .$send_str. substr(str_replace('_', '-', $dt->No), 20,6);
+            $doc_no = $suf . '/' .$send_str. '/'  .$send_str1 ;
             // var_dump($data); exit;
-            // echo ( $send_str);
+            //  echo ( $doc_no);exit;
         //    echo ( $doc_no);exit;
             $curl = curl_init();
                 curl_setopt_array($curl, array(
@@ -247,7 +249,7 @@
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?irns=' . $irns,
+            CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

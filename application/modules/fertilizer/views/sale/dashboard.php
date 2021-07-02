@@ -95,6 +95,7 @@
                         <th>View</th>
                         <th>IRN</th>
                         <th>ACK NO</th>
+                        <th>ACK DT</th>
                         <th>Download</th>
                         <th>Delete</th>
                     </tr>
@@ -141,6 +142,12 @@
                                    
                                    <?php } ?> 
                                </td>
+                               <!-- <td style="display:none" id="ackdt_clk_td_<?= $i ?>"> -->
+                               <td   id="ackdt_clk_td_<?= $i ?>">
+                                    <?php if($value->ack_dt){echo $value->ack_dt; }else{ ?>
+                                   
+                                   <?php } ?> 
+                               </td>
                                 <td>
                                 <!-- <a href="<?php //echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a> -->
                                     <a href="<?php echo site_url('api/print_irn?irn='.$value->irn.''); ?>" id="down_clk_td_<?= $i ?>" title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
@@ -183,6 +190,7 @@
                         <th>View</th>
                         <th>IRN</th>
                         <th>ACK NO</th>
+                        <th>ACK DT</th>
                         <th>Download</th>
                         <th>Delete</th>
                     </tr>
@@ -259,12 +267,14 @@ $(document).ready(function() {
                 var res = JSON.parse(result);
                 console.log(res['Success']);
                 if(res['Success'] == 'Y'){
-                    save_data(trans_do, res['Irn'],res['AckNo']);
+                    save_data(trans_do, res['Irn'],res['AckNo'],res['AckDt']);
                     // if(save_data(trans_do, res['Irn']) > 0){
+                        $('#ack_dt_td_' + i).empty();
                         $('#ack_clk_td_' + i).empty();
                         $('#irn_clk_td_' + i).empty();
                         $('#irn_clk_td_' + i).text(res['Irn']);
                         $('#ack_clk_td_' + i).text(res['AckNo']);
+                        $('#ack_dt_td_' + i).text(res['AckDt']);
                         $('#down_clk_td_' + i).attr('href', '<?= site_url() ?>api/print_irn?irn='+res['Irn']);
                         // AckNo
                         //AckDt
@@ -287,11 +297,11 @@ $(document).ready(function() {
 	    });
     }
 
-    function save_data(trans_do, irn,ack){
+    function save_data(trans_do, irn,ack,ack_dt){
         $.ajax({
             type: "GET",
             url: "<?php echo site_url('api/save_irn'); ?>",
-            data: {trans_do: trans_do, irn: irn,ack:ack},
+            data: {trans_do: trans_do, irn: irn,ack:ack,ack_dt:ack_dt},
             dataType: 'html',
             success: function (result) {
                 // console.log(result);

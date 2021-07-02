@@ -96,5 +96,9 @@ define('SALLEREM', 'abc@gmail.com');
 define('CURRDT', date('d/m/Y'));
 define('AUTHKOKEN', '1.d88fc2d8-64eb-40a2-96f0-16f6e7cdd286_8d583da35687c440a8ebb2f67591923df276a8b9df462fc6eb0b033c51fbe385');
 // define('OWNERID', '0411ffd4-270a-4a78-96ef-738504f31327');
-define('OWNERID', 'd5c19ef6-b179-45a9-b661-f15c507a1aa9');
+   //****default print  */
+   define('OWNERID', 'd5c19ef6-b179-45a9-b661-f15c507a1aa9');
+ //********************* */
+ 
+                    
 define('PRODUCT', 'EInvoice');

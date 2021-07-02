@@ -389,7 +389,7 @@ return $sql->result();
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
-		$data = $this->db->query("select a.irn, a.ack,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc
+		$data = $this->db->query("select a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc
 									from td_sale a,mm_ferti_soc b,mm_product c
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
@@ -780,7 +780,8 @@ return $sql->result();
 		function save_irn($data){
 			$input = array(
 				'irn' => $data['irn'],
-				'ack' => $data['ack']
+				'ack' => $data['ack'],
+				'ack_dt' => $data['ack_dt'],
 			);
 			$this->db->where(array(
 				'trans_do' => $data['trans_do']
