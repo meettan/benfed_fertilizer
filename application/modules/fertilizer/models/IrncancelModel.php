@@ -125,6 +125,15 @@ return $result;
 		 
 			 return;
 		}
+
+		function get_irn_details($irn){
+			$this->db->where(array('irn' => $irn));
+			$quey = $this->db->get('td_sale')->row();
+			if($this->db->insert('td_sale_cancel', $quey)){
+				$this->db->where(array('irn' => $irn));
+				$this->db->delete('td_sale');
+			}
+		}
  
 	}
 ?>

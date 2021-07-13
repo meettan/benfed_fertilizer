@@ -40,12 +40,13 @@ public function f_get_api_data($trans_do)
 	 'GST' TaxSch,'B2B'  SupTyp,'Y' RegRev,null EcmGstin,'N' IgstOnIntra,
 	 'INV' Typ,concat(a.trans_do,'/1') No ,a.do_dt Dt,
 	 '19AABAT0010H2ZY' Gstin,'The West Bengal State Co-operative Marketing Federation Ltd.'LglNm,'BENFED'TrdNm,
-	 'Southend Conclave 3rd Floor,1582 Rajdanga Main Road,Kolkata'Addr1,'Southend Conclave 3rd Floor,1582 Rajdanga Main Road'Addr2,
-	 ',Kolkata'Loc,'700107'Pin,'19'Stcd,'9666666666'Ph,'abc@gmail.com'Em,
+	 d.addr Addr1,a.addr Addr2,
+	 ,d.district_name Loc,a.pin Pin,'19'Stcd,'9666666666'Ph,'abc@gmail.com'Em,
 
 	 c.gstin Gstin1,c.soc_name LglNm1,c.soc_name TrdNm1,19 Pos,c.soc_add Addr1_1,c.soc_add Addr2_1,d.district_name Loc1,'45555666',c.pin Pin1,19 Stcd1,c.ph_no Ph1,c.email Em1,
 
-	 'The West Bengal State Co-operative Marketing Federation Ltd.' Nm2,'Southend Conclave 3rd Floor,1582 Rajdanga Main Road,Kolkata' Addr1_2,'' Addr2_2,'W.B' Loc2,d.pin Pin2,19 Stcd2,
+	 'The West Bengal State Co-operative Marketing Federation Ltd.' Nm2,d.addr Addr1_2,'' Addr2_2,'W.B' Loc2,d.pin Pin2,19 Stcd2,
+	 
 	 c.gstin Gstin2,c.soc_name LglNm2,c.soc_name TrdNm2,c.soc_add Addr1_3,c.soc_add Addr2_3,'W.B' Loc3,c.pin Pin3,19     Stcd3,
 	 
 	 '1' SlNo,b.prod_desc PrdDesc,'N' IsServc,b.hsn_code HsnCd,''Barcde,a.qty Qty,'0'FreeQty,e.unit_name Unit,a.sale_rt UnitPrice,

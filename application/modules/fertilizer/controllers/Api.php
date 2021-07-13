@@ -5,6 +5,7 @@
 		public function __construct(){
 		parent::__construct();	
 		$this->load->model('SaleModel');
+        $this->load->model('irncancelmodel');
         }
 		
 		// }
@@ -13,11 +14,15 @@
             $irn = $this->input->post('irn');
             $CnlRsn = $this->input->post('CnlRsn');
             $CnlRem = $this->input->post('CnlRem');
+            // echo $this->db->last_query();
+            // exit;
             // var_dump($_POST);exit;
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Cancel',
+                /************************for test server*********** */
+            //CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Cancel',
+            CURLOPT_URL => 'https://api-einv.cleartax.in/v1/govt/api/Cancel',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -30,11 +35,19 @@
             "CnlRsn": "'. $CnlRsn .'" ,
             "CnlRem": "'. $CnlRem .'"
             }',
-            CURLOPT_HTTPHEADER => array(
+            /*************for test server******************* */
+            /*CURLOPT_HTTPHEADER => array(
                 'x-cleartax-auth-token: 1.d88fc2d8-64eb-40a2-96f0-16f6e7cdd286_8d583da35687c440a8ebb2f67591923df276a8b9df462fc6eb0b033c51fbe385',
                 'x-cleartax-product: EInvoice',
                 'owner_id: d5c19ef6-b179-45a9-b661-f15c507a1aa9',
                 'gstin: 19AABAT0010H2ZY',
+                'Content-Type: application/json'
+            ),*/
+            CURLOPT_HTTPHEADER => array(
+                'x-cleartax-auth-token: ' . AUTHKOKEN,
+                'x-cleartax-product: ' . PRODUCT,
+                'owner_id: ' . OWNERID,
+                'gstin: ' . SALLERGSTIN,
                 'Content-Type: application/json'
             ),
             ));
@@ -51,6 +64,7 @@
                 echo $response;
                 redirect('irncan');
             }else{
+                $this->irncancelmodel->get_irn_details($irn);
                 redirect('irncan'); 
             }
             // var_dump($msg);exit;
@@ -480,9 +494,11 @@
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
+                /*****************for test server ******************* */
             // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
+            
             CURLOPT_URL => 'https://api-einv.cleartax.in/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
-            // CURLOPT_URL => 'https://api-einv.cleartax.in',
+            
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -505,15 +521,9 @@
             // echo $response;
         }
 	
-//Getting Product name and stock quantity on supplying RO
-	
 
-//***************************/
-		
 
-        // code for Sale Districtwise Report Developed by lokesh 02/04/2020 ////	
 
-		
 
 
 	

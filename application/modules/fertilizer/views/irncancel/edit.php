@@ -129,7 +129,7 @@
 
 				<div class="col-sm-10">
 
-					<input type="submit" id="submit" class="btn btn-info" value="Cancel" />
+					<input type="submit" id="submit" class="btn btn-info cancel" value="Cancel"  />
 
 				</div>
 
@@ -141,6 +141,49 @@
 
 </div>
 
+<script>
 
+    $(document).ready( function (){
+
+        $('.cancel').click(function () {
+
+			var x = confirm("Do you really want to delete this record?");
+			if (x)
+			return true;
+			else
+			return false;
+            
+            // var id = $(this).attr('id');
+            // // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+            // var result = confirm("Do you really want to delete this record?");
+           
+            // if(result) {
+
+            // window.location = "<?php echo site_url('api/get_api_cancel');?>";
+
+            // }else{
+			// 	redirect('irncan');
+			// }
+            
+        });
+
+    });
+
+	// function check() {
+	//     var x = confirm("Are you sure you want to delete?");
+	//     if (x)
+	// 	return true;
+	//     else
+	// 	return false;
+	// }
+	// function _edit(pronote_no, memo_no){
+	//   // pronote_no = encodeURIComponent(pronote_no);
+	//   // memo_no = encodeURIComponent(memo_no);
+	//   console.log(pronote_no);
+	//   console.log(memo_no);
+	//  // location.href = "<?= base_url(); ?>index.php/dc/dc_entry/" + pronote_no + "/" + memo_no;
+	// }
+
+</script>
 
 

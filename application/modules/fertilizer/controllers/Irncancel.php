@@ -29,7 +29,7 @@
             $where  =	array(
                 "a.soc_id=b.soc_id"   => NULL,
                 "a.br_cd=c.district_code" => NULL,
-                "HOUR(TIMEDIFF(now(),a.ack_dt))<=24"=>NULL,
+                 "HOUR(TIMEDIFF(now(),a.ack_dt))<=24"=>NULL,
                 "a.irn>0"=>NULL,
                 "fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
             
@@ -175,7 +175,7 @@ public function company_advAdd(){
 					"created_dt"    	=>  date('Y-m-d h:i:s')
 				);
 
-				$this->AdvanceModel->f_insert('tdf_company_advance', $data_array);
+				// $this->AdvanceModel->f_insert('tdf_company_advance', $data_array);
 				//  echo $this->db->last_query();
 				//  die();
 				$this->session->set_flashdata('msg', 'Successfully Added');
