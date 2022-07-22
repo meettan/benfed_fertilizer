@@ -187,8 +187,6 @@
             and a.br_cd=$branch
             and d.soc_id=$soc_id 
             and do_dt between '$frmDt' and   '$to_dt' ");
-
-            
             return $query->result();     
 
         }
@@ -341,8 +339,8 @@
 
         /******************************************************************** */
 
-        public function f_get_balance($branch,$frmDt,$toDt){
-            if ($frmDt>='2021-04-01') {
+       public function f_get_balance($branch,$frmDt,$toDt){
+            /*if ($frmDt>='2021-04-01') {
 
                 $data = $this->db->query("Select prod_id,tot_sale,ifnull(sum(tot_sale),0)tot_sale,ifnull(Sum(qty ),0) + ifnull(sum(tot_pur),0) - ifnull(sum(tot_sale),0) as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,0 cls_qty
             from (
@@ -366,6 +364,32 @@
                                   and   trans_dt <'$frmDt'
                                   and   trans_flag = 1
                                   group by prod_id)a
+                                  group by prod_id
+                  UNION
+                  select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale
+                  from td_purchase
+                  where br	    = $branch
+                  and   trans_dt between '$frmDt' and  '$toDt'
+                  and   trans_flag = 1
+                  group by prod_id
+                  UNION
+                  select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale
+                  from td_sale
+                  where br_cd	    = $branch
+                  and   do_dt between '$frmDt' and '$toDt'
+                  group by prod_id)a
+              group by prod_id
+              order by prod_id");*/
+				if ($frmDt>='2022-04-01') {
+                $data = $this->db->query("Select prod_id,tot_sale,ifnull(sum(tot_sale),0)tot_sale,ifnull(Sum(qty ),0) + ifnull(sum(tot_pur),0) - ifnull(sum(tot_sale),0) as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,0 cls_qty
+            from (
+                select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale
+                from(
+                select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
+                                from tdf_opening_stock
+                                where branch_id	    = $branch
+                                and   balance_dt ='2020-04-01'
+                                group by prod_id)a
                                   group by prod_id
                   UNION
                   select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale
@@ -1988,7 +2012,10 @@ ORDER BY `op_bln` ASC");
         }
 
 		
-public function totalAdvVoucher($comp_id,$frm_date,$to_date){
+public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
+    if($memoNumber==null){
+
+    
            $q= $this->db->query("SELECT SUM( adv_amt)adv_amt ,SUM(tds)tds ,SUM(net_amt)net_amt FROM 
             (select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
@@ -2012,23 +2039,44 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date){
                                     and   a.trans_dt between '$frm_date' and '$to_date'
                                     and   a.comp_id = '$comp_id'
                                     and   e.comp_pay_flag = 'Y')A");
+    }else{
+        $q= $this->db->query("SELECT SUM( adv_amt)adv_amt ,SUM(tds)tds ,SUM(net_amt)net_amt FROM 
+        (select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
+                    from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+                    where c.branch_id = b.id
+                    and   a.memo_no=$memoNumber
+                    and   a.adv_dtl_id = c.receipt_no
+                    and   a.adv_receive_no = c.detail_receipt_no
+                    and   c.prod_id = d.PROD_ID
+                    and   a.trans_dt between '$frm_date' and '$to_date'
+                    and   a.comp_id = '$comp_id'
+                    and   c.comp_pay_flag = 'Y'
+                    
+                    UNION
+              select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
+             
+                                from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
+                                where c.branch_id = b.id
+                                and   a.memo_no=$memoNumber
+                                and   a.adv_receive_no = c.detail_receipt_no
+                                and   c.prod_id = d.PROD_ID
+                                and   a.adv_dtl_id = e.fwd_receipt_no
+                                and   c.detail_receipt_no = e.detail_receipt_no
+                                and   a.trans_dt between '$frm_date' and '$to_date'
+                                and   a.comp_id = '$comp_id'
+                                and   e.comp_pay_flag = 'Y')A");
+    }
+
                                     return $q->row();
         }
 
 
 
-        public function getallAdvData($comp_id,$frm_date,$to_date){
+        public function getallAdvData($comp_id,$frm_date,$to_date,$memoNumber){
 
-            // $q=$this->db->query("select a.trans_dt,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt
-            // from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
-            // where c.branch_id = b.id
-            // and   a.adv_dtl_id = c.receipt_no
-            // and   a.adv_receive_no = c.detail_receipt_no
-            // and   c.prod_id = d.PROD_ID
-            // and   a.trans_dt between '$frm_date' and '$to_date'
-            // and   a.comp_id = '$comp_id'
-            // and   c.comp_pay_flag = 'Y';"
-            //);
+            if($memoNumber==null){
+
+            
             $sql = "select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
             (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
 			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
@@ -2055,9 +2103,49 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date){
                         and   a.comp_id = '$comp_id'
                         and   e.comp_pay_flag = 'Y'
                         " ;
+
+            }else{
+
+                
+            $sql = "select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
+			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+            where c.branch_id = b.id
+            and   a.memo_no=$memoNumber
+            and   a.adv_dtl_id = c.receipt_no
+            and   a.adv_receive_no = c.detail_receipt_no
+            and   c.prod_id = d.PROD_ID
+            and   a.trans_dt between '$frm_date' and '$to_date'
+            and   a.comp_id = '$comp_id'
+            and   c.comp_pay_flag = 'Y'
+            
+            UNION
+            select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
+			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
+                        where c.branch_id = b.id
+                        and   a.memo_no=$memoNumber
+                        and   a.adv_receive_no = c.detail_receipt_no
+                        and   c.prod_id = d.PROD_ID
+                        and   a.adv_dtl_id = e.fwd_receipt_no
+                        and   c.detail_receipt_no = e.detail_receipt_no
+                        and   a.trans_dt between '$frm_date' and '$to_date'
+                        and   a.comp_id = '$comp_id'
+                        and   e.comp_pay_flag = 'Y'
+                        " ;
+
+            }
             $q=$this->db->query($sql);
             return $q->result();
         }
+
+
+
+
+
+
 
       /*  public function getCompanyPayment($comp_id,$frm_date,$to_date){
            $q= $this->db->query("
@@ -2076,22 +2164,42 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date){
 		
 				
 				public function getCompanyPayment($comp_id,$frm_date,$to_date){
-           $q= $this->db->query("
-            select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
-            (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
-            (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm
-            from tdf_company_payment a, mm_product b,md_district c
-            where a.comp_id=$comp_id
-            and b.PROD_ID=a.prod_id
-            and a.district=c.district_code
-            and a.net_amt > 0
-            and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
-            group by  a.pur_ro,a.pur_inv_no
-           ");  
-           return $q->result();
-        }
+                    $q= $this->db->query("
+                        select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
+                        (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
+                        (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
+                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_ac_cd)bnk
+                        from tdf_company_payment a, mm_product b,md_district c
+                        where a.comp_id=$comp_id
+                        and b.PROD_ID=a.prod_id
+                        and a.district=c.district_code
+                        and a.net_amt > 0
+                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                        group by  a.pur_ro,a.pur_inv_no
+                    ");  
+                    return $q->result();
+                }
 
-    }
+                public function totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date){
+                    $q= $this->db->query("
+                        select SUM(a.taxable_amt) as taxable_amt,
+                        SUM(a.tds_amt) as tds_amt, 
+                        SUM(a.net_amt) as net_amt
+                        from tdf_company_payment a, mm_product b,md_district c
+                        where a.comp_id=$comp_id
+                        and b.PROD_ID=a.prod_id
+                        and a.district=c.district_code
+                        and a.net_amt > 0
+                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                        
+                    ");  
+                    return $q->row();
+                }
+
+ }
+
+//  SUM( adv_amt)adv_amt ,SUM(tds)tds ,SUM(net_amt)net_amt FROM 
+// (select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
     // select a.ro_no,b.PROD_DESC ,b.COMPANY
     // from td_purchase a, mm_product b, tdf_payment_forward c
     // where b.COMPANY=$comp_id

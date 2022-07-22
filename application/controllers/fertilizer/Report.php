@@ -2430,12 +2430,29 @@ public function soc_payblepaid(){
             $data['companyName']=$com[1];
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
-          $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date);
-			 $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date);
-			//echo $this->db->last_query();
-            //die();
-          $data['fDate']= $frm_date;
-          $data['tDate']=$to_date;
+
+
+            $memoNumber=$this->input->post('memoNumber');
+            if($memoNumber==''||$memoNumber==null){
+            
+                $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,null);
+                    $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,null);
+                    //echo $this->db->last_query();
+                    //die();
+                $data['fDate']= $frm_date;
+                $data['tDate']=$to_date;
+
+            }else{
+
+                
+              $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,$memoNumber);
+                 $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber);
+                //echo $this->db->last_query();
+                //die();
+              $data['fDate']= $frm_date;
+              $data['tDate']=$to_date;
+
+            }
           
            $this->load->view('post_login/fertilizer_main');
            $this->load->view('report/advance_payment/advPay.php',$data);
@@ -2464,12 +2481,17 @@ public function advance_payment(){
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
           $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+         
         //     echo $this->db->last_query();
         //     echo '<br>';
         //   print_r($data['tableData']);
         //   exit();
           $data['fDate']= $frm_date;
           $data['tDate']=$to_date;
+
+          $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+          //print_r($data['total_Voucher']);
+        //   exit();
           
            $this->load->view('post_login/fertilizer_main');
            $this->load->view('report/advance_payment_company/advPay.php',$data);

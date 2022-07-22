@@ -167,7 +167,8 @@ public function company_advAdd(){
 
 					"adv_receive_no"    => $key['list'],
 
-					'adv_dtl_id'       => $this->input->post('receipt_no'),
+					'adv_dtl_id'      	=> $this->input->post('receipt_no'),
+					'memo_no'			=>$this->input->post('memonumber'),
 
                     "fin_yr"            => $finYr,
 
@@ -256,6 +257,8 @@ public function company_editadv(){
 
 				"trans_type"    		=>  $this->input->post('trans_type'),
 
+				'memo_no'			=>$this->input->post('memonumber'),
+
 				"adv_amt"				=> $this->input->post('adv_amt'),
 
 				"remarks" 				=> $this->input->post('remarks'),
@@ -288,7 +291,7 @@ public function company_editadv(){
 						 'c.comp_id = d.COMP_ID'=>  NULL,
 						 'c.receipt_no = f.receipt_no'=>  NULL,
 				          'a.receipt_no'=>$rcpt);
-            $select = array('a.dr_head','a.bank','a.trans_dt','d.COMP_NAME','d.COMP_ID','e.branch_name','c.branch_id','f.remarks','c.qty');
+            $select = array('a.memo_no','a.dr_head','a.bank','a.trans_dt','d.COMP_NAME','d.COMP_ID','e.branch_name','c.branch_id','f.remarks','c.qty');
 			$data['pageData']=$this->AdvanceModel->f_select('tdf_company_advance a,tdf_adv_fwd b,td_adv_details c,mm_company_dtls d,md_branch e,tdf_advance f',$select,$where,1);
 			}else{
              //$data['pageInfo']=$this->AdvanceModel->getpInfo($rcpt);

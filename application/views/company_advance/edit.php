@@ -67,6 +67,16 @@
 
                     </select>
                 </div>
+                <label for="memonumber" class="col-sm-2 col-form-label">Memo Number:</label>
+            
+                
+                  <!-- <input type="text" id=receipt_no name="receipt_no" class="form-control" value=""  /> -->
+                  <div class="col-sm-4">
+                  <input type="text" id="memonumber " disabled name="memonumber" class="form-control" value="<?php echo $pageData->memo_no; ?>"  />
+				
+                </div>
+
+
                 <!-- <label class="col-sm-2 col-form-label">Total Advance</label>
                 <label class="col-sm-2 col-form-label">Amount Already paid</label>
                 <label class="col-sm-2 col-form-label">Amount to be paid</label>

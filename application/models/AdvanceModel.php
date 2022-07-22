@@ -56,7 +56,7 @@
 
 	   public function advtocompList(){
 		   $fny=$this->session->userdata['loggedin']['fin_id'];
-		$q=$this->db->query('SELECT a.trans_dt,a.receipt_no,a.comp_id,b.COMP_NAME,sum(a.adv_amt) amt
+		$q=$this->db->query('SELECT a.memo_no,a.trans_dt,a.receipt_no,a.comp_id,b.COMP_NAME,sum(a.adv_amt) amt
 		FROM tdf_company_advance a,mm_company_dtls b 
 		WHERE a.comp_id = b.COMP_ID
 		AND a.fin_yr ='.$fny.'
@@ -281,7 +281,7 @@ return $result;
         //     return $q->row();	
 		// }
 		public function getBranchId($rcpt){
-			$q=$this->db->query("select a.dr_head, a.bank, a.trans_dt,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,e.COMP_ID,e.COMP_NAME,f.remarks
+			$q=$this->db->query("select a.memo_no,a.dr_head, a.bank, a.trans_dt,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,e.COMP_ID,e.COMP_NAME,f.remarks
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d, mm_company_dtls e,tdf_advance f
             where c.branch_id = b.id
             and   a.adv_dtl_id = c.receipt_no

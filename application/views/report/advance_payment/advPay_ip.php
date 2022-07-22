@@ -69,20 +69,27 @@ tr:hover {background-color: #f5f5f5;}
                             <select name="company" id="company" class="form-control" required>
 
                                     <option value="">Select Company</option>
-                                <?php
-                                    foreach($company as $row){
-                                ?>
+                                <?php foreach($company as $row){ ?>
 
                                     <option value="<?php echo $row->COMP_ID.',',$row->COMP_NAME ;?>"><?php echo $row->COMP_NAME;?></option>
-                                <?php
-                                    }
-                                ?>
+                                <?php } ?>
                             </select>
                        
 
                     </div>
 
                 </div>
+                <div class="form-group row">
+
+                    <label for="memoNumber" class="col-sm-2 col-form-label">Memo Number:</label>
+
+                    <div class="col-sm-10">
+
+                       <input type="text"  value="" name="memoNumber" class="form-control" />
+
+                    </div>
+
+                </div>  
 
                 <div class="form-group row">
 

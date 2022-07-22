@@ -31,6 +31,7 @@
                         <th>Date</th>
 
             			<th>Receipt No.</th>
+            			<th>Memo Number</th>
 
                         <th>Company Name</th>
 
@@ -60,6 +61,7 @@
                                 <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
 
                                 <td><?php echo $value->receipt_no; ?></td>
+                                <td><?php echo $value->memo_no; ?></td>
 
                                 <td><?php echo $value->COMP_NAME; ?></td>
 
