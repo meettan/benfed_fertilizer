@@ -2419,7 +2419,7 @@ public function soc_payblepaid(){
         $this->load->view('post_login/footer');
     }
 
-    public function advance_report(){
+     public function advance_report(){
        
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
