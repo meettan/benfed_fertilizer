@@ -2044,7 +2044,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
         (select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
                     from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
                     where c.branch_id = b.id
-                    and   a.memo_no=$memoNumber
+                    and   a.memo_no='$memoNumber'
                     and   a.adv_dtl_id = c.receipt_no
                     and   a.adv_receive_no = c.detail_receipt_no
                     and   c.prod_id = d.PROD_ID
@@ -2057,7 +2057,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
              
                                 from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                                 where c.branch_id = b.id
-                                and   a.memo_no=$memoNumber
+                                and   a.memo_no='$memoNumber'
                                 and   a.adv_receive_no = c.detail_receipt_no
                                 and   c.prod_id = d.PROD_ID
                                 and   a.adv_dtl_id = e.fwd_receipt_no
@@ -2112,7 +2112,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
 			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
             where c.branch_id = b.id
-            and   a.memo_no=$memoNumber
+            and   a.memo_no='$memoNumber'
             and   a.adv_dtl_id = c.receipt_no
             and   a.adv_receive_no = c.detail_receipt_no
             and   c.prod_id = d.PROD_ID
@@ -2126,7 +2126,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
 			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                         where c.branch_id = b.id
-                        and   a.memo_no=$memoNumber
+                        and   a.memo_no='$memoNumber'
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
                         and   a.adv_dtl_id = e.fwd_receipt_no
