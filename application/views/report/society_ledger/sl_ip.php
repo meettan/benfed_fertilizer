@@ -32,7 +32,7 @@ tr:hover {background-color: #f5f5f5;}
         <div class="col-md-9 container form-wraper">
     
                  <form method="POST" id="form" action="<?php echo site_url("fert/rep/soc_ledger");?>" >
-
+    
                 <div class="form-header">
                 
                     <h4>Inputs</h4>
@@ -66,8 +66,9 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-7">
                         <select name="soc_id" class="form-control sel select2">
 						<option value="">Select</option>
-						<?php foreach($soc as $key) { ?>
-						<option value="<?=$key->soc_id?>"><?=$key->soc_name?></option>
+						<?php  foreach($soc as $key) { ?>
+                            
+						<option value="<?=$key->soc_id?>-<?=$key->gstin?>"><?=$key->soc_name?></option>
 						<?php } ?>
 						</select>
                     </div>
@@ -104,7 +105,7 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>Society Ledger Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $br_name->district_name; ?></h5>
 						<h5 style="text-align:left"><label>Society: </label> <?php if($all_data) { foreach($all_data as $prodtls);echo $prodtls->soc_name; }?></h5>
-						<h5 style="text-align:left"><label>Gst No: </label> <?php if($all_data) { foreach($soc as $soc); echo $soc->gstin;}?></h5>
+						<h5 style="text-align:left"><label>Gst No: </label> <?php if($all_data) {  echo $gstno; }?></h5>
 
                     </div>
                     <br>  

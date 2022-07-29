@@ -2369,7 +2369,7 @@ public function soc_payblepaid(){
 	public function soc_ledger(){
 		$from_dt = isset($_POST['from_date']) ? $_POST['from_date'] : date('Y-m-d');
 		$to_dt = isset($_POST['to_date']) ? $_POST['to_date'] : date('Y-m-d');
-		$soc_id = $this->input->post('soc_id');
+		$soc_id = explode('-',$this->input->post('soc_id'))[0];
 
 		$product = array();
 		$branch = array();
@@ -2398,7 +2398,11 @@ public function soc_payblepaid(){
 				// echo $this->db->last_query();
                 // exit();
 				$paid     =$this->ReportModel->f_get_soc_paid($from_dt,$to_dt , $branch);
-		}
+                $gstno=explode('-',$this->input->post('soc_id'))[1];
+		}else{
+            $gstno="";
+        }
+        
         
         $data = array(
             'frm_dt' => $from_dt,
@@ -2407,7 +2411,8 @@ public function soc_payblepaid(){
             'branch' => $branch,
             'all_data' => $all_data,
             'paid' => $paid,
-            'br_name' => $br_name
+            'br_name' => $br_name,
+            'gstno'=>$gstno
         );
 		$sselect          =   array('soc_id','soc_name','gstin');
 		$swhere           =   array('district' => $this->session->userdata['loggedin']['branch_id'] );
