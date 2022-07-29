@@ -145,6 +145,16 @@ public function soceityAdd(){
 				);
 
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
+				// $soc_id=$this->db->insert_id();
+				
+				$data_array2=array(
+					'br_cd'=>$this->session->userdata('loggedin')['branch_id'],
+					'op_dt'=>explode('-',$this->session->userdata('loggedin')['fin_yr'])[0].'-04-01',
+					'soc_id'=>$soc_id,
+					'soc_name'=>$this->input->post('soc_name'),
+					'balance'=>0
+				);
+				$this->FertilizerModel->f_insert('td_soc_opening', $data_array2);
 	
 				$this->session->set_flashdata('msg', 'Successfully Added');
 

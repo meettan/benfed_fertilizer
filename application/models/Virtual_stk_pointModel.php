@@ -27,7 +27,7 @@
             {
                 $value = array(
                    
-					'ro_no'      =>  $ro,
+					'ro_no'      =>  $ro_no,
 					'ro_dt'      =>  $ro_dt,
 					'sec_soc_id' => $sec_soc_id,
                     'p_soc_id'       =>  $p_soc_id[$i],
