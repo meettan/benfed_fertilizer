@@ -94,6 +94,15 @@
                 </div>
             </div>
 <?php if($advDtls->cshbnk_flag=='1'){ ?>
+            <div class="form-group row acno">
+
+				<label for="referenceNo" class="col-sm-2 col-form-label">Reference No :</label>
+				<div class="col-sm-4">
+					<input type="text" id="referenceNo" name="referenceNo" class="form-control" value="<?php echo $advDtls->referenceNo; ?>" readonly/>
+					
+
+				</div>
+			</div>
             <div class="form-group row">
                 <label for="bank" class="col-sm-2 col-form-label">Bank:</label>
 

@@ -286,11 +286,11 @@
                                 </td>
                                 <td>
                                     <input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt"
-                                        value="" id="ref_dt">
+                                        value="" id="ref_dt" required >
                                 </td>
                                 <td>
                                     <input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no"
-                                        value="" id="ref_no">
+                                        value="" id="ref_no" required >
                                 </td>
                                 <td>
                                     <input type="text" name="paid_amt[]" style="width:130px;"
@@ -367,10 +367,10 @@
                 ovalue +
                 '</td>' +
                 '<td>' +
-                '<input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt" value= "" id="ref_dt" >' +
+                '<input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt" value= "" id="ref_dt" required >' +
                 '</td>' +
                 '<td>' +
-                '<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" >' +
+                '<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no" required >' +
                 '</td>' +
                 '<td>' +
                 '<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>' +
@@ -1087,6 +1087,25 @@
 <script>
     $('.table tbody').on('change', '.pay', function () {
         var selval = $(this).val();
+
+        // alert(selval);
+        if(selval==2||selval==6||selval==1){
+           
+            let row = $(this).closest('tr');
+            
+            row.find('td:eq(1) .ref_dt').attr('disabled','disabled');
+            row.find('td:eq(2) .ref_no').attr('disabled','disabled');
+            // row.find('td:eq(1) .ref_dt').hide();
+            // row.find('td:eq(2) .ref_no').hide();
+
+            // if(selval==3||selval==4||selval==5||selval==7)
+        }else{
+            let row = $(this).closest('tr');
+            row.find('td:eq(1) .ref_dt').removeAttr('disabled');
+            row.find('td:eq(2) .ref_no').removeAttr('disabled');
+            // row.find('td:eq(1) .ref_dt').show();
+            // row.find('td:eq(2) .ref_no').show();
+        }
 
         var c = 0;
         $('.pay').each(function () {

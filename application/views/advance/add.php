@@ -102,19 +102,32 @@ $thisyear=$fy[0];
 
 					<label for="cshbank" class="radio-label">Cash</label>
 				</div>
+				
 				<div class="col-sm-2">
 					<input id="cshbank" name="cshbank" type="radio" class="radio-label" value="1" required/>
 
 					<label for="cshbank" class="radio-label">Bank</label>
 				</div>
 			</div>
+
+			<div class="form-group row acno">
+
+				<label for="referenceNo" class="col-sm-2 col-form-label">Reference No :</label>
+				<div class="col-sm-4">
+					<input type="text" id="referenceNo" name="referenceNo" value="" class="form-control"
+						 />
+					
+
+				</div>
+			</div>
+			
 			<div class="form-group row acno">
 
 				<label for="bank_id" class="col-sm-2 col-form-label">Bank:</label>
 				<!-- <input type="text" style="width:200px" id="bank_id" name="bank_id"value=""  class="form-control bank_id"  /> -->
 				<div class="col-sm-4">
 
-					<select name="bank_id" style="width:180px" class="form-control bank_id" id="bank_id" disabled>
+					<select name="bank_id" class="form-control bank_id" id="bank_id" disabled>
 						<option value="">Select</option>
 						<?php
                        foreach($bnk_dtls as $bnk){
@@ -203,6 +216,9 @@ $thisyear=$fy[0];
 	$('input:radio[name="cshbank"]').change(function () {
 		console.log('hi');
 		if ($(this).val() == '1') {
+			$('#referenceNo').attr('disabled', false);
+			$('#referenceNo').attr('required', 'required');
+
 			$('#bank_id').attr('disabled', false);
 			$('#bank_id').attr('required', 'required');
 			$('#ifsc').attr('required', 'required');
@@ -211,6 +227,8 @@ $thisyear=$fy[0];
 			$('#ac_no').attr('disabled', false);
 			$(".acno").show();
 		} else if ($(this).val() == '0') {
+
+			$('#referenceNo').attr('disabled', true);
 			$('#bank_id').attr('disabled', true);
 			$('#ifsc').attr('disabled', true);
 			$('#ac_no').attr('disabled', true);

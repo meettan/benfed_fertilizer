@@ -78,14 +78,14 @@
 		}
 		
 	public function f_get_adv_dtls($recv_no){
-			$data   =   $this->db->query("select  a.trans_dt ,a.sl_no,a.fin_yr,a.branch_id,a.soc_id,a.receipt_no,
+			$data   =   $this->db->query("select  a.referenceNo,a.trans_dt ,a.sl_no,a.fin_yr,a.branch_id,a.soc_id,a.receipt_no,
 			a.trans_type,a.adv_amt,a.bank,a.remarks,a.inv_no,a.ro_no,a.created_by,a.created_dt,b.bank_name,b.ac_no,
 			a.cshbnk_flag
 			from   tdf_advance a,mm_feri_bank b
 			where  a.bank=b.sl_no
 			and receipt_no = '$recv_no'
 			union
-			select  a.trans_dt ,a.sl_no,a.fin_yr,a.branch_id,a.soc_id,a.receipt_no,
+			select  a.referenceNo,a.trans_dt ,a.sl_no,a.fin_yr,a.branch_id,a.soc_id,a.receipt_no,
 			a.trans_type,a.adv_amt,a.bank,a.remarks,a.inv_no,a.ro_no,a.created_by,a.created_dt,'','',
 			a.cshbnk_flag
 			from   tdf_advance a

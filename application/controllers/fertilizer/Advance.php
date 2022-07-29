@@ -489,14 +489,9 @@ public function advAdd(){
         // echo $soc_id;
 		// exit;    
 
-            $select         = array(
-                "dist_sort_code"
-            );
+            $select         = array( "dist_sort_code" );
 
-            $where          = array(
-                "district_code"     =>  $branch
-				
-            );
+            $where          = array( "district_code"     =>  $branch );
 
             $brn            = $this->AdvanceModel->f_select("md_district",$select,$where,1);  
 
@@ -532,7 +527,11 @@ if(empty($bbranch)){
 $branchid=0;
 }else{
 	$branchid=$bbranch;
+	
 }
+
+
+
 			$data_array = array (
                   
 
@@ -557,6 +556,8 @@ $branchid=0;
 					"bank"              => $branchid,
 
 					"remarks" 			=> $this->input->post('remarks'),
+
+					"referenceNo"		=> $this->input->post('referenceNo'),
 
 					"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
 
@@ -671,7 +672,8 @@ public function editadv(){
 
 						"bank",
 						
-						"remarks"                          
+						"remarks" ,
+						"referenceNo"                         
 				);
 
 			$where = array(
@@ -694,6 +696,8 @@ public function editadv(){
 				
 			// }
 			$data['advDtls']        = $this->AdvanceModel->f_get_adv_dtls($this->input->get('rcpt'));
+			// print_r($data['advDtls']);
+			// exit();
 
 			$data['societyDtls']    = $this->AdvanceModel->f_select("mm_ferti_soc",$select1,$where1,0);
 			
