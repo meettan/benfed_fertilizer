@@ -411,17 +411,18 @@ public function society_payEdit(){
 	
 						// if($this->input->post('bnk_id')>0 ){
 						$data_array_fin=$data2;
-				        
-						$data_array_fin['acc_code'] = $soc_acc->acc_code;
+				       
+						$data_array_fin['acc_code'] = $soc_acc->acc_cd;
 						$data_array_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
 						/***********For Cash or Bank head */
 						if($tot_bnk > 0 ||$tot_bnk != '' || $tot_bnk !=null){
 						$this->Society_paymentModel->f_recvjnl($data_array_fin);
 						}
 						// }
+						// print_r($_POST['paid_amt']);
+						// exit();
 
-
-						$tot_paid_amt =$tot_paid_amt + $_POST['paid_amt'][$i];
+						//$tot_paid_amt =$tot_paid_amt + $_POST['paid_amt'][$i];
 						$data3     = array(   
                                             
 							'paid_id'        	=> $cust_pay_recipt,
@@ -467,7 +468,10 @@ public function society_payEdit(){
 							'approval_status'    =>'U');
 							
 						$data_array_fin=$data3;
+						
 						$data_array_fin['acc_cd'] = $soc_acc->acc_cd; 
+
+						
 						$data_array_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
 						// $this->Society_paymentModel->f_recvjnl_soc($data3);
 					   $this->Society_paymentModel->f_recvjnl_soc($data_array_fin);
@@ -491,7 +495,7 @@ public function society_payEdit(){
 				
                     $this->session->set_flashdata('msg', 'Successfully Added');
         
-                //     redirect('socpay/society_payment');
+                    redirect('socpay/society_payment');
                 
              }else {
     
