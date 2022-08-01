@@ -258,7 +258,7 @@
 
                 <div class="col-sm-10">
 
-                    <input type="submit" id="submit" class="btn btn-info" value="Save" />
+                    <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
 
                 </div>
 
@@ -560,3 +560,4 @@
 <script>
     $('.mindate').attr( 'min','<?=$date->end_yr ?>-<?php $month=$date->end_mnth+1; if($month==13){echo sprintf("%02d",1);}else{echo sprintf("%02d",$month);}?>-01');
 </script>
+

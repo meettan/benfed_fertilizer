@@ -12,7 +12,14 @@
            <span style="line-height: 5; font-size: 12px;"><strong>Copyright © BENFED. 2020</strong></span>
 
         </footer>
+  
+    <?php if($this->session->userdata('loggedin')['active_flag']=='C'){ ?>
+    <!-- $(':input[type="submit"]').prop('disabled', true); -->
+    <script>
 
+        $('.active_flag_c').attr('disabled','disabled');
+    </script>
+    <?php } ?>
     </body>
 
     <?php /*?><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>

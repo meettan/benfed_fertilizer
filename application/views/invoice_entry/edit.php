@@ -267,4 +267,11 @@
 
     </div>
 
+    <?php if($this->session->userdata('loggedin')['active_flag']=='C'){ ?>
+    <!-- $(':input[type="submit"]').prop('disabled', true); -->
+    <script>
+        $('input[type="submit"]').attr('disabled','disabled');
+    </script>
+    <?php } ?>
+
 

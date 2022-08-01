@@ -176,7 +176,7 @@
 
 				<div class="col-sm-10">
 
-					<input type="submit" class="btn btn-info" value="Save" />
+					<input type="submit" class="btn btn-info active_flag_c" value="Save" />
 
 				</div>
 
@@ -204,3 +204,4 @@
     });
 });
 </script>
+

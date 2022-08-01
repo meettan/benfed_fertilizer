@@ -508,7 +508,7 @@
 
 					<div class="col-sm-10">
 
-						<input type="submit" class="btn btn-info" value="Save" />
+						<input type="submit" class="btn btn-info active_flag_c" value="Save" />
 
 					</div>
 
@@ -535,7 +535,7 @@
 						<div class="col-sm-2">
 							
 
-					<input type='checkbox' name='district[]' id="checkItem" value='<?php //echo $dist->district_code;?>' /><?php// echo $dist->dist_sort_code;?>
+					<input type='checkbox' name='district[]' id="checkItem" value='<?php //echo $dist->district_code;?>' /><?php // echo $dist->dist_sort_code;?>
 
 					</div>
 					<?php
@@ -795,3 +795,4 @@ $(document).ready(function(){
 
     });
 </script> -->
+

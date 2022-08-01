@@ -305,7 +305,7 @@
 
                     <div class="col-sm-10">
 
-                        <input type="submit" id= "submit" class="btn btn-info" value="Submit" />
+                        <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Submit" />
 
                     </div>
 
@@ -781,3 +781,5 @@ txtBox.focus();
 
 		
 </script>
+
+

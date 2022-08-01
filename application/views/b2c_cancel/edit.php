@@ -166,7 +166,7 @@
 
 				<div class="col-sm-10">
 
-					<input type="submit" id="submit" class="btn btn-info cancel" value="Cancel"   />
+					<input type="submit" id="submit" class="btn btn-info cancel active_flag_c" value="Cancel"   />
 
 				</div>
 
@@ -203,5 +203,7 @@
 alert('test');
     }
 </script> -->
+
+
 
 

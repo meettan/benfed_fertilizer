@@ -154,7 +154,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="submit" id="submit" class="btn btn-info" value="Save" onclick="return myFunction();" />
+                    <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" onclick="return myFunction();" />
 
                 </div>
             </div>
@@ -510,3 +510,4 @@ function set_exists(x){
                  
         });
 </script>
+

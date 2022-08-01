@@ -58,6 +58,7 @@
 						$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
 						$loggedin['fin_id']  			= $fin_data->sl_no;
 						$loggedin['fin_yr']   			= $fin_data->fin_yr;
+						$loggedin['active_flag']   			= $fin_data->active_flag;
 
 						}
 						else{
@@ -84,6 +85,7 @@
 						$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
 						$loggedin['fin_id']  			= $fin_data->sl_no;
 						$loggedin['fin_yr']   			= $fin_data->fin_yr;
+						$loggedin['active_flag']   			= $fin_data->active_flag;
 
 					    }
 

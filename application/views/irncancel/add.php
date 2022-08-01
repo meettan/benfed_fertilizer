@@ -108,7 +108,7 @@
 
 				<div class="col-sm-10">
 
-					<input type="submit" id="submit" class="btn btn-info" value="Save" />
+					<input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
 
 				</div>
 
@@ -160,3 +160,10 @@ $(document).ready(function(){
 
 });
 </script>
+
+<?php if($this->session->userdata('loggedin')['active_flag']=='C'){ ?>
+    <!-- $(':input[type="submit"]').prop('disabled', true); -->
+    <script>
+        $('input[type="submit"]').attr('disabled','disabled');
+    </script>
+    <?php } ?>

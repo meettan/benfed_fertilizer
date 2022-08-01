@@ -616,7 +616,7 @@
 			<div class="form-group row">
 
 				<div class="col-sm-10">
-					<input type="submit" id="submit" class="btn btn-info" value="Save" />
+					<input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
 					<!-- <input type="button" class="btn btn-info" value="Back" /> -->
 					<!-- <a href="<?php echo site_url("stock/stock_entry");?>" class="btn btn-primary" style="width: 100px;">Back</a></small> -->
 
@@ -2164,3 +2164,4 @@ $(document).ready(function(){
 
 });
 </script> -->
+
