@@ -508,15 +508,15 @@ return $sql->result();
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
-		$data = $this->db->query("select a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,(select count(paid_id) from tdf_payment_recv where sale_invoice_no=a.trans_do) as pay_cnt
-									from td_sale a,mm_ferti_soc b,mm_product c
+		$data = $this->db->query("select a.qty,a.unit,d.unit_name,a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,(select count(paid_id) from tdf_payment_recv where sale_invoice_no=a.trans_do) as pay_cnt
+									from td_sale a,mm_ferti_soc b,mm_product c,mm_unit d
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
 									and a.do_dt=CURDATE()
 									and a.prod_id=c.prod_id
 									and  a.soc_id=b.soc_id
-									
-									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
+									and   a.unit = d.id
+									group by a.qty,a.unit,d.unit_name, a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
 									order by a.do_dt desc");
 									
 	
@@ -526,15 +526,16 @@ return $sql->result();
 		}
 		public function f_get_sales_bydt($banch_id,$fin_id,$frmdt,$todt){
 			
-		$data = $this->db->query("select a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,
+		$data = $this->db->query("select a.qty,a.unit,d.unit_name,a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,
 		                          (select count(paid_id) from tdf_payment_recv where sale_invoice_no=a.trans_do) as pay_cnt
-									from td_sale a,mm_ferti_soc b,mm_product c
-									where br_cd='$banch_id' 
+									from td_sale a,mm_ferti_soc b,mm_product c,mm_unit d
+									where  a.prod_id=c.prod_id
+									and   a.soc_id=b.soc_id
+									and   a.unit = d.id
+									and br_cd='$banch_id' 
 									and fin_yr='$fin_id'
 									and a.do_dt between '$frmdt' and '$todt'
-									and a.prod_id=c.prod_id
-									and a.soc_id=b.soc_id
-									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
+									group by a.qty,a.unit,d.unit_name,a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
 									order by a.do_dt desc");
 									
 	

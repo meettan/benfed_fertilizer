@@ -79,17 +79,18 @@
                     <tr>
                     	<th>Sl No.</th>
                         <th>Primay Society</th>
-                        <th>Product</th>
-                        <th>Invoice No</th>
-                        <th>Invoice Date</th>
-                        <th>Invoice/GST Type</th>
-                        <th>Amout</th>
+                        <th>Product & Invoice No</th>
+                        <!-- <th>Invoice No</th> -->
+                        <th>Invoice Date & Invoice/GST Type</th>
+                        <!-- <th>Invoice/GST Type</th> -->
+                        <th>Quantity & Amout</th>
+                        
                         <th>View</th>
                         <th>IRN</th>
-                        <th>ACK NO</th>
-                        <th>ACK DT</th>
-                        <th>Download</th>
-                        <th>B2C Print</th>
+                        <th>ACK NO & ACK DT</th>
+                        <!-- <th>ACK DT</th> -->
+                        <th>B2B Download & B2C Print</th>
+                        <!-- <th>B2C Print</th> -->
                         <th>Delete</th>
                     </tr>
 
@@ -109,13 +110,18 @@
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
                                 <td style="width:200px"><?php echo $value->soc_name; ?></td>
-                                <td style="width:200px"><?php echo $value->prod_desc; ?></td>
-                                <td><?php echo $value->trans_do; ?></td>
+                                <td style="width:200px"><?php echo $value->prod_desc; ?>
+                                    <br><?php echo $value->trans_do; ?>
+                                </td>
+                                <!-- <td></td> -->
                                 <!-- <td><?php echo $value->comp_id; ?></td> -->
-                                <td id=do_dt><?php echo date("d/m/Y",strtotime($value->do_dt)); ?></td>
+                                <!-- <td id=do_dt><?php echo date("d/m/Y",strtotime($value->do_dt)); ?><br>
+                            
+                                </td> -->
                                 
-				                <td id="trn_type_td_<?= $i ?>"><?php echo $value->trans_type; ?>/<?php if($value->gst_type_flag=='Y'){ echo 'B2B';}else{echo 'B2C';}?></td>
-                                <td><?php echo $value->tot_amt; ?></td>
+				                <td id="trn_type_td_<?= $i ?>"><?php echo date("d/m/Y",strtotime($value->do_dt)); ?><br><?php echo $value->trans_type; ?>/<?php if($value->gst_type_flag=='Y'){ echo 'B2B';}else{echo 'B2C';}?></td>
+                                
+                                <td><?php echo $value->qty; ?> <?= $value->unit_name;  ?><br><?php echo $value->tot_amt; ?></td>
                                 <!-- <td style="visibility:hidden;"><?php echo $value->challan_flag; ?></td> -->
                                 <!-- <td id="challan_flag"><?php echo $value->challan_flag; ?></td> -->
 			 	                <td><a href="saleedit?trans_do=<?php echo $value->trans_do ;?> " 
@@ -142,15 +148,18 @@
                                <td id="ack_clk_td_<?= $i ?>">
                                     <?php if($value->ack){echo $value->ack; }else{ ?>
                                    
-                                   <?php } ?> 
+                                   <?php } ?><br>
+                                   <?php if($value->ack_dt){echo $value->ack_dt; }else{ ?>
+                                   
+                                   <?php } ?>  
                                </td>
                                <!-- <td style="display:none" id="ackdt_clk_td_<?= $i ?>"> -->
                                
-                               <td   id="gst_type_td_<?= $i ?>">
+                               <!-- <td   id="gst_type_td_<?= $i ?>">
                                     <?php if($value->ack_dt){echo $value->ack_dt; }else{ ?>
                                    
                                    <?php } ?> 
-                               </td>
+                               </td> -->
 
 
 
@@ -160,13 +169,20 @@
                                         data-toggle="tooltip" data-placement="bottom" title="download_" <?= $enable_btn; ?>>
                                 <!-- <a href="<?php //echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a> -->
                                     <a href="<?php echo site_url('api/print_irn?irn='.$value->irn.''); ?>" id="down_clk_td_<?= $i ?>" title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
+
+                                    <br>
+                                    <button type="button" name="print_<?= $i ?>" class="print" id="print"    
+                                       
+                                        data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
+                                <a href="<?php echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
+                                
                                 </td>
-                                <td>
+                                <!-- <td>
                                 <button type="button" name="print_<?= $i ?>" class="print" id="print"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
                                 <a href="<?php echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
-                                </td>
+                                </td> -->
                                 
                                 <td>
                                     <?php if(empty($value->irn)){  ?><button type="button" name="delete_<?= $i ?>" class="delete" id="<?php echo $value->trans_do;?>&transinvoice=<?php echo $value->trans_do; ?>" transInvoice=<?php echo $value->trans_do; ?> data-toggle="tooltip" data-placement="bottom" title="Delete" <?= $disable_btn; ?>>
@@ -194,21 +210,21 @@
 
                 <tfoot>
 
-                    <tr>
-                    
-                        <th>Sl No.</th>
+                <tr>
+                <th>Sl No.</th>
                         <th>Primay Society</th>
-                        <th>Product</th>
-                        <th>Invoice No</th>
-                        <th>Invoice Date</th>
-                        <th>Invoice/GST Type</th>
-                        <th>Amout</th>
+                        <th>Product & Invoice No</th>
+                        <!-- <th>Invoice No</th> -->
+                        <th>Invoice Date & Invoice/GST Type</th>
+                        <!-- <th>Invoice/GST Type</th> -->
+                        <!-- <th></th> -->
+                        <th>Quantity Amout</th>
                         <th>View</th>
                         <th>IRN</th>
-                        <th>ACK NO</th>
-                        <th>ACK DT</th>
-                        <th>Download</th>
-                        <th>B2C Print</th>
+                        <th>ACK NO & ACK DT</th>
+                        <!-- <th>ACK DT</th> -->
+                        <th>B2B Download & B2C Print</th>
+                        <!-- <th>B2C Print</th> -->
                         <th>Delete</th>
                     </tr>
                 
