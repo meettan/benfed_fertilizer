@@ -309,7 +309,7 @@
     				<div class="col-sm-3">
 
     					<input type="date" min="" style="width:200px" id=trans_dt name="trans_dt" class="form-control mindate"
-    						value="<?php echo set_value('trans_dt'); ?>" />
+    						value="<?php echo set_value('trans_dt'); ?>" required/>
     				</div>
     			</div>
 
