@@ -97,7 +97,7 @@ curl_setopt_array($curl, array(
  //CURLOPT_URL => 'http://localhost/benfed_fin/index.php/transaction/f_acc_code',
  //CURLOPT_URL => 'http://benfed.in/benfed_fin/index.php/transaction/f_acc_code',
  //CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/f_acc_code',
-// CURLOPT_URL => 'http://localhost:8080/benfed_fin/index.php/api_voucher/f_acc_code',
+CURLOPT_URL => 'http://localhost:8080/benfed_finance/index.php/api_voucher/f_acc_code',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -527,6 +527,7 @@ public function f_get_comppay_ro()
 {
 	
     $select = array("pur_inv_no ","sale_inv_no" );
+	// SELECT distinct `pur_inv_no`, `sale_inv_no` FROM `tdf_company_payment` WHERE `comp_id` = '3' AND `district` = '343' AND `net_amt` =0
        		
 			$where      =   array(
 			"comp_id"    =>  $this->input->get('comp_id'),
@@ -534,9 +535,10 @@ public function f_get_comppay_ro()
 				"net_amt=0" =>  NULL );
             //"paid_amt=0" =>  NULL  );
 			   
-			$pur_inv_ro   = $this->Company_paymentModel->f_select('tdf_company_payment',$select,$where,0);
+			$pur_inv_ro   = $this->Company_paymentModel->f_select_distinct('tdf_company_payment',$select,$where,0);
 	
-			
+			echo $this->db->last_query();
+			exit();
 			echo json_encode($pur_inv_ro);
 
 }
