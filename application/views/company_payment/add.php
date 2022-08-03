@@ -662,6 +662,7 @@
         // });
 
         $("#intro").on("click", "#removeRow", function () {
+			
             console.log('ok');
 
             $(this).parent().parent().remove();
@@ -692,6 +693,31 @@
                 net_total += +$(this).val();
             })
             $("#net_total").val(net_total);
+			
+			
+			
+			let row = $(this).closest('tr');
+        //var selval = $(this).val();
+			var selval = row.find('td:eq(0) .pur_inv').val()
+            console.log(selval);
+			
+			 var c = 0;
+        $('.pur_inv').each(function () {
+			//alert ($('.pur_inv option:selected').val());
+            var select_val =$(this).val();
+            if (selval == select_val) {
+                c = c + 1;
+            }
+        });
+			 if (c == 1) {
+				 	$("#addrow").show();
+    				$("#submit").prop('disabled', false);
+			 }
+			
+			
+			
+			
+			
         })
     });
 </script>
