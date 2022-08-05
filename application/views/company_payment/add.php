@@ -124,6 +124,7 @@
                                           } ?> -->
                                         </select>
                                     </td>
+                                 
 
 
                                     <td>
@@ -329,8 +330,8 @@
                     /*string += '<option value="' + value.pur_inv_no + '">' + value.pur_inv_no + ' - ' + value
                         .sale_inv_no + '</option>'*/
 					 string += '<option value="' + value.pur_inv_no + ',' + value
-                        .sale_inv_no + '">' + value.pur_inv_no + ' - ' + value
-                        .sale_inv_no + '</option>'
+                        .sale_inv_no +','+value.paid_id + '">' + value.pur_inv_no + ' - ' + value
+                        .sale_inv_no + '-'+ value.paid_id + '</option>'
 
                 });
                 // For add row option
@@ -880,8 +881,8 @@
                     /*string += '<option value="' + value.pur_inv_no + '">' + value.pur_inv_no + ' - ' + value
                         .sale_inv_no + '</option>'*/
 					 string += '<option value="' + value.pur_inv_no + ',' + value
-                        .sale_inv_no + '">' + value.pur_inv_no + ' - ' + value
-                        .sale_inv_no + '</option>'
+                        .sale_inv_no +','+value.paid_id + '">' + value.pur_inv_no + ' - ' + value
+                        .sale_inv_no + '-'+ value.paid_id +'</option>'
 
                 });
 
@@ -965,6 +966,7 @@
                     $('.rate').eq($('.pur_inv').index(this)).val(unitData.rate);
                     let net_amt = (unitData.tot_amt - unitData.tds);
                     $('.net_amt').eq($('.pur_inv').index(this)).val(net_amt);
+                    
                     row.find('td:eq(6) .taxable_amt').val(((qty)*(rate)).toFixed(2));
                     row.find('td:eq(7) .tds').val(((qty*rate)*.001).toFixed(2)); 
                    row.find('td:eq(8) .paid_amt').val(((qty)*(rate)).toFixed(2));

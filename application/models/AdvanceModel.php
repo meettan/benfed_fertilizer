@@ -97,7 +97,7 @@ $result = $data->row();
 return $result;
 		}
 /**************************Api Call For Advance To Company*************** */
-		function f_compadvjnl($data){
+		/*function f_compadvjnl($data){        //Shifted to API Model
 			// echo 'hi';
 			// die();
 			$curl = curl_init();
@@ -129,11 +129,11 @@ return $result;
 			curl_close($curl);
 			echo $response;
 			
-		}
+		}*/
 
 		/************************************************ */
 
-		function f_advjnl($data){
+		/*function f_advjnl($data){       //shifted to aPI Model
 			// echo '<pre>';
 			// print_r($data);
 			// echo '</pre>';
@@ -166,14 +166,14 @@ return $result;
 			curl_close($curl);
 			echo $response;
 			
-		}
-		public function f_upd_adv($sale_inv)
+		}*/
+		/*public function f_upd_adv($sale_inv)    
 		{
 		  $sql="UPDATE tdf_advance SET forward_flag ='Y'
 				WHERE receipt_no = '$sale_inv'";
 			
 			$this->db->query($sql);
-		}
+		}*/
         
 		
 		/************************************************** */

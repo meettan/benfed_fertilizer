@@ -106,20 +106,25 @@
 
 return $data->row();
 			}*/
-		public function f_get_comppay_ro_gb_dtls($pur_inv,$saleInv){
-				$data = $this->db->query("select c.qty as qty,a.sale_inv_no,a.pur_ro,round((b.tot_amt/b.qty),3) as rate 		,b.ro_dt,round(c.qty * round((b.tot_amt/b.qty),3),2) as tot_amt , round(((b.net_amt/b.qty)*(c.qty)*.1/100),2) as tds,
-				round(((b.net_amt/b.qty)*(c.qty)),2) as taxable_amt, a.prod_id,d.PROD_DESC
-				from  tdf_company_payment a ,td_purchase b,td_sale c,mm_product d
+		public function f_get_comppay_ro_gb_dtls($pur_inv,$saleInv,$paid_id){
+				$data = $this->db->query("select e.fwd_qty as qty,a.paid_id,a.sale_inv_no,a.pur_ro,round((b.tot_amt/b.qty),3) as rate 	
+				,b.ro_dt,round(e.fwd_qty * round((b.tot_amt/b.qty),3),2) as tot_amt , round(((b.tot_amt/b.qty)*(e.fwd_qty)*.1/100),2) as tds,
+				round(((b.tot_amt/b.qty)*(e.fwd_qty)),2) as taxable_amt, a.prod_id,d.PROD_DESC
+				from  tdf_company_payment a ,td_purchase b,td_sale c,mm_product d,tdf_payment_forward e
 				where a.pur_inv_no ='$pur_inv'
 				and a.pur_ro=b.ro_no
 				and a.pur_ro=c.sale_ro
 				and a.prod_id =d.prod_id
+				and a.pur_ro=e.ro_no
+				and a.paid_id = e.paid_id
 				and a.sale_inv_no='$saleInv'
+				and a.paid_id = '$paid_id'
 				and a.sale_inv_no=c.trans_do
 				union 
-				select 0 as qty,a.sale_inv_no,a.pur_ro,a.purchase_rt ,''ro_dt,0 as tot_amt ,0 ,0,a.prod_id,d.PROD_DESC
+				select 0 as qty,a.paid_id,a.sale_inv_no,a.pur_ro,a.purchase_rt ,''ro_dt,0 as tot_amt ,0 ,0,a.prod_id,d.PROD_DESC
 				from  tdf_company_payment a ,tdf_payment_recv b,mm_product d
 				where b.ro_no ='$pur_inv'
+				and a.paid_id = '$paid_id'
 				and a.pur_ro=b.ro_no
 				and a.prod_id =d.prod_id
 				and pay_type='O'
@@ -164,11 +169,13 @@ return $data->row();
 			 }
             public function f_get_comp_payment_dtls(){
 
-                $data = $this->db->query("select pay_no,district,comp_id,pur_ro,pur_inv_no,
-				                           sum(net_amt) net_amt
-											from tdf_company_payment
-											where net_amt>0
-											group by pay_no,district,comp_id,pur_ro,pur_inv_no
+					$data = $this->db->query("select a.pay_dt,a.pay_no,a.district,a.comp_id,sum(a.net_amt) net_amt,
+												b.COMP_NAME,c.branch_name
+												from tdf_company_payment a,mm_company_dtls b,md_branch c
+												where a.comp_id = b.COMP_ID
+												and   a.district = c.id
+												and   a.net_amt > 0
+												group by a.pay_dt,a.pay_no,a.district,a.comp_id,b.COMP_NAME,c.branch_name
 											");
         
                 
@@ -380,37 +387,37 @@ return $data->row();
        }
 
 
-	   function f_compayjnl($data){
-		$curl = curl_init();
+	//    function f_compayjnl($data){
+	// 	$curl = curl_init();
 	
-		curl_setopt_array($curl, array(
-		//   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/compay_voucher',
-		//CURLOPT_URL => 'http://localhost:8080/benfed_fin/index.php/api_voucher/compay_voucher',
-		 CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/compay_voucher',
+	// 	curl_setopt_array($curl, array(
+	// 	//   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/compay_voucher',
+	// 	CURLOPT_URL => 'http://localhost:8080/benfed_fin/index.php/api_voucher/compay_voucher',
+	// 	 //CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/compay_voucher',
 		
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => '',
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 0,
-		  CURLOPT_FOLLOWLOCATION => true,
-		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		  CURLOPT_CUSTOMREQUEST => 'POST',
-		  CURLOPT_POSTFIELDS =>'{
-			"data": '.json_encode($data).'
-		}',
+	// 	  CURLOPT_RETURNTRANSFER => true,
+	// 	  CURLOPT_ENCODING => '',
+	// 	  CURLOPT_MAXREDIRS => 10,
+	// 	  CURLOPT_TIMEOUT => 0,
+	// 	  CURLOPT_FOLLOWLOCATION => true,
+	// 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	// 	  CURLOPT_CUSTOMREQUEST => 'POST',
+	// 	  CURLOPT_POSTFIELDS =>'{
+	// 		"data": '.json_encode($data).'
+	// 	}',
 		
-		  CURLOPT_HTTPHEADER => array(
-			'Content-Type: application/json',
-			'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
-		  ),
-		));
+	// 	  CURLOPT_HTTPHEADER => array(
+	// 		'Content-Type: application/json',
+	// 		'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
+	// 	  ),
+	// 	));
 		
-		$response = curl_exec($curl);
+	// 	$response = curl_exec($curl);
 		
-		curl_close($curl);
-		echo $response;
+	// 	curl_close($curl);
+	// 	echo $response;
 		
-	}
+	// }
 
 /*Select Maximun soceity Code*/
 		public function get_soceity_code(){

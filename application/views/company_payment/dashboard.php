@@ -26,9 +26,10 @@
                 <thead>
 
                     <tr>
-                    	<th>Pay No.</th>
-                        <th>Purchase RO</th>
-                        <th>Purchase Invoice No</th>
+                        <th>Date</th>
+                        <th>District</th>
+                    	<th>Payment ID</th>
+                        <th>Company</th>
                         <th>NET Amount</th>
                         <th>Edit/Delete</th>
                     </tr>
@@ -44,10 +45,10 @@
 		    ?>
 
                             <tr>   
-                                <td><?php echo $pay->pay_no	; ?></td>
-                                <!-- <td><?php echo date("d/m/Y",strtotime($pay->paid_dt)); ?></td> -->
-                                <td><?php echo $pay->pur_ro; ?></td>
-                                <td><?php echo $pay->pur_inv_no; ?></td>
+                                <td><?php echo date('d/m/Y',strtotime($pay->pay_dt)); ?></td>
+                                <td><?php echo $pay->branch_name; ?></td>
+                                <td><?php echo $pay->pay_no	; ?></td>   
+                                <td><?php echo $pay->COMP_NAME; ?></td>
                                 <td><?php echo $pay->net_amt; ?></td>
                                
 			 	                <td><a href="cmppay_edit?pay_no=<?=$pay->pay_no;?>" 
@@ -84,10 +85,11 @@
 
                     <tr>
                     
-                    <th>Pay No.</th>
-                        <th>Sale Invoice No</th>
-                        <th>Purchase Invoice No</th>
-                        <th>Paid Amount</th>
+                        <th>Date</th>
+                        <th>District</th>
+                    	<th>Payment ID</th>
+                        <th>Company</th>
+                        <th>NET Amount</th>
                         <th>Edit/Delete</th>
                     </tr>
                 

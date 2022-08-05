@@ -7,6 +7,7 @@ class Society_payment extends MX_Controller{
 		$this->load->model('Society_paymentModel');
 		$this->load->model('AdvanceModel');
 		$this->load->model('DrcrnoteModel');
+		$this->load->model('ApiVoucher');
 		$this->session->userdata('fin_yr');
 
 		   if(!isset($this->session->userdata['loggedin']['user_id'])){
@@ -356,7 +357,7 @@ public function society_payEdit(){
 						
 						$data_cr_fin['adv_acc'] = $adv_acc->adv_acc;
 						
-						$this->Society_paymentModel->f_recvjnl_dr($data_cr_fin);
+						$this->ApiVoucher->f_recvjnl_dr($data_cr_fin);
 						
 					}
 				
@@ -416,7 +417,7 @@ public function society_payEdit(){
 						$data_array_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
 						/***********For Cash or Bank head */
 						if($tot_bnk > 0 ||$tot_bnk != '' || $tot_bnk !=null){
-						$this->Society_paymentModel->f_recvjnl($data_array_fin);
+						$this->ApiVoucher->f_recvjnl($data_array_fin);
 						}
 						// }
 						// print_r($_POST['paid_amt']);
@@ -474,7 +475,7 @@ public function society_payEdit(){
 						
 						$data_array_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
 						// $this->Society_paymentModel->f_recvjnl_soc($data3);
-					   $this->Society_paymentModel->f_recvjnl_soc($data_array_fin);
+					   $this->ApiVoucher->f_recvjnl_soc($data_array_fin);
 
                       // if ($trans_type=='6'){
 						if ($this->input->post('tot_dr_amt')>0){
@@ -545,6 +546,8 @@ public function society_payEdit(){
 		}
 		  
     }
+
+
 	public function check_data(){
 		$invNo=$this->input->post('invNo');
 		$roNo=$this->input->post('roNo');
@@ -976,7 +979,7 @@ public function deletecustpay() {
 	$where = array(
 				 "paid_id"    =>  $this->input->get('paid_id')
 				);
-$this->Society_paymentModel->delete_recvjnl($where);
+$this->ApiVoucher->delete_recvjnl($where);
 $this->Society_paymentModel->f_delete('tdf_payment_recv', $where);
 $this->Society_paymentModel->f_delete('tdf_advance', $where);
 

@@ -8,6 +8,7 @@ class Purchase extends MX_Controller
 		parent::__construct();
 		$this->db2 = $this->load->database('findb', TRUE);
 		$this->load->model('PurchaseModel');
+		$this->load->model('ApiVoucher');
 		// $this->load->helper('paddyrate_helper');
 
 		$this->session->userdata('kms_yr');
@@ -1392,7 +1393,7 @@ class Purchase extends MX_Controller
 			$data_array_pur['fin_fulyr'] = $fin_year;
 			$data_array_pur['br_nm'] = $br_nm->dist_sort_code;
 
-			$this->PurchaseModel->f_purchasejnl($data_array_pur);
+			$this->ApiVoucher->f_purchasejnl($data_array_pur);
 			$this->session->set_flashdata('msg', 'Successfully Added');
 
 			redirect('stock/stock_entry');

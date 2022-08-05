@@ -97,7 +97,7 @@ curl_setopt_array($curl, array(
  //CURLOPT_URL => 'http://localhost/benfed_fin/index.php/transaction/f_acc_code',
  //CURLOPT_URL => 'http://benfed.in/benfed_fin/index.php/transaction/f_acc_code',
  //CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/f_acc_code',
-CURLOPT_URL => 'http://localhost:8080/benfed_finance/index.php/api_voucher/f_acc_code',
+CURLOPT_URL => 'http://localhost:8080/benfed/benfed_finance/index.php/api_voucher/f_acc_code',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -267,16 +267,17 @@ $product['acc_cd'] = json_decode($response);
 	   $where_comp           = array("comp_id"=> $comp_id );
 
 	   $comp_name=$this->Company_paymentModel->f_select('mm_company_dtls',$select_comp,$where_comp,1);
-	   $data_array_comp=$data_array_acc;
-	   $data_array_comp['rem'] = " Amount Paid To. ".$comp_name->comp_name ; 
-	   $data_array_comp['total_tds'] =	$total_tds;
-	   $data_array_comp['total_net_amount'] =	$total_net_amount;
-	   $data_array_comp['total_gross_amount'] =	$total_gross_amount;
-	   $data_array_comp['tds_acc'] =	$this->input->post('company_tds_acc');
+
+	//    $data_array_comp=$data_array_acc;
+	//    $data_array_comp['rem'] = " Amount Paid To. ".$comp_name->comp_name ; 
+	//    $data_array_comp['total_tds'] =	$total_tds;
+	//    $data_array_comp['total_net_amount'] =	$total_net_amount;
+	//    $data_array_comp['total_gross_amount'] =	$total_gross_amount;
+	//    $data_array_comp['tds_acc'] =	$this->input->post('company_tds_acc');
 
 	   // print_r($data_array_comp);
 	  		
-		$this->Company_paymentModel->f_compayjnl($data_array_comp);
+		//$this->Company_paymentModel->f_compayjnl($data_array_comp);
 		
 		              $this->session->set_flashdata('msg', 'Successfully Added');
 					//$this->Company_paymentModel->f_comppayjnl( $data);
@@ -526,7 +527,7 @@ if ($trans_type=='2'){
 public function f_get_comppay_ro()
 {
 	
-    $select = array("pur_inv_no ","sale_inv_no" );
+    $select = array("pur_inv_no ","sale_inv_no","paid_id" );
 	// SELECT distinct `pur_inv_no`, `sale_inv_no` FROM `tdf_company_payment` WHERE `comp_id` = '3' AND `district` = '343' AND `net_amt` =0
        		
 			$where      =   array(
@@ -535,10 +536,10 @@ public function f_get_comppay_ro()
 				"net_amt=0" =>  NULL );
             //"paid_amt=0" =>  NULL  );
 			   
-			$pur_inv_ro   = $this->Company_paymentModel->f_select_distinct('tdf_company_payment',$select,$where,0);
+			$pur_inv_ro   = $this->Company_paymentModel->f_select('tdf_company_payment',$select,$where,0);
 	
-			echo $this->db->last_query();
-			exit();
+			// echo $this->db->last_query();
+			// exit();
 			echo json_encode($pur_inv_ro);
 
 }
@@ -578,8 +579,10 @@ public function f_get_bank_dtls()
 				$pur_inv_salinv=explode(',',$pur_inv_salinv);
 				$pur_inv=$pur_inv_salinv[0];
 				$saleInv=$pur_inv_salinv[1];
+				$paid_id=$pur_inv_salinv[2];
+
 			
-						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_get_comppay_ro_gb_dtls($pur_inv,$saleInv);
+						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_get_comppay_ro_gb_dtls($pur_inv,$saleInv,$paid_id);
 						 //echo $this->db->last_query();
 						// die();
 						//print_r($pur_inv_ro_dtl);

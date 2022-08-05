@@ -121,7 +121,7 @@
                             <th style="text-align: center;width:300px">Sale Invoice No</th>
                             <th style="text-align: center;width:100px">Adv Qty</th>
                             <th style="text-align: center;width:100px">Sale Qty</th>
-                            <th style="text-align: center;width:100px">Balance Qty</th>
+                            <th style="text-align: center;width:100px">Paid Qty To Be Forwarded</th>
                             <th>
                                 <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
                                     data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i
@@ -209,7 +209,7 @@
 									+'<input type="text" name="sale_qty[]" class="form-control sale_qty" id="sale_qty" readonly>'
 								+'</td>'
 								+'<td>'
-									+'<input type="text" name="qty[]" class="form-control qty" id="qty" ><input type="hidden" name="maxval[]" value="" class="maxval">'
+									+'<input type="text" name="qty[]" class="form-control qty" id="qty" readonly><input type="hidden" name="maxval[]" value="" class="maxval">'
 								+'</td>'
 								+'<td>'
 									+'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
@@ -282,7 +282,7 @@ function set_exists(x){
                     row.find("td:eq(1) input[type='text']").val(value.soc_name);
                     row.find("td:eq(2) input[type='text']").val(value.sale_invoice_no);
                     row.find("td:eq(4) input[type='text']").val(value.qty);
-                    row.find("td:eq(5) input[type='hidden']").val(value.paid_qty);
+                    row.find("td:eq(5) .qty").val(value.paid_qty);
                     //saleqty = value.qty?parseFloat(value.qty):0.00;
                     //saleqty = parseFloat(value.qty)?parseFloat(value.qty):0.00;
                     saleqty = parseFloat(value.qty)?parseFloat(value.qty):0.00;
@@ -293,7 +293,7 @@ function set_exists(x){
                         adv_qty  = parseFloat('0.00');
                         
                         row.find("td:eq(3) input[type='text']").val(adv_qty);
-                        row.find("td:eq(5) input[type='text']").val(parseFloat(saleqty));
+                        row.find("td:eq(5) .maxval").val(parseFloat(saleqty));
                     }
                 })
             
@@ -320,7 +320,7 @@ function set_exists(x){
                         row.find("td:eq(5) .qty").val(parseFloat(adv_qty));
                     }else{
                         //alert(1.2);
-                        row.find("td:eq(5) input[type='text']").val(0);
+                        row.find("td:eq(5) .maxval]").val(0);
 
                     }
                     $('#total').val(parseFloat(tot_qty+(parseFloat(saleqty)-parseFloat(adv_qty))));
@@ -334,14 +334,14 @@ function set_exists(x){
 					//  }else 
                      if(parseFloat(saleqty-(adv_qty)) > parseFloat(maxval)){
                        // alert(parseFloat(saleqty-(adv_qty)));
-                        row.find("td:eq(5) input[type='text']").val(maxval);
+                        row.find("td:eq(5) maxval").val(maxval);
                     }else{
                         
                         if(saleqty == NaN){
                          saleqty = 0.00;
                          }
                          //alert('Saleqqty'+saleqty);
-                        row.find("td:eq(5) input[type='text']").val(saleqty);
+                        row.find("td:eq(5) .maxval").val(saleqty);
 						/*row.find("td:eq(5) input[type='text']").val(saleqty-parseFloat('0'));*/
                     }
                   

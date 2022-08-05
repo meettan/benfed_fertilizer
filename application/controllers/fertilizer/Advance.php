@@ -10,6 +10,7 @@
 			parent::__construct();	
 
 			$this->load->model('AdvanceModel');
+			$this->load->model('ApiVoucher');
 			
 			$this->session->userdata('fin_yr');
 
@@ -214,7 +215,7 @@ public function company_advAdd(){
 					$data_array_comp['fin_fulyr']= $fin_year;
 					$data_array_comp['br_nm']    = $brn->dist_sort_code;
 					
-					$this->AdvanceModel->f_compadvjnl($data_array_comp);
+					$this->ApiVoucher->f_compadvjnl($data_array_comp);
 
 					$this->AdvanceModel->f_edit('tdf_adv_fwd', array('comp_pay_flag'=>'Y'),array('detail_receipt_no'=>$key['list'] ) );
 				}
@@ -566,7 +567,7 @@ $branchid=0;
 				
 				//echo '<pre>';
 				
-				$this->AdvanceModel->f_insert('tdf_advance', $data_array);
+				
 				// echo $this->db->last_query();
 				// exit();
 				$data_array_fin=$data_array;
@@ -584,10 +585,13 @@ $branchid=0;
 				$data_array_fin['fin_fulyr']=$fin_year;
 				$data_array_fin['br_nm']= $brn->dist_sort_code;
 				
-				$this->AdvanceModel->f_advjnl( $data_array_fin);	
 				
-				$this->session->set_flashdata('msg', 'Successfully Added');
-
+				if($this->ApiVoucher->f_advjnl( $data_array_fin)==1){
+					$this->AdvanceModel->f_insert('tdf_advance', $data_array);
+					$this->session->set_flashdata('msg', 'Successfully Added');
+				}else{
+					$this->session->set_flashdata('msg', 'Error in accounting!!');
+				}
 			  redirect('adv/advancefilter');
 
 			}else {

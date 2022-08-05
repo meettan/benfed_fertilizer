@@ -520,39 +520,39 @@
 
 /********************************************** */
 
-function f_purchasejnl($data){
-	// echo '<pre> I am Here';var_dump(json_encode($data));
-	// exit();
-	$curl = curl_init();
+// function f_purchasejnl($data){
+// 	// echo '<pre> I am Here';var_dump(json_encode($data));
+// 	// exit();
+// 	$curl = curl_init();
 
-	curl_setopt_array($curl, array(
+// 	curl_setopt_array($curl, array(
 	
-	CURLOPT_URL => 'http://localhost:8080/Benfed_finance/index.php/api_voucher/purchase_voucher',
-	// CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/purchase_voucher',
-	 CURLOPT_RETURNTRANSFER => true,
-	  CURLOPT_ENCODING => '',
-	  CURLOPT_MAXREDIRS => 10,
-	  CURLOPT_TIMEOUT => 0,
-	  CURLOPT_FOLLOWLOCATION => true,
-	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS =>'{
-		"data": '.json_encode($data).'
-	}',
+// 	CURLOPT_URL => 'http://localhost:8080/Benfed_finance/index.php/api_voucher/purchase_voucher',
+// 	// CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/purchase_voucher',
+// 	 CURLOPT_RETURNTRANSFER => true,
+// 	  CURLOPT_ENCODING => '',
+// 	  CURLOPT_MAXREDIRS => 10,
+// 	  CURLOPT_TIMEOUT => 0,
+// 	  CURLOPT_FOLLOWLOCATION => true,
+// 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+// 	  CURLOPT_CUSTOMREQUEST => 'POST',
+// 	  CURLOPT_POSTFIELDS =>'{
+// 		"data": '.json_encode($data).'
+// 	}',
 	
-	  CURLOPT_HTTPHEADER => array(
-		'Content-Type: application/json',
-		'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
-	  ),
-	));
+// 	  CURLOPT_HTTPHEADER => array(
+// 		'Content-Type: application/json',
+// 		'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
+// 	  ),
+// 	));
 	
-	$response = curl_exec($curl);
+// 	$response = curl_exec($curl);
 	
-	curl_close($curl);
-	//echo $response;
-	return $response;
-	//exit;
-}
+// 	curl_close($curl);
+// 	//echo $response;
+// 	return $response;
+// 	//exit;
+// }
 
 /************************************************** */
 

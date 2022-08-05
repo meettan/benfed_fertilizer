@@ -126,10 +126,11 @@ tr:hover {background-color: #f5f5f5;}
                                      <!-- <td><?= $ptableData->PROD_DESC; ?></td> -->
                                      <td><?php echo $ptableData->pur_ro; ?></td>
                                      <td><?php echo $ptableData->qty; ?></td>
-                                     <td><?php echo  round($ptableData->rate_amt,2) ; $totalRate+=$ptableData->rate_amt; ?></td>
-                                     <td><?php echo round($ptableData->taxable_amt,2) ;$totalAmount+=$ptableData->taxable_amt; ?></td>
-                                     <td><?php echo round($ptableData->tds_amt,2);$totalTDS+=$ptableData->tds_amt;?></td>
-                                     <td><?php echo round($ptableData->net_amt,2);$totalNETAmount+=$ptableData->net_amt;?></td>
+                                     <td><?php echo  $ptableData->rate_amt ; $totalRate+=$ptableData->rate_amt; ?></td>
+                                     <td><?php echo $ptableData->taxable_amt ;$totalAmount+=$ptableData->taxable_amt; ?></td>
+                                     <td><?php echo round($ptableData->tds_amt,0);$totalTDS+=round($ptableData->tds_amt,0);?></td>
+                                     <!--<td><?php //echo $ptableData->net_amt;$totalNETAmount+=$ptableData->net_amt;?></td>-->
+                                     <td><?php echo $ptableData->taxable_amt - round($ptableData->tds_amt,0); $totalNETAmount+=$ptableData->taxable_amt - round($ptableData->tds_amt,0);?></td>
                                 </tr>
                                
  
@@ -138,9 +139,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr>
                                     <td colspan="8"><b>Total</b></td>
                                     <td><b><?php //echo round($totalRate,2); ?></b></td>
-                                    <td><b><?php echo round($totalAmount,2); ?></b></td>
-                                    <td><b><?php echo round($totalTDS,2); ?></b></td>
-                                    <td><b><?php echo round($totalNETAmount,2); ?></b></td>
+                                    <td><b><?php echo $totalAmount; ?></b></td>
+                                    <td><b><?php echo $totalTDS; ?></b></td>
+                                    <td><b><?php echo  $totalNETAmount; ?></b></td>
                                 </tr>
                                 <?php 
                                        }
