@@ -2,7 +2,7 @@
             
 	<div class="col-md-6 container form-wraper">
 
-		<form method="POST" action="<?php echo site_url("fertilizer/unitAdd") ?>">
+		<form method="POST" action="<?php echo site_url("fertilizer/fertilizer/unitAdd") ?>">
 
 			<div class="form-header">
 			

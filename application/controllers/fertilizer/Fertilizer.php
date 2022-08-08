@@ -1136,7 +1136,7 @@ public function salerateAdd(){
                 }
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
-					redirect('fertilizer/sale_rate');
+					redirect('fertilizer/fertilizer/sale_rate');
 			}else {
 				$select1               = array("comp_id","comp_name");
 				$product['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select1,NULL,0);
@@ -1297,7 +1297,7 @@ public function deletesalerate(){
         $this->FertilizerModel->f_delete('mm_sale_rate', $where);        
         $this->session->set_flashdata('msg', 'Successfully Deleted!');
 
-       redirect('fertilizer/sale_rate');
+       redirect('fertilizer/fertilizer/sale_rate');
 
 	}
 
