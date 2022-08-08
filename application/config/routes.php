@@ -101,7 +101,7 @@ $route['fert/rep/(:any)']   = 'fertilizer/report/$1';                           
 //$route['add_new/(:any)/(:any)'] = 'paddys/add_new/f_$1_$2';
 $route['add_new/(:any)'] = 'paddys/add_new/f_$1';
 
-//For Transactions 
+//For Transactions all
 $route['transactions/(:any)'] = 'paddys/transactions/f_$1';
 
 //For Payments 
