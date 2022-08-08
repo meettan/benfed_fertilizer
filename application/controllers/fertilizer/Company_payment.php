@@ -92,31 +92,31 @@
 
 $curl = curl_init();
 
-curl_setopt_array($curl, array(
-	//CURLOPT_URL => 'http://localhost/benfed_fin/index.php/api_voucher/f_acc_code',
- //CURLOPT_URL => 'http://localhost/benfed_fin/index.php/transaction/f_acc_code',
- //CURLOPT_URL => 'http://benfed.in/benfed_fin/index.php/transaction/f_acc_code',
- //CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/f_acc_code',
-CURLOPT_URL => 'http://localhost:8080/benfed/benfed_finance/index.php/api_voucher/f_acc_code',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-	'Cookie: ci_session=kdj63c5dnt6e3m0ursvh4rg4p269dtjr'
-  ),
-));
+// curl_setopt_array($curl, array(
+// 	//CURLOPT_URL => 'http://localhost/benfed_fin/index.php/api_voucher/f_acc_code',
+//  //CURLOPT_URL => 'http://localhost/benfed_fin/index.php/transaction/f_acc_code',
+//  //CURLOPT_URL => 'http://benfed.in/benfed_fin/index.php/transaction/f_acc_code',
+//  //CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/f_acc_code',
+// CURLOPT_URL => 'http://localhost:8080/benfed/benfed_finance/index.php/api_voucher/f_acc_code',
+//   CURLOPT_RETURNTRANSFER => true,
+//   CURLOPT_ENCODING => '',
+//   CURLOPT_MAXREDIRS => 10,
+//   CURLOPT_TIMEOUT => 0,
+//   CURLOPT_FOLLOWLOCATION => true,
+//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//   CURLOPT_CUSTOMREQUEST => 'GET',
+//   CURLOPT_HTTPHEADER => array(
+// 	'Cookie: ci_session=kdj63c5dnt6e3m0ursvh4rg4p269dtjr'
+//   ),
+// ));
 
-$response = curl_exec($curl);
+// $response = curl_exec($curl);
 
-curl_close($curl);
+// curl_close($curl);
  //echo $response;
  //echo '<pre>';
  //var_dump(json_decode($response));exit;
-$product['acc_cd'] = json_decode($response);
+// $product['acc_cd'] = json_decode($response);
 //echo $acc_cd;
 //  var_dump($acc_cd[0]->sl_no);
 //  exit;
@@ -148,7 +148,7 @@ $product['acc_cd'] = json_decode($response);
 						$receipt   = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$adv_transCd->sl_no;
 						
                         $data     = array(
-											'dr_acCode'=>$this->input->post('acc_cd'),
+											'dr_acCode'=>0,
 											'pay_no'           => $receipt ,
 											
 											'pay_dt'           => $this->input->post('pay_dt'),
@@ -185,8 +185,11 @@ $product['acc_cd'] = json_decode($response);
 											'paid_amt'         => $paid_amt,
 							
 											'net_amt'         => $_POST['net_amt'][$i],
+											'modified_by'         => $this->session->userdata['loggedin']['user_name'],
+											'modified_dt'         => date('Y-m-d h:i:s'),
 							
-											'qty'              => $_POST['qty'][$i]);
+											// 'qty'              => $_POST['qty'][$i]
+										);
 
 				
 						//   $select_bnkacc         = array("acc_code");
@@ -201,7 +204,8 @@ $product['acc_cd'] = json_decode($response);
 
 					'pur_ro'      => $_POST['pur_ro'][$i],
 
-					'prod_id'     => $_POST['prod_id'][$i]);
+					'prod_id'     => $_POST['prod_id'][$i]
+				);
 
 				// 	$data_array_acc=$data;
 				// 	$data_array_acc['acc_code'] = $bnk_acc->acc_code; 
@@ -583,7 +587,7 @@ public function f_get_bank_dtls()
 
 			
 						$pur_inv_ro_dtl   = $this->Company_paymentModel->f_get_comppay_ro_gb_dtls($pur_inv,$saleInv,$paid_id);
-						 //echo $this->db->last_query();
+						//  echo $this->db->last_query();
 						// die();
 						//print_r($pur_inv_ro_dtl);
 						echo json_encode($pur_inv_ro_dtl);

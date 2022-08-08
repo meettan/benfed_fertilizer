@@ -70,8 +70,8 @@
 
 	curl_setopt_array($curl, array(
 	
-	CURLOPT_URL => 'http://localhost:8080/Benfed_finance/index.php/api_voucher/totcrn_voucher',
-	//  CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/totcrn_voucher',
+	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/totcrn_voucher',
+	
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,
@@ -106,8 +106,7 @@ function f_crnjnl($data){
 
 	curl_setopt_array($curl, array(
 	
-	CURLOPT_URL => 'http://localhost:8080/Benfed_finance/index.php/api_voucher/crn_voucher',
-	// CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/crn_voucher',
+	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/crn_voucher',
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,

@@ -11,8 +11,8 @@ class ApiVoucher extends CI_Model{
     function f_compadvjnl($data){  
         $curl = curl_init();
         curl_setopt_array($curl, array(
-         CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/compadv_voucher',
-        // CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/compadv_voucher',
+         CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/compadv_voucher',
+       
                         
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
@@ -45,8 +45,7 @@ class ApiVoucher extends CI_Model{
         $curl = curl_init();
     
         curl_setopt_array($curl, array(
-        // CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/adv_voucher',
-        CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/adv_voucher',
+        CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/adv_voucher',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -83,8 +82,8 @@ function f_purchasejnl($data){
 
 	curl_setopt_array($curl, array(
 	
-	CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/purchase_voucher',
-	// CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/purchase_voucher',
+	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/purchase_voucher',
+
 	 CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,
@@ -120,9 +119,7 @@ function f_recvjnl_soc($data){
    $curl = curl_init();
 
    curl_setopt_array($curl, array(
-   //   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
-   // CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/recv_voucher_soc',
-   CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/recv_voucher_soc',
+   CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/recv_voucher_soc',
      CURLOPT_RETURNTRANSFER => true,
      CURLOPT_ENCODING => '',
      CURLOPT_MAXREDIRS => 10,
@@ -154,9 +151,8 @@ function f_recvjnl($data){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-       //CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
-    //   CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/recv_voucher',
-      CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/recv_voucher',
+      
+      CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/recv_voucher',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -188,9 +184,8 @@ function f_recvjnl_dr($data){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-    //   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
-    //  CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/recv_voucher_dr',
-    CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/recv_voucher_dr',
+    
+    CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/recv_voucher_dr',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -221,9 +216,7 @@ public function delete_recvjnl($paid_id){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-    //   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
-    //  CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/recv_voucher_dr',
-    CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/delete_voucher_dr',
+    CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/delete_voucher_dr',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,

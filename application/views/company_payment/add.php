@@ -54,19 +54,19 @@
 
                 </div>
 
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label for="acc_cd" class="col-sm-2 col-form-label">A/C Head:</label>
                     <div class="col-sm-3">
                         <select name="acc_cd" style="width:250px" class="form-control sch_cd required" id="acc_cd">
                             <option value="">Select</option>
                             <?php
-                       foreach($acc_cd as $ac){
+                       //foreach($acc_cd as $ac){
                             ?>
-                            <option value="<?php echo $ac->sl_no;?>"><?php echo $ac->ac_name;?></option>
-                            <?php    }    ?>
+                            <option value="<?php // echo $ac->sl_no;?>"><?php echo $ac->ac_name;?></option>
+                            <?php  //  }    ?>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>

@@ -2179,7 +2179,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
                     ");  */
 
                     $q= $this->db->query("
-                        select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty,
+                        select a.pay_dt,c.district_name,a.pur_inv_no,a.paid_id,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty,
                         (select round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
                         SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
                         (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
@@ -2191,7 +2191,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
                         and a.district=c.district_code
                         and a.net_amt > 0
                         and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
-                        group by  a.pur_ro,a.pur_inv_no
+                        group by  a.pur_ro,a.pur_inv_no,a.paid_id
                     ");  
                     return $q->result();
                 }
