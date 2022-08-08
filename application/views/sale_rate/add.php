@@ -319,7 +319,7 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("fertilizer/f_get_product");?>',
+            '<?php echo site_url("fertilizer/fertilizer/f_get_product");?>',
 
             { 
 
@@ -349,7 +349,7 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("fertilizer/f_get_category");?>',
+            '<?php echo site_url("fertilizer/fertilizer/f_get_category");?>',
 
             { 
 
@@ -409,7 +409,7 @@ $(document).ready(function(){
 
         $.get( 
 
-            '<?php echo site_url("fertilizer/f_get_prod_per_bag");?>',
+            '<?php echo site_url("fertilizer/fertilizer/f_get_prod_per_bag");?>',
 
             { 
 
@@ -440,7 +440,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("fertilizer/f_get_unit");?>',
+			'<?php echo site_url("fertilizer/fertilizer/f_get_unit");?>',
 
 			{ 
 

@@ -67,6 +67,7 @@ $route['paddy/(:any)/(:any)'] = 'paddys/f_$1_$2';
 $route['paddy/(:any)'] = 'paddys/f_$1';
 
 //For Fertilizer
+// $route['fertilizer/(:any)']='fertilizer/$1';
 $route['source']           = 'fertilizer/fertilizer/company';                       //Company Master
 $route['measurement']      = 'fertilizer/fertilizer/unit';                          //Unit Master
 $route['material']         = 'fertilizer/fertilizer/product';                       //Product Master
