@@ -71,7 +71,7 @@
 
                                 <td><?php echo $value->prod_desc; ?></td>
 
-			 	                <td><a href="fertilizer/editsalerate?bulk_id=<?php echo $value->bulk_id;?>/fin_id=<?php echo $value->fin_id;?>/comp_id=<?php echo $value->comp_id;?>" 
+			 	                <td><a href="fertilizer/fertilizer/editsalerate?bulk_id=<?php echo $value->bulk_id;?>/fin_id=<?php echo $value->fin_id;?>/comp_id=<?php echo $value->comp_id;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
