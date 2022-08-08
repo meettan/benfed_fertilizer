@@ -4,7 +4,7 @@
            </div> 
 		<div class="col-md-8 container form-wraper">
 
-			<form method="POST" action="<?php echo site_url("fertilizer/editsalerate") ?>" onsubmit="return valid_data()">
+			<form method="POST" action="<?php echo site_url("fertilizer/fertilizer/editsalerate") ?>" onsubmit="return valid_data()">
 
 				<div class="form-header">
                 
