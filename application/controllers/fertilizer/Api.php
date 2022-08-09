@@ -477,7 +477,8 @@
                 $response = curl_exec($curl);
 
                 $info = curl_getinfo($curl);
-                print_r($info); 
+                print_r($info['request_header']); 
+                // print_r($info); 
 
                 curl_close($curl);
                 die();
