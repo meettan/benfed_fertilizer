@@ -472,12 +472,12 @@
                 ),
                 ));
 
-
-                print_r(CURLOPT_POSTFIELDS);
-                exit();
+               
+                
                 $response = curl_exec($curl);
-// print_r($response);exit;
 
+                $info = curl_getinfo($curl);
+                print_r($info['request_header']); die();
 
                 curl_close($curl);
                 
