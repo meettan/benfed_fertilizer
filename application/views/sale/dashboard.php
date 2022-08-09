@@ -50,12 +50,12 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-		        <small><a href="<?php echo site_url("trade/saleAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
+		        <small><a href="<?php echo  base_url("trade/saleAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
                 
             </h3>
             <div class="form-group row">
-                <form action="<?= site_url('trade/salesfilter'); ?>" method="post">
+                <form action="<?=  base_url('trade/salesfilter'); ?>" method="post">
 
                         <div class="col-sm-3">
 	                    <input type="date" style="width:300px" id=from_date name="from_date" class="form-control"  />
@@ -124,7 +124,7 @@
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                 </td>
-                                <!-- <td><<a href="<?php echo site_url('trade/api_call?trans_do='.$value->trans_do.''); ?>"  -->
+                                <!-- <td><<a href="<?php echo  base_url('trade/api_call?trans_do='.$value->trans_do.''); ?>"  -->
 
 
 
@@ -158,14 +158,14 @@
                                 <button type="button" name="download_<?= $i ?>" class="download_" id="download"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="download_" <?= $enable_btn; ?>>
-                                <!-- <a href="<?php //echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a> -->
-                                    <a href="<?php echo site_url('api/print_irn?irn='.$value->irn.''); ?>" id="down_clk_td_<?= $i ?>" title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
+                                <!-- <a href="<?php //echo  base_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a> -->
+                                    <a href="<?php echo  base_url('api/print_irn?irn='.$value->irn.''); ?>" id="down_clk_td_<?= $i ?>" title="Download"><i class="fa fa-download fa-2x" style="color:green;"></i></a>
                                 </td>
                                 <td>
                                 <button type="button" name="print_<?= $i ?>" class="print" id="print"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="print" <?= $disable_prnt; ?>>
-                                <a href="<?php echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
+                                <a href="<?php echo  base_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
                                 </td>
                                 
                                 <td>
@@ -232,7 +232,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('trade/deletesale?trans_do="+id+"');?>";
+                window.location = "<?php echo  base_url('trade/deletesale?trans_do="+id+"');?>";
 
             }
             
@@ -284,7 +284,7 @@ $(document).ready(function() {
         }else{
             $.ajax({
             type: "GET",
-            url: "<?php echo site_url('api/get_api_res'); ?>",
+            url: "<?php echo base_url('api/get_api_res'); ?>",
             data: {trans_do: trans_do},
             dataType: 'html',
             beforeSend: function () {
@@ -308,7 +308,7 @@ $(document).ready(function() {
                         $('#irn_clk_td_' + i).html('<i class="fa fa-check fa-2x"  aria-hidden="true" style="color: blue"></i>');
                         $('#ack_clk_td_' + i).text(res['AckNo']);
                         $('#ack_dt_td_' + i).text(res['AckDt']);
-                        $('#down_clk_td_' + i).attr('href', '<?= site_url() ?>api/print_irn?irn='+res['Irn']);
+                        $('#down_clk_td_' + i).attr('href', '<?=  base_url() ?>api/print_irn?irn='+res['Irn']);
                         $('#ack_dt_td_' + i).text('Cash/B2B');
                         // AckNo
                         //AckDt
@@ -338,7 +338,7 @@ $(document).ready(function() {
     function save_data(trans_do, irn,ack,ack_dt,trn_type){
         $.ajax({
             type: "GET",
-            url: "<?php echo site_url('api/save_irn'); ?>",
+            url: "<?php echo  base_url('api/save_irn'); ?>",
             data: {trans_do: trans_do, irn: irn,ack:ack,ack_dt:ack_dt,trn_type:trn_type},
             dataType: 'html',
             success: function (result) {
