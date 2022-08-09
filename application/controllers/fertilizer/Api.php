@@ -86,8 +86,8 @@
             // print_r($this->input->get());
             // exit();
             $data = $this->api_call($trans_do);
-             print_r($data);
-             exit();
+            //  print_r($data);
+            //  exit();
             $dt = $data ? $data[0] : $data;
             $HsnCd = strlen($dt->HsnCd)==4 ? $dt->HsnCd . '00' : $dt->HsnCd;
             // echo '<pre>';
@@ -470,9 +470,11 @@
                 ));
 
                 $response = curl_exec($curl);
-//print_r($response);exit;
+print_r($response);exit;
                 curl_close($curl);
                 echo $response;
+
+
         }
 
         function save_irn(){
