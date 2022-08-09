@@ -83,6 +83,8 @@
 
         function get_api_res(){
             $trans_do = $this->input->get('trans_do');
+            print_r($this->input->get());
+            exit();
             $data = $this->api_call($trans_do);
             $dt = $data ? $data[0] : $data;
             $HsnCd = strlen($dt->HsnCd)==4 ? $dt->HsnCd . '00' : $dt->HsnCd;
