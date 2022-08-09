@@ -472,17 +472,13 @@
                 ),
                 ));
 
-               
                 
                 $response = curl_exec($curl);
+// print_r($response);exit;
 
-                $info = curl_getinfo($curl);
-                // print_r($info['request_header']); 
 
                 curl_close($curl);
-                print_r($info); 
-
-                die();
+                
                 echo $response;
 
 
