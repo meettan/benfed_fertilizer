@@ -93,7 +93,7 @@
 	 '' ProjRefr,
 	 substr(g.ro_no,1,16) PORefr,
 	 DATE_FORMAT(g.ro_dt,'%d/%m/%Y')  PORefDt,
-	 /* 'https://einv-apisandbox.nic.in'  Url, */
+	 'https://einv-apisandbox.nic.in'  Url,
 	 '' Docs,
 	 '' Info,
 	 '' ShipBNo,
@@ -183,7 +183,7 @@ public function f_get_api_data($trans_do)
 	 '' ProjRefr,
 	 substr(g.ro_no,1,16) PORefr,
 	 DATE_FORMAT(g.ro_dt,'%d/%m/%Y')  PORefDt,
-	 /* 'https://einv-apisandbox.nic.in'  Url, */
+	 'https://einv-apisandbox.nic.in'  Url,
 	 '' Docs,
 	 '' Info,
 	 '' ShipBNo,
@@ -502,21 +502,26 @@ return $sql->result();
 			return $result->result();
 	
 		}
+		
+		
+		
+		
+		
 	
 		
 		public function f_get_sales_dtls($banch_id,$fin_id){
 			// $user_id    = $this->session->userdata('login')->user_id;
 			
 	
-		$data = $this->db->query("select a.qty,a.unit,d.unit_name,a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,(select count(paid_id) from tdf_payment_recv where sale_invoice_no=a.trans_do) as pay_cnt
-									from td_sale a,mm_ferti_soc b,mm_product c,mm_unit d
+		$data = $this->db->query("select a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,(select count(paid_id) from tdf_payment_recv where sale_invoice_no=a.trans_do) as pay_cnt
+									from td_sale a,mm_ferti_soc b,mm_product c
 									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
 									and a.do_dt=CURDATE()
 									and a.prod_id=c.prod_id
 									and  a.soc_id=b.soc_id
-									and   a.unit = d.id
-									group by a.qty,a.unit,d.unit_name, a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
+									
+									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
 									order by a.do_dt desc");
 									
 	
@@ -526,16 +531,15 @@ return $sql->result();
 		}
 		public function f_get_sales_bydt($banch_id,$fin_id,$frmdt,$todt){
 			
-		$data = $this->db->query("select a.qty,a.unit,d.unit_name,a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,
+		$data = $this->db->query("select a.irn, a.ack,a.ack_dt,a.trans_do,a.do_dt,a.trans_type,b.soc_name,sum(a.tot_amt) as tot_amt,c.prod_desc,a.gst_type_flag,
 		                          (select count(paid_id) from tdf_payment_recv where sale_invoice_no=a.trans_do) as pay_cnt
-									from td_sale a,mm_ferti_soc b,mm_product c,mm_unit d
-									where  a.prod_id=c.prod_id
-									and   a.soc_id=b.soc_id
-									and   a.unit = d.id
-									and br_cd='$banch_id' 
+									from td_sale a,mm_ferti_soc b,mm_product c
+									where br_cd='$banch_id' 
 									and fin_yr='$fin_id'
 									and a.do_dt between '$frmdt' and '$todt'
-									group by a.qty,a.unit,d.unit_name,a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
+									and a.prod_id=c.prod_id
+									and a.soc_id=b.soc_id
+									group by a.trans_do,a.do_dt,a.trans_type,b.soc_name,c.prod_desc,a.gst_type_flag
 									order by a.do_dt desc");
 									
 	
@@ -921,7 +925,7 @@ function f_salecrjnl($data){
 			curl_setopt_array($curl, array(
 			 // CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
 			CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/sale_crvoucher',
-			
+			//  CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/sale_crvoucher',
 			 CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => '',
 			  CURLOPT_MAXREDIRS => 10,
@@ -953,7 +957,7 @@ function f_salecrjnl($data){
 			//   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
 			CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/sale_voucher',
 
-			
+			//  CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/sale_voucher',
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => '',
 			  CURLOPT_MAXREDIRS => 10,
