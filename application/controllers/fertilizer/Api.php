@@ -477,10 +477,11 @@
                 $response = curl_exec($curl);
 
                 $info = curl_getinfo($curl);
-                print_r($info['request_header']); 
-                // print_r($info); 
+                // print_r($info['request_header']); 
 
                 curl_close($curl);
+                print_r($info); 
+
                 die();
                 echo $response;
 
