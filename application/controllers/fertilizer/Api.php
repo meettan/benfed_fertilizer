@@ -280,7 +280,10 @@
         //         echo $result;exit;
         //     var_dump($data); exit;
         //      echo ( $doc_no);exit;
-        //    echo ( $doc_no);exit;         
+        //    echo ( $doc_no);exit; 
+                
+        print_r($dt);
+        exit();
 			$curl = curl_init();
                 curl_setopt_array($curl, array(
                 // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v1/govt/api/Invoice',
@@ -470,7 +473,7 @@
                 ));
 
                 $response = curl_exec($curl);
-print_r($response);exit;
+// print_r($response);exit;
                 curl_close($curl);
                 echo $response;
 
