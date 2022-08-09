@@ -294,7 +294,7 @@ $(document).ready(function() {
                 $('.wraper').hide();
             },
             success: function (result) {
-                alert(result);
+                // alert(result);
                 var res = JSON.parse(result);
                 var trn_type='';
                 console.log(res['Success']);
