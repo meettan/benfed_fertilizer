@@ -276,14 +276,13 @@ $(document).ready(function() {
         var curr_dt=new Date();
         // var curr = curr_dt.getDate() + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
         // (((curr_dt.getDate())+1) > 9 ? ((curr_dt.getDate())+1) : '0'+((curr_dt.getDate())+1))
-        // var curr = (((curr_dt.getDate())) > 9 ? ((curr_dt.getDate())) : '0'+((curr_dt.getDate()))) + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
-        var curr = '09/08/2022';
+        var curr = (((curr_dt.getDate())) > 9 ? ((curr_dt.getDate())) : '0'+((curr_dt.getDate()))) + '/' + (((curr_dt.getMonth())+1) > 9 ? ((curr_dt.getMonth())+1) : '0'+((curr_dt.getMonth())+1)) + '/' + curr_dt.getFullYear();
+        // var curr = '09/08/2022';
         console.log({'do_dt': do_dt, 'curr_dt': curr});
         if(do_dt != curr){
                     alert('IRN Genaration Not Possible');
                     $('[name="irn_clk_td_'+i+'"]').attr('disabled','disabled');
         }else{
-            alert('esle');
             $.ajax({
             type: "GET",
             url: "<?php echo site_url('api/get_api_res'); ?>",
@@ -295,7 +294,7 @@ $(document).ready(function() {
                 $('.wraper').hide();
             },
             success: function (result) {
-                // console.log(result);
+                alert("test");
                 var res = JSON.parse(result);
                 var trn_type='';
                 console.log(res['Success']);
