@@ -283,6 +283,7 @@ $(document).ready(function() {
                     alert('IRN Genaration Not Possible');
                     $('[name="irn_clk_td_'+i+'"]').attr('disabled','disabled');
         }else{
+            alert('esle');
             $.ajax({
             type: "GET",
             url: "<?php echo site_url('api/get_api_res'); ?>",
