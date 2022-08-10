@@ -288,8 +288,10 @@ class Api extends MX_Controller
 
         // print_r($dt);
         // exit();
-
+        echo "hello";
+        die();
            echo $this->testApi();
+           
             die();
 
         $curl = curl_init();
