@@ -242,7 +242,7 @@ $(document).ready(function() {
                             +'<td>'+ trans_type +'</td>'
                             +'<td><a href="editadv?rcpt=' + item.receipt_no + '" data-toggle="tooltip" data-placement="bottom" title="Edit">'
                             +'<i class="fa fa-edit fa-2x" style="color: #007bff"></i></a></td>'
-                            +'<td><a href="<?= site_url(); ?>/adv/socadvReport?receipt_no=' + item.receipt_no + '" title="Print">'                          
+                            +'<td><a href="/adv/socadvReport?receipt_no=' + item.receipt_no + '" title="Print">'                          
                             +'<i class="fa fa-print fa-2x" style="color:green;"></i></a></td>'
                             +'<td><button type="button" class="delete" id="delete_' + x + '" data-toggle="tooltip" data-placement="bottom" title="Delete" onclick="del_item('+ x +')">'
                             +'<i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i></button></td>'
