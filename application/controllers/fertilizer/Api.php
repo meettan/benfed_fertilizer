@@ -86,6 +86,8 @@ class Api extends MX_Controller
 
     function get_api_res()
     {
+        echo "hi";
+        exit();
         $trans_do = $this->input->get('trans_do');
         // print_r($this->input->get());
         // exit();
