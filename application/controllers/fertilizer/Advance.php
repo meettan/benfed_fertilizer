@@ -374,9 +374,9 @@ public function advancefilter(){
 	$where  =	array(
         "a.soc_id=b.soc_id"   => NULL,
 
-        "district"            => $this->session->userdata['loggedin']['branch_id'],
+        "b.district"            => $this->session->userdata['loggedin']['branch_id'],
 
-        "fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
+        "a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
 		"a.trans_type='I'"   => NULL,
 		"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL,
 
@@ -385,9 +385,9 @@ public function advancefilter(){
     );
 
 		$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
-		// print_r($adv['data']);
-		//  echo $this->db->last_query();
-		//  exit();
+		print_r($adv['data']);
+		 echo $this->db->last_query();
+		 exit();
 
 		$this->load->view("post_login/fertilizer_main");
 
