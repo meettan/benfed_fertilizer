@@ -1125,11 +1125,6 @@ class Purchase extends MX_Controller
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-			
-			
-
-
-		
 			if($this->input->post('adv_status')=='Y'){
 				$where = array('fwd_flag' => 'Y',
 									'comp_pay_flag' => 'Y',

@@ -1,5 +1,5 @@
 <?php
-
+//hello
 	class Welcome extends MX_Controller{
 
 		public function __construct(){
