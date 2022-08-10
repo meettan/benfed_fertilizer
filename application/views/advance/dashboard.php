@@ -137,9 +137,7 @@
                             <td>
                             <?php if($value->no_of_rcpt == 0){ 
                                 if($value->forward_flag == 'N') { ?>
-                                <button type="button" class="delete" id="<?php echo $value->receipt_no;?>"    
-                                       
-                                       data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                <button type="button" class="delete" id="<?php echo $value->receipt_no;?>"  data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                    </button> 
@@ -210,14 +208,7 @@
 <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<!-- <script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "pagingType": "full_numbers"
-    } );
-    check_data($('input[name="radio"]:checked').val());
-} );
-</script> -->
+
 
 <script>
 $(document).ready(function() {
@@ -232,7 +223,7 @@ $(document).ready(function() {
         $('#example tbody').empty();
         $.ajax({
             type: "GET",
-            url: "<?php echo site_url('adv/advance_radio'); ?>",
+            url: "<?php //echo site_url('adv/advance_radio'); ?>",
             data: {id: id},
             dataType: 'html',
             success: function (result) {
