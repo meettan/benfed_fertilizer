@@ -500,7 +500,7 @@ class Api extends MX_Controller
 
 
         $response = curl_exec($curl);
-        // print_r($response);exit;
+        print_r($response);exit;
 
 
         curl_close($curl);
