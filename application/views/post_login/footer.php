@@ -1,6 +1,6 @@
 <script>
 	
-	 $(".sch_cd").select2();   // Code For Select Write Option
+	//  $(".sch_cd").select2();   // Code For Select Write Option
 </script>
 
 

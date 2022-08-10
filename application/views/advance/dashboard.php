@@ -270,25 +270,7 @@ $(document).ready(function() {
         }
     }
 
-    $(document).ready( function (){
-
-        $('.delete').click(function () {
-            
-            var id = $(this).attr('receipt_no');
-            alert(id);
-            console.log(id);
-            
-            var result = confirm("Do you really want to delete this record?");
-        
-            if(result) {
-
-                window.location = "<?php echo site_url('adv/advDel?receipt_no="+id+"');?>";
-
-            }
-            
-        });
-
-    });
+  
 </script>
 
 <script>
@@ -329,5 +311,25 @@ $('.forwardbutton').click(function(){
            
         });
 });
+
+//  $(document).ready( function (){
+
+    $('.delete').click(function () {
+            
+            var id = $(this).attr('receipt_no');
+            alert(id);
+            console.log(id);
+            
+            var result = confirm("Do you really want to delete this record?");
+        
+            if(result) {
+
+                window.location = "<?php echo site_url('adv/advDel?receipt_no="+id+"');?>";
+
+            }
+            
+        });
+
+ //   });
 
 </script>
