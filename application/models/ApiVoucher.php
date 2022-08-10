@@ -242,4 +242,36 @@ public function delete_recvjnl($paid_id){
 }
 
 
+
+public function delete_advancefilter_recvjnl($paid_id){
+
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/delete_voucher_advvance_jrnal',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'POST',
+    CURLOPT_POSTFIELDS =>'{
+      "data": '.json_encode($paid_id).'
+  }',
+  
+    CURLOPT_HTTPHEADER => array(
+      'Content-Type: application/json',
+      'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
+    ),
+  ));
+  
+  $response = curl_exec($curl);
+  
+  curl_close($curl);
+  return $response;
+
+}
+
+
 }

@@ -225,12 +225,12 @@
 
 		public function f_get_ro_dt($trans_do){
 	
-			$data = $this->db->query("select a.do_dt,a.sale_ro,a.tot_amt,a.comp_id,a.prod_id,b.rate
+			$data = $this->db->query("select a.do_dt,a.sale_ro,a.tot_amt,a.comp_id,a.prod_id,b.rate,a.qty qty
 										from td_sale a ,td_purchase b
 									where a.trans_do='$trans_do'
 									and a.sale_ro=b.ro_no
 									union
-									select  ref_dt,ro_no,tot_recvble_amt,comp_id,prod_id,ro_rt
+									select  ref_dt,ro_no,tot_recvble_amt,comp_id,prod_id,ro_rt,0 qty
 									from  tdf_payment_recv
 									where sale_invoice_no='$trans_do'
 									and pay_type='O'");

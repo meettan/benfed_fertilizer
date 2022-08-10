@@ -153,11 +153,26 @@ public function society_payEdit(){
 			$comp_short_name  = $this->Society_paymentModel->f_get_distinct('mm_company_dtls a,td_sale b',$select_comp,$where_comp,1);
 			$cust_pay_recipt  = 'RCPT/'.$brn->dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year.'/'.$transCd->sl_no;
 			// $presult = $this->AdvanceModel->f_select("td_purchase",array('rate'),array('ro_no'=>trim($ro)),1);
+
 			$presult = $this->AdvanceModel->f_select("td_purchase",array('tot_amt','qty'),array('ro_no'=>trim($ro)),1);
+
             $tot_amt = array_sum($_POST['paid_amt']);
+
 			$tot_rate = round((($presult->tot_amt)/$presult->qty),3);
+
+			$soldqty =$this->input->post('sold');
+
 			$tot_qty = round(($tot_amt/$tot_rate),3);
-			// $tot_qty = round(($tot_amt/($presult->rate)),3);
+
+			if($tot_qty - $soldqty < 0 ){
+				
+				$tot_qty=$soldqty;
+			
+			}else{
+				$tot_qty=$tot_qty;
+			}
+
+			
             $pay_type = $this->input->post('pay_type');
             
 					$tot_paid_amt    = 0.00;

@@ -83,7 +83,7 @@
 
                         <th>Print</th>
                       
-                        <!-- <th>Delete</th> -->
+                        <th>Delete</th>
                        
                     </tr>
 
@@ -134,16 +134,17 @@
                               </a>
                             </td>
                            
-                            <!-- <td>
-                            <?php if($value->forward_flag == 'N') { ?>
+                            <td>
+                            <?php if($value->no_of_rcpt == 0){ 
+                                if($value->forward_flag == 'N') { ?>
                                 <button type="button" class="delete" id="<?php echo $value->receipt_no;?>"    
                                        
                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                    </button> 
-                                   <?php } ?> 
-                               </td> -->
+                                   <?php } } ?> 
+                               </td>
 
                             </tr>
 
@@ -182,7 +183,7 @@
 
                         <th>Print</th>
 
-                        <!-- <th>Delete</th> -->
+                        <th>Delete</th>
                     </tr>
                 
                 </tfoot>
@@ -284,6 +285,7 @@ $(document).ready(function() {
         $('.delete').click(function () {
             
             var id = $(this).attr('id');
+            alert(id);
             console.log(id);
             
             var result = confirm("Do you really want to delete this record?");

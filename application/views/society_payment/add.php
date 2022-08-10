@@ -126,6 +126,14 @@
                     class="form-control" readonly />
                 <!-- </div> -->
             </div>
+                <div class="form-group row">
+                <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Sold Qty:</label>
+                <div class="col-sm-3">
+                    <input type="text"  id="sold" name="sold" value="0"
+                        class="form-control" readonly />
+                </div>
+                
+            </div>
             <div class="form-group row">
                 <div class="col-sm-12"  id='show_detail'>
                 </div>
@@ -567,9 +575,10 @@
 
                     //console.log(data);
                     var parseData = JSON.parse(data);
-
+                    console.log(parseData);
                     var do_dt = parseData[0].do_dt;
                     $('#do_dt').val(do_dt);
+                    $('#sold').val(parseData[0].qty);
 
                 });
 

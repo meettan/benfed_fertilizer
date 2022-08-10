@@ -337,21 +337,24 @@ public function advancefilter(){
 	$frmdt      = $this->input->post('from_date');
 	$todt       = $this->input->post('to_date');
 	
-	$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt","a.forward_flag forward_flag");
+	$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
+
+	
 
 	$where  =	array(
         "a.soc_id=b.soc_id"   => NULL,
+        // "a.receipt_no=c.receipt_no"   => NULL,
 
-        "district"            => $this->session->userdata['loggedin']['branch_id'],
+        "b.district"            => $this->session->userdata['loggedin']['branch_id'],
 
-        "fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
+        "a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
 		"a.trans_type='I'"   => NULL,
 		"a.trans_dt between '$frmdt ' and '$todt'"=> NULL,
 
 
 
     );
-
+	
 	$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
 
 	$this->load->view("post_login/fertilizer_main");
@@ -860,11 +863,19 @@ public function advDel(){
         "receipt_no"    =>  $this->input->get('receipt_no')
     );
 
-    $this->session->set_flashdata('msg', 'Successfully Deleted!');
+	// print_r($this->ApiVoucher->delete_advancefilter_recvjnl($where));
+	// exit();
 
-    $this->AdvanceModel->f_delete('tdf_advance', $where);
+	if($this->ApiVoucher->delete_advancefilter_recvjnl($where)==1){
+		$this->session->set_flashdata('msg', 'Successfully Deleted!');
+		$this->AdvanceModel->f_delete('tdf_advance', $where); 
+		redirect("adv/advancefilter");
+	}else{
+		$this->session->set_flashdata('msg', 'Error in Delete Advance !!');
+		redirect("adv/advancefilter");
+	};
 
-    redirect("adv/advance");
+    
 }	
 
 public function f_get_receipt_no_dtls(){
