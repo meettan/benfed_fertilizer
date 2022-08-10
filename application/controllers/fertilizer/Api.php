@@ -18,6 +18,7 @@
             // exit;
             //var_dump($_POST);exit;
             $curl = curl_init();
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
             curl_setopt_array($curl, array(
                 /************************for test server*********** */
@@ -492,7 +493,7 @@
             // exit;
             $file_name = $irns . '.pdf';
             $curl = curl_init();
-
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt_array($curl, array(
                 /*****************for test server ******************* */
             // CURLOPT_URL => 'https://einvoicing.internal.cleartax.co/v2/eInvoice/download?template=62cfd0a9-d1ed-47b0-b260-fe21f57e9c5e&format=PDF&irns=' . $irns,
