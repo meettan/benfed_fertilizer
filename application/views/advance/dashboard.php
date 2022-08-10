@@ -137,7 +137,7 @@
                             <td>
                             <?php if($value->no_of_rcpt == 0){ 
                                 if($value->forward_flag == 'N') { ?>
-                                <button type="button" class="delete" id="<?php echo $value->receipt_no;?>"  data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                <button type="button" class="delete" receipt_no="<?php echo $value->receipt_no;?>"  data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                    </button> 
@@ -274,7 +274,7 @@ $(document).ready(function() {
 
         $('.delete').click(function () {
             
-            var id = $(this).attr('id');
+            var id = $(this).attr('receipt_no');
             alert(id);
             console.log(id);
             
