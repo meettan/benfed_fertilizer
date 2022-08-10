@@ -479,7 +479,185 @@
 
                 curl_close($curl);
                 
-                echo $response;
+               // echo $response;
+
+
+
+
+
+
+
+
+            $arrayData='{
+                "Version": "'.$dt->Version.'",
+                "TranDtls": {
+                    "TaxSch": "'.$dt->TaxSch.'",
+                    "SupTyp": "'.$dt->SupTyp.'",
+                    "RegRev": "'.$dt->RegRev.'",
+                    "EcmGstin": null,
+                    "IgstOnIntra": "N"
+                },
+                "DocDtls": {
+                    "Typ": "'.$dt->Typ.'",
+                    "No": "'.$doc_no.'",
+                    "Dt": "'.CURRDT.'"
+                },
+                "SellerDtls": {
+                    "Gstin": "'.SALLERGSTIN.'",
+                    "LglNm": "'.$dt->LglNm.'",
+                    "TrdNm": "'.$dt->TrdNm.'",
+                    "Addr1": "'.$dt->Addr1.'",
+                    "Addr2": "'.$dt->Addr2.'",
+                    "Loc": "'.$dt->Loc.'",
+                    "Pin": '.$dt->Pin2.',
+                    "Stcd": "'.SALLERSTCD.'",
+                    "Ph": "'.SALLERPH.'",
+                    "Em": "'.SALLEREM.'"
+                },
+                "BuyerDtls": {
+                    "Gstin": "'.$dt->Gstin1.'",
+                    "LglNm": "'.$dt->LglNm1.'",
+                    "TrdNm": "'.$dt->TrdNm1.'",
+                    "Pos": "'.$dt->Pos.'",
+                    "Addr1": "'.$dt->Addr1_1.'",
+                    "Addr2": "'.$dt->Addr2_1.'",
+                    "Loc": "'.$dt->Loc1.'",
+                    "Pin": '.$dt->Pin1.',
+                    "Stcd": "'.$dt->Stcd1.'",
+                    "Ph": "'.$dt->Ph1.'",
+                    "Em": "'.$dt->Em1.'"
+                },
+                "DispDtls": {
+                    "Nm": "'.$dt->Nm2.'",
+                    "Addr1": "'.$dt->Addr1_2.'",
+                    "Addr2": "'.$dt->Addr2_2.'",
+                    "Loc": "'.$dt->Loc2.'",
+                    "Pin": '.$dt->Pin2.',
+                    "Stcd": "'.$dt->Stcd2.'"
+                },
+                "ShipDtls": {
+                    "Gstin": "'.$dt->Gstin2.'",
+                    "LglNm": "'.$dt->LglNm2.'",
+                    "TrdNm": "'.$dt->TrdNm2.'",
+                    "Addr1": "'.$dt->Addr1_3.'",
+                    "Addr2": "'.$dt->Addr2_3.'",
+                    "Loc": "'.$dt->Loc3.'",
+                    "Pin": '.$dt->Pin3.',
+                    "Stcd": "'.$dt->Stcd3.'"
+                },
+                "ItemList": [
+                    {
+                    "SlNo": "1",
+                    "PrdDesc": "'.$dt->PrdDesc.'",
+                    "IsServc": "'.$dt->IsServc.'",
+                    "HsnCd": "'.$HsnCd.'",
+                    "Barcde": "'.$dt->Barcde.'",
+                    "Qty": '.$dt->Qty.',
+                    "FreeQty": '.$dt->FreeQty.',
+                    "Unit": "'.$dt->Unit.'",
+                    "UnitPrice": '.$dt->UnitPrice.',
+                    "TotAmt": '.$dt->TotAmt.',
+                    "Discount": '.$dt->Discount.',
+                    "PreTaxVal": '.$dt->PreTaxVal.',
+                    "AssAmt": '.$dt->AssAmt.',
+                    "GstRt": '.$dt->GstRt.',
+                    "IgstAmt": '.$dt->IgstAmt.',
+                    "CgstAmt":'.$dt->CgstAmt.',
+                    "SgstAmt":'.$dt->SgstAmt.',
+                    "CesRt": '.$dt->CesRt.',
+                    "CesAmt": '.$dt->CesAmt.',
+                    "CesNonAdvlAmt": '.$dt->CesNonAdvlAmt.',
+                    "StateCesRt": '.$dt->StateCesRt.',
+                    "StateCesAmt": '.$dt->StateCesAmt.',
+                    "StateCesNonAdvlAmt":'.$dt->StateCesNonAdvlAmt.',
+                    "OthChrg": '.$dt->OthChrg.',
+                    "TotItemVal": '.$dt->TotItemVal.',
+                    "OrdLineRef": "'.$dt->OrdLineRef.'",
+                    "OrgCntry": "'.$dt->OrgCntry.'",
+                    "PrdSlNo": "'.$dt->PrdSlNo.'",
+                    "BchDtls": {
+                        "Nm": "",
+                        "ExpDt": null,
+                        "WrDt": null
+                    },
+                    "AttribDtls": [
+                        {
+                        "Nm": "'.$dt->Nm5.'",
+                        "Val": "'.$dt->Val.'"
+                        }
+                    ]
+                    }
+                ],
+                "ValDtls": {
+                    "AssVal": '.$dt->AssVal.',
+                    "CgstVal": '.$dt->CgstVal.',
+                    "SgstVal": '.$dt->SgstVal.',
+                    "IgstVal": 0,
+                    "CesVal": '.$dt->CesVal.',
+                    "StCesVal": '.$dt->StCesVal.',
+                    "Discount": '.$dt->Discount.',
+                    "OthChrg": '.$dt->OthChrg.',
+                    "RndOffAmt": '.$dt->RndOffAmt.',
+                    "TotInvVal": '.$dt->TotInvVal.',
+                    "TotInvValFc": '.$dt->TotInvValFc.'
+                },
+                "PayDtls": {
+                    "Nm": "",
+                    "AccDet": "",
+                    "Mode": "",
+                    "FinInsBr": "",
+                    "PayTerm": "",
+                    "PayInstr": "",
+                    "CrTrn": "",
+                    "DirDr": "",
+                    "CrDay": 0,
+                    "PaidAmt": 0,
+                    "PaymtDue": 0
+                },
+                "RefDtls": {
+                    "InvRm": "",
+                    "DocPerdDtls": {
+                    "InvStDt": null,
+                    "InvEndDt": null
+                    },
+                    "PrecDocDtls": [
+                    {
+                        "InvNo": "",
+                        "InvDt": null,
+                        "OthRefNo": ""
+                    }
+                    ],
+                    "ContrDtls": [
+                    {
+                        "RecAdvRef": "",
+                        "RecAdvDt": null,
+                        "TendRefr": "",
+                        "ContrRefr": "",
+                        "ExtRefr": "",
+                        "ProjRefr": "",
+                          "PORefr": "'.$dt->PORefr.'",
+                        "PORefDt": "'.$dt->PORefDt.'"
+                    }
+                    ]
+                },
+                "AddlDocDtls": [
+                    {
+                    "Url": "",
+                    "Docs": "",
+                    "Info": ""
+                    }
+                ],
+                "ExpDtls": {
+                    "ShipBNo": "",
+                    "ShipBDt": null,
+                    "Port": null,
+                    "RefClm": "",
+                    "ForCur":null,
+                    "CntCode": null
+                }
+                }';
+
+                echo $arrayData;
 
 
         }
