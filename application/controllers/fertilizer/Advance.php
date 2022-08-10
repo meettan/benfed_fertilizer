@@ -356,6 +356,9 @@ public function advancefilter(){
     );
 	
 	$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
+	// echo $this->db->last_query();
+	// exit();
+	$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
 
 	$this->load->view("post_login/fertilizer_main");
 
@@ -366,7 +369,7 @@ public function advancefilter(){
 	$this->load->view('post_login/footer');
 	}else{
 
-		$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt","a.forward_flag forward_flag");
+		$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
 
 	$where  =	array(
         "a.soc_id=b.soc_id"   => NULL,
