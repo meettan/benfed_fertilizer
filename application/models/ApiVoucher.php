@@ -248,7 +248,7 @@ public function delete_advancefilter_recvjnl($paid_id){
   $curl = curl_init();
 
   curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:8080/benfed/Benfed_finance/index.php/api_voucher/delete_voucher_advvance_jrnal',
+  CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/delete_voucher_advvance_jrnal',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
