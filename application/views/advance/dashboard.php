@@ -317,7 +317,7 @@ $('.forwardbutton').click(function(){
     $('.delete').click(function () {
             
             var id = $(this).attr('receipt_no');
-            alert(id);
+           
             console.log(id);
             
             var result = confirm("Do you really want to delete this record?");
