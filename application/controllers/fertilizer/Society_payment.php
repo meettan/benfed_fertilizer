@@ -152,9 +152,22 @@ public function society_payEdit(){
 
 			$comp_short_name  = $this->Society_paymentModel->f_get_distinct('mm_company_dtls a,td_sale b',$select_comp,$where_comp,1);
 			$cust_pay_recipt  = 'RCPT/'.$brn->dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year.'/'.$transCd->sl_no;
+
+			$net_amount = $this->input->post('rndtot_recvble_amt');
+
+			$soldqty =$this->input->post('sold');
+
+			$unit_rate = $net_amount/$soldqty;
+
+			$tot_amt = array_sum($_POST['paid_amt']);
+
+		    $tot_qty=	round(($tot_amt/$unit_rate),3);
+
+
+
 			// $presult = $this->AdvanceModel->f_select("td_purchase",array('rate'),array('ro_no'=>trim($ro)),1);
 
-			$presult = $this->AdvanceModel->f_select("td_purchase",array('tot_amt','qty'),array('ro_no'=>trim($ro)),1);
+			/*$presult = $this->AdvanceModel->f_select("td_purchase",array('tot_amt','qty'),array('ro_no'=>trim($ro)),1);
 
             $tot_amt = array_sum($_POST['paid_amt']);
 
@@ -162,17 +175,47 @@ public function society_payEdit(){
 
 			$soldqty =$this->input->post('sold');
 
-			$tot_qty = round(($tot_amt/$tot_rate),3);
+			$tot_qty = round(($tot_amt/$tot_rate),3);*/
 
-			if($tot_qty - $soldqty < 0 ){
-				
+
+
+		
+
+	/*	$invoiceNo=$this->input->post('trans_do');
+
+		$pay_count=$this->AdvanceModel->f_select("tdf_payment_recv",array('count(*) pay_count'),array('sale_invoice_no'=>$invoiceNo),1);
+
+		
+
+		if($pay_count->pay_count > 0){
+			$paid_qty=$this->AdvanceModel->f_select("tdf_payment_recv",array('sum(paid_qty) paid_qty'),array('sale_invoice_no'=>$invoiceNo),1);
+
+			$tot_qty = $tot_qty - ( $paid_qty->paid_qty);
+
+		}else{
+
+			 If($tot_qty>$soldqty){
 				$tot_qty=$soldqty;
-			
 			}else{
 				$tot_qty=$tot_qty;
 			}
+	}
+	
+		
+	
 
-			
+		if($soldqty - $tot_qty < 0 ){
+				
+			$tot_qty=$soldqty;
+		
+		}else{
+			$tot_qty=$tot_qty;
+		}*/
+
+
+
+
+
             $pay_type = $this->input->post('pay_type');
             
 					$tot_paid_amt    = 0.00;
