@@ -69,15 +69,15 @@ $thisyear=$fy[0];
                     </thead>
 
                 <tbody id="intro">
-				<?php   $tot_amt =0.00;
+				<?php   $tot_amt =0.00;$tot_qty =0.00;
 				       foreach($fwds as $value){ ?>
 
 					<tr>
 					<td ><input type="text" name="rec[]" class="form-control" id="" style="width:165px" readonly="" value='<?php echo $value->detail_receipt_no; ?>'></td>
 					<td><input type="text" name="soc_name[]" class="form-control" value='<?php echo $value->soc_name; ?>' readonly=""></td>
-					<td><input type="text" name="fo_no[]" class="form-control" value='<?php echo $value->fo_no; ?>' style="width:125px" readonly=""></td>
+					<td><input type="text" name="fo_no[]" class="form-control" value='<?php echo $value->fo_name; ?>' style="width:125px" readonly=""></td>
 					<td><input type="text" name="ro_no[]" class="form-control" value='<?php echo $value->ro_no; ?>' style="" readonly=""></td>
-					<td><input type="text" name="qty[]" class="form-control" value='<?php echo $value->qty; ?>' readonly=""></td>
+					<td><input type="text" name="qty[]" class="form-control" value='<?php echo $value->qty;$tot_qty +=$value->qty; ?>' readonly=""></td>
 					<td><input type="text" name="rate[]" class="form-control"value='<?php echo $value->rate; ?>' readonly=""></td>
 					<td><input type="text" name="amount[]" class="form-control" value='<?php echo $value->amount;
 																						$tot_amt +=$value->amount; ?>' readonly=""></td>
@@ -94,9 +94,10 @@ $thisyear=$fy[0];
 
                     <tfoot>
                         <tr>
-                            <td colspan="5" style="text-align:right">
+                            <td colspan="4" style="text-align:right">
                                 <strong>Total:</strong>
                             </td>
+							<td><span id="tot_qty"><?=$tot_qty?></span></td><td></td>
                            
                             <td colspan="" style="text-align:left">
                                 <strong id="tot_amt"><?=$tot_amt?></strong>

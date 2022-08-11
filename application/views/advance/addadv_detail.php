@@ -210,7 +210,7 @@
                                 <input type="text" name="amount[]" readonly class="form-control amount" value="" id="">
                             </td>
                             <td>
-                                <button class="btn btn-danger" type="button" data-toggle="tooltip"
+                                <button class="btn btn-danger removerow" type="button" data-toggle="tooltip"
                                     data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i
                                         class="fa fa-remove" aria-hidden="true"></i></button>
                             </td>
@@ -440,7 +440,7 @@
                 '<input type="text" name="amount[]" readonly class="form-control amount"  required>' +
                 '</td>' +
                 '<td>' +
-                '<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>' +
+                '<button class="btn btn-danger removerow" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>' +
                 '</td>' +
                 '</tr>';
 
@@ -450,6 +450,31 @@
 
         $("#intro").on("click", "#removeRow", function () {
             $(this).parents('tr').remove();
+
+            var tot_amt = 0.00;
+            $('.amount').each(function () {
+                tot_amt += parseFloat($(this).val()) ? parseFloat($(this).val()) : 0.00; // Or this.innerHTML, 
+                    
+            });
+            $('#tot_amt').html(tot_amt.toFixed(2));
+            $('#total_input_amount').val(tot_amt.toFixed(2));
+
+
+            var qty=0.00;
+            $('.qty').each(function () {
+               
+                qty += parseFloat($(this).val()) ? parseFloat($(this).val()) : 0.00; // Or this.innerHTML, 
+                    
+            });
+            $('#totalQty').html(qty.toFixed(2));
+
+            var rate=0.00;
+            $('.rate').each(function () {
+               
+                rate += parseFloat($(this).val()) ? parseFloat($(this).val()) : 0.00; // Or this.innerHTML, 
+                    
+            });
+            $('#totalRate').html(rate.toFixed(2));
 
         });
 
@@ -484,8 +509,8 @@
                 tot_amt += parseFloat($(this).val()) ? parseFloat($(this).val()) :
                     0.00; // Or this.innerHTML, 
             });
-            $('#tot_amt').html(tot_amt);
-            $('#total_input_amount').val(tot_amt);
+            $('#tot_amt').html(tot_amt.toFixed(2));
+            $('#total_input_amount').val(tot_amt.toFixed(2));
 
         });
         $("#intro").on("change", ".rate", function () {
@@ -495,8 +520,8 @@ $('.amount').each(function () {
     tot_amt += parseFloat($(this).val()) ? parseFloat($(this).val()) :
         0.00; // Or this.innerHTML, 
 });
-$('#tot_amt').html(tot_amt);
-$('#total_input_amount').val(tot_amt);
+$('#tot_amt').html(tot_amt.toFixed(2));
+$('#total_input_amount').val(tot_amt.toFixed(2));
 
 })
     })
@@ -598,4 +623,9 @@ $('#total_input_amount').val(tot_amt);
         //alert(totalqt);
         $('#totalRate').html(parseFloat(totalrt).toFixed(2));
     });
+
+
+
+
+   
 </script>

@@ -73,10 +73,11 @@ $thisyear=$fy[0];
 
                     <tfoot>
                         <tr>
-                            <td colspan="6" style="text-align:right">
+                            <td colspan="4" style="text-align:right">
                                 <strong>Total:</strong>
                             </td>
-                           
+							<td><span id='tot_qty'></span></td>
+							<td></td>
                             <td colspan="" style="text-align:right">
                                 <strong id="tot_amt"></strong>
                             </td>
@@ -106,6 +107,10 @@ $(document).ready(function () {
     var i = 0;
     $("#comp_id").change(function () {
         $("#prod_id").html('');
+		$("#intro").html('');
+		$('#tot_qty').html(parseFloat('0'));
+		$('#tot_amt').html(parseFloat('0'));
+		
         var comp_id = $(this).val();
         $.get('<?php echo site_url("stock/f_get_product");?>', {
             comp_id: $(this).val()
@@ -120,6 +125,11 @@ $(document).ready(function () {
         });
 
     });
+	$("#prod_id").change(function () {
+		$("#intro").html('');
+		$('#tot_qty').html(parseFloat('0'));
+		$('#tot_amt').html(parseFloat('0'));
+	})
 
 });
 
@@ -151,7 +161,7 @@ $(document).ready(function(){
 									+'<input type="hidden" name="scoiety_id[]" value="" class="scoiety_id"><input type="text" name="scoiety_name[]" class="form-control scoiety_name" id="scoiety_name" readonly>'
 								+'</td>'
 								+'<td>'
-									+'<input type="hidden" name="receipt_no[]" value="" class="receipt_no"><input type="text" name="fo_no[]" class="form-control fo_no" id="fo_no" readonly>'
+									+'<input type="hidden" name="receipt_no[]" value="" class="receipt_no"><input type="hidden" name="fo_no[]" class="form-control fo_no" id="fo_no" readonly><input type="text" name="" class="form-control fo_name" id="fo_no" readonly>'
 								+'</td>'
 								+'<td>'
 									+'<input type="text" name="ro_no[]" class="form-control ro_no" id="ro_no" style="" readonly>'
@@ -166,7 +176,7 @@ $(document).ready(function(){
 									+'<input type="text" name="amount[]" class="form-control amount" id="amount" readonly>'
 								+'</td>'
 								+'<td>'
-									+'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
+									+'<button class="btn btn-danger removeRow" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
 								+'</td>'
 							+'</tr>';
 
@@ -189,19 +199,55 @@ $(document).ready(function(){
 	});
 
 	// Start code to Remove Bill row  
-	$("#intro").on("click","#removeRow", function(){
-		var tot = 0.00;
-		$(this).parents('tr').remove();
-		$('.amount').each(function(){
+	$("#intro").on("click",".removeRow", function(){
+			var tot = 0.00;
+			var tot_qty = 0.00;
+			$(this).parents('tr').remove();
+			$('.amount').each(function(){
 				tot += parseFloat($(this).val())?parseFloat($(this).val()):0.00;
 			});
 			$('#tot_amt').html(parseFloat(tot));
+			$('.qty').each(function(){
+				tot_qty += parseFloat($(this).val())?parseFloat($(this).val()):0.00;
+			});
+			$('#tot_qty').html(parseFloat(tot_qty));
+
+
+			var row = $(this).closest('tr');
+			var thidetail_receipt_no=row.find("td:eq(0) .detail_receipt_no").val();
+			var r=1;
+			
+			
+			$('.detail_receipt_no').each(function(){
+				console.log($(this).val());
+				var tvalue=$(this).val();
+				if(thidetail_receipt_no == tvalue){
+					r++;
+				}
+			});
+			
+
+			if(r > 1 ){
+				// alert(r);
+				$('#submit').removeAttr("disabled");
+				$('#addrow').show();
+			}else {
+				// alert(r);
+				// $('#submit').attr("disabled", true);
+				// $('#addrow').hide();
+			}
 	});
+
+	
+	// $('.detail_receipt_no').each(function(){
+	// 	$(this).val();
+	// });
 });
 
 $("#intro").on("change", ".detail_receipt_no", function(){
 	var st  = parseFloat($('#st').html());
 	var tot = 0.00;
+	var tot_qty = 0.00;
 	var row = $(this).closest('tr');
 	var detail_receipt_no = $(this).val();
 	//var receipt_no = $('#').val();
@@ -210,8 +256,9 @@ $("#intro").on("change", ".detail_receipt_no", function(){
 			var value = JSON.parse(data);
 			row.find("td:eq(1) input[type='hidden']").val(value.soc_id);
 			row.find("td:eq(1) input[type='text']").val(value.soc_name);
-			row.find("td:eq(2) input[type='hidden']").val(value.receipt_no);
-			row.find("td:eq(2) input[type='text']").val(value.fo_no);
+			row.find("td:eq(2) .receipt_no").val(value.receipt_no);
+			row.find("td:eq(2) .fo_no").val(value.fo_no);
+			row.find("td:eq(2) fo_name").val(value.fo_name);
 			row.find("td:eq(3) input[type='text']").val(value.ro_no);
 			row.find("td:eq(4) input[type='text']").val(value.qty);
 			row.find("td:eq(5) input[type='text']").val(value.rate);
@@ -220,6 +267,10 @@ $("#intro").on("change", ".detail_receipt_no", function(){
 				tot += parseFloat($(this).val())?parseFloat($(this).val()):0.00;
 			});
 			$('#tot_amt').html(parseFloat(tot));
+			$('.qty').each(function(){
+				tot_qty += parseFloat($(this).val())?parseFloat($(this).val()):0.00;
+			});
+			$('#tot_qty').html(parseFloat(tot_qty));
 		})
 
 })
@@ -238,10 +289,15 @@ $(document).ready(function(){
 			if(cnts > 1){
 				alert('Duplicate data');
 				row.css("background","red");
+
+				$('#submit').attr("disabled", true);
+				$('#addrow').hide();
 				//return false; // breaks
 				//cnts = 0;
 			}else{
 				row.css("background","");
+				// $('#submit').removeAttr("disabled");
+				// $('#addrow').show();
 			}
 		});
 		
