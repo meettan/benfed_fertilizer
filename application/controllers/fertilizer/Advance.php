@@ -25,7 +25,29 @@
 /****************************************************Advance Dashboard************************************ */
 //Company Advance dashoard
 public function company_advance(){
-	$adv['data']    = $this->AdvanceModel->advtocompList();
+
+	if($this->input->post()){
+		$from_date=$this->input->post('from_date');
+		$to_date=$this->input->post('to_date');
+
+		// echo $from_date,$to_date;
+
+		$adv['data']    = $this->AdvanceModel->advtocompList($from_date,$to_date);
+// echo $this->db->last_query();
+	$this->load->view("post_login/fertilizer_main");
+
+	$this->load->view("company_advance/dashboard",$adv);
+
+	$this->load->view('search/search');
+
+	$this->load->view('post_login/footer');
+
+
+
+	}else{
+		$from_date=date("Y-m-d");
+		$to_date=date("Y-m-d");
+		$adv['data']    = $this->AdvanceModel->advtocompList($from_date,$to_date);
 //echo $this->db->last_query();
 	$this->load->view("post_login/fertilizer_main");
 
@@ -34,6 +56,8 @@ public function company_advance(){
 	$this->load->view('search/search');
 
 	$this->load->view('post_login/footer');
+	}
+	
 }
 
 //Company Advance add
@@ -197,7 +221,7 @@ public function company_advAdd(){
 				
 					$this->AdvanceModel->f_insert('tdf_company_advance', $data_array);
 					
-					$data_array_comp=$data_array;
+					//$data_array_comp=$data_array;
 					$select_comp         		= array("COMP_NAME","adv_acc");
 					$where_comp            		= array("COMP_ID"     => $this->input->post('company'));
 					$comp_dtls 					= $this->AdvanceModel->f_select("mm_company_dtls",$select_comp,$where_comp,1);
@@ -206,16 +230,16 @@ public function company_advAdd(){
 					$where_bank          		= array("sl_no" => $this->input->post('bank'));
 					$bank_dtls 					= $this->AdvanceModel->f_select("mm_feri_bank",$select_bank,$where_bank,1);
 					
-					$data_array_comp['rem'] 	= "Advance Paid To ".$comp_dtls->COMP_NAME.",".$this->input->post('remarks');
+					//$data_array_comp['rem'] 	= "Advance Paid To ".$comp_dtls->COMP_NAME.",".$this->input->post('remarks');
 					$select_br    				= array("dist_sort_code");
 					$where_br     				= array("district_code"=> $branch );
 
-					$data_array_comp['acc_cd']   = $comp_dtls->adv_acc;
+					/*$data_array_comp['acc_cd']   = $comp_dtls->adv_acc;
 					$data_array_comp['bank_acc'] = $bank_dtls->acc_code;				
 					$data_array_comp['fin_fulyr']= $fin_year;
 					$data_array_comp['br_nm']    = $brn->dist_sort_code;
 					
-					$this->ApiVoucher->f_compadvjnl($data_array_comp);
+					$this->ApiVoucher->f_compadvjnl($data_array_comp);*/
 
 					$this->AdvanceModel->f_edit('tdf_adv_fwd', array('comp_pay_flag'=>'Y'),array('detail_receipt_no'=>$key['list'] ) );
 				}
@@ -236,8 +260,8 @@ public function company_advAdd(){
 				$select_bank           = array("sl_no","bank_name");	
 				$where_bank            = array("dist_cd"     => '342');
 				$society['bankDtls']   = $this->AdvanceModel->f_select('mm_feri_bank',$select_bank,$where_bank,0);
-				$society['acc_head']   = $this->AdvanceModel->f_sselect('md_achead',NULL,NULL,0);
-
+				// $society['acc_head']   = $this->AdvanceModel->f_sselect('md_achead',NULL,NULL,0);
+				
 				$this->load->view('post_login/fertilizer_main');
 
 				$this->load->view("company_advance/add",$society);

@@ -85,7 +85,7 @@
                 
                   <!-- <input type="text" id=receipt_no name="receipt_no" class="form-control" value=""  /> -->
                   <div class="col-sm-4">
-                  <input type="text" id="memonumber " name="memonumber" class="form-control" value=""  />
+                  <input type="text" id="memonumber " name="memonumber" class="form-control" value="" required />
 					
                 </div>
 
@@ -112,20 +112,20 @@
                 
 			</div>
 
-                <label for="bank" class="col-sm-2 col-form-label">Debit Account Head:</label>
+                <!-- <label for="bank" class="col-sm-2 col-form-label">Debit Account Head:</label>
 				<div class="col-sm-4">
 
 					<select name="cr_head" class="form-control sch_cd" id="cr_head" required>
 						<option value="">Select Account head</option>
                         <?php
-                            foreach($acc_head as $key){
+                           // foreach($acc_head as $key){
                         ?>
-                        <option value="<?php echo $key->sl_no;?>"><?php echo $key->ac_name;?></option>
+                        <option value="<?php //echo $key->sl_no;?>"><?php //echo $key->ac_name;?></option>
                         <?php
-                            }
+                            //}
                         ?>
                     </select>
-                </div>
+                </div> -->
 			</div>
           
             <div class="form-group row">

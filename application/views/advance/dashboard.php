@@ -69,7 +69,7 @@
                         
                         <th>Sl.No.</th>
 
-                        <th>Year</th>
+                        <th>Date</th>
                         
             			<th>Receipt No.</th>
 
@@ -86,9 +86,7 @@
                         <th>Delete</th>
                        
                     </tr>
-
                 </thead>
-
                 <tbody> 
 
                     <?php 

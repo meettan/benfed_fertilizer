@@ -54,12 +54,13 @@
 	   }	
 
 
-	   public function advtocompList(){
+	   public function advtocompList($from_date,$to_date){
 		   $fny=$this->session->userdata['loggedin']['fin_id'];
 		$q=$this->db->query('SELECT a.memo_no,a.trans_dt,a.receipt_no,a.comp_id,b.COMP_NAME,sum(a.adv_amt) amt
 		FROM tdf_company_advance a,mm_company_dtls b 
 		WHERE a.comp_id = b.COMP_ID
 		AND a.fin_yr ='.$fny.'
+		AND a.trans_dt BETWEEN "'.$from_date.'" AND "'.$to_date.'"
 		group by a.trans_dt,a.receipt_no,a.comp_id,b.COMP_NAME');
 		return $q->result();
 	}

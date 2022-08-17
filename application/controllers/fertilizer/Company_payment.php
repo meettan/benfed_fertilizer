@@ -515,17 +515,35 @@ if ($trans_type=='2'){
        }
        
 
-	   public function company_payment()
-	   {
-        $this->sysdate  = $_SESSION['sys_date'];
-        $data['comp_pay']    = $this->Company_paymentModel->f_get_comp_payment_dtls();
-        $this->load->view("post_login/fertilizer_main");
-   
-       $this->load->view("company_payment/dashboard",$data);
-   
-       $this->load->view('search/search');
-   
-       $this->load->view('post_login/footer');
+	   public function company_payment(){
+		if($this->input->post()){
+			$from_date=$this->input->post('from_date');
+		$to_date=$this->input->post('to_date');
+
+		$this->sysdate  = $_SESSION['sys_date'];
+			$data['comp_pay']    = $this->Company_paymentModel->f_get_comp_payment_dtls($from_date,$to_date);
+			$this->load->view("post_login/fertilizer_main");
+	
+		$this->load->view("company_payment/dashboard",$data);
+	
+		$this->load->view('search/search');
+	
+		$this->load->view('post_login/footer');
+
+		}else{
+			$from_date=date("Y-m-d");
+		$to_date=date("Y-m-d");
+			$this->sysdate  = $_SESSION['sys_date'];
+			$data['comp_pay']    = $this->Company_paymentModel->f_get_comp_payment_dtls($from_date,$to_date);
+			$this->load->view("post_login/fertilizer_main");
+	
+		$this->load->view("company_payment/dashboard",$data);
+	
+		$this->load->view('search/search');
+	
+		$this->load->view('post_login/footer');
+		}
+        
      }
    
 public function f_get_comppay_ro()

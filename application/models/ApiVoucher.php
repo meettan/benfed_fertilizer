@@ -8,7 +8,7 @@ class ApiVoucher extends CI_Model{
 
     /**Function for Company Advance Payment in HO */
 
-    function f_compadvjnl($data){  
+   /* function f_compadvjnl($data){  
         $curl = curl_init();
         curl_setopt_array($curl, array(
          CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/compadv_voucher',
@@ -36,7 +36,7 @@ class ApiVoucher extends CI_Model{
         curl_close($curl);
         echo $response;
         
-    }
+    }*/
 
     /**Function for Branch Advance from Party */
 

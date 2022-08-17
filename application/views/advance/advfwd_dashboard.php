@@ -31,7 +31,7 @@
                 <thead>
                     <tr>
                         <th>Sl.No.</th>
-                        <th>Year</th>
+                        <th>Date</th>
             			<!-- <th>Receipt No.</th> -->
                         <th>Fwd receive no</th>
                         <th>Amount</th>
