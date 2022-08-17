@@ -98,12 +98,12 @@
                     <table class="table table-striped table-bordered table-hover">
 
                         <thead>
-                            <th style="text-align: center;width:250px">Receive No</th>
-                            <th style="text-align: center;width:200px">Society.</th>
-                            <th style="text-align: center;">Sale Invoice No</th>
-                            <th style="text-align: center;">Adv Qty</th>
+                            <th style="text-align: center;width:250px">Receipt No.</th>
+                            <th style="text-align: center;width:200px">Society</th>
+                            <th style="text-align: center;">Sale Invoice No.</th>
+                            <!-- <th style="text-align: center;">Adv Qty</th> -->
                             <th style="text-align: center;">Sale Qty</th>
-                            <th style="text-align: center;">Balance Qty</th>
+                            <th style="text-align: center;">Paid Qty To Be Forwarded</th>
                             <th style="text-align: center;">Delete</th>
                             <!-- <th>
                                 <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
@@ -114,7 +114,7 @@
                         </thead>
 
                         <tbody id="intro">
-                        <?php foreach($result as $key) { ?>
+                        <?php $fwd_qty=0.0; foreach($result as $key) { ?>
                         <tr>
 						       <td id= "paid_id" >
                                 <input type="text" name="paid_id[]" class="form-control paid_id" id="paid_id" value='<?=$key->paid_id?>' readonly>
@@ -125,14 +125,14 @@
 								<td>
 								<input type="text" name="sale_invoice[]" class="form-control sale_invoice" id="sale_invoice" value='<?=$key->sale_invoice_no?>' readonly>
 								</td>
-								<td>
+								<!-- <td>
 								<input type="text" name="adv_qty[]" class="form-control adv_qty" id="adv_qty" value='<?=(($key->qty)-($key->fwd_qty))?>' readonly>
-								</td>
+								</td> -->
 								<td>
 								<input type="text" name="sale_qty[]" class="form-control required sale_qty" id="sale_qty" value='<?=$key->qty?>' readonly>
 								</td>
 								<td>
-								<input type="text" name="qty[]" class="form-control qty" id="qty" value='<?=$key->fwd_qty?>' readonly>
+								<input type="text" name="qty[]" class="form-control qty" id="qty" value='<?=$key->fwd_qty?> <?php $fwd_qty=$fwd_qty+$key->fwd_qty; ?>' readonly>
 								</td>
                                 <td>
                                 <?php if($key->fwd_status == 'U') { ?>
@@ -145,7 +145,16 @@
                                 </td>
 							</tr>
                         <?php } ?>
+
+                        <tr>
+                               <td></td>
+                               <td></td>
+                               <td></td>
+						       <td><b>Total</b></td>
+						       <td ><b><?=round($fwd_qty,3)?></b></td>
+                        </tr>
                         </tbody>
+
                     </table>
 
                 </div>

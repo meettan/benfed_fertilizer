@@ -38,7 +38,7 @@
 
     <div class="col-md-12 container form-wraper">
 
-        <form method="POST" action="<?php echo site_url("socpay/socpayfwdAdd") ?>" onsubmit="return valid_data()"
+        <form method="POST" action="<?php echo site_url("socpay/socpayfwdAdd") ?>" 
             id="form">
             <div class="form-header">
                 <h4>Society Payment Forward</h4>
@@ -78,10 +78,12 @@
                     <input type="text"  id="adv" name="adv" class="form-control"
                         value=""  readonly />
                 </div>
-                <label for="advfwdno" class="col-sm-2 col-form-label">Advance Fwd No:</label>
-                <div class="col-sm-3">
-                    <input type="text"  id="advfwdno" name="advfwdno" class="form-control"
-                        value="" readonly  />
+                <div id="advanceFwdNo">
+                    <label for="advfwdno" class="col-sm-2 col-form-label">Advance Fwd No:</label>
+                    <div class="col-sm-3">
+                        <input type="text"  id="advfwdno" name="advfwdno" class="form-control"
+                            value="" readonly  />
+                    </div>
                 </div>
             </div>
 
@@ -116,10 +118,10 @@
                     <table class="table table-striped table-bordered table-hover">
 
                         <thead>
-                            <th style="text-align: center;width:300px">Receive No</th>
-                            <th style="text-align: center;width:300px">Society.</th>
-                            <th style="text-align: center;width:300px">Sale Invoice No</th>
-                            <th style="text-align: center;width:100px">Adv Qty</th>
+                            <th style="text-align: center;width:300px">Receipt No.</th>
+                            <th style="text-align: center;width:300px">Society</th>
+                            <th style="text-align: center;width:300px">Sale Invoice No.</th>
+                            <!-- <th style="text-align: center;width:100px">Adv Qty</th> -->
                             <th style="text-align: center;width:100px">Sale Qty</th>
                             <th style="text-align: center;width:100px">Paid Qty To Be Forwarded</th>
                             <th>
@@ -135,8 +137,11 @@
 
                         <tfoot>
                             <tr>
-                                <td colspan="5">
-                                    Total:
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <b>Total:</b>
                                 </td>
                                 <td>
                                     <input type='text' name="total" id="total" class="form-control total"
@@ -154,7 +159,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" onclick="return myFunction();" />
+                    <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
 
                 </div>
             </div>
@@ -202,9 +207,7 @@
 								+'<td>'
 									+'<input type="text" name="sale_invoice[]" class="form-control sale_invoice" id="sale_invoice" readonly>'
 								+'</td>'
-								+'<td>'
-									+'<input type="text" name="adv_qty[]" class="form-control adv_qty" id="adv_qty" style="" readonly>'
-								+'</td>'
+								
 								+'<td>'
 									+'<input type="text" name="sale_qty[]" class="form-control sale_qty" id="sale_qty" readonly>'
 								+'</td>'
@@ -228,6 +231,12 @@
 															
 	});
 
+
+    // +'<td>'
+	// 								+'<input type="text" name="adv_qty[]" class="form-control adv_qty" id="adv_qty" style="" readonly>'
+	// 							+'</td>'
+
+
 	// Start code to Remove Bill row  
 	$("#intro").on("click","#removeRow", function(){
 		$(this).parents('tr').remove();
@@ -235,7 +244,19 @@
 		$('.qty').each(function(){
 				tot += parseFloat($(this).val())?parseFloat($(this).val()):0.00;
 			});
-		$('#total').val(parseFloat(tot));
+		$('#total').val(parseFloat(tot).toFixed(3));
+
+
+        var row = $(this).closest('tr');
+            var sqty =  row.find("td:eq(3) .sale_qty").val();
+            var qty =  row.find("td:eq(4) .qty").val();
+        // if(sqty < qty){
+        //     $("#addrow").show();
+        //     $("#submit").removeAttr("disabled");
+        // }
+
+        
+        
 	});
 });
 </script>
@@ -281,20 +302,33 @@ function set_exists(x){
                     var value = JSON.parse(data);
                     row.find("td:eq(1) input[type='text']").val(value.soc_name);
                     row.find("td:eq(2) input[type='text']").val(value.sale_invoice_no);
-                    row.find("td:eq(4) input[type='text']").val(value.qty);
-                    row.find("td:eq(5) .qty").val(value.paid_qty);
+                    row.find("td:eq(3) input[type='text']").val(value.qty);
+                    row.find("td:eq(4) .qty").val(value.paid_qty);
                     //saleqty = value.qty?parseFloat(value.qty):0.00;
                     //saleqty = parseFloat(value.qty)?parseFloat(value.qty):0.00;
                     saleqty = parseFloat(value.qty)?parseFloat(value.qty):0.00;
                     
                     //set_exists(saleqty);
                     maxval  = value.paid_qty?parseFloat(value.paid_qty):0.00;
-                    if( advfwdno == 'Not Found'){
+
+                    /*if( advfwdno == 'Not Found'){
                         adv_qty  = parseFloat('0.00');
                         
-                        row.find("td:eq(3) input[type='text']").val(adv_qty);
-                        row.find("td:eq(5) .maxval").val(parseFloat(saleqty));
-                    }
+                        // row.find("td:eq(3) input[type='text']").val(adv_qty);
+                        row.find("td:eq(4) .maxval").val(parseFloat(saleqty));
+                    }*/
+
+
+
+                    // if(value.qty < value.paid_qty){
+                    //     alert('');
+                    //     $("#addrow").hide();
+                    //     $('#submit').attr("disabled", true);
+
+                    // }else{
+                    //     $("#addrow").show();
+                    //     $("#submit").removeAttr("disabled");
+                    // }
                 })
             
 
@@ -305,49 +339,51 @@ function set_exists(x){
             .done(function(data){
             //delay(2000);
                  var value = JSON.parse(data);
-                 var adv_qty = value.qty ? parseFloat(value.qty):parseFloat('0.00');
+               //  var adv_qty = value.qty ? parseFloat(value.qty):parseFloat('0.00');
 				//var saleqty= parseFloat(row.find("td:eq(4) input[type='text']").val());
 				
                 
                 //alert(adv_qty);
+
+                
 				
                 
-                if(parseFloat(adv_qty) > parseFloat(0) ){
-                    //alert(1);
-                    row.find("td:eq(3) input[type='text']").val(adv_qty);
-                    if( parseFloat(saleqty-(adv_qty)) > parseFloat(maxval)){
-                        //alert(1.1);
-                        row.find("td:eq(5) .qty").val(parseFloat(adv_qty));
-                    }else{
-                        //alert(1.2);
-                        row.find("td:eq(5) .maxval]").val(0);
+                // if(parseFloat(adv_qty) > parseFloat(0) ){
+                //     //alert(1);
+                //     row.find("td:eq(3) input[type='text']").val(adv_qty);
+                //     if( parseFloat(saleqty-(adv_qty)) > parseFloat(maxval)){
+                //         //alert(1.1);
+                //         row.find("td:eq(5) .qty").val(parseFloat(adv_qty));
+                //     }else{
+                //         //alert(1.2);
+                //         row.find("td:eq(5) .maxval]").val(0);
 
-                    }
-                    $('#total').val(parseFloat(tot_qty+(parseFloat(saleqty)-parseFloat(adv_qty))));
-                }else{
-					//alert(2);
-                    row.find("td:eq(3) input[type='text']").val('0.00');
-					// if(parseFloat(row.find("td:eq(3) .adv_qty").val())==0.00){
-                    //    // alert(2.1);
-                    //    // value.paid_qty?parseFloat(value.paid_qty):0.00
-					// 	  row.find("td:eq(5) .qty").val(parseFloat(saleqty));
-					//  }else 
-                     if(parseFloat(saleqty-(adv_qty)) > parseFloat(maxval)){
-                       // alert(parseFloat(saleqty-(adv_qty)));
-                        row.find("td:eq(5) maxval").val(maxval);
-                    }else{
+                //     }
+                //     $('#total').val(parseFloat(tot_qty+(parseFloat(saleqty)-parseFloat(adv_qty))));
+                // }else{
+				// 	//alert(2);
+                //     row.find("td:eq(3) input[type='text']").val('0.00');
+				// 	// if(parseFloat(row.find("td:eq(3) .adv_qty").val())==0.00){
+                //     //    // alert(2.1);
+                //     //    // value.paid_qty?parseFloat(value.paid_qty):0.00
+				// 	// 	  row.find("td:eq(5) .qty").val(parseFloat(saleqty));
+				// 	//  }else 
+                //      if(parseFloat(saleqty-(adv_qty)) > parseFloat(maxval)){
+                //        // alert(parseFloat(saleqty-(adv_qty)));
+                //         row.find("td:eq(5) maxval").val(maxval);
+                //     }else{
                         
-                        if(saleqty == NaN){
-                         saleqty = 0.00;
-                         }
-                         //alert('Saleqqty'+saleqty);
-                        row.find("td:eq(5) .maxval").val(saleqty);
-						/*row.find("td:eq(5) input[type='text']").val(saleqty-parseFloat('0'));*/
-                    }
+                //         if(saleqty == NaN){
+                //          saleqty = 0.00;
+                //          }
+                //          //alert('Saleqqty'+saleqty);
+                //         row.find("td:eq(5) .maxval").val(saleqty);
+				// 		/*row.find("td:eq(5) input[type='text']").val(saleqty-parseFloat('0'));*/
+                //     }
                   
-                    /*$('#total').val(parseFloat(tot_qty+(parseFloat(saleqty)-parseFloat('0'))));*/
-					/*$('#total').val(parseFloat(tot_qty+(parseFloat(saleqty))));*/
-                }
+                //     /*$('#total').val(parseFloat(tot_qty+(parseFloat(saleqty)-parseFloat('0'))));*/
+				// 	/*$('#total').val(parseFloat(tot_qty+(parseFloat(saleqty))));*/
+                // }
 
             })
 
@@ -375,7 +411,7 @@ function set_exists(x){
     })
 	
 	
-      $( document ).ajaxComplete(function() {
+    /*  $( document ).ajaxComplete(function() {
         $("#intro").on("change", ".qty", function(){
             var sum = 0.00;
             $(".qty").each(function(){
@@ -385,7 +421,7 @@ function set_exists(x){
             $("#total").val(parseFloat(sum));
 
     })
-      })
+      })*/
 
 
 
@@ -415,8 +451,19 @@ function set_exists(x){
                 $('#prod').val(parseData.PROD_DESC);
                 if(parseData.adv_status == 'Y'){
                     $('#adv').val("YES");
+
+                    alert('Advance payment alredy done !');
+                    $('#submit').attr("disabled", true);
+                    $('#addrow').hide();
                     $('#advfwdno').val(parseData.advance_receipt_no);
+
+                    $('#advanceFwdNo').show();
                 }else{
+                    $("#submit").removeAttr("disabled");
+                    $('#addrow').show();
+
+                    $('#advanceFwdNo').hide();
+
                     $('#adv').val("NO");
                     $('#advfwdno').val('Not Found');
                 }
@@ -432,7 +479,7 @@ function set_exists(x){
 <script>
 
 
-    $('#intro').on("change", ".paid_amt", function () {
+  /*  $('#intro').on("change", ".paid_amt", function () {
         //$('.pur_ro').eq($('.pur_inv').index(this)).val("");
         let row = $(this).closest('tr');
         var amt = parseFloat($(this).val()).toFixed(2);
@@ -454,8 +501,8 @@ function set_exists(x){
         }
 
 
-    });
-    $(document).ready(function () {
+    });*/
+    /*$(document).ready(function () {
 
         $('#sale_ro').change(function () {
             $.get('<?php echo site_url("socpay/f_advdetails");?>', {
@@ -484,19 +531,34 @@ function set_exists(x){
                 });
         });
 
-    });
+    });*/
 
 
     $('#form').submit(function(event){
+
+
+        var sale_qty1=$('#sale_qty').val().toFixed(3);
+       
+
+           var totalQty2=$('#total').val().toFixed(3);
+
+                        
+                    if(parseFloat(sale_qty1) < parseFloat(totalQty2)){
+                        alert('Forward quantity cannot be grater than sale quantity!');
+                        event.preventDefault();
+
+                    }
+
+                    
            
            $('#intro tr').each(function() {
 
                  var valid = 1;    
-                var max_limit = $(this).find("td:eq(5) input[type='hidden']").val();
-                var qty = $(this).find('td:eq(5) .qty').val();
+                var max_limit = $(this).find("td:eq(4) input[type='hidden']").val();
+                var qty = $(this).find('td:eq(4) .qty').val();
                    if(parseFloat(qty)> parseFloat(max_limit)){
-                       $(this).find('td:eq(5) .qty').focus();
-                       $(this).find('td:eq(5) .qty').css("border", "red solid 1px");
+                       $(this).find('td:eq(4) .qty').focus();
+                       $(this).find('td:eq(4) .qty').css("border", "red solid 1px");
                        $('#submit').attr('type', 'buttom');
              
                        event.preventDefault();
@@ -507,6 +569,9 @@ function set_exists(x){
                     // event.preventDefault();
                      }
            }); 
+
+
+           
                  
         });
 </script>

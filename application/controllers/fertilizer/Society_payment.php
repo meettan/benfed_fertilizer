@@ -3773,7 +3773,7 @@ public function deleteAccCd() {
 						'fwd_no'    => $fo_no,
 						'trans_dt'  => $this->input->post('trans_dt'),
 						'ro_no'     => trim($this->input->post('ro_no')),
-						'fo_id'		=>$this->input->post('fo_no'),
+						'fo_id'		=> $this->input->post('fo_no'),
 						'fwd_date'  => date("Y-m-d"),
 						'paid_id'   => $this->input->post('paid_id')[$i],
 						'fwd_qty'   => $this->input->post('qty')[$i],
