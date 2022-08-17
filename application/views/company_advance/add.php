@@ -91,7 +91,7 @@
 
                 <label for="Receipt No" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-4 poenbtn">
-                <button class="btn btn-success poenbtn" id="poenbtn">View Detail</button>
+                <button class="btn btn-success" id="poenbtn">View Detail</button>
                 <input type="hidden" value="" id="rep_id">
                 </div>
                 <!-- <label class="col-sm-2 col-form-label">Total Advance</label>
@@ -157,6 +157,8 @@
 
 </div>
 <script>
+            $('#poenbtn').hide();
+
 $( document ).ajaxComplete(function() {
     $("#receipt_no").change(function(){
         var receipt_no = $(this).val();
@@ -170,12 +172,15 @@ $( document ).ajaxComplete(function() {
         //data: {receipt_no:receipt_no,comp_id:comp_id},
 		data: {receipt_no:receipt_no,comp_id:comp_id,branch_id:dist},
         success: function(data){
+            $('#poenbtn').show();
 		// if(data==0){
         //     alert('District Not Matched');
 		// 	 $('#submit').attr('type', 'buttom');
         //      return true;
 
         //     }else{
+
+
             var tot_amt = 0.0;
             var i  = 1; var j = 0;
             var list = '<tr><th>Sl No</th><th style="width:33%">Advance No</th><th style="width:33%">Company Name</th><th style="width:33%">Product</th><th style="width:33%">Qty</th><th style="width:33%">Amount</th><th>Option</th></tr>';
