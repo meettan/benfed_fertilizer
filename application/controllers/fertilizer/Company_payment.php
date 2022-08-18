@@ -51,6 +51,9 @@
 					   
 						
 						}else {
+
+							
+							
 							
 							$select3               = array("district_code","district_name");
 							$product['distdtls']   = $this->Company_paymentModel->f_select('md_district',$select3,NULL,0);
@@ -60,12 +63,18 @@
 							$select4               = array("prod_id","prod_desc");
 							$product['proddtls']   = $this->Company_paymentModel->f_select('mm_product',$select4,NULL,0);
 			
-							$where                 =   array('comp_id'     => $this->input->get('comp_id'));
+							$where                 =   array(
+																'a.bnk_id=b.sl_no'=>null,
+																'a.comp_id'     	=> 	$this->input->get('cid'),
+																'a.district'	=>	$this->input->get('bid'),
+																"a.pay_no" 	=> 	$this->input->get('pay_no')
+															);
 						
 			
-						    $select                = array("prod_id","comp_id","pay_no","pay_dt","sale_inv_no","paid_amt","district","ro_no");
+						    $select                = array("a.*","b.bank_name");
 					
-						 $product['prod_dtls']      = $this->Company_paymentModel->f_get_particulars("tdf_company_payment", NULL, array( "pay_no" => $this->input->get('pay_no')),0);
+						 $product['prod_dtls']      = $this->Company_paymentModel->f_get_particulars("tdf_company_payment a,mm_feri_bank b", $select, $where,0);
+					// prod_dtls
 					// echo $this->db->last_query();
 					// die();
 						$this->load->view('post_login/fertilizer_main');
@@ -145,7 +154,17 @@ $curl = curl_init();
 						//$paid_amt  = $_POST['paid_amt'][$i];
 						$paid_amt  = (($_POST['net_amt'][$i])+($_POST['tds'][$i]));
 						$total_gross_amount+=(($_POST['net_amt'][$i])-($_POST['tds'][$i]));
-						$receipt   = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$adv_transCd->sl_no;
+
+						
+						$pay_no=(explode('/',$adv_transCd->pay_no)[4])+1;
+
+						
+
+						$receipt   = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$pay_no;
+						// echo $receipt;
+						// echo"<br>";
+						// echo $this->db->last_query();
+						// exit();
 						
                         $data     = array(
 											'dr_acCode'=>0,

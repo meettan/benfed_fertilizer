@@ -222,11 +222,7 @@
 
                         <option value="">Select</option>
 
-                        <?php
-                                
-                                    foreach($bnkdtls as $bnk){
-                                
-                                ?>
+                        <?php foreach($bnkdtls as $bnk){ ?>
 
                         <option value="<?php echo $bnk->sl_no;?>"><?php echo $bnk->bank_name;?></option>
 
@@ -240,21 +236,11 @@
                 </div>
                 <input type="hidden" name="ac_code" class="ac_code" id="ac_code">
                 <label for="ifsc" class="col-sm-1 col-form-label">IFSC :</label>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
 
                     <input type="text" style="width:160px" id="ifsc" name="ifsc" class="form-control" readonly />
                 </div>
-                <label for="ac_no" class="col-sm-1 col-form-label">A/C No. :</label>
-                <div class="col-sm-2">
 
-                    <input type="text" style="width:180px" id="ac_no" name="ac_no" class="form-control" readonly />
-                </div>
-            </div>
-            <div class="form-group row">
-                <!-- <label for="virtual_no" class="col-sm-1 col-form-label">Virtual No:</label>
-						<div class="col-sm-3">
-                        <input type="text" style="width:180px" id="virtual_no" name="virtual_no" class="form-control" />
-	                    </div> -->
                 <label for="pay_mode" class="col-sm-1 col-form-label">Pay Mode:</label>
                 <div class="col-sm-3">
                     <select class="form-control" id="pay_mode" name="pay_mode" style="width:180px" required>
@@ -266,9 +252,31 @@
 
                     </select>
                 </div>
-                <label for="ref_no" class="col-sm-1 col-form-label">Referece No. :</label>
+            </div>
+
+            <div class="form-group row">
+                <!-- <label for="virtual_no" class="col-sm-1 col-form-label">Virtual No:</label>
+						<div class="col-sm-3">
+                        <input type="text" style="width:180px" id="virtual_no" name="virtual_no" class="form-control" />
+	                    </div> -->
+
+                        
+
+                <label for="ac_no" class="col-sm-1 col-form-label">A/C No. :</label>
+                
                 <div class="col-sm-3">
-                    <input type="text" style="width:180px" id="ref_no" name="ref_no" class="form-control" />
+
+                    <input type="text" style="width:180px" id="ac_no" name="ac_no" class="form-control" readonly />
+                </div>
+                
+                <label for="ref_no" class="col-sm-1 col-form-label">Referece No.:</label>
+                <div class="col-sm-3">
+                    <input type="text" style="width:160px" id="ref_no" name="ref_no" class="form-control" />
+                </div>
+
+                <label for="ref_dt" class="col-sm-1 col-form-label">Referece Date. :</label>
+                <div class="col-sm-3">
+                    <input type="date" style="width:180px" id="ref_dt" name="ref_dt" class="form-control" />
                 </div>
 
             </div>
@@ -278,10 +286,6 @@
 
                     <textarea style="width:570px;height:60px" id=remarks name="remarks"
                         class="form-control" /></textarea>
-                </div>
-                <label for="ref_dt" class="col-sm-1 col-form-label">Referece Date. :</label>
-                <div class="col-sm-3">
-                    <input type="date" style="width:180px" id="ref_dt" name="ref_dt" class="form-control" />
                 </div>
             </div>
             <div class="form-group row">

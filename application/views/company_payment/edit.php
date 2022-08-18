@@ -74,13 +74,66 @@
                         <label for="pay_dt" class="col-sm-2 col-form-label">Paid Date:</label>
                         <div class="col-sm-4">
     
-                            <input type="datetime" id=pay_dt name="pay_dt" class="form-control"  value="<?=$prodd->pay_dt?>" readonly/>
+                            <input type="datetime" id=pay_dt name="pay_dt" class="form-control"  value="<?php echo date('d/m/Y',strtotime($prodd->pay_dt)) ?>" readonly/>
                         </div>
                           <label for="pay_no"  class="col-sm-2 col-form-label">Pay No:</label>
                             <div class="col-sm-4">
                                 <input type="text" style="width:360px" name="pay_no" id="pay_no" class="form-control" value="<?=$prodd->pay_no?>"  onchange="endDt()"  readonly/>
                             </div>
                            
+                        </div>
+
+
+
+                        <div class="form-group row">
+                            <label for="bank_id" class="col-sm-2 col-form-label">Bank Name :</label>
+                            <div class="col-sm-4">
+
+                            <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?php echo $prodd->bank_name; ?>"  readonly>
+                            </div>
+
+                            <label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
+                            <div class="col-sm-4">
+
+                                <input type="text" style="width:360px" id="ifsc" name="ifsc" class="form-control" readonly="" value="<?=$prodd->ifsc?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                                <label for="ac_no" class="col-sm-2 col-form-label">A/C No. :</label>
+                                <div class="col-sm-4">
+
+                                    <input type="text" value="<?=$prodd->bnk_ac_no?>" style="width:360px" id="ac_no" name="ac_no" class="form-control" readonly="" readonly>
+                                </div>
+                               
+
+                                <label for="pay_mode" class="col-sm-2 col-form-label">Pay Mode:</label>
+                                <div class="col-sm-4">
+                                 <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?php if($prodd->pay_mode==1){echo "Cheque";}elseif($prodd->pay_mode==2){echo "Draft";}elseif($prodd->pay_mode==3){echo "NEFT/RTGS";}?>"  readonly>
+                                </div>
+                                
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="ref_no" class="col-sm-2 col-form-label">Referece No. :</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?=$prodd->ref_no?>"  readonly>
+                                    </div>
+
+                                    <label for="ref_dt" class="col-sm-2 col-form-label">Referece Date. :</label>
+                                <div class="col-sm-4">
+                                    <input type="date" style="width:360px" id="ref_dt" name="ref_dt" class="form-control" readonly>
+                                </div>
+                            </div>
+
+
+
+
+                        <div class="form-group row">
+                            <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
+                            <div class="col-sm-10">
+                                <textarea id="remarks" name="remarks" class="form-control" required="" readonly><?php echo $prodd->remarks ?></textarea>
+                            </div>
                         </div>
 
 
@@ -198,19 +251,19 @@
                                     </td>
 									 <td >
                                      <div class="col-md-7"></div>
-                                          <div class="col-md-0" style="text-align: right;"><?php echo round($totalTaxableAmt,2); ?></div>
+                                          <div class="col-md-0" style="text-align: right;"><b><?php echo round($totalTaxableAmt,2); ?></b></div>
                                       
                 
                                     </td>
 									 <td >
                                      <div class="col-md-7"></div>
-                                          <div class="col-md-0" style="text-align: right;"><?php echo round($totalTDS,2); ?></div>
+                                          <div class="col-md-0" style="text-align: right;"><b><?php echo round($totalTDS,2); ?></b></div>
                                       
                 
                                     </td>
                                      <td >
                                      <div class="col-md-7"></div>
-                                          <div class="col-md-0" style="text-align: right;"><?php echo $tot_net_amt; ?></div>
+                                          <div class="col-md-0" style="text-align: right;"><b><?php echo $tot_net_amt; ?></b></div>
                                       
                 
                                     </td>
@@ -227,7 +280,7 @@
 
                     <div class="col-sm-10">
 
-                        <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Save" />
+                        <!-- <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Save" /> -->
 
                     </div>
 

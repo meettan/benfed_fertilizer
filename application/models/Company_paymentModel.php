@@ -159,9 +159,7 @@ return $data->row();
 
 			public function get_payment_code($fin){
 
-				$data   =   $this->db->query("select ifnull(max(sl_no),0) +1 sl_no
-											  from   tdf_company_payment
-											");
+				$data   =   $this->db->query("SELECT pay_no FROM tdf_company_payment WHERE pay_no IS NOT NULL ORDER BY sl_no DESC LIMIT 1");
 	
 				$result = $data->row();  
 	 

@@ -49,7 +49,8 @@
                     	<th>Payment ID</th>
                         <th>Company</th>
                         <th>NET Amount</th>
-                        <th>Edit/Delete</th>
+                        <th>View</th>
+                        <th>Delete</th>
                     </tr>
 
                 </thead>
@@ -69,12 +70,15 @@
                                 <td><?php echo $pay->COMP_NAME; ?></td>
                                 <td><?php echo $pay->net_amt; ?></td>
                                
-			 	                <td><a href="cmppay_edit?pay_no=<?=$pay->pay_no;?>" 
+			 	                <td><a  href="cmppay_edit?pay_no=<?=$pay->pay_no;?>&cid=<?=$pay->comp_id;?>&bid=<?=$pay->district;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                        <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
                                     </a> 
                                
+                                    </td>
+                                    <td>
+
                                <button type="button" class="delete" id="<?=$pay->pay_no;?>"    
                                        
                                         data-toggle="tooltip" data-placement="bottom" title="Delete">
@@ -108,7 +112,8 @@
                     	<th>Payment ID</th>
                         <th>Company</th>
                         <th>NET Amount</th>
-                        <th>Edit/Delete</th>
+                        <th>View</th>
+                        <th>Delete</th>
                     </tr>
                 
                 </tfoot>
