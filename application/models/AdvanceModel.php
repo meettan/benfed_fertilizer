@@ -43,6 +43,28 @@
 				return $value->result();
 			}
 		}
+
+		public function f_select_distinct($table,$select=NULL,$where=NULL,$type){	/**Select distinct data */
+
+			$this->db->distinct();
+
+			if(isset($select)){
+				$this->db->select($select);
+			}
+
+			if(isset($where)){
+				$this->db->where($where);
+			}
+
+			$value = $this->db->get($table);
+
+			if($type==1){
+				return $value->row();
+			}else{
+				return $value->result();
+			}
+		}
+
 		public function f_getbnk_dtl($br_cd){
 	
 			$data = $this->db->query("select sl_no, bank_name,ifsc,ac_no
@@ -281,7 +303,7 @@ return $result;
         //     );
         //     return $q->row();	
 		// }
-		public function getBranchId($rcpt){
+		/*public function getBranchId($rcpt){
 			$q=$this->db->query("select a.memo_no,a.dr_head, a.bank, a.trans_dt,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,e.COMP_ID,e.COMP_NAME,f.remarks
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d, mm_company_dtls e,tdf_advance f
             where c.branch_id = b.id
@@ -302,7 +324,7 @@ return $result;
             return $q->row();
 
 								
-		}
+		}*/
 		public function  get_monthendDate(){
 			
 			$branchId=$this->session->userdata['loggedin']['branch_id'];

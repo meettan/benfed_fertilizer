@@ -40,7 +40,7 @@
                
             </form>
 
-            
+
             </div>
 
             <table class="table table-bordered table-hover" id="example">
@@ -52,14 +52,14 @@
 
                         <th>Date</th>
 
-            			<th>Receipt No.</th>
+            			<th>Payment No.</th>
             			<th>Memo Number</th>
 
                         <th>Company Name</th>
 
                         <th>Amount</th>
 
-                        <th>Edit</th>
+                        <th>View</th>
 
                         <!-- <th>Delete</th> -->
                        
@@ -93,7 +93,7 @@
 			 	                <td><a href="company_editadv?rcpt=<?php echo $value->receipt_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
 
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                        <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
                                     </a> 
                                 </td>
 
@@ -127,17 +127,18 @@
 
                     <tr>
                     
-                        <th>Sl.No.</th>
+                    <th>Sl.No.</th>
 
-                        <th>Date</th>
+<th>Date</th>
 
-                        <th>Receipt No.</th>
+<th>Payment No.</th>
+<th>Memo Number</th>
 
-                        <th>Company Name</th>
+<th>Company Name</th>
 
-                        <th>Amount</th>
+<th>Amount</th>
 
-                        <th>Edit</th>
+<th>View</th>
 
                         <!-- <th>Delete</th> -->
 

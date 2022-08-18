@@ -272,72 +272,75 @@ public function company_advAdd(){
 //Company Advance Edit
 public function company_editadv(){
 
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-		$data_array = array(
-
-				"trans_dt"              => $this->input->post('trans_dt'),
-
-				"comp_id"   			=> $this->input->post('company'),
-
-				"trans_type"    		=>  $this->input->post('trans_type'),
-
-				'memo_no'			=>$this->input->post('memonumber'),
-
-				"adv_amt"				=> $this->input->post('adv_amt'),
-
-				"remarks" 				=> $this->input->post('remarks'),
-				
-				"modified_by"  			=>  $this->session->userdata['loggedin']['user_name'],
-               
-				"modified_dt"  			=>  date('Y-m-d h:i:s')	
-			);
-
-		$where = array(
-            "receipt_no"     		    =>  $this->input->post('receipt_no')
-		);
-		 
-
-		$this->AdvanceModel->f_edit('tdf_company_advance', $data_array, $where);
-
-		$this->session->set_flashdata('msg', 'Successfully Updated');
-
-		redirect('adv/company_advance');
-
-	}else{
+	
 
 			
-			$rcpt=$this->input->get('rcpt');
-			$result = $this->AdvanceModel->f_select('tdf_company_advance',array('trans_dt'),array('receipt_no'=>$rcpt),1);
+		 $rcpt=$this->input->get('rcpt');
+
+		 $select = array('a.trans_dt','a.receipt_no','a.adv_dtl_id','a.memo_no','a.bank','a.comp_id','a.remarks','b.comp_name','d.bank_name');
+
+		 $where =array('a.comp_id = b.COMP_ID'	=>  NULL,
+					   'a.bank = d.sl_no'		=>  NULL,
+				       'a.receipt_no'			=>$rcpt);
+
+		$data['pageData']=$this->AdvanceModel->f_select_distinct('tdf_company_advance a,mm_company_dtls b,md_branch c,														     mm_feri_bank d',$select,$where,1);
+		
+		     
 			
-			if($result->trans_dt > '2022-07-03'){
+			//$result = $this->AdvanceModel->f_select_distinct('tdf_company_advance',array('trans_dt'),array('receipt_no'=>$rcpt),1);
+			
+			
+		/*if($result->trans_dt > '2022-07-03'){
 			$where =array('a.adv_dtl_id = b.fwd_receipt_no'=>  NULL,
 			             'b.detail_receipt_no = c.detail_receipt_no'=>  NULL,
 						 'c.comp_id = d.COMP_ID'=>  NULL,
 						 'c.receipt_no = f.receipt_no'=>  NULL,
 				          'a.receipt_no'=>$rcpt);
+
             $select = array('a.memo_no','a.dr_head','a.bank','a.trans_dt','d.COMP_NAME','d.COMP_ID','e.branch_name','c.branch_id','f.remarks','c.qty');
-			$data['pageData']=$this->AdvanceModel->f_select('tdf_company_advance a,tdf_adv_fwd b,td_adv_details c,mm_company_dtls d,md_branch e,tdf_advance f',$select,$where,1);
-			}else{
-             //$data['pageInfo']=$this->AdvanceModel->getpInfo($rcpt);
-              $data['pageData']=$this->AdvanceModel->getBranchId($rcpt);
-			}
 			
+			$data['pageData']=$this->AdvanceModel->f_select('tdf_company_advance a,tdf_adv_fwd b,td_adv_details c,mm_company_dtls d,md_branch e,tdf_advance f',$select,$where,1);
 			
 
-			$select_bank           = array("sl_no","bank_name");	
+
+		}else{
+             //$data['pageInfo']=$this->AdvanceModel->getpInfo($rcpt);
+              $data['pageData']=$this->AdvanceModel->getBranchId($rcpt);
+		}*/
+
+
+       $rcno=$this->AdvanceModel->f_select('tdf_company_advance' ,array('adv_dtl_id'),array('receipt_no'=>$rcpt),1);
+
+
+
+
+		 $select = array('a.qty','a.receipt_no','a.detail_receipt_no','a.amount','b.COMP_NAME','c.PROD_DESC','a.branch_id');
+		$where = array(
+					'a.comp_id = b.COMP_ID' =>NULL, 
+					'a.prod_id = c.PROD_ID' =>NULL,
+					'a.detail_receipt_no = d.detail_receipt_no'=>NULL, 
+					'd.fwd_receipt_no'    => $rcno->adv_dtl_id,
+					'd.comp_pay_flag' => 'Y',
+					'a.comp_id'=>$data['pageData']->comp_id
+					);
+
+					$data['list']  = $this->AdvanceModel->f_select("td_adv_details a,mm_company_dtls b,mm_product c,tdf_adv_fwd d",$select,$where,0);
+
+	
+			
+
+		/*	$select_bank           = array("sl_no","bank_name");	
 			$where_bank            = array("dist_cd"     => '342');
-			$data['bankDtls']      = $this->AdvanceModel->f_select('mm_feri_bank',$select_bank,$where_bank,0);
+			$data['bankDtls']      = $this->AdvanceModel->f_select('mm_feri_bank',$select_bank,$where_bank,0);*/
 		
-			//print_r($society['bankDtls']);
-			//exit();
+		
 			$data['rcpt']=$rcpt;                                                        
             $this->load->view('post_login/fertilizer_main');
 
             $this->load->view("company_advance/edit",$data);
 
             $this->load->view("post_login/footer");
-	}
+	
 }
 //Company Advance Delete
 public function company_advDel(){

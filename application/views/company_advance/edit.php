@@ -8,14 +8,20 @@
                 <h4>Company Advance</h4>
             </div>
             <div class="form-group row">
-                <label for="company" class="col-sm-2 col-form-label">Company:</label>
+
+            <label for="Receipt No" class="col-sm-2 col-form-label">Payment No:</label>
+
+
+                <!-- <input type="text" id=receipt_no name="receipt_no" class="form-control" value=""  /> -->
                 <div class="col-sm-4">
 
-                    <select name="company" class="form-control" id="company" required disabled>
+                <input type="text" id="view_type" name="" class="form-control"
+                        value="<?php echo $rcpt; ?>" readonly />
 
-                        <option value="<?php echo $pageData->COMP_ID; ?>"><?php echo $pageData->COMP_NAME; ?></option>
-                       
-                    </select>
+                    <!-- <select name="receipt_no" class="form-control sch_cd" id="receipt_no" disabled required>
+                        <option value="<?php echo $rcpt; ?>"><?php echo $rcpt; ?></option>
+
+                    </select> -->
                 </div>
 
                 <label for="trans_dt" class="col-sm-2 col-form-label">Date:</label>
@@ -26,22 +32,50 @@
 
                 </div>
 
-            </div>
-            <div class="form-group row">
-                <label for="dist" class="col-sm-2 col-form-label">District:</label>
+                <!-- <label for="company" class="col-sm-2 col-form-label">Company:</label>
                 <div class="col-sm-4">
 
-                    <select name="dist" class="form-control" id="dist" required disabled>
+                
+
+                    <select name="company" class="form-control" id="company" required disabled>
+
+                        <option value="<?php echo $pageData->COMP_ID; ?>"><?php echo $pageData->COMP_NAME; ?></option>
+                       
+                    </select>
+                </div> -->
+
+               
+
+            </div>
+            <div class="form-group row">
+            
+
+                <!--<label for="dist" class="col-sm-2 col-form-label">District:</label>
+
+                <div class="col-sm-4">
+
+                <input type="text" id="view_type" name="" class="form-control"
+                        value="<?php echo $pageData->branch_name; ?>" readonly />
+
+                     <select name="dist" class="form-control" id="dist" required disabled>
 
                         <option value="<?php echo $pageData->branch_id; ?>"><?php echo $pageData->branch_name; ?></option>
                         
                     </select>
-                </div>
+                </div>-->
 
-                <label for="bank" class="col-sm-2 col-form-label">Bank:</label>
+                
+            </div>
+
+
+            <div class="form-group row">
+            <label for="bank" class="col-sm-2 col-form-label">Bank:</label>
                 <div class="col-sm-4">
 
-                    <select name="bank" class="form-control sch_cd required" id="bank" disabled required>
+                <input type="text" id="view_type" name="" class="form-control"
+                        value="<?php echo $pageData->bank_name; ?>" readonly />
+
+                    <!-- <select name="bank" class="form-control sch_cd required" id="bank" disabled required>
                         <option value="">Select Bank</option>
                         <?php
                             foreach($bankDtls as $bank){
@@ -50,23 +84,9 @@
                         <?php
                             }
                         ?>
-                    </select>
+                    </select> -->
                 </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label for="Receipt No" class="col-sm-2 col-form-label">Receipt No:</label>
-
-
-                <!-- <input type="text" id=receipt_no name="receipt_no" class="form-control" value=""  /> -->
-                <div class="col-sm-4">
-
-                    <select name="receipt_no" class="form-control sch_cd" id="receipt_no" disabled required>
-                        <option value="<?php echo $rcpt; ?>"><?php echo $rcpt; ?></option>
-
-                    </select>
-                </div>
+                
                 <label for="memonumber" class="col-sm-2 col-form-label">Memo Number:</label>
             
                 
@@ -123,7 +143,41 @@
                 <div class="col-sm-2"></div>
                 <div class="col-sm-10">
                     <table class="table table-bordered">
-                        <tbody id='list'></tbody>
+                        <tbody>
+                            <tr>
+                                <th>Sl No</th>
+                                <th style="width:33%">Advance No</th>
+                                <th style="width:33%">Company Name</th>
+                                <th style="width:33%">Product</th>
+                                <th style="width:33%">Qty</th>
+                                <th style="width:33%">Amount</th>
+
+                            </tr>
+                            <?php $qty=0.000; $amt=0.00; $i=1; foreach($list as $dt){ ?>
+                            <tr>
+                                
+                                
+                                <td><?=$i++?></td>
+                                <td><?=$dt->detail_receipt_no?></td>
+                                <td><?=$dt->COMP_NAME?></td>
+                                <td><?=$dt->PROD_DESC?></td>
+                                <td><?php echo $dt->qty; $qty=$qty+$dt->qty;?></td>
+                                <td><?php echo $dt->amount; $amt=$amt+$dt->amount;?></td>
+                               
+                               
+                            </tr>
+                            <?php } ?>
+                            <tr>
+                                
+                                
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td><?php echo round($qty,3); ?></td>
+                                <td><?php echo round($amt,2); ?></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -142,84 +196,84 @@
 
 </div>
 <script>
-    getDataTable();
+   // getDataTable();
     //$(document).ajaxComplete(function () {
        // $("#receipt_no").change(function () {
-       function getDataTable() {
+    //    function getDataTable() {
         
-            var receipt_no = $('#receipt_no').val();
-            var comp_id = $('#company').val();
-            var dist = $('#dist').val();
+    //         var receipt_no = $('#receipt_no').val();
+    //         var comp_id = $('#company').val();
+    //         var dist = $('#dist').val();
            
-            $("#list").html('');
-            $.ajax({
-                type: 'POST',
-                url: '<?=base_url()?>index.php/adv/company_advAddlistedit',
-                //data: {receipt_no:receipt_no,comp_id:comp_id},
-                data: {
-                    receipt_no: receipt_no,
-                    comp_id: comp_id,
-                    branch_id: dist
-                },
-                success: function (data) {
-                    if (data == 0) {
-                        alert('District Not Matched');
-                        $('#submit').attr('type', 'buttom');
-                        return true;
+    //         $("#list").html('');
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: '<?=base_url()?>index.php/adv/company_advAddlistedit',
+    //             //data: {receipt_no:receipt_no,comp_id:comp_id},
+    //             data: {
+    //                 receipt_no: receipt_no,
+    //                 comp_id: comp_id,
+    //                 branch_id: dist
+    //             },
+    //             success: function (data) {
+    //                 if (data == 0) {
+    //                     alert('District Not Matched');
+    //                     $('#submit').attr('type', 'buttom');
+    //                     return true;
 
-                    } else {
-                        var tot_amt = 0.0;
-                        var i = 0;
-                        var j = 0;
-                        var list =
-                            '<tr><th>Sl No</th><th style="width:33%">Advance No</th><th style="width:33%">Company Name</th><th style="width:33%">Product</th><th style="width:33%">Qty</th><th style="width:33%">Amount</th></tr>';
-                            var totAmount=0;
-                        $.each(JSON.parse(data), function (index, value) {
-                            totAmount=(parseFloat(totAmount)+parseFloat(value.amount));
-                            list += '<tr><td>' + ++i +
-                                '</td><td><input type="hidden" class="form-control" value="' +
-                                value.detail_receipt_no +
-                                '" name="adv_receive_no[]" readonly>' + value
-                                .detail_receipt_no + '</td><td>' + value.COMP_NAME +
-                                '</td><td>' + value.PROD_DESC + '</td><td>' + value.qty + '</td><td>' + value
-                                .amount +
-                                '</td></tr>';
-                            tot_amt += parseFloat(value.adv_amt);
-                        });
-                        list +=
-                            '<tr style="font-weight: bold;"><td colspan="4">Total</td><td></td><td id="approve_tot">'+totAmount+'</td></tr>';
-                        $("#list").html(list);
-                        $.ajax({
-                            type: 'POST',
-                            url: '<?=base_url()?>index.php/adv/company_advdetailedite',
-                            data: {
-                                receipt_no: receipt_no
-                            },
-                            success: function (data) {
+    //                 } else {
+    //                     var tot_amt = 0.0;
+    //                     var i = 0;
+    //                     var j = 0;
+    //                     var list =
+    //                         '<tr><th>Sl No</th><th style="width:33%">Advance No</th><th style="width:33%">Company Name</th><th style="width:33%">Product</th><th style="width:33%">Qty</th><th style="width:33%">Amount</th></tr>';
+    //                         var totAmount=0;
+    //                     $.each(JSON.parse(data), function (index, value) {
+    //                         totAmount=(parseFloat(totAmount)+parseFloat(value.amount));
+    //                         list += '<tr><td>' + ++i +
+    //                             '</td><td><input type="hidden" class="form-control" value="' +
+    //                             value.detail_receipt_no +
+    //                             '" name="adv_receive_no[]" readonly>' + value
+    //                             .detail_receipt_no + '</td><td>' + value.COMP_NAME +
+    //                             '</td><td>' + value.PROD_DESC + '</td><td>' + value.qty + '</td><td>' + value
+    //                             .amount +
+    //                             '</td></tr>';
+    //                         tot_amt += parseFloat(value.adv_amt);
+    //                     });
+    //                     list +=
+    //                         '<tr style="font-weight: bold;"><td colspan="4">Total</td><td></td><td id="approve_tot">'+totAmount+'</td></tr>';
+    //                     $("#list").html(list);
+    //                     $.ajax({
+    //                         type: 'POST',
+    //                         url: '<?=base_url()?>index.php/adv/company_advdetailedite',
+    //                         data: {
+    //                             receipt_no: receipt_no
+    //                         },
+    //                         success: function (data) {
 
-                                var data = JSON.parse(data);
-                                $('#tot_adv').html(data.totadv);
-                                $('#adv_topaid').html(parseFloat(data.totadv) -
-                                    parseFloat(data.totpaid));
-                                $('#adv_paid').html(data.totpaid);
+    //                             var data = JSON.parse(data);
+    //                             $('#tot_adv').html(data.totadv);
+    //                             $('#adv_topaid').html(parseFloat(data.totadv) -
+    //                                 parseFloat(data.totpaid));
+    //                             $('#adv_paid').html(data.totpaid);
 
-                            }
-                        });
-                    }
-                }
-            });
-            /* $.ajax({
-             type:'POST',
-             url: '<?=base_url()?>index.php/adv/company_advdetail',
-             data: {receipt_no:receipt_no},
-             success: function(data){
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //         });
+    //         /* $.ajax({
+    //          type:'POST',
+    //          url: '<?=base_url()?>index.php/adv/company_advdetail',
+    //          data: {receipt_no:receipt_no},
+    //          success: function(data){
 
-                 var data = JSON.parse(data);
-                 $('#tot_adv').html(data.totadv);
-                 $('#adv_topaid').html(parseFloat(data.totadv)-parseFloat(data.totpaid));
-                 $('#adv_paid').html(data.totpaid);
-             }});*/
-        }
+    //              var data = JSON.parse(data);
+    //              $('#tot_adv').html(data.totadv);
+    //              $('#adv_topaid').html(parseFloat(data.totadv)-parseFloat(data.totpaid));
+    //              $('#adv_paid').html(data.totpaid);
+    //          }});*/
+    //     }
 
 
     //})
@@ -231,18 +285,18 @@
 
 
 
-    $(document).ajaxComplete(function () {
+    // $(document).ajaxComplete(function () {
 
-        $('.ckamt').change(function () {
-            var approve_tot = parseFloat($('#approve_tot').html());
-            var amt = 0.00;
-            $('.ckamt:checked').each(function () {
-                amt += parseFloat($(this).parents('tr').find("td").eq(4).html());
-            });
-            $('#approve_tot').html(amt);
-            $('#p_tot').val(amt);
-        });
-    });
+    //     $('.ckamt').change(function () {
+    //         var approve_tot = parseFloat($('#approve_tot').html());
+    //         var amt = 0.00;
+    //         $('.ckamt:checked').each(function () {
+    //             amt += parseFloat($(this).parents('tr').find("td").eq(4).html());
+    //         });
+    //         $('#approve_tot').html(amt);
+    //         $('#p_tot').val(amt);
+    //     });
+    // });
     $(document).ajaxComplete(function () {
         $('#form').submit(function (event) {
             var approve_tot = parseFloat($('#approve_tot').html());
@@ -259,32 +313,32 @@
         });
     });
 
-    $(document).ready(function () {
+    // $(document).ready(function () {
 
-        var i = 0;
-        $("#dist").on("change", function () {
-            var dist = $(this).val();
+    //     var i = 0;
+    //     $("#dist").on("change", function () {
+    //         var dist = $(this).val();
 
-            $.get('<?php echo site_url("adv/get_receiptbydist");?>', {
-                dist: $(this).val(),
-                c_id: $('#company').val()
-            }).done(function (data) {
+    //         $.get('<?php echo site_url("adv/get_receiptbydist");?>', {
+    //             dist: $(this).val(),
+    //             c_id: $('#company').val()
+    //         }).done(function (data) {
 
-                var string = '<option value="">Select</option>';
+    //             var string = '<option value="">Select</option>';
 
-                $.each(JSON.parse(data), function (index, value) {
+    //             $.each(JSON.parse(data), function (index, value) {
 
-                    string += '<option value="' + value.receipt_no + '">' + value
-                        .receipt_no + '</option>'
-                });
+    //                 string += '<option value="' + value.receipt_no + '">' + value
+    //                     .receipt_no + '</option>'
+    //             });
 
-                $("#receipt_no").html(string);
+    //             $("#receipt_no").html(string);
 
-            });
+    //         });
 
-        });
+    //     });
 
-    });
+    // });
 </script>
 <script>
     // $('#dist').change(function(){
