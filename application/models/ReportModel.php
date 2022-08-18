@@ -2184,7 +2184,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
                         SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
                         (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
                         (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
-                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_ac_cd)bnk
+                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk
                         from tdf_company_payment a, mm_product b,md_district c
                         where a.comp_id=$comp_id
                         and b.PROD_ID=a.prod_id
