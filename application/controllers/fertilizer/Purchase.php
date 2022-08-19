@@ -1367,10 +1367,7 @@ class Purchase extends MX_Controller
 				"created_dt" => date('Y-m-d h:i:s')
 			);
 
-			$this->PurchaseModel->f_insert('tdf_stock_point_trans', $data_array1);
-
-			$this->PurchaseModel->f_insert('td_purchase', $data_array);
-
+		
 			$select_prod          = array("prod_desc");
 			$where_prod   = array("prod_id" => $prod_id);
 			$prod_name = $this->PurchaseModel->f_select('mm_product', $select_prod, $where_prod, 1);
@@ -1388,10 +1385,26 @@ class Purchase extends MX_Controller
 			$data_array_pur['fin_fulyr'] = $fin_year;
 			$data_array_pur['br_nm'] = $br_nm->dist_sort_code;
 
-			$this->ApiVoucher->f_purchasejnl($data_array_pur);
-			$this->session->set_flashdata('msg', 'Successfully Added');
 
-			redirect('stock/stock_entry');
+			
+			// echo $this->ApiVoucher->f_purchasejnl($data_array_pur);
+			// exit();
+			if($this->ApiVoucher->f_purchasejnl($data_array_pur)==1){
+
+
+				$this->PurchaseModel->f_insert('tdf_stock_point_trans', $data_array1);
+
+				$this->PurchaseModel->f_insert('td_purchase', $data_array);
+
+
+
+
+				$this->session->set_flashdata('msg', 'Successfully Added');
+
+				redirect('stock/stock_entry');
+			}else{
+				echo "<script>alert('Error in accounts voucher!');</script>";
+			}
 			//redirect('virtualpnt/virtual_stk_pointAdd');
 		}else{
 			echo "<script>alert('Advance to Company has not yet been done.');</script>";

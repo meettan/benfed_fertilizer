@@ -332,9 +332,7 @@
 
 				<label for="trans_dt" class="col-sm-1 col-form-label">Purchase Date:</label>
 				<div class="col-sm-3">
-
-					<input type="date" style="width:200px" id="trans_dt" name="trans_dt" class="form-control"
-						value="<?php echo $stock->trans_dt; ?>" />
+					<input type="date" style="width:200px" id="trans_dt" name="trans_dt" class="form-control" value="<?php echo $stock->trans_dt; ?>" readonly/>
 				</div>
 
 			</div>

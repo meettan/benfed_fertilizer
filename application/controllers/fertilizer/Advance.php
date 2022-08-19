@@ -555,14 +555,14 @@ public function advAdd(){
 
 		$adv_acc= $this->AdvanceModel->f_select("mm_ferti_soc",$select_adv,$where_adv,1);
 
-// $data_bnkacc=array("acc_code"=> $bnk_acc);
-$bbranch=$this->input->post('bank_id');
-if(empty($bbranch)){
-$branchid=0;
-}else{
-	$branchid=$bbranch;
-	
-}
+		// $data_bnkacc=array("acc_code"=> $bnk_acc);
+		$bbranch=$this->input->post('bank_id');
+		if(empty($bbranch)){
+		$branchid=0;
+		}else{
+			$branchid=$bbranch;
+			
+		}
 
 
 
