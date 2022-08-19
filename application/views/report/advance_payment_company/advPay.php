@@ -127,10 +127,13 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ptableData->pur_ro; ?></td>
                                      <td><?php echo $ptableData->qty; ?></td>
                                      <td><?php echo  $ptableData->rate_amt ; $totalRate+=$ptableData->rate_amt; ?></td>
+
                                      <td><?php echo $ptableData->taxable_amt ;$totalAmount+=$ptableData->taxable_amt; ?></td>
-                                     <td><?php echo round($ptableData->tds_amt,0);$totalTDS+=round($ptableData->tds_amt,0);?></td>
+
+                                     <td><?php echo $ptableData->tds_amt;$totalTDS+=$ptableData->tds_amt;?></td>
+
                                      <!--<td><?php //echo $ptableData->net_amt;$totalNETAmount+=$ptableData->net_amt;?></td>-->
-                                     <td><?php echo $ptableData->taxable_amt - round($ptableData->tds_amt,0); $totalNETAmount+=$ptableData->taxable_amt - round($ptableData->tds_amt,0);?></td>
+                                     <td><?php echo $ptableData->taxable_amt - $ptableData->tds_amt; $totalNETAmount+=$ptableData->taxable_amt - $ptableData->tds_amt;?></td>
                                 </tr>
                                
  
