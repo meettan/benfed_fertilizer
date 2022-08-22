@@ -22,12 +22,14 @@
     				</div>
 
     			</div>
-				<div class="form-group row">
-				<label for="adv_status" class="col-sm-1 col-form-label">Purchase</label>
-				<div class="col-sm-3"><input class="form-check-input adv_status" type="radio" name="adv_status" id="advstatus" value="Y" checked> With advance
-				</div>
-				<div class="col-sm-3"><input class="form-check-input adv_status" type="radio" name="adv_status" id="advst" value="N"> Without advance</div>
-			    </div>
+    			<div class="form-group row">
+    				<label for="adv_status" class="col-sm-1 col-form-label">Purchase</label>
+    				<div class="col-sm-3"><input class="form-check-input adv_status" type="radio" name="adv_status"
+    						id="advstatus" value="Y" checked> With advance
+    				</div>
+    				<div class="col-sm-3"><input class="form-check-input adv_status" type="radio" name="adv_status"
+    						id="advst" value="N"> Without advance</div>
+    			</div>
     			<div class="form-group row">
     				<label for="comp_id" class="col-sm-1 col-form-label">Company:</label>
     				<div class="col-sm-3">
@@ -36,8 +38,8 @@
     						<option value="">Select</option>
     						<?php	foreach($compdtls as $comp){ ?>
     						<option value="<?php echo $comp->comp_id;?>">
-							<?php echo $comp->comp_name;?>
-						    </option>
+    							<?php echo $comp->comp_name;?>
+    						</option>
 
     						<?php  }   ?>
     					</select>
@@ -60,21 +62,21 @@
     				<label for="comp_add" class="col-sm-1 col-form-label">Address:</label>
     				<div class="col-sm-6">
 
-    					<textarea  id=comp_add name="comp_add" class="form-control" rows='2' readonly /></textarea>
+    					<textarea id=comp_add name="comp_add" class="form-control" rows='2' readonly /></textarea>
 
     				</div>
-					<label for="comp_acc_cd" class="col-sm-1 col-form-label">Account ledger:</label>
+    				<label for="comp_acc_cd" class="col-sm-1 col-form-label">Account ledger:</label>
     				<div class="col-sm-3">
 
-					<select name="comp_acc_cd" class="form-control sch_cd required" id="comp_acc_cd" required>
-						<option value="">Select</option>
-					
-						<?php  foreach($achead as $ach){ ?>
-						<option value="<?php echo $ach->sl_no; ?>"><?php echo $ach->ac_name; ?></option>
-						<?php } ?>
-					</select>
+    					<select name="comp_acc_cd" class="form-control sch_cd required" id="comp_acc_cd" required>
+    						<option value="">Select</option>
+
+    						<?php  foreach($achead as $ach){ ?>
+    						<option value="<?php echo $ach->sl_no; ?>"><?php echo $ach->ac_name; ?></option>
+    						<?php } ?>
+    					</select>
     				</div>
-    			
+
     			</div>
     			<div class="form-header">
 
@@ -200,7 +202,8 @@
 
     				<label for="ro_dt" class="col-sm-1 col-form-label">Ro Date:</label>
     				<div class="col-sm-3">
-    					<input type="date" min="" style="width:200px" id=ro_dt name="ro_dt" class="form-control mindate" required />
+    					<input type="date" min="" style="width:200px" id=ro_dt name="ro_dt" class="form-control mindate"
+    						required />
     				</div>
     				<label for="no_of_days" class="col-sm-1 col-form-label">No Of Days:</label>
     				<div class="col-sm-3">
@@ -216,7 +219,8 @@
     			<div class="form-group row">
     				<label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
     				<div class="col-sm-3">
-    					<input type="date" min="" style="width:200px" id=due_dt name="due_dt" class="form-control mindate" required />
+    					<input type="date" min="" style="width:200px" id=due_dt name="due_dt"
+    						class="form-control mindate" required />
     				</div>
     				<label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
     				<div class="col-sm-3">
@@ -246,8 +250,8 @@
     				<label for="invoice_dt" class="col-sm-1 col-form-label">Invoice Dt:</label>
     				<div class="col-sm-3">
 
-    					<input type="date" min="" style="width:200px" id=invoice_dt name="invoice_dt" class="form-control mindate"
-    						required />
+    					<input type="date" min="" style="width:200px" id=invoice_dt name="invoice_dt"
+    						class="form-control mindate" required />
     				</div>
     				<!-- <label for="unit" class="col-sm-1 col-form-label">Unit:</label>
 		<div class="col-sm-3">
@@ -280,10 +284,11 @@
 
     				</div>
 
-					<label for="qty" class="col-sm-1 col-form-label">Advance Forward No:</label>
+    				<label for="qty" class="col-sm-1 col-form-label">Advance Forward No:</label>
     				<div class="col-sm-3">
 
-    					<input type="text" style="width:200px" id="receipt_no" name="receipt_no" class="form-control receipt_no" required/>
+    					<input type="text" style="width:200px" id="receipt_no" name="receipt_no"
+    						class="form-control receipt_no" required />
 
     				</div>
 
@@ -308,8 +313,8 @@
     				<label for="trans_dt" class="col-sm-1 col-form-label">*Purchase Date:</label>
     				<div class="col-sm-3">
 
-    					<input type="date" min="" style="width:200px" id=trans_dt name="trans_dt" class="form-control mindate"
-    						value="<?php echo date("Y-m-d")?>" required readonly/>
+    					<input type="date" min="" style="width:200px" id=trans_dt name="trans_dt"
+    						class="form-control mindate" value="<?php echo date("Y-m-d")?>" required readonly />
     				</div>
     			</div>
 
@@ -2077,12 +2082,8 @@ document.getElementById("demo").innerHTML = d;
     		var net_rt = 0.00;
     		$('#frt_subsidy').change(function () {
 
-    			$.get(
-
-    					'<?php echo site_url("stock/f_get_ro");?>', {
-
+    			$.get('<?php echo site_url("stock/f_get_ro");?>', {
     						rate: $(this).val()
-
     					}
 
     				)
@@ -2188,38 +2189,91 @@ document.getElementById("demo").innerHTML = d;
     	});
 
 
-		$('.mindate').attr( 'min','<?=$date->end_yr ?>-<?php $month=$date->end_mnth+1; if($month==13){echo sprintf("%02d",1);}else{echo sprintf("%02d",$month);}?>-01');
-		$(document).ready(function () {
-			$('.adv_status').change(function () {
-				var data = $(this).val();
-				if(data == 'N'){
-					$('#receipt_no').removeAttr('required');
-					$('#receipt_no').val('');
-					$('#receipt_no').attr("readonly", true);
-				}else{
-					$('#receipt_no').attr('required', 'true');
-					$('#receipt_no').attr("readonly", false); 
-				}
-	         })	
-		})
-		$('#receipt_no').change(function () {
-        $.get(
-		'<?php echo site_url("stock/f_advfwdstatus");?>', {
+    	$('.mindate').attr('min',
+    		'<?=$date->end_yr ?>-<?php $month=$date->end_mnth+1; if($month==13){echo sprintf("%02d",1);}else{echo sprintf("%02d",$month);}?>-01'
+    		);
+    	$(document).ready(function () {
+    		$('.adv_status').change(function () {
+    			var data = $(this).val();
+    			if (data == 'N') {
+    				$('#receipt_no').removeAttr('required');
+    				$('#receipt_no').val('');
+    				$('#receipt_no').attr("readonly", true);
+    			} else {
+    				$('#receipt_no').attr('required', 'true');
+    				$('#receipt_no').attr("readonly", false);
+    			}
+    		})
+    	})
+    	$('#receipt_no').change(function () {
+    		$.get(
+    			'<?php echo site_url("stock/f_advfwdstatus");?>', {
 
-			advfwdid: $(this).val()
-		   }
-	      ).done(function (data) {
+    				advfwdid: $(this).val(),
+    				company_id: $('#comp_id').val(),
+    				product_id: $('#prod_id').val(),
+    			}
+    		).done(function (data) {
 
-			if(data == 0){
-				alert('Advance to Company has not yet been done.');
-				$('#submit').attr('type', 'button');	
-			}else{
-				$('#submit').attr('type', 'submit');
-			}
+    			if (data == 0) {
+    				alert('Advance to Company has not yet been done!');
+    				// $('#submit').attr('type', 'button');
+    				$('#submit').attr('disabled', 'disabled');
+    			} else {
 
-	     })
-        })
+    				$('#submit').removeAttr('disabled');
+    				// $('#submit').attr('type', 'submit');
+					f_advfwdprodcomp();
 
+    			}
+
+    		});
+    	})
+
+
+
+		function f_advfwdprodcomp(){
+			$.get(
+    			'<?php echo site_url("stock/f_advfwdprodcomp");?>', {
+
+    				advfwdid: $('#receipt_no').val(),
+    				company_id: $('#comp_id').val(),
+    				product_id: $('#prod_id').val(),
+    			}
+    		).done(function (data) {
+    			if (data == 0) {
+    				alert('Invalid Company or Product!');
+    				// $('#submit').attr('type', 'button');
+    				$('#submit').attr('disabled', 'disabled');
+    			} else {
+
+    				// $('#submit').attr('type', 'submit');
+    				$('#submit').removeAttr('disabled');
+					checked_adv();
+    			}
+
+    		});
+		}
+
+
+
+		function checked_adv(){
+			$.get(
+    			'<?php echo site_url("stock/f_adv_use_checked");?>', {
+
+    				advfwdid: $('#receipt_no').val()
+    			}
+    		).done(function (data) {
+
+    			if (data > 0) {
+    				alert('This Advance Forward No.has already been used!');
+    				// $('#submit').attr('type', 'button');
+    				$('#submit').attr('disabled', 'disabled');
+    			} else {
+    				// $('#submit').attr('type', 'submit');
+    				$('#submit').removeAttr('disabled');
+    			}
+
+    		});
+		}
     </script>
-
-	

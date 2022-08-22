@@ -3749,17 +3749,49 @@ class Purchase extends MX_Controller
 
 	public function f_advfwdstatus(){
 		$advfwdid = trim($this->input->get('advfwdid'));
-		$where = array('fwd_flag' => 'Y',
-					   'comp_pay_flag' => 'Y',
-					  'fwd_receipt_no' => $advfwdid);
+		
+
+		
+		$where = array(	
+						'fwd_flag' => 'Y',
+					   	'comp_pay_flag' => 'Y',
+					  	'fwd_receipt_no' => $advfwdid);
 		$result   = $this->PurchaseModel->f_select('tdf_adv_fwd', array('count(*) cnt'),$where, 1);
 		
 		
 		// $this->session->set_userdata(array("advance_Forward_No" =>$result->cnt ));
 		echo $result->cnt;
 
+	}
+
+	public function f_advfwdprodcomp(){
+		$advfwdid = trim($this->input->get('advfwdid'));
+		$company_id = trim($this->input->get('company_id'));
+		$product_id = trim($this->input->get('product_id'));
+		$result=$this->PurchaseModel->f_adv_fwd_product($advfwdid);
+		// print_r($result);
+		// exit();
+		if(!empty($result)){
+			if($result->comp_id==$company_id && $result->prod_id==$product_id){
+				echo 1;
+			}else{
+				echo 0;
+			}
+		}else{
+			echo 0;
+		}
 
 
+	}
 
+
+	public function f_adv_use_checked(){
+		$advfwdid = trim($this->input->get('advfwdid'));
+		$result=$this->PurchaseModel->f_adv_use_checked($advfwdid);
+		if(!empty($result)){
+			echo $result->cnt;
+		}else{
+			echo 0;
+		}
 	}
 }

@@ -16,6 +16,31 @@
 			return;
 
 		}
+
+
+		public function f_select_distinct($table,$select=NULL,$where=NULL,$type){	/**Select distinct data */
+
+			$this->db->distinct();
+
+			if(isset($select)){
+				$this->db->select($select);
+			}
+
+			if(isset($where)){
+				$this->db->where($where);
+			}
+
+			$value = $this->db->get($table);
+
+			if($type==1){
+				return $value->row();
+			}else{
+				return $value->result();
+			}
+		}
+
+
+
 			/*Update table data*/
 		public function f_edit($table_name, $data_array, $where) {
 
@@ -610,6 +635,21 @@
 			$a=$db2->get('md_achead')->result();
 			//echo $db2->last_query();
 			return $a;
+		}
+
+
+		public function f_adv_fwd_product($advfwdid){
+			$a=$this->db->query('SELECT distinct a.comp_id,a.prod_id 
+			FROM td_adv_details a,tdf_adv_fwd b
+			where a.receipt_no = b.receipt_no
+			and   b.fwd_receipt_no = "'.$advfwdid.'"');
+
+			return $a->row();
+		}
+
+		public function f_adv_use_checked($advfwdid){
+			$a=$this->db->query('select count(*) cnt from td_purchase where advance_receipt_no = "'.$advfwdid.'"');
+			return $a->row();
 		}
 		
 
