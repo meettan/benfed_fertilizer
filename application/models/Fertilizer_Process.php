@@ -722,5 +722,13 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		
 		///    
 		
+
+		public function f_all_soc($branch_id){
+			$this->db->select('ac_name,sl_no,district');
+			$this->db->where('district',$branch_id);
+			$this->db->order_by("ac_name", "asc");
+			return $this->db->get('acc_soc')->result();
+
+		}
 	}	
 ?>

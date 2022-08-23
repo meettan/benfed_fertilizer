@@ -279,7 +279,14 @@
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_two',$dash_data);
 					$this->load->view('post_login/footer');
-				} elseif( $this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) { 
+				} elseif( $this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {
+
+
+						$dash_data['distwisesale'] = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
+					
+					
+
+					$dash_data['soc']=$this->Fertilizer_Process->f_all_soc($branch_id);
 
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_three',$dash_data);
@@ -392,6 +399,14 @@
 				redirect('Fertilizer_Login/login');
 
 			}
+		}
+
+		public function manager_soc_data(){
+			$soc_id=$this->input->post('soc_id');
+
+
+			
+			echo json_encode($soc_id);
 		}
 	}
 ?>
