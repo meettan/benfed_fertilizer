@@ -2223,9 +2223,9 @@ document.getElementById("demo").innerHTML = d;
 
     				$('#submit').removeAttr('disabled');
     				// $('#submit').attr('type', 'submit');
-					// f_advfwdprodcomp();
+					f_advfwdprodcomp();
 
-					checked_adv();
+					// checked_adv();
 
     			}
 

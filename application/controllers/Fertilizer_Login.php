@@ -403,10 +403,13 @@
 
 		public function manager_soc_data(){
 			$soc_id=$this->input->post('soc_id');
+			$branch_id = $this->session->userdata['loggedin']['branch_id'];
+			$data=array(
+				'quantitySold'=>$this->Fertilizer_Process->f_get_sales($branch_id,$soc_id),
+			);
 
-
-			
-			echo json_encode($soc_id);
+			// print_r($data['quantitySold']);
+			echo json_encode($data);
 		}
 	}
 ?>

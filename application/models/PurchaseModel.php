@@ -638,11 +638,19 @@
 		}
 
 
-		public function f_adv_fwd_product($advfwdid){
-			$a=$this->db->query('SELECT distinct a.comp_id,a.prod_id 
+		public function f_adv_fwd_product($advfwdid,$company_id,$product_id){
+			/*$a=$this->db->query('SELECT distinct a.comp_id,a.prod_id 
 			FROM td_adv_details a,tdf_adv_fwd b
 			where a.receipt_no = b.receipt_no
-			and   b.fwd_receipt_no = "'.$advfwdid.'"');
+			and   b.fwd_receipt_no = "'.$advfwdid.'"');*/
+
+			$a=$this->db->query('select count(b.fwd_receipt_no)no_of_fwd
+				FROM td_adv_details a,tdf_adv_fwd b
+				where  a.receipt_no = b.receipt_no
+				and    a.detail_receipt_no = b.detail_receipt_no
+				and    b.fwd_receipt_no = "'.$advfwdid.'"
+				and    a.comp_id = '.$company_id.'
+				and    a.prod_id = '.$product_id);
 
 			return $a->row();
 		}

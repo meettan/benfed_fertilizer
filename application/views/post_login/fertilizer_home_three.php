@@ -177,9 +177,9 @@
               <div class="bloxkSec">
                 <img src="<?= base_url() ?>assets/images/icon_aa.png" alt="" class="bloxkSecImg">
                 <h3>Quantity Sold</h3>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
+                <p class="price"><span class="mt" ><strong> mt</strong></span> <span class="mt" id="qty"><strong>
                       mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span>
+                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong><span id="solPrice"></span></span>
                 </p>
               </div>
             </div>
@@ -304,6 +304,10 @@
         soc_id: soc_id
       },
       success: function(result) {
+        // alert(result.quantitySold.taxable_amt);
+        $('#solPrice').html(result.quantitySold.taxable_amt);
+        $('#qty').html(result.quantitySold.qty);
+
         $('#sectionNew').show();
         $('#sectionNew2').show();
         $('.barPaiChartMain').show();

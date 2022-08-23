@@ -3768,11 +3768,11 @@ class Purchase extends MX_Controller
 		$advfwdid = trim($this->input->get('advfwdid'));
 		$company_id = trim($this->input->get('company_id'));
 		$product_id = trim($this->input->get('product_id'));
-		$result=$this->PurchaseModel->f_adv_fwd_product($advfwdid);
+		$result=$this->PurchaseModel->f_adv_fwd_product($advfwdid,$company_id,$product_id);
 		// print_r($result);
 		// exit();
 		if(!empty($result)){
-			if($result->comp_id==$company_id && $result->prod_id==$product_id){
+			if($result->no_of_fwd > 0){
 				echo 1;
 			}else{
 				echo 0;

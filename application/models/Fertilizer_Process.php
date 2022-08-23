@@ -730,5 +730,13 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 			return $this->db->get('acc_soc')->result();
 
 		}
+
+		public function f_get_sales($branch,$soc_id){
+			// $date = date('Y-m-d');
+			$date = '2022-08-01';
+            $query  = $this->db->query("SELECT SUM(taxable_amt) taxable_amt,SUM(qty) qty FROM td_sale WHERE soc_id='$soc_id' AND br_cd='$branch'");
+
+            return $query->row();
+        }
 	}	
 ?>
