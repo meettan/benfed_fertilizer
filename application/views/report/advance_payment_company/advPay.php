@@ -221,7 +221,7 @@ tr:hover {background-color: #f5f5f5;}
         dom: 'Bfrtip',
         buttons: [{
             extend: 'excelHtml5',
-            title: ' consolidated Stock',
+            title: ' Company Payment Statement',
             text: 'Export to excel'
 
         }]
