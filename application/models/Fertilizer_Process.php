@@ -732,9 +732,10 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		}
 
 		public function f_get_sales($branch,$soc_id){
-			// $date = date('Y-m-d');
-			$date = '2022-08-01';
-            $query  = $this->db->query("SELECT SUM(taxable_amt) taxable_amt,SUM(qty) qty FROM td_sale WHERE soc_id='$soc_id' AND br_cd='$branch'");
+			$fin_yr=explode('-',$this->session->userdata['loggedin']['fin_yr']);
+			$date = $fin_yr[0].'-04-01';
+			$date2=($fin_yr[0]+1).'-03-31';
+            $query  = $this->db->query("SELECT SUM(taxable_amt) taxable_amt,SUM(qty) qty FROM td_sale WHERE soc_id='$soc_id' AND br_cd='$branch' AND do_dt BETWEEN '$date' AND '$date2'");
 
             return $query->row();
         }

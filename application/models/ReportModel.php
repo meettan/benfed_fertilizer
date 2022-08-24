@@ -2192,6 +2192,7 @@ public function totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber){
                         and a.net_amt > 0
                         and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
                         group by  a.pur_ro,a.pur_inv_no,a.paid_id
+                        order by  c.district_name,a.pay_dt
                     ");  
                     return $q->result();
                 }

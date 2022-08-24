@@ -407,6 +407,7 @@
 			$data=array(
 				'quantitySold'=>$this->Fertilizer_Process->f_get_sales($branch_id,$soc_id),
 			);
+			echo $this->db->last_query();
 
 			// print_r($data['quantitySold']);
 			echo json_encode($data);
