@@ -42,13 +42,21 @@
 			}
 		}
 		
+        //Total receive amount in all branches (refelcted in HO Admin & Manager Dashboard) 
 		public function f_get_tot_recvamt_ho($from_dt,$to_dt){	
-			$this->db->select('ifnull(SUM(a.paid_amt), 0) tot_recvamt');
-			$this->db->where('paid_dt>=',$from_dt);
-			$this->db->where('paid_dt<=',$to_dt);
+		
+			$data=$this->db->query( "select (sum(received)+sum(advance)) tot_recvamt
+				from (
+						SELECT sum(paid_amt)received,0 advance
+						FROM tdf_payment_recv
+						where  paid_dt BETWEEN '$from_dt' and '$to_dt'
+						and    pay_type not in ('2','6')
+						UNION
+						select 0 received,sum(adv_amt)advance
+						from   tdf_advance
+						where  trans_dt BETWEEN '$from_dt' and '$to_dt'
+						and    trans_type = 'I') a" );
 
-			
-			$data=$this->db->get('tdf_payment_recv a ');
             return $data->row();
 		}
 
@@ -310,8 +318,10 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 			
             return $data->row();
 		}
+/*********************************************For HO Admin & Manager Dashboard******************************************************************************** */
 
-		public function f_get_tot_purchase_ho($from_dt,$to_dt){				//ho purchase
+		//Total purchases in all branches reflecting in HO dashboard (admin + manager login)
+		public function f_get_tot_purchase_ho($from_dt,$to_dt){	
 		
 			$this->db->select('ifnull(SUM(a.tot_amt), 0) tot_purchase_ho');
 			$this->db->where('a.trans_dt>=',$from_dt);
@@ -322,27 +332,65 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
             return $data->row();
 		}
 		
+		//Total purchases liquid material (converted in LTR) in all branches reflecting in HO dashboard (admin + manager login)
+		public function f_get_tot_purchase_holqd($from_dt,$to_dt){				
+		
+			$data=$this->db->query("select sum(a.qty)qty,a.unit,b.qty_per_bag
+					from   td_purchase a,mm_product b
+					where  a.prod_id = b.prod_id
+					and    a.trans_dt between '$from_dt' and '$to_dt'
+					and    a.unit in(3,5)
+					group by a.unit,b.qty_per_bag");
+            return $data->result();
+		}
 
-		public function f_get_tot_purchase_holqd($from_dt,$to_dt){				//ho purchase
+		//Total purchases solid material (converted in MT) in all branches reflecting in HO dashboard (admin + manager login)
+		public function f_get_tot_purchase_hosld($from_dt,$to_dt){
+
+			$data=$this->db->query("select sum(qty) qty,unit
+			from   td_purchase
+			where  trans_dt between '$from_dt' and '$to_dt'
+			and    unit in(1,2,4,6)
+			group by unit");
+            return $data->result();
+		}
+
+		//Total sale liquid material (converted in LTR) in all branches reflecting in HO dashboard (admin + manager login)
+		public function f_get_tot_sale_holqd($from_dt,$to_dt){				//ho sale
 		
-			$this->db->select('TRUNCATE(ifnull(SUM(if(b.unit=3,a.qty,a.qty/1000)), 0),3) tot_purchase_ho');
-			$this->db->where('a.trans_dt>=',$from_dt);
-			$this->db->where('a.trans_dt<=',$to_dt);
-			$this->db->where('a.prod_id=b.prod_id');
+			$this->db->select('ifnull(SUM(a.qty), 0) tot_sale_ho');
+			$this->db->where('a.do_dt>=',$from_dt);
+			$this->db->where('a.do_dt<=',$to_dt);
 			$this->db->where('b.unit in(3,5)');
-			$data=$this->db->get('td_purchase a ,mm_product b');
-            return $data->row();
-		}
-		public function f_get_tot_purchase_hosld($from_dt,$to_dt){				//ho purchase
-		
-			$this->db->select('ifnull(SUM(a.qty), 0) tot_purchase_ho');
-			$this->db->where('a.trans_dt>=',$from_dt);
-			$this->db->where('a.trans_dt<=',$to_dt);
 			$this->db->where('a.prod_id=b.prod_id');
-			$this->db->where('b.unit in(1,2,4,6)');
-			$data=$this->db->get('td_purchase a ,mm_product b');
+			$data=$this->db->get('td_sale a ,mm_product b');
             return $data->row();
 		}
+
+		//Total sale solid material (converted in MT) in all branches reflecting in HO dashboard (admin + manager login)
+		public function f_get_tot_sale_hosld($from_dt,$to_dt){				//ho sale
+			$data=$this->db->query("select ifnull(SUM(a.qty), 0) tot_sale_ho,b.unit
+			from   td_sale a ,mm_product b
+			where  a.prod_id=b.prod_id
+			and    a.do_dt between '2022-04-01' and '2022-08-25'
+			and    b.unit in (1,2,4,6)	
+			group by b.unit");
+            return $data->result();
+		}
+
+		public function f_get_tot_sale_ho($from_dt,$to_dt){				//ho sale
+		
+			$this->db->select('ifnull(SUM(tot_amt), 0) tot_sale_ho');
+			$this->db->where('do_dt>=',$from_dt);
+			$this->db->where('do_dt<=',$to_dt);
+			//$this->db->where('b.unit in(3,5)');
+			$this->db->where('a.prod_id=b.prod_id');
+			$data=$this->db->get('td_sale a ,mm_product b');
+            return $data->row();
+		}
+/*************************************************************************************************************************************************** */
+
+
 		public function f_get_tot_sale($branch_id,$from_dt,$to_dt){				//branchwise sale 
 
 			$this->db->select('ifnull(SUM(tot_amt), 0) tot_sale');
@@ -380,36 +428,10 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		
 		return $data->row();
 	}
-		public function f_get_tot_sale_ho($from_dt,$to_dt){				//ho sale
 		
-			$this->db->select('ifnull(SUM(tot_amt), 0) tot_sale_ho');
-			$this->db->where('do_dt>=',$from_dt);
-			$this->db->where('do_dt<=',$to_dt);
-			//$this->db->where('b.unit in(3,5)');
-			$this->db->where('a.prod_id=b.prod_id');
-			$data=$this->db->get('td_sale a ,mm_product b');
-            return $data->row();
-		}
-		public function f_get_tot_sale_holqd($from_dt,$to_dt){				//ho sale
+
 		
-			$this->db->select('ifnull(SUM(a.qty), 0) tot_sale_ho');
-			$this->db->where('a.do_dt>=',$from_dt);
-			$this->db->where('a.do_dt<=',$to_dt);
-			$this->db->where('b.unit in(3,5)');
-			$this->db->where('a.prod_id=b.prod_id');
-			$data=$this->db->get('td_sale a ,mm_product b');
-            return $data->row();
-		}
-		public function f_get_tot_sale_hosld($from_dt,$to_dt){				//ho sale
-		
-			$this->db->select('ifnull(SUM(a.qty), 0) tot_sale_ho');
-			$this->db->where('a.do_dt>=',$from_dt);
-			$this->db->where('a.do_dt<=',$to_dt);
-			$this->db->where('b.unit in(1,2,4,6)');
-			$this->db->where('a.prod_id=b.prod_id');
-			$data=$this->db->get('td_sale a ,mm_product b');
-            return $data->row();
-		}
+
 	//   07/03/2022       Coding date   //
 		public function f_get_solid_sale($from_yr_day,$to_yr_day){
 			

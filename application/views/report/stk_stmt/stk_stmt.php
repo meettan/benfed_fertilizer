@@ -148,17 +148,13 @@ tr:hover {background-color: #f5f5f5;}
                                         echo "MTS" ;  
                                       }elseif($prodtls->unit==3||$prodtls->unit==5){
                                         echo "LTR" ;
-                                      }
-                                     
-                                    
-                                        ?>
+                                      } ?>
                                      </td>
                                      <td class="report opening" id="opening">
                                         <?php 
                                             foreach($opening as $opndtls){
                                                 if($prodtls->prod_id==$opndtls->prod_id){
                                                     if($prodtls->unit==1){
-
                                                         echo $opndtls->opn_qty; 
                                                         $opqty=$opndtls->opn_qty;
                                                        $totsld_op+=$opqty;

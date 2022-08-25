@@ -1,3 +1,47 @@
+
+<style>
+    #overlay {
+        background: rgba(100, 100, 100, 0.2);
+        color: #ffff;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+
+
+
+    .spinner {
+        margin: 0 auto;
+        height: 64px;
+        width: 64px;
+        animation: rotate 0.8s infinite linear;
+        border: 5px solid #228ed3;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<div id="overlay" style="display:none;">
+    <div class="spinner"></div>
+</div>
+
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/slick/slick-theme.css">
 
@@ -46,11 +90,11 @@
               <div class="threeBoxNewSmall">
                 <!-- <div class="value"><strong>&#2352;</strong>
               <?php
-                  if($this->session->userdata['loggedin']['ho_flag']=="Y"){
+                  /*if($this->session->userdata['loggedin']['ho_flag']=="Y"){
                       echo $ho_purchase_day->tot_purchase_ho; 
                   }else{
                       echo $purchase_day->tot_purchase; 
-                  }
+                  }*/
               ?>
 </div> -->
                 <div class="threeBoxImg darkBlue"><img src="<?=base_url()?>assets/images/boxIcon_a.png" alt=""></div>
@@ -58,20 +102,35 @@
                   <h2>Purchase For The Day</h2>
                   <p class="price"><span class="mt"> 
                     <?php
-                      if($this->session->userdata['loggedin']['ho_flag']=="Y")
+                    
+                      if($this->session->userdata['loggedin']['ho_flag']=="Y")   //When user in Headoffice
                       {
-                          echo $ho_purchase_daysld->tot_purchase_ho; 
-                              }else{
+                          echo $ho_purchase_daysld;
+
+                        }else{                                              //When user in Branhoffice
                               echo $purchase_day->tot_purchase; 
-                      }
+                         }
                     ?>
-                      <strong> mt</strong></span>
+                      <strong>MT</strong></span>
 
                     <span class="lit">
                         <?php
-                            if($this->session->userdata['loggedin']['ho_flag']=="Y"){
-                                echo $ho_purchase_daylqd->tot_purchase_ho; 
-                            }else{
+                            if($this->session->userdata['loggedin']['ho_flag']=="Y"){     //When user in Headoffice
+                              $total_liq_qty=0.00;                                        //Liquid stock converting all units in LTR
+                              if(!empty($ho_purchase_daylqd)){ 
+                              foreach ($ho_purchase_daylqd as $ho_purchase_daylqdkey) {
+                               
+                                if($ho_purchase_daylqdkey->unit==3){
+                                  $Qty3=($ho_purchase_daylqdkey->qty*$ho_purchase_daylqdkey->qty_per_bag);
+                                  $total_liq_qty=$total_liq_qty+$Qty3;
+                                }elseif($ho_purchase_daylqdkey->unit==5){
+                                  
+                                  $Qty5=($ho_purchase_daylqdkey->qty*$ho_purchase_daylqdkey->qty_per_bag)/1000;
+                                  $total_liq_qty=$total_liq_qty+$Qty5;
+                                }
+                              }}
+                              echo $total_liq_qty;
+                            }else{                                                    //When user in Branhoffice
                                 echo $purchase_day->tot_purchase; 
                             }
                         ?>
@@ -81,6 +140,9 @@
                 </div>
               </div>
             </div>
+
+
+
             <div class="col-sm-4 float-left">
               <div class="threeBoxNewSmall">
                 <div class="threeBoxImg yellowCol"><img src="<?=base_url()?>assets/images/boxIcon_b.png" alt=""></div>
@@ -89,9 +151,27 @@
                   <p class="price"><span class="mt"><?php
                           if($this->session->userdata['loggedin']['ho_flag']=="Y")
                           {
-                              echo $ho_sale_daysld->tot_sale_ho; 
-                                  }else{
-                                  echo $sale_day->tot_sale; 
+                            $total_qty_sale=0.00;
+                            if(!empty($ho_sale_daysld)){                                   //Solid stock converting all units in MT
+                              foreach ($ho_sale_daysld as $ho_sale_daysldkey) {
+                                if($ho_sale_daysldkey->unit==1){
+                                  $total_qty_sale=$total_qty_sale+$ho_sale_daysldkey->tot_sale_ho;
+                                }elseif($ho_sale_daysldkey->unit==2){
+                                  $Qty2=$ho_sale_daysldkey->tot_sale_ho/1000;
+                                  $total_qty_sale=$total_qty_sale+$Qty2;
+                                }elseif($ho_sale_daysldkey->unit==4){
+                                  $Qty4=$ho_sale_daysldkey->tot_sale_ho/10;
+                                  $total_qty_sale=$total_qty_sale+$Qty4;
+                                }elseif($ho_sale_daysldkey->unit==6){
+                                  $Qty6=$ho_sale_daysldkey->tot_sale_ho/1000000;
+                                  $total_qty_sale=$total_qty_sale+$Qty6;
+                                }
+                              }}
+
+                              echo $total_qty_sale;
+                              //echo $ho_sale_daysld->tot_sale_ho; 
+                          }else{
+                            echo $sale_day->tot_sale; 
                           }
                     ?><strong>mt</strong></span>
                     <span class="lit"><?php
@@ -670,6 +750,8 @@ $tot_lqd = 0.00;
 
 function brdaypurchase(br_id){
 //   alert(br_id);
+
+$('#overlay').fadeIn().delay(500).fadeOut();
 $.ajax({
 type: "POST",
 url: "<?php echo site_url("Fertilizer_Login/f_br_purchase") ?>",
