@@ -101,36 +101,24 @@
                 <div class="threeBoxTxt">
                   <h2>Purchase For The Day</h2>
                   <p class="price"><span class="mt"> 
-                    <?php
+                    <?php                                                         //Solid
                     
                       if($this->session->userdata['loggedin']['ho_flag']=="Y")   //When user in Headoffice
                       {
                           echo $ho_purchase_daysld;
 
-                        }else{                                              //When user in Branhoffice
+                        }else{                                                  //When user in Branhoffice
                               echo $purchase_day->tot_purchase; 
                          }
                     ?>
                       <strong>MT</strong></span>
 
                     <span class="lit">
-                        <?php
+                        <?php                                                             //Liquid
                             if($this->session->userdata['loggedin']['ho_flag']=="Y"){     //When user in Headoffice
-                              $total_liq_qty=0.00;                                        //Liquid stock converting all units in LTR
-                              if(!empty($ho_purchase_daylqd)){ 
-                              foreach ($ho_purchase_daylqd as $ho_purchase_daylqdkey) {
-                               
-                                if($ho_purchase_daylqdkey->unit==3){
-                                  $Qty3=($ho_purchase_daylqdkey->qty*$ho_purchase_daylqdkey->qty_per_bag);
-                                  $total_liq_qty=$total_liq_qty+$Qty3;
-                                }elseif($ho_purchase_daylqdkey->unit==5){
-                                  
-                                  $Qty5=($ho_purchase_daylqdkey->qty*$ho_purchase_daylqdkey->qty_per_bag)/1000;
-                                  $total_liq_qty=$total_liq_qty+$Qty5;
-                                }
-                              }}
-                              echo $total_liq_qty;
-                            }else{                                                    //When user in Branhoffice
+                                                                  
+                              echo $ho_purchase_daylqd;
+                            }else{                                                        //When user in Branhoffice
                                 echo $purchase_day->tot_purchase; 
                             }
                         ?>
@@ -148,37 +136,20 @@
                 <div class="threeBoxImg yellowCol"><img src="<?=base_url()?>assets/images/boxIcon_b.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Sale For The Day</h2>
-                  <p class="price"><span class="mt"><?php
-                          if($this->session->userdata['loggedin']['ho_flag']=="Y")
+                  <p class="price"><span class="mt"><?php                               //Solid
+                          if($this->session->userdata['loggedin']['ho_flag']=="Y")      //User in HO
                           {
-                            $total_qty_sale=0.00;
-                            if(!empty($ho_sale_daysld)){                                   //Solid stock converting all units in MT
-                              foreach ($ho_sale_daysld as $ho_sale_daysldkey) {
-                                if($ho_sale_daysldkey->unit==1){
-                                  $total_qty_sale=$total_qty_sale+$ho_sale_daysldkey->tot_sale_ho;
-                                }elseif($ho_sale_daysldkey->unit==2){
-                                  $Qty2=$ho_sale_daysldkey->tot_sale_ho/1000;
-                                  $total_qty_sale=$total_qty_sale+$Qty2;
-                                }elseif($ho_sale_daysldkey->unit==4){
-                                  $Qty4=$ho_sale_daysldkey->tot_sale_ho/10;
-                                  $total_qty_sale=$total_qty_sale+$Qty4;
-                                }elseif($ho_sale_daysldkey->unit==6){
-                                  $Qty6=$ho_sale_daysldkey->tot_sale_ho/1000000;
-                                  $total_qty_sale=$total_qty_sale+$Qty6;
-                                }
-                              }}
-
-                              echo $total_qty_sale;
-                              //echo $ho_sale_daysld->tot_sale_ho; 
-                          }else{
+                          
+                              echo $ho_sale_daysld; 
+                          }else{                                                        //In Branch
                             echo $sale_day->tot_sale; 
                           }
                     ?><strong>mt</strong></span>
-                    <span class="lit"><?php
-                      if($this->session->userdata['loggedin']['ho_flag']=="Y")
+                    <span class="lit"><?php                                          //Liquid
+                      if($this->session->userdata['loggedin']['ho_flag']=="Y")       //User in Ho
                       {
-                          echo $ho_sale_daylqd->tot_sale_ho; 
-                              }else{
+                          echo $ho_sale_daylqd;                                     
+                      }else{                                                         //user in branch
                               echo $sale_day->tot_sale; 
                       }
                       ?> <strong>L</strong></span></p>
@@ -190,13 +161,13 @@
                 <div class="threeBoxImg yellowCol"><img src="<?=base_url()?>assets/images/boxIcon_collec.png" alt="">
                 </div>
                 <div class="threeBoxTxt">
-                  <h2>Collection For The Day</h2>
+                  <h2>Collection For The Day</h2>         
                   <p class="price">
                     <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong><?php
-                    if($this->session->userdata['loggedin']['ho_flag']=="Y")
+                    if($this->session->userdata['loggedin']['ho_flag']=="Y")            //In Ho
                     {
                         echo $ho_recvamt_day->tot_recvamt; 
-                            }else{
+                            }else{                                                      //In branch
                             echo '0'; 
                     }
 ?></span></p>

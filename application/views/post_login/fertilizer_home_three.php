@@ -13,9 +13,9 @@
         <div class="left_bar_new">
           <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
           <ul>
-            <li><a href="https://benfed.in/fertilizer/index.php/stock/stock_entry">Purchase</a></li>
-            <li><a href="https://benfed.in/fertilizer/index.php/trade/sale">Sale</a></li>
-            <li><a href="https://benfed.in/fertilizer/index.php/socpay/society_payment">Customer Payment</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/trade/sale">Sale</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/society_payment">Customer Payment</a></li>
             <li> <a href="#">Stock Ledger</a></li>
             <li><a href="#">Day Book</a></li>
           </ul>
@@ -90,9 +90,8 @@
                 <div class="threeBoxImg darkBlue"><img src="<?= base_url() ?>assets/images/boxIcon_a.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Purchase For The Day</h2>
-                  <p class="price"><span class="mt"><?= round($totsolidpur->qty, 3); ?><strong> mt</strong></span>
-                    <!--<span class="mt">250<strong> mt</strong></span> -->
-                    <span class="lit"><strong> </strong><?= round($totliquidpur->qty, 3); ?><strong> LTR</strong></span>
+                  <p class="price"><span class="mt"><?= round($totsolidpur, 3); ?><strong> mt</strong></span>
+                    <span class="lit"><strong> </strong><?= round($totliquidpur, 3); ?><strong> LTR</strong></span>
                   </p>
                 </div>
               </div>
@@ -102,8 +101,8 @@
                 <div class="threeBoxImg yellowCol"><img src="<?= base_url() ?>assets/images/boxIcon_b.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Sale For The Day</h2>
-                  <p class="price"><span class="mt"><?= round($brsalesolidtoday->qty, 3); ?><strong> MT</strong></span>
-                    <span class="lit"><strong> </strong><?= round($brsaleliquidtoday->qty, 3); ?><strong>
+                  <p class="price"><span class="mt"><?= round($brsalesolidtoday, 3); ?><strong> MT</strong></span>
+                    <span class="lit"><strong> </strong><?= round($brsaleliquidtoday, 3); ?><strong>
                         LTR</strong></span>
                   </p>
                 </div>
@@ -116,10 +115,10 @@
                 <div class="threeBoxImg lightBlue"><img src="<?= base_url() ?>assets/images/boxIcon_e.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Closing</h2>
-                  <p class="price"><span class="mt"><?= $totsld_op + ($totsolidpur->qty) - ($brsalesolidtoday->qty) ?><strong>
+                  <p class="price"><span class="mt"><?= $totsld_op + ($totsolidpur) - ($brsalesolidtoday) ?><strong>
                         MT</strong></span>
                     <span class="lit"><strong>
-                      </strong><?= $totlqd_op + ($totliquidpur->qty) - ($brsaleliquidtoday->qty) ?><strong> LTR</strong></span>
+                      </strong><?= $totlqd_op + ($totliquidpur) - ($brsaleliquidtoday) ?><strong> LTR</strong></span>
                   </p>
                 </div>
               </div>
@@ -132,7 +131,7 @@
                 <div class="threeBoxTxt">
                   <h2>Today's Collection</h2>
                   <p class="price">
-                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= $todaycollection->amt ?></span>
+                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= $todaycollection->tot_recvamt ?></span>
                   </p>
                 </div>
               </div>

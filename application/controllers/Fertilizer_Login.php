@@ -220,11 +220,7 @@
 				$dash_data['product']          =   $this->Fertilizer_Process->f_get_product_list($branch_id,'2020-04-01');
 				$dash_data['opening']     =   $this->Fertilizer_Process->f_get_balance($branch_id,'2020-04-01',$prevdt);
 				
-				$dash_data['totsolidpur']     = $this->Fertilizer_Process->f_get_solid_pur_tot($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
-				$dash_data['totliquidpur']    = $this->Fertilizer_Process->f_get_liquid_pur_tot($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
-				$dash_data['brsalesolidtoday']     = $this->Fertilizer_Process->f_solidsalebranchwise_tot($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
-				$dash_data['brsaleliquidtoday']    = $this->Fertilizer_Process->f_liquidsalebranchwise_tot($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
-				$dash_data['todaycollection']      = $this->Fertilizer_Process->get_todaycollection($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
+				
 				
 				$dash_data['b2c']   = $this->Fertilizer_Process->get_b2cfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
 				$dash_data['b2b']   = $this->Fertilizer_Process->get_b2bfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
@@ -235,24 +231,17 @@
 				if($this->session->userdata['loggedin']['ho_flag'] == "Y" && $this->session->userdata['loggedin']['user_type'] == "A"  ) {
 
 					//Total Received Amount in all branch (Advance + Other mode)
-					$dash_data["ho_recvamt_day"]		= $this->Fertilizer_Process->f_get_tot_recvamt_ho($_SESSION['sys_date'],$_SESSION['sys_date']);
+					$dash_data["ho_recvamt_day"]		= collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y');
 
-					//Total purchase in all branches
-					//$dash_data["purchase_day"]			= $this->Fertilizer_Process->f_get_tot_purchase($branch_id,$_SESSION['sys_date'],$_SESSION['sys_date']);
-
-					//$dash_data["ho_purchase_day"]		= $this->Fertilizer_Process->f_get_tot_purchase_ho($_SESSION['sys_date'],$_SESSION['sys_date']);
-
-					//Total purchase in all branches solid & liquid
-					// $dash_data["ho_purchase_daysld"]    = $this->Fertilizer_Process->f_get_tot_purchase_hosld($_SESSION['sys_date'],$_SESSION['sys_date']);
+				
+					//Total Purchase in all branches solid & liquid
+					
 					$dash_data["ho_purchase_daysld"]    = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'Y', 'S');
+					$dash_data["ho_purchase_daylqd"]    = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'Y', 'L');
 
-
-					$dash_data["ho_purchase_daylqd"]    = $this->Fertilizer_Process->f_get_tot_purchase_holqd($_SESSION['sys_date'],$_SESSION['sys_date']);
-
-					//Total sale in all branches solid & liquid
-					$dash_data["ho_sale_daysld"]        = $this->Fertilizer_Process->f_get_tot_sale_hosld($_SESSION['sys_date'],$_SESSION['sys_date']);
-					//$dash_data["sale_day"]				= $this->Fertilizer_Process->f_get_tot_sale($branch_id,$_SESSION['sys_date'],$_SESSION['sys_date']);
-					$dash_data["ho_sale_daylqd"]		= $this->Fertilizer_Process->f_get_tot_sale_holqd($_SESSION['sys_date'],$_SESSION['sys_date']);
+					//Total Sale in all branches solid & liquid
+					$dash_data["ho_sale_daysld"]        = get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'Y', 'S');
+					$dash_data["ho_sale_daylqd"]		= get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'Y', 'L');
 
 
 
@@ -293,14 +282,24 @@
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_two',$dash_data);
 					$this->load->view('post_login/footer');
+					
 				} elseif( $this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {
 
 
 						$dash_data['distwisesale'] = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
 					
-					
+						//Total Purchase Solid & Liquid for a period branchwise
+						$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
+						$dash_data['totliquidpur']	  = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'L');
 
-					$dash_data['soc']=$this->Fertilizer_Process->f_all_soc($branch_id);
+						//Total Sale Solid & Liquid for a period branchwise
+						$dash_data['brsalesolidtoday']=get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
+						$dash_data['brsaleliquidtoday']=get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'L');
+
+						//Total Collection for a period branchwise
+						$dash_data['todaycollection'] = collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N');
+
+						$dash_data['soc']=$this->Fertilizer_Process->f_all_soc($branch_id);
 
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_three',$dash_data);
