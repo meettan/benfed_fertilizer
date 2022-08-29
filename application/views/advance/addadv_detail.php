@@ -491,7 +491,7 @@
             allocte_amt += parseFloat($(this).val()) ? parseFloat($(this).val()) : 0.00;
         });
         if (totalamt < 100) {
-            alert('Please select a valid advance');
+            alert('Amount cannot be less than 100!');
             e.preventDefault();
         }
         // else 
