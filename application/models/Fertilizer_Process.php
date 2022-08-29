@@ -626,10 +626,8 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
             if ($frmDt>='2021-04-01') {
 
                 $data = $this->db->query("Select prod_id,tot_sale,ifnull(sum(tot_sale),0)tot_sale,ifnull(Sum(qty ),0) + ifnull(sum(tot_pur),0) - ifnull(sum(tot_sale),0) as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,0 cls_qty
-            from (
-                select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale
-                from(
-                select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
+            		from ( select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale 
+					from( select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale
                                 from tdf_opening_stock
                                 where branch_id	    = $branch
                                 and   balance_dt ='2020-04-01'
@@ -733,6 +731,7 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 			$data = $this->db->query($sql);	
 		    return $data->row();
 		}
+		
 		public function get_b2bfortoday($from_yr_day,$to_yr_day,$br_cd){
 			
 			$sql = "select ifnull(count(*),0) cnt from td_sale where irn != NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and br_cd ='$br_cd'";
@@ -761,5 +760,4 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 
             return $query->row();
         }
-	}	
-?>
+	}

@@ -8,6 +8,7 @@
 
 			//$this->load->helper('Purchase_sale');
 			$this->load->helper('purchasesale_helper');
+			$this->load->helper('blance_helper');
 
 			$this->load->model('Fertilizer_Process');
 		}
@@ -143,6 +144,10 @@
 
 				$_SESSION['sys_date']= date('Y-m-d');		//Setting system date
 				$_SESSION['module']  = 'F';
+
+
+				// yesterday date
+				$yesterday= date('Y-m-d',strtotime("-1 days"));
 				
 				/*$this->session->set_userdata('cashcode', $this->Login_Process->f_get_parameters(13));
 				$_SESSION['cash_code']=$this->session->userdata('cashcode')->param_value;*/
@@ -222,8 +227,7 @@
 				
 				
 				
-				$dash_data['b2c']   = $this->Fertilizer_Process->get_b2cfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
-				$dash_data['b2b']   = $this->Fertilizer_Process->get_b2bfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
+				
 				
 
 				// If Login is in Head Office and Login user is Admin
@@ -282,11 +286,19 @@
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_two',$dash_data);
 					$this->load->view('post_login/footer');
+
+		//When Admin or Manager logs into branch			
 					
 				} elseif( $this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {
 
+					
 
-						$dash_data['distwisesale'] = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
+						//Stock Opening Balance Solid and Liquid
+						$dash_data['openingS']= stock_balance($yesterday, $branch_id,'S');
+						$dash_data['openingL']= stock_balance($yesterday, $branch_id,'L');
+
+
+						//$dash_data['distwisesale'] = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
 					
 						//Total Purchase Solid & Liquid for a period branchwise
 						$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
@@ -296,14 +308,25 @@
 						$dash_data['brsalesolidtoday']=get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
 						$dash_data['brsaleliquidtoday']=get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'L');
 
+						//Stock Closing Balance Solid and Liquid
+						$dash_data['closingS']= stock_balance($_SESSION['sys_date'], $branch_id,'S');
+						$dash_data['closingL']= stock_balance($_SESSION['sys_date'], $branch_id,'L');
+
+
 						//Total Collection for a period branchwise
 						$dash_data['todaycollection'] = collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N');
 
+						
+						//No.of B2B and B2C invoices
+						$dash_data['b2c']   = $this->Fertilizer_Process->get_b2cfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
+						$dash_data['b2b']   = $this->Fertilizer_Process->get_b2bfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
+
+						//Populating all society list under the branch
 						$dash_data['soc']=$this->Fertilizer_Process->f_all_soc($branch_id);
 
-					$this->load->view('post_login/fertilizer_main');
-					$this->load->view('post_login/fertilizer_home_three',$dash_data);
-					$this->load->view('post_login/footer');
+						$this->load->view('post_login/fertilizer_main');
+						$this->load->view('post_login/fertilizer_home_three',$dash_data);
+						$this->load->view('post_login/footer');
 
 				}elseif($this->session->userdata['loggedin']['ho_flag']  == 'N' && $this->session->userdata['loggedin']['user_type'] == 'U' ){
 

@@ -29,59 +29,8 @@
                 <div class="threeBoxImg redCol"><img src="<?= base_url() ?>assets/images/boxIcon_d.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Opening</h2>
-                  <?php $i = 1;
-                  $total = 0.00;
-                  $val = 0;
-                  $cls_baln = 0.00;
-                  $sld_baln = 0.00;
-                  $lqd_baln = 0.00;
-                  $lqd_baln1 = 0.00;
-                  $opqtylqd = 0.00;
-                  $purqtylqd = 0.00;
-                  $saleqtylqd = 0.00;
-                  $totlqd_pur = 0.00;
-                  $totsld_pur = 0.00;
-                  $totsld_sal = 0.00;
-                  $totlqd_sal = 0.00;
-                  $totsld_op = 0.00;
-                  $totlqd_op = 0.00;
-                  $totsld_cls = 0.00;
-                  $totlqd_cls = 0.00;
-                  $contain = 0.00;
-                  $containlqd = 0.00;
-                  foreach ($product as $prodtls) {
-                    foreach ($opening as $opndtls) {
-                      if ($prodtls->prod_id == $opndtls->prod_id) {
-                        if ($prodtls->unit == 1) {
-                          $opqty = $opndtls->opn_qty;
-                          $totsld_op += $opqty;
-                        } elseif ($prodtls->unit == 2) {
-                          $opqty = ($opndtls->opn_qty) / 1000;
-                          $totsld_op += $opqty;
-                        } elseif ($prodtls->unit == 4) {
-                          $opqty = ($opndtls->opn_qty) / 10;
-                          $totsld_op += $opqty;
-                        } elseif ($prodtls->unit == 6) {
-                          $opqty = ($opndtls->opn_qty) / 1000000;
-                          $totsld_op += $opqty;
-                        } elseif ($prodtls->unit == 3) {
-                          $opqty = $opndtls->opn_qty;
-                          $opqtylqd = $opndtls->opn_qty;
-                          $totlqd_op += $opqtylqd;
-                        } elseif ($prodtls->unit == 5) {
-                          $opqty = ($opndtls->opn_qty) * ($prodtls->qty_per_bag) / 1000;
-                          $opqtylqd = ($opndtls->opn_qty) * ($prodtls->qty_per_bag) / 1000;
-                          $totlqd_op += $opqtylqd;
-                        }
-                        $cls_baln += $opqty;
-                        $lqd_baln += $opqtylqd;
-                      }
-                    }
-                  }
-                  ?>
-                  <p class="price"><span class="mt"><?= $totsld_op ?><strong> MT</strong></span>
-                    <span class="lit"><strong> </strong><?= $totlqd_op ?><strong> LTR</strong></span>
-                  </p>
+                   <p class="price"><span class="mt"><?= $openingS ?><strong> MT</strong></span>
+                    <span class="lit"><strong> </strong><?= $openingL ?><strong> LTR</strong></span></p>
                 </div>
               </div>
             </div>
@@ -115,10 +64,10 @@
                 <div class="threeBoxImg lightBlue"><img src="<?= base_url() ?>assets/images/boxIcon_e.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Closing</h2>
-                  <p class="price"><span class="mt"><?= $totsld_op + ($totsolidpur) - ($brsalesolidtoday) ?><strong>
+                  <p class="price"><span class="mt"><?=$closingS?><strong>
                         MT</strong></span>
                     <span class="lit"><strong>
-                      </strong><?= $totlqd_op + ($totliquidpur) - ($brsaleliquidtoday) ?><strong> LTR</strong></span>
+                      </strong><?= $closingL ?><strong> LTR</strong></span>
                   </p>
                 </div>
               </div>

@@ -9,7 +9,7 @@ if (!function_exists('get_purchase')) {
 
     if ($state == 'S') {                                  //if the material is solid
       if ($hoFlag == 'Y') {                               //if user in Head office              
-        $data = "select sum(qty) qty,unit
+        $data = " select sum(qty) qty,unit
                   from   td_purchase
                   where  trans_dt between '" . $frfDate . "' and '" . $toDate . "'
                   and    unit in(1,2,4,6)
@@ -204,8 +204,8 @@ if (!function_exists('collectionForTheDay')) {
 						from   tdf_advance
 						where  trans_dt BETWEEN '$frfDate' and '$toDate'
 						and    trans_type = 'I') a");
-        }else{
-          $data = $ci->db->query("select (sum(received)+sum(advance)) tot_recvamt
+    } else {
+      $data = $ci->db->query("select (sum(received)+sum(advance)) tot_recvamt
 				from (
 						SELECT sum(paid_amt)received,0 advance
 						FROM tdf_payment_recv
@@ -218,8 +218,9 @@ if (!function_exists('collectionForTheDay')) {
 						where  trans_dt BETWEEN '$frfDate' and '$toDate'
             and    branch_id=" . $branch . "
 						and    trans_type = 'I') a");
-        }
-      return $data->row();
-                                                               //end HO
+    }
+    return $data->row();
+    //end HO
   }                                                                 //end function
 }
+
