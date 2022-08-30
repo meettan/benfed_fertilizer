@@ -157,7 +157,7 @@ tr:hover {background-color: #f5f5f5;}
                                     }
                                 ?>
                                     <tr>
-                                        <td class="report">Total</td>
+                                        <td class="report"><b>Total</b></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
