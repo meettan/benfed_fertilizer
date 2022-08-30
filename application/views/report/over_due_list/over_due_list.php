@@ -84,31 +84,31 @@ tr:hover {background-color: #f5f5f5;}
 
                             <tr>
                             
-                                <th>Sl No.</th>
+                                <!-- <th>Sl No.</th> -->
 
                                 <th>Branch Code</th>
 
                                 <th>Branch Name</th>
 
-                                <th>Society id </th>
+                                <!-- <th>Society id </th> -->
 
                                 <th>Society Name</th>
 
-                                <th>Sale Ro</th>
+                                <th>Ro No</th>
 
                                 <!-- <th>Product Id</th> -->
 
-                                <th>Product Name</th>
+                                <th>Product</th>
                                     
-                               <th>Transaction No</th>
+                               <th>Invoice No.</th>
 
+                                <th>Date</th>
+                                <th>No. Of Days</th>
                                 <th>Due Date</th>
-                                <th>No Of Days</th>
-                                <th>sale Due Date</th>
-                                <th>QTY</th>
+                                <th>Quantity</th>
                                 <!-- <th>unit</th> -->
-                                <th>Unit Name</th>
-                                <th>Total Amount</th>
+                                <th>Unit</th>
+                                <th>Invoice Amount</th>
                                 <th>Paid Amount</th>
                                 <th>Due Amount</th>
 
@@ -130,11 +130,11 @@ tr:hover {background-color: #f5f5f5;}
                                         foreach($allData as $data){ $i++; ?>
 
                                 <tr class="rep">
-                                     <td class="report"><?php echo $i; ?></td>
+                                     <!-- <td class="report"><?php echo $i; ?></td> -->
                                 
                                      <td class="report"><?php echo $data->br_cd ?></td>
                                      <td class="report"><?php echo $data->branch_name ?></td>
-                                     <td class="report"><?php echo $data->soc_id ?></td>
+                                     <!-- <td class="report"><?php echo $data->soc_id ?></td> -->
                                      <td class="report"><?php echo $data->soc_name ?></td>
                                      <td class="report"><?php echo $data->sale_ro ?></td>
                                      <!-- <td class="report"><?php //echo $data->prod_id ?></td> -->
@@ -158,8 +158,6 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
                                     <tr>
                                         <td class="report">Total</td>
-                                        <td class="report"></td>
-                                        <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
