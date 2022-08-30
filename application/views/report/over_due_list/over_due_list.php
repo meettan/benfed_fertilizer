@@ -96,7 +96,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Sale Ro</th>
 
-                                <th>Product Id</th>
+                                <!-- <th>Product Id</th> -->
 
                                 <th>Product Name</th>
                                     
@@ -137,7 +137,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $data->soc_id ?></td>
                                      <td class="report"><?php echo $data->soc_name ?></td>
                                      <td class="report"><?php echo $data->sale_ro ?></td>
-                                     <td class="report"><?php echo $data->prod_id ?></td>
+                                     <!-- <td class="report"><?php //echo $data->prod_id ?></td> -->
                                      <td class="report"><?php echo $data->prod_desc ?></td>
                                      <td class="report"><?php echo $data->trans_do ?></td>
                                      <td class="report"><?php echo $data->do_dt ?></td>
@@ -170,7 +170,6 @@ tr:hover {background-color: #f5f5f5;}
                                         <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
-                                        <td class="report"></td>
                                         <td class="report"><?=round($round_tot_amt,3)?></td>
                                         <td class="report"><?=round($paid_amt,3)?></td>
                                         <td class="report"><?=round($due_amt,3)?></td>
@@ -187,22 +186,6 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                         </tbody>
-                        <tfooter>
-                            <tr>
-                               <!-- <td class="report" colspan="1" style="text-align:right">Total</td> 
-                               <td class="report"></td>
-                               <td class="report"><b><?=$tot_op?></td>
-                               <td class="report"><b><?=$total_pur?></b></td>
-                               <td class="report"><b><?=$total_sale?></b></td>
-                               <td class="report"><b><?=$sldtotal?></b></td>
-                               <td class="report"><b><?=$lqdtot_op?></b></td>
-                               <td class="report"><b><?=$lqdtotal_pur?></b></td>
-                               <td class="report"><b><?=$lqdtotal_sale?></b></td>
-                               <td class="report"><b><?=$lqdtotal?></b></td> -->
-                              
- 
-                            </tr>
-                        </tfooter>
                     </table>
 
                 </div>   
