@@ -65,7 +65,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Overdue List Between: <?php echo "01/04/2022 - ".date("d/m/Y", strtotime($date))?></h4>
+                        <h4>Overdue List As On: <?php echo date("d/m/Y", strtotime($date))?></h4>
                         <!-- <h5 style="text-align:left"><label>District: </label> <?php //echo $branch->district_name; ?></h5>
                         <h5 style="text-align:left"><label>Company: </label> <?php  //if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></h5> -->
 
@@ -84,9 +84,9 @@ tr:hover {background-color: #f5f5f5;}
 
                             <tr>
                             
-                                <!-- <th>Sl No.</th> -->
+                                <th>Sl No.</th>
 
-                                <th>Branch Code</th>
+                                <!-- <th>Branch Code</th> -->
 
                                 <th>Branch Name</th>
 
@@ -102,7 +102,7 @@ tr:hover {background-color: #f5f5f5;}
                                     
                                <th>Invoice No.</th>
 
-                                <th>Date</th>
+                                <th>Invoice Date</th>
                                 <th>No. Of Days</th>
                                 <th>Due Date</th>
                                 <th>Quantity</th>
@@ -130,9 +130,9 @@ tr:hover {background-color: #f5f5f5;}
                                         foreach($allData as $data){ $i++; ?>
 
                                 <tr class="rep">
-                                     <!-- <td class="report"><?php echo $i; ?></td> -->
+                                     <td class="report"><?php echo $i; ?></td>
                                 
-                                     <td class="report"><?php echo $data->br_cd ?></td>
+                                     <!-- <td class="report"><?php echo $data->br_cd ?></td> -->
                                      <td class="report"><?php echo $data->branch_name ?></td>
                                      <!-- <td class="report"><?php echo $data->soc_id ?></td> -->
                                      <td class="report"><?php echo $data->soc_name ?></td>
@@ -140,9 +140,9 @@ tr:hover {background-color: #f5f5f5;}
                                      <!-- <td class="report"><?php //echo $data->prod_id ?></td> -->
                                      <td class="report"><?php echo $data->prod_desc ?></td>
                                      <td class="report"><?php echo $data->trans_do ?></td>
-                                     <td class="report"><?php echo $data->do_dt ?></td>
+                                     <td class="report"><?php echo date("d/m/Y", strtotime($data->do_dt)) ?></td>
                                      <td class="report"><?php echo $data->no_of_days ?></td>
-                                     <td class="report"><?php echo $data->sale_due_dt ?></td>
+                                     <td class="report"><?php echo date("d/m/Y", strtotime($data->sale_due_dt)) ?></td>
                                      <td class="report"><?php echo $data->qty ?></td>
                                      <td class="report"><?php echo $data->unit_name ?></td>
                                      <td class="report"><?php echo $data->round_tot_amt;$round_tot_amt=$round_tot_amt+$data->round_tot_amt ?></td>
@@ -168,9 +168,9 @@ tr:hover {background-color: #f5f5f5;}
                                         <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
-                                        <td class="report"><?=round($round_tot_amt,3)?></td>
-                                        <td class="report"><?=round($paid_amt,3)?></td>
-                                        <td class="report"><?=round($due_amt,3)?></td>
+                                        <td class="report"><b><?=round($round_tot_amt,3)?></b></td>
+                                        <td class="report"><b><?=round($paid_amt,3)?></b></td>
+                                        <td class="report"><b><?=round($due_amt,3)?></b></td>
                                     </tr>
  
                                 <?php 

@@ -296,6 +296,15 @@
 								<a href="<?php echo site_url("fert/rep/advance_payment");?>">Company Payment</a>
                                 <?php } ?>
 								<a href="<?php echo site_url("fert/rep/soc_payblepaid");?>">Received From Society</a>
+
+                                <!-- <div class="sub-dropdown">
+                                   <a class="sub-dropbtn">Overdue List <i class="fa fa-angle-right" style="float: right;"></i></a> 
+								   <div class="sub-dropdown-content">
+                                    <a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
+                                    <a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
+									</div>
+                                </div> -->
+
 								<a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
 								
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?> 
