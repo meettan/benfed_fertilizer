@@ -2223,6 +2223,8 @@ ORDER BY `op_bln` ASC");
     function overdue_list_model($date)
     {
 
+        $branciId=$this->session->userdata('loggedin')['branch_id'];
+        if($branciId == 342){
         $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,a.paid_amt,(a.round_tot_amt - a.paid_amt)due_amt
                 FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e
                 where a.br_cd = b.id
@@ -2233,6 +2235,20 @@ ORDER BY `op_bln` ASC");
                 and   a.sale_due_dt < '".$date."'
                 and   a.round_tot_amt > paid_amt
                 order by a.br_cd,a.do_dt");
+
+        }else{
+            $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,a.paid_amt,(a.round_tot_amt - a.paid_amt)due_amt
+                FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e
+                where a.br_cd = b.id
+                and   a.soc_id = c.soc_id
+                and   a.prod_id = d.prod_id
+                and   a.unit    = e.id
+                and   a.br_cd=".$branciId."
+                and   a.do_dt >= '2022-04-01'
+                and   a.sale_due_dt < '".$date."'
+                and   a.round_tot_amt > paid_amt
+                order by a.br_cd,a.do_dt");
+        }
         return $query->result();
     }
 }

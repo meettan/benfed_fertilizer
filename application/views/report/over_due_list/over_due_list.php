@@ -119,9 +119,7 @@ tr:hover {background-color: #f5f5f5;}
                         <tbody>
 
                             <?php
-//                             echo"<pre>";
-// print_r($allData);
-// echo"</pre>";
+                           
                                 if(!empty($allData)){ 
                                         $i=0;
                                         $round_tot_amt=0.0;

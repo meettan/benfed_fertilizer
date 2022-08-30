@@ -263,7 +263,7 @@
 								<div class="sub-dropdown">
 								 <a href="<?php echo site_url("fert/rep/cust_payblepaid");?>">Due Register</a> 
 								 <a href="<?php echo site_url("fert/rep/soc_ledger");?>">Society Ledger</a>
-							   
+                                 <a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
 								</div>
                                 <?php } ?>
                                 
