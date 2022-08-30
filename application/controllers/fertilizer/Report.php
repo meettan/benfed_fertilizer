@@ -2511,6 +2511,24 @@ public function advance_payment(){
             $this->load->view('post_login/footer');
         }
     }
+
+
+    public function overdue_list(){
+        if($this->input->post()){
+            $date=$this->input->post('from_date');
+            
+            $data['allData']=$this->ReportModel->overdue_list_model($date);
+            $data['date']= $date;
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/over_due_list/over_due_list.php', $data);
+            $this->load->view('post_login/footer');
+        
+        }else{
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/over_due_list/over_due_list_ip.php');
+            $this->load->view('post_login/footer');
+        }
+    }
         
   }
  ?>

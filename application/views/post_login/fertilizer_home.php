@@ -110,7 +110,7 @@ if($this->session->userdata['loggedin']['ho_flag']=="Y")
                     <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong><?php
 if($this->session->userdata['loggedin']['ho_flag']=="Y")
 {
-    echo $ho_recvamt_day->tot_recvamt; 
+    echo round($ho_recvamt_day->tot_recvamt,3); 
         }else{
         echo '0'; 
 }
@@ -686,7 +686,7 @@ $tot_lqd = 0.00;
                 <p class="price"><span class="mt"><?php echo round($totsolidsale->qty,2);?><strong> MT</strong></span>
                   <span class="mt2"><?php echo round($totliquidsale->qty,2);?><strong> LTR</strong></span>
                   <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i>
-                    </strong><?=$ho_recvamt_day->tot_recvamt?></span></p>
+                    </strong><?=round($ho_recvamt_day->tot_recvamt,3)?></span></p>
               </div>
             </div>
           </div>

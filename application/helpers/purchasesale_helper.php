@@ -47,7 +47,7 @@ if (!function_exists('get_purchase')) {
         }                                                         //end of unit conversion
       }
 
-      return $total_qty;                                        /*end Solid material*/
+      return round($total_qty,3);                                        /*end Solid material*/
     } else if ($state == 'L') {                                   //if the material is liquid
       if ($hoFlag == 'Y') {
 
@@ -84,7 +84,7 @@ if (!function_exists('get_purchase')) {
           }
         }                                                       //end of conversion in ltr
       }
-      return $total_liq_qty;
+      return round($total_liq_qty,3);
     }                                                           //end of liquid material
 
 
@@ -140,7 +140,7 @@ if (!function_exists('get_sale')) {
         }                                                           //end of unit conversion
       }
 
-      return $total_qty_sale;                                     //end solid material
+      return round($total_qty_sale,3);                                     //end solid material
     } else if ($state == 'L') {                                   //if material liquid
 
       if ($hoFlag == 'Y') {                                          //if user in Head office
@@ -178,7 +178,7 @@ if (!function_exists('get_sale')) {
             $total_liq_qty = $total_liq_qty + $Qty5;
           }
         }
-        return $total_liq_qty;
+        return round($total_liq_qty,3);
       }
     }                                                                   //end conversion
 

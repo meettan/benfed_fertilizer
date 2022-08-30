@@ -104,7 +104,7 @@ if (!function_exists('stock_balance')) {
       }
       $closing_stk = ($total_qty + $total_purchase_qty) - $total_sale_qty;
       
-      return  $closing_stk;
+      return  round($closing_stk,3);
 
 
 
@@ -199,7 +199,7 @@ if (!function_exists('stock_balance')) {
 
       $closing_stk = ($total_qty + $total_purchase_qty)-$total_sale_qty;
 
-      return $closing_stk;
+      return round($closing_stk,3);
     }
   }
 }

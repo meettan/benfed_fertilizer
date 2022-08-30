@@ -80,7 +80,7 @@
                 <div class="threeBoxTxt">
                   <h2>Today's Collection</h2>
                   <p class="price">
-                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= $todaycollection->tot_recvamt ?></span>
+                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= round($todaycollection->tot_recvamt,3) ?></span>
                   </p>
                 </div>
               </div>
