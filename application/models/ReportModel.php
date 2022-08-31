@@ -24,6 +24,28 @@ class ReportModel extends CI_Model
         }
     }
 
+    /**********Procedure for Consolidated Stock at branch*******************/
+
+     public function p_consolidated_stock($all_data)
+     {
+ 
+         try {
+             $this->db->reconnect();
+ 
+             $sql = "CALL `p_consolidated_stock`(?,?,?)";
+ 
+             $data_w = $this->db->query($sql, $all_data);
+              
+             $this->db->close();
+         } catch (Exception $e) {
+             echo $e->getMessage();
+         }
+ 
+         return $data_w->result();
+
+     }
+  /*********************************************************************** */  
+
     // git add check  add some
 
     public function f_get_product_list($branch, $frmDt)
@@ -1530,6 +1552,9 @@ and a.ro_no not in (select sale_ro from td_sale
         return $data_w->result();
     }
 
+
+
+
     public function p_soc_wse_sale_purchase($all_data)
     {
 
@@ -2219,8 +2244,8 @@ ORDER BY `op_bln` ASC");
         return $q->row();
     }
 
-
-    function overdue_list_model($date)
+//Function for overdue list report 1st part for HO ,2nd part for branch
+    function overdue_list_model($date)        
     {
 
         $branciId=$this->session->userdata('loggedin')['branch_id'];

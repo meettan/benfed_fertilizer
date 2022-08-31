@@ -66,8 +66,11 @@ tr:hover {background-color: #f5f5f5;}
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Overdue List As On: <?php echo date("d/m/Y", strtotime($date))?></h4>
-                        <!-- <h5 style="text-align:left"><label>District: </label> <?php //echo $branch->district_name; ?></h5>
-                        <h5 style="text-align:left"><label>Company: </label> <?php  //if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></h5> -->
+                        <?php $branciId=$this->session->userdata('loggedin')['branch_id'];
+        if($branciId != 342){ ?>
+                        <h5 style="text-align:left"><label>District: </label> <?php  foreach($allData as $data){ echo $data->branch_name; break; } ?></h5>
+                        <!-- <h5 style="text-align:left"><label>Company: </label> <?php  //if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></h5> --> 
+                        <?php } ?>
 
                     </div>
                   
@@ -87,9 +90,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Sl No.</th>
 
                                 <!-- <th>Branch Code</th> -->
-
+<?php   if($branciId == 342){ ?>
                                 <th>Branch Name</th>
-
+<?php } ?>
                                 <!-- <th>Society id </th> -->
 
                                 <th>Society Name</th>
@@ -131,7 +134,9 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $i; ?></td>
                                 
                                      <!-- <td class="report"><?php echo $data->br_cd ?></td> -->
+                                     <?php if($branciId == 342){ ?>
                                      <td class="report"><?php echo $data->branch_name ?></td>
+                                     <?php } ?>
                                      <!-- <td class="report"><?php echo $data->soc_id ?></td> -->
                                      <td class="report"><?php echo $data->soc_name ?></td>
                                      <td class="report"><?php echo $data->sale_ro ?></td>
@@ -157,7 +162,9 @@ tr:hover {background-color: #f5f5f5;}
                                     <tr>
                                         <td class="report"><b>Total</b></td>
                                         <td class="report"></td>
+                                        <?php   if($branciId == 342){ ?>
                                         <td class="report"></td>
+                                        <?php } ?>
                                         <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>

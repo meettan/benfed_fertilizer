@@ -440,7 +440,7 @@ public function soc_wse_cr_dmd(){
 }
 /************************************************************** */
 
-/******************************************* */
+/*******************************************Consolidated Stock Report at Branch***************************************************/
         public function stkStmt(){
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -451,7 +451,7 @@ public function soc_wse_cr_dmd(){
 
                 $branch     =   $this->session->userdata['loggedin']['branch_id'];
 
-                $mth        =  date('n',strtotime($from_dt));
+               /* $mth        =  date('n',strtotime($from_dt));
 
                 $yr         =  date('Y',strtotime($from_dt));
 
@@ -465,8 +465,7 @@ public function soc_wse_cr_dmd(){
                 }
 
                 $opndt      =  date($year.'-04-01');
-                //   echo $opndt ;
-                //   die();
+               
                 $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
@@ -477,11 +476,15 @@ public function soc_wse_cr_dmd(){
                
                 $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
 
-                $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
+                $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);*/
                 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+                $data['date']        = array($from_dt,$to_dt);
+               
+                $data['stock']      =    $this->ReportModel->p_consolidated_stock(array($from_dt,$to_dt,$branch));
+                
                 
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/stk_stmt/stk_stmt',$data);
@@ -496,6 +499,7 @@ public function soc_wse_cr_dmd(){
 
         }
         /****************************** */
+
         public function ps_soc(){
             $select1      = array("district_code","district_name");
             $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
