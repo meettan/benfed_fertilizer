@@ -44,7 +44,28 @@ class ReportModel extends CI_Model
          return $data_w->result();
 
      }
-  /*********************************************************************** */  
+
+  /************Procedure for Companywise Consolidated Stock at branch*************/  
+   public function p_companywise_stock($all_data)
+   {
+
+       try {
+           $this->db->reconnect();
+
+           $sql = "CALL `p_companywise_stock`(?,?,?,?)";
+
+           $data_w = $this->db->query($sql, $all_data);
+            
+           $this->db->close();
+       } catch (Exception $e) {
+           echo $e->getMessage();
+       }
+
+       return $data_w->result();
+
+   }
+/*********************************************************************** */  
+
 
     // git add check  add some
 

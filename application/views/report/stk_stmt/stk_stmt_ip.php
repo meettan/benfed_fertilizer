@@ -1,24 +1,27 @@
 <style>
-table {
-    border-collapse: collapse;
-}
+    table {
+        border-collapse: collapse;
+    }
 
-table, td, th {
-    border: 1px solid #dddddd;
+    table,
+    td,
+    th {
+        border: 1px solid #dddddd;
 
-    padding: 6px;
+        padding: 6px;
 
-    font-size: 14px;
-}
+        font-size: 14px;
+    }
 
-th {
+    th {
 
-    text-align: center;
+        text-align: center;
 
-}
+    }
 
-tr:hover {background-color: #f5f5f5;}
-
+    tr:hover {
+        background-color: #f5f5f5;
+    }
 </style>
 
 
@@ -63,80 +66,79 @@ tr:hover {background-color: #f5f5f5;}
 
 
 <div id="overlay" style="display:none;">
-            <div class="spinner"></div>
-        </div>
-    <div class="wraper">      
+    <div class="spinner"></div>
+</div>
+<div class="wraper">
 
-        <div class="col-md-6 container form-wraper">
-    
-                 <form method="POST" id="form" action="<?php echo site_url("fert/rep/stkStmt");?>" >
+    <div class="col-md-6 container form-wraper">
 
-                <div class="form-header">
-                
-                    <h4>Consolidated Stock Statement</h4>
-                
-                </div>
+        <form method="POST" id="form" action="<?php echo site_url("fert/rep/stkStmt"); ?>">
 
-                <div class="form-group row">
+            <div class="form-header">
 
-                    <label for="from_dt" class="col-sm-2 col-form-label">From Date:</label>
+                <h4>Consolidated Stock Statement</h4>
 
-                    <!--  <div class="col-sm-6">
+            </div>
+
+            <div class="form-group row">
+
+                <label for="from_dt" class="col-sm-2 col-form-label">From Date:</label>
+
+                <!--  <div class="col-sm-6">
 
                         <input type="date"
                                name="from_date"
                                class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"
+                               value="<?php echo date('Y-m-d'); ?>"
                         />  
 
                     </div>-->
-					<div class="col-sm-6">
-                        <?php $fyear=$this->session->userdata['loggedin']['fin_yr']; $year=explode('-',$fyear) ?>
-                        <input type="date" name="from_date" class="form-control required" value="<?php //echo $year[0],'-04-01' //echo $frm_dt;?>" min='<?=$year[0]?>-04-01' max="<?= $year[0]+1?>-03-31" required/>  
-
-                    </div>
+                <div class="col-sm-6">
+                    <?php $fyear = $this->session->userdata['loggedin']['fin_yr'];
+                    $year = explode('-', $fyear) ?>
+                    <input type="date" name="from_date" class="form-control required from_dt" value="<?php //echo $year[0],'-04-01' //echo $frm_dt; ?>" min='<?= $year[0] ?>-04-01' max="<?= $year[0] + 1 ?>-03-31" required />
 
                 </div>
 
-                <div class="form-group row">
+            </div>
 
-                    <label for="to_date" class="col-sm-2 col-form-label">To Date:</label>
+            <div class="form-group row">
+
+                <label for="to_date" class="col-sm-2 col-form-label">To Date:</label>
 
                     <div class="col-sm-6">
 
-                        <input type="date"
-                               name="to_date"
-                               class="form-control required"
-                               value="<?php echo date('Y-m-d');?> 
-                               required
-                        />  
+                        <input type="date" name="to_date" class="form-control required to_date" value="<?php echo date('Y-m-d'); ?>"  required />  
 
                     </div>
 
                 </div>  
 
 
-                <div class="form-group row">
+                <div class=" form-group row">
 
                     <div class="col-sm-10">
 
-                        <input type="submit" class="btn btn-info" id="submit" value="Submit" />
+                        <input type="submit" class="btn btn-info" id="submitid" value="Submit" />
 
                     </div>
 
                 </div>
+            </div>
 
-            </form>    
-
-        </div>
+        </form>
 
     </div>
 
-    <script>
-        $("#submit").click(function(){
-            // $('#overlay').fadeIn().delay(55000).fadeOut();
+</div>
+
+<script>
+    $("#submitid").click(function() {
+        // $('#overlay').fadeIn().delay(55000).fadeOut();
+        if($('.to_date').val()==''||$('.from_dt').val()==""){
+                $('#overlay').fadeOut();
+        }else{
             $('#overlay').fadeIn();
-        })
-              
-            
-        </script>
+        }
+    })
+</script>
