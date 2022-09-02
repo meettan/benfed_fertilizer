@@ -794,10 +794,18 @@ public function stkScomp_ho(){
         $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
         $where1              =   array("district_code"  => $branch);
-        
+
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
-        $data['product']       =   $this->ReportModel->p_companywise_stock_all(array($from_dt,$to_dt,$comp_id));
+        if ($branch == 0){
+
+            $data['product']      =    $this->ReportModel->p_companywise_stock_all(array($from_dt,$to_dt,$comp_id));
+
+        }else{
+
+            $data['product']      =    $this->ReportModel->p_companywise_stock(array($from_dt,$to_dt,$branch,$comp_id));
+
+        }
 
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/stk_comp_ho/stk_comp',$data);
