@@ -85,6 +85,26 @@ class ReportModel extends CI_Model
        return $data_w->result();
 
    }
+
+   /************Procedure for Companywise Consolidated Stock at Head Office*************/  
+   public function p_companywise_stock_all($all_data)
+   {
+
+       try {
+           $this->db->reconnect();
+
+           $sql = "CALL `p_companywise_stock_all`(?,?,?)";
+
+           $data_w = $this->db->query($sql, $all_data);
+            
+           $this->db->close();
+       } catch (Exception $e) {
+           echo $e->getMessage();
+       }
+
+       return $data_w->result();
+
+   }
 /*********************************************************************** */  
 
 
