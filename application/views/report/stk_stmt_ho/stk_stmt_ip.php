@@ -73,6 +73,7 @@ tr:hover {background-color: #f5f5f5;}
                     <select name="br" class="form-control sch_cd required" id="br" required>
 
                         <option value="">Select Branch</option>
+                        <option value="0">All Branch</option>
 
                         <?php
 

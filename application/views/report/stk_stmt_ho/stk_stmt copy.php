@@ -120,24 +120,87 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                     <td class="report"><?php echo $prodtls->comp_name; ?>
-                                     <td class="report"><?php echo $prodtls->prod_desc; ?>
+                                     <td class="report"><?php echo $prodtls->short_name; ?>
+                                     <td class="report"><?php echo $prodtls->PROD_DESC; ?>
                                      <td class="report"><?php
-                                      echo $prodtls->unit
+                                      
+                                      if($prodtls->unit==1 ||$prodtls->unit==2 ||$prodtls->unit==4 || $prodtls->unit==6){
+                                        echo "MTS" ;  
+                                      }elseif($prodtls->unit==3||$prodtls->unit==5){
+                                        echo "LTR" ;
+                                      }
+                                     
+                                    
                                         ?>
                                      </td>
                                      <td class="report opening" id="opening">
-                                        <?php echo $prodtls->opening?>
+                                        <?php 
+                                            foreach($opening as $opndtls){
+                                                if($prodtls->prod_id==$opndtls->prod_id){
+                                                    echo $opndtls->opn_qty;
+                                                    $tot_op +=$opndtls->opn_qty;
+                                                }
+                                            }
+                                        ?>
                                      </td>
                                      <td class="report purchase" id="purchase">
-                                        <?php echo $prodtls->purchase; ?>
+                                        <?php 
+                                            foreach($purchase as $purdtls){
+                                                if($prodtls->prod_id==$purdtls->prod_id){
+                                                    if($prodtls->unit==1){
+
+                                                        echo $purdtls->tot_pur; 
+                                                       }elseif($prodtls->unit==2){
+                                                           echo ($purdtls->tot_pur)/1000; 
+                                                       }elseif($prodtls->unit==4){
+                                                           echo ($purdtls->tot_pur)/10;
+                                                       }elseif($prodtls->unit==6){
+                                                           echo ($purdtls->tot_pur)/1000000;
+                                                       }elseif($prodtls->unit==3){
+                                                           echo $purdtls->tot_pur;
+                                                       }elseif($prodtls->unit==5){
+                                                           echo ($purdtls->tot_pur)*($prodtls->qty_per_bag)/1000;   
+                                                       }
+                                                    // echo $purdtls->tot_pur;
+                                                     // $total_pur +=$purdtls->tot_pur;  
+                                                }
+                                            }
+                                        ?>
                                      </td>
                                      <td class="report sale" id="sale">
-                                        <?php echo $prodtls->sale;?>
+                                        <?php 
+                                            foreach($sale as $saledtls){
+                                                if($prodtls->prod_id==$saledtls->prod_id){
+                                                    if($prodtls->unit==1){
+
+                                                        echo $saledtls->qty; 
+                                                       }elseif($prodtls->unit==2){
+                                                           echo ($saledtls->qty)/1000; 
+                                                       }elseif($prodtls->unit==4){
+                                                           echo ($saledtls->qty)/10;
+                                                       }elseif($prodtls->unit==6){
+                                                           echo ($saledtls->qty)/1000000;
+                                                       }elseif($prodtls->unit==3){
+                                                           echo $saledtls->tot_sale;
+                                                       }elseif($prodtls->unit==5){
+                                                           echo ($saledtls->qty)*($prodtls->qty_per_bag)/1000;   
+                                                       }
+                                                    // echo $saledtls->tot_sale;
+                                                    // $total_sale +=$saledtls->tot_sale; 
+                                                }
+                                            }
+                                        ?>
                                      </td>
 
                                      <td class="report closing" id="closing">
-                                        <?php echo $prodtls->closing;?>
+                                        <?php 
+                                            foreach($closing as $clsdtls){
+                                                if($prodtls->prod_id==$clsdtls->prod_id){
+                                                    echo $clsdtls->opn_qty;  
+                                                    // $total +=$clsdtls->opn_qty;              
+                                                }
+                                            }
+                                        ?>
                                      </td>
                                    
                                 </tr>
