@@ -428,7 +428,9 @@ public function stkStmt_ho(){
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
         if ($branch == 0){
-            echo 'HO';
+
+            $data['product']      =    $this->ReportModel->p_consolidated_stock_all(array($from_dt,$to_dt));
+
         }else{
 
             $data['product']      =    $this->ReportModel->p_consolidated_stock(array($from_dt,$to_dt,$branch));
@@ -440,22 +442,7 @@ public function stkStmt_ho(){
         
         $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
-      /*  $data['product']     =   $this->ReportModel->f_get_product_list($branch,$opndt);
 
-        $data['opening']     =   $this->ReportModel->f_get_balance($branch,$opndt,$prevdt);
-
-        $data['purchase']    =   $this->ReportModel->f_get_purchase($branch,$from_dt,$to_dt);
-
-        $data['sale']        =   $this->ReportModel->f_get_sale($branch,$from_dt,$to_dt);
-
-        $data['closing']     =   $this->ReportModel->f_get_balance($branch,$opndt,$to_dt);*/
-
-        
-
-       
-
-        // echo $this->db->last_query();
-        // die;
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/stk_stmt_ho/stk_stmt',$data);
         $this->load->view('post_login/footer');
@@ -464,8 +451,7 @@ public function stkStmt_ho(){
         $select1      = array("district_code","district_name");
         $where =array('1 order by district_name'=>null);
         $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, $where,0);
-        // echo $this->db->last_query();
-        // die();
+      
         $this->load->view('post_login/fertilizer_main');
         
         $this->load->view('report/stk_stmt_ho/stk_stmt_ip',$data);
