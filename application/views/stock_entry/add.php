@@ -2223,7 +2223,12 @@ document.getElementById("demo").innerHTML = d;
 
     				$('#submit').removeAttr('disabled');
     				// $('#submit').attr('type', 'submit');
-					f_advfwdprodcomp();
+					if(1 != $('#comp_id').val()){
+						f_advfwdprodcomp();
+					}else{
+						checked_adv();
+					}
+					
 
 					// checked_adv();
 
