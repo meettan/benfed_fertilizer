@@ -191,7 +191,7 @@ $curl = curl_init();
 
 											'created_by'       => $this->session->userdata['loggedin']['user_name'],
 
-											'created_dt'       => date('Y-m-d'),
+											'created_dt'       => date('Y-m-d h:i:s'),
 
 											'fin_yr'           =>$fin_id  ,
 
@@ -207,41 +207,32 @@ $curl = curl_init();
 											'modified_by'         => $this->session->userdata['loggedin']['user_name'],
 											'modified_dt'         => date('Y-m-d h:i:s'),
 							
-											// 'qty'              => $_POST['qty'][$i]
+											
 										);
 
 				
-						//   $select_bnkacc         = array("acc_code");
-						//  $where_bnkacc          = array("sl_no"     => $this->input->post('bank_id'));
-
-						// $bnk_acc = $this->Company_paymentModel->f_select("mm_feri_bank",$select_bnkacc,$where_bnkacc,1);
+				
 	                    
 					$where  =   array(
 		   
 					'pur_inv_no'  =>  explode(',',$_POST['pur_inv'][$i])[0],
+
 						//'pur_inv_no'  => $_POST['pur_inv'][$i],
 
 					'pur_ro'      => $_POST['pur_ro'][$i],
 
-					'prod_id'     => $_POST['prod_id'][$i]
+					'prod_id'     => $_POST['prod_id'][$i],
+					'pay_no'	=> null,
+					'pay_dt'	=>null,
+
+
+
+					
 				);
 
-				// 	$data_array_acc=$data;
-				// 	$data_array_acc['acc_code'] = $bnk_acc->acc_code; 
-				//    // 'virtual_ac'  => $_POST['virtual_no'][$i] );
-				//    $select_comp          = array("comp_name");
-				//    $where_comp           = array("comp_id"=> $comp_id );
-				//    $comp_name=$this->Company_paymentModel->f_select('mm_company_dtls',$select_comp,$where_comp,1);
-				//    $data_array_comp=$data_array_acc;
-				//    $data_array_comp['rem'] = " Amount Paid To. ".$comp_name->comp_name ; 
-
-				//    $this->Company_paymentModel->f_compayjnl($data_array_acc);
-
-				//$this->Company_paymentModel->f_compayjnl($data_array_comp);
-
+			
 				   $this->Company_paymentModel->f_edit('tdf_company_payment', $data, $where);
-					// echo $this->db->last_query();
-					// die();
+					
 
 
 // if ($trans_type=='2'){
@@ -2611,17 +2602,79 @@ public function delete_companypay(){
 		$data_array = array(
 
 				"pay_no"     =>  NULL ,
-                               
-				"paid_amt"   =>  0,
-
+				"pay_dt"	=>	NULL,
+				"bnk_id"	=>	NULL,
+				"dr_acCode"	=>	NULL,
+				"pay_mode"	=>	NULL,
+				"paid_amt"	=>	0,
+				"rate_amt"	=>	0,
+				"taxable_amt"	=>	0,
+				"tds_amt"	=>	0,
+				"net_amt"	=>	0,
+				"ref_no"	=>	NULL,
+				"ref_dt"	=>	NULL,
+				"bnk_ac_no"	=>	NULL,
+				"bnk_ac_cd"	=>	NULL,
+				"ifsc"	=>	NULL,
+				"virtual_ac"	=>	NULL,
+				"remarks"	=>	NULL,
+				"created_by"	=>	NULL,
+				"created_dt"	=>	NULL,
 				"modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
-
 				"modified_dt"  =>  date('Y-m-d h:i:s')
 		);
 
 		$where = array(
 				"pay_no"     =>  $this->input->get('pay_no')
 		);
+		$insert_data_array=array(
+
+		);
+
+
+		$data=$this->Company_paymentModel->f_select("tdf_company_payment",null,$where,0);
+		//print_r($data);
+		
+		foreach($data as $d){
+			$deleteArray=array(
+				'sl_no'				=>		$d->sl_no,
+				'pay_no'			=>		$d->pay_no,
+				'pay_dt'			=>		$d->pay_dt,
+				'district'			=>		$d->district,
+				'comp_id'			=>		$d->comp_id,
+				'prod_id'			=>		$d->prod_id,
+				'qty'				=>		$d->qty,
+				'sale_inv_no'		=>		$d->sale_inv_no,
+				'paid_id'			=>		$d->paid_id,
+				'pur_ro'			=>		$d->pur_ro,
+				'pur_inv_no'		=>		$d->pur_inv_no,
+				'purchase_rt'		=>		$d->purchase_rt,
+				'bnk_id'			=>		$d->bnk_id,
+				'dr_acCode'			=>		$d->dr_acCode,
+				'pay_mode'			=>		$d->pay_mode,
+				'paid_amt'			=>		$d->paid_amt,
+				'rate_amt'			=>		$d->rate_amt,
+				'taxable_amt'		=>		$d->taxable_amt,
+				'tds_amt'			=>		$d->tds_amt,
+				'net_amt'			=>		$d->net_amt,
+				'ref_no'			=>		$d->ref_no,
+				'ref_dt'			=>		$d->ref_dt,
+				'bnk_ac_no'			=>		$d->bnk_ac_no,
+				'bnk_ac_cd'			=>		$d->bnk_ac_cd,
+				'ifsc'				=>		$d->ifsc,
+				'virtual_ac'		=>		$d->virtual_ac,
+				'remarks'			=>		$d->remarks,
+				'fin_yr'			=>		$d->fin_yr,
+				'created_by'		=>		$d->created_by,
+				'created_dt'		=>		$d->created_dt,
+				'modified_by'		=>		$d->modified_by,
+				'modified_dt'		=>		$d->modified_dt,
+				'delete_by'			=>		$this->session->userdata['loggedin']['user_name'],
+				'delete_dt'			=>		date('Y-m-d h:i:s')
+			);
+
+			$this->Company_paymentModel->f_insert('tdf_company_payment_delete', $deleteArray);
+	}
 		 
 		$this->Company_paymentModel->f_edit('tdf_company_payment', $data_array, $where);
 
