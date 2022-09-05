@@ -1,401 +1,405 @@
-<div class="wraper">      
-            
-			<div class="col-md-14 container form-wraper">
-	
-			
-                <form method="POST"  action="<?php echo site_url("compay/cmppay_edit");?>" >
-                 
-					<div class="form-header">
-					
-						<h4>Company and Payble Details</h4>
-					
-    					</div>
-    	                <?php
-                        foreach($prod_dtls as $prodd);
-                        ?>
-    		
-						
-                    <div class="form-group row">
+<div class="wraper">
 
-                        <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
-                        <div class="col-sm-4">
-    
-                            <select name="comp_id" class="form-control required" id="comp_id" disabled>
-    
+    <div class="col-md-14 container form-wraper">
+
+
+        <form method="POST" action="<?php echo site_url("compay/cmppay_edit"); ?>">
+
+            <div class="form-header">
+
+                <h4>Company and Payble Details</h4>
+
+            </div>
+            <?php
+            foreach ($prod_dtls as $prodd);
+            ?>
+
+
+            <div class="form-group row">
+
+                <label for="comp_id" class="col-sm-2 col-form-label">Company :</label>
+                <div class="col-sm-4">
+
+                    <select name="comp_id" class="form-control required" id="comp_id" disabled>
+
                         <option value="">Select</option>
-                        
-                        <?php
-                        
-                            foreach($compdtls as $comp){
-                        
-                        ?>
-                        
-                            <option value="<?php echo $comp->comp_id;?>"  <?php if($prodd->comp_id==$comp->comp_id) echo "selected" ?>><?php echo $comp->comp_name;?></option>
-                        
-                        <?php
-                        
-                            }
-                        
-                        ?>     
-                        
-                        </select>
-                        </div>
 
-                        <label for="district" class="col-sm-2 col-form-label">District :</label>
-                        <div class="col-sm-4">
-    
-                            <select name="district" class="form-control required" id="district" disabled>
-    
+                        <?php
+
+                        foreach ($compdtls as $comp) {
+
+                        ?>
+
+                            <option value="<?php echo $comp->comp_id; ?>" <?php if ($prodd->comp_id == $comp->comp_id) echo "selected" ?>><?php echo $comp->comp_name; ?></option>
+
+                        <?php
+
+                        }
+
+                        ?>
+
+                    </select>
+                </div>
+
+                <label for="district" class="col-sm-2 col-form-label">District :</label>
+                <div class="col-sm-4">
+
+                    <select name="district" class="form-control required" id="district" disabled>
+
                         <option value="">Select</option>
-                        
+
                         <?php
-                        
-                            foreach($distdtls as $dist){
-                        
+
+                        foreach ($distdtls as $dist) {
+
                         ?>
-                        
-                            <option value="<?php echo $dist->district_code;?>"  <?php if($prodd->district==$dist->district_code) echo "selected" ?>><?php echo $dist->district_name;?></option>
-                        
+
+                            <option value="<?php echo $dist->district_code; ?>" <?php if ($prodd->district == $dist->district_code) echo "selected" ?>><?php echo $dist->district_name; ?></option>
+
                         <?php
-                        
-                            }
-                        
-                        ?>     
-                        
-                        </select>
-                        </div>
-                          
-                        
 
-                    </div>
+                        }
 
+                        ?>
 
-                        <div class="form-group row">
-                        <label for="pay_dt" class="col-sm-2 col-form-label">Paid Date:</label>
-                        <div class="col-sm-4">
-    
-                            <input type="datetime" id=pay_dt name="pay_dt" class="form-control"  value="<?php echo date('d/m/Y',strtotime($prodd->pay_dt)) ?>" readonly/>
-                        </div>
-                          <label for="pay_no"  class="col-sm-2 col-form-label">Pay No:</label>
-                            <div class="col-sm-4">
-                                <input type="text" style="width:360px" name="pay_no" id="pay_no" class="form-control" value="<?=$prodd->pay_no?>"  onchange="endDt()"  readonly/>
-                            </div>
-                           
-                        </div>
+                    </select>
+                </div>
 
 
 
-                        <div class="form-group row">
-                            <label for="bank_id" class="col-sm-2 col-form-label">Bank Name :</label>
-                            <div class="col-sm-4">
+            </div>
 
-                            <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?php echo $prodd->bank_name; ?>"  readonly>
-                            </div>
 
-                            <label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
-                            <div class="col-sm-4">
+            <div class="form-group row">
+                <label for="pay_dt" class="col-sm-2 col-form-label">Paid Date:</label>
+                <div class="col-sm-4">
 
-                                <input type="text" style="width:360px" id="ifsc" name="ifsc" class="form-control" readonly="" value="<?=$prodd->ifsc?>">
-                            </div>
-                        </div>
+                    <input type="datetime" id=pay_dt name="pay_dt" class="form-control" value="<?php echo date('d/m/Y', strtotime($prodd->pay_dt)) ?>" readonly />
+                </div>
+                <label for="pay_no" class="col-sm-2 col-form-label">Pay No:</label>
+                <div class="col-sm-4">
+                    <input type="text" style="width:360px" name="pay_no" id="pay_no" class="form-control" value="<?= $prodd->pay_no ?>" onchange="endDt()" readonly />
+                </div>
 
-                        <div class="form-group row">
-                                <label for="ac_no" class="col-sm-2 col-form-label">A/C No. :</label>
-                                <div class="col-sm-4">
-
-                                    <input type="text" value="<?=$prodd->bnk_ac_no?>" style="width:360px" id="ac_no" name="ac_no" class="form-control" readonly="" readonly>
-                                </div>
-                               
-
-                                <label for="pay_mode" class="col-sm-2 col-form-label">Pay Mode:</label>
-                                <div class="col-sm-4">
-                                 <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?php if($prodd->pay_mode==1){echo "Cheque";}elseif($prodd->pay_mode==2){echo "Draft";}elseif($prodd->pay_mode==3){echo "NEFT/RTGS";}?>"  readonly>
-                                </div>
-                                
-
-                            </div>
-                            <div class="form-group row">
-                                <label for="ref_no" class="col-sm-2 col-form-label">Referece No. :</label>
-                                    <div class="col-sm-4">
-                                        <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?=$prodd->ref_no?>"  readonly>
-                                    </div>
-
-                                    <label for="ref_dt" class="col-sm-2 col-form-label">Referece Date. :</label>
-                                <div class="col-sm-4">
-                                    <input type="date" style="width:360px" id="ref_dt" name="ref_dt" class="form-control" readonly>
-                                </div>
-                            </div>
+            </div>
 
 
 
+            <div class="form-group row">
+                <label for="bank_id" class="col-sm-2 col-form-label">Bank Name :</label>
+                <div class="col-sm-4">
 
-                        <div class="form-group row">
-                            <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
-                            <div class="col-sm-10">
-                                <textarea id="remarks" name="remarks" class="form-control" required="" readonly><?php echo $prodd->remarks ?></textarea>
-                            </div>
-                        </div>
+                    <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?php echo $prodd->bank_name; ?>" readonly>
+                </div>
+
+                <label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
+                <div class="col-sm-4">
+
+                    <input type="text" style="width:360px" id="ifsc" name="ifsc" class="form-control" readonly="" value="<?= $prodd->ifsc ?>">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="ac_no" class="col-sm-2 col-form-label">A/C No. :</label>
+                <div class="col-sm-4">
+
+                    <input type="text" value="<?= $prodd->bnk_ac_no ?>" style="width:360px" id="ac_no" name="ac_no" class="form-control" readonly="" readonly>
+                </div>
+
+
+                <label for="pay_mode" class="col-sm-2 col-form-label">Pay Mode:</label>
+                <div class="col-sm-4">
+                    <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?php if ($prodd->pay_mode == 1) {
+                                                                                                                        echo "Cheque";
+                                                                                                                    } elseif ($prodd->pay_mode == 2) {
+                                                                                                                        echo "Draft";
+                                                                                                                    } elseif ($prodd->pay_mode == 3) {
+                                                                                                                        echo "NEFT/RTGS";
+                                                                                                                    } ?>" readonly>
+                </div>
+
+
+            </div>
+            <div class="form-group row">
+                <label for="ref_no" class="col-sm-2 col-form-label">Referece No. :</label>
+                <div class="col-sm-4">
+                    <input type="text" style="width:360px" id="ref_no" name="ref_no" class="form-control" value="<?= $prodd->ref_no ?>" readonly>
+                </div>
+
+                <label for="ref_dt" class="col-sm-2 col-form-label">Referece Date. :</label>
+                <div class="col-sm-4">
+                    <input type="date" style="width:360px" id="ref_dt" name="ref_dt" class="form-control" readonly>
+                </div>
+            </div>
 
 
 
 
-						<div class="form-header">
-					
-					<h4>Pay Type And Paid Details</h4>
-				
-				</div>
-                <hr>
+            <div class="form-group row">
+                <label for="remarks" class="col-sm-2 col-form-label">Remarks:</label>
+                <div class="col-sm-10">
+                    <textarea id="remarks" name="remarks" class="form-control" required="" readonly><?php echo $prodd->remarks ?></textarea>
+                </div>
+            </div>
 
-                <div class="row" style ="margin: 5px;">
 
-                    <div class="form-group">
 
-                        <table class= "table table-striped table-bordered table-hover">
 
-                            <thead>
-                            
-                                <th style= "text-align: center;width: 20%;">RO No</th>
-                                <th style= "text-align: center;width: 20%;" >Product</th>
-                                 <th style= "text-align: center;width: 20%;">Qty</th>
-								<th style= "text-align: center;width: 20%;">Rate</th>
-								<th style= "text-align: center;width: 20%;">Taxable Amt</th>
-								<th style= "text-align: center;width: 20%;">TDS</th>
-								 <!-- <th style= "text-align: center">Gross Amount</th> -->
-								 <th style= "text-align: center">NET Amount</th>
-								<!--<th style= "text-align: center">SGST</th>
+            <div class="form-header">
+
+                <h4>Pay Type And Paid Details</h4>
+
+            </div>
+            <hr>
+
+            <div class="row" style="margin: 5px;">
+
+                <div class="form-group">
+
+                    <table class="table table-striped table-bordered table-hover">
+
+                        <thead>
+
+                            <th style="text-align: center;width: 20%;">RO No</th>
+                            <th style="text-align: center;width: 20%;">Product</th>
+                            <th style="text-align: center;width: 20%;">Qty</th>
+                            <th style="text-align: center;width: 20%;">Rate</th>
+                            <th style="text-align: center;width: 20%;">Taxable Amt</th>
+                            <th style="text-align: center;width: 20%;">TDS</th>
+                            <!-- <th style= "text-align: center">Gross Amount</th> -->
+                            <th style="text-align: center">NET Amount</th>
+                            <!--<th style= "text-align: center">SGST</th>
                                 <th style= "text-align: center">Dis</th>
 								<th style= "text-align: center">Net Amount</th>
                                 <th style= "text-align: center">Net Amount (Rounded) </th> -->
-                            </thead>
+                        </thead>
 
-                          <tbody id= "intro">
-                     <?php          $sum=0;
-                                   $round_tot_amt=0;
-                                     $tot_amount=0;
-                                     $tot_net_amt=0;
-                                      $cgst=0;
-                                       $sgst=0;
-								   $totalTaxableAmt=0;
-								   $totalTDS=0;
-                    foreach($prod_dtls as $prodd)
-                    { ?>
-                <tr>
-<!-- 
+                        <tbody id="intro">
+                            <?php $sum = 0;
+                            $round_tot_amt = 0;
+                            $tot_amount = 0;
+                            $tot_net_amt = 0;
+                            $cgst = 0;
+                            $sgst = 0;
+                            $totalTaxableAmt = 0;
+                            $totalTDS = 0;
+                            foreach ($prod_dtls as $prodd) { ?>
+                                <tr>
+                                    <!-- 
                     <td>
                                 <select name="stock_point" id="stock_point" class="form-control stock_point" required>
                                             <option value="">Select</option>
                                 <?php
-                                        foreach($socdtls as $soc){
+                                foreach ($socdtls as $soc) {
                                 ?>
-                                    <option value="<?php echo $soc->soc_id;?>"  <?php if($prodd->soc_id==$soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name;?></option>
+                                    <option value="<?php echo $soc->soc_id; ?>"  <?php if ($prodd->soc_id == $soc->soc_id) echo "selected" ?>><?php echo $soc->soc_name; ?></option>
                                 <?php
-                                
-                                    }
-                                 ?>     
+
+                                }
+                                ?>     
                                  </select> 
                                     
                     </td> -->
-                    <td>
-                    <input type="text" name="pur_ro" class="form-control pur_ro" style="width:140px ;" value="<?=$prodd->pur_ro?>" id="pur_ro"  readonly>
-                    </td>
-                    
+                                    <td>
+                                        <input type="text" name="pur_ro" class="form-control pur_ro" style="width:140px ;" value="<?= $prodd->pur_ro ?>" id="pur_ro" readonly>
+                                    </td>
 
-                    <td>    
-                                      
-                                      <select name="prod_id[]" id="prod_id" style="width:200px"class="form-control required prod_id"  disabled />
-                                      <option value="">Select product</option>
-                                      <?php
-                                      foreach($proddtls as $key1)
-                                      { ?>
-                                          <option value="<?php echo $key1->prod_id; ?>" <?php if($prodd->prod_id==$key1->prod_id) echo "selected" ?> ><?php echo $key1->prod_desc; ?></option>
-                                      <?php
-                                      } ?>
-                                      </select> 
-                                                          
-                                              </td>
 
-                    <td>
-                    <input type="text" name="qty[]" style="width:100px" class="form-control required qty" value="<?=$prodd->qty?>" id="qty" readonly>
-                    
-                    </td>
-                    
-                    <td>
-                    <input type="text" name="purchase_rt[]" style="width:150px" class="form-control required purchase_rt" value="<?=$prodd->purchase_rt?>" id="purchase_rt" readonly >
-                    </td>
-                    <td>
-                    <input type="text" name="taxable_amt[]" style="width:200px" class="form-control required taxable_amt" value="<?=$prodd->taxable_amt; ?><?php $totalTaxableAmt+=$prodd->taxable_amt; ?>" id="taxable_amt" readonly >
-                    </td>
-                    <td>
-                    <input type="text" name="tds[]" style="width:100px" class="form-control required tds" value="<?=$prodd->tds_amt?><?php  $totalTDS+=$prodd->tds_amt; ?>" id="tds" readonly >
-                    </td>
-                    <!-- <td>
-                    <input type="text" name="paid_amt[]" style="width:200px" class="form-control required paid_amt" value="<?=$prodd->paid_amt?>" id="paid_amt" >
-                    <?php $tot_amount +=$prodd->paid_amt;?>
+                                    <td>
+
+                                        <select name="prod_id[]" id="prod_id" style="width:200px" class="form-control required prod_id" disabled />
+                                        <option value="">Select product</option>
+                                        <?php
+                                        foreach ($proddtls as $key1) { ?>
+                                            <option value="<?php echo $key1->prod_id; ?>" <?php if ($prodd->prod_id == $key1->prod_id) echo "selected" ?>><?php echo $key1->prod_desc; ?></option>
+                                        <?php
+                                        } ?>
+                                        </select>
+
+                                    </td>
+
+                                    <td>
+                                        <input type="text" name="qty[]" style="width:100px" class="form-control required qty" value="<?= $prodd->qty ?>" id="qty" readonly>
+
+                                    </td>
+
+                                    <td>
+                                        <input type="text" name="purchase_rt[]" style="width:150px" class="form-control required purchase_rt" value="<?= $prodd->rate_amt ?>" id="purchase_rt" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="taxable_amt[]" style="width:200px" class="form-control required taxable_amt" value="<?= $prodd->taxable_amt; ?><?php $totalTaxableAmt += $prodd->taxable_amt; ?>" id="taxable_amt" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tds[]" style="width:100px" class="form-control required tds" value="<?= $prodd->tds_amt ?><?php $totalTDS += $prodd->tds_amt; ?>" id="tds" readonly>
+                                    </td>
+                                    <!-- <td>
+                    <input type="text" name="paid_amt[]" style="width:200px" class="form-control required paid_amt" value="<?= $prodd->paid_amt ?>" id="paid_amt" >
+                    <?php $tot_amount += $prodd->paid_amt; ?>
                     </td> -->
 
-                    <td>
-                    <input type="text" name="net_amt[]" style="width:150px" class="form-control required net_amt" value="<?=$prodd->net_amt?>" id="net_amt" readonly>
-                    <?php $tot_net_amt +=$prodd->net_amt;?>
-                    </td>
-                  
-                    </tr>
+                                    <td>
+                                        <input type="text" name="net_amt[]" style="width:150px" class="form-control required net_amt" value="<?= $prodd->net_amt ?>" id="net_amt" readonly>
+                                        <?php $tot_net_amt += $prodd->net_amt; ?>
+                                    </td>
 
-                <?php } ?>
-
-                            </tbody>
-
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4">
-                                        <strong>Total:</strong>
-                                    </td>
-									 <td >
-                                     <div class="col-md-7"></div>
-                                          <div class="col-md-0" style="text-align: right;"><b><?php echo round($totalTaxableAmt,2); ?></b></div>
-                                      
-                
-                                    </td>
-									 <td >
-                                     <div class="col-md-7"></div>
-                                          <div class="col-md-0" style="text-align: right;"><b><?php echo round($totalTDS,2); ?></b></div>
-                                      
-                
-                                    </td>
-                                     <td >
-                                     <div class="col-md-7"></div>
-                                          <div class="col-md-0" style="text-align: right;"><b><?php echo $tot_net_amt; ?></b></div>
-                                      
-                
-                                    </td>
                                 </tr>
-                            </tfoot> 
-                    
-                        </table>
 
-                    </div> 
+                            <?php } ?>
+
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">
+                                    <strong>Total:</strong>
+                                </td>
+                                <td>
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-0" style="text-align: right;"><b><?php echo round($totalTaxableAmt, 2); ?></b></div>
+
+
+                                </td>
+                                <td>
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-0" style="text-align: right;"><b><?php echo round($totalTDS, 2); ?></b></div>
+
+
+                                </td>
+                                <td>
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-0" style="text-align: right;"><b><?php echo $tot_net_amt; ?></b></div>
+
+
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
 
                 </div>
 
-                <div class="form-group row">
+            </div>
 
-                    <div class="col-sm-10">
+            <div class="form-group row">
 
-                        <!-- <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Save" /> -->
+                <div class="col-sm-10">
 
-                    </div>
+                    <!-- <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Save" /> -->
 
                 </div>
 
-            </form>
+            </div>
 
+        </form>
 
-        </div>
 
     </div>
 
 </div>
 
+</div>
+
 <!-- For Add row table -->
 <script>
-
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         // For add row option
-        $('#addrow').click(function(){
+        $('#addrow').click(function() {
 
-            $.get( 
+            $.get(
 
-'<?php echo site_url("trade/f_get_sale_ro");?>',
+                '<?php echo site_url("trade/f_get_sale_ro"); ?>',
 
-{ 
+                {
 
-comp_id: $('#comp_id').val()
-// dist_cd : $('#dist_cd').val()
+                    comp_id: $('#comp_id').val()
+                    // dist_cd : $('#dist_cd').val()
 
-}
+                }
 
-).done(function(data){
+            ).done(function(data) {
 
-var string = '<option value="">Select</option>';
-//console.log(data);
-$.each(JSON.parse(data), function( index, value ) {
+                var string = '<option value="">Select</option>';
+                //console.log(data);
+                $.each(JSON.parse(data), function(index, value) {
 
-    string += '<option value="' + value.ro_no + '">' + value.ro_no + '</option>'
+                    string += '<option value="' + value.ro_no + '">' + value.ro_no + '</option>'
 
-});
+                });
 
-            var newElement = '<tr>'
-                                +'<td>'
-                               +'<select name="ro[]" id="ro" style="width:150px"class="form-control required ro" required>'
-                +'<option value="">Select Project</option>'
-                
-                      +' <option value=" '+ string +'</option>'
-                  
-           +'</select> '
-                                +'</td>'
-                                +'<td>'
-                                    +'<select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" required>'
-                +'<option value="">Select Product</option>'
-                +'<?php
-                   foreach($proddtls as $key1)
-                  { ?>'
-                       +' <option value="<?php echo $key1->prod_id; ?>"><?php echo $key1->prod_desc; ?></option>'
-                  +'<?php
-                   } ?>'
-           +'</select> '
-                                +'</td>'
-                                +'<td>'
-                                    +'<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "" id="stock_qty" required>'
-                                +'</td>'
-                                +'<td>'
-                                    +'<input type="text" name="qty[]" class="form-control required qty" value= "" id="qty" required>'
-                                +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="sale_rt[]" class="form-control required sale_rt" value= "" id="sale_rt" required>'
-                                +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" required>'
-                                +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="cgst[]" class="form-control required cgst" value= "" id="cgst" required>'
-                                +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="sgst[]" class="form-control required sgst" value= "" id="sgst" required>'
-                                +'</td>'
-								+'<td>'
-                                    +'<input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "" id="tot_amt" required>'
-                                +'</td>'
-                                +'<td>'
-                                    +'<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>'
-                                +'</td>'
-                            '</tr>';
+                var newElement = '<tr>' +
+                    '<td>' +
+                    '<select name="ro[]" id="ro" style="width:150px"class="form-control required ro" required>' +
+                    '<option value="">Select Project</option>'
 
-            $("#intro").append($(newElement));
+                    +
+                    ' <option value=" ' + string + '</option>'
 
-        });
+                    +
+                    '</select> ' +
+                    '</td>' +
+                    '<td>' +
+                    '<select name="prod_id[]" id="prod_id" style="width:150px"class="form-control required prod_id" required>' +
+                    '<option value="">Select Product</option>' +
+                    '<?php
+                        foreach ($proddtls as $key1) { ?>' +
+                    ' <option value="<?php echo $key1->prod_id; ?>"><?php echo $key1->prod_desc; ?></option>' +
+                    '<?php
+                        } ?>' +
+                    '</select> ' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="stock_qty[]" class="form-control required stock_qty" value= "" id="stock_qty" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="qty[]" class="form-control required qty" value= "" id="qty" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="sale_rt[]" class="form-control required sale_rt" value= "" id="sale_rt" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="taxable_amt[]" class="form-control required taxable_amt" value= "" id="taxable_amt" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="cgst[]" class="form-control required cgst" value= "" id="cgst" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="sgst[]" class="form-control required sgst" value= "" id="sgst" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="tot_amt[]" class="form-control tot_amt required" value= "" id="tot_amt" required>' +
+                    '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>' +
+                    '</td>'
+                '</tr>';
+
+                $("#intro").append($(newElement));
+
+            });
         });
         // For remove row 
-        $("#intro").on("click","#removeRow", function(){
+        $("#intro").on("click", "#removeRow", function() {
             $(this).parents('tr').remove();
             $('.total').change();
         });
 
         // For getting total amount after giving nt_amount
-        $('#nt').on("change", function(){
+        $('#nt').on("change", function() {
             var total = $(this).val();
             $('#total').val(total);
         })
 
 
         // For getting total calculation after remove row
-        $('.total').change(function(){
+        $('.total').change(function() {
 
             var total = $('#nt').val();
             var ntAmount = $('#nt').val();
-            $('.cgst_val').each(function(){
+            $('.cgst_val').each(function() {
 
                 var curr_gst_val = $(this).val();
-                total = parseFloat(total)+parseFloat(parseFloat(curr_gst_val)*2);
+                total = parseFloat(total) + parseFloat(parseFloat(curr_gst_val) * 2);
                 //console.log(total);
 
             })
@@ -404,31 +408,27 @@ $.each(JSON.parse(data), function( index, value ) {
             // Checking whather total to sub_amnt exeeds NT Rs or not-- 
             //var total_subAmnt = $('#sub_amnt').val();
             var total_subAmnt = 0;
-            $('.sub_amnt').each(function(){
+            $('.sub_amnt').each(function() {
 
                 var tot_sub_amnt = $(this).val();
-                total_subAmnt = parseFloat(total_subAmnt)+parseFloat(tot_sub_amnt);
-                
-                if(parseFloat(ntAmount)<parseFloat(total_subAmnt))
-                {
+                total_subAmnt = parseFloat(total_subAmnt) + parseFloat(tot_sub_amnt);
+
+                if (parseFloat(ntAmount) < parseFloat(total_subAmnt)) {
                     $('#nt').css('border-color', 'red');
                     $('#submit').prop('disabled', true);
                     return false;
-                }
-                else
-                {
+                } else {
                     $('#nt').css('border-color', 'green');
                     $('#submit').prop('disabled', false);
                     return true;
                 }
 
-                
+
             })
 
         });
 
     })
-
 </script>
 
 <!-- <script>
@@ -437,7 +437,7 @@ $(document).ready(function()
 {
 
 
-        $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: '<?=$prodd->sale_ro?>' })
+        $.get('<?php echo site_url("trade/js_get_stock_qty"); ?>',{ ro: '<?= $prodd->sale_ro ?>' })
 
         .done(function(data)
         {
@@ -506,7 +506,7 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("trade/f_get_soc");?>',
+			'<?php echo site_url("trade/f_get_soc"); ?>',
 			{ 
 
 				soc_id: $(this).val(),
@@ -533,10 +533,10 @@ $(document).ready(function(){
 
 		$.get( 
 
-			'<?php echo site_url("trade/f_get_soc");?>',
+			'<?php echo site_url("trade/f_get_soc"); ?>',
 			{ 
 
-				soc_id: <?=$prodd->soc_id?>,
+				soc_id: <?= $prodd->soc_id ?>,
 
 			}
 
@@ -561,7 +561,7 @@ $(document).ready(function(){
              // $('.stock_point').eq($('.ro').index(this)).val(""); 
               $('.stock_name').eq($('.ro').index(this)).val(""); 
            
-            $.get('<?php echo site_url("trade/js_get_stock_point");?>',{ ro: '<?=$prodd->sale_ro?>' })
+            $.get('<?php echo site_url("trade/js_get_stock_point"); ?>',{ ro: '<?= $prodd->sale_ro ?>' })
                                                                             
             .done(function(data){
 
@@ -586,7 +586,7 @@ $(document).ready(function(){
         $('#intro').on( "change", ".ro", function()
         {
          
-            $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
+            $.get('<?php echo site_url("trade/js_get_stock_qty"); ?>',{ ro: $(this).val() })
                                                                             
             .done(function(data)
             {
@@ -636,7 +636,7 @@ txtBox.focus();
        
        
     //    total += parseFloat(tot_amt); 
-        $.get('<?php echo site_url("trade/js_get_stock_qty");?>',{ ro: $(this).val() })
+        $.get('<?php echo site_url("trade/js_get_stock_qty"); ?>',{ ro: $(this).val() })
 
                                                                   
         .done(function(data)
@@ -754,5 +754,3 @@ txtBox.focus();
 
 		
 </script> -->
-
-

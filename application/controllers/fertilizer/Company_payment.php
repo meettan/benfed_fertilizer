@@ -154,18 +154,8 @@ $curl = curl_init();
 						//$paid_amt  = $_POST['paid_amt'][$i];
 						$paid_amt  = (($_POST['net_amt'][$i])+($_POST['tds'][$i]));
 						$total_gross_amount+=(($_POST['net_amt'][$i])-($_POST['tds'][$i]));
-
-						
 						$pay_no=(explode('/',$adv_transCd->pay_no)[4])+1;
-
-						
-
 						$receipt   = 'PMT/'.$brn->short_name.'/'.$month.'/'.$fin_year.'/'.$pay_no;
-						// echo $receipt;
-						// echo"<br>";
-						// echo $this->db->last_query();
-						// exit();
-						
                         $data     = array(
 											'dr_acCode'=>0,
 											'pay_no'           => $receipt ,
@@ -217,16 +207,13 @@ $curl = curl_init();
 		   
 					'pur_inv_no'  =>  explode(',',$_POST['pur_inv'][$i])[0],
 
-						//'pur_inv_no'  => $_POST['pur_inv'][$i],
+					 'paid_id'=>	explode(',',$_POST['pur_inv'][$i])[2],
 
 					'pur_ro'      => $_POST['pur_ro'][$i],
 
 					'prod_id'     => $_POST['prod_id'][$i],
 					'pay_no'	=> null,
 					'pay_dt'	=>null,
-
-
-
 					
 				);
 
@@ -4304,4 +4291,3 @@ public function deleteAccCd() {
 		}	
 	
 	}
-?>
