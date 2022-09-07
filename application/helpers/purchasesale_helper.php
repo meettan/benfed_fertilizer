@@ -9,11 +9,12 @@ if (!function_exists('get_purchase')) {
 
     if ($state == 'S') {                                  //if the material is solid
       if ($hoFlag == 'Y') {                               //if user in Head office              
-        $data = " select sum(qty) qty,unit
-                  from   td_purchase
-                  where  trans_dt between '" . $frfDate . "' and '" . $toDate . "'
-                  and    unit in(1,2,4,6)
-                  group by unit";
+        $data = " select sum(a.qty) qty,b.unit
+                  from   td_purchase a,mm_product b
+                  where  a.prod_id = b.prod_id
+                  and    a.trans_dt between '" . $frfDate . "' and '" . $toDate . "'
+                  and    a.unit in(1,2,4,6)
+                  group by a.unit";
 
         $resultData = $ci->db->query($data)->result();
       } else {                                            //if user in branch
@@ -51,14 +52,14 @@ if (!function_exists('get_purchase')) {
     } else if ($state == 'L') {                                   //if the material is liquid
       if ($hoFlag == 'Y') {
 
-        $data = $ci->db->query("select sum(a.qty)qty,a.unit,b.qty_per_bag
+        $data = $ci->db->query("select sum(a.qty)qty,b.unit,b.qty_per_bag
                   from   td_purchase a,mm_product b
                   where  a.prod_id = b.prod_id
                   and    a.trans_dt between '" . $frfDate . "' and '" . $toDate . "'
                   and    a.unit in(3,5)
                   group by a.unit,b.qty_per_bag");
       } else {
-        $data = $ci->db->query("select sum(a.qty)qty,a.unit,b.qty_per_bag
+        $data = $ci->db->query("select sum(a.qty)qty,b.unit,b.qty_per_bag
                   from   td_purchase a,mm_product b
                   where  a.prod_id = b.prod_id
                   and    a.trans_dt between '" . $frfDate . "' and '" . $toDate . "'

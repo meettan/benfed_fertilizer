@@ -2053,65 +2053,51 @@ public function salecompdelivery_reg(){
     }
 
 }
-/***********************customer payble and paid************************************* */
+
+/***********************Due Register Report************************************* */
 
 public function cust_payblepaid(){
     $from_dt = isset($_POST['from_date']) ? $_POST['from_date'] : date('Y-m-d');
-    $to_dt = isset($_POST['to_date']) ? $_POST['to_date'] : date('Y-m-d');
 
-    $product = array();
-    $branch = array();
-    $all_data = array();
-    $paid = array();
-    $br_name = array();
+    $to_dt   = isset($_POST['to_date']) ? $_POST['to_date'] : date('Y-m-d');
 
+  
+    $branch="";
+    $all_data="";
+    $br_name="";
 
     if(isset($_POST['submit'])){
+
         $branch     =   $this->session->userdata['loggedin']['branch_id'];
     
-        $mth        =  date('n',strtotime($from_dt));
+       // $opndt      =  date($year.'-04-01');
     
-        $yr         =  date('Y',strtotime($from_dt));
-        // $all_data   =   array($from_dt,$to_dt,$branch );
-        if($mth > 3){
-    
-            $year = $yr;
-    
-        }else{
-    
-            $year = $yr - 1;
-        }
-    
-        $opndt      =  date($year.'-04-01');
-    
-        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+       // $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
     
         $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
-    
-        $product    =   $this->ReportModel->f_get_product_list($branch,$opndt);
-    
     
     
         $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
     
-        $br_name      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        $br_name             =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
        
-        $all_data=$this->ReportModel->f_get_soc_pay($from_dt,$to_dt , $branch);
-        //  echo $this->db->last_query();
-        $paid=$this->ReportModel->f_get_soc_paid($from_dt,$to_dt , $branch);
-        // $adv=$this->ReportModel->f_get_advrecv($from_dt,$to_dt , $branch);
-        // echo '<pre>';var_dump($all_data);exit;
+        $all_data            =   $this->ReportModel->f_get_soc_pay($from_dt,$to_dt , $branch);
+        // print_r($all_data);
+        // exit();
+
     }
         
-        $data = array(
-            'frm_dt' => $from_dt,
-            'to_dt' => $to_dt,
-            'product' => $product,
-            'branch' => $branch,
-            'all_data' => $all_data,
-            'paid' => $paid,
-            'br_name' => $br_name
-        );
+    
+    $data = array(
+                'frm_dt'    => $from_dt,
+                'to_dt'     => $to_dt,
+                'branch'    => $branch,
+                'all_data'  => $all_data,
+                'br_name' => $br_name
+    );
+
+
+
     
         $this->load->view('post_login/fertilizer_main');
     
@@ -2284,6 +2270,8 @@ public function soc_payblepaid(){
             }
 
         }
+
+/*************************************Society Ledger Report************************************************************** */        
 		
 	public function soc_ledger(){
 		$from_dt = isset($_POST['from_date']) ? $_POST['from_date'] : date('Y-m-d');
@@ -2450,4 +2438,3 @@ public function advance_payment(){
     }
         
   }
- ?>

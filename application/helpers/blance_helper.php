@@ -16,7 +16,7 @@ if (!function_exists('stock_balance')) {
 
        //Retrieving the opening stock at year opening
 
-      $rtndata = $ci->db->query("select sum(a.qty)qty,a.unit_id unit 
+      $rtndata = $ci->db->query("select sum(a.qty)qty,b.unit unit 
                                 from   tdf_opening_stock a,mm_product b
                                 where  a.prod_id = b.prod_id
                                 and    a.balance_dt  = '" . $maxdate . "'
@@ -117,7 +117,7 @@ if (!function_exists('stock_balance')) {
       $maxdate = $rtndate->date;
 
       //Retrieving the opening stock at year opening
-      $rtndata = $ci->db->query("select sum(a.qty)qty,a.unit_id unit,b.qty_per_bag
+      $rtndata = $ci->db->query("select sum(a.qty)qty,b.unit unit,b.qty_per_bag
                             from   tdf_opening_stock a,mm_product b
                             where  a.prod_id = b.prod_id
                             and    a.balance_dt  = '" . $maxdate . "'
@@ -147,7 +147,7 @@ if (!function_exists('stock_balance')) {
 
 
 
-      $get_purchase = $ci->db->query("select sum(a.qty)qty,a.unit,b.qty_per_bag
+      $get_purchase = $ci->db->query("select sum(a.qty)qty,b.unit,b.qty_per_bag
                                       from   td_purchase a,mm_product b
                                       where  a.prod_id = b.prod_id
                                       and  a.trans_dt between '".$maxdate."' and '".$date."'

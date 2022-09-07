@@ -105,7 +105,28 @@ class ReportModel extends CI_Model
        return $data_w->result();
 
    }
-/*********************************************************************** */  
+
+/******************Procedure for Due Register at Branch******************************** */  
+public function f_get_soc_pay($frmDt, $toDt, $branch)
+{
+    $date=array($frmDt,$toDt,$branch);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_due_register`(?,?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+
+    return $data_w->result();
+
+}
+
 
 
     // git add check  add some
@@ -1659,6 +1680,13 @@ and a.ro_no not in (select sale_ro from td_sale
         $query = $this->db->query($sql);
         return $query->result();
     }
+
+
+
+   
+/*
+
+
     public function f_get_soc_pay($frmDt, $toDt, $branch)
     {
         $opdate = explode('-', $frmDt)[0] . '-04-01';
@@ -1732,23 +1760,7 @@ ORDER BY `op_bln` ASC");
         return $query->result();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 
 
@@ -1858,16 +1870,15 @@ ORDER BY `op_bln` ASC");
     {
         $query  = $this->db->query("select  trans_dt,prod,inv_no, soc_id,soc_name,sum(paid_amt) as tot_paid,sum(paybl) as tot_payble,sum(cgst)cgst,sum(sgst)sgst,ro_no,ro_dt,sum(qty) qty ,sum(tot_recv) tot_recv,remarks
             from( 
-              SELECT c.op_dt as trans_dt,'' prod,'' as inv_no, c.soc_id soc_id,b.soc_name,if(c.balance<0,
-              c.balance,0) as paid_amt,
+              SELECT c.op_dt as trans_dt,'' prod,'' as inv_no, c.soc_id soc_id,b.soc_name,if(sum(c.balance)<0,
+              sum(c.balance),0) as paid_amt,
               0 paybl,0 cgst,0 sgst,''ro_no,'' as ro_dt,0 as qty,
-                if(c.balance>0,c.balance,0) tot_recv ,'Opening' remarks
+                if(sum(c.balance)>0,sum(c.balance),0) tot_recv ,'Opening' remarks
                 FROM td_soc_opening c,mm_ferti_soc b 
                 where c.soc_id=b.soc_id 
                 and c.soc_id = '$soc_id'
                 and c.br_cd='$branch' 
                 and c.op_dt='$frmDt'
-                group by soc_name,c.soc_id,c.op_dt
                 
                union
                 SELECT paid_dt,'' prod,c.paid_id  as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0 cgst,0 sgst,''ro_no,d.ro_dt as ro_dt,0 as qty,
@@ -2337,6 +2348,21 @@ ORDER BY `op_bln` ASC");
                 order by a.br_cd,a.do_dt");
         }
         return $query->result();
+    }
+
+
+    public function test($date){
+        try {
+            $this->db->reconnect();
+
+            $sql = "CALL `p_due_register`(?,?,?)";
+
+            $data_w = $this->db->query($sql, $date);
+             
+            $this->db->close();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
 
