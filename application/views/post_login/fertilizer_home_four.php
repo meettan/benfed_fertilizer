@@ -4,7 +4,7 @@
 <!-- User Types : Admin ->A User->U Manager->M -->
 <!-- Side Menus -->
 
-<!-- //Admin loging in Head Office -->
+<!-- //User loging in Branch Office -->
 
 <?php if($this->session->userdata['loggedin']['ho_flag']  == 'N' && $this->session->userdata['loggedin']['user_type'] == 'U' ){ ?>
 <div class="container-fluid" style="padding-top:25px; padding-bottom:25px;">
@@ -14,11 +14,20 @@
       <div class="left_bar_new">
         <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
         <ul>
-          <li><a href="https://benfed.in/fertilizer/index.php/stock/stock_entry">Purchase</a></li>
-          <li><a href="https://benfed.in/fertilizer/index.php/trade/sale">Sale</a></li>
-          <li><a href="https://benfed.in/fertilizer/index.php/socpay/society_payment">Customer Payment</a></li>
-          <li> <a href="#">Stock Ledger</a></li>
-          <li><a href="#">Day Book</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefilter">Advance</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefwd">Advance Forward</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/trade/sale">Sale</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/drcrnote/dr_note">Credit Note</a></li>
+		  <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/society_payment">Receive Payment</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/soc_payment_fwd">Forward Payment</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkStmt">Consolidated Stock</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkSprod">Productwise Stock</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/purrep">Purchase Ledger</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/salerep">Sale Ledger</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/cust_payblepaid">Due Register</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/soc_ledger">Society Ledger</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/overdue_list">Overdue List</a></li>
         </ul>
       </div>
     </div>

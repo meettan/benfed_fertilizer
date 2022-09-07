@@ -4,7 +4,7 @@
 <!-- User Types : Admin ->A User->U Manager->M -->
 <!-- Side Menus -->
 
-<!-- //Admin loging in Head Office -->
+<!-- //Admin & Manager loging in Branch Office -->
 
 <?php if ($this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {  ?>
   <div class="container-fluid" style="padding-top:25px;">
@@ -13,11 +13,20 @@
         <div class="left_bar_new">
           <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
           <ul>
-            <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
-            <li><a href="https://benfed.in/benfed_fertilizer/index.php/trade/sale">Sale</a></li>
-            <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/society_payment">Customer Payment</a></li>
-            <li> <a href="#">Stock Ledger</a></li>
-            <li><a href="#">Day Book</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefilter">Advance</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefwd">Advance Forward</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/trade/sale">Sale</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/drcrnote/dr_note">Credit Note</a></li>
+		  <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/society_payment">Receive Payment</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/soc_payment_fwd">Forward Payment</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkStmt">Consolidated Stock</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkSprod">Productwise Stock</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/purrep">Purchase Ledger</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/salerep">Sale Ledger</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/cust_payblepaid">Due Register</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/soc_ledger">Society Ledger</a></li>
+          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/overdue_list">Overdue List</a></li>
           </ul>
         </div>
       </div>
@@ -107,7 +116,7 @@
                   <select name="select_district" id="select_district" class="sch_cd">
                     <option value="select_district">Select Society</option>
                     <?php foreach ($soc as $socname) { ?>
-                      <option value="<?= $socname->sl_no ?>"><?= $socname->ac_name ?></option>
+                      <option value="<?= $socname->soc_id ?>"><?= $socname->soc_name ?></option>
                     <?php } ?>
 
                   </select>
@@ -116,7 +125,8 @@
             </div>
           </div>
 
-          <div class="sectionNew" id="sectionNew">
+          <!-- <div class="sectionNew" id="sectionNew"> -->
+          <div class="sectionNew" id="">
            
             
           
@@ -167,8 +177,7 @@
 
           </div>
 
-
-          <div class="sectionNew" id="sectionNew2">
+           <!-- <div class="sectionNew" id="sectionNew2"> 
             <div class="col-sm-12">
               <h2 class="onClickOpen">Overdue List <span>(Click to Expand)</span> <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></h2>
             </div>
@@ -209,7 +218,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
 

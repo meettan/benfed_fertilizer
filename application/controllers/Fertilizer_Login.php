@@ -298,8 +298,6 @@
 						$dash_data['openingL']= stock_balance($yesterday, $branch_id,'L');
 
 
-						//$dash_data['distwisesale'] = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
-					
 						//Total Purchase Solid & Liquid for a period branchwise
 						$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
 						$dash_data['totliquidpur']	  = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'L');
@@ -327,6 +325,8 @@
 						$this->load->view('post_login/fertilizer_main');
 						$this->load->view('post_login/fertilizer_home_three',$dash_data);
 						$this->load->view('post_login/footer');
+
+//When User logs into branch
 
 				}elseif($this->session->userdata['loggedin']['ho_flag']  == 'N' && $this->session->userdata['loggedin']['user_type'] == 'U' ){
 

@@ -1879,7 +1879,6 @@ ORDER BY `op_bln` ASC");
                 and c.soc_id = '$soc_id'
                 and c.br_cd='$branch' 
                 and c.op_dt='$frmDt'
-                
                union
                 SELECT paid_dt,'' prod,c.paid_id  as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0 cgst,0 sgst,''ro_no,d.ro_dt as ro_dt,0 as qty,
                 sum(c.paid_amt) tot_recv ,'Cheque Adj' remarks

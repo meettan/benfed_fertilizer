@@ -29,6 +29,80 @@
 </style>
 
 
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table,
+    td,
+    th {
+        border: 1px solid #dddddd;
+
+        padding: 6px;
+
+        font-size: 14px;
+    }
+
+    th {
+
+        text-align: center;
+
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+
+<style>
+    #overlay {
+        background: rgba(100, 100, 100, 0.2);
+        color: #ffff;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+
+
+
+    .spinner {
+        margin: 0 auto;
+        height: 64px;
+        width: 64px;
+        animation: rotate 0.8s infinite linear;
+        border: 5px solid #228ed3;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+
+<div id="overlay" style="display:none;">
+    <div class="spinner"></div>
+</div>
+
+
+
+
 
 <div class="wraper">
     <?php //print_r($this->session->userdata('loggedin')); 
@@ -39,13 +113,13 @@
 
             <div class="form-header">
 
-                <h4>Inputs</h4>
+                <h4>Date Range</h4>
 
             </div>
 
             <div class="form-group row">
 
-                <label for="from_dt" class="col-sm-2 col-form-label">From Date:</label>
+                <label for="from_dt" class="col-sm-2 col-form-label from_dt">From Date:</label>
 
                 <div class="col-sm-6">
 
@@ -62,7 +136,7 @@
 
                 <div class="col-sm-6">
 
-                    <input type="date" name="to_date" class="form-control required" min='<?php echo explode('-', $this->session->userdata('loggedin')['fin_yr'])[0] . '-04-01' ?>' max='<?php echo ((explode('-', $this->session->userdata('loggedin')['fin_yr'])[0]) + 1) . '-03-31' ?>' value="<?= $to_dt; ?>" />
+                    <input type="date" name="to_date" class="form-control required to_date" min='<?php echo explode('-', $this->session->userdata('loggedin')['fin_yr'])[0] . '-04-01' ?>' max='<?php echo ((explode('-', $this->session->userdata('loggedin')['fin_yr'])[0]) + 1) . '-03-31' ?>' value="<?= $to_dt; ?>" />
 
                 </div>
 
@@ -184,7 +258,7 @@
                                         <?php echo $prodtls->cr_amt; $total_cr_amt+=$prodtls->cr_amt;?>
 
                                     </td>
-                                    <td class="report closing" id="closing">0.00
+                                    <td class="report closing" id="closing">
                                         <?php echo $prodtls->cr_adj; $total_cr_adj+=$prodtls->cr_adj; ?>
                                     </td>
                                     <td><?php echo $prodtls->oth_adj; $total_oth_adj+=$prodtls->oth_adj;?></td>
@@ -244,6 +318,10 @@
             </div>
 
         </div>
+
+        <script>
+              $('#overlay').fadeIn().delay(2500).fadeOut();
+              </script>
     <?php } ?>
 
 </div>
@@ -280,4 +358,16 @@
         }, 10);
 
     }
+</script>
+
+<script>
+    $("#submit").click(function() {
+        // $('#overlay').fadeIn().delay(55000).fadeOut();
+        if($('.to_date').val()==''||$('.from_dt').val()==""){
+           
+                $('#overlay').fadeOut();
+        }else{
+            $('#overlay').fadeIn();
+        }
+    })
 </script>

@@ -45,19 +45,58 @@ html {
 .left_bar_new ul li {margin: 0; padding: 0 0 0 34px; font-size: 14px; color: #353637; line-height: 36px;}
 
 .left_bar_new ul li:nth-child(1) {
-  background: url("../images/icon_a.png") no-repeat left center;}
-
-.left_bar_new ul li:nth-child(2) {
-  background: url("../images/icon_b.png") no-repeat left center;}
-
-.left_bar_new ul li:nth-child(3) {
-  background: url("../images/icon_c.png") no-repeat left center;}
-
-.left_bar_new ul li:nth-child(4) {
   background: url("../images/icon_d.png") no-repeat left center;}
 
-.left_bar_new ul li:nth-child(5) {
+.left_bar_new ul li:nth-child(2) {
   background: url("../images/icon_e.png") no-repeat left center;}
+
+.left_bar_new ul li:nth-child(3) {
+  background: url("../images/icon_b.png") no-repeat left center;}
+
+.left_bar_new ul li:nth-child(4) {
+  background: url("../images/icon_c.png") no-repeat left center;}
+
+.left_bar_new ul li:nth-child(5) {
+  background: url("../images/icon_a.png") no-repeat left center;}
+
+  
+.left_bar_new ul li:nth-child(6) {
+  background: url("../images/icon_f.png") no-repeat left center;}
+
+  
+.left_bar_new ul li:nth-child(7) {
+  background: url("../images/icon_g.png") no-repeat left center;}
+
+
+
+  .left_bar_new ul li:nth-child(8) {
+    background: url("../images/icon_d.png") no-repeat left center;}
+  
+  .left_bar_new ul li:nth-child(9) {
+    background: url("../images/icon_e.png") no-repeat left center;}
+  
+  .left_bar_new ul li:nth-child(10) {
+    background: url("../images/icon_b.png") no-repeat left center;}
+  
+  .left_bar_new ul li:nth-child(11) {
+    background: url("../images/icon_c.png") no-repeat left center;}
+  
+  .left_bar_new ul li:nth-child(12) {
+    background: url("../images/icon_a.png") no-repeat left center;}
+  
+    
+  .left_bar_new ul li:nth-child(13) {
+    background: url("../images/icon_f.png") no-repeat left center;}
+  
+    
+  .left_bar_new ul li:nth-child(14) {
+    background: url("../images/icon_g.png") no-repeat left center;}
+    
+    .left_bar_new ul li:nth-child(15) {
+      background: url("../images/icon_b.png") no-repeat left center;}
+
+
+
 
 .left_bar_new ul li a {color: #353637; text-decoration: none; font-weight: 300;}
 

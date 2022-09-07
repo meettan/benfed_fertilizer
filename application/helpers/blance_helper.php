@@ -110,6 +110,9 @@ if (!function_exists('stock_balance')) {
 
     } else if ($state == 'L') {              //For Liquid State Fertilizer
 
+      $total_sale_qty=0.0;
+      $total_purchase_qty = 0.0; 
+
 
 
       $rtndate = $ci->db->query("select max(balance_dt) date from   tdf_opening_stock where  balance_dt <= '" . $date . "' and branch_id =" . $branch)->row();
@@ -156,7 +159,7 @@ if (!function_exists('stock_balance')) {
                                       group by a.unit,b.qty_per_bag")->result();
 
       if (!empty($get_purchase)) {
-        $total_purchase_qty = 0.0;                             //Liquid stock converting all units in LTR
+                                    //Liquid stock converting all units in LTR
         foreach ($get_purchase as $purchase_data) {
 
           if ($purchase_data->unit == 3) {
