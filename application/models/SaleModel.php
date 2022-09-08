@@ -1068,6 +1068,19 @@ function f_salecrjnl($data){
 		}
 		public function delete_td_vouchers($trans_no){
 			$db2 = $this->load->database('findb', TRUE);
+
+
+			$db2 = $this->load->database('findb', TRUE);
+				$data=$db2->select('')->where(array('trans_no'=>$trans_no))->get('td_vouchers')->result();
+			foreach ($data as $keydata) {
+				$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+				$keydata->delete_dt = date('Y-m-d H:m:s');
+				// print_r($keydata);
+				$db2->insert('td_vouchers_delete', $keydata);
+
+			}
+
+
 			$data= $db2->query("DELETE FROM td_vouchers WHERE trans_no='$trans_no'");
 			return $data;
 		}

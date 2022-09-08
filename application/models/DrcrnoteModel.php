@@ -196,6 +196,15 @@ function f_crnjnl($data){
 		}
 		public function delete_td_vouchers($recpt_no){
 			$db2 = $this->load->database('findb', TRUE);
+				$data=$db2->select('')->where(array('voucher_id'=>$recpt_no))->get('td_vouchers')->result();
+			foreach ($data as $keydata) {
+				$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+				$keydata->delete_dt = date('Y-m-d H:m:s');
+				// print_r($keydata);
+				$db2->insert('td_vouchers_delete', $keydata);
+
+			}
+
 			$data= $db2->query("DELETE FROM td_vouchers WHERE voucher_id='$recpt_no'");
 			return $data;
 		}

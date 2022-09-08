@@ -619,6 +619,19 @@
 		}
 		public function f_delete_voucher($where_fin){
 			$db2 = $this->load->database('findb', TRUE);
+
+			$db2 = $this->load->database('findb', TRUE);
+				$data=$db2->select('')->where(array('trans_no'=>$where_fin))->get('td_vouchers')->result();
+			foreach ($data as $keydata) {
+				$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+				$keydata->delete_dt = date('Y-m-d H:m:s');
+				// print_r($keydata);
+				$db2->insert('td_vouchers_delete', $keydata);
+
+			}
+
+
+
 			$data= $db2->query("DELETE FROM td_vouchers WHERE trans_no='$where_fin'");
 			return $data;
 		

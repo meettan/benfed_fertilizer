@@ -1034,11 +1034,26 @@ redirect('fertilizer/cr_note');
 			
 public function deletecustpay() {
 
-	$where = array(
-				 "paid_id"    =>  $this->input->get('paid_id')
-				);
-$this->ApiVoucher->delete_recvjnl($where);
+	$where = array("paid_id"    =>  $this->input->get('paid_id'));
+	$where2 = array(
+		"paid_id"    =>  $this->input->get('paid_id'),
+		"delete_by" 	=> 	$this->session->userdata['loggedin']['user_name'],
+	 );
+$this->ApiVoucher->delete_recvjnl($where2);
+
+
+		$data=$this->AdvanceModel->f_select('tdf_payment_recv',null,$where,0);
+		foreach ($data as $keydata) {
+			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->db->insert('tdf_payment_recv_delete', $keydata);
+
+		}
 $this->Society_paymentModel->f_delete('tdf_payment_recv', $where);
+
+
+	
 $this->Society_paymentModel->f_delete('tdf_advance', $where);
 
 
@@ -3806,6 +3821,16 @@ public function deleteAccCd() {
 
         $where  = array('paid_id'=> $this->input->get('id')); 
 		$this->Society_paymentModel->f_edit('tdf_payment_recv',array('approval_status'=>'U'),$where);
+
+		$data=$this->AdvanceModel->f_select('tdf_payment_forward',null,$where,0);
+		foreach ($data as $keydata) {
+			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->db->insert('tdf_payment_forward_delete', $keydata);
+
+		}
+
 		$this->Society_paymentModel->f_delete('tdf_payment_forward', $where) ;	
 		redirect('socpay/soc_payment_fwd');	
 	}

@@ -736,6 +736,17 @@ public function drnoteReport()
 						"trans_dt" => $this->input->get('trans_dt'),
 						"trans_no" => $this->input->get('trans_no')
 				);
+
+				$data=$this->DrcrnoteModel->f_select('tdf_dr_cr_note',null,$where,0);
+		foreach ($data as $keydata) {
+			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->DrcrnoteModel->f_insert('tdf_dr_cr_note_delete',$keydata);
+
+		}
+
+		
 			$this->DrcrnoteModel->f_delete('tdf_dr_cr_note', $where);
 			$this->DrcrnoteModel->delete_td_vouchers($recpt_no);
 			$this->session->set_flashdata('msg', 'Successfully Deleted!');

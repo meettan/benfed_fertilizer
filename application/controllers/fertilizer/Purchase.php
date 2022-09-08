@@ -1460,8 +1460,28 @@ class Purchase extends MX_Controller
 		);
 
 		$where_fin = $this->input->get('ro_no');
+
+		$data2=$this->PurchaseModel->f_select('td_purchase',null,$where,0);
+		foreach ($data2 as $keydata2) {
+			$keydata2->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata2->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->PurchaseModel->f_insert('td_purchase_delete',$keydata2);
+
+		}
+
 		$ret=$this->PurchaseModel->f_delete('td_purchase', $where);
 		if($ret){
+
+			$data=$this->PurchaseModel->f_select('tdf_stock_point_trans',null,$where1,0);
+				foreach ($data as $keydata) {
+					$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+					$keydata->delete_dt = date('Y-m-d H:m:s');
+					// print_r($keydata);
+					$this->PurchaseModel->f_insert('tdf_stock_point_trans_delete',$keydata);
+
+				}
+				
 		$this->PurchaseModel->f_delete('tdf_stock_point_trans', $where1);
 		$this->PurchaseModel->f_delete_voucher($where_fin);
 		

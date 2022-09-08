@@ -655,8 +655,6 @@ public function deletesale() {
 // exit();
 	$where = array(
 				 "trans_do"    =>  $this->input->get('trans_do')
-				
-		
 	);
 
 
@@ -667,7 +665,18 @@ $irnChecked= $this->SaleModel->checked_selsRo($sale_invoice_no);
 
 if($resp==0){
 	if($irnChecked==0){
+
+
 		$this->SaleModel->delete_td_vouchers($sale_invoice_no);
+
+		$data2=$this->SaleModel->f_select('td_sale',null,$where,0);
+		foreach ($data2 as $keydata2) {
+			$keydata2->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata2->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->SaleModel->f_insert('td_sale_delete',$keydata2);
+
+		}
 		$this->SaleModel->f_delete('td_sale', $where);
 		$this->session->set_flashdata('msg', 'Successfully Deleted!');
 		redirect("trade/sale");

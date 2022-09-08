@@ -885,6 +885,7 @@ public function add_advdetail(){
 		}
 
 }
+//======================== 
 
 public function advDel(){
 			
@@ -893,11 +894,25 @@ public function advDel(){
         "receipt_no"    =>  $this->input->get('receipt_no')
     );
 
+	$where2 = array(
+        
+        "receipt_no"    =>  $this->input->get('receipt_no'),
+		"delete_by" 	=> 	$this->session->userdata['loggedin']['user_name'],
+    );
+
 	// print_r($this->ApiVoucher->delete_advancefilter_recvjnl($where));
 	// exit();
 
-	if($this->ApiVoucher->delete_advancefilter_recvjnl($where)==1){
+	if($this->ApiVoucher->delete_advancefilter_recvjnl($where2)==1){
 		$this->session->set_flashdata('msg', 'Successfully Deleted!');
+		$data=$this->AdvanceModel->f_select('tdf_advance',null,$where,0);
+		foreach ($data as $keydata) {
+			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->db->insert('tdf_advance_delete', $keydata);
+
+		}
 		$this->AdvanceModel->f_delete('tdf_advance', $where); 
 		redirect("adv/advancefilter");
 	}else{
@@ -1109,7 +1124,21 @@ public function f_get_dist_bnk_dtls(){
 			'fwd_receipt_no'  => $data[2]
 	    );
 
+
+		
 	    $this->session->set_flashdata('msg', 'Successfully Deleted!');
+
+
+
+		$data=$this->AdvanceModel->f_select('tdf_adv_fwd',null,$where,0);
+		foreach ($data as $keydata) {
+			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+			$keydata->delete_dt = date('Y-m-d H:m:s');
+			// print_r($keydata);
+			$this->db->insert('tdf_adv_fwd_delete', $keydata);
+
+		}
+
 
 	    $this->AdvanceModel->f_delete('tdf_adv_fwd', $where);
 	    redirect("adv/advancefwd");
