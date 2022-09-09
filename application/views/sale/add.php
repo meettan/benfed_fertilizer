@@ -699,6 +699,7 @@
         $.ajax({
                 url: "<?php echo site_url('trade/get_mrp');?>",
                 type: "post",
+                dataType: "json",
                 data: {
                     ro: $('#ro').val(),
                     comp_id: $("#comp_id").val(),
@@ -710,7 +711,7 @@
                     $('#mrp_gst').val(d[0].sp_bag_gst);
                     $('#sale_rtgst').val(d[0].sale_rtgst);
                     $('#sp_bag_gst').val(d[0].sp_bag_gst);
-                    console.lo(d);
+                    console.log(d[0]);
                 }
             });
 
