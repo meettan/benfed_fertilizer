@@ -1,6 +1,49 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick-theme.css">
 
+<style>
+    #overlay {
+        background: rgba(100, 100, 100, 0.2);
+        color: #ffff;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+
+
+
+    .spinner {
+        margin: 0 auto;
+        height: 64px;
+        width: 64px;
+        animation: rotate 0.8s infinite linear;
+        border: 5px solid #228ed3;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<div id="overlay" style="display:none;">
+    <div class="spinner"></div>
+</div>
+
 <!-- User Types : Admin ->A User->U Manager->M -->
 <!-- Side Menus -->
 
@@ -111,7 +154,7 @@
           <div class="sectionNew">
             <div class="stockPointSecTitle">
               <div class="col-sm-12">
-                <h2>Society Wise Status</h2>
+                <h2>Societywise Status</h2>
                 <div class="selectBox">
                   <select name="select_district" id="select_district" class="sch_cd">
                     <option value="select_district">Select Society</option>
@@ -134,21 +177,21 @@
             <div class="col-sm-6 float-left">
               <div class="bloxkSec">
                 <img src="<?= base_url() ?>assets/images/icon_aa.png" alt="" class="bloxkSecImg">
-                <h3>Quantity Sold</h3>
-                <p class="price"><span class="mt" ><strong> mt</strong></span> <span class="mt" id="qty"><strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong><span id="solPrice"></span></span>
-                </p>
+                <h3>Quantity Sold for the year</h3>
+                <p class="price">
+                  <span class="mt"><span id="quantitySold">0.0</span><strong> mt</strong></span>
+                  <!-- <span class="mt" id="qty"><strong>mt</strong></span></p> -->
+                  <span class="lit"><span id="quantityltr">0.0</span><strong> LTR</strong></span>
               </div>
             </div>
 
             <div class="col-sm-6 float-left">
               <div class="bloxkSec">
                 <img src="<?= base_url() ?>assets/images/icon_bb.png" alt="" class="bloxkSecImg">
-                <h3>Payment Done for the years</h3>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span>
+                <h3>No.of Invoices</h3>
+                <p class="price">
+                  <span class="mt"><span id="quantityPurchaseMt">0.0</span><strong> B2B</strong></span>
+                  <span class="lit"><span id="quantityPurchaseLtr">0.0<span> <strong>B2C</strong></span>
                 </p>
               </div>
             </div>
@@ -156,10 +199,9 @@
             <div class="col-sm-6 float-left">
               <div class="bloxkSec bloxkSecMarginBotNone">
                 <img src="<?= base_url() ?>assets/images/icon_cc.png" alt="" class="bloxkSecImg">
-                <h3>Total Number Of Register</h3>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span>
+                <h3>Amount Paid for the Year</h3>
+                <p class="price">
+                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i></strong><span id="amountPaidfortheYear"></span></span>
                 </p>
               </div>
             </div>
@@ -167,10 +209,9 @@
             <div class="col-sm-6 float-left">
               <div class="bloxkSec bloxkSecMarginBotNone">
                 <img src="<?= base_url() ?>assets/images/icon_dd.png" alt="" class="bloxkSecImg">
-                <h3>Total Number Of Stock Point </h3>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span>
+                <h3>Blance Amount</h3>
+                <p class="price">
+                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong><span id="blanceAmount"></span></span>
                 </p>
               </div>
             </div>
@@ -222,7 +263,7 @@
 
 
 
-
+<!-- 
           <div class="barPaiChartMain">
             <div class="col-sm-12 float-left">
               <div class="barChart">
@@ -230,7 +271,7 @@
                 <canvas id="barChartBottombranch"></canvas>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
 
@@ -252,22 +293,30 @@
   $('.barPaiChartMain').hide();
   $('#select_district').change(function() {
     var soc_id = $(this).val();
+    // $('#overlay').fadeIn().delay(2200).fadeOut();
+    $('#overlay').fadeIn();
 
     $.ajax({
-      url: "<?= site_url('Fertilizer_Login/manager_soc_data') ?>",
+      url: "<?= site_url('Fertilizer_Login/societyWiseStatus') ?>",
       type: "POST",
       dataType: "json",
       data: {
         soc_id: soc_id
       },
       success: function(result) {
-        // alert(result.quantitySold.taxable_amt);
-        $('#solPrice').html(result.quantitySold.taxable_amt);
-        $('#qty').html(result.quantitySold.qty);
+        
+        $('#quantitySold').html(result.quantitySold);
+        $('#quantityltr').html(result.quantityltr);
+        $('#quantityPurchaseMt').html(result.quantityPurchaseMt);
+        $('#quantityPurchaseLtr').html(result.quantityPurchaseLtr);
+        $('#amountPaidfortheYear').html(result.amountPaidfortheYear);
+        $('#blanceAmount').html(result.blanceAmount);
 
-        $('#sectionNew').show();
-        $('#sectionNew2').show();
-        $('.barPaiChartMain').show();
+        $('#overlay').fadeOut();
+
+        // $('#sectionNew').show();
+        // $('#sectionNew2').show();
+        // $('.barPaiChartMain').show();
       }
     });
   });
@@ -430,59 +479,59 @@
       }]
     }
 
-    var barChartId = document.getElementById("barChart");
-    if (barChartId) {
-      var ctxB = document.getElementById("barChart").getContext('2d');
-      var myBarChart = new Chart(ctxB, {
-        type: 'bar',
-        data: data,
-        options: {
-          "hover": {
-            "animationDuration": 0
-          },
-          "animation": {
-            "duration": 1,
-            "onComplete": function() {
-              var chartInstance = this.chart,
-                ctx = chartInstance.ctx;
-              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'bottom';
+    // var barChartId = document.getElementById("barChart");
+    // if (barChartId) {
+    //   var ctxB = document.getElementById("barChart").getContext('2d');
+    //   var myBarChart = new Chart(ctxB, {
+    //     type: 'bar',
+    //     data: data,
+    //     options: {
+    //       "hover": {
+    //         "animationDuration": 0
+    //       },
+    //       "animation": {
+    //         "duration": 1,
+    //         "onComplete": function() {
+    //           var chartInstance = this.chart,
+    //             ctx = chartInstance.ctx;
+    //           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+    //           ctx.textAlign = 'center';
+    //           ctx.textBaseline = 'bottom';
 
-              this.data.datasets.forEach(function(dataset, i) {
-                var meta = chartInstance.controller.getDatasetMeta(i);
-                meta.data.forEach(function(bar, index) {
-                  var data = dataset.data[index];
-                  ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                });
-              });
-            }
-          },
-          legend: {
-            "display": false
-          },
-          tooltips: {
-            "enabled": false
-          },
-          scales: {
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Unit in MT'
-              }
-              // ,
-              // ticks: {
-              // min: 0, // minimum value
-              // max: 1600, // maximum value
-              // stepSize: 200
-              // }
-            }]
-          }
-        }
+    //           this.data.datasets.forEach(function(dataset, i) {
+    //             var meta = chartInstance.controller.getDatasetMeta(i);
+    //             meta.data.forEach(function(bar, index) {
+    //               var data = dataset.data[index];
+    //               ctx.fillText(data, bar._model.x, bar._model.y - 5);
+    //             });
+    //           });
+    //         }
+    //       },
+    //       legend: {
+    //         "display": false
+    //       },
+    //       tooltips: {
+    //         "enabled": false
+    //       },
+    //       scales: {
+    //         yAxes: [{
+    //           scaleLabel: {
+    //             display: true,
+    //             labelString: 'Unit in MT'
+    //           }
+    //           // ,
+    //           // ticks: {
+    //           // min: 0, // minimum value
+    //           // max: 1600, // maximum value
+    //           // stepSize: 200
+    //           // }
+    //         }]
+    //       }
+    //     }
 
 
-      });
-    }
+    //   });
+    // }
 
     <?php
     $label = '';
@@ -531,58 +580,58 @@
       }]
     }
 
-    var barChartId = document.getElementById("barChartl");
-    if (barChartId) {
-      var ctxB = document.getElementById("barChartl").getContext('2d');
-      var myBarChart = new Chart(ctxB, {
-        type: 'bar',
-        data: data,
-        options: {
-          "hover": {
-            "animationDuration": 0
-          },
-          "animation": {
-            "duration": 1,
-            "onComplete": function() {
-              var chartInstance = this.chart,
-                ctx = chartInstance.ctx;
-              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'bottom';
+    // var barChartId = document.getElementById("barChartl");
+    // if (barChartId) {
+    //   var ctxB = document.getElementById("barChartl").getContext('2d');
+    //   var myBarChart = new Chart(ctxB, {
+    //     type: 'bar',
+    //     data: data,
+    //     options: {
+    //       "hover": {
+    //         "animationDuration": 0
+    //       },
+    //       "animation": {
+    //         "duration": 1,
+    //         "onComplete": function() {
+    //           var chartInstance = this.chart,
+    //             ctx = chartInstance.ctx;
+    //           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+    //           ctx.textAlign = 'center';
+    //           ctx.textBaseline = 'bottom';
 
-              this.data.datasets.forEach(function(dataset, i) {
-                var meta = chartInstance.controller.getDatasetMeta(i);
-                meta.data.forEach(function(bar, index) {
-                  var data = dataset.data[index];
-                  ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                });
-              });
-            }
-          },
-          legend: {
-            "display": false
-          },
-          tooltips: {
-            "enabled": false
-          },
-          scales: {
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Unit in LTR'
-              }
-              // ,
-              // ticks: {
-              // min: 0, // minimum value
-              // max: 1600, // maximum value
-              // stepSize: 200
-              // }
-            }]
-          }
-        }
+    //           this.data.datasets.forEach(function(dataset, i) {
+    //             var meta = chartInstance.controller.getDatasetMeta(i);
+    //             meta.data.forEach(function(bar, index) {
+    //               var data = dataset.data[index];
+    //               ctx.fillText(data, bar._model.x, bar._model.y - 5);
+    //             });
+    //           });
+    //         }
+    //       },
+    //       legend: {
+    //         "display": false
+    //       },
+    //       tooltips: {
+    //         "enabled": false
+    //       },
+    //       scales: {
+    //         yAxes: [{
+    //           scaleLabel: {
+    //             display: true,
+    //             labelString: 'Unit in LTR'
+    //           }
+    //           // ,
+    //           // ticks: {
+    //           // min: 0, // minimum value
+    //           // max: 1600, // maximum value
+    //           // stepSize: 200
+    //           // }
+    //         }]
+    //       }
+    //     }
 
-      });
-    }
+    //   });
+    // }
 
   }
   <?php
@@ -632,53 +681,53 @@
     }]
   }
 
-  var barChartBottomId = document.getElementById("barChartBottom");
-  if (barChartBottomId) {
-    var ctxC = document.getElementById("barChartBottom").getContext('2d');
+  // var barChartBottomId = document.getElementById("barChartBottom");
+  // if (barChartBottomId) {
+  //   var ctxC = document.getElementById("barChartBottom").getContext('2d');
 
-    var myBarChartBot = new Chart(ctxC, {
-      type: 'bar',
-      data: data,
-      options: {
-        "hover": {
-          "animationDuration": 0
-        },
-        "animation": {
-          "duration": 1,
-          "onComplete": function() {
-            var chartInstance = this.chart,
-              ctx = chartInstance.ctx;
-            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
+  //   var myBarChartBot = new Chart(ctxC, {
+  //     type: 'bar',
+  //     data: data,
+  //     options: {
+  //       "hover": {
+  //         "animationDuration": 0
+  //       },
+  //       "animation": {
+  //         "duration": 1,
+  //         "onComplete": function() {
+  //           var chartInstance = this.chart,
+  //             ctx = chartInstance.ctx;
+  //           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+  //           ctx.textAlign = 'center';
+  //           ctx.textBaseline = 'bottom';
 
-            this.data.datasets.forEach(function(dataset, i) {
-              var meta = chartInstance.controller.getDatasetMeta(i);
-              meta.data.forEach(function(bar, index) {
-                var data = dataset.data[index];
-                ctx.fillText(data, bar._model.x, bar._model.y - 5);
-              });
-            });
-          }
-        },
-        legend: {
-          "display": false
-        },
-        tooltips: {
-          "enabled": false
-        },
-        scales: {
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Amount in crores'
-            }
-          }]
-        }
-      }
+  //           this.data.datasets.forEach(function(dataset, i) {
+  //             var meta = chartInstance.controller.getDatasetMeta(i);
+  //             meta.data.forEach(function(bar, index) {
+  //               var data = dataset.data[index];
+  //               ctx.fillText(data, bar._model.x, bar._model.y - 5);
+  //             });
+  //           });
+  //         }
+  //       },
+  //       legend: {
+  //         "display": false
+  //       },
+  //       tooltips: {
+  //         "enabled": false
+  //       },
+  //       scales: {
+  //         yAxes: [{
+  //           scaleLabel: {
+  //             display: true,
+  //             labelString: 'Amount in crores'
+  //           }
+  //         }]
+  //       }
+  //     }
 
-    });
-  }
+  //   });
+  // }
   $('#toggleDiv').hide();
 
   function expandDiv() {

@@ -672,7 +672,7 @@
                 var unitData = JSON.parse(data);
                 // alert(unitData[0].mrp_gst);
                 // $('.mrp_gst').eq($('.ro').index(this)).html(unitData.mrp_gst);
-                $('#mrp_gst').val(unitData[0].mrp_gst);
+                //$('#mrp_gst').val(unitData[0].mrp_gst);
 
                 var string = '<option value="">Select</option>';
 
@@ -696,6 +696,28 @@
         $('.taxable_amt').eq($('.ro').index(this)).val(0);
         $('.tot_amt').eq($('.ro').index(this)).val(0);
         $('.round_tot_amt').eq($('.ro').index(this)).val(0);
+        $.ajax({
+                url: "<?php echo site_url('trade/get_mrp');?>",
+                type: "post",
+                data: {
+                    ro: $('#ro').val(),
+                    comp_id: $("#comp_id").val(),
+                    sale_category: $("#sale_category").val(),
+                    sale_rt:$(this).val()
+                },
+                success: function(d) {
+                   
+                    $('#mrp_gst').val(d[0].sp_bag_gst);
+                    $('#sale_rtgst').val(d[0].sale_rtgst);
+                    $('#sp_bag_gst').val(d[0].sp_bag_gst);
+                    console.lo(d);
+                }
+            });
+
+       
+        
+
+        
 
     });
    

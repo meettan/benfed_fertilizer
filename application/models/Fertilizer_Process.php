@@ -727,14 +727,14 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		//    Controller=Fertilizer_login function main     ///    08/03/2022  
 		public function get_b2cfortoday($from_yr_day,$to_yr_day,$br_cd){
 			
-			$sql = "select ifnull(count(*),0) cnt from td_sale where irn = NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and br_cd ='$br_cd'";
+			$sql = "select ifnull(count(*),0) cnt from td_sale where irn is NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and br_cd ='$br_cd'";
 			$data = $this->db->query($sql);	
 		    return $data->row();
 		}
 		
 		public function get_b2bfortoday($from_yr_day,$to_yr_day,$br_cd){
 			
-			$sql = "select ifnull(count(*),0) cnt from td_sale where irn != NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and br_cd ='$br_cd'";
+			$sql = "select ifnull(count(*),0) cnt from td_sale where irn is not NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and br_cd ='$br_cd'";
 			$data = $this->db->query($sql);	
 		    return $data->row();
 		}
@@ -760,4 +760,21 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 
             return $query->row();
         }
+
+
+
+
+		public function get_b2bfortoday_soc($from_yr_day,$to_yr_day,$socid){
+			
+			$sql = "select ifnull(count(*),0) cnt from td_sale where irn is not NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and soc_id ='$socid'";
+			$data = $this->db->query($sql);	
+		    return $data->row();
+		}
+
+		public function get_b2cfortoday_soc($from_yr_day,$to_yr_day,$socid){
+			$sql = "select ifnull(count(*),0) cnt from td_sale where irn  is NULL and do_dt BETWEEN '$from_yr_day' and '$to_yr_day' and soc_id ='$socid'";
+			$data = $this->db->query($sql);	
+		    return $data->row();
+		}
+	
 	}

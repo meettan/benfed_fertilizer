@@ -34,58 +34,81 @@
 
     <div class="col-sm-9 float-left rightSideSec">
       <div class="row">
-        <div class="threeBoxNewmain">
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg redCol"><img src="<?=base_url()?>assets/images/boxIcon_d.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Opening</h2>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span></p>
+	  <div class="threeBoxNewmain">
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg redCol"><img src="<?= base_url() ?>assets/images/boxIcon_d.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>Opening</h2>
+                   <p class="price"><span class="mt"><?= $openingS ?><strong> MT</strong></span>
+                    <span class="lit"><strong> </strong><?= $openingL ?><strong> LTR</strong></span></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg darkBlue"><img src="<?= base_url() ?>assets/images/boxIcon_a.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>Purchase For The Day</h2>
+                  <p class="price"><span class="mt"><?= round($totsolidpur, 3); ?><strong> mt</strong></span>
+                    <span class="lit"><strong> </strong><?= round($totliquidpur, 3); ?><strong> LTR</strong></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg yellowCol"><img src="<?= base_url() ?>assets/images/boxIcon_b.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>Sale For The Day</h2>
+                  <p class="price"><span class="mt"><?= round($brsalesolidtoday, 3); ?><strong> MT</strong></span>
+                    <span class="lit"><strong> </strong><?= round($brsaleliquidtoday, 3); ?><strong>
+                        LTR</strong></span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg darkBlue"><img src="<?=base_url()?>assets/images/boxIcon_a.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Purchase For The Day</h2>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span></p>
+          <div class="threeBoxNewmain">
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg lightBlue"><img src="<?= base_url() ?>assets/images/boxIcon_e.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>Closing</h2>
+                  <p class="price"><span class="mt"><?=$closingS?><strong>
+                        MT</strong></span>
+                    <span class="lit"><strong>
+                      </strong><?= $closingL ?><strong> LTR</strong></span>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-        </div>
-
-        <div class="threeBoxNewmain">
-
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg yellowCol"><img src="<?=base_url()?>assets/images/boxIcon_b.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Sale For The Day</h2>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span></p>
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg yellowCol"><img src="<?= base_url() ?>assets/images/boxIcon_collec.png" alt="">
+                </div>
+                <div class="threeBoxTxt">
+                  <h2>Today's Collection</h2>
+                  <p class="price">
+                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= round($todaycollection->tot_recvamt,3) ?></span>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg lightBlue"><img src="<?=base_url()?>assets/images/boxIcon_e.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Closing</h2>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span></p>
+            <div class="col-sm-4 float-left">
+              <div class="threeBoxNewSmall">
+                <div class="threeBoxImg redCol"><img src="<?= base_url() ?>assets/images/boxIcon_inv.png" alt=""></div>
+                <div class="threeBoxTxt">
+                  <h2>No.of Invoices </h2>
+                  <p class="price"><span class="mt"><?= $b2b->cnt ?><strong> B2B</strong></span>
+                    <span class="lit"><strong> </strong><?= $b2c->cnt ?><strong> B2C</strong></span>
+                  </p>
+                </div>
               </div>
             </div>
+
           </div>
-        </div>
 
         <div class="col-sm-12">
           <section class="sliderBotSlickSlider">

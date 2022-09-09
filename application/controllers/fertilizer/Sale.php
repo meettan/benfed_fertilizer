@@ -75,8 +75,6 @@
 			
 			$ro = $this->input->get('ro');
 
-			// echo $ro;
-			// die();
 			$comp_id = $this->input->get('comp_id');
 			$category = $this->input->get('sale_category');
 
@@ -103,6 +101,42 @@
  			echo json_encode($result);
 
 		} 
+
+
+		public function get_mrp(){
+
+			$ro=$this->input->post("ro");
+
+			$comp_id=$this->input->post("comp_id");
+
+			$sale_category=$this->input->post("sale_category");
+
+			$sale_rt=$this->input->post("sale_rt");	
+
+			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+				$where  =   array(
+					'comp_id'     => $comp_id,
+					'ro_no'      =>  $ro
+				);
+
+				$select = array("ro_dt","prod_id");
+
+			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+
+			$ro_dt      = $ros->ro_dt;
+
+			$prod_id    = $ros->prod_id;
+			
+			$result = $this->SaleModel->get_mrp($br_cd,$comp_id,$ro_dt,$prod_id,$sale_category,$sale_rt);		
+		
+			// echo $this->db->last_query();
+			// exit();
+ 			echo json_encode($result);
+
+
+		}
+
 
 		public function get_govsalert(){
 

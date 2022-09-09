@@ -330,13 +330,39 @@
 
 				}elseif($this->session->userdata['loggedin']['ho_flag']  == 'N' && $this->session->userdata['loggedin']['user_type'] == 'U' ){
 
+
+					//Stock Opening Balance Solid and Liquid
+					$dash_data['openingS']= stock_balance($yesterday, $branch_id,'S');
+					$dash_data['openingL']= stock_balance($yesterday, $branch_id,'L');
+
+
+					//Total Purchase Solid & Liquid for a period branchwise
+					$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
+					$dash_data['totliquidpur']	  = get_purchase($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'L');
+
+					//Total Sale Solid & Liquid for a period branchwise
+					$dash_data['brsalesolidtoday']=get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'S');
+					$dash_data['brsaleliquidtoday']=get_sale($_SESSION['sys_date'],$_SESSION['sys_date'], $branch_id, 'N', 'L');
+
+					//Stock Closing Balance Solid and Liquid
+					$dash_data['closingS']= stock_balance($_SESSION['sys_date'], $branch_id,'S');
+					$dash_data['closingL']= stock_balance($_SESSION['sys_date'], $branch_id,'L');
+
+
+					//Total Collection for a period branchwise
+					$dash_data['todaycollection'] = collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N');
+
+					
+					//No.of B2B and B2C invoices
+					$dash_data['b2c']   = $this->Fertilizer_Process->get_b2cfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
+					$dash_data['b2b']   = $this->Fertilizer_Process->get_b2bfortoday($_SESSION['sys_date'],$_SESSION['sys_date'],$branch_id);
+
+
+
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_four',$dash_data);
 					$this->load->view('post_login/footer');
 				}
-				// $this->load->view('post_login/fertilizer_main');
-				// $this->load->view('post_login/fertilizer_home',$dash_data);
-				// $this->load->view('post_login/footer');
 
 			}
 			else{
@@ -443,10 +469,38 @@
 			$data=array(
 				'quantitySold'=>$this->Fertilizer_Process->f_get_sales($branch_id,$soc_id),
 			);
-			echo $this->db->last_query();
-
-			// print_r($data['quantitySold']);
 			echo json_encode($data);
+		}
+
+		//Societywise Status in Admin & Manager Branch Login
+		public function societyWiseStatus(){
+			$fin_yr			=$this->session->userdata['loggedin']['fin_yr'];
+			$from_fin_yr 	= substr($fin_yr,0,4);					
+			$from_yr_day    = date('Y-m-d',strtotime($from_fin_yr.'-04-01'));
+			$soc_id			= $this->input->post('soc_id');
+			$soc_balance_amt=round(soc_balance_amt( date('Y-m-d'), $soc_id),2);
+
+			if($soc_balance_amt < 0){
+				$soc_balance_amt_data=(-1) * $soc_balance_amt." Dr.";
+
+			}else{
+				$soc_balance_amt_data=$soc_balance_amt." Cr.";
+			}
+			$data_array=array(
+				"quantitySold"=>round(get_sale_soc($from_yr_day,date('Y-m-d'), $soc_id, 'S'),2),   //solid qty sold for a yr
+
+				"quantityltr"=>round(get_sale_soc($from_yr_day,date('Y-m-d'), $soc_id, 'L'),2),   //liquid qty sold for a yr
+
+				"quantityPurchaseMt"=>$this->Fertilizer_Process->get_b2bfortoday_soc($from_yr_day,date('Y-m-d'),$soc_id)->cnt,
+
+				"quantityPurchaseLtr"=>$this->Fertilizer_Process->get_b2cfortoday_soc($from_yr_day,date('Y-m-d'),$soc_id)->cnt,
+
+				"amountPaidfortheYear"=>round(collectionForTheDay_soc($from_yr_day,date('Y-m-d'), $soc_id),2),  //Amt paid for a year
+
+				"blanceAmount"=> $soc_balance_amt_data//balance amt
+				
+			);
+			echo json_encode($data_array);
 		}
 	}
 ?>

@@ -341,6 +341,24 @@ return $sql->result();
 			// return $sql->row();
 			return $sql->result();
 		}
+
+
+       function get_mrp($br_cd,$comp_id,$ro_dt,$prod_id,$sale_category,$sale_rt){
+		$q=$this->db->query("SELECT distinct mrp_gst,sale_rtgst,sp_bag_gst
+							 from  mm_sale_rate		   							
+			                 where  catg_id = '$sale_category'
+			 				 and district   = '$br_cd'
+			                 and comp_id    ='$comp_id'
+			                 and prod_id   =  '$prod_id'
+			                  and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+			                               and district='$br_cd'
+						                   and comp_id='$comp_id'
+						                   and prod_id ='$prod_id')
+						    and  sp_mt = $sale_rt");
+		return $q->result();
+	   }
+
+
 		public function get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt)
 		{
 
