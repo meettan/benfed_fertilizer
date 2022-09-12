@@ -172,52 +172,66 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                                 <tr class="rep">
-                                     <td class="report"><?php echo $i++; ?></td>
-                                     <td><?php echo $prodtls->remarks; ?></td>
-                                     <td class="report opening" id="opening">
+                                     <td class="report"><?php echo $i++; ?></td>                            <!--SL. No.--->
+
+                                     <td><?php echo $prodtls->remarks; ?></td>                              <!--Remarks--->
+
+                                     <td class="report opening" id="opening">                               <!--Date--->
                                         <?php echo date('d/m/Y',strtotime($prodtls->trans_dt)); ?>
 									 </td>
-                                     <td><?php echo $prodtls->prod; ?></td>
-                                     <td><?= $prodtls->inv_no; ?></td>
-                                     <td class="report"><?php echo $prodtls->ro_no; ?>
-                                     </td>
-                                     <td class="report opening" id="opening">
+
+                                     <td><?php echo $prodtls->prod; ?></td>                                 <!--Product--->
+
+                                     <td><?= $prodtls->inv_no; ?></td>                                      <!--Invoice/Receipt no.--->
+
+                                     <td class="report"><?php echo $prodtls->ro_no; ?></td>                 <!--RO--->
+
+                                     <td class="report opening" id="opening">                               <!--Ro Date/Deposit Date--->
                                         <?php if($prodtls->remarks!='Opening'){ echo date('d/m/Y',strtotime($prodtls->ro_dt));} ?>
 									 </td>
-                                     <td class="report purchase" id="purchase">
-                                     <?php echo $prodtls->qty; $qty+=$prodtls->qty; ?>
+
+                                     <td class="report purchase" id="purchase">                             <!--Quantity--->
+                                        <?php echo $prodtls->qty; $qty+=$prodtls->qty; ?>
                                      </td>
-									  <td class="report purchase" id="purchase">
-                                     <?php echo $prodtls->tot_payble;
-                                      $taxable += $prodtls->tot_payble  ?>
+
+									 <td class="report purchase" id="purchase">                            <!--Taxable Amount--->
+                                        <?php echo $prodtls->tot_payble;
+                                              $taxable += $prodtls->tot_payble  ?>
                                      </td>
-									  <td class="report sale" id="sale">
-                                     <?php echo $prodtls->cgst; 
-                                    $tot_cgst += $prodtls->cgst;?>
+
+									 <td class="report sale" id="sale">                                     <!--CGST--->
+                                        <?php echo $prodtls->cgst; 
+                                            $tot_cgst += $prodtls->cgst;?>
                                      </td>
-                                     <td class="report sale" id="sale">
-                                     <?php echo $prodtls->sgst; 
-                                     $tot_sgst += $prodtls->sgst ;?>
+
+                                     <td class="report sale" id="sale">                                     <!--SGST--->
+                                        <?php echo $prodtls->sgst; 
+                                        $tot_sgst += $prodtls->sgst ;?>
                                      </td>
-                                     <td class="report sale" id="sale">
-                                     <?php  echo  $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst; 
-                                    // $tot_cgst += $prodtls-> ; 
-                                     $totalamount += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst;
-                                    $saleAmt += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst; ?>
+
+                                     <td class="report sale" id="sale">                                     <!--Total Amount--->
+                                        <?php  echo  $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst;  
+                                                $totalamount += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst;
+                                                $saleAmt += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst; ?>
                                      </td>
-                                     <td> <?php  if($prodtls->remarks=='Opening'){
-										echo '0.00';
-									}else{
-										echo round(abs($prodtls->tot_paid),2) ; $advCrnote+=$prodtls->tot_paid;}
-									?></td>
-									 <td class="report sale" id="sale">
-                                     <?php if($prodtls->remarks=='Opening'){
-										echo '0.00';
+
+                                     <td>                                                                   <!--Advance/Credit Note Amount--->
+                                        <?php  if($prodtls->remarks=='Opening'){                          
+										        echo '0.00';
+									          }else{
+										        echo round(abs($prodtls->tot_paid),2) ; $advCrnote+=$prodtls->tot_paid;}
+									    ?>
+                                     </td>
+
+									 <td class="report sale" id="sale">                                     <!--Adjustable Amount--->
+                                        <?php if($prodtls->remarks=='Opening'){
+										    echo '0.00';
 										}else{	echo ($prodtls->tot_recv);
-										$adjustable +=($prodtls->tot_recv);
-											 }
-									  ?>
+										    $adjustable +=($prodtls->tot_recv);
+									    }
+									   ?>
                                      </td>
+
                                      <?php 
 										
                                      if($prodtls->remarks=='Opening'){
