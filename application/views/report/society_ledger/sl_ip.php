@@ -118,18 +118,25 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Remarks</th>
                                 <th>Date</th>
                                 <th>Product</th>
-                                <th>Invoice No/Receipt No.</th>
+                                <th>Invoice/
+                                    Receipt No.</th>
                                 <th>RO</th>
-                                <th>RO / Deposit Date</th>
+                                <th>RO/
+                                    Deposit Date</th>
                                 <th>Qty</th>
-                                <th>Taxable Amount</th>
+                                <th>Taxable 
+                                    Amount</th>
                                 <th>CGST</th>
                                 <th>SGST</th>
-								<th>Total Amount</th>
+								<th>Total 
+                                    Amount</th>
                                 <th>Advance/
 								    Credit Note</th>
-                                <th>Amount Adjusted/
-                                    (Cheque/Draft/Payorder/NEFT/RTGS)
+                                <th>Adjusted 
+                                    Amount
+                                    (Cheque/Draft/
+                                    Payorder/NEFT/
+                                    RTGS)
                                  </th>
                                  <th>Dr</th>
                                  <th>Cr</th>
