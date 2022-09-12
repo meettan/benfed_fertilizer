@@ -1904,11 +1904,9 @@ ORDER BY `op_bln` ASC");
              
              SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,c.tot_amt as paid_amt,0 paybl,0,0,c.ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
                 FROM tdf_dr_cr_note c,mm_ferti_soc b,td_sale d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.invoice_no = d.trans_do and c.trans_flag='R' and c.trans_dt between '$frmDt' and '$toDt' 
-                group by soc_name,c.soc_id,c.ro, trans_dt
              Union
              SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,c.adv_amt as paid_amt,0 paybl,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'Advance' remarks
                 FROM tdf_advance c,mm_ferti_soc b where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.trans_type='I' and c.trans_dt between '$frmDt' and '$toDt'
-                 group by soc_name,c.soc_id, trans_dt,receipt_no
                
              Union
              SELECT c.do_dt,e.prod_desc prod,c.trans_do as inv_no, c.soc_id,b.soc_name,0 tot_paid ,c.taxable_amt as tot_payble,c.cgst ,c.sgst,c.sale_ro,d.ro_dt,c.qty ,0,'Sale' remarks
@@ -1917,8 +1915,7 @@ ORDER BY `op_bln` ASC");
                 and c.soc_id=b.soc_id and b.soc_id = '$soc_id'
                 and c.sale_ro = d.ro_no and c.do_dt between '$frmDt' and '$toDt' 
                 and c.prod_id=e.prod_id
-                and c.soc_id not in(select soc_id from tdf_payment_recv where paid_dt between '$frmDt' and '$toDt' and branch_id=343)
-               group by c.do_dt ,c.soc_id,b.soc_name,e.prod_desc,c.trans_do)a
+               )a
                 group by soc_id,soc_name,ro_no,ro_dt,inv_no 
 				ORDER BY `a`.`trans_dt`,`a`.`inv_no`");
         //ORDER BY `a`.`trans_dt`");
