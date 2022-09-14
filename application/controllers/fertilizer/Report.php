@@ -822,7 +822,8 @@ public function stkScomp_ho(){
     }
 
 }
-        /********product wise stock statement*********************/
+
+/********************************product wise stock Report At Branch*****************************************************************************/
 
         public function stkSprod(){
 
@@ -833,11 +834,12 @@ public function stkScomp_ho(){
                 $to_dt      =   $_POST['to_date'];
 
                 $comp_id    =   $this->input->post('company');
+
                 $prod_id    =   $this->input->post('product');
                 
                 $branch     =   $this->session->userdata['loggedin']['branch_id'];
 
-                $mth        =  date('n',strtotime($from_dt));
+                /*$mth        =  date('n',strtotime($from_dt));
 
                 $yr         =  date('Y',strtotime($from_dt));
 
@@ -852,29 +854,29 @@ public function stkScomp_ho(){
 
                 $opndt      =  date($year.'-04-01');
 
-                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));*/
 
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
                 
-                $data['product']     =   $this->ReportModel->f_get_product_list_rep($branch,$opndt,$prod_id);
+                $data['product']     =   $this->ReportModel->f_get_product_list_rep($branch,$prod_id);
+
+
+                $data['productwise_stock']=$this->ReportModel->f_get_purchase_Productwise($from_dt, $to_dt, $branch,$prod_id);
+               
                 
-                $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
+                // $data['opening']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
+                // $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
+                // $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
+                // $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
 
-                $data['purchase']    =   $this->ReportModel->f_get_purchase_rowise($branch,$from_dt,$to_dt);
-
-                $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
-
-                
-                $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/stk_prod/stk_prod',$data);
                 $this->load->view('post_login/footer');
-
+               
             }else{
 
                 $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);

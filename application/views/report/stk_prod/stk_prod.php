@@ -95,17 +95,21 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
 
-                                <th>Ro</th>
+                                <th>comp_name</th>
 
-                                <th>Opening</th>
+                                <th>prod_desc</th>
 
-                                <th>Purchase during the period</th>
+                                <th>unit</th>
 
-                                <th>Sale during the period</th>
+                                <th>ro_no</th>
 
-                                <th>Closing</th>
+                                <th>opening</th>
 
-                                <th>Container</th>
+                                <th>purchase</th>
+                                <th>sale</th>
+                                <th>closing</th>
+                                <th>container</th>
+                                <th>unit_id</th>
 
                             </tr>
 
@@ -113,267 +117,25 @@ tr:hover {background-color: #f5f5f5;}
 
                         <tbody>
 
-                            <?php
-
-                                if($product){ 
-
-                                    $i = 1;
-                                    $total = 0.00;
-                                    $total_sale = 0.00;
-                                    $total_pur =0.00;
-                                    $tot_op =0.00;
-                                    $val =0;
-                                    $purqty =0.00;
-                                    $opqty = 0.00;
-                                    $saleqty = 0.00;
-                                    $contain =0.00;
-                                    $temp_tot =0.00;
-
-                                    foreach($product as $prodtls){
-
-                                            foreach($opening as $opndtls){
-                                                if($prodtls->ro_no==$opndtls->ro_no){
-                                                   if($prodtls->unit==1){
-                                                       $opqty=$opndtls->opn_qty;
-                                                      }elseif($prodtls->unit==2){
-                                                         $opqty=($opndtls->opn_qty)/1000; 
-                                                      }elseif($prodtls->unit==4){
-                                                         $opqty=($opndtls->opn_qty)/10;
-                                                      }elseif($prodtls->unit==6){
-                                                        $opqty=($opndtls->opn_qty)/1000000;
-                                                      }elseif($prodtls->unit==3){
-                                                         $opqty=$opndtls->opn_qty;
-                                                      }elseif($prodtls->unit==5){
-                                                         $opqty=($opndtls->opn_qty)*($prodtls->qty_per_bag)/1000; 
-                                                      }
-
-                                                   $temp_tot +=$opqty;
-                                            }
-                                        }
-                                        foreach($purchase as $purdtls){
-                                            if($prodtls->ro_no==$purdtls->ro_no){
-                                                if($prodtls->unit==1){
-                                                    $purqty=$purdtls->tot_pur;
-                                                   }elseif($prodtls->unit==2){
-                                                      $purqty=($purdtls->tot_pur)/1000; 
-                                                   }elseif($prodtls->unit==4){
-                                                      $purqty=($purdtls->tot_pur)/10;
-                                                   }elseif($prodtls->unit==6){
-                                                     $purqty=($purdtls->tot_pur)/1000000;
-                                                   }elseif($prodtls->unit==3){
-                                                      $purqty=$purdtls->tot_pur;
-                                                   }elseif($prodtls->unit==5){ 
-                                                      $purqty=($purdtls->tot_pur)*($prodtls->qty_per_bag)/1000; 
-                                                   }
-                                                $temp_tot +=$purqty;
-                                            }
-                                            
-                                        }
-
-                                        foreach($sale as $saledtls){
-                                            if($prodtls->ro_no==$saledtls->sale_ro){
-                                                if($prodtls->unit==1){ 
-                                                    $saleqty=$saledtls->tot_sale;
-                                                   }elseif($prodtls->unit==2){ 
-                                                      $saleqty=($saledtls->tot_sale)/1000; 
-                                                   }elseif($prodtls->unit==4){
-                                                     
-                                                      $saleqty=($saledtls->tot_sale)/10;
-                                                   }elseif($prodtls->unit==6){
-                                                    
-                                                     $saleqty=($saledtls->tot_sale)/1000000;
-                                                   }elseif($prodtls->unit==3){
-                                                    
-                                                      $saleqty=$purdtls->tot_sale;
-                                                   }elseif($saledtls->unit==5){
-                                                   
-                                                      $saleqty=($saledtls->tot_sale)*($prodtls->qty_per_bag)/1000; 
-                                                   }
-                                                $temp_tot +=$saleqty;
-                                            }
-                                        }
-
-                                        if($temp_tot > 0){
-                            ?>
-
-                                <tr class="rep">
-                                     <td class="report"><?php echo $i++; ?></td>
-                                     <td class="report"><?php echo $prodtls->ro_no; ?>
-                                     <td class="report opening" id="opening">
-                                        <?php 
-                                            foreach($opening as $opndtls){
-                                                 if($prodtls->ro_no==$opndtls->ro_no){
-                                                    if($prodtls->unit==1){
-
-                                                        echo $opndtls->opn_qty; 
-                                                        $opqty=$opndtls->opn_qty;
-                                                       }elseif($prodtls->unit==2){
-                                                          echo ($opndtls->opn_qty)/1000; 
-                                                          $opqty=($opndtls->opn_qty)/1000; 
-                                                       }elseif($prodtls->unit==4){
-                                                          echo ($opndtls->opn_qty)/10;
-                                                          $opqty=($opndtls->opn_qty)/10;
-                                                       }elseif($prodtls->unit==6){
-                                                         echo ($opndtls->opn_qty)/1000000;
-                                                         $opqty=($opndtls->opn_qty)/1000000;
-                                                       }elseif($prodtls->unit==3){
-                                                          echo $opndtls->opn_qty;
-                                                          $opqty=$opndtls->opn_qty;
-                                                       }elseif($prodtls->unit==5){
-                                                        echo ($opndtls->opn_qty)*($prodtls->qty_per_bag)/1000; 
-                                                          $opqty=($opndtls->opn_qty)*($prodtls->qty_per_bag)/1000; 
-                                                       }
-
-                                                    $tot_op +=$opqty;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-                                     <td class="report purchase" id="purchase">
-                                        <?php 
-                                            foreach($purchase as $purdtls){
-                                                if($prodtls->ro_no==$purdtls->ro_no){
-                                                    if($prodtls->unit==1){
-
-                                                        echo $purdtls->tot_pur; 
-                                                        $purqty=$purdtls->tot_pur;
-                                                       }elseif($prodtls->unit==2){
-                                                          echo ($purdtls->tot_pur)/1000; 
-                                                          $purqty=($purdtls->tot_pur)/1000; 
-                                                       }elseif($prodtls->unit==4){
-                                                          echo ($purdtls->tot_pur)/10;
-                                                          $purqty=($purdtls->tot_pur)/10;
-                                                       }elseif($prodtls->unit==6){
-                                                         echo ($purdtls->tot_pur)/1000000;
-                                                         $purqty=($purdtls->tot_pur)/1000000;
-                                                       }elseif($prodtls->unit==3){
-                                                          echo $purdtls->tot_pur;
-                                                          $purqty=$purdtls->tot_pur;
-                                                       }elseif($prodtls->unit==5){
-                                                        echo ($purdtls->tot_pur)*($prodtls->qty_per_bag)/1000; 
-                                                          $purqty=($purdtls->tot_pur)*($prodtls->qty_per_bag)/1000; 
-                                                       }
-                                                    // echo $purdtls->tot_pur;
-                                                    //$total_pur +=$purdtls->tot_pur;  
-                                                    $total_pur +=$purqty;
-                                                }
-                                                
-                                            }
-                                        ?>
-                                     </td>
-                                     <td class="report sale" id="sale">
-                                        <?php 
-                                            foreach($sale as $saledtls){
-                                                if($prodtls->ro_no==$saledtls->sale_ro){
-                                                    if($prodtls->unit==1){
-
-                                                        echo $saledtls->tot_sale; 
-                                                        $saleqty=$saledtls->tot_sale;
-                                                       }elseif($prodtls->unit==2){
-                                                          echo ($saledtls->tot_sale)/1000; 
-                                                          $saleqty=($saledtls->tot_sale)/1000; 
-                                                       }elseif($prodtls->unit==4){
-                                                          echo ($saledtls->tot_sale)/10;
-                                                          $saleqty=($saledtls->tot_sale)/10;
-                                                       }elseif($prodtls->unit==6){
-                                                         echo ($saledtls->tot_sale)/1000000;
-                                                         $saleqty=($saledtls->tot_sale)/1000000;
-                                                       }elseif($prodtls->unit==3){
-                                                          echo $saledtls->tot_sale;
-                                                          $saleqty=$purdtls->tot_sale;
-                                                       }elseif($saledtls->unit==5){
-                                                        echo ($saledtls->tot_sale)*($prodtls->qty_per_bag)/1000; 
-                                                          $saleqty=($saledtls->tot_sale)*($prodtls->qty_per_bag)/1000; 
-                                                       }
-
-                                                    // echo $saledtls->tot_sale;
-                                                    // $total_sale +=$saledtls->tot_sale;  
-                                                    $total_sale +=$saleqty;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-
-                                     <td class="report closing" id="closing">
-                                        <?php 
-                                            
-                                           foreach($opening as $opndtls){
-                                            if($prodtls->ro_no==$opndtls->ro_no){
-                                                if($prodtls->unit==1){
-
-                                                    echo $opndtls->cls_qty; 
-                                                    $clqty=$opndtls->cls_qty;
-                                                    $contain= $clqty;
-                                                   }elseif($prodtls->unit==2){
-                                                      echo ($opndtls->cls_qty)/1000; 
-                                                      $clqty=($opndtls->cls_qty)/1000; 
-                                                      $contain= $clqty;
-                                                   }elseif($prodtls->unit==4){
-                                                      echo ($opndtls->cls_qty)/10;
-                                                      $clqty=($opndtls->cls_qty)/10;
-                                                      $contain= $clqty;
-                                                   }elseif($prodtls->unit==6){
-                                                     echo ($opndtls->cls_qty)/1000000;
-                                                     $clqty=($opndtls->opn_qty)/1000000;
-                                                     $contain= $clqty;
-                                                   }elseif($prodtls->unit==3){
-                                                      echo $opndtls->cls_qty;
-                                                      $clqty=$opndtls->cls_qty;
-                                                      $contain= $clqty;
-                                                   }elseif($prodtls->unit==5){
-                                                    echo ($opndtls->cls_qty)*($prodtls->qty_per_bag)/1000; 
-                                                      $clqty=($opndtls->cls_qty)*($prodtls->qty_per_bag)/1000; 
-                                                      $contain= $clqty;
-                                                   }
-
-
-
-                                                // echo $opndtls->cls_qty;
-                                                // $total +=$opndtls->opn_qty;
-                                                $total +=$clqty;
-                                            }
-                                        }
-                                        ?>
-                                     </td>
-                                     <td class="report" type="text"colspan="8"id="container">
-                                        <?php 
-                                            foreach($opening as $opndtls){
-                                                 if($prodtls->ro_no==$opndtls->ro_no){
-                                                    if($prodtls->unit==1){
-
-                                                        echo ceil(number_format((float)($contain*1000 )/$prodtls->qty_per_bag,3,'.',''));                                                      
-                                                       
-                                                    }elseif($prodtls->unit==2){
-                                                           echo ceil(number_format((float)($contain*1000)/$prodtls->qty_per_bag,3,'.',''));                                          
-                                                    }elseif($prodtls->unit==4){
-                                                        echo ceil(number_format((float)($contain)*100/$prodtls->qty_per_bag,3,'.',''));
-                                                       
-                                                    }elseif($prodtls->unit==6){
-                                                       echo ceil(number_format((float)($contain)*1000/$prodtls->qty_per_bag,3,'.',''));
-                                                    }elseif($prodtls->unit==3){
-                                                     echo ceil(number_format((float)($contain)/$prodtls->qty_per_bag,3,'.',''));
-                                                  
-                                                    }elseif($prodtls->unit==5){
-                                                   echo ceil(number_format((float)($contain*1000)/$prodtls->qty_per_bag,3,'.',''));
-                                                    }
-                                                }
-                                            }
-                                             $contain=0.00;
-                                           
-                                        ?>
-                                     </td>
-                                </tr>
- 
-                                <?php  
-                                        }
-                                        $temp_tot = 0;                    
-                                    }
-                                ?>
-
- 
-                                <?php 
-                                       }
-                                else{
+                            <?php if(!empty($productwise_stock)){ 
+                                $i=0;
+                                 foreach ($productwise_stock as $key) {  $i++?>
+                            <tr>
+                                <td class="report"><?php echo $i; ?></td>
+                                <td class="report"><?php echo $key->comp_name; ?></td>
+                                <td class="report"><?php echo $key->prod_desc; ?></td>
+                                <td class="report"><?php echo $key->unit; ?></td>
+                                <td class="report"><?php echo $key->ro_no; ?></td>
+                                <td class="report"><?php echo $key->opening; ?></td>
+                                <td class="report"><?php echo $key->purchase; ?></td>
+                                <td class="report"><?php echo $key->sale; ?></td>
+                                <td class="report"><?php echo $key->closing; ?></td>
+                                <td class="report"><?php echo $key->container; ?></td>
+                                <td class="report"><?php echo $key->unit_id; ?></td>
+                                    
+                            </tr>
+                               <?php  }
+                                }else{
 
                                     echo "<tr><td colspan='12' style='text-align:center;'>No Data Found</td></tr>";
 

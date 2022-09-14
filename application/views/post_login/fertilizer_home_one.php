@@ -71,10 +71,10 @@
 
           <ul>
             <li><a href="<?php echo site_url('category'); ?>">Add Category</a></li>
-            <li><a href="<?php echo site_url('fertilizer/sale_rate'); ?>">Sale Rate Entry</a></li>
+            <li><a href="<?php echo site_url('rateslab'); ?>">Sale Rate Entry</a></li>
             <li><a href="<?php echo site_url('material'); ?>">Add Product</a></li>
             <li><a href="<?php echo site_url('compay/company_payment'); ?>">Company Payment</a></li>
-            <li><a href="#">Stock ledger</a></li>
+            <li><a href="<?php echo site_url('fert/rep/brwse_constk'); ?>">Stock Report</a></li>
             <!-- <li><a href="<?php echo site_url('report/chequestatus'); ?>">Cheque Status</a></li>
 <li><a href="<?php echo site_url('report/returncheque'); ?>">Return Cheque</a></li> -->
           </ul>

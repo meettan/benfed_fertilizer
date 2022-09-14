@@ -106,6 +106,26 @@ class ReportModel extends CI_Model
 
    }
 
+/******************Procedure for Productwise stock at Branch******************************** */  
+public function f_get_purchase_Productwise($frmDt, $toDt, $branch,$prod_id)
+{
+    $date=array($frmDt,$toDt,$branch,$prod_id);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_productwise_stock`(?,?,?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+
+    return $data_w->result();
+
+}
+
 /******************Procedure for Due Register at Branch******************************** */  
 public function f_get_soc_pay($frmDt, $toDt, $branch)
 {
@@ -126,6 +146,8 @@ public function f_get_soc_pay($frmDt, $toDt, $branch)
     return $data_w->result();
 
 }
+
+
 
 
 
@@ -171,7 +193,7 @@ public function f_get_soc_pay($frmDt, $toDt, $branch)
         return $query->result();
     }
 
-    public function f_get_product_list_rep($branch, $frmDt, $prod_id)
+    public function f_get_product_list_rep($branch, $prod_id)
     {
 
 
@@ -711,58 +733,58 @@ from (
     }
 
     ////////////////////////////////////////////////
-    public function f_get_balance_rowise($branch, $from_dt, $to_dt, $opndt)
-    {
+    // public function f_get_balance_rowise($branch, $from_dt, $to_dt, $opndt)
+    // {
 
 
 
-        $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty,ro_no
-            from (
-                select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale,ro_no
-                from(
-                select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale,ro_no
-                                from tdf_opening_stock
-                                where branch_id	    = $branch
-                                and   balance_dt ='2020-04-01'
-                                group by prod_id,ro_no
-                                union
-                select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
-                                  from td_sale
-                                  where br_cd	    = $branch
-                                  and   do_dt <'$from_dt'
-                                  group by prod_id,sale_ro
-                UNION
-                select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale,ro_no
-                                  from td_purchase
-                                  where br	    =$branch
-                                  and   trans_dt < '$from_dt' 
-                                  and   trans_flag = 1
-                                  group by prod_id,ro_no)a
-                                  group by prod_id,ro_no
-                  UNION
-                  select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
-                  from td_purchase
-                  where br	    = $branch
-                  and   trans_dt between '$from_dt' and  '$to_dt'
-                  and   trans_flag = 1
-                  group by prod_id,ro_no
-                  UNION
-                  select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
-                  from td_sale
-                  where br_cd	    = $branch
-                  and   do_dt between '$from_dt' and '$to_dt'
-                  group by prod_id,sale_ro)a
-              group by prod_id,ro_no
-              order by prod_id");
+    //     $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty,ro_no
+    //         from (
+    //             select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale,ro_no
+    //             from(
+    //             select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale,ro_no
+    //                             from tdf_opening_stock
+    //                             where branch_id	    = $branch
+    //                             and   balance_dt ='2020-04-01'
+    //                             group by prod_id,ro_no
+    //                             union
+    //             select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+    //                               from td_sale
+    //                               where br_cd	    = $branch
+    //                               and   do_dt <'$from_dt'
+    //                               group by prod_id,sale_ro
+    //             UNION
+    //             select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale,ro_no
+    //                               from td_purchase
+    //                               where br	    =$branch
+    //                               and   trans_dt < '$from_dt' 
+    //                               and   trans_flag = 1
+    //                               group by prod_id,ro_no)a
+    //                               group by prod_id,ro_no
+    //               UNION
+    //               select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
+    //               from td_purchase
+    //               where br	    = $branch
+    //               and   trans_dt between '$from_dt' and  '$to_dt'
+    //               and   trans_flag = 1
+    //               group by prod_id,ro_no
+    //               UNION
+    //               select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+    //               from td_sale
+    //               where br_cd	    = $branch
+    //               and   do_dt between '$from_dt' and '$to_dt'
+    //               group by prod_id,sale_ro)a
+    //           group by prod_id,ro_no
+    //           order by prod_id");
 
 
-        if ($data->num_rows() > 0) {
-            $row = $data->result();
-        } else {
-            $row = 0;
-        }
-        return $row;
-    }
+    //     if ($data->num_rows() > 0) {
+    //         $row = $data->result();
+    //     } else {
+    //         $row = 0;
+    //     }
+    //     return $row;
+    // }
 
     public function f_get_purchase($branch, $frmDt, $toDt)
     {
@@ -802,19 +824,19 @@ from (
         return $query->result();
     }
 
-    public function f_get_purchase_rowise($branch, $frmDt, $toDt)
-    {
-        $query  = $this->db->query("select b.prod_id, ifnull(sum(a.qty),0)tot_pur,a.ro_no,b.unit
-                                        from td_purchase a,mm_product b
-                                        where a.br        = $branch
-                                        and a.prod_id=b.prod_id
+    // public function f_get_purchase_rowise($branch, $frmDt, $toDt)
+    // {
+    //     $query  = $this->db->query("select b.prod_id, ifnull(sum(a.qty),0)tot_pur,a.ro_no,b.unit
+    //                                     from td_purchase a,mm_product b
+    //                                     where a.br        = $branch
+    //                                     and a.prod_id=b.prod_id
                                         
-                                        and   a.trans_dt between '$frmDt' and '$toDt'
-                                        and   a.trans_flag = 1
-                                        group by b.prod_id,a.ro_no,b.unit");
+    //                                     and   a.trans_dt between '$frmDt' and '$toDt'
+    //                                     and   a.trans_flag = 1
+    //                                     group by b.prod_id,a.ro_no,b.unit");
 
-        return $query->result();
-    }
+    //     return $query->result();
+    // }
     /**************************************************** */
     public function f_get_purchase_rowiseall($branch, $frmDt, $toDt)
     {
@@ -1020,17 +1042,17 @@ END ),3)lqdqty,
     }
 
 
-    public function f_get_sale_rowise($branch, $frmDt, $toDt)
-    {
-        $query  = $this->db->query("select b.prod_id, ifnull(sum(a.qty),0)tot_sale,a.sale_ro,b.unit
-                                        from td_sale a,mm_product b
-                                        where a.br_cd     = $branch
-                                        and a.prod_id=b.prod_id
-                                        and   a.do_dt between '$frmDt' and '$toDt'
-                                        group by b.prod_id,a.sale_ro,b.unit");
+    // public function f_get_sale_rowise($branch, $frmDt, $toDt)
+    // {
+    //     $query  = $this->db->query("select b.prod_id, ifnull(sum(a.qty),0)tot_sale,a.sale_ro,b.unit
+    //                                     from td_sale a,mm_product b
+    //                                     where a.br_cd     = $branch
+    //                                     and a.prod_id=b.prod_id
+    //                                     and   a.do_dt between '$frmDt' and '$toDt'
+    //                                     group by b.prod_id,a.sale_ro,b.unit");
 
-        return $query->result();
-    }
+    //     return $query->result();
+    // }
     public function f_get_sale_rowiseall($branch, $frmDt, $toDt)
     {
         $query  = $this->db->query("select a.prod_id,ifnull(sum(a.qty),0)qty,b.unit,b.qty_per_bag,

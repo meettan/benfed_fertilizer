@@ -235,7 +235,7 @@
                                     <a href="<?php echo site_url("fert/rep/stkStmt");?>">Consolidated Stock</a>
                                     <a href="<?php echo site_url("fert/rep/stkScomp");?>">Companywise Stock</a>
                                     <a href="<?php echo site_url("fert/rep/stkstkpnt");?>">Stockpoint Wise Stock</a>
-                                    <a href="<?php echo site_url("fert/rep/stkwsestprep");?>">Stock Point Wise Statement</a>
+                                    <!-- <a href="<?php echo site_url("fert/rep/stkwsestprep");?>">Stock Point Wise Statement</a> -->
                                     <a href="<?php echo site_url("fert/rep/stkSprod");?>">Productwise Stock</a>
                                 </div>
                             </div>

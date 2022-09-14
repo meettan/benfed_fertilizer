@@ -177,7 +177,7 @@
             <div class="col-sm-6 float-left">
               <div class="bloxkSec">
                 <img src="<?= base_url() ?>assets/images/icon_aa.png" alt="" class="bloxkSecImg">
-                <h3>Quantity Sold for the year</h3>
+                <h3>Quantity Sold during the year</h3>
                 <p class="price">
                   <span class="mt"><span id="quantitySold">0.0</span><strong> mt</strong></span>
                   <!-- <span class="mt" id="qty"><strong>mt</strong></span></p> -->
@@ -199,7 +199,7 @@
             <div class="col-sm-6 float-left">
               <div class="bloxkSec bloxkSecMarginBotNone">
                 <img src="<?= base_url() ?>assets/images/icon_cc.png" alt="" class="bloxkSecImg">
-                <h3>Amount Paid for the Year</h3>
+                <h3>Amount recevied during the Year</h3>
                 <p class="price">
                   <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i></strong><span id="amountPaidfortheYear"></span></span>
                 </p>
