@@ -859,7 +859,7 @@ public function stkScomp_ho(){
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
                 
-                $data['product']     =   $this->ReportModel->f_get_product_list_rep($branch,$prod_id);
+              //  $data['product']     =   $this->ReportModel->f_get_product_list_rep($branch,$prod_id);
 
 
                 $data['productwise_stock']=$this->ReportModel->f_get_purchase_Productwise($from_dt, $to_dt, $branch,$prod_id);
@@ -870,9 +870,10 @@ public function stkScomp_ho(){
                 // $data['sale']        =   $this->ReportModel->f_get_sale_rowise($branch,$from_dt,$to_dt);
                 // $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
 
-                $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+               // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
-                $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+              //  $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/stk_prod/stk_prod',$data);
                 $this->load->view('post_login/footer');
