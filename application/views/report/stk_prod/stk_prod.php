@@ -71,20 +71,24 @@ tr:hover {background-color: #f5f5f5;}
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
-                        <h5 style="width:100%; display: inline-block;">
-                        
-                        <span style="float:left; text-alignment:left;"><label>District: </label> <?php echo $branch->district_name; ?></span>
-                        <span style="float:right; text-alignment:left;"><label>Product: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->prod_desc;}?></span>
+                        <h5>
+                        </div>
+                        <span ><label>District: </label> <?php echo $branch->district_name; ?></span>
+                        </h5>
+                        <h5>
+                        <span ><label>Product: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->prod_desc;}?></span>
                     
                     </h5>
-                    <h5 style="width:100%; display: inline-block;">
-                    <span style="float:left; text-alignment:left;"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></span>
-                    <span style="float:right; text-alignment:right;">
+                    <h5>
+                    <span ><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></span>
+                    </h5>
+                        <h5>
+                    <span >
                         <label>Unit: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->unit_name;}?></span>
                     
                     </h5>
                         
-                    </div>
+                    
                   
 
                     <table style="width: 100%;" id="example">
@@ -95,22 +99,14 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
 
-                                <th>comp_name</th>
 
-                                <th>prod_desc</th>
+                                <th>Ro No.</th>
 
-                                <th>unit</th>
+                                <th>Opening</th>
 
-                                <th>ro_no</th>
-
-                                <th>opening</th>
-
-                                <th>purchase</th>
-                                <th>sale</th>
-                                <th>closing</th>
-                                <th>container</th>
-                                <th>unit_id</th>
-
+                                <th>Purchase</th>
+                                <th>Sale</th>
+                                <th>Closing</th>
                             </tr>
 
                         </thead>
@@ -119,19 +115,20 @@ tr:hover {background-color: #f5f5f5;}
 
                             <?php if(!empty($productwise_stock)){ 
                                 $i=0;
+                                $purchase=0.0;
+                                $sale=0.0;
                                  foreach ($productwise_stock as $key) {  $i++?>
                             <tr>
                                 <td class="report"><?php echo $i; ?></td>
-                                <td class="report"><?php echo $key->comp_name; ?></td>
-                                <td class="report"><?php echo $key->prod_desc; ?></td>
-                                <td class="report"><?php echo $key->unit; ?></td>
+                                
+
                                 <td class="report"><?php echo $key->ro_no; ?></td>
-                                <td class="report"><?php echo $key->opening; ?></td>
-                                <td class="report"><?php echo $key->purchase; ?></td>
-                                <td class="report"><?php echo $key->sale; ?></td>
-                                <td class="report"><?php echo $key->closing; ?></td>
-                                <td class="report"><?php echo $key->container; ?></td>
-                                <td class="report"><?php echo $key->unit_id; ?></td>
+                                <td class="report"><?php if($key->ro_no=="0"){echo "<b>".$key->opening."</b>";}else{echo $key->opening;} ?></td>
+                                <td class="report"><?php echo $key->purchase;  $purchase+=$key->purchase;?></td>
+                                <td class="report"><?php echo $key->sale; $sale+=$key->sale;?></td>
+                                <td class="report"><?php if($key->ro_no=="0"){echo "<b>".$key->closing."</b>";}else{echo $key->closing;} ?></td>
+
+                              
                                     
                             </tr>
                                <?php  }
@@ -146,12 +143,11 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                         <tfooter>
                             <tr>
-                           <td class="report" colspan="1" style="text-align:right"><b>Total</b></td>
+                           <td class="report" colspan="2" style="text-align:right"><b>Total</b></td>
                                <td class="report"></td>
-                               <td class="report"><b><?=$tot_op?></b></td>
-                               <td class="report"><b><?=$total_pur?></b></td>
-                               <td class="report"><b><?=$total_sale?></b></td>                            
-                                <td class="report"><b><?=$total?></b></td>  
+                               <td class="report"><b><?=  round($purchase,3);?></b></td>
+                               <td class="report"><b><?=  round($sale,3);?></b></td>
+                               <td class="report"></td>
                            
                             </tr>
                         </tfooter>
