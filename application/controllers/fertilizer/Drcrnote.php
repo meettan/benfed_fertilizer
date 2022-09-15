@@ -577,8 +577,9 @@ public function drnoteReport()
 					$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select,NULL,0);
 
 					$select_cat = array("sl_no","cat_desc");
+					$wherecatagory=array("acc_cd !="=>0);
 
-					$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',$select_cat,NULL,0);
+					$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',$select_cat,$wherecatagory,0);
 
 					$select = array("trans_do");
 					$whereinv=array(
