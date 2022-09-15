@@ -493,10 +493,15 @@ public function drnoteReport()
 	
 					$data_array_cr['fin_fulyr']=$fin_year;
 					$data_array_cr['br_nm']= $brn->dist_sort_code;
+					if($this->DrcrnoteModel->f_crnjnl($data_array_cr)!=0){
+						$this->DrcrnoteModel->f_insert('tdf_dr_cr_note', $data);
+					}else{
+						echo "<script>alert('Credit Note has not yet been done.');</script>";
+					}
 					
-					$this->DrcrnoteModel->f_insert('tdf_dr_cr_note', $data);
 					
-					$this->DrcrnoteModel->f_crnjnl($data_array_cr);
+					
+					
 		}
 		$data_cr  = array (
 			'recpt_no' => $receipt ,
@@ -577,7 +582,7 @@ public function drnoteReport()
 					$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select,NULL,0);
 
 					$select_cat = array("sl_no","cat_desc");
-					$wherecatagory=array("acc_cd !="=>0);
+					$wherecatagory=array("acc_cd >"=>0);
 
 					$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',$select_cat,$wherecatagory,0);
 
