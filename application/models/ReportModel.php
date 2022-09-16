@@ -2395,10 +2395,7 @@ ORDER BY `op_bln` ASC");
                         select c.district_name, SUM(a.qty) as qty,
                         (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
                         SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
-                        SUM(a.net_amt) as net_amt,
-                       
-                        
-                        
+                        SUM(a.net_amt) as net_amt
                         from tdf_company_payment a, mm_product b,md_district c
                         where a.comp_id=$comp_id
                         and b.PROD_ID=a.prod_id
