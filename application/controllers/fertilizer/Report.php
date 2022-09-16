@@ -2358,6 +2358,7 @@ public function soc_payblepaid(){
             if($memoNumber==''||$memoNumber==null){
             
                 $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,null);
+                $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,null);
                     $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,null);
                     //echo $this->db->last_query();
                     //die();
@@ -2368,9 +2369,8 @@ public function soc_payblepaid(){
 
                 
               $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,$memoNumber);
-                 $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber);
-                //echo $this->db->last_query();
-                //die();
+              $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,$memoNumber);
+              $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber);
               $data['fDate']= $frm_date;
               $data['tDate']=$to_date;
 
@@ -2403,6 +2403,7 @@ public function advance_payment(){
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
           $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+          $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
          
         //     echo $this->db->last_query();
         //     echo '<br>';

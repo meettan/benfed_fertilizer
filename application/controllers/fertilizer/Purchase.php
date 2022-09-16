@@ -1387,7 +1387,7 @@ class Purchase extends MX_Controller
 
 
 			
-			// echo $this->ApiVoucher->f_purchasejnl($data_array_pur);
+			// print_r($this->ApiVoucher->f_purchasejnl($data_array_pur));
 			// exit();
 			if($this->ApiVoucher->f_purchasejnl($data_array_pur)==1){
 

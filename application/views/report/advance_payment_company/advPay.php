@@ -166,6 +166,88 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
 
                     </table>
+
+
+
+                    <h4 style="text-align:left; margin-top: 30px;">Summary </h4>
+
+                    <table style="width: 100%;  background-color: #D5D5D5;"" id="example">
+
+                        <thead>
+
+                            <tr>
+                            
+                                <th>Sl No.</th>
+                                <th>District</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>TDS</th>
+                                <th>NET Amount</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <?php
+                            
+
+                                if($tableData){ 
+
+                                    $i = 1;
+                                  $totalRate=0;
+                                  $totalAmount=0;
+                                  $totalTDS=0;
+                                  $totalNETAmount=0;
+                                    foreach($tableData_district_name as $ptableDatasidt){
+                                       // $total=($ptableData->adv_amt+$total);
+                                       //$total +=$ptableData->adv_amt;
+                            ?>
+<!-- a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro,a.qty,a.rate_amt,a.taxable_amt,a.tds_amt,a.net_amt -->
+                                <tr>
+                                     <td><?php echo $i++; ?></td>
+                                     
+                                     <td><?php echo $ptableDatasidt->district_name; ?></td>
+                                     
+                                     <td><?php echo $ptableDatasidt->qty; ?></td>
+                                    
+
+                                     <td><?php echo $ptableDatasidt->taxable_amt ;$totalAmount+=$ptableDatasidt->taxable_amt; ?></td>
+
+                                     <td><?php echo $ptableDatasidt->tds_amt;$totalTDS+=$ptableDatasidt->tds_amt;?></td>
+
+                                     
+                                     <td><?php echo $ptableDatasidt->net_amt; $totalNETAmount+=$ptableDatasidt->net_amt;?></td>
+                                </tr>
+                               
+ 
+                                <?php    } ?>
+
+                                <tr>
+                                    <td><b></b></td>
+                                    <td><b></b></td>
+                                    <td><b></b></td>
+                                    
+                                    <td><b><?php echo $totalAmount; ?></b></td>
+                                    <td><b><?php echo $totalTDS; ?></b></td>
+                                    <td><b><?php echo  $totalAmount-$totalTDS; ?></b></td>
+                                </tr>
+                                <?php 
+                                       }
+                                else{
+
+                                    echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
+
+                                }   
+
+                            ?>
+
+                        </tbody>
+
+                    </table>
+
+
 					<table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
 				<tbody style="border:none;">
 					<tr style="border:none;">

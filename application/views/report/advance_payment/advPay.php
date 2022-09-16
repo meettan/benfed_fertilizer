@@ -1,28 +1,31 @@
 <style>
-table {
-    border-collapse: collapse;
-}
+    table {
+        border-collapse: collapse;
+    }
 
-table, td, th {
-    border: 1px solid #dddddd;
+    table,
+    td,
+    th {
+        border: 1px solid #dddddd;
 
-    padding: 6px;
+        padding: 6px;
 
-    font-size: 14px;
-}
+        font-size: 14px;
+    }
 
-th {
+    th {
 
-    text-align: center;
+        text-align: center;
 
-}
+    }
 
-tr:hover {background-color: #f5f5f5;}
-
+    tr:hover {
+        background-color: #f5f5f5;
+    }
 </style>
 
 <script>
-  function printDiv() {
+    function printDiv() {
 
         var divToPrint = document.getElementById('divToPrint');
 
@@ -48,142 +51,227 @@ tr:hover {background-color: #f5f5f5;}
         WindowObject.document.writeln(divToPrint.innerHTML);
         WindowObject.document.writeln('</body></html>');
         WindowObject.document.close();
-        setTimeout(function () {
+        setTimeout(function() {
             WindowObject.close();
         }, 10);
 
-  }
+    }
 </script>
 
-        <div class="wraper"> 
+<div class="wraper">
 
-            <div class="col-lg-12 container contant-wraper">
-                
-                <div id="divToPrint">
+    <div class="col-lg-12 container contant-wraper">
 
-                    <div style="text-align:center;">
+        <div id="divToPrint">
 
-                        <h4>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h4>
-                        <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h3>Advance Payment Voucher Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h3>
-    
-                        <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;<?php echo round($total_Voucher->adv_amt,2); ?> DR</h5> 
-                     <h5 style="text-align:left"><label><?php foreach($tableData as $bnk){ echo $bnk->bnk; break; };?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->net_amt,2); ?> CR</h5>
-						<h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($total_Voucher->tds,2); ?> CR </h5>
+            <div style="text-align:center;">
 
-						
-						
+                <h4>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h4>
+                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
+                <h3>Advance Payment Voucher Between:<?php echo  date("d/m/Y", strtotime($fDate)) . ' To ' . date("d/m/Y", strtotime($tDate)) ?></h3>
 
-                    </div>
-                    <br>  
+                <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->adv_amt, 2); ?> DR</h5>
+                <h5 style="text-align:left"><label><?php foreach ($tableData as $bnk) {
+                                                        echo $bnk->bnk;
+                                                        break;
+                                                    }; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->net_amt, 2); ?> CR</h5>
+                <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($total_Voucher->tds, 2); ?> CR </h5>
 
-                    <table style="width: 100%;" id="example">
 
-                        <thead>
 
-                            <tr>
-                            
-                                <th>Sl No.</th>
-                                <th>Date</th>
-                                <th>Branch Name.</th>
-                                <th>Product Name</th>
-                                <th>Qty</th>
-                                <th>Ro No</th>
-                                <th>Fo No</th>
-                                <th>Amount</th>
-                                <th>TDS</th>
-                                <th>NET Amount</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            <?php
-                            
-
-                                if($tableData){ 
-
-                                    $i = 1;
-                                    $total=0;
-                                    $totalnetamt=0;
-                                    $totalTds=0;
-                                    foreach($tableData as $ptableData){
-                                       // $total=($ptableData->adv_amt+$total);
-                                       $total +=$ptableData->adv_amt;
-                            ?>
-
-                                <tr>
-                                     <td><?php echo $i++; ?></td>
-                                     <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
-                                     <td><?php echo $ptableData->branch_name; ?></td>
-                                     
-                                     <td><?php echo $ptableData->PROD_DESC; ?></td>
-                                     <td><?= $ptableData->qty; ?></td>
-                                     <td><?php echo $ptableData->ro_no; ?></td>
-                                     <td><?php echo $ptableData->fo_number.'-'.$ptableData->fo_name; ?></td>
-                                     <td><?php echo $ptableData->adv_amt ; ?></td>
-                                     <td><?php $tds= round(0.001*round($ptableData->adv_amt,2),2) ; echo $tds;$totalTds=$totalTds+$tds; ?></td>
-                                     <td><?php $netamt=(round($ptableData->adv_amt,2)-$tds); echo round($netamt,2); $totalnetamt=$totalnetamt+$netamt; ?></td>
-                                </tr>
-                               
- 
-                                <?php    } ?>
-
-                                <tr>
-                                    <td colspan="7"><b>Total</b></td>
-                                    <td><b><?php echo round($total,2); ?></b></td>
-                                    <td><b><?php echo round($totalTds,2); ?></b></td>
-                                    <td><b><?php echo round($totalnetamt,2); ?></b></td>
-                                </tr>
-                                <?php 
-                                       }
-                                else{
-
-                                    echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
-
-                                }   
-
-                            ?>
-
-                        </tbody>
-
-                    </table>
-					<table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
-				<tbody style="border:none;">
-					<tr style="border:none;">
-					 
-					  <td style="border:none;">Prepared By</td>
-					 
-					  						<td style="border:none;">Asst Manager/Dy. Manager</td>
-					  <td style="border:none;">Departmental Manager(S)</td>
-					  <td style="border:none;">CA&amp;AO</td>
-					  <td style="border:none;">General Manager</td>
-					  					</tr>
-				</tbody>
-		    </table>
-
-                </div>   
-                
-                <div style="text-align: center;">
-
-                    <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
-                   <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
-
-                </div>
 
             </div>
-            
+            <br>
+
+            <table style="width: 100%;" id="example">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Sl No.</th>
+                        <th>Date</th>
+                        <th>Branch Name.</th>
+                        <th>Product Name</th>
+                        <th>Qty</th>
+                        <th>Ro No</th>
+                        <th>Fo No</th>
+                        <th>Amount</th>
+                        <th>TDS</th>
+                        <th>NET Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <?php
+
+
+                    if ($tableData) {
+
+                        $i = 1;
+                        $total = 0;
+                        $totalnetamt = 0;
+                        $totalTds = 0;
+                        foreach ($tableData as $ptableData) {
+                            // $total=($ptableData->adv_amt+$total);
+                            $total += $ptableData->adv_amt;
+                    ?>
+
+                            <tr>
+                                <td><?php echo $i++; ?></td>
+                                <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
+                                <td><?php echo $ptableData->branch_name; ?></td>
+
+                                <td><?php echo $ptableData->PROD_DESC; ?></td>
+                                <td><?= $ptableData->qty; ?></td>
+                                <td><?php echo $ptableData->ro_no; ?></td>
+                                <td><?php echo $ptableData->fo_number . '-' . $ptableData->fo_name; ?></td>
+                                <td><?php echo $ptableData->adv_amt; ?></td>
+                                <td><?php 
+                                echo round(0.001 * round($ptableData->adv_amt, 2), 2);
+                                $tds = 0.001 * $ptableData->adv_amt;
+                                    $totalTds = $totalTds + $tds; ?></td>
+                                <td><?php $netamt = (round($ptableData->adv_amt, 2) - $tds);
+                                    echo round($netamt, 2);
+                                    $totalnetamt = $totalnetamt + $netamt; ?></td>
+                            </tr>
+
+
+                        <?php    } ?>
+
+                        <tr>
+                            <td colspan="7"><b>Total</b></td>
+                            <td><b><?php echo round($total, 2); ?></b></td>
+                            <td><b><?php echo round($totalTds, 2); ?></b></td>
+                            <td><b><?php echo round($totalnetamt, 2); ?></b></td>
+                        </tr>
+                    <?php
+                    } else {
+
+                        echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
+                    }
+
+                    ?>
+
+                </tbody>
+
+            </table>
+
+
+
+
+            <h4 style="text-align:left; margin-top: 30px;">Summary </h4>
+
+
+            <table style="width: 100%; background-color: #D5D5D5;" id="example">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Sl No.</th>
+                        <th>Branch Name.</th>
+                        <th>Amount</th>
+                        <th>TDS</th>
+                        <th>NET Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <?php
+
+
+                    if ($tableData) {
+
+                        $i = 1;
+                        $total = 0;
+                        $totalnetamt = 0;
+                        $totalTds = 0;
+                        foreach ($tableDatasummary as $ptableDatasummary) {
+                            // $total=($ptableData->adv_amt+$total);
+                            $total += $ptableDatasummary->adv_amt;
+                    ?>
+
+                            <tr>
+                                <td><?php echo $i++; ?></td>
+
+                                <td><?php echo $ptableDatasummary->branch_name; ?></td>
+
+
+                                <td><?php echo $ptableDatasummary->adv_amt; ?></td>
+                                <td><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2), 2);
+                                $tds = 0.001 * $ptableDatasummary->adv_amt;
+                                    $totalTds = $totalTds + $tds; ?></td>
+                                <td><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);
+                                    echo round($netamt, 2);
+                                    $totalnetamt = $totalnetamt + $netamt; ?></td>
+                            </tr>
+
+
+                        <?php    } ?>
+
+                        <tr>
+                            <td colspan="2"><b>Total</b></td>
+                            <td><b><?php echo round($total, 2); ?></b></td>
+                            <td><b><?php echo round($totalTds, 2); ?></b></td>
+                            <td><b><?php echo round($totalnetamt, 2); ?></b></td>
+                        </tr>
+                    <?php
+                    } else {
+
+                        echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
+                    }
+
+                    ?>
+
+                </tbody>
+
+       
+
+
+
+            </table>
+
+          
+            <table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody style="border:none;">
+                    <tr style="border:none;">
+
+                        <td style="border:none;">Prepared By</td>
+
+                        <td style="border:none;">Asst Manager/Dy. Manager</td>
+                        <td style="border:none;">Departmental Manager(S)</td>
+                        <td style="border:none;">CA&amp;AO</td>
+                        <td style="border:none;">General Manager</td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
-        
-    <script type="text/javascript">
-        /*$(function () {
+
+        <div style="text-align: center;">
+
+            <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+            <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    /*$(function () {
             $("#btnExport").click(function () {
                 $("#example").table2excel({
-                    filename: "Cheque status for <?php echo get_district_name($this->input->post("branch_id")) ?> branch for paddy procurement between Block Societywise Paddy Procurement Between <?php echo date("d-m-Y", strtotime($this->input->post('from_date'))).' To '.date("d-m-Y", strtotime($this->input->post('to_date')));?>.xls"
+                    filename: "Cheque status for <?php echo get_district_name($this->input->post("branch_id")) ?> branch for paddy procurement between Block Societywise Paddy Procurement Between <?php echo date("d-m-Y", strtotime($this->input->post('from_date'))) . ' To ' . date("d-m-Y", strtotime($this->input->post('to_date'))); ?>.xls"
                 });
             });
         });*/
-    </script>
-
+</script>
