@@ -277,6 +277,16 @@
 									    <a href="<?php echo site_url("fert/rep/crsummrep_ho");?>">District Wise Summary </a>
 									</div>
                                 </div>
+
+                                <div class="sub-dropdown">
+								<a class="sub-dropbtn">Monthly report <i class="fa fa-angle-right" style="float: right;"></i></a> 
+									<div class="sub-dropdown-content">
+									    <a href="<?php echo site_url("fert/rep/stock_report");?>"> Stock Report </a>
+									    
+									</div>
+                                </div>
+
+                                
 								<a href="<?php echo site_url("fert/rep/brwse_constk");?>">Consolidated Stock</a>
 								<a href="<?php echo site_url("fert/rep/stkScomp_all");?>">Monthly Report </a>
 								<a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>

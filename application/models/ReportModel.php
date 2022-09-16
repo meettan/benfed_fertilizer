@@ -150,6 +150,52 @@ public function f_get_soc_pay($frmDt, $toDt, $branch)
 
 
 
+/******************stock report******************************** */  
+public function stock_report_Popu_pro($frmDt, $toDt)
+{
+    $date=array($frmDt,$toDt);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_populate_product`(?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+
+    $dataarray['data']= $data_w->result();
+    return $this->load->view('report/monthlyReport/stock_report/table.php',$dataarray);
+
+}
+
+public function papulate_blance($frmDt, $toDt,$dist)
+{
+    $date=array($frmDt,$toDt,$dist);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_monthly_stock`(?,?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+
+    $dataarray['data']= $data_w->result();
+    return $this->load->view('report/monthlyReport/stock_report/table.php',$dataarray);
+
+}
+
+
+
+
 
 
     // git add check  add some

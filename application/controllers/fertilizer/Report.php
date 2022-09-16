@@ -2447,5 +2447,33 @@ public function advance_payment(){
             $this->load->view('post_login/footer');
         }
     }
+
+
+    public function stock_report(){
+        if($this->input->post()){
+
+        }else{
+            $select=array('dist_sort_code','district_code');
+            $data=array(
+                'distData'=>$this->ReportModel->f_select("md_district", $select, NULL, 0)
+            );
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/monthlyReport/stock_report/input.php', $data);
+            $this->load->view('post_login/footer');
+        }
+    }
+
+    public function stock_report_Popu_pro(){
+        $fDate=$this->input->post('fDate');
+        $tDate=$this->input->post('tDate');
+       echo $this->ReportModel-> stock_report_Popu_pro($fDate, $tDate);
+    }
+
+    public function papulate_blance(){
+        $fDate=$this->input->post('fDate');
+        $tDate=$this->input->post('tDate');
+        $dist=$this->input->post('dist');
+       echo $this->ReportModel->papulate_blance($fDate, $tDate,$dist);
+    }
         
   }
