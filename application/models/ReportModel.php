@@ -2264,66 +2264,6 @@ ORDER BY `op_bln` ASC");
 
 
 
-
-
-
-
-    /*  public function getCompanyPayment($comp_id,$frm_date,$to_date){
-           $q= $this->db->query("
-            select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
-            (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist
-            from tdf_company_payment a, mm_product b,md_district c
-            where a.comp_id=$comp_id
-            and b.PROD_ID=a.prod_id
-            and a.district=c.district_code
-            and a.net_amt > 0
-            and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
-            group by  a.pur_ro,a.pur_inv_no
-           ");  
-           return $q->result();
-        }*/
-
-
-    public function getCompanyPayment($comp_id, $frm_date, $to_date)
-    {
-        /* $q= $this->db->query("
-                        select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
-                        (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
-                        (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
-                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_ac_cd)bnk
-                        from tdf_company_payment a, mm_product b,md_district c
-                        where a.comp_id=$comp_id
-                        and b.PROD_ID=a.prod_id
-                        and a.district=c.district_code
-                        and a.net_amt > 0
-                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
-                        group by  a.pur_ro,a.pur_inv_no
-                    ");  */
-
-        $q = $this->db->query("
-                        select a.pay_dt,c.district_name,a.pur_inv_no,a.paid_id,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty,
-                        (select round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
-                        SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
-                        (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
-                        (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
-                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk
-                        from tdf_company_payment a, mm_product b,md_district c
-                        where a.comp_id=$comp_id
-                        and b.PROD_ID=a.prod_id
-                        and a.district=c.district_code
-                        and a.net_amt > 0
-                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
-                        group by  a.pur_ro,a.pur_inv_no,a.paid_id
-                        order by  c.district_name,a.pay_dt
-                    ");
-        return $q->result();
-    }
-
-
-
-
-
-
     public function getallAdvData_summary($comp_id, $frm_date, $to_date, $memoNumber)
     {
 
@@ -2389,6 +2329,87 @@ ORDER BY `op_bln` ASC");
     }
 
 
+
+
+
+
+
+
+
+    /*  public function getCompanyPayment($comp_id,$frm_date,$to_date){
+           $q= $this->db->query("
+            select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
+            (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist
+            from tdf_company_payment a, mm_product b,md_district c
+            where a.comp_id=$comp_id
+            and b.PROD_ID=a.prod_id
+            and a.district=c.district_code
+            and a.net_amt > 0
+            and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+            group by  a.pur_ro,a.pur_inv_no
+           ");  
+           return $q->result();
+        }*/
+
+
+    public function getCompanyPayment($comp_id, $frm_date, $to_date)
+    {
+        /* $q= $this->db->query("
+                        select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
+                        (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
+                        (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
+                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_ac_cd)bnk
+                        from tdf_company_payment a, mm_product b,md_district c
+                        where a.comp_id=$comp_id
+                        and b.PROD_ID=a.prod_id
+                        and a.district=c.district_code
+                        and a.net_amt > 0
+                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                        group by  a.pur_ro,a.pur_inv_no
+                    ");  */
+
+        $q = $this->db->query("
+                        select a.pay_dt,c.district_name,a.pur_inv_no,a.paid_id,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty,
+                        (select round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
+                        SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
+                        (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
+                        (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
+                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk
+                        from tdf_company_payment a, mm_product b,md_district c
+                        where a.comp_id=$comp_id
+                        and b.PROD_ID=a.prod_id
+                        and a.district=c.district_code
+                        and a.net_amt > 0
+                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                        group by  a.pur_ro,a.pur_inv_no,a.paid_id
+                        order by  c.district_name,a.pay_dt
+                    ");
+        return $q->result();
+    }
+
+    public function getCompanyPayment_district_name($comp_id, $frm_date, $to_date)
+    {
+        
+
+        $q = $this->db->query("
+                        select c.district_name, SUM(a.qty) as qty,
+                        (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
+                        SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
+                        SUM(a.net_amt) as net_amt,
+                       
+                        
+                        
+                        from tdf_company_payment a, mm_product b,md_district c
+                        where a.comp_id=$comp_id
+                        and b.PROD_ID=a.prod_id
+                        and a.district=c.district_code
+                        and a.net_amt > 0
+                        and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                        group by  c.district_name
+                        order by  c.district_name
+                    ");
+        return $q->result();
+    }
 
     public function totalCompanyPaymentVoucher($comp_id, $frm_date, $to_date)
     {
