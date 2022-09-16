@@ -2201,8 +2201,8 @@ ORDER BY `op_bln` ASC");
 
 
             $sql = "select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
-            (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
             where c.branch_id = b.id
             and   a.adv_dtl_id = c.receipt_no
@@ -2214,8 +2214,8 @@ ORDER BY `op_bln` ASC");
             
             UNION
             select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
-            (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
-			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                         where c.branch_id = b.id
                         and   a.adv_receive_no = c.detail_receipt_no
@@ -2230,8 +2230,8 @@ ORDER BY `op_bln` ASC");
 
 
             $sql = "select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
-            (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
             where c.branch_id = b.id
             and   a.memo_no='$memoNumber'
@@ -2244,8 +2244,8 @@ ORDER BY `op_bln` ASC");
             
             UNION
             select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
-            (select f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
-			(select j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                         where c.branch_id = b.id
                         and   a.memo_no='$memoNumber'
@@ -2269,7 +2269,35 @@ ORDER BY `op_bln` ASC");
 
         if ($memoNumber == null) {
 
+if($comp_id==1){
 
+
+    $sql = "select sum(a.adv_amt)adv_amt,
+    (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name
+    from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+    where c.branch_id = b.id
+    and   a.adv_dtl_id = c.receipt_no
+    and   a.adv_receive_no = c.detail_receipt_no
+    and   c.prod_id = d.PROD_ID
+    and   a.trans_dt between '$frm_date' and '$to_date'
+    and   a.comp_id = '$comp_id'
+    and   c.comp_pay_flag = 'Y'
+    group by fo_name
+    UNION
+    select sum(a.adv_amt)adv_amt,
+    (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name
+                from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
+                where c.branch_id = b.id
+                and   a.adv_receive_no = c.detail_receipt_no
+                and   c.prod_id = d.PROD_ID
+                and   a.adv_dtl_id = e.fwd_receipt_no
+                and   c.detail_receipt_no = e.detail_receipt_no
+                and   a.trans_dt between '$frm_date' and '$to_date'
+                and   a.comp_id = '$comp_id'
+                and   e.comp_pay_flag = 'Y'
+                 group by fo_name";
+
+}else{
             $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt
            
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
@@ -2294,7 +2322,43 @@ ORDER BY `op_bln` ASC");
                         and   a.comp_id = '$comp_id'
                         and   e.comp_pay_flag = 'Y'
                          group by b.branch_name,c.branch_id";
+
+}
         } else {
+
+
+            if($comp_id==1){
+
+                $sql = "select sum(a.adv_amt)adv_amt,
+                (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name
+            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+            where c.branch_id = b.id
+            and   a.memo_no='$memoNumber'
+            and   a.adv_dtl_id = c.receipt_no
+            and   a.adv_receive_no = c.detail_receipt_no
+            and   c.prod_id = d.PROD_ID
+            and   a.trans_dt between '$frm_date' and '$to_date'
+            and   a.comp_id = '$comp_id'
+            and   c.comp_pay_flag = 'Y'
+            group by fo_name
+            UNION
+            select sum(a.adv_amt)adv_amt
+            (select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name
+                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
+                        where c.branch_id = b.id
+                        and   a.memo_no='$memoNumber'
+                        and   a.adv_receive_no = c.detail_receipt_no
+                        and   c.prod_id = d.PROD_ID
+                        and   a.adv_dtl_id = e.fwd_receipt_no
+                        and   c.detail_receipt_no = e.detail_receipt_no
+                        and   a.trans_dt between '$frm_date' and '$to_date'
+                        and   a.comp_id = '$comp_id'
+                        and   e.comp_pay_flag = 'Y'
+                         group by fo_name";
+
+            }else{
+
+            
 
 
             $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt
@@ -2324,6 +2388,8 @@ ORDER BY `op_bln` ASC");
                         and   e.comp_pay_flag = 'Y'
                          group by b.branch_name,c.branch_id";
         }
+
+    }
         $q = $this->db->query($sql);
         return $q->result();
     }
@@ -2370,11 +2436,11 @@ ORDER BY `op_bln` ASC");
 
         $q = $this->db->query("
                         select a.pay_dt,c.district_name,a.pur_inv_no,a.paid_id,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty,
-                        (select round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
+                        (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
                         SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
-                        (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
-                        (select h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
-                        (select j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk
+                        (select DISTINCT c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
+                        (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
+                        (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk
                         from tdf_company_payment a, mm_product b,md_district c
                         where a.comp_id=$comp_id
                         and b.PROD_ID=a.prod_id
@@ -2389,6 +2455,26 @@ ORDER BY `op_bln` ASC");
 
     public function getCompanyPayment_district_name($comp_id, $frm_date, $to_date)
     {
+        
+        if($comp_id==1){
+            $q = $this->db->query("
+            select SUM(a.qty) as qty,
+            (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
+            SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
+            SUM(a.net_amt) as net_amt,
+            (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm
+            from tdf_company_payment a, mm_product b,md_district c
+            where a.comp_id=$comp_id
+            and b.PROD_ID=a.prod_id
+            and a.district=c.district_code
+            and a.net_amt > 0
+            and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+            group by fo_nm
+            order by fo_nm
+        ");
+
+        }else{
+
         
 
         $q = $this->db->query("
@@ -2405,6 +2491,8 @@ ORDER BY `op_bln` ASC");
                         group by  c.district_name
                         order by  c.district_name
                     ");
+
+        }
         return $q->result();
     }
 

@@ -178,7 +178,7 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
-                                <th>District</th>
+                                <th>District/Fo Number</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
                                 <th>TDS</th>
@@ -208,7 +208,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr>
                                      <td><?php echo $i++; ?></td>
                                      
-                                     <td><?php echo $ptableDatasidt->district_name; ?></td>
+                                     <td><?php  if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;} ?></td>
                                      
                                      <td><?php echo $ptableDatasidt->qty; ?></td>
                                     

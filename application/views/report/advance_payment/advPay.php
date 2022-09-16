@@ -173,7 +173,7 @@
                     <tr>
 
                         <th>Sl No.</th>
-                        <th>Branch Name.</th>
+                        <th>Branch Name / Fo Number</th>
                         <th>Amount</th>
                         <th>TDS</th>
                         <th>NET Amount</th>
@@ -201,14 +201,14 @@
                             <tr>
                                 <td><?php echo $i++; ?></td>
 
-                                <td><?php echo $ptableDatasummary->branch_name; ?></td>
+                                <td><?php if(!empty($ptableDatasummary->fo_name)){echo $ptableDatasummary->fo_name;}else{if(!empty($ptableDatasummary->branch_name)){echo $ptableDatasummary->branch_name;}else{echo "";}} ?></td>
 
 
-                                <td><?php echo $ptableDatasummary->adv_amt; ?></td>
-                                <td><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2), 2);
+                                <td style="text-align: right;"><?php echo $ptableDatasummary->adv_amt; ?></td>
+                                <td style="text-align: right;"><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2), 2);
                                 $tds = 0.001 * $ptableDatasummary->adv_amt;
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);
+                                <td style="text-align: right;"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);
                                     echo round($netamt, 2);
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
@@ -218,9 +218,9 @@
 
                         <tr>
                             <td colspan="2"><b>Total</b></td>
-                            <td><b><?php echo round($total, 2); ?></b></td>
-                            <td><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td><b><?php echo round($totalnetamt, 2); ?></b></td>
+                            <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
+                            <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
+                            <td style="text-align: right;"><b><?php echo round($totalnetamt, 2); ?></b></td>
                         </tr>
                     <?php
                     } else {
