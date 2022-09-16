@@ -13,7 +13,7 @@
 
                     </div>
                     <br>  
-                    <button class="btn" onclick="exportTableToExcel('example','members-data')">Stock_report</button><br><br>
+                    <button class="btn" onclick="exportTableToExcel('example','members-data')">Stock Report</button><br><br>
                     <table style="width: 100%;" id="example">
 
                         <thead>
