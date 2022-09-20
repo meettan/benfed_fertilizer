@@ -111,6 +111,8 @@
                $where1           =  array("district_code"  =>  $this->input->post('district'));
 
                $data['branch']   =  $this->ReportModel->f_select("md_district", NULL, $where1, 1);
+               $data['frm_date']= $this->input->post('fr_date');
+               $data['to_date']= $this->input->post('to_date');
               
                $this->load->view('post_login/fertilizer_main');
                $this->load->view('report/rate_slabho/rate_slab.php',$data);

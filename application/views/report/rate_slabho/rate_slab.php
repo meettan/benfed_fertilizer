@@ -65,7 +65,8 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Sale Rate Slab</h4>
+                        <h3>Sale Rate Slab Between:<?php echo date('d/m/Y',strtotime($frm_date)); ?> To <?php echo date('d/m/Y',strtotime($to_date));
+  ?></h3>
                         <h5 style="text-align:right"><label>District: </label> <?php echo $branch->district_name; ?></h5>
                         <h5 style="text-align:left"><label>Company:</label> <?php echo $company->COMP_NAME; ?></h5>
                      <!--<h5 style="text-align:left"><label>Product:</label> <?php //echo $product->PROD_DESC; ?></h5>-->
