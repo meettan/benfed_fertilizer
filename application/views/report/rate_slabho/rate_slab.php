@@ -88,7 +88,8 @@ tr:hover {background-color: #f5f5f5;}
 
                            <!--      <th>To Date</th> -->
 
-                                <th>Rate/Unit</th>
+                                <th>Rate/Unit (Excluding GST)</th>
+                                <th>Rate/Unit (Including GST)</th>
 
                                 <th>Rate/Bag</th>
 
@@ -117,6 +118,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo date('d/m/Y',strtotime($ratedtls->frm_dt)); ?></td>
                                    <!--   <td><?php //echo date('d/m/Y',strtotime($ratedtls->to_dt)); ?></td> -->
                                      <td><?php echo $ratedtls->sp_mt; ?></td>
+                                     <td><?php echo $ratedtls->sale_rtgst; ?></td>
                                      <td><?php echo $ratedtls->sp_bag; ?></td>
                                      <td><?php echo $ratedtls->sp_govt; ?></td>
                                 </tr>

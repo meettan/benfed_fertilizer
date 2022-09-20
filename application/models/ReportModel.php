@@ -380,11 +380,11 @@ function papulate_blance_purchase($fDate, $tDate,$dist){
 
         return $query->result();
     }
-
+// =================================End Sale Rate Slab at HO=========================
     public function f_get_salerateho($comp_id, $district, $frm_date, $to_date, $fin_id)
     {
 
-        $sql = "SELECT `a`.`frm_dt`, `a`.`to_dt`, `a`.`catg_id`, `a`.`sp_mt`, `a`.`sp_bag`, `a`.`sp_govt`, `b`.`cate_desc`, `c`.`PROD_DESC` 
+        $sql = "SELECT a.sale_rtgst,`a`.`frm_dt`, `a`.`to_dt`, `a`.`catg_id`, `a`.`sp_mt`, `a`.`sp_bag`, `a`.`sp_govt`, `b`.`cate_desc`, `c`.`PROD_DESC` 
             FROM `mm_sale_rate` `a`, `mm_category` `b`, `mm_product` `c` 
             WHERE `a`.`catg_id` = `b`.`sl_no` 
             AND `a`.`prod_id` = `c`.`PROD_ID` 
@@ -399,7 +399,7 @@ function papulate_blance_purchase($fDate, $tDate,$dist){
 
         return $query->result();
     }
-
+// =================================End Sale Rate Slab at HO=========================
     public function  f_get_scendry_stk_point($branch)
     {
         $query = $this->db->query("select  distinct a.stock_point as soc_id,b.soc_name as soc_name
@@ -1188,7 +1188,7 @@ END ),3)lqdqty,
     }
 
 
-
+//==============================Branchwise Purchase Report at HO (individual and all branch)===========================
     public function pc($from_dt,$to_dt,$branch,$company)
     {
 
@@ -1240,7 +1240,7 @@ END ),3)lqdqty,
         return $data->result();
     }
 
-
+// ============================End Branchwise Purchase Report at HO (individual and all branch)====================== 
 
     public function f_get_hsn_gst($frmDt, $toDt)
     {

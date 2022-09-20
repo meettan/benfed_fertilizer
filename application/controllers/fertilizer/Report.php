@@ -83,6 +83,8 @@
             }
 
         }
+
+// =================================Sale Rate Slab at HO=========================
          public function rateslabho(){
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -126,7 +128,7 @@
             }
 
         }
-
+// =================================End Sale Rate Slab at HO=========================
         public function popProd(){
 
             $where  = array('company' => $this->input->get('company'));
