@@ -167,7 +167,7 @@ tr:hover {background-color: #f5f5f5;}
 
 
 <script>
-    function strDAte(dateData){
+     function strDAte(dateData){
         var date=new Date(dateData);
        
         var returndate= date.getDate()+'/'+ (date.getMonth()+1) +'/'+date.getFullYear();
@@ -176,17 +176,14 @@ tr:hover {background-color: #f5f5f5;}
     $('#populate_product').click(function(){
        var fDate=$("#from_date").val();
        var tDate=$("#to_date").val();
-       
+        //var date=new Date(fDate);
         
-        // D.getDate()       
-        // D.getFullYear() 
-       
        
        $('#overlay').fadeIn();
 
        $.ajax({
 					type: "POST",
-					url: "<?php echo site_url('fert/rep/stock_report_Popu_pro'); ?>",
+					url: "<?php echo site_url('fert/rep/purchase_report_Popu_pro'); ?>",
 					data: {fDate: fDate,tDate:tDate},
 					dataType: 'html',
 					success: function (result) {
@@ -210,7 +207,7 @@ tr:hover {background-color: #f5f5f5;}
 
        $.ajax({
 					type: "POST",
-					url: "<?php echo site_url('fert/rep/papulate_blance'); ?>",
+					url: "<?php echo site_url('fert/rep/papulate_blance_purchase'); ?>",
                     data: {fDate: fDate,tDate:tDate,dist:dist},
 					dataType: 'html',
 					success: function (result) {

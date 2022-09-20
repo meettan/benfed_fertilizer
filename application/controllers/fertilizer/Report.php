@@ -1374,6 +1374,8 @@ public function hsnsumryrep(){
 
         }
 
+/******************************Branchwise Purchase Report at HO (individual and all branch)***************************** */        
+
         public function purrepbr(){
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -1381,80 +1383,43 @@ public function hsnsumryrep(){
                 $from_dt    =   $_POST['from_date'];
 
                 $to_dt      =   $_POST['to_date'];
-                $company=$this->input->post('comid');
-                // $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+                $company    =    $this->input->post('comid');
 
                 $branch     =  $_POST['br'];
-                $mth        =  date('n',strtotime($from_dt));
-
-                $yr         =  date('Y',strtotime($from_dt));
 
 
                 if($branch!='0'){
 
-                
+                    $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                    
+                    
+                    $where1              =   array("district_code"  => $branch);
 
-                if($mth > 3){
+                    $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
-                    $year = $yr;
+                    $select1             = array("district_code","district_name");
 
-                }else{
+                    $data['all_branch']  =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
 
-                    $year = $yr - 1;
-                }
+                    $data['purchase']=$this->ReportModel->pc($from_dt,$to_dt,$branch,$company);
 
-                $opndt      =  date($year.'-04-01');
-
-                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
-
-                $all_data            =   array($from_dt,$to_dt,$branch,$company);
-                //$all_data            =   array('2020-04-01','2021-01-06','337');
-                
-                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
-                
-                // $data['purchase']    =   $this->ReportModel->f_get_purchaserep($branch,$from_dt,$to_dt);
-                
-                // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
-                $where1              =   array("district_code"  => $branch);
-                $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-                $select1      = array("district_code","district_name");
-                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
-                $data['purchase']=$this->ReportModel->pc($all_data);
-                $this->load->view('post_login/fertilizer_main');
-                $this->load->view('report/purchase_br/pur_stmt',$data);
-                $this->load->view('post_login/footer');
+                    $this->load->view('post_login/fertilizer_main');
+                    $this->load->view('report/purchase_br/pur_stmt',$data);
+                    $this->load->view('post_login/footer');
 
             }else{
                 
-                if($mth > 3){
 
-                    $year = $yr;
-
-                }else{
-
-                    $year = $yr - 1;
-                }
-
-                $opndt      =  date($year.'-04-01');
-
-                $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
-
-                $all_data_n            =   array($from_dt,$to_dt,$company);
-                //$all_data            =   array('2020-04-01','2021-01-06','337');
+                $all_data_n           =   array($from_dt,$to_dt,$company);
                 
-                $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                $_SESSION['date']     =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                 
+                $data['branch']       =   "0";
                 
-                // $data['purchase']    =   $this->ReportModel->f_get_purchaserep($branch,$from_dt,$to_dt);
-                
-                // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
-                // $where1              =   array("district_code"  => $branch);
-                $data['branch']      =   "0";
-                //$select1      = array("district_code","district_name");
-               // $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
-                $data['purchase']=$this->ReportModel->pcn($all_data_n);
+                $data['purchase']     =   $this->ReportModel->pcn($from_dt,$to_dt,$company);
 
-                // echo $this->db->last_query();
-                // die();
+               
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/purchase_br/pur_stmt',$data);
                 $this->load->view('post_login/footer');
@@ -2448,7 +2413,7 @@ public function advance_payment(){
         }
     }
 
-
+// ================================ Monthly stock report at HO =======================================
     public function stock_report(){
         if($this->input->post()){
 
@@ -2466,7 +2431,7 @@ public function advance_payment(){
     public function stock_report_Popu_pro(){
         $fDate=$this->input->post('fDate');
         $tDate=$this->input->post('tDate');
-       echo $this->ReportModel-> stock_report_Popu_pro($fDate, $tDate);
+       echo $this->ReportModel->stock_report_Popu_pro($fDate, $tDate);
     }
 
     public function papulate_blance(){
@@ -2475,5 +2440,65 @@ public function advance_payment(){
         $dist=$this->input->post('dist');
        echo $this->ReportModel->papulate_blance($fDate, $tDate,$dist);
     }
+// ================================ end stock report =======================================
+
+// ================================Monthly Sale report at Ho=======================================
+    public function sale_report(){
+        if($this->input->post()){
+
+        }else{
+            $select=array('dist_sort_code','district_code');
+            $data=array(
+                'distData'=>$this->ReportModel->f_select("md_district", $select, NULL, 0)
+            );
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/monthlyReport/sale/input.php', $data);
+            $this->load->view('post_login/footer');
+        }
+    }
+
+    public function sale_report_Popu_pro(){
+        $fDate=$this->input->post('fDate');
+        $tDate=$this->input->post('tDate');
+       echo $this->ReportModel->stock_report_Popu_sale($fDate, $tDate);
+    }
+
+    public function papulate_blance_sale(){
+        $fDate=$this->input->post('fDate');
+        $tDate=$this->input->post('tDate');
+        $dist=$this->input->post('dist');
+       echo $this->ReportModel->papulate_blance_sale($fDate, $tDate,$dist);
+    }
+// ================================ END Sale report =======================================
+
+// ================================ Monthly Purchase report at HO =======================================
+    public function purchase_report(){
+        if($this->input->post()){
+
+        }else{
+            $select=array('dist_sort_code','district_code');
+            $data=array(
+                'distData'=>$this->ReportModel->f_select("md_district", $select, NULL, 0)
+            );
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/monthlyReport/purchase/input.php', $data);
+            $this->load->view('post_login/footer');
+        }
+    }
+
+    public function purchase_report_Popu_pro(){
+        $fDate=$this->input->post('fDate');
+        $tDate=$this->input->post('tDate');
+        echo $this->ReportModel->stock_report_Popu_purchase($fDate, $tDate);
+    }
+
+    public function papulate_blance_purchase(){
+        $fDate=$this->input->post('fDate');
+        $tDate=$this->input->post('tDate');
+        $dist=$this->input->post('dist');
+       echo $this->ReportModel->papulate_blance_purchase($fDate, $tDate,$dist);
+    }
+// ================================ End Purchase report =======================================
+
         
   }

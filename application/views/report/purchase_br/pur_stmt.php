@@ -70,7 +70,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Purchase Statement Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Purchase Report Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php if($branch!='0'){ echo $branch->district_name;}else{echo "All Branch";} ?></h5>
 
                     </div>
@@ -113,6 +113,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Base Price</th>
 
                                 <th>Add RTL Margin</th>
+                                <th>Add adj amt</th>
+                                <th>Less adj amt</th>
                                 <th>Less Spl Rebt</th>
                                 <th>Add Rebt</th>
                                 <th>Less Rebt</th>
@@ -157,6 +159,8 @@ tr:hover {background-color: #f5f5f5;}
                                     $retlr_margin=0.00;
                                     $base_price  =0.00;
                                     $val =0;
+                                    $add_adj_amt=0;
+                                    $less_adj_amt=0;
 
                                         foreach($purchase as $purc){
                             ?>
@@ -229,6 +233,14 @@ tr:hover {background-color: #f5f5f5;}
 
                                      ?></td>
                                      <!-- <td class="report"><?php echo $purc->spl_rebt; ?></td> -->
+                                     <td class="report"><?php echo $purc->add_adj_amt;
+                                                                  $add_adj_amt+= $purc->add_adj_amt;
+
+                                     ?></td>
+                                     <td class="report"><?php echo $purc->less_adj_amt;
+                                                                  $less_adj_amt+= $purc->less_adj_amt;
+
+                                     ?></td>
                                      <td class="report"><?php echo $purc->spl_rebt;
                                                                   $spl_rebt+= $purc->spl_rebt;
 
@@ -309,21 +321,23 @@ tr:hover {background-color: #f5f5f5;}
                         <?php if(!empty($purchase)){ ?>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="11" style="text-align:right">Total</td> 
-                               <td class="report"><?=$base_price?></td>
-                               <td class="report"><?=$retlr_margin?></td>
-                               <td class="report"><?=$spl_rebt?></td>
-                               <td class="report"><?=$rbt_add?></td>
-                               <td class="report"><?=$rbt_less?></td>
-                               <td class="report"><?= $rnd_of_add?></td>
-                               <td class="report"><?= $rnd_of_less?></td> 
-                               <td class="report"><?= $trad_margin?></td>
-                               <td class="report"><?=$oth_dis?></td>
-                               <td class="report"><?=$frt_subsidy?></td>
-                               <td class="report"><?=$cgst?></td>
-                               <td class="report"><?=$sgst?></td>
-                               <!-- <td class="report"><?=$disc?></td>  -->
-                               <td class="report"><?=$total?></td>  
+                               <td class="report" colspan="11" style="text-align:right"><b>Total</b></td> 
+                               <td class="report"><b><?=$base_price?></b></td>
+                               <td class="report"><b><?=$retlr_margin?></b></td>
+                               <td class="report"><b><?=$add_adj_amt?></b></td>
+                               <td class="report"><b><?=$less_adj_amt?></b></td>
+                               <td class="report"><b><?=$spl_rebt?></b></td>
+                               <td class="report"><b><?=$rbt_add?></b></td>
+                               <td class="report"><b><?=$rbt_less?></b></td>
+                               <td class="report"><b><?= $rnd_of_add?></b></td>
+                               <td class="report"><b><?= $rnd_of_less?></b></td> 
+                               <td class="report"><b><?= $trad_margin?></b></td>
+                               <td class="report"><b><?=$oth_dis?></b></td>
+                               <td class="report"><b><?=$frt_subsidy?></b></td>
+                               <td class="report"><b><?=$cgst?></b></td>
+                               <td class="report"><b><?=$sgst?></b></td>
+                               <!-- <td class="report"><b><?=$disc?></b></td>  -->
+                               <td class="report"><b><?=$total?></b></td>  
 
                             </tr>
                         </tfooter>

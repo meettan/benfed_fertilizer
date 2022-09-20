@@ -149,8 +149,7 @@ public function f_get_soc_pay($frmDt, $toDt, $branch)
 }
 
 
-
-/******************stock report******************************** */  
+/******************Monthly stock report at HO******************************** */  
 public function stock_report_Popu_pro($frmDt, $toDt)
 {
     $date=array($frmDt,$toDt);
@@ -171,7 +170,6 @@ public function stock_report_Popu_pro($frmDt, $toDt)
     return $this->load->view('report/monthlyReport/stock_report/table.php',$dataarray);
 
 }
-
 public function papulate_blance($frmDt, $toDt,$dist)
 {
     $date=array($frmDt,$toDt,$dist);
@@ -193,10 +191,85 @@ public function papulate_blance($frmDt, $toDt,$dist)
 
 }
 
+// ================================ end stock report =======================================
+
+// ================================ Monthly sale stock report at HO =======================================
+public function stock_report_Popu_sale($frmDt, $toDt)
+{
+    $date=array($frmDt,$toDt);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_populate_product`(?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 
 
+    $dataarray['data']= $data_w->result();
+    return $this->load->view('report/monthlyReport/sale/table.php',$dataarray);
+
+}
+function papulate_blance_sale($fDate, $tDate,$dist){
+    $date=array($fDate,$tDate,$dist);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_monthly_sale`(?,?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    $dataarray['data']= $data_w->result();
+    return $this->load->view('report/monthlyReport/sale/table.php',$dataarray);
+}
+// ================================ End sale stock report =======================================
+
+// ================================ Monthly Purchase stock report at HO =======================================
+public function stock_report_Popu_purchase($frmDt, $toDt)
+{
+    $date=array($frmDt,$toDt);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_populate_product`(?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 
 
+    $dataarray['data']= $data_w->result();
+    return $this->load->view('report/monthlyReport/purchase/table.php',$dataarray);
+
+}
+function papulate_blance_purchase($fDate, $tDate,$dist){
+    $date=array($fDate,$tDate,$dist);
+    try {
+        $this->db->reconnect();
+
+        $sql = "CALL `p_monthly_purchase`(?,?,?)";
+
+        $data_w = $this->db->query($sql, $date);
+        
+        $this->db->close();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    $dataarray['data']= $data_w->result();
+    return $this->load->view('report/monthlyReport/purchase/table.php',$dataarray);
+}
+// ================================ End purchase stock report =======================================
 
     // git add check  add some
 
@@ -1116,32 +1189,30 @@ END ),3)lqdqty,
 
 
 
-    public function pc($all_data)
+    public function pc($from_dt,$to_dt,$branch,$company)
     {
 
-        try {
-            $this->db->reconnect();
-
-            $sql = "CALL `p_purchase_all`(?,?,?,?)";
-
-            $data_w = $this->db->query($sql, $all_data);
-            // echo $this->db->last_query();
-            // die();
-            //                 // array(‘first’=>’Foo’,’last’=>’Bar’,’mood’=>’Testy’) 
-
-            $this->db->close();
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        // return $result;
-        return $data_w->result();
-        // return $data->result_object();
-
+        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,
+                                       a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
+                                       a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
+                                       c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit
+                                from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d
+                                where  a.prod_id = b.PROD_ID
+                                and    a.comp_id = c.COMP_ID
+                                and    a.stock_point=d.soc_id
+                                and    a.br      = '.$branch.'
+                                and    a.comp_id = '.$company.'
+                                and    a.trans_dt between "'.$from_dt.'" and "'.$to_dt.'"
+                                and    a.trans_flag = 1');
+       
+        return $data->result();
+        
     }
-    public function pcn($all_data)
+
+    public function pcn($from_dt,$to_dt,$company)
     {
 
-        try {
+        /*try {
             $this->db->reconnect();
 
             $sql = "CALL `p_purchase_all_n`(?,?,?)";
@@ -1152,11 +1223,21 @@ END ),3)lqdqty,
             $this->db->close();
         } catch (Exception $e) {
             echo $e->getMessage();
-        }
-        // return $result;
-        return $data_w->result();
-        // return $data->result_object();
+        }*/
 
+        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,
+                a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
+                a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
+                c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit
+                from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d
+                where  a.prod_id = b.PROD_ID
+                and    a.comp_id = c.COMP_ID
+                and    a.stock_point=d.soc_id
+                and    a.comp_id = '.$company.'
+                and    a.trans_dt between "'.$from_dt.'" and "'.$to_dt.'"
+                and    a.trans_flag = 1');
+                        
+        return $data->result();
     }
 
 

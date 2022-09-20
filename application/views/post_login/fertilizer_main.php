@@ -279,9 +279,11 @@
                                 </div>
 
                                 <div class="sub-dropdown">
-								<a class="sub-dropbtn">Monthly report <i class="fa fa-angle-right" style="float: right;"></i></a> 
+								<a class="sub-dropbtn">Monthly Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
 									<div class="sub-dropdown-content">
-									    <a href="<?php echo site_url("fert/rep/stock_report");?>"> Stock Report </a>
+									    <a href="<?php echo site_url("fert/rep/stock_report");?>"> Stock </a>
+									    <a href="<?php echo site_url("fert/rep/sale_report");?>"> Sale </a>
+									    <a href="<?php echo site_url("fert/rep/purchase_report");?>"> Purchase </a>
 									    
 									</div>
                                 </div>
@@ -292,12 +294,12 @@
 								<a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
 								<!--<div class="sub-dropdownbr"> -->
                                 <div class="sub-dropdown">
-                                   <a class="sub-dropbtn">Branch Wise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
+                                   <a class="sub-dropbtn">Branchwise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">
-										<a href="<?php echo site_url("fert/rep/stkStmt_ho");?>">Branch Wise Consolidated Stock</a>
-										<a href="<?php echo site_url("fert/rep/stkScomp_ho");?>">Branch Wise & Company wise Stock</a>
-										<a href="<?php echo site_url("fert/rep/purrepbr");?>">Branch Wise Purchase</a>
-										<a href="<?php echo site_url("fert/rep/salerepbr");?>">Branch Wise Sale</a>
+										<a href="<?php echo site_url("fert/rep/stkStmt_ho");?>">Consolidated Stock</a>
+										<a href="<?php echo site_url("fert/rep/stkScomp_ho");?>">Companywise Stock</a>
+										<a href="<?php echo site_url("fert/rep/purrepbr");?>">Purchase</a>
+										<a href="<?php echo site_url("fert/rep/salerepbr");?>">Sale</a>
 									</div>
                                 </div>
 								<a href="<?php echo site_url("fert/rep/soc_wse_cr_dmd");?>"> Society wise Credit Note Demand.</a>
