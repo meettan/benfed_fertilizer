@@ -92,7 +92,7 @@ if (!function_exists('get_purchase')) {
   }                                                               //end of function
 }
 
-/**Function get_sale getting total sale quantity within a period of time*/
+/**Function get_sale getting total sale quantity within a period of time for a branch*/
 if (!function_exists('get_sale')) {
   function get_sale($frfDate, $toDate, $branch, $hoFlag, $state)
   {

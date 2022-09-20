@@ -430,9 +430,7 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 	}
 		
 
-		
-
-	//   07/03/2022       Coding date   //
+	/************************Solid Material Sold in a district for a year used in Bar Graph Solid Sale */
 		public function f_get_solid_sale($from_yr_day,$to_yr_day){
 			
 		$sql = 	"select sum(qty) qty,a.br_cd,b.district_name from (
@@ -456,6 +454,8 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		$data = $this->db->query($sql);	
 		return $data->result();
 		}
+
+	/************************Liquid Material Solid in a district for a year used in Bar Graph Solid Sale *****************/	
 		
 		public function f_get_liquid_sale($from_yr_day,$to_yr_day){
 			
@@ -475,6 +475,8 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		return $data->result();
 		}
 		
+      
+		/****************************************Total Solid Sale in a year for all branch used in Bar Graph Solid Sale ***********/
 		public function f_get_solid_sale_tot($from_yr_day,$to_yr_day){
 			
 		$sql = 	"select IFNULL(sum(qty),0) qty from (
@@ -490,7 +492,10 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		$data = $this->db->query($sql);	
 		return $data->row();
 		}
-		
+
+	   
+		/****************************************Total Liquid Sale in a year for all branch used in Bar Graph Liquid Sale ***********/
+
 		public function f_get_liquid_sale_tot($from_yr_day,$to_yr_day){
 			
 		$sql = 	"select sum(qty) qty from (
@@ -501,6 +506,57 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 		$data = $this->db->query($sql);	
 		return $data->row();
 		}
+
+		/***************************************Districtwise Collection in a year used in colection Bar Graph**********************/
+
+		 public function get_coloction_distwise($frfDate,$toDate){
+
+			$data=$this->db->query("select branch_id,district_name ,sum(received)+sum(advance) tot_recvamt
+			from (
+					SELECT a.branch_id,sum(a.paid_amt)received,0 advance, b.district_name
+					FROM   tdf_payment_recv a, md_district b
+					where  a.paid_dt BETWEEN '$frfDate' and '$toDate'
+					and    a.pay_type not in ('2','6')
+					and 	a.branch_id=b.district_code
+					group by a.branch_id
+					UNION
+					select a.branch_id,0 received, sum(a.adv_amt)advance, b.district_name
+					from   tdf_advance a, md_district b
+					where  a.trans_dt BETWEEN '$frfDate' and '$toDate'
+					and    a.trans_type = 'I'
+					and 	a.branch_id=b.district_code
+					group by a.branch_id) a
+			group by branch_id");
+				     
+					
+					return $data->result();
+
+
+			}
+
+			public function get_tot_coloction($frfDate,$toDate){
+
+				$data=$this->db->query("select sum(received)+sum(advance) tot_recvamt
+				from (
+						SELECT sum(paid_amt)received,0 advance
+						FROM   tdf_payment_recv
+						where  paid_dt BETWEEN '$frfDate' and '$toDate'
+						and    pay_type not in ('2','6')
+						UNION
+						select 0 received,sum(adv_amt)advance
+						from   tdf_advance
+						where  trans_dt BETWEEN '$frfDate' and '$toDate'
+						and    trans_type = 'I'
+						) a");
+				
+						 
+						
+						return $data->result();
+	
+	
+				}
+	
+
 		
 		/************************************************************************************************************************/
 		//    Query used for to fetch tje purchase of a day in barnch dashboard  usertype= Manager and admin 

@@ -211,24 +211,29 @@
 				// $dash_data['distwisesale']           = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
                 // //    End code	
 				
-				$dash_data['distwisesaleltr']           = $this->Fertilizer_Process->f_get_liquid_sale($from_yr_day,$to_yr_day);
+				
 				//  District wise money collection   ///
 				$selectm                             = array("sum(a.paid_amt) paid_amt","b.district_name");
 				$wherem                              = array("a.branch_id = b.district_code" => NULL,
 															  "a.fin_yr " =>  $fin_id,
 															 "1 group by a.branch_id" => NULL );
+
 				$dash_data['distamt']           = $this->Fertilizer_Process->f_select('tdf_payment_recv a,md_district b',$selectm,$wherem,0);
 				
-				$dash_data['totsolidsale']    = $this->Fertilizer_Process->f_get_solid_sale_tot($_SESSION['sys_date'],$_SESSION['sys_date']);
-				$dash_data['totliquidsale']   = $this->Fertilizer_Process->f_get_liquid_sale_tot($_SESSION['sys_date'],$_SESSION['sys_date']);
+				
+
+
 				$prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($_SESSION['sys_date'])));
 				$dash_data['product']          =   $this->Fertilizer_Process->f_get_product_list($branch_id,'2020-04-01');
 				$dash_data['opening']     =   $this->Fertilizer_Process->f_get_balance($branch_id,'2020-04-01',$prevdt);
 				
 				
-				
-				
-				
+
+				// //Total Solid & Liquid Sale in a year 
+				// $dash_data['totsolidsale']    = $this->Fertilizer_Process->f_get_solid_sale_tot($_SESSION['sys_date'],$_SESSION['sys_date']);
+					
+				// $dash_data['totliquidsale']   = $this->Fertilizer_Process->f_get_liquid_sale_tot($_SESSION['sys_date'],$_SESSION['sys_date']);
+
 
 				// If Login is in Head Office and Login user is Admin
 
@@ -272,11 +277,22 @@
 					$select1                             = array("district_code","district_name");
 					$dash_data['distdtls']               = $this->Fertilizer_Process->f_select('md_district',$select1,NULL,0);
 
-					///   Start code
+					
+					//Districtwise Bar Graph for Solid & Liquid Sale for a financial year
+					 
 					$dash_data['distwisesale']           = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day,$to_yr_day);
-					//    End code	
+
+					$dash_data['distwisesaleltr']        = $this->Fertilizer_Process->f_get_liquid_sale($from_yr_day,$to_yr_day);
 
 
+					//Total Solid & Liquid Sale in a year 
+					$dash_data['totsolidsale']    = $this->Fertilizer_Process->f_get_solid_sale_tot($from_yr_day,$to_yr_day);
+
+				    $dash_data['totliquidsale']   = $this->Fertilizer_Process->f_get_liquid_sale_tot($from_yr_day,$to_yr_day);
+					 
+					/**Districtwise Collection in a year used in colection Bar Graph***/
+					$dash_data['coloction_distwise']=$this->Fertilizer_Process->get_coloction_distwise($from_yr_day,$to_yr_day);
+					$dash_data['tot_coloction']=$this->Fertilizer_Process->get_tot_coloction($from_yr_day,$to_yr_day);
 
 					$this->load->view('post_login/fertilizer_main');
 					$this->load->view('post_login/fertilizer_home_one',$dash_data);

@@ -1365,17 +1365,257 @@
         type: 'bar',
         data: data,
         options: {
-          legend: { display: false },
-      title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
-      }
+          "hover": {
+            "animationDuration": 0
+          },
+          "animation": {
+            "duration": 1,
+            "onComplete": function() {
+              var chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+
+              this.data.datasets.forEach(function(dataset, i) {
+                var meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function(bar, index) {
+                  var data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                });
+              });
+            }
+          },
+          legend: {
+            "display": false
+          },
+          tooltips: {
+            "enabled": false
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Unit in MT'
+              }
+              // ,
+              // ticks: {
+              // min: 0, // minimum value
+              // max: 1600, // maximum value
+              // stepSize: 200
+              // }
+            }]
+          }
         }
 
 
       });
     }
 
+    <?php
+    $label = '';
+    $qty   = '';
+    foreach ($distwisesaleltr as $key) {
+      $label .=  '"' . $key->district_name . '",';
+      $qty   .=   ($key->qty) . ',';
+    }
+
+    ?>
+    var data = {
+      labels: [<?php echo rtrim($label, ","); ?>],
+      datasets: [{
+        label: '# of Votes',
+        data: [<?php echo rtrim($qty, ","); ?>],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(245, 86, 82, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(245, 86, 82, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    }
+
+    var barChartId = document.getElementById("barChartl");
+    if (barChartId) {
+      var ctxB = document.getElementById("barChartl").getContext('2d');
+      var myBarChart = new Chart(ctxB, {
+        type: 'bar',
+        data: data,
+        options: {
+          "hover": {
+            "animationDuration": 0
+          },
+          "animation": {
+            "duration": 1,
+            "onComplete": function() {
+              var chartInstance = this.chart,
+                ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+
+              this.data.datasets.forEach(function(dataset, i) {
+                var meta = chartInstance.controller.getDatasetMeta(i);
+                meta.data.forEach(function(bar, index) {
+                  var data = dataset.data[index];
+                  ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                });
+              });
+            }
+          },
+          legend: {
+            "display": false
+          },
+          tooltips: {
+            "enabled": false
+          },
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Unit in LTR'
+              }
+              // ,
+              // ticks: {
+              // min: 0, // minimum value
+              // max: 1600, // maximum value
+              // stepSize: 200
+              // }
+            }]
+          }
+        }
+
+      });
+    }
+
+  }
+  <?php
+  $label = '';
+  $qty   = '';
+  foreach ($distamt as $key) {
+    $label .=  '"' . $key->district_name . '",';
+    $qty   .=   ($key->paid_amt) . ',';
+  }
+
+  ?>
+  var data = {
+    labels: [<?php echo rtrim($label, ","); ?>],
+    datasets: [{
+      label: '# of Votes',
+      data: [<?php echo rtrim($qty, ","); ?>],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 206, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(153, 102, 255, 0.8)',
+        'rgba(255, 159, 64, 0.8)',
+        'rgba(245, 86, 82, 0.8)',
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 206, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(153, 102, 255, 0.8)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(245, 86, 82, 1)',
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  }
+
+  var barChartBottomId = document.getElementById("barChartBottom");
+  if (barChartBottomId) {
+    var ctxC = document.getElementById("barChartBottom").getContext('2d');
+
+    var myBarChartBot = new Chart(ctxC, {
+      type: 'bar',
+      data: data,
+      options: {
+        "hover": {
+          "animationDuration": 0
+        },
+        "animation": {
+          "duration": 1,
+          "onComplete": function() {
+            var chartInstance = this.chart,
+              ctx = chartInstance.ctx;
+            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+
+            this.data.datasets.forEach(function(dataset, i) {
+              var meta = chartInstance.controller.getDatasetMeta(i);
+              meta.data.forEach(function(bar, index) {
+                var data = dataset.data[index];
+                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+              });
+            });
+          }
+        },
+        legend: {
+          "display": false
+        },
+        tooltips: {
+          "enabled": false
+        },
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Amount in crores'
+            }
+          }]
+        }
+      }
+
+    });
+  }
+  $('#toggleDiv').hide();
+
+  function expandDiv() {
+    if ($('#toggleDiv').is(':visible')) {
+      $('#toggleDiv').slideUp("slow");
+    } else {
+      $('#toggleDiv').slideDown("slow");
+    }
+  }
 </script>
 <script src="<?php //echo base_url("/assets/js/custom.js")
               ?>"></script>
