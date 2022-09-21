@@ -2469,7 +2469,7 @@ if($comp_id==1){
             and   c.comp_pay_flag = 'Y'
             group by fo_name
             UNION
-            select sum(a.adv_amt)adv_amt
+            select sum(a.adv_amt)adv_amt,
             (select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                         where c.branch_id = b.id
