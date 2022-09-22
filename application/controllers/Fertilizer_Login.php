@@ -216,7 +216,8 @@
 				$selectm                             = array("sum(a.paid_amt) paid_amt","b.district_name");
 				$wherem                              = array("a.branch_id = b.district_code" => NULL,
 															  "a.fin_yr " =>  $fin_id,
-															 "1 group by a.branch_id" => NULL );
+															 	"1 group by a.branch_id" => NULL 
+															);
 
 				$dash_data['distamt']           = $this->Fertilizer_Process->f_select('tdf_payment_recv a,md_district b',$selectm,$wherem,0);
 				
@@ -519,4 +520,3 @@
 			echo json_encode($data_array);
 		}
 	}
-?>

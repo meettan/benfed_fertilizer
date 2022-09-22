@@ -315,7 +315,7 @@
 
           </div>
 
-          <div class="sectionNew">
+          <!-- <div class="sectionNew">
             <div class="col-sm-12">
               <h2 class="onClickOpen" onclick="expandDiv()">Company Wise Status <span>(Click to Expand)</span> <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></h2>
             </div>
@@ -556,7 +556,7 @@
               </div>
             </div>
 
-          </div>
+          </div> -->
          
           <div class="barPaiChartMain">
 
