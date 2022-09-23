@@ -14,8 +14,6 @@
     opacity: .80;
   }
 
-
-
   .spinner {
     margin: 0 auto;
     height: 64px;
@@ -1071,4 +1069,20 @@
     arrows: true,
     slidesToScroll: 1
   });
+</script>
+
+<script>
+$.ajax({
+					type: "POST",
+					url: "<?php echo site_url('Fertilizer_Login/main/companyWiseStatus'); ?>",
+                    data: {data:"hello"},
+					dataType: 'json',
+					success: function (result) {
+            alert(result);
+                        // $('#tabledata').html(result);
+                        // $('#f_date').html(strDAte(fDate));
+                        // $('#t_date').html(strDAte(tDate));
+                        // $('#overlay').fadeOut();
+					}
+				});
 </script>

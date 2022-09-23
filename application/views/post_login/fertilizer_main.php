@@ -19,6 +19,7 @@
 		<script src="<?php echo base_url("/assets/js/bootstrap-toggle.js")?>" ></script> 
         
 
+        <script type="text/javascript" src="<?php echo base_url("/assets/dist/jquery.validate.js")?>"></script>
         
     <style>
         .hr {
@@ -357,11 +358,15 @@
                                 <i class="fa fa-angle-down"></i>
                             </div>
                             <div class="dropdown-content">
-                            <a href="<?php echo site_url("profile") ?>">Change Password</a>
-                            <?php  if($this->session->userdata['loggedin']['user_type']!="U"){
-                                ?>
-                            <a href="<?php echo site_url('admin/user'); ?>">Create User</a>
+                           
+                            
+                           
+                            <a href="<?php echo site_url('/user_add'); ?>">Create User</a>
+                            <?php 
+                             if($this->session->userdata['loggedin']['user_type']!="U"){ ?>
+                            <a href="<?php echo site_url('/user'); ?>">User List</a>
                             <?php }?>
+                            <a href="<?php echo site_url("/admins/user_edit?user_id=").$this->session->userdata['loggedin']['user_id']; ?>">Edit Profile</a>
                             </div>
                     </div>
                     <div class="dropdown">

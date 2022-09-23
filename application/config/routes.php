@@ -122,3 +122,8 @@ $route['admin/(:any)'] = 'admins/f_$1';
 $route['profile'] = 'profiles';
 $route['profile/(:any)/(:any)'] = 'profiles/f_$1_$2';
 $route['profile/(:any)'] = 'profiles/f_$1';
+
+
+$route['user'] = 'admins';
+$route['user_add'] = 'admins/user_add';
+$route['userlist_admin']='admins/userlist_admin';

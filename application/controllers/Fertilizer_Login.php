@@ -256,23 +256,23 @@
 
 
 
-					$dash_data["ho_purchase_iffco"]		= $this->Fertilizer_Process->f_get_tot_puriffco($from_yr_day,$to_yr_day);
-					$dash_data["ho_purchase_cil"]		= $this->Fertilizer_Process->f_get_tot_purcil($from_yr_day,$to_yr_day);
-					$dash_data["ho_purchase_ipl"]       = $this->Fertilizer_Process->f_get_tot_puripl($from_yr_day,$to_yr_day);
-					$dash_data["ho_purchase_jcf"]       = $this->Fertilizer_Process->f_get_tot_purjcf($from_yr_day,$to_yr_day);
-					$dash_data["ho_purchase_kcfl"]      = $this->Fertilizer_Process->f_get_tot_purkcfl($from_yr_day,$to_yr_day);
-					$dash_data["ho_purchase_kribhco"]   = $this->Fertilizer_Process->f_get_tot_purkribhco($from_yr_day,$to_yr_day);
-					$dash_data["ho_purchase_mipl"]      = $this->Fertilizer_Process->f_get_tot_purmipl($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_iffco"]		= $this->Fertilizer_Process->f_get_tot_puriffco($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_cil"]		= $this->Fertilizer_Process->f_get_tot_purcil($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_ipl"]       = $this->Fertilizer_Process->f_get_tot_puripl($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_jcf"]       = $this->Fertilizer_Process->f_get_tot_purjcf($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_kcfl"]      = $this->Fertilizer_Process->f_get_tot_purkcfl($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_kribhco"]   = $this->Fertilizer_Process->f_get_tot_purkribhco($from_yr_day,$to_yr_day);
+					// $dash_data["ho_purchase_mipl"]      = $this->Fertilizer_Process->f_get_tot_purmipl($from_yr_day,$to_yr_day);
 
 
 
-					$dash_data["ho_paid_iffco"]		     = $this->Fertilizer_Process->f_get_tot_paidiffco($from_yr_day,$to_yr_day);
-					$dash_data["ho_paid_ipl"]            = $this->Fertilizer_Process->f_get_tot_paidipl($from_yr_day,$to_yr_day);
-					$dash_data["ho_paid_cil"]		     = $this->Fertilizer_Process->f_get_tot_paidcil($from_yr_day,$to_yr_day);
-					$dash_data["ho_paid_jcf"]            = $this->Fertilizer_Process->f_get_tot_paidjcf($from_yr_day,$to_yr_day);
-					$dash_data["ho_paid_kcfl"]           = $this->Fertilizer_Process->f_get_tot_paidkcfl($from_yr_day,$to_yr_day);
-					$dash_data["ho_paid_kribhco"]        = $this->Fertilizer_Process->f_get_tot_paidkribhco($from_yr_day,$to_yr_day);
-					$dash_data["ho_paid_mipl"]           = $this->Fertilizer_Process->f_get_tot_paidmipl($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_iffco"]		     = $this->Fertilizer_Process->f_get_tot_paidiffco($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_ipl"]            = $this->Fertilizer_Process->f_get_tot_paidipl($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_cil"]		     = $this->Fertilizer_Process->f_get_tot_paidcil($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_jcf"]            = $this->Fertilizer_Process->f_get_tot_paidjcf($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_kcfl"]           = $this->Fertilizer_Process->f_get_tot_paidkcfl($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_kribhco"]        = $this->Fertilizer_Process->f_get_tot_paidkribhco($from_yr_day,$to_yr_day);
+					// $dash_data["ho_paid_mipl"]           = $this->Fertilizer_Process->f_get_tot_paidmipl($from_yr_day,$to_yr_day);
 
 
 					$select1                             = array("district_code","district_name");
@@ -518,5 +518,9 @@
 				
 			);
 			echo json_encode($data_array);
+		}
+
+		public function companyWiseStatus(){
+			echo $this->input->post('data');
 		}
 	}
