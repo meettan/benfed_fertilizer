@@ -363,7 +363,10 @@
                            
                             <a href="<?php echo site_url('/user_add'); ?>">Create User</a>
                             <?php 
-                             if($this->session->userdata['loggedin']['user_type']!="U"){ ?>
+                             if($this->session->userdata['loggedin']['user_type']=="A"){ ?>
+                                <a href="<?php echo site_url('/userlist_admin'); ?>">User List </a>
+                            <?php } 
+                             if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['user_type']!="A"){ ?>
                             <a href="<?php echo site_url('/user'); ?>">User List</a>
                             <?php }?>
                             <a href="<?php echo site_url("/admins/user_edit?user_id=").$this->session->userdata['loggedin']['user_id']; ?>">Edit Profile</a>
