@@ -411,24 +411,6 @@ function papulate_blance_purchase($fDate, $tDate,$dist){
         return $query->result();
     }
 
-    //  public function f_get_product_comp_prod_ro($branch,$frmDt,$comp_id,$prod_id,$ro){
-
-
-    //     $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,d.do_dt,d.trans_do,
-    //                                 c.COMP_NAME,c.short_name
-    //                         from   td_purchase a,mm_product b,mm_company_dtls c,td_sale d
-    //                         where  a.prod_id = b.PROD_ID
-    //                         and    a.comp_id = c.COMP_ID
-    //                         and    a.ro_no   = d.sale_ro
-    //                         and    a.comp_id = '$comp_id'
-    //                         and    a.prod_id = '$prod_id'
-    //                         and    d.sale_ro   = '$ro'
-    //                         and    d.sale_due_dt >= '$frmDt'
-    //                         and    a.br       = $branch
-    //                         order by a.comp_id");
-
-    //     return $query->result();
-    // }
 
 
     public function f_get_product_dtls_stkp_wse($branch, $frmDt, $to_dt, $comp_id, $prod_id, $soc_id)
@@ -447,20 +429,6 @@ function papulate_blance_purchase($fDate, $tDate,$dist){
     }
     public function f_get_product_comp_prod_ro($branch, $frmDt, $to_dt, $comp_id, $prod_id, $ro)
     {
-
-
-        // $query  = $this->db->query("select Distinct a.prod_id,d.sale_ro,b.PROD_DESC,a.comp_id,a.unit,
-        //                             c.COMP_NAME,c.short_name
-        //                     from   td_purchase a,mm_product b,mm_company_dtls c,td_sale d
-        //                     where  a.prod_id = b.PROD_ID
-        //                     and    a.comp_id = c.COMP_ID
-        //                     and    a.ro_no   = d.sale_ro
-        //                     and    a.comp_id = '$comp_id'
-        //                     and    a.prod_id = '$prod_id'
-        //                     and    d.sale_ro   = '$ro'
-        //                     and    d.sale_due_dt >= '$frmDt'
-        //                     and    a.br       = $branch
-        //                     order by a.comp_id");
 
         $query = $this->db->query("select a.prod_id,a.ro_no, (select GROUP_CONCAT(trans_do) 
                                                                 from td_sale a,mm_company_dtls b,mm_product c
@@ -853,58 +821,58 @@ from (
     }
 
     ////////////////////////////////////////////////
-    // public function f_get_balance_rowise($branch, $from_dt, $to_dt, $opndt)
-    // {
+    public function f_get_balance_rowise($branch, $from_dt, $to_dt, $opndt)
+    {
 
 
 
-    //     $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty,ro_no
-    //         from (
-    //             select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale,ro_no
-    //             from(
-    //             select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale,ro_no
-    //                             from tdf_opening_stock
-    //                             where branch_id	    = $branch
-    //                             and   balance_dt ='2020-04-01'
-    //                             group by prod_id,ro_no
-    //                             union
-    //             select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
-    //                               from td_sale
-    //                               where br_cd	    = $branch
-    //                               and   do_dt <'$from_dt'
-    //                               group by prod_id,sale_ro
-    //             UNION
-    //             select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale,ro_no
-    //                               from td_purchase
-    //                               where br	    =$branch
-    //                               and   trans_dt < '$from_dt' 
-    //                               and   trans_flag = 1
-    //                               group by prod_id,ro_no)a
-    //                               group by prod_id,ro_no
-    //               UNION
-    //               select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
-    //               from td_purchase
-    //               where br	    = $branch
-    //               and   trans_dt between '$from_dt' and  '$to_dt'
-    //               and   trans_flag = 1
-    //               group by prod_id,ro_no
-    //               UNION
-    //               select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
-    //               from td_sale
-    //               where br_cd	    = $branch
-    //               and   do_dt between '$from_dt' and '$to_dt'
-    //               group by prod_id,sale_ro)a
-    //           group by prod_id,ro_no
-    //           order by prod_id");
+        $data = $this->db->query("Select prod_id,ifnull(Sum(qty ),0)  as opn_qty, tot_pur, tot_sale,sum(tot_sale)tot_sale,ifnull(Sum(qty ),0) + sum(tot_pur)  - sum(tot_sale) as cls_qty,ro_no
+            from (
+                select prod_id,sum(qty)+sum(tot_pur)-sum(tot_sale)qty,0 tot_pur,0 tot_sale,ro_no
+                from(
+                select prod_id,sum(ifnull(qty,0))qty,0 tot_pur,0 tot_sale,ro_no
+                                from tdf_opening_stock
+                                where branch_id	    = $branch
+                                and   balance_dt ='2020-04-01'
+                                group by prod_id,ro_no
+                                union
+                select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+                                  from td_sale
+                                  where br_cd	    = $branch
+                                  and   do_dt <'$from_dt'
+                                  group by prod_id,sale_ro
+                UNION
+                select prod_id,ifnull(sum(qty),0) qty,0 tot_pur,0 tot_sale,ro_no
+                                  from td_purchase
+                                  where br	    =$branch
+                                  and   trans_dt < '$from_dt' 
+                                  and   trans_flag = 1
+                                  group by prod_id,ro_no)a
+                                  group by prod_id,ro_no
+                  UNION
+                  select prod_id, 0 qty,ifnull(sum(qty),0)tot_pur,0 tot_sale,ro_no
+                  from td_purchase
+                  where br	    = $branch
+                  and   trans_dt between '$from_dt' and  '$to_dt'
+                  and   trans_flag = 1
+                  group by prod_id,ro_no
+                  UNION
+                  select prod_id,0 qty,0 tot_pur,ifnull(sum(qty),0) tot_sale,sale_ro
+                  from td_sale
+                  where br_cd	    = $branch
+                  and   do_dt between '$from_dt' and '$to_dt'
+                  group by prod_id,sale_ro)a
+              group by prod_id,ro_no
+              order by prod_id");
 
 
-    //     if ($data->num_rows() > 0) {
-    //         $row = $data->result();
-    //     } else {
-    //         $row = 0;
-    //     }
-    //     return $row;
-    // }
+        if ($data->num_rows() > 0) {
+            $row = $data->result();
+        } else {
+            $row = 0;
+        }
+        return $row;
+    }
 
     public function f_get_purchase($branch, $frmDt, $toDt)
     {
