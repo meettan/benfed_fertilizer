@@ -95,9 +95,28 @@ class Admin extends CI_Model {
     public function f_delete($table_name, $where) {
 
         $this->db->delete($table_name, $where);
-
         return;
 
+    }
+
+    public function find_fin_user($user_id){
+        $db2 = $this->load->database('findb', TRUE);
+		return $db2->select('')->where(array('user_id'=>$user_id))->get('md_users')->num_rows();
+    }
+
+    public function insert_fin_user($data){
+        $db2 = $this->load->database('findb', TRUE);
+        $db2->insert('md_users',$data);
+    }
+
+    public function update_fin_user($data,$user_id){
+        $db2 = $this->load->database('findb', TRUE);
+        $db2->where('user_id',$user_id);
+        $db2->update('md_users',$data);
+    }
+
+    public function checked_userid($user_id){
+       return $this->db->where('user_id',$user_id)->get('md_users')->num_rows();
     }
 
 }

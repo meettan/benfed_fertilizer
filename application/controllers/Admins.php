@@ -71,6 +71,7 @@ class Admins extends CI_Controller {
             }
            
         $user   = $this->Admin->f_get_particulars("md_users a,md_branch b", NULL,$where, 0);
+        // echo $this->db->last_query();
 		echo json_encode($user);
         }
 	}
@@ -89,14 +90,14 @@ class Admins extends CI_Controller {
                 if($this->upload->do_upload('pic')){
                     $imageDetailArray = $this->upload->data();
                     $data_array = array(
-                        "user_id"       =>  $this->input->post('user_id'),
+                        "user_id"       =>  trim($this->input->post('user_id')),
                         "emp_code"      =>  $this->input->post('employ_code'),
                         "password"      =>  password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                         "user_name"     =>  $this->input->post('user_name'),
                         "phone_no"     =>   $this->input->post('mobile_no'),
                         "email"         =>  $this->input->post('email'),
                         "branch_id"     =>  $this->session->userdata['loggedin']['branch_id'],
-                        "user_type"     =>  'U',
+                        "user_status"     =>  'U',
                         "profile_pic"   =>  $imageDetailArray['file_name'],
                         "st"            =>  0,
                         "created_by"    =>  $this->session->userdata['loggedin']['user_name'],
@@ -280,24 +281,58 @@ class Admins extends CI_Controller {
 
     public function user_edit_admin(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
+           
 			
-			$where  =   array(
-
-                    "user_id"     =>  $this->input->post('user_id')
-            );
-                    
+			$where  =   array("user_id"     =>  $this->input->post('user_id'));
                         $data_array = array(
                             "approve_by"     =>$this->session->userdata['loggedin']['user_name'],
                             "approve_dt"        => date('Y-m-d h:i:s'),
-
-                            "user_type"     =>$this->input->post('userStatus'),
-                            "user_status"     =>$this->input->post('userType'),
+                            "user_type"     =>$this->input->post('userType'),
+                            "user_status"     =>$this->input->post('userStatus'),
                     );
-                    
-                    
-                    // print_r($data_array);
-                    // exit();
                 $this->Admin->f_edit('md_users', $data_array, $where);
+
+                $where2 = array("user_id"=>$this->input->post('user_id'));
+                $userData=$this->Admin->f_get_particulars("md_users", null, $where2, 1);
+        
+
+// print_r($userData);
+// exit();
+// phone_no
+// email
+// profile_pic
+// approve_by
+// approve_dt
+                $data=array(
+                    "password"=>$userData->password,
+                    "user_type"=>$this->input->post('userType'),
+                    "user_name"=>$userData->user_name,
+                    "emp_code"=>$userData->emp_code, 
+                    "designation"=>"",
+                    "user_status"=>$this->input->post('userStatus'),
+                    "branch_id"=>$userData->branch_id,
+                    "st"=>$userData->st,
+
+                    "phone_no"=>$userData->phone_no,
+                    "email"=>$userData->email,
+                    "profile_pic"=>$userData->profile_pic,
+                    "approve_by"=>$userData->approve_by,
+                    "approve_dt"=>$userData->approve_dt,
+                    "created_by"=>$userData->created_by,
+                    "created_dt"=>$userData->created_dt, 
+                    "modified_by"=>$userData->modified_by, 
+                    "modified_dt"=>$userData->modified_dt
+                );
+                if($this->input->post('userType')=='M'||$this->input->post('userType')=='A'){
+                    if($this->Admin->find_fin_user($userData->user_id) != 0){
+                        // print_r($data);
+                        $this->Admin->update_fin_user($data,$userData->user_id);
+                    }else{
+                        $data['user_id']=$userData->user_id;
+                        $this->Admin->insert_fin_user($data);
+                    }
+                }
+                
 			
 
             $this->session->set_flashdata('msg', 'Successfully edited!');
@@ -315,6 +350,16 @@ class Admins extends CI_Controller {
             $this->load->view('post_login/footer');
 
         } 
+    }
+
+    public function checked_userid(){
+       $data= $this->Admin->checked_userid(trim($this->input->post('user_id')));
+        if($data>0){
+            echo json_encode(true);
+        }else{
+            echo json_encode(false);
+        }
+        
     }
 
 }    

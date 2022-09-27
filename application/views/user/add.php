@@ -404,4 +404,24 @@
             }
         </script>
 
+        <script>
+            $('#user_id').change(function(){
+                var uid=$(this).val();
+                $.ajax({
+                    url: "<?php echo site_url("admins/checked_userid"); ?>",
+                    type: "post",
+                    data: {user_id:uid},
+                    dataType: "json",
+                    success: function(d) {
+                        if(d){
+                            alert('User Id already exists ');
+                            $('#signupForm').attr("disabled", true);
+                        }else{
+                            $('#signupForm').removeAttr("disabled");
+                        }
+                    }
+                });
+            });
+        </script>
+
 

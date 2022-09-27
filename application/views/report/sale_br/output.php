@@ -70,7 +70,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Sale Statement Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Sale Report Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
                         
                          <!-- <h5 style="text-align:left"><label>Society: </label> <?php 
@@ -95,6 +95,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Unit</th>
 
                                 <th>Society</th>
+
+                                <th>Ro No</th>
 
                                 <th>Sale invoice</th>
 
@@ -150,6 +152,7 @@ tr:hover {background-color: #f5f5f5;}
                                         ?>
                                      </td>
                                     <td class="report"><?php echo $sal->soc_name; ?></td>
+                                    <td class="report"><?php echo $sal->sale_ro; ?></td>
                                     <td class="report"><?php echo $sal->trans_do; ?></td>
                                     <td class="report"><?php echo date("d/m/yy",strtotime($sal->do_dt)); ?></td>
                                     <td class="report">
@@ -211,7 +214,7 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="9" style="text-align:right">Total</td> 
+                               <td class="report" colspan="10" style="text-align:right">Total</td> 
                                <td class="report"><?=$taxable?></td>
                                <td class="report"><?=$cgst?></td>
                                <td class="report"><?=$sgst?></td>

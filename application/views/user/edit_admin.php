@@ -235,10 +235,10 @@
                 <div class="col-sm-4">
                     <select name="userType" id="" class="form-control">
                         <option value="0">Select User Type</option>
-                        <option value="U">User</option>
-                        <option value="M">Manager</option>
-                        <option value="A">Admin</option>
-                        <option value="C">C</option>
+                        <option value="U" <?php if($user_dtls->user_type=='U'){echo 'selected';} ?>>User</option>
+                        <option value="M" <?php if($user_dtls->user_type=='M'){echo 'selected';} ?>>Manager</option>
+                        <option value="A" <?php if($user_dtls->user_type=='A'){echo 'selected';} ?>>Admin</option>
+                        <option value="C" <?php if($user_dtls->user_type=='C'){echo 'selected';} ?>>C</option>
                     </select>
                 </div>
 
@@ -247,9 +247,9 @@
                 <div class="col-sm-4">
                 <select name="userStatus" id="" class="form-control">
                         <option value="">Select User Status</option>
-                        <option value="U">Pending</option>
-                        <option value="A">Active</option>
-                        <option value="D">Inactive</option>
+                        <!-- <option value="U" <?php if($user_dtls->user_status=='U'){echo 'selected';} ?>>Pending</option> -->
+                        <option value="A" <?php if($user_dtls->user_status=='A'){echo 'selected';} ?>>Active</option>
+                        <option value="D" <?php if($user_dtls->user_status=='D'){echo 'selected';} ?>>Inactive</option>
                 </select>                
                 </div>
 
