@@ -223,7 +223,7 @@
                 <label for="name" class="col-sm-2 col-form-label">Email:</label>
 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="email" id="emp_cd" value="<?php echo $user_dtls->email; ?>" readonly/>
+                    <input type="email" class="form-control" name="email" id="emp_cd" value="<?php echo $user_dtls->email; ?>" readonly/>
                 </div>
 
             </div>

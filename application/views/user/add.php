@@ -132,11 +132,11 @@
  
 <div class="wraper">
 
-    <form method="POST" id="form" action="<?php echo site_url("admins/user_add"); ?>" id="commentForm" enctype="multipart/form-data">
+   
 
 
         <div class="col-md-6 container form-wraper" style="margin-left: 0px;">
-
+        <form method="POST" id="form" action="<?php echo site_url("admins/user_add"); ?>" id="commentForm" enctype="multipart/form-data">
             <div class="form-header">
 
                 <h4>User Entry</h4>
@@ -218,7 +218,7 @@
                 <label for="name" class="col-sm-2 col-form-label">Email:</label>
 
                 <div class="col-sm-4">
-                    <input type="text" class="form-control required" name="email" id="emp_cd" />
+                    <input type="email" class="form-control required" name="email" id="emp_cd" />
                 </div>
 
             </div>
@@ -242,9 +242,9 @@
                 </div>
 
             </div>
-
+            </form>
         </div>
-        <div class="col-md-6 container form-wraper" style="margin-left: 0px;">
+        <div class="col-md-6 container" style="margin-left: 0px;">
         <div id="message">
                                             <h3>Password must contain the following:</h3>
                                             <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -256,7 +256,7 @@
         </div>
 
         
-    </form>
+   
 
 </div>
 

@@ -105,17 +105,18 @@ class Admins extends CI_Controller {
                     );
                     $this->Admin->f_insert('md_users', $data_array);
                     $this->session->set_flashdata('msg', 'Successfully added!');
-                    redirect('user');
+
+                    if($this->session->userdata['loggedin']['user_type']=="A"){
+                        redirect('userlist_admin');
+                    }else{
+                        redirect('user');
+                    }
+                   
                 }else{
                    echo  $this->upload->display_errors();
-                }
+                } 
 
-               
-            
-            
-
-        }
-        else {
+        }else {
             $this->load->view('post_login/fertilizer_main');
             $this->load->view("user/add");
             $this->load->view('post_login/footer');
