@@ -228,7 +228,7 @@
                 <label for="name" class="col-sm-2 col-form-label">Profile Pic:</label>
 
                 <div class="col-sm-10">
-                    <input type="file" class="form-control required" name="pic" id="pic" />
+                    <input type="file" class="form-control" name="pic" id="pic" />
                 </div>
 
             </div>
@@ -423,5 +423,20 @@
                 });
             });
         </script>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+<script type="text/javascript">
+    <?php if($this->session->flashdata('error')){ ?>
+    toastr.error("<?php echo $this->session->flashdata('error'); ?>");
+<?php }else if($this->session->flashdata('success')){ ?>
+    toastr.success("<?php echo $this->session->flashdata('success'); ?>");
+<?php } ?>
+</script>
 
 

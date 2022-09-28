@@ -238,22 +238,35 @@
                         <option value="U" <?php if($user_dtls->user_type=='U'){echo 'selected';} ?>>User</option>
                         <option value="M" <?php if($user_dtls->user_type=='M'){echo 'selected';} ?>>Manager</option>
                         <option value="A" <?php if($user_dtls->user_type=='A'){echo 'selected';} ?>>Admin</option>
-                        <option value="C" <?php if($user_dtls->user_type=='C'){echo 'selected';} ?>>C</option>
+                        <option value="C" <?php if($user_dtls->user_type=='C'){echo 'selected';} ?>>Accountant</option>
                     </select>
                 </div>
 
                 <label for="name" class="col-sm-2 col-form-label">User Status:</label>
 
                 <div class="col-sm-4">
-                <select name="userStatus" id="" class="form-control">
+                <select name="userStatus" id="userStatus" class="form-control">
                         <option value="">Select User Status</option>
-                        <!-- <option value="U" <?php if($user_dtls->user_status=='U'){echo 'selected';} ?>>Pending</option> -->
+                        <option value="U" <?php if($user_dtls->user_status=='U'){echo 'selected';} ?>>Pending</option>
                         <option value="A" <?php if($user_dtls->user_status=='A'){echo 'selected';} ?>>Active</option>
                         <option value="D" <?php if($user_dtls->user_status=='D'){echo 'selected';} ?>>Inactive</option>
                 </select>                
                 </div>
 
             </div>
+
+            <div class="form-group row remarks">
+
+                <label for="name" class="col-sm-2 col-form-label">Remarks</label>
+
+                <div class="col-sm-10">
+                    <!-- <input type="text" class="form-control" name="remarks" id="remarks"  value=""/> -->
+                    <textarea class="form-control" name="remarks" id="remarks"  rows="2"><?php echo $user_dtls->remarks; ?></textarea>
+                </div>
+
+            </div>
+
+
 
 
         
@@ -269,7 +282,8 @@
             </div> -->
             <input type="hidden" name="imgh" value="<?php echo $user_dtls->profile_pic; ?>">
 
-            <img src="<?php echo base_url(); ?>/assets/uploads/<?php echo $user_dtls->profile_pic; ?>" alt="no image" width="100px" >
+            <!-- <img src="<?php echo base_url(); ?>/assets/uploads/<?php echo $user_dtls->profile_pic; ?>" alt="no image" width="100px" > -->
+            <img src="<?php echo base_url(); ?>/assets/uploads/<?php if(!empty($user_dtls->profile_pic)){echo $user_dtls->profile_pic;}else{echo "avtar.png";}  ?>" alt="no image" width="100px" >
             <br>
             <br>
             
@@ -285,7 +299,7 @@
             </div>
 
         </div>
-        <div class="col-md-6 container form-wraper" style="margin-left: 0px;">
+        <div class="col-md-6 container" style="margin-left: 0px;">
         <div id="message">
                                             <h3>Password must contain the following:</h3>
                                             <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
@@ -300,6 +314,25 @@
     </form>
 
 </div>
+<script>
+    //  $('.remarks').hide();
+
+     var userStatus = $("#userStatus").val();
+        if(userStatus=='D'){
+            $('.remarks').show();
+        }else{
+            $('.remarks').hide();
+        }
+
+    $('#userStatus').change(function(){
+        var userStatus = $(this).val();
+        if(userStatus=='D'){
+            $('.remarks').show();
+        }else{
+            $('.remarks').hide();
+        }
+    });
+</script>
 
 <script>
     $("#form").validate();
