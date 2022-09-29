@@ -160,9 +160,11 @@ if (!function_exists('stock_balance')) {
 
       if (!empty($get_purchase)) {
                                     //Liquid stock converting all units in LTR
+
         foreach ($get_purchase as $purchase_data) {
 
           if ($purchase_data->unit == 3) {
+            
             $Qty3 = ($purchase_data->qty * $purchase_data->qty_per_bag);
             $total_purchase_qty = $total_purchase_qty + $Qty3;
           } elseif ($purchase_data->unit == 5) {
@@ -173,17 +175,13 @@ if (!function_exists('stock_balance')) {
       }
 
 
-
-
-
-
       $get_sale = $ci->db->query("select ifnull(SUM(a.qty),0) qty,b.unit,b.qty_per_bag
                                   from   td_sale a ,mm_product b
                                   where  a.prod_id=b.prod_id
                                   and    a.do_dt between '" . $maxdate . "' and '" . $date . "'
                                   and    a.br_cd =" . $branch . "
                                   and    b.unit in (3,5)	
-                                  group by b.unit")->result();
+                                  group by b.unit,b.qty_per_bag")->result();
 
     if (!empty($get_sale)) {
         $total_sale_qty = 0.0;                             //Liquid stock converting all units in LTR
@@ -203,6 +201,8 @@ if (!function_exists('stock_balance')) {
       $closing_stk = ($total_qty + $total_purchase_qty)-$total_sale_qty;
 
       return round($closing_stk,3);
+
+     //return round($total_qty,3);
     }
   }
 }
