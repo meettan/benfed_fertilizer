@@ -85,6 +85,26 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+            <label for="fo_no" class="col-sm-2 col-form-label">Fo No:</label>
+                <div class="col-sm-3">
+                    <select name="fo_no"  class="form-control fo_no required" id="fo_no" disabled>
+                        <option value="">Select Fo Number</option>
+                        <?php if(!empty($dist)){
+                            foreach($dist as $dst){
+                            ?>
+                            <option value="<?=$dst->fi_id ?>" <?php if($dst->fi_id ==$spfwd->fo_id){echo "selected";} ?> ><?=$dst->fo_number ?>-<?=$dst->fo_name ?></option>
+                            <?php
+                            }
+                        }  ?>
+                    </select>
+                </div>
+            </div>
+
+
+
+
+
             <div class="form-header">
 
                 <h4>Pay Type and Paid Details</h4>

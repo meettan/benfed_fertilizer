@@ -91,7 +91,7 @@
                
             <label for="fo_no" class="col-sm-2 col-form-label">Fo No:</label>
                 <div class="col-sm-3">
-                    <select name="fo_no"  class="form-control fo_no required" id="fo_no">
+                    <select name="fo_no"  class="form-control fo_no required" id="fo_no" required>
                         <option value="">Select Fo Number</option>
                         <?php if(!empty($dist)){
                             foreach($dist as $dst){

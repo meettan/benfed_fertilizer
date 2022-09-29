@@ -258,7 +258,7 @@ $("#intro").on("change", ".detail_receipt_no", function(){
 			row.find("td:eq(1) input[type='text']").val(value.soc_name);
 			row.find("td:eq(2) .receipt_no").val(value.receipt_no);
 			row.find("td:eq(2) .fo_no").val(value.fo_no);
-			row.find("td:eq(2) fo_name").val(value.fo_name);
+			row.find("td:eq(2) .fo_name").val(value.fo_name);
 			row.find("td:eq(3) input[type='text']").val(value.ro_no);
 			row.find("td:eq(4) input[type='text']").val(value.qty);
 			row.find("td:eq(5) input[type='text']").val(value.rate);

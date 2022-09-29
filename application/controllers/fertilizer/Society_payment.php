@@ -3836,6 +3836,10 @@ public function deleteAccCd() {
 	}
 	public function soc_payfwd_edit(){
 
+		$dist_id=$this->session->userdata('loggedin')['dist_id'];
+			
+		$data['dist']=$this->AdvanceModel->f_select('mm_fo_master',array('fi_id','fo_number','fo_name'),array('dist_id'=>$dist_id),null);
+
 		$fwd_no = $this->input->get('fwd_no');
 		$fin_yr = $this->input->get('fin_yr');
 		$data['spfwd'] = $this->AdvanceModel->f_select('tdf_payment_forward',NULL,array('fwd_no'=>$fwd_no,'fin_yr'=>$fin_yr),1);

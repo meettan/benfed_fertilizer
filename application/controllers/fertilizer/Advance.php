@@ -76,6 +76,7 @@ public function company_advAddlist(){
 					'a.comp_id'=>$this->input->post('comp_id')
 					);
 		$list  = $this->AdvanceModel->f_select("td_adv_details a,mm_company_dtls b,mm_product c,tdf_adv_fwd d",$select,$where,0);
+		echo $this->db->last_query();
 		echo json_encode($list);
 	//}else{
         // echo 0;
@@ -794,27 +795,32 @@ public function add_advdetail(){
             	$this->db->insert('td_adv_details',$data);
             }
 
-            if($this->input->post('detail_receipt_no')){
+            // if($this->input->post('detail_receipt_no')){
 
-	            $detail_receipt_no  = $this->input->post('detail_receipt_no');
-				$efo_no  = $this->input->post('efo_no');
-				$ero_no  = $this->input->post('ero_no');
-				$eamount = $this->input->post('eamount');
 
-				for($i=0;$i < count($eamount);$i++){
+				
 
-					$data = array(
-            		'fo_no'=> $efo_no[$i],
-            		'ro_no'=> $ero_no[$i],
-            		'amount'=> $eamount[$i],
-            		'modified_by' => $this->session->userdata['loggedin']['user_name'],
-            		'modified_dt' => date('Y-m-d h:i:s')
-            	   );
-					$where = array('detail_receipt_no' => $detail_receipt_no[$i],'fin_yr' => $finYr);
-					$this->AdvanceModel->f_edit('td_adv_details',$data,$where);
-				}
+	        //     $detail_receipt_no  = $this->input->post('detail_receipt_no');
+			// 	// $efo_no  = $this->input->post('efo_no');
+			// 	$ero_no  = $this->input->post('ero_no');
+			// 	$eamount = $this->input->post('eamount');
 
-            }
+			// 	for($i=0;$i < count($eamount);$i++){
+
+			// 		$data = array(
+            // 		// 'fo_no'=> $efo_no[$i],
+            // 		'ro_no'=> $ero_no[$i],
+            // 		'amount'=> $eamount[$i],
+            // 		'modified_by' => $this->session->userdata['loggedin']['user_name'],
+            // 		'modified_dt' => date('Y-m-d h:i:s')
+            // 	   );
+
+				   
+			// 		$where = array('detail_receipt_no' => $detail_receipt_no[$i],'fin_yr' => $finYr);
+			// 		$this->AdvanceModel->f_edit('td_adv_details',$data,$where);
+			// 	}
+
+            // }
 
 			$this->session->set_flashdata('msg', 'Successfully Added');
 		    redirect('adv/add_advdetail?rcpt='.$this->input->post('receipt_no'));

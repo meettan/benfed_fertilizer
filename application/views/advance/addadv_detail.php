@@ -188,7 +188,7 @@
 
                             <td>
                                 <!-- <input type="text" name="fo_no[]" class="form-control fo_no" value="" id=""> -->
-                                <select name="fo_no[]"  class="form-control fo_no" id=""  >
+                                <select name="fo_no[]"  class="form-control fo_no" id=""  required>
                                     <option value="">Select</option>
 
                                     <?php  foreach($folis as $folist){  ?>
@@ -423,7 +423,7 @@
                 '</td>' +
                 '<td>' +
                 
-                '<select name="fo_no[]" class="form-control fo_no" id=""><option value="">Select</option>'+
+                '<select name="fo_no[]" class="form-control fo_no" id="" required><option value="">Select</option>'+
                 string2+
                 '</select>'+
                 '</td>' +

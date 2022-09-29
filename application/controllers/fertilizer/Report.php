@@ -2372,12 +2372,13 @@ public function advance_payment(){
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
           $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
-          $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
-         
-        //     echo $this->db->last_query();
+        //       echo $this->db->last_query();
         //     echo '<br>';
         //   print_r($data['tableData']);
         //   exit();
+          $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
+         
+        
           $data['fDate']= $frm_date;
           $data['tDate']=$to_date;
 
