@@ -26,61 +26,70 @@
     <div class="col-sm-9 float-left rightSideSec">
       <div class="row">
         <div class="threeBoxNewmain">
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg redCol"><img src="<?=base_url()?>assets/images/boxIcon_d.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Opening</h2>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt2">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg darkBlue"><img src="<?=base_url()?>assets/images/boxIcon_a.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Purchase For The Day</h2>
-                <p class="price"><span class="mt"><?php echo round($totsolidpur->qty,2);?><strong> MT</strong></span>
-                  <span class="mt2"><?php echo round($totliquidpur->qty,0);?><strong> LTR</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i>
-                    </strong><?=$ho_purchase_day->tot_purchase_ho?></span></p>
-              </div>
-            </div>
+        <div class="col-sm-6 float-left">
+                <div class="threeBoxNewSmall">
+                  
+                  <div class="threeBoxImg darkBlue"><img src="<?= base_url() ?>assets/images/boxIcon_a.png" alt=""></div>
+                  <div class="threeBoxTxt">
+                    <h2>Purchase For The Day</h2>
+                    <p class="price"><span class="mt">
+                        <?php                                                         //Solid
 
-          </div>
+                        if ($this->session->userdata['loggedin']['ho_flag'] == "Y")   //When user in Headoffice
+                        {
+                          echo $ho_purchase_daysld;
+                        } else {                                                  //When user in Branhoffice
+                          echo $purchase_day->tot_purchase;
+                        }
+                        ?>
+                        <strong>MT</strong></span>
+
+                      <span class="lit">
+                        <?php                                                             //Liquid
+                        if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {     //When user in Headoffice
+
+                          echo $ho_purchase_daylqd;
+                        } else {                                                        //When user in Branhoffice
+                          echo $purchase_day->tot_purchase;
+                        }
+                        ?>
+                        <strong>L</strong>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 float-left">
+                <div class="threeBoxNewSmall">
+                  <div class="threeBoxImg yellowCol"><img src="<?= base_url() ?>assets/images/boxIcon_b.png" alt=""></div>
+                  <div class="threeBoxTxt">
+                    <h2>Sale For The Day</h2>
+                    <p class="price"><span class="mt"><?php                               //Solid
+                                                      if ($this->session->userdata['loggedin']['ho_flag'] == "Y")      //User in HO
+                                                      {
+
+                                                        echo $ho_sale_daysld;
+                                                      } else {                                                        //In Branch
+                                                        echo $sale_day->tot_sale;
+                                                      }
+                                                      ?><strong>mt</strong></span>
+                      <span class="lit"><?php                                          //Liquid
+                                        if ($this->session->userdata['loggedin']['ho_flag'] == "Y")       //User in Ho
+                                        {
+                                          echo $ho_sale_daylqd;
+                                        } else {                                                         //user in branch
+                                          echo $sale_day->tot_sale;
+                                        }
+                                        ?> <strong>L</strong></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
 
 
         </div>
 
-        <div class="threeBoxNewmain">
-
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg yellowCol"><img src="<?=base_url()?>assets/images/boxIcon_b.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Sale For The Day</h2>
-                <p class="price"><span class="mt"><?php echo round($totsolidsale->qty,2);?><strong> MT</strong></span>
-                  <span class="mt2"><?php echo round($totliquidsale->qty,2);?><strong> LTR</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i>
-                    </strong><?=$ho_recvamt_day->tot_recvamt?></span></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 float-left">
-            <div class="threeBoxNewSmall">
-              <div class="threeBoxImg lightBlue"><img src="<?=base_url()?>assets/images/boxIcon_e.png" alt=""></div>
-              <div class="threeBoxTxt">
-                <h2>Closing</h2>
-                <p class="price"><span class="mt">250<strong> mt</strong></span> <span class="mt2">250<strong>
-                      mt</strong></span>
-                  <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>250</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
         <div class="sectionNew">
           <div class="col-sm-12">

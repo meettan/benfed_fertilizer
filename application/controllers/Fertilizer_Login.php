@@ -298,6 +298,22 @@ class Fertilizer_Login extends MX_Controller
 				$this->load->view('post_login/footer');
 			} elseif ($this->session->userdata['loggedin']['branch_id']  == 342 && $this->session->userdata['loggedin']['user_type'] != "A") {
 
+					//Total Sale in all branches solid & liquid
+					$dash_data["ho_sale_daysld"]        = get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
+					$dash_data["ho_sale_daylqd"]		= get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L');
+	
+
+				//Total Purchase Solid & Liquid for a period branchwise
+				$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N', 'S');
+				$dash_data['totliquidpur']	  = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N', 'L');
+
+
+				
+				$dash_data["ho_purchase_daysld"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
+				$dash_data["ho_purchase_daylqd"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L');
+
+
+
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_two', $dash_data);
 				$this->load->view('post_login/footer');
