@@ -5,7 +5,7 @@ class ReportModel extends CI_Model
 {
 
     public function f_select($table, $select = NULL, $where = NULL, $type)
-    {   
+    {
         if (isset($select)) {
             $this->db->select($select);
         }
@@ -15,8 +15,6 @@ class ReportModel extends CI_Model
         }
 
         $value = $this->db->get($table);
-
-       
 
         if ($type == 1) {
             return $value->row();

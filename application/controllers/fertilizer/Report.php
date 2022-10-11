@@ -917,39 +917,53 @@ public function stkScomp_all(){
         $branch  = $_POST['br'];
 
 
-        $mth        =  date('n',strtotime($from_dt));
+        // $mth        =  date('n',strtotime($from_dt));
 
-        $yr         =  date('Y',strtotime($from_dt));
+        // $yr         =  date('Y',strtotime($from_dt));
 
-        if($mth > 3){
+        // if($mth > 3){
 
-            $year = $yr;
+        //     $year = $yr;
 
-        }else{
+        // }else{
 
-            $year = $yr - 1;
-        }
+        //     $year = $yr - 1;
+        // }
 
-        $opndt      =  date($year.'-04-01');
+        // $opndt      =  date($year.'-04-01');
 
-        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+        // $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
-        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+        // $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
-        $data['product']     =   $this->ReportModel->f_get_allproduct_companywise($branch,$opndt,$comp_id);
+        $data['branch']      =   $this->ReportModel->f_select("md_district", null, array("district_code"  => $branch),1);
 
-        $data['opening']     =   $this->ReportModel->f_get_balance_rowiseall($branch,$from_dt,$to_dt,$opndt);
-        // echo $this->db->last_query();
-        // exit;
+        $data['product']      =    $this->ReportModel->p_companywise_stock(array($from_dt,$to_dt,$branch,$comp_id));
 
-        $data['purchase']    =   $this->ReportModel->f_get_purchase_rowiseall($branch,$from_dt,$to_dt);
+        // ====================================================
 
-        $data['sale']        =   $this->ReportModel->f_get_sale_rowiseall($branch,$from_dt,$to_dt);
+        // $data['product']     =   $this->ReportModel->f_get_allproduct_companywise($branch,$opndt,$comp_id);
 
-        // $data['closing']  =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
+        // $data['opening']     =   $this->ReportModel->f_get_balance_rowiseall($branch,$from_dt,$to_dt,$opndt);
+        // // echo $this->db->last_query();
+        // // exit;
+
+        // $data['purchase']    =   $this->ReportModel->f_get_purchase_rowiseall($branch,$from_dt,$to_dt);
+
+        // $data['sale']        =   $this->ReportModel->f_get_sale_rowiseall($branch,$from_dt,$to_dt);
+
+        // // $data['closing']  =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
     
-        $where1              =   array("district_code"  => $branch);
-        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        // $where1              =   array("district_code"  => $branch);
+        // $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,0);
+
+        // ===============================================
+
+
+
+        
+
+       
 
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/stk_comp_all/stk_comp',$data);

@@ -103,7 +103,7 @@
 
                         if ($this->session->userdata['loggedin']['ho_flag'] == "Y")   //When user in Headoffice
                         {
-                          echo $ho_purchase_daysld;
+                          echo $ho_purchase_daysld; 
                         } else {                                                  //When user in Branhoffice
                           echo $purchase_day->tot_purchase;
                         }
@@ -216,8 +216,8 @@
                     <div class="districWisSecRightBox">
                       <h3>Day Purchase </h3>
                       <div class="valueSec">
-                        <span class="mt" id="dp">0.00 <strong>mt</strong></span>
-                        <span class="lit" id="dpl">0.00 <strong>L</strong></span>
+                        <span class="mt" ><span id="dp">0.00</span> <strong>mt</strong></span>
+                        <span class="lit"><span id="dpl">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
                   </div>
@@ -225,14 +225,14 @@
                     <div class="districWisSecRightBox">
                       <h3>Day Sale </h3>
                       <div class="valueSec">
-                        <span class="mt" id="ds">0.00 <strong>mt</strong></span>
-                        <span class="lit" id="dsl">0.00 <strong>L</strong></span>
+                        <span class="mt"><span id="ds">0.00</span> <strong>mt</strong></span>
+                        <span class="lit"><span id="dsl">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-4 float-left">
                     <div class="districWisSecRightBox">
-                      <h3>Day Collection(Including Advance and Cr Note Adjustment) </h3>
+                      <h3>Day Collection </h3>
                       <!-- <div class="valueSec"> -->
                       <!-- <span class="mt" id="recvdy">250 </span> -->
                       <!-- <span class="lit">250 <strong>L</strong></span> -->
@@ -248,8 +248,8 @@
                     <div class="districWisSecRightBox">
                       <h3>Monthly Purchase </h3>
                       <div class="valueSec">
-                        <span class="mt" id="dpm">0.00 <strong>mt</strong></span>
-                        <span class="lit" id="dpmlqd">0.00 <strong>L</strong></span>
+                        <span class="mt" id=""><span id="dpm">0.00</span> <strong>mt</strong></span>
+                        <span class="lit" id=""><span id="dpmlqd">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
                   </div>
@@ -257,8 +257,8 @@
                     <div class="districWisSecRightBox">
                       <h3>Monthly Sale </h3>
                       <div class="valueSec">
-                        <span class="mt" id="sm">0.00 <strong>mt</strong></span>
-                        <span class="lit" id="smlqd">0.00 <strong>L</strong></span>
+                        <span class="mt" id=""><span id="sm">0.00</span> <strong>mt</strong></span>
+                        <span class="lit" id=""><span id="smlqd">0.00</span><strong>L</strong></span>
                       </div>
                     </div>
                   </div>
@@ -280,8 +280,8 @@
                     <div class="districWisSecRightBox">
                       <h3>Yearly Purchase </h3>
                       <div class="valueSec">
-                        <span class="mt" id="pyr">0.00 <strong>mt</strong></span>
-                        <span class="lit" id="pyrlq">0.00 <strong>L</strong></span>
+                        <span class="mt" id=""><span id="pyr">0.00</span> <strong>mt</strong></span>
+                        <span class="lit" id=""><span id="pyrlq">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
                   </div>
@@ -289,8 +289,8 @@
                     <div class="districWisSecRightBox">
                       <h3>Yearly Sale </h3>
                       <div class="valueSec">
-                        <span class="mt" id="syr">0.00 <strong>mt</strong></span>
-                        <span class="lit" id="syrlq">0.00 <strong>L</strong></span>
+                        <span class="mt" id=""><span id="syr">0.00</span> <strong>mt</strong></span>
+                        <span class="lit" id=""><span id="syrlq">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
                   </div>
@@ -313,236 +313,48 @@
 
           </div>
 
-          <!-- <div class="sectionNew">
+          <div class="sectionNew">
             <div class="col-sm-12">
-              <h2 class="onClickOpen" onclick="expandDiv()">Company Wise Status <span>(Click to Expand)</span> <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></h2>
+              <h2 class="onClickOpen" data-toggle="collapse" data-target="#demo">
+                  Company Payment <span>(Click to Expand)</span>
+                  <!-- <i class="fa fa-arrow-circle-down" aria-hidden="false"></i> -->
+              </h2>
             </div>
-            <div class="col-sm-12 accordianConten accoNotShow">
+
+
+            <div class="col-sm-12 collapse" id="demo">
               <div class="companyWisSec">
                 <div class="table-responsive tableFullWidth">
                   <table class="table table-striped tableCompany">
                     <thead>
                       <tr>
                         <th scope="col">#SL No.</th>
-                        <th scope="col">Company Name</th>
-                        <th scope="col">Payment Done(<strong> &#2352; </strong>)</th>
-                        <th scope="col">Payment Pending (<strong> &#2352; </strong>)</th>
+                        <th scope="col">Account Code</th>
+                        <th scope="col">Account Name</th>
+                        <th scope="col">Amount</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
-                      $tot_paid = 0.00;
-                      $total_payble = 0.00;
 
-                      ?>
+                    <?php //print_r($company_Wise_Status) ?>
+                      <?php $i=0; $amt=0.0; foreach($company_Wise_Status as $c_W_S){ $i++?>
                       <tr>
-                        <th scope="row">1</th>
-                        <td>CIL</td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_cil->tot_paid;
-                              $tot_paid += $ho_paid_cil->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_cil->tot_paybl - $ho_paid_cil->tot_paid;
-                              $total_payble += $ho_purchase_cil->tot_paybl - $ho_paid_cil->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
+                        <th scope="row"><?= $i ?></th>
+                        <td><?php echo $c_W_S->benfed_ac_code; ?></td>
+                        <td><?php echo $c_W_S->ac_name; ?></td>
+                        <td><?php echo $c_W_S->amt; $amt=$amt+$c_W_S->amt; ?></td>
 
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>IFFCO</td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_iffco->tot_paid;
-                              $tot_paid += $ho_paid_iffco->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_iffco->tot_paybl - $ho_paid_iffco->tot_paid;
-                              $total_payble += $ho_purchase_iffco->tot_paybl - $ho_paid_iffco->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>IPL</td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_ipl->tot_paid;
-                              $tot_paid += $ho_paid_ipl->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_ipl->tot_paybl - $ho_paid_ipl->tot_paid;
-                              $total_payble += $ho_purchase_ipl->tot_paybl - $ho_paid_ipl->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td>JCF</td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_jcf->tot_paid;
-                              $tot_paid += $ho_paid_jcf->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_jcf->tot_paybl - $ho_paid_jcf->tot_paid;
-                              $total_payble += $ho_purchase_jcf->tot_paybl - $ho_paid_jcf->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td>KCFL</td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_kcfl->tot_paid;
-                              $tot_paid += $ho_paid_kcfl->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_kcfl->tot_paybl - $ho_paid_kcfl->tot_paid;
-                              $total_payble += $ho_purchase_kcfl->tot_paybl - $ho_paid_kcfl->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?></div>
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <th scope="row">6</th>
-                        <td>KRIBHCO
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_kribhco->tot_paid;
-                              $tot_paid += $ho_paid_kribhco->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?></div>
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_kribhco->tot_paybl - $ho_paid_kribhco->tot_paid;
-                              $total_payble += $ho_purchase_kribhco->tot_paybl - $ho_paid_kribhco->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?></div>
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <th scope="row">7</th>
-                        <td>MIPL</td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_paid_mipl->tot_paid;
-                              $tot_paid += $ho_paid_mipl->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?></div>
-                        </td>
-                        <td>
-                          <div class="value">
-                            <?php
-                            if ($this->session->userdata['loggedin']['ho_flag'] == "Y") {
-                              echo $ho_purchase_mipl->tot_paybl - $ho_paid_mipl->tot_paid;
-                              $total_payble += $ho_purchase_mipl->tot_paybl - $ho_paid_mipl->tot_paid;
-                            } else {
-                              echo '0';
-                            }
-                            ?></div>
-                        </td>
-                      </tr>
+                      <?php } ?>
                     </tbody>
                     <tfoot>
                       <tr>
                         <td class="report" colspan="2" style="text-align:left"><b>Total</b></td>
 
 
-                        <td class="report"><b><?= $tot_paid ?></b></td>
+                        <td class="report"><b></b></td>
 
-                        <td class="report"><b><?= $total_payble ?></b></td>
+                        <td class="report"><b><?= $amt ?></b></td>
 
 
 
@@ -554,7 +366,7 @@
               </div>
             </div>
 
-          </div> -->
+          </div>
          
           <div class="barPaiChartMain">
 
@@ -592,6 +404,44 @@
               </div>
             </div>
           </div>
+
+
+
+          <div id="divToPrint">
+
+                    <div style="text-align:center;">
+
+                        <h2> 
+                          <form action="<?php echo site_url("fert/rep/overdue_list") ?>" method="post">
+                            <input type="hidden" name="from_date" value="<?=date('Y-m-d')?>">
+                            Overdue List <button type="submit" class="btn btn-primary btn-lg" >Generate</button>
+                          </form></h2>
+                        
+                    </div>
+
+
+          </div>
+          <!-- <div class="stockPointSecTitle" >
+                <div class="col-sm-12">
+                  <div class="get-quote">
+                    <div class="row">
+                        <div class="col-sm-10 col-12">
+                            <h2 id="quote">Overdue List</h2>
+                        </div>
+                        <div class="col-sm-2 col-12">
+                          <form action="<?php echo site_url("fert/rep/overdue_list") ?>" method="post">
+                            <input type="hidden" name="from_date" value="<?=date('Y-m-d')?>">
+                            <button type="submit" class="btn btn-primary pull-right" >Open</button>
+                          </form>
+                        </div>
+                    </div>
+                </div>                    
+
+              </div>
+            </div> -->
+
+
+          <!-- ======================================== -->
           <!-- <div class="sectionNew">
             <div class="stockPointSecTitle">
               <div class="col-sm-12">
@@ -650,6 +500,9 @@
               </div>
             </div>
           </div> -->
+
+
+          <!-- ================================= -->
           <div class="barPaiChartMain">
             <div class="col-sm-12 float-left">
               <div class="barChart">
@@ -1085,4 +938,11 @@ $.ajax({
                         // $('#overlay').fadeOut();
 					}
 				});
+
+
+
+        function overdueList(){
+          var daet="<?=date('Y-m-d');  ?>"
+          
+        }
 </script>

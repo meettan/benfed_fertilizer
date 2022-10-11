@@ -280,18 +280,20 @@
                                 </div>
 
                                 <div class="sub-dropdown">
-								<a class="sub-dropbtn">Monthly Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
+								<a class="sub-dropbtn">Monthly Summary Report<i class="fa fa-angle-right" style="float: right;"></i></a> 
 									<div class="sub-dropdown-content">
 									    <a href="<?php echo site_url("fert/rep/stock_report");?>"> Stock </a>
 									    <a href="<?php echo site_url("fert/rep/sale_report");?>"> Sale </a>
 									    <a href="<?php echo site_url("fert/rep/purchase_report");?>"> Purchase </a>
+
+                                        <a href="<?php echo site_url("fert/rep/stkScomp_all");?>">Summary </a>
 									    
 									</div>
                                 </div>
 
                                 
 								<a href="<?php echo site_url("fert/rep/brwse_constk");?>">Consolidated Stock</a>
-								<a href="<?php echo site_url("fert/rep/stkScomp_all");?>">Monthly Report </a>
+								
 								<a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
 								<!--<div class="sub-dropdownbr"> -->
                                 <div class="sub-dropdown">

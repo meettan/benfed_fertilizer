@@ -65,9 +65,9 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Monthly Report Between: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>Monthly Summary Report Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        <h5 style="text-align:left"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->short_name;}?></h5>
+                        <h5 style="text-align:left"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->comp_name;}?></h5>
 
                     </div>
                   
@@ -137,190 +137,43 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
                                 
-                                     <td class="report"><?php echo $prodtls->PROD_DESC; ?>
+                                     <td class="report"><?php echo $prodtls->prod_desc; ?></td>
+
+
+                                   <?php  if($prodtls->unit == 'MTS'){ ?>
+                                     <td class="report"><?php echo $prodtls->opening; ?></td>
+                                     <td class="report"><?php echo $prodtls->purchase; ?></td>
+                                     <td class="report"><?php echo $prodtls->sale; ?></td>
+                                     <td class="report"><?php echo $prodtls->closing; ?></td>
+                                   <?php }else{ ?>
+                                        <td class="report"></td>
+                                     <td class="report"></td>
+                                     <td class="report"></td>
+                                     <td class="report"></td>
+                                     <?php }
+
+
+                                     if($prodtls->unit == 'LTR'){ ?>
+                                        <td class="report"><?php echo $prodtls->opening; ?></td>
+                                     <td class="report"><?php echo $prodtls->purchase; ?></td>
+                                     <td class="report"><?php echo $prodtls->sale; ?></td>
+                                     <td class="report"><?php echo $prodtls->closing; ?></td>
+                                    <?php }else{ ?>
+                                        <td class="report"></td>
+                                     <td class="report"></td>
+                                     <td class="report"></td>
+                                     <td class="report"></td>
+                                   <?php } ?>
+
+
                                     
-                                     <td class="report sldopening" id="sldopening">
-                                        <?php 
-                                            foreach($opening as $opndtls){
-                                                if($prodtls->prod_id==$opndtls->prod_id){
-                                                    echo $opndtls->opn_qty;
-                                                    $tot_op +=$opndtls->opn_qty;
-                                                    $sldcls_baln+=$opndtls->opn_qty;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-
-                                     
-                                     <td class="report sldpurchase" id="sldpurchase">
-                                        <?php 
-                                            foreach($purchase as $purdtls){
-                                                if($prodtls->prod_id==$purdtls->prod_id){
-
-                                                    if($prodtls->unit==1){
-
-                                                     echo $purdtls->qty; 
-                                                     $sldqty=$purdtls->qty;
-                                                       }elseif($prodtls->unit==2){
-                                                        echo ($purdtls->qty)/1000; 
-                                                        $sldqty=($purdtls->qty)/1000;
-                                                       }elseif($prodtls->unit==4){
-                                                         echo ($purdtls->qty)/10;
-                                                         $sldqty=($purdtls->qty)/10;
-                                                       }elseif($prodtls->unit==6){
-                                                        echo ($purdtls->qty)/1000000;
-                                                        $sldqty= ($purdtls->qty)/1000000; 
-                                                       }
-                                                    // echo $purdtls->tot_pur;
-                                                    // $sldtotal_pur +=$purdtls->tot_pur;  
-                                                    // $sldcls_baln+=$purdtls->tot_pur;
-                                                    $sldtotal_pur +=$sldqty;  
-                                                    $sldcls_baln+=$sldqty;
-                                                }
-                                                $sldqty=0.00;
-                                            }
-                                        ?>
-                                     </td>
-                                     
-
-                                     <td class="report sldsale" id="sldsale">
-                                        <?php 
-                                            foreach($sale as $saledtls){
-                                                if($prodtls->prod_id==$saledtls->prod_id){
-
-                                                    if($prodtls->unit==1){
-
-                                                        echo $saledtls->qty; 
-                                                        $slqty=$saledtls->qty;
-                                                          }elseif($prodtls->unit==2){
-                                                           echo ($saledtls->qty)/1000; 
-                                                           $slqty=($saledtls->qty)/1000;
-                                                          }elseif($prodtls->unit==4){
-                                                            echo ($saledtls->qty)/10;
-                                                            $slqty=($saledtls->qty)/10;
-                                                          }elseif($prodtls->unit==6){
-                                                           echo ($saledtls->qty)/1000000;
-                                                           $slqty= ($saledtls->qty)/1000000; 
-                                                          }
-                                                    // echo $saledtls->tot_sale;
-                                                    // $sldtotal_sale +=$saledtls->tot_sale;
-                                                    // $sldcls_baln-=$saledtls->tot_sale;  
-                                                    $sldtotal_sale +=$slqty;
-                                                    $sldcls_baln-=$slqty;  
-                                                }
-                                                $slqty=0.00;
-                                            }
-                                        ?>
-                                     </td>
-
-                                     <td class="report sldclosing" id="sldclosing">
-                                  <?php 
-                                        foreach($opening as $opndtls){
-                                            if($prodtls->prod_id==$opndtls->prod_id){
-                                               
-												echo $sldcls_baln;
-                                                $sldtotal +=$sldcls_baln;
-                                            }
-											
-                                        }
-                                        $sldcls_baln=0.00;
-                                        ?>
-                                  </td>
-
-                                     <td class="report lqdopening" id="lqdopening">
-                                        <?php 
-                                            foreach($opening as $opndtls){
-                                                if($prodtls->prod_id==$opndtls->prod_id){
-                                                    echo $opndtls->lqd_opn_qty;
-                                                    $lqdtot_op +=$opndtls->lqd_opn_qty;
-                                                    $lqdcls_baln+=$opndtls->lqd_opn_qty;
-                                                }
-                                            }
-                                        ?>
-                                     </td>
-
-                                     
-                                     
-                                     <td class="report ldqpurchase" id="ldqpurchase">
-                                        <?php 
-                                            foreach($purchase as $purdtls){
-                                                if($prodtls->prod_id==$purdtls->prod_id){
-                                                   
-                                                          if($prodtls->unit==3){
-                                                            echo $purdtls->qty;
-                                                            $ldqpurqty= $purdtls->qty;
-                                                          }elseif($purdtls->unit==5){
-                                                            echo ($purdtls->qty)*($prodtls->qty_per_bag)/1000;  
-                                                            $ldqpurqty=   ($purdtls->qty)*($prodtls->qty_per_bag)/1000;  
-                                                          }
-                                                       
-                                                       $lqdtotal_pur +=$ldqpurqty;  
-                                                       $lqdcls_baln+=$ldqpurqty;
-                                                   }
-                                                    // echo $purdtls->lqd_tot_pur;
-                                                    // $lqdtotal_pur +=$purdtls->lqd_tot_pur;  
-                                                    // $lqdcls_baln+=$purdtls->lqd_tot_pur; 
-
-                                            
-                                            }
-                                            $ldqpurqty=0.00;
-                                            
-                                        ?>
-                                     </td>
-                                     <td class="report sale" id="sale">
-                                        <?php 
-                                            foreach($sale as $saledtls){
-                                                if($prodtls->prod_id==$saledtls->prod_id){
-                                                    if($prodtls->unit==3){
-                                                        echo $saledtls->qty;
-                                                        $lqdqty= $saledtls->qty;
-                                                      }elseif($saledtls->unit==5){
-                                                        echo ($saledtls->qty)*($prodtls->qty_per_bag)/1000;  
-                                                        $lqdqty=   ($saledtls->qty)*($saledtls->qty_per_bag)/1000;  
-                                                      }
-                                                    // echo $saledtls->lqd_tot_sale;
-                                                    // $lqdtotal_sale +=$saledtls->lqd_tot_sale;  
-                                                    // $lqdcls_baln -=$saledtls->lqd_tot_sale; 
-                                                     $lqdtotal_sale += $lqdqty;  
-                                                    $lqdcls_baln -= $lqdqty;  
-                                                }
-                                                $lqdqty=0.00;
-                                            }
-                                        ?>
-                                     </td>
-                                     
-                                     <td class="report lclosing" id="lclosing">
-                                  <?php 
-                                        foreach($opening as $opndtls){
-                                            if($prodtls->prod_id==$opndtls->prod_id){
-                                             
-												echo round($lqdcls_baln,3);
-                                                $lqdtotal +=$lqdcls_baln;
-												
-                                            }
-											
-                                        }
-                                        $lqdcls_baln=0.00;
-                                        ?>
-                                  </td>
+                                    
+                                    
                           
                                 </tr>
  
-                                <?php  
-                                                        
-                                    }
-                                ?>
+                                <?php }} ?>
 
- 
-                                <?php 
-                                       }
-                                else{
-
-                                    echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
-
-                                }   
-
-                            ?>
 
                         </tbody>
                         <tfooter>

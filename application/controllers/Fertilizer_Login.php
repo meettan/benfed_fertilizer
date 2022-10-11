@@ -245,7 +245,7 @@ class Fertilizer_Login extends MX_Controller
 				//Total Purchase in all branches solid & liquid
 
 				$dash_data["ho_purchase_daysld"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
-				$dash_data["ho_purchase_daylqd"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L');
+				$dash_data["ho_purchase_daylqd"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L'); 
 
 				//Total Sale in all branches solid & liquid
 				$dash_data["ho_sale_daysld"]        = get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
@@ -293,6 +293,9 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data['coloction_distwise'] = $this->Fertilizer_Process->get_coloction_distwise($from_yr_day, $to_yr_day);
 				$dash_data['tot_coloction'] = $this->Fertilizer_Process->get_tot_coloction($from_yr_day, $to_yr_day);
 
+
+				$dash_data['company_Wise_Status']=$this->Fertilizer_Process->company_Wise_Status($_SESSION['sys_date'],$from_yr_day);
+				
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_one', $dash_data);
 				$this->load->view('post_login/footer');
@@ -426,41 +429,88 @@ class Fertilizer_Login extends MX_Controller
 		$from_yr_day = date('Y-m-d', strtotime($from_fin_yr . '-04-01'));
 		$to_yr_day 	 = date('Y-m-d', strtotime($to_fin_yr . '-03-31'));
 
-		$data		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $from_dt, $to_dt);
-		$data1		= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $from_dt, $to_dt);
-		// echo $this->db->last_query();
-		// die();
-		$salsld		= $this->Fertilizer_Process->f_get_tot_salesld($br_id, $from_dt, $to_dt);
-		$sallqd		= $this->Fertilizer_Process->f_get_tot_salelqd($br_id, $from_dt, $to_dt);
-		$purm		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $first_month_day, $last_month_day);
-		$purmlqd	= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $first_month_day, $last_month_day);
 
-		$salm		= $this->Fertilizer_Process->f_get_tot_salesld($br_id, $first_month_day, $last_month_day);
-		$salmlqd	= $this->Fertilizer_Process->f_get_tot_salelqd($br_id, $first_month_day, $last_month_day);
-		$puryr		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $from_yr_day, $to_yr_day);
-		$puryrlq	= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $from_yr_day, $to_yr_day);
-		$salyr		= $this->Fertilizer_Process->f_get_tot_salesld($br_id, $from_yr_day, $to_yr_day);
-		$salyrlq	= $this->Fertilizer_Process->f_get_tot_salelqd($br_id, $from_yr_day, $to_yr_day);
-		$tot_recvday = $this->Fertilizer_Process->f_get_tot_recvamt($br_id, $from_dt, $to_dt);
-		$tot_recvmnth = $this->Fertilizer_Process->f_get_tot_recvamt($br_id, $first_month_day, $last_month_day);
-		$tot_recvyr  = $this->Fertilizer_Process->f_get_tot_recvamt($br_id, $from_yr_day, $to_yr_day);
+
+
+
+// =============================================== Day ==========================================
+
+		//day Purchase branches solid & liquid
+		$tot_pur    = get_purchase($from_dt, $to_dt, $br_id, 'N', 'S');
+		$tot_purlqd    = get_purchase($from_dt, $to_dt, $br_id, 'N', 'L'); 
+		//day Sale in all branches solid & liquid
+		$tot_sale        = get_sale($from_dt, $to_dt, $br_id, 'N', 'S');
+		$tot_salelqd		= get_sale($from_dt, $to_dt, $br_id, 'N', 'L');
+		//day Received Amount in branch (Advance + Other mode)
+		$tot_recvday		= collectionForTheDay($from_dt, $to_dt, $br_id, 'N')->tot_recvamt;
+		
+
+// =============================================== Monthly ==========================================
+
+		//Monthly Purchase branches solid & liquid
+		$tot_mth_pur    = get_purchase($first_month_day, $to_dt, $br_id, 'N', 'S');
+		$tot_mth_purlqd    = get_purchase($first_month_day, $to_dt, $br_id, 'N', 'L'); 
+		//Monthly Sale in all branches solid & liquid
+		$tot_mth_sal        = get_sale($first_month_day, $to_dt, $br_id, 'N', 'S');
+		$tot_mth_salq		= get_sale($first_month_day, $to_dt, $br_id, 'N', 'L');
+		//Monthly Received Amount in branch (Advance + Other mode)
+		$tot_recvmnth		= collectionForTheDay($first_month_day, $to_dt, $br_id, 'N')->tot_recvamt;
+		
+
+
+// =============================================== Yearly ==========================================
+		
+		//Yearly Purchase branches solid & liquid
+		$tot_puryr    = get_purchase($from_yr_day, $to_yr_day, $br_id, 'N', 'S');
+		$tot_puryrlq  = get_purchase($from_yr_day, $to_yr_day, $br_id, 'N', 'L'); 
+		//Yearly Sale in all branches solid & liquid
+		$tot_salyr       = get_sale($from_yr_day, $to_yr_day, $br_id, 'N', 'S');
+		$tot_salyrlq		= get_sale($from_yr_day, $to_yr_day, $br_id, 'N', 'L');
+
+		//Yearly Received Amount in branch (Advance + Other mode)
+		$tot_recvyr	= collectionForTheDay($from_yr_day, $to_yr_day, $br_id, 'N')->tot_recvamt;
+
+
+
+
+
+
+
+		// $data		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $from_dt, $to_dt);
+		// $data1		= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $from_dt, $to_dt);
+		// // echo $this->db->last_query();
+		// // die();
+		// $salsld		= $this->Fertilizer_Process->f_get_tot_salesld($br_id, $from_dt, $to_dt);
+		// $sallqd		= $this->Fertilizer_Process->f_get_tot_salelqd($br_id, $from_dt, $to_dt);
+		// $purm		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $first_month_day, $last_month_day);
+		// $purmlqd	= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $first_month_day, $last_month_day);
+
+		// $salm		= $this->Fertilizer_Process->f_get_tot_salesld($br_id, $first_month_day, $last_month_day);
+		// $salmlqd	= $this->Fertilizer_Process->f_get_tot_salelqd($br_id, $first_month_day, $last_month_day);
+		// $puryr		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $from_yr_day, $to_yr_day);
+		// $puryrlq	= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $from_yr_day, $to_yr_day);
+		// $salyr		= $this->Fertilizer_Process->f_get_tot_salesld($br_id, $from_yr_day, $to_yr_day);
+		// $salyrlq	= $this->Fertilizer_Process->f_get_tot_salelqd($br_id, $from_yr_day, $to_yr_day);
+		// $tot_recvday = $this->Fertilizer_Process->f_get_tot_recvamt($br_id, $from_dt, $to_dt);
+		// $tot_recvmnth = $this->Fertilizer_Process->f_get_tot_recvamt($br_id, $first_month_day, $last_month_day);
+		// $tot_recvyr  = $this->Fertilizer_Process->f_get_tot_recvamt($br_id, $from_yr_day, $to_yr_day);
 
 		$pur = array(
-			'tot_pur' => $data->tot_purchase,
-			'tot_purlqd' => $data1->tot_purchase,
-			'tot_sale' => $salsld->tot_sale,
-			'tot_salelqd' => $sallqd->tot_sale,
-			'tot_mth_pur' => $purm->tot_purchase,
-			'tot_mth_purlqd' => $purm->tot_purchase,
-			'tot_mth_sal' => $salm->tot_sale,
-			'tot_mth_salq' => $salm->tot_sale,
-			'tot_puryr' => $puryr->tot_purchase,
-			'tot_puryrlq' => $puryrlq->tot_purchase,
-			'tot_salyr' => $salyr->tot_sale,
-			'tot_salyrlq' => $salyrlq->tot_sale,
-			'tot_recvday' => $tot_recvday->tot_recvamt,
-			'tot_recvmnth' => $tot_recvmnth->tot_recvamt,
-			'tot_recvyr' => $tot_recvyr->tot_recvamt
+			'tot_pur' => $tot_pur,
+			'tot_purlqd' => $tot_purlqd,
+			'tot_sale' => $tot_sale,
+			'tot_salelqd' => $tot_salelqd,
+			'tot_mth_pur' => $tot_mth_pur,
+			'tot_mth_purlqd' => $tot_mth_purlqd,
+			'tot_mth_sal' => $tot_mth_sal,
+			'tot_mth_salq' => $tot_mth_salq,
+			'tot_puryr' => $tot_puryr,
+			'tot_puryrlq' => $tot_puryrlq,
+			'tot_salyr' => $tot_salyr,
+			'tot_salyrlq' => $tot_salyrlq,
+			'tot_recvday' => $tot_recvday,
+			'tot_recvmnth' => $tot_recvmnth,
+			'tot_recvyr' => $tot_recvyr
 		);
 		echo json_encode($pur);
 	}

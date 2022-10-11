@@ -76,7 +76,7 @@ public function company_advAddlist(){
 					'a.comp_id'=>$this->input->post('comp_id')
 					);
 		$list  = $this->AdvanceModel->f_select("td_adv_details a,mm_company_dtls b,mm_product c,tdf_adv_fwd d",$select,$where,0);
-		echo $this->db->last_query();
+		// echo $this->db->last_query();
 		echo json_encode($list);
 	//}else{
         // echo 0;
