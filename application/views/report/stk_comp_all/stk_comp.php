@@ -115,21 +115,14 @@ tr:hover {background-color: #f5f5f5;}
                                 if($product){ 
 
                                     $i = 1;
-                                    $total = 0.00;
-                                    $total_sale = 0.00;
-                                    $total_pur =0.00;
-                                    $lqdtotal_pur= 0.00;
-                                    $lqdtotal_sale=0.00;
-                                    $tot_op =0.00;
-                                    $lqdtot_op = 0.00;
-                                    $sldcls_baln = 0.00;
-                                    $lqdcls_baln  =0.00;
-                                    $lqdtotal  = 0.00;
-                                    $sldtotal =0.00;
-                                    $sldtotal_pur=0.00;
-                                    $sldtotal_sale=0.00;
-                                    $ldqpurqty =0.00;
-                                    $val =0;
+                                   $Openingmts=0.0;
+                                   $Purchasemts=0.0;
+                                   $Salemts=0.0;
+                                   $Closinggmts=0.0;
+                                   $Openingltr=0.0;
+                                   $Purchaseltr=0.0;
+                                   $Saleltr=0.0;
+                                   $Closinggltr=0.0;
 
                                         foreach($product as $prodtls){
                             ?>
@@ -141,10 +134,10 @@ tr:hover {background-color: #f5f5f5;}
 
 
                                    <?php  if($prodtls->unit == 'MTS'){ ?>
-                                     <td class="report"><?php echo $prodtls->opening; ?></td>
-                                     <td class="report"><?php echo $prodtls->purchase; ?></td>
-                                     <td class="report"><?php echo $prodtls->sale; ?></td>
-                                     <td class="report"><?php echo $prodtls->closing; ?></td>
+                                     <td class="report"><?php echo $prodtls->opening; $Openingmts+=$prodtls->opening; ?></td>
+                                     <td class="report"><?php echo $prodtls->purchase; $Purchasemts+=$prodtls->purchase; ?></td>
+                                     <td class="report"><?php echo $prodtls->sale; $Salemts+=$prodtls->sale; ?></td>
+                                     <td class="report"><?php echo $prodtls->closing; $Closinggmts+=$prodtls->closing;?></td>
                                    <?php }else{ ?>
                                         <td class="report"></td>
                                      <td class="report"></td>
@@ -154,10 +147,10 @@ tr:hover {background-color: #f5f5f5;}
 
 
                                      if($prodtls->unit == 'LTR'){ ?>
-                                        <td class="report"><?php echo $prodtls->opening; ?></td>
-                                     <td class="report"><?php echo $prodtls->purchase; ?></td>
-                                     <td class="report"><?php echo $prodtls->sale; ?></td>
-                                     <td class="report"><?php echo $prodtls->closing; ?></td>
+                                        <td class="report"><?php echo $prodtls->opening; $Openingltr+=$prodtls->opening; ?></td>
+                                     <td class="report"><?php echo $prodtls->purchase; $Purchaseltr+=$prodtls->purchase; ?></td>
+                                     <td class="report"><?php echo $prodtls->sale; $Saleltr+=$prodtls->sale; ?></td>
+                                     <td class="report"><?php echo $prodtls->closing; $Closinggltr+=$prodtls->closing;?></td>
                                     <?php }else{ ?>
                                         <td class="report"></td>
                                      <td class="report"></td>
@@ -173,8 +166,18 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
  
                                 <?php }} ?>
-
-
+                                    <tr style="background-color: #a3a3a3;">
+                                     <td class="report"><b>Total</b></td>
+                                     <td class="report"><b></b></td>
+                                     <td class="report"><b><?=$Openingmts?></b></td>
+                                     <td class="report"><b><?=$Purchasemts?></b></td>
+                                     <td class="report"><b><?=$Salemts?></b></td>
+                                     <td class="report"><b><?=$Closinggmts?></b></td>
+                                     <td class="report"><b><?=$Openingltr?></b></td>
+                                     <td class="report"><b><?=$Purchaseltr?></b></td>
+                                     <td class="report"><b><?=$Saleltr?></b></td>
+                                     <td class="report"><b><?=$Closinggltr?></b></td>
+                                    </tr>
                         </tbody>
                         <tfooter>
                             <tr>

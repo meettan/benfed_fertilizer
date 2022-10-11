@@ -24,6 +24,18 @@
     border-radius: 50%;
   }
 
+  .valueSec{
+    font-size: 15px !important;
+  }
+
+  .valueSec span strong{
+    font-size: 15px !important;
+  }
+
+  .lit{
+    font-size: 15px !important;
+  }
+
   @keyframes rotate {
     0% {
       transform: rotate(0deg);
@@ -141,7 +153,7 @@
                                                       } else {                                                        //In Branch
                                                         echo $sale_day->tot_sale;
                                                       }
-                                                      ?><strong>mt</strong></span>
+                                                      ?><strong>MT</strong></span>
                       <span class="lit"><?php                                          //Liquid
                                         if ($this->session->userdata['loggedin']['ho_flag'] == "Y")       //User in Ho
                                         {
@@ -214,9 +226,9 @@
                 <div class="districWisSecRight districWisSecRight_FullWidth">
                   <div class="col-sm-4 float-left">
                     <div class="districWisSecRightBox">
-                      <h3>Day Purchase </h3>
+                      <h3>Day Purchase</h3>
                       <div class="valueSec">
-                        <span class="mt" ><span id="dp">0.00</span> <strong>mt</strong></span>
+                        <span class="mt" ><span id="dp">0.00</span> <strong>MT</strong></span>
                         <span class="lit"><span id="dpl">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
@@ -225,7 +237,7 @@
                     <div class="districWisSecRightBox">
                       <h3>Day Sale </h3>
                       <div class="valueSec">
-                        <span class="mt"><span id="ds">0.00</span> <strong>mt</strong></span>
+                        <span class="mt"><span id="ds">0.00</span> <strong>MT</strong></span>
                         <span class="lit"><span id="dsl">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
@@ -248,7 +260,7 @@
                     <div class="districWisSecRightBox">
                       <h3>Monthly Purchase </h3>
                       <div class="valueSec">
-                        <span class="mt" id=""><span id="dpm">0.00</span> <strong>mt</strong></span>
+                        <span class="mt" id=""><span id="dpm">0.00</span> <strong>MT</strong></span>
                         <span class="lit" id=""><span id="dpmlqd">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
@@ -257,7 +269,7 @@
                     <div class="districWisSecRightBox">
                       <h3>Monthly Sale </h3>
                       <div class="valueSec">
-                        <span class="mt" id=""><span id="sm">0.00</span> <strong>mt</strong></span>
+                        <span class="mt" id=""><span id="sm">0.00</span> <strong>MT</strong></span>
                         <span class="lit" id=""><span id="smlqd">0.00</span><strong>L</strong></span>
                       </div>
                     </div>
@@ -280,7 +292,7 @@
                     <div class="districWisSecRightBox">
                       <h3>Yearly Purchase </h3>
                       <div class="valueSec">
-                        <span class="mt" id=""><span id="pyr">0.00</span> <strong>mt</strong></span>
+                        <span class="mt" id=""><span id="pyr">0.00</span> <strong>MT</strong></span>
                         <span class="lit" id=""><span id="pyrlq">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
@@ -289,7 +301,7 @@
                     <div class="districWisSecRightBox">
                       <h3>Yearly Sale </h3>
                       <div class="valueSec">
-                        <span class="mt" id=""><span id="syr">0.00</span> <strong>mt</strong></span>
+                        <span class="mt" id=""><span id="syr">0.00</span> <strong>MT</strong></span>
                         <span class="lit" id=""><span id="syrlq">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
