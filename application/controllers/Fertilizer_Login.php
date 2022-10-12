@@ -323,7 +323,7 @@ class Fertilizer_Login extends MX_Controller
 
 				//When Admin or Manager logs into branch			
 
-			} elseif ($this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {
+			} elseif ($this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'C' ||$this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {
 
 
 

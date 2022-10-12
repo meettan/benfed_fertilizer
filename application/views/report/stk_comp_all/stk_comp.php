@@ -21,6 +21,48 @@ tr:hover {background-color: #f5f5f5;}
 
 </style>
 
+
+
+
+<style>
+    #overlay {
+        background: rgba(100, 100, 100, 0.2);
+        color: #ffff;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+
+
+
+    .spinner {
+        margin: 0 auto;
+        height: 64px;
+        width: 64px;
+        animation: rotate 0.8s infinite linear;
+        border: 5px solid #228ed3;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
 <script>
   function printDiv() {
 
@@ -53,6 +95,11 @@ tr:hover {background-color: #f5f5f5;}
 
   }
 </script>
+
+
+<div id="overlay" style="display:none;">
+            <div class="spinner"></div>
+        </div>
   
 
         <div class="wraper"> 
@@ -66,7 +113,7 @@ tr:hover {background-color: #f5f5f5;}
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Monthly Summary Report Between: <?php echo $_SESSION['date']; ?></h4>
-                        <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
+                        <h5 style="text-align:left"><label>District: </label> <?php if(!empty($branch->district_name)){ echo $branch->district_name;}else{echo "All District"; } ?></h5>
                         <h5 style="text-align:left"><label>Company: </label> <?php  if($product){ foreach($product as $prodtls);echo $prodtls->comp_name;}?></h5>
 
                     </div>
@@ -233,3 +280,19 @@ tr:hover {background-color: #f5f5f5;}
 ]
    });
 </script>
+
+
+<script>
+              $('#overlay').fadeIn().delay(2500).fadeOut();
+
+            //   var ready = false;
+            //     $(document).ready(function () {
+            //         ready = true;
+            //     });
+            //     if(ready){
+            //         $('#overlay').fadeOut();
+            //     }else{
+            //         $('#overlay').fadeIn();
+            //     }
+              
+        </script>

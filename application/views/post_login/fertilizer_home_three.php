@@ -49,7 +49,7 @@
 
 <!-- //Admin & Manager loging in Branch Office -->
 
-<?php if ($this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {  ?>
+<?php if ($this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'C' || $this->session->userdata['loggedin']['user_type'] == 'A')) {  ?>
   <div class="container-fluid" style="padding-top:25px;">
     <div class="daseboard_home_new">
       <div class="col-sm-3 float-left">
