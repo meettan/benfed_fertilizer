@@ -849,7 +849,7 @@ $tot_lqd = 0.00;
     </div>
   </div>
 </div>
-<?php } elseif( $this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {  ?>
+<?php } elseif( $this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'M' ||$this->session->userdata['loggedin']['user_type'] == 'S' || $this->session->userdata['loggedin']['user_type'] == 'A')) {  ?>
 <div class="container-fluid" style="padding-top:25px;">
   <div class="daseboard_home_new">
     <div class="col-sm-3 float-left">

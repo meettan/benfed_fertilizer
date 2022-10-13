@@ -235,6 +235,13 @@
                 <div class="col-sm-4">
                     <select name="userType" id="" class="form-control">
                         <option value="0">Select User Type</option>
+
+                        <?php if($this->session->userdata['loggedin']['branch_id'] == 342){ ?>
+                            
+                        <option value="S" <?php if($user_dtls->user_type=='S'){echo 'selected';} ?>>Super User</option>
+
+                        <?php } ?>
+
                         <option value="U" <?php if($user_dtls->user_type=='U'){echo 'selected';} ?>>User</option>
                         <option value="M" <?php if($user_dtls->user_type=='M'){echo 'selected';} ?>>Manager</option>
                         <option value="A" <?php if($user_dtls->user_type=='A'){echo 'selected';} ?>>Admin</option>
