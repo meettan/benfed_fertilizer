@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-lg-12 container contant-wraper"> 
-            <?php if($this->session->userdata('loggedin')['user_id']=='sss1'){ ?>
+            <?php if($this->session->userdata('loggedin')['user_id']=='sss1' ||$this->session->userdata('loggedin')['user_type']=='A'){ ?>
 
             <h3>
 		        <small><a href="<?php echo site_url("key/productAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
