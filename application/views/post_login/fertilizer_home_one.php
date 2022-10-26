@@ -433,6 +433,171 @@
 
 
           </div>
+
+
+
+
+
+
+
+
+          <!-- =========================================================================== -->
+
+          <div class="sectionNew">
+            <!-- <div class="col-sm-12">
+              <h2>District Wise Status</h2>
+            </div> -->
+
+
+            <div class="sectionNew">
+            <div class="stockPointSecTitle">
+              <div class="col-sm-12">
+                <h2>Company Wise Status</h2>
+                <div class="selectBox">
+                  <select name="company_dtls" class="form-control district" id="company_dtls">
+                    <option value="">Select Company</option>
+                    <?php
+                    foreach ($compdtls as $compdtls) {
+                    ?>
+                      <option value="<?php echo $compdtls->COMP_ID; ?>"><?php echo $compdtls->short_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="col-sm-12">
+              <div class="districWisSec">
+                <div class="districWisSecLeft districWisSecLeft_FullWidth">
+                  <ul>
+
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(339)">Bankura<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(334)">Birbhum<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(329)">Coochbihar<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(331)">Dakshin Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(338)">Hooghly <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(328)">Jalpaiguri <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(332)">Malda <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(333)">Murshidabad<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(336)">Nadia <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(343)">North 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(335)">Purba Burdwan (Bardhaman) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(344)">Paschim Medinipur (West Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(345)">Purba Medinipur (East Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(343)">South 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(330)">Uttar Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+
+
+                  </ul>
+                </div>
+                <div class="districWisSecRight districWisSecRight_FullWidth">
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Day Purchase</h3>
+                      <div class="valueSec">
+                        <span class="mt" ><span id="dpc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit"><span id="dplc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Day Sale </h3>
+                      <div class="valueSec">
+                        <span class="mt"><span id="dsc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit"><span id="dslc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Day Collection </h3>
+                      <!-- <div class="valueSec"> -->
+                      <!-- <span class="mt" id="recvdy">250 </span> -->
+                      <!-- <span class="lit">250 <strong>L</strong></span> -->
+                      <p class="price">
+                        <span class="lit" id="recvdyc" STYLE="font-size:18.0pt ;"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>
+                        </span>
+                      </p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Monthly Purchase </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="dpmc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="dpmlqdc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Monthly Sale </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="smc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="smlqdc">0.00</span><strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Monthly Collection </h3>
+                      <!-- <div class="valueSec"> -->
+                      <!-- <span class="mt" id="recvmnth">250 </span> -->
+                      <!-- <span class="lit">250 <strong>L</strong></span> -->
+                      <p class="price">
+                        <span class="lit" id="recvmnthc" STYLE="font-size:18.0pt ;"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>
+                        </span>
+                      </p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Yearly Purchase </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="pyrc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="pyrlqc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Yearly Sale </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="syrc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="syrlqc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Yearly Collection </h3>
+                      <p class="price">
+                        <span class="lit" id="recvyrc" STYLE="font-size:18.0pt ;"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>
+                        </span>
+                      </p>
+                      <!-- <div class="valueSec"> -->
+                      <!-- <span class="mt" id="recvyr">250 </span> -->
+                      <!-- <span class="lit">250 <strong>L</strong></span> -->
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- ============================================================================== -->
           <!-- <div class="stockPointSecTitle" >
                 <div class="col-sm-12">
                   <div class="get-quote">
@@ -454,65 +619,7 @@
 
 
           <!-- ======================================== -->
-          <!-- <div class="sectionNew">
-            <div class="stockPointSecTitle">
-              <div class="col-sm-12">
-                <h2>Stock Point</h2>
-                <div class="selectBox">
-                  <select name="district" class="form-control district" id="district">
-                    <option value="">Select District</option>
-                    <?php
-                    foreach ($distdtls as $dist) {
-                    ?>
-                      <option value="<?php echo $dist->district_code; ?>"><?php echo $dist->district_name; ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="stockPointSec">
-                <div class="table-responsive">
-                  <table class="table table-striped tablestockPoint">
-                    <thead>
-                      <tr>
-                        <th scope="col">Stock Point </th>
-                        <th scope="col">Solid Qty</th>
-                        <th scope="col">Liquid Qty</th>
-                      </tr>
-                    </thead>
-                    <tbody id='soc'>
-                      <?php
-                      $tot_sld = 0.00;
-                      $tot_lqd = 0.00;
-
-                      ?>
-                      <tr>
-                        <th scope="row"></th>
-                        <td>0 <strong>mt</strong></td>
-                        <td>0 <strong>L</strong></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"></th>
-                        <td>0 <strong>mt</strong></td>
-                        <td>0 <strong>L</strong></td>
-                      </tr>
-                    </tbody>
-                    <tfooter>
-                      <tr>
-                        <td class="report" colspan="1" style="text-align:left"><b>Total</b></td>
-                        <td id="f_totsld" class="report"><b></b></td>
-                        <td id="f_totlqd" class="report"><b></b></td>
-                      </tr>
-                    </tfooter>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
+          
 
           <!-- ================================= -->
           <div class="barPaiChartMain">
@@ -592,6 +699,47 @@
         $('#recvdy').html(data.tot_recvday);
         $('#recvmnth').html(data.tot_recvmnth);
         $('#recvyr').html(data.tot_recvyr);
+      }
+      // error: function() { alert("Error posting feed."); }
+    });
+  }
+
+
+
+  function brdaypurchasec(br_id) {
+    //   alert(br_id);
+
+    $('#overlay').fadeIn().delay(500).fadeOut();
+
+    var comp_id=$('#company_dtls').val();
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url("Fertilizer_Login/f_br_purchasec") ?>",
+      data: {
+        br_id: br_id,
+        comp_id:comp_id,
+      },
+
+      success: function(data) {
+        // alert(JSON.parse(data).tot_pur);
+        console.log(data);
+        var data = JSON.parse(data);
+
+        $('#dpc').html(data.tot_pur);
+        $('#dplc').html(data.tot_purlqd);
+        $('#dsc').html(data.tot_sale);
+        $('#dslc').html(data.tot_salelqd);
+        $('#dpmc').html(data.tot_mth_pur);
+        $('#dpmlqdc').html(data.tot_mth_purlqd);
+        $('#smc').html(data.tot_mth_sal);
+        $('#smlqdc').html(data.tot_mth_salq);
+        $('#pyrc').html(data.tot_puryr);
+        $('#pyrlqc').html(data.tot_puryrlq);
+        $('#syrlqc').html(data.tot_salyrlq);
+        $('#syrc').html(data.tot_salyr);
+        $('#recvdyc').html(data.tot_recvday);
+        $('#recvmnthc').html(data.tot_recvmnth);
+        $('#recvyrc').html(data.tot_recvyr);
       }
       // error: function() { alert("Error posting feed."); }
     });
@@ -740,7 +888,7 @@
     var data = {
       labels: [<?php echo rtrim($label, ","); ?>],
       datasets: [{
-        label: '# of Votes',
+        label: '',
         data: [<?php echo rtrim($qty, ","); ?>],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',

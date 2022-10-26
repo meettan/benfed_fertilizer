@@ -277,6 +277,11 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data['distdtls']               = $this->Fertilizer_Process->f_select('md_district', $select1, NULL, 0);
 
 
+
+				$select11                             = array("short_name", "COMP_ID");
+				$dash_data['compdtls']               = $this->Fertilizer_Process->f_select('mm_company_dtls', $select11, NULL, 0);
+
+
 				//Districtwise Bar Graph for Solid & Liquid Sale for a financial year
 
 				$dash_data['distwisesale']           = $this->Fertilizer_Process->f_get_solid_sale($from_yr_day, $to_yr_day);
@@ -515,6 +520,78 @@ class Fertilizer_Login extends MX_Controller
 		echo json_encode($pur);
 	}
 
+
+	public function f_br_purchasec()
+	{				//branchwise purchase 
+		$br_id = $_POST['br_id'];
+		$fin_yr = $this->session->userdata['loggedin']['fin_yr'];
+		$from_dt = $_SESSION['sys_date'];
+		$to_dt = $_SESSION['sys_date'];
+		$first_month_day = date("Y-m-01", strtotime($_SESSION['sys_date']));
+		$last_month_day  = date("Y-m-t", strtotime($_SESSION['sys_date']));
+		$from_fin_yr = substr($fin_yr, 0, 4);
+		$to_fin_yr   = ($from_fin_yr + 1);
+		$from_yr_day = date('Y-m-d', strtotime($from_fin_yr . '-04-01'));
+		$to_yr_day 	 = date('Y-m-d', strtotime($to_fin_yr . '-03-31'));
+		$company_id=$this->input->post('comp_id');
+
+// =============================================== Day ==========================================
+		$this->load->helper('purchacmpanysesale_helper');
+		//day Purchase branches solid & liquid
+		$tot_pur    = get_purchasec($from_dt, $to_dt, $br_id, 'N', 'S',$company_id);
+		$tot_purlqd    = get_purchasec($from_dt, $to_dt, $br_id, 'N', 'L',$company_id); 
+		//day Sale in all branches solid & liquid
+		$tot_sale        = get_salec($from_dt, $to_dt, $br_id, 'N', 'S',$company_id);
+		$tot_salelqd		= get_salec($from_dt, $to_dt, $br_id, 'N', 'L',$company_id);
+		//day Received Amount in branch (Advance + Other mode)
+		$tot_recvday		= collectionForTheDayc($from_dt, $to_dt, $br_id, 'N',$company_id)->tot_recvamt;
+		
+
+// =============================================== Monthly ==========================================
+
+		//Monthly Purchase branches solid & liquid
+		$tot_mth_pur    = get_purchasec($first_month_day, $to_dt, $br_id, 'N', 'S',$company_id);
+		$tot_mth_purlqd    = get_purchasec($first_month_day, $to_dt, $br_id, 'N', 'L',$company_id); 
+		//Monthly Sale in all branches solid & liquid
+		$tot_mth_sal        = get_salec($first_month_day, $to_dt, $br_id, 'N', 'S',$company_id);
+		$tot_mth_salq		= get_salec($first_month_day, $to_dt, $br_id, 'N', 'L',$company_id);
+		//Monthly Received Amount in branch (Advance + Other mode)
+		$tot_recvmnth		= collectionForTheDayc($first_month_day, $to_dt, $br_id, 'N',$company_id)->tot_recvamt;
+		
+
+
+// =============================================== Yearly ==========================================
+		
+		//Yearly Purchase branches solid & liquid
+		$tot_puryr    = get_purchasec($from_yr_day, $to_yr_day, $br_id, 'N', 'S',$company_id);
+		$tot_puryrlq  = get_purchasec($from_yr_day, $to_yr_day, $br_id, 'N', 'L',$company_id); 
+		//Yearly Sale in all branches solid & liquid
+		$tot_salyr       = get_salec($from_yr_day, $to_yr_day, $br_id, 'N', 'S',$company_id);
+		$tot_salyrlq		= get_salec($from_yr_day, $to_yr_day, $br_id, 'N', 'L',$company_id);
+
+		//Yearly Received Amount in branch (Advance + Other mode)
+		$tot_recvyr	= collectionForTheDayc($from_yr_day, $to_yr_day, $br_id, 'N',$company_id)->tot_recvamt;
+
+
+		$pur = array(
+			'tot_pur' => $tot_pur,
+			'tot_purlqd' => $tot_purlqd,
+			'tot_sale' => $tot_sale,
+			'tot_salelqd' => $tot_salelqd,
+			'tot_mth_pur' => $tot_mth_pur,
+			'tot_mth_purlqd' => $tot_mth_purlqd,
+			'tot_mth_sal' => $tot_mth_sal,
+			'tot_mth_salq' => $tot_mth_salq,
+			'tot_puryr' => $tot_puryr,
+			'tot_puryrlq' => $tot_puryrlq,
+			'tot_salyr' => $tot_salyr,
+			'tot_salyrlq' => $tot_salyrlq,
+			'tot_recvday' => $tot_recvday,
+			'tot_recvmnth' => $tot_recvmnth,
+			'tot_recvyr' => $tot_recvyr
+		);
+		echo json_encode($pur);
+	}
 
 	public function check_user()
 	{

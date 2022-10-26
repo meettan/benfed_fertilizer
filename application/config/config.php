@@ -26,7 +26,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  
 date_default_timezone_set('asia/kolkata');
 
-$config['base_url'] = 'https://benfed.in/benfed_fertilizer/';
+// $config['base_url'] = 'https://benfed.in/benfed_fertilizer/';
+$config['base_url'] = 'http://localhost/benfed/benfed_fertilizer/';
 // $config['base_url'] = 'http://192.168.1.102:8080/benfed_fertilizer/';
 
 /*

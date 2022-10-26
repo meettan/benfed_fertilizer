@@ -1176,6 +1176,17 @@
 
     				});
 
+
+
+
+				var ajdadd=$('#adj_amt').val();
+				if(ajdadd>0){
+					$('#less_amt').attr("disabled", true);
+				}else{
+					$('#less_amt').attr("disabled", false);
+				}
+				
+
     		});
 
     	});
@@ -1291,8 +1302,16 @@
 
 
     				});
+					var ajdless=$('#less_amt').val();
+				if(ajdless>0){
+					$('#adj_amt').attr("disabled", true);
+				}else{
+					$('#less_amt').attr("disabled", false);
+				}
 
     		});
+
+			
 
     	});
     </script>
@@ -1364,6 +1383,14 @@
     					$('#tot_pur_rt').val(net_rt);
 
     				});
+
+
+					var rbtadd=$('#rbt_add').val();
+				if(rbtadd>0){
+					$('#rbt_less').attr("disabled", true);
+				}else{
+					$('#rbt_less').attr("disabled", false);
+				}
 
     		});
 
@@ -1438,6 +1465,13 @@
     					$('#tot_pur_rt').val(net_rt);
 
     				});
+
+					var rbtless=$('#rbt_less').val();
+					if(rbtless>0){
+						$('#rbt_add').attr("disabled", true);
+					}else{
+						$('#rbt_add').attr("disabled", false);
+					}
 
     		});
 
@@ -1523,6 +1557,13 @@
     					$('#tot_pur_rt').val(net_rt);
     				});
 
+					var roundofadd=$('#rnd_of_add').val();
+					if(roundofadd>0){
+						$('#rnd_of_less').attr("disabled", true);
+					}else{
+						$('#rnd_of_less').attr("disabled", false);
+					}
+
     		});
 
     	});
@@ -1601,6 +1642,13 @@
     					$('#tot_pur_rt').val(net_rt);
 
     				});
+
+					var roundofless=$('#rnd_of_less').val();
+					if(roundofless>0){
+						$('#rnd_of_add').attr("disabled", true);
+					}else{
+						$('#rnd_of_add').attr("disabled", false);
+					}
 
     		});
 
