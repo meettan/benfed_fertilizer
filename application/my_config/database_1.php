@@ -73,55 +73,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-//   $db['default'] = array(
-//   	'dsn'	   => '',
-//   	'hostname' => 'localhost',
-//   	'username' => 'root',
-//   	'password' => 'teachers',
-//   	'database' => 'benfed',
-//   	'dbdriver' => 'mysqli',
-//   	'dbprefix' => '',
-//   	'pconnect' => FALSE,
-//   	'db_debug' => (ENVIRONMENT !== 'production'),
-//   	'cache_on' => FALSE,
-//   	'cachedir' => '',
-//   	'char_set' => 'utf8',
-//   	'dbcollat' => 'utf8_general_ci',
-//   	'swap_pre' => '',
-//   	'encrypt' => FALSE,
+//  $db['default'] = array(
+//  	'dsn'	   => '',
+//  	'hostname' => 'localhost',
+//  	'username' => 'root',
+//  	'password' => 'teachers',
+//  	'database' => 'benfed',
+//  	'dbdriver' => 'mysqli',
+//  	'dbprefix' => '',
+//  	'pconnect' => FALSE,
+//  	'db_debug' => (ENVIRONMENT !== 'production'),
+//  	'cache_on' => FALSE,
+//  	'cachedir' => '',
+//  	'char_set' => 'utf8',
+//  	'dbcollat' => 'utf8_general_ci',
+//  	'swap_pre' => '',
+//  	'encrypt' => FALSE,
 //  	'compress' => FALSE,
-//   	'stricton' => FALSE,
-//   	'failover' => array(),
-//   	'save_queries' => TRUE
-//   );
+//  	'stricton' => FALSE,
+//  	'failover' => array(),
+//  	'save_queries' => TRUE
+//  );
 
 $db['default'] = array(
 	'dsn'	   => '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => 'SynergicWeb@2020',
-	'database' => 'benfed_fertilizer',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-$db['findb'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'SynergicWeb@2020',
-	'database' => 'benfed_fin',
+	'password' => '',
+	'database' => 'sssproje_benfed',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
