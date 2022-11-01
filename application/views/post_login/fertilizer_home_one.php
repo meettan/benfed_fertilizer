@@ -24,15 +24,15 @@
     border-radius: 50%;
   }
 
-  .valueSec{
+  .valueSec {
     font-size: 15px !important;
   }
 
-  .valueSec span strong{
+  .valueSec span strong {
     font-size: 15px !important;
   }
 
-  .lit{
+  .lit {
     font-size: 15px !important;
   }
 
@@ -115,7 +115,7 @@
 
                         if ($this->session->userdata['loggedin']['ho_flag'] == "Y")   //When user in Headoffice
                         {
-                          echo $ho_purchase_daysld; 
+                          echo $ho_purchase_daysld;
                         } else {                                                  //When user in Branhoffice
                           echo $purchase_day->tot_purchase;
                         }
@@ -204,31 +204,38 @@
                 <div class="districWisSecLeft districWisSecLeft_FullWidth">
                   <ul>
 
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(339)">Bankura<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(334)">Birbhum<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(329)">Coochbihar<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(331)">Dakshin Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(338)">Hooghly <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(328)">Jalpaiguri <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(332)">Malda <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(333)">Murshidabad<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(336)">Nadia <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(343)">North 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(335)">Purba Burdwan (Bardhaman) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(344)">Paschim Medinipur (West Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(345)">Purba Medinipur (East Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(343)">South 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchase(330)">Uttar Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="339" onclick="brdaypurchase(339)">Bankura<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="334" onclick="brdaypurchase(334)">Birbhum<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="329" onclick="brdaypurchase(329)">Coochbihar<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="331" onclick="brdaypurchase(331)">Dakshin Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="338" onclick="brdaypurchase(338)">Hooghly <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="328" onclick="brdaypurchase(328)">Jalpaiguri <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="332" onclick="brdaypurchase(332)">Malda <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="333" onclick="brdaypurchase(333)">Murshidabad<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="336" onclick="brdaypurchase(336)">Nadia <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="343" onclick="brdaypurchase(343)">North 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="335" onclick="brdaypurchase(335)">Purba Burdwan (Bardhaman) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="344" onclick="brdaypurchase(344)">Paschim Medinipur (West Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="345" onclick="brdaypurchase(345)">Purba Medinipur (East Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="343" onclick="brdaypurchase(343)">South 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchase" dist_id="" distname="330" onclick="brdaypurchase(330)">Uttar Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
 
 
                   </ul>
                 </div>
                 <div class="districWisSecRight districWisSecRight_FullWidth">
+                                      
+                                    <div style="text-align:center; margin-top: 30px;">
+
+                    <h2 id="distName"></h2>
+
+                    </div>
+
                   <div class="col-sm-4 float-left">
                     <div class="districWisSecRightBox">
                       <h3>Day Purchase</h3>
                       <div class="valueSec">
-                        <span class="mt" ><span id="dp">0.00</span> <strong>MT</strong></span>
+                        <span class="mt"><span id="dp">0.00</span> <strong>MT</strong></span>
                         <span class="lit"><span id="dpl">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
@@ -328,8 +335,8 @@
           <div class="sectionNew">
             <div class="col-sm-12">
               <h2 class="onClickOpen" data-toggle="collapse" data-target="#demo">
-                  Company Payment <span>(Click to Expand)</span>
-                  <!-- <i class="fa fa-arrow-circle-down" aria-hidden="false"></i> -->
+                Company Payment <span>(Click to Expand)</span>
+                <!-- <i class="fa fa-arrow-circle-down" aria-hidden="false"></i> -->
               </h2>
             </div>
 
@@ -348,15 +355,20 @@
                     </thead>
                     <tbody>
 
-                    <?php //print_r($company_Wise_Status) ?>
-                      <?php $i=0; $amt=0.0; foreach($company_Wise_Status as $c_W_S){ $i++?>
-                      <tr>
-                        <th scope="row"><?= $i ?></th>
-                        <td><?php echo $c_W_S->benfed_ac_code; ?></td>
-                        <td><?php echo $c_W_S->ac_name; ?></td>
-                        <td><?php echo $c_W_S->amt; $amt=$amt+$c_W_S->amt; ?></td>
+                      <?php //print_r($company_Wise_Status) 
+                      ?>
+                      <?php $i = 0;
+                      $amt = 0.0;
+                      foreach ($company_Wise_Status as $c_W_S) {
+                        $i++ ?>
+                        <tr>
+                          <th scope="row"><?= $i ?></th>
+                          <td><?php echo $c_W_S->benfed_ac_code; ?></td>
+                          <td><?php echo $c_W_S->ac_name; ?></td>
+                          <td><?php echo $c_W_S->amt;
+                              $amt = $amt + $c_W_S->amt; ?></td>
 
-                      </tr>
+                        </tr>
                       <?php } ?>
                     </tbody>
                     <tfoot>
@@ -379,12 +391,12 @@
             </div>
 
           </div>
-         
+
           <div class="barPaiChartMain">
 
             <div class="col-sm-6 float-left">
               <div class="barChart">
-              <!-- <h2><?php echo round($totsolidsale->qty,3); ?> MT</h2> -->
+                <!-- <h2><?php echo round($totsolidsale->qty, 3); ?> MT</h2> -->
                 <!-- <h2>Sale quantity(solid) For financial year
                   <?php if ($this->session->userdata['loggedin']['fin_yr']) echo $this->session->userdata['loggedin']['fin_yr']; ?>
                 </h2> -->
@@ -401,7 +413,7 @@
 
             <div class="col-sm-6 float-left">
               <div class="barChart">
-              <!-- <h2><?php echo round($totliquidsale->qty,3); ?> LTR</h2> -->
+                <!-- <h2><?php echo round($totliquidsale->qty, 3); ?> LTR</h2> -->
                 <!-- <h2>Sale quantity(liquid) For financial year
                   <?php if ($this->session->userdata['loggedin']['fin_yr']) echo $this->session->userdata['loggedin']['fin_yr']; ?>
                 </h2> -->
@@ -421,15 +433,16 @@
 
           <div id="divToPrint">
 
-                    <div style="text-align:center;">
+            <div style="text-align:center;">
 
-                        <h2> 
-                          <form action="<?php echo site_url("fert/rep/overdue_list") ?>" method="post">
-                            <input type="hidden" name="from_date" value="<?=date('Y-m-d')?>">
-                            Overdue List <button type="submit" class="btn btn-primary btn-lg" >Generate</button>
-                          </form></h2>
-                        
-                    </div>
+              <h2>
+                <form action="<?php echo site_url("fert/rep/overdue_list") ?>" method="post">
+                  <input type="hidden" name="from_date" value="<?= date('Y-m-d') ?>">
+                  Overdue List <button type="submit" class="btn btn-primary btn-lg">Generate</button>
+                </form>
+              </h2>
+
+            </div>
 
 
           </div>
@@ -450,24 +463,24 @@
 
 
             <div class="sectionNew">
-            <div class="stockPointSecTitle">
-              <div class="col-sm-12">
-                <h2>Company Wise Status</h2>
-                <div class="selectBox">
-                  <select name="company_dtls" class="form-control district" id="company_dtls">
-                    <option value="">Select Company</option>
-                    <?php
-                    foreach ($compdtls as $compdtls) {
-                    ?>
-                      <option value="<?php echo $compdtls->COMP_ID; ?>"><?php echo $compdtls->short_name; ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
+              <div class="stockPointSecTitle">
+                <div class="col-sm-12">
+                  <h2>Company Wise Status</h2>
+                  <div class="selectBox">
+                    <select name="company_dtls" class="form-control district" id="company_dtls">
+                      <option value="">Select Company</option>
+                      <?php
+                      foreach ($compdtls as $compdtls) {
+                      ?>
+                        <option value="<?php echo $compdtls->COMP_ID; ?>"><?php echo $compdtls->short_name; ?></option>
+                      <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
 
             <div class="col-sm-12">
@@ -475,31 +488,38 @@
                 <div class="districWisSecLeft districWisSecLeft_FullWidth">
                   <ul>
 
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(339)">Bankura<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(334)">Birbhum<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(329)">Coochbihar<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(331)">Dakshin Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(338)">Hooghly <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(328)">Jalpaiguri <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(332)">Malda <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(333)">Murshidabad<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(336)">Nadia <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(343)">North 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(335)">Purba Burdwan (Bardhaman) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(344)">Paschim Medinipur (West Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(345)">Purba Medinipur (East Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(343)">South 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
-                    <li><a href="javascript:void(0)" onclick="brdaypurchasec(330)">Uttar Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(339)">Bankura<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(334)">Birbhum<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(329)">Coochbihar<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(331)">Dakshin Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(338)">Hooghly <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(328)">Jalpaiguri <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(332)">Malda <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(333)">Murshidabad<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(336)">Nadia <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(343)">North 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(335)">Purba Burdwan (Bardhaman) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(344)">Paschim Medinipur (West Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(345)">Purba Medinipur (East Medinipur) <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(343)">South 24 Parganas <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:void(0)" class="brdaypurchasec" onclick="brdaypurchasec(330)">Uttar Dinajpur<i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
 
 
                   </ul>
                 </div>
                 <div class="districWisSecRight districWisSecRight_FullWidth">
+
+                <div style="text-align:center; margin-top: 30px;">
+
+                    <h2 id="distNamec"></h2>
+
+                    </div>
+
                   <div class="col-sm-4 float-left">
                     <div class="districWisSecRightBox">
                       <h3>Day Purchase</h3>
                       <div class="valueSec">
-                        <span class="mt" ><span id="dpc">0.00</span> <strong>MT</strong></span>
+                        <span class="mt"><span id="dpc">0.00</span> <strong>MT</strong></span>
                         <span class="lit"><span id="dplc">0.00</span> <strong>L</strong></span>
                       </div>
                     </div>
@@ -607,7 +627,7 @@
                         </div>
                         <div class="col-sm-2 col-12">
                           <form action="<?php echo site_url("fert/rep/overdue_list") ?>" method="post">
-                            <input type="hidden" name="from_date" value="<?=date('Y-m-d')?>">
+                            <input type="hidden" name="from_date" value="<?= date('Y-m-d') ?>">
                             <button type="submit" class="btn btn-primary pull-right" >Open</button>
                           </form>
                         </div>
@@ -619,7 +639,7 @@
 
 
           <!-- ======================================== -->
-          
+
 
           <!-- ================================= -->
           <div class="barPaiChartMain">
@@ -704,20 +724,30 @@
     });
   }
 
+$(".brdaypurchase").click(function(){
+  var distname=$(this).text();
+  $("#distName").text(distname);
+});
 
+
+
+$(".brdaypurchasec").click(function(){
+  var distname=$(this).text();
+  $("#distNamec").text(distname);
+});
 
   function brdaypurchasec(br_id) {
     //   alert(br_id);
 
     $('#overlay').fadeIn().delay(500).fadeOut();
 
-    var comp_id=$('#company_dtls').val();
+    var comp_id = $('#company_dtls').val();
     $.ajax({
       type: "POST",
       url: "<?php echo site_url("Fertilizer_Login/f_br_purchasec") ?>",
       data: {
         br_id: br_id,
-        comp_id:comp_id,
+        comp_id: comp_id,
       },
 
       success: function(data) {
@@ -848,13 +878,15 @@
         type: 'bar',
         data: data,
         options: {
-          legend: { display: false },
+          legend: {
+            display: false
+          },
           title: {
             display: true,
-            text: 'Sale quantity(solid) For financial year <?php if ($this->session->userdata["loggedin"]["fin_yr"]) echo $this->session->userdata["loggedin"]["fin_yr"]; ?> - Total : <?php echo round($totsolidsale->qty,3); ?> MT'
+            text: 'Sale quantity(solid) For financial year <?php if ($this->session->userdata["loggedin"]["fin_yr"]) echo $this->session->userdata["loggedin"]["fin_yr"]; ?> - Total : <?php echo round($totsolidsale->qty, 3); ?> MT'
           },
-        
-          
+
+
           scales: {
             yAxes: [{
               scaleLabel: {
@@ -930,11 +962,13 @@
         type: 'bar',
         data: data,
         options: {
-          legend: { display: false },
-      title: {
-        display: true,
-        text: 'Sale quantity(liquid) For financial year <?php if ($this->session->userdata["loggedin"]["fin_yr"]) echo $this->session->userdata["loggedin"]["fin_yr"]; ?> - Total : <?php echo round($totliquidsale->qty,3); ?> LTR'
-      },
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Sale quantity(liquid) For financial year <?php if ($this->session->userdata["loggedin"]["fin_yr"]) echo $this->session->userdata["loggedin"]["fin_yr"]; ?> - Total : <?php echo round($totliquidsale->qty, 3); ?> LTR'
+          },
           scales: {
             yAxes: [{
               scaleLabel: {
@@ -1085,24 +1119,26 @@
 </script>
 
 <script>
-$.ajax({
-					type: "POST",
-					url: "<?php echo site_url('Fertilizer_Login/main/companyWiseStatus'); ?>",
-                    data: {data:"hello"},
-					dataType: 'json',
-					success: function (result) {
-            alert(result);
-                        // $('#tabledata').html(result);
-                        // $('#f_date').html(strDAte(fDate));
-                        // $('#t_date').html(strDAte(tDate));
-                        // $('#overlay').fadeOut();
-					}
-				});
+  $.ajax({
+    type: "POST",
+    url: "<?php echo site_url('Fertilizer_Login/main/companyWiseStatus'); ?>",
+    data: {
+      data: "hello"
+    },
+    dataType: 'json',
+    success: function(result) {
+      alert(result);
+      // $('#tabledata').html(result);
+      // $('#f_date').html(strDAte(fDate));
+      // $('#t_date').html(strDAte(tDate));
+      // $('#overlay').fadeOut();
+    }
+  });
 
 
 
-        function overdueList(){
-          var daet="<?=date('Y-m-d');  ?>"
-          
-        }
+  function overdueList() {
+    var daet = "<?= date('Y-m-d');  ?>"
+
+  }
 </script>

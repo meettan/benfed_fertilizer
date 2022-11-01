@@ -2,46 +2,46 @@
 <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick-theme.css">
 
 <style>
-    #overlay {
-        background: rgba(100, 100, 100, 0.2);
-        color: #ffff;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        z-index: 5000;
-        top: 0;
-        left: 0;
-        float: left;
-        text-align: center;
-        padding-top: 25%;
-        opacity: .80;
+  #overlay {
+    background: rgba(100, 100, 100, 0.2);
+    color: #ffff;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 5000;
+    top: 0;
+    left: 0;
+    float: left;
+    text-align: center;
+    padding-top: 25%;
+    opacity: .80;
+  }
+
+
+
+  .spinner {
+    margin: 0 auto;
+    height: 64px;
+    width: 64px;
+    animation: rotate 0.8s infinite linear;
+    border: 5px solid #228ed3;
+    border-right-color: transparent;
+    border-radius: 50%;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
     }
 
-
-
-    .spinner {
-        margin: 0 auto;
-        height: 64px;
-        width: 64px;
-        animation: rotate 0.8s infinite linear;
-        border: 5px solid #228ed3;
-        border-right-color: transparent;
-        border-radius: 50%;
+    100% {
+      transform: rotate(360deg);
     }
-
-    @keyframes rotate {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+  }
 </style>
 
 <div id="overlay" style="display:none;">
-    <div class="spinner"></div>
+  <div class="spinner"></div>
 </div>
 
 <!-- User Types : Admin ->A User->U Manager->M -->
@@ -56,20 +56,20 @@
         <div class="left_bar_new">
           <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
           <ul>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefilter">Advance</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefwd">Advance Forward</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/trade/sale">Sale</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/drcrnote/dr_note">Credit Note</a></li>
-		  <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/society_payment">Receive Payment</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/soc_payment_fwd">Forward Payment</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkStmt">Consolidated Stock</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkSprod">Productwise Stock</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/purrep">Purchase Ledger</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/salerep">Sale Ledger</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/cust_payblepaid">Due Register</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/soc_ledger">Society Ledger</a></li>
-          <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/overdue_list">Overdue List</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefilter">Advance</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefwd">Advance Forward</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/trade/sale">Sale</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/drcrnote/dr_note">Credit Note</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/society_payment">Receive Payment</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/socpay/soc_payment_fwd">Forward Payment</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkStmt">Consolidated Stock</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/stkSprod">Productwise Stock</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/purrep">Purchase Ledger</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/salerep">Sale Ledger</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/cust_payblepaid">Due Register</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/soc_ledger">Society Ledger</a></li>
+            <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/overdue_list">Overdue List</a></li>
           </ul>
         </div>
       </div>
@@ -81,8 +81,9 @@
                 <div class="threeBoxImg redCol"><img src="<?= base_url() ?>assets/images/boxIcon_d.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Opening</h2>
-                   <p class="price"><span class="mt"><?= $openingS ?><strong> MT</strong></span>
-                    <span class="lit"><strong> </strong><?= $openingL ?><strong> LTR</strong></span></p>
+                  <p class="price"><span class="mt"><?= $openingS ?><strong> MT</strong></span>
+                    <span class="lit"><strong> </strong><?= $openingL ?><strong> LTR</strong></span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -116,7 +117,7 @@
                 <div class="threeBoxImg lightBlue"><img src="<?= base_url() ?>assets/images/boxIcon_e.png" alt=""></div>
                 <div class="threeBoxTxt">
                   <h2>Closing</h2>
-                  <p class="price"><span class="mt"><?=$closingS?><strong>
+                  <p class="price"><span class="mt"><?= $closingS ?><strong>
                         MT</strong></span>
                     <span class="lit"><strong>
                       </strong><?= $closingL ?><strong> LTR</strong></span>
@@ -132,7 +133,7 @@
                 <div class="threeBoxTxt">
                   <h2>Today's Collection</h2>
                   <p class="price">
-                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= round($todaycollection->tot_recvamt,3) ?></span>
+                    <span class="lit"><strong> </strong><i class="fa fa-inr" aria-hidden="true"></i><?= round($todaycollection->tot_recvamt, 3) ?></span>
                   </p>
                 </div>
               </div>
@@ -170,9 +171,9 @@
 
           <!-- <div class="sectionNew" id="sectionNew"> -->
           <div class="sectionNew" id="">
-           
-            
-          
+
+
+
 
             <div class="col-sm-6 float-left">
               <div class="bloxkSec">
@@ -218,7 +219,165 @@
 
           </div>
 
-           <!-- <div class="sectionNew" id="sectionNew2"> 
+
+
+
+          <!-- =========================================================================================== -->
+
+
+
+
+          <div class="sectionNew">
+            <!-- <div class="col-sm-12">
+              <h2>District Wise Status</h2>
+            </div> -->
+
+
+            <div class="sectionNew">
+              <div class="stockPointSecTitle">
+                <div class="col-sm-12">
+                  <h2>Company Wise Status</h2>
+                  <div class="selectBox">
+                    <select name="company_dtls" class="form-control district" id="company_dtls">
+                      <option value="">Select Company</option>
+                      <?php
+                      foreach ($compdtls as $compdtls) {
+                      ?>
+                        <option value="<?php echo $compdtls->COMP_ID; ?>"><?php echo $compdtls->short_name; ?></option>
+                      <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+                <div class="districWisSecRight districWisSecRight_FullWidth">
+
+                  <div style="text-align:center;">
+
+                    <h2 id="distNamec"></h2>
+
+                  </div>
+
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Day Purchase</h3>
+                      <div class="valueSec">
+                        <span class="mt"><span id="dpc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit"><span id="dplc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Day Sale </h3>
+                      <div class="valueSec">
+                        <span class="mt"><span id="dsc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit"><span id="dslc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Day Collection </h3>
+                      <!-- <div class="valueSec"> -->
+                      <!-- <span class="mt" id="recvdy">250 </span> -->
+                      <!-- <span class="lit">250 <strong>L</strong></span> -->
+                      <p class="price">
+                        <span class="lit" id="recvdyc" STYLE="font-size:18.0pt ;"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>
+                        </span>
+                      </p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Monthly Purchase </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="dpmc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="dpmlqdc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Monthly Sale </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="smc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="smlqdc">0.00</span><strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Monthly Collection </h3>
+                      <!-- <div class="valueSec"> -->
+                      <!-- <span class="mt" id="recvmnth">250 </span> -->
+                      <!-- <span class="lit">250 <strong>L</strong></span> -->
+                      <p class="price">
+                        <span class="lit" id="recvmnthc" STYLE="font-size:18.0pt ;"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>
+                        </span>
+                      </p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Yearly Purchase </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="pyrc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="pyrlqc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Yearly Sale </h3>
+                      <div class="valueSec">
+                        <span class="mt" id=""><span id="syrc">0.00</span> <strong>MT</strong></span>
+                        <span class="lit" id=""><span id="syrlqc">0.00</span> <strong>L</strong></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 float-left">
+                    <div class="districWisSecRightBox">
+                      <h3>Yearly Collection </h3>
+                      <p class="price">
+                        <span class="lit" id="recvyrc" STYLE="font-size:18.0pt ;"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong>
+                        </span>
+                      </p>
+                      <!-- <div class="valueSec"> -->
+                      <!-- <span class="mt" id="recvyr">250 </span> -->
+                      <!-- <span class="lit">250 <strong>L</strong></span> -->
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </div>
+
+          </div>
+
+
+
+
+          <!-- ========================================================================================= -->
+
+
+
+
+
+
+
+
+
+          <!-- ===================================================================================== -->
+
+          <!-- <div class="sectionNew" id="sectionNew2"> 
             <div class="col-sm-12">
               <h2 class="onClickOpen">Overdue List <span>(Click to Expand)</span> <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></h2>
             </div>
@@ -263,7 +422,7 @@
 
 
 
-<!-- 
+          <!-- 
           <div class="barPaiChartMain">
             <div class="col-sm-12 float-left">
               <div class="barChart">
@@ -304,7 +463,7 @@
         soc_id: soc_id
       },
       success: function(result) {
-        
+
         $('#quantitySold').html(result.quantitySold);
         $('#quantityltr').html(result.quantityltr);
         $('#quantityPurchaseMt').html(result.quantityPurchaseMt);
@@ -322,7 +481,54 @@
   });
 
 
-  // $(".sch_cd").select2();
+// ==================================================
+
+
+
+$("#company_dtls").click(function(){
+
+  var br_id = '<?= $this->session->userdata['loggedin']['branch_id'] ?>';
+    //   alert(br_id);
+
+   
+
+    var comp_id = $('#company_dtls').val();
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url("Fertilizer_Login/f_br_purchasec") ?>",
+      data: {
+        br_id: br_id,
+        comp_id: comp_id,
+      },
+
+      success: function(data) {
+        // alert(JSON.parse(data).tot_pur);
+        console.log(data);
+        var data = JSON.parse(data);
+
+        $('#dpc').html(data.tot_pur);
+        $('#dplc').html(data.tot_purlqd);
+        $('#dsc').html(data.tot_sale);
+        $('#dslc').html(data.tot_salelqd);
+        $('#dpmc').html(data.tot_mth_pur);
+        $('#dpmlqdc').html(data.tot_mth_purlqd);
+        $('#smc').html(data.tot_mth_sal);
+        $('#smlqdc').html(data.tot_mth_salq);
+        $('#pyrc').html(data.tot_puryr);
+        $('#pyrlqc').html(data.tot_puryrlq);
+        $('#syrlqc').html(data.tot_salyrlq);
+        $('#syrc').html(data.tot_salyr);
+        $('#recvdyc').html(data.tot_recvday);
+        $('#recvmnthc').html(data.tot_recvmnth);
+        $('#recvyrc').html(data.tot_recvyr);
+      }
+      // error: function() { alert("Error posting feed."); }
+    });
+  })
+</script>
+
+
+
 </script>
 
 

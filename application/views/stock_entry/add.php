@@ -1086,6 +1086,11 @@
     		var net_rt = 0.00;
     		$('#adj_amt').change(function () {
 
+				var adj_amt_temp=$(this).val();
+				if(adj_amt_temp==""||adj_amt_temp==null){
+					$(this).val(0);
+				}
+
     			$.get(
 
     					'<?php echo site_url("stock/f_get_ro");?>', {
@@ -1588,6 +1593,10 @@
     		var tot_amt = 0.00;
     		var net_rt = 0.00;
     		$('#rnd_of_less').change(function () {
+				var rnd_of_lesstemp=$(this).val();
+				if(rnd_of_lesstemp==""||rnd_of_lesstemp==null){
+					$(this).val(0);
+				}
 
     			$.get(
 

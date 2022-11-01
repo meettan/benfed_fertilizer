@@ -350,6 +350,12 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data['closingL'] = stock_balance($_SESSION['sys_date'], $branch_id, 'L');
 
 
+				
+				$select11                             = array("short_name", "COMP_ID");
+				$dash_data['compdtls']               = $this->Fertilizer_Process->f_select('mm_company_dtls', $select11, NULL, 0);
+
+
+
 				//Total Collection for a period branchwise
 				$dash_data['todaycollection'] = collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N');
 
@@ -660,6 +666,12 @@ class Fertilizer_Login extends MX_Controller
 		);
 		echo json_encode($data_array);
 	}
+
+
+
+	
+
+
 
 	public function companyWiseStatus()
 	{
