@@ -1086,10 +1086,10 @@
     		var net_rt = 0.00;
     		$('#adj_amt').change(function () {
 
-				var adj_amt_temp=$(this).val();
-				if(adj_amt_temp==""||adj_amt_temp==null){
-					$(this).val(0);
-				}
+				// var adj_amt_temp=$(this).val();
+				// if(adj_amt_temp==""||adj_amt_temp==null){
+				// 	$(this).val(0);
+				// }
 
     			$.get(
 
@@ -1186,9 +1186,9 @@
 
 				var ajdadd=$('#adj_amt').val();
 				if(ajdadd>0){
-					$('#less_amt').attr("disabled", true);
+					$('#less_amt').attr("readonly", true);
 				}else{
-					$('#less_amt').attr("disabled", false);
+					$('#less_amt').attr("readonly", false);
 				}
 				
 
@@ -1308,10 +1308,12 @@
 
     				});
 					var ajdless=$('#less_amt').val();
+
+					
 				if(ajdless>0){
-					$('#adj_amt').attr("disabled", true);
+					$('#adj_amt').attr("readonly", true);
 				}else{
-					$('#less_amt').attr("disabled", false);
+					$('#adj_amt').prop("readonly", false);
 				}
 
     		});
@@ -1392,9 +1394,9 @@
 
 					var rbtadd=$('#rbt_add').val();
 				if(rbtadd>0){
-					$('#rbt_less').attr("disabled", true);
+					$('#rbt_less').attr("readonly", true);
 				}else{
-					$('#rbt_less').attr("disabled", false);
+					$('#rbt_less').prop("readonly", false);
 				}
 
     		});
@@ -1473,9 +1475,9 @@
 
 					var rbtless=$('#rbt_less').val();
 					if(rbtless>0){
-						$('#rbt_add').attr("disabled", true);
+						$('#rbt_add').attr("readonly", true);
 					}else{
-						$('#rbt_add').attr("disabled", false);
+						$('#rbt_add').prop("readonly", false);
 					}
 
     		});
@@ -1564,9 +1566,9 @@
 
 					var roundofadd=$('#rnd_of_add').val();
 					if(roundofadd>0){
-						$('#rnd_of_less').attr("disabled", true);
+						$('#rnd_of_less').attr("readonly", true);
 					}else{
-						$('#rnd_of_less').attr("disabled", false);
+						$('#rnd_of_less').prop("readonly", false);
 					}
 
     		});
@@ -1593,10 +1595,10 @@
     		var tot_amt = 0.00;
     		var net_rt = 0.00;
     		$('#rnd_of_less').change(function () {
-				var rnd_of_lesstemp=$(this).val();
-				if(rnd_of_lesstemp==""||rnd_of_lesstemp==null){
-					$(this).val(0);
-				}
+				// var rnd_of_lesstemp=$(this).val();
+				// if(rnd_of_lesstemp==""||rnd_of_lesstemp==null){
+				// 	$(this).val(0);
+				// }
 
     			$.get(
 
@@ -1654,9 +1656,9 @@
 
 					var roundofless=$('#rnd_of_less').val();
 					if(roundofless>0){
-						$('#rnd_of_add').attr("disabled", true);
+						$('#rnd_of_add').attr("readonly", true);
 					}else{
-						$('#rnd_of_add').attr("disabled", false);
+						$('#rnd_of_add').prop("readonly", false);
 					}
 
     		});
