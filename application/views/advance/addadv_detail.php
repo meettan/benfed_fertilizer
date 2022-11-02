@@ -52,12 +52,13 @@
                             <th style="text-align: center">RO Number</th>
                             <th style="text-align: center">Qty</th>
                             <th style="text-align: center">Rate</th>
+                            <th style="text-align: center">Cr Note Amt</th>
                             <th style="text-align: center">Purchase Amount</th>
                             <?php if($this->session->userdata['loggedin']['branch_id']!=342){ ?>
                             <th style="text-align: center"></th>
                             <?php } ?>
                         </thead>
-                        <?php $total_amount=0; $totalQty=0.0;$totalrate=0.00; foreach($allocate as $alloc) { $totalQty=$alloc->qty+$totalQty;$totalrate=$alloc->rate+$totalrate; $total_amount=($alloc->amount+$total_amount);  //print_r($key);?>
+                        <?php $total_amount=0; $totalQty=0.0;$totalrate=0.00; $cramt=0.0; foreach($allocate as $alloc) { $totalQty=$alloc->qty+$totalQty;$totalrate=$alloc->rate+$totalrate; $total_amount=($alloc->amount+$total_amount);  $cramt+=$alloc->cr_amount;//print_r($key);?>
                         <tr>
                             <td>
                                 <input type="text" name="ero_no[]" class="form-control ro_no" value="<?php echo $alloc->detail_receipt_no; ?>" id="" style="font-size: 12px;width:150px;" readonly>
@@ -108,6 +109,12 @@
                                 <input type="text" name="" class="form-control ratee"
                                     value="<?php echo $alloc->rate; ?>" id="" readonly>
                             </td>
+
+                            <td>
+                                <input type="text" name="" class="form-control cramt"
+                                    value="<?php echo $alloc->cr_amount; ?>" id="" readonly>
+                            </td>
+
                             <td>
                                 <input type="text" name="eamount[]" class="form-control amountt"
                                     value="<?php  echo $alloc->amount; ?>" id="" readonly>
@@ -128,6 +135,7 @@
                             <td colspan="5">Total</td>
                             <td><?php echo $totalQty; ?></td>
                             <td><?=$totalrate?></td>
+                            <td><?=$cramt?></td>
                             <td><?=$total_amount?></td>
                         </tr>
                         
@@ -157,6 +165,7 @@
                         <th style="text-align: center">RO Number</th>
                         <th style="text-align: center">Qty</th>
                         <th style="text-align: center">Rate</th>
+                        <th style="text-align: center">Cr Note Amt</th>
                         <th style="text-align: center">Amount</th>
                         <th>
                             <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
@@ -207,6 +216,9 @@
                                 <input type="text" name="rate[]" class="form-control rate" value="" id="rate">
                             </td>
                             <td>
+                                <input type="text" name="cramt[]" class="form-control cramt" value="" id="">
+                            </td>
+                            <td>
                                 <input type="text" name="amount[]" readonly class="form-control amount" value="" id="">
                             </td>
                             <td>
@@ -228,6 +240,10 @@
                             </td>
                             <td colspan="" style="text-align:right">
                                 <strong id="totalRate"></strong>
+                            </td>
+
+                            <td colspan="" style="text-align:right">
+                                <strong id="totalcrRate"></strong>
                             </td>
 
                             <td>
@@ -436,6 +452,9 @@
                 '<td>' +
                 '<input type="text" name="rate[]" class="form-control rate" value="" id="rate">' +
                 '</td>' +
+                '<td>'+
+                '<input type="text" name="cramt[]" class="form-control cramt" value="" id="">'+
+                '</td>'+
                 '<td>' +
                 '<input type="text" name="amount[]" readonly class="form-control amount"  required>' +
                 '</td>' +
@@ -576,7 +595,7 @@ $('#total_input_amount').val(tot_amt.toFixed(2));
 
         var rate = parseFloat(row.find('td:eq(5) .rate').val());
         var totalAmt = (qty * rate);
-        row.find('td:eq(6) .amount').val(parseFloat(totalAmt).toFixed(2));
+        row.find('td:eq(7) .amount').val(parseFloat(totalAmt).toFixed(2));
 
         var totalqt = 0;
         $('.qty').each(function(){
@@ -602,7 +621,7 @@ $('#total_input_amount').val(tot_amt.toFixed(2));
 
         var qty = parseFloat(row.find('td:eq(4) .qty').val());
         var totalAmt = (qty * rate);
-        row.find('td:eq(6) .amount').val(parseFloat(totalAmt).toFixed(2));
+        row.find('td:eq(7) .amount').val(parseFloat(totalAmt).toFixed(2));
 
 
         var totamt = 0;
@@ -627,5 +646,76 @@ $('#total_input_amount').val(tot_amt.toFixed(2));
 
 
 
+
+
+    $("#intro").on("change", ".cramt", function () {
+        var cramt=0.00;
+            $('.cramt').each(function () {
+               
+                cramt += parseFloat($(this).val()) ? parseFloat($(this).val()) : 0.00; // Or this.innerHTML, 
+                    
+            });
+            $('#totalcrRate').html(cramt.toFixed(2));
+    });
+
+
+
+
+    $("#intro").on("change", ".cramt", function () {
+
+var tot_amt = 0.00;
+$('.amount').each(function () {
+    tot_amt += parseFloat($(this).val()) ? parseFloat($(this).val()) :
+        0.00; // Or this.innerHTML, 
+});
+$('#tot_amt').html(tot_amt.toFixed(2));
+
+$('#total_input_amount').val(tot_amt.toFixed(2));
+
+});
+
+
+
+$("#intro").on("change", ".cramt", function () {
+
+var tot_amt = 0.00;
+$('.amount').each(function () {
+tot_amt += parseFloat($(this).val()) ? parseFloat($(this).val()) :
+0.00; // Or this.innerHTML, 
+});
+$('#tot_amt').html(tot_amt.toFixed(2));
+$('#total_input_amount').val(tot_amt.toFixed(2));
+
+})
    
+
+
+
+
+$('.table tbody').on('change', '.cramt', function () {
+        var cramt = $(this).val();
+       
+        let row = $(this).closest('tr');
+
+        var rate = parseFloat(row.find('td:eq(5) .rate').val());
+        var qty = parseFloat(row.find('td:eq(4) .qty').val());
+        var totalAmt = (qty * rate)+(parseFloat(cramt));
+        row.find('td:eq(7) .amount').val(parseFloat(totalAmt).toFixed(2));
+
+        var totalqt = 0;
+        $('.cramt').each(function(){
+            totalqt = parseFloat($(this).val()) + totalqt;
+            //alert(totalqt);
+        });
+        //alert(totalqt);
+        $('#totalcrRate').html(parseFloat(totalqt).toFixed(2));
+
+        var totamt = 0;
+        $('.amount').each(function(){
+            totamt = parseFloat($(this).val()) + totamt;
+            //alert(totalqt);
+        });
+        //alert(totalqt);
+        $('#tot_amt').html(parseFloat(totamt).toFixed(2));
+    });
 </script>

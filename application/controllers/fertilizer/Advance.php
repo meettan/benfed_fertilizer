@@ -769,6 +769,7 @@ public function add_advdetail(){
 			$amount   = $this->input->post('amount');
 			$qyt   = $this->input->post('qty');
 			$rate   = $this->input->post('rate');
+			$cramt=$this->input->post("cramt");
             $tot_amt =array_sum($amount);
             for($i=0;$i < count($amount);$i++){
                 $maxid = $this->AdvanceModel->f_select('td_adv_details',array("ifnull(max(id),0)+1 as id"),array("fin_yr"=>$finYr),1);
@@ -785,8 +786,10 @@ public function add_advdetail(){
             		'ro_no'=> $ro_no[$i],
 					'qty'=>$qyt[$i],
 					'rate'=>$rate[$i],
+					"cr_amount"=>$cramt[$i],
             		'amount'=> $amount[$i],
             		'branch_id' => $branch,
+					
             		'fin_yr'    => $finYr,
             		'created_by' => $this->session->userdata['loggedin']['user_name'],
             		'created_dt' => date('Y-m-d h:i:s')
@@ -874,7 +877,7 @@ public function add_advdetail(){
 										);
 
 						$data['advdtl'] = $this->AdvanceModel->f_select('tdf_advance a,mm_ferti_soc b',$selectavd,$whereadv,1);
-						$selectall   = array('a.detail_receipt_no','a.qty','a.rate','a.detail_receipt_no','a.comp_id','a.prod_id','a.fo_no','a.ro_no','a.amount','b.PROD_DESC');
+						$selectall   = array('a.detail_receipt_no','a.qty','a.rate','a.detail_receipt_no','a.comp_id','a.prod_id','a.fo_no','a.ro_no','a.amount','b.PROD_DESC','a.cr_amount');
 						$whereall    = array('a.prod_id =b.PROD_ID' => NULL,'a.receipt_no'    =>  $receipt_no,
 											'a.fin_yr'        =>  $finYr);
 						$data['allocate'] = $this->AdvanceModel->f_select('td_adv_details a,mm_product b',$selectall,$whereall,0);

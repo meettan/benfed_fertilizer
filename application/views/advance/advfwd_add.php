@@ -60,6 +60,7 @@ $thisyear=$fy[0];
                         <th style="text-align: center">RO Number</th>
 						<th style="text-align: center">Qty</th>
                         <th style="text-align: center">Rate</th>
+                        <th style="text-align: center">Cr Note Amt</th>
                         <th style="text-align: center">Amount</th>
                         <th>
                             <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
@@ -77,6 +78,7 @@ $thisyear=$fy[0];
                                 <strong>Total:</strong>
                             </td>
 							<td><span id='tot_qty'></span></td>
+							<td></td>
 							<td></td>
                             <td colspan="" style="text-align:right">
                                 <strong id="tot_amt"></strong>
@@ -173,6 +175,9 @@ $(document).ready(function(){
 									+'<input type="text" name="rate[]" class="form-control rate" id="rate" readonly>'
 								+'</td>'
 								+'<td>'
+									+'<input type="text" name="cramt[]" class="form-control cramt" id="cramt" readonly>'
+								+'</td>'
+								+'<td>'
 									+'<input type="text" name="amount[]" class="form-control amount" id="amount" readonly>'
 								+'</td>'
 								+'<td>'
@@ -262,7 +267,8 @@ $("#intro").on("change", ".detail_receipt_no", function(){
 			row.find("td:eq(3) input[type='text']").val(value.ro_no);
 			row.find("td:eq(4) input[type='text']").val(value.qty);
 			row.find("td:eq(5) input[type='text']").val(value.rate);
-			row.find("td:eq(6) input[type='text']").val(value.amount);
+			row.find("td:eq(6) input[type='text']").val(value.cr_amount);
+			row.find("td:eq(7) input[type='text']").val(value.amount);
 			$('.amount').each(function(){
 				tot += parseFloat($(this).val())?parseFloat($(this).val()):0.00;
 			});
