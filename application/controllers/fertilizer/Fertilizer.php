@@ -141,7 +141,15 @@ public function soceityAdd(){
 
 					"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
 
-					"created_dt"    	=>  date('Y-m-d h:i:s')
+					"created_dt"    	=>  date('Y-m-d h:i:s'),
+
+					"soc_block"			=>$this->input->post('block'),
+					"panc_mun"			=>$this->input->post('gpm'),
+					"pin"				=>$this->input->post('pin'),
+					"ph_no2"			=>$this->input->post('sph_nos'),
+					"license_no"		=>$this->input->post('ph_no'),
+					"license_from_dt"	=>$this->input->post('licenFdate'),
+					"license_to_dt"		=>$this->input->post('licenTdate'),
 				);
 
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
@@ -165,6 +173,13 @@ public function soceityAdd(){
 				$select          		= array("district_code","district_name");
 
 				$district['distdtls']   = $this->FertilizerModel->f_select('md_district',$select,NULL,0);
+
+
+
+				$select2          		= array("branch_id","blockcode","block_name");
+				$where = array("branch_id" => $this->session->userdata('loggedin')['branch_id'] );
+
+				$district['block']   = $this->FertilizerModel->f_select('md_block',$select2,$where,0);
 					
 				$this->load->view('post_login/fertilizer_main');
 
@@ -207,7 +222,14 @@ public function editsoceity(){
 
 				"modified_by"  			=>  $this->session->userdata['loggedin']['user_name'],
 
-				"modified_dt"  			=>  date('Y-m-d h:i:s')	
+				"modified_dt"  			=>  date('Y-m-d h:i:s')	,
+				"soc_block"			=>$this->input->post('block'),
+					"panc_mun"			=>$this->input->post('gpm'),
+					"pin"				=>$this->input->post('pin'),
+					"ph_no2"			=>$this->input->post('sph_nos'),
+					"license_no"		=>$this->input->post('ph_no'),
+					"license_from_dt"	=>$this->input->post('licenFdate'),
+					"license_to_dt"		=>$this->input->post('licenTdate'),
 			);
 
 		$where = array(
@@ -244,8 +266,15 @@ public function editsoceity(){
 						"stock_point_flag" ,
 					
 						"buffer_flag" ,
-					
-						"status"                                  
+						"status" ,
+						"soc_block"		,
+						"panc_mun"		,
+						"pin"			,
+						"ph_no2"		,
+						"license_no"	,
+						"license_from_dt",
+						"license_to_dt"	,
+						                                 
 				);
 
 			$where = array(
@@ -255,6 +284,12 @@ public function editsoceity(){
 				);
 
 		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_ferti_soc",$select,$where,1);
+
+
+		$select2          		= array("branch_id","blockcode","block_name");
+				$where = array("branch_id" => $this->session->userdata('loggedin')['branch_id'] );
+
+				$sch['block']   = $this->FertilizerModel->f_select('md_block',$select2,$where,0);
 																															
 		$this->load->view('post_login/fertilizer_main');
 

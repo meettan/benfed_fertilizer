@@ -44,6 +44,47 @@
 
 			</div>
 
+
+			<div class="form-group row">
+
+				<label for="block" id="block" class="col-sm-2 col-form-label">Block:</label>
+
+				<div class="col-sm-9">
+
+					<select class="form-control required" id="block" name="block" required>
+
+						<option value="">Select</option>
+						<?php foreach ($block as $key) { ?>
+						<option value="<?=$key->blockcode?>"><?=$key->block_name?></option>
+						<?php } ?>
+						
+					</select>
+
+				</div>
+
+			</div>
+
+
+
+			<div class="form-group row">
+				<label for="gpm" class="col-sm-2 col-form-label">Gram Panchayat / Municipality:</label>
+				<div class="col-sm-6">
+
+					<input type="text" id="gpm" name="gpm" class="form-control"  >
+
+				</div>
+
+				<label for="pin" class="col-sm-1 col-form-label">Pin No.:</label>
+				<div class="col-sm-2">
+
+					<input type="text" id="pin" name="pin" class="form-control"  >
+
+				</div>
+			</div>
+
+
+
+
 			<div class="form-group row">
 				<label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
 				<div class="col-sm-4">
@@ -87,12 +128,20 @@
 				</div>
 
 			</div>--->
-
 			<div class="form-group row">
-				<label for="ph_no" class="col-sm-2 col-form-label">Ph No:</label>
+				<label for="ph_no" class="col-sm-2 col-form-label">Primary Ph No:</label>
 				<div class="col-sm-4">
 
 					<input type="text" id=ph_no name="ph_no" class="form-control"  />
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="ph_no" class="col-sm-2 col-form-label">Secondary Ph No:</label>
+				<div class="col-sm-4">
+
+					<input type="text" id=ph_no name="sph_nos" class="form-control"  />
 
 				</div>
 				
@@ -113,6 +162,35 @@
 				</div>
 
 			</div>
+
+
+
+			<div class="form-group row">
+				<label for="ph_no" class="col-sm-2 col-form-label">License No. :</label>
+				<div class="col-sm-9">
+
+					<input type="text" id=ph_no name="ph_no" class="form-control"  />
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="licenFdate" class="col-sm-2 col-form-label">License From Date:</label>
+				<div class="col-sm-4">
+
+					<input type="date" id="licenFdate" name="licenFdate" class="form-control"  />
+
+				</div>
+				
+				<label for="licenTdate" class="col-sm-1 col-form-label">License To Date:</label>
+				<div class="col-sm-4">
+
+					<input type="date" id="licenTdate" name="licenTdate" class="form-control" >
+
+				</div>
+			</div>
+
+			
 			
 			<div class="form-group row">
 

@@ -48,6 +48,46 @@
                     </div>
 
                 </div>
+
+
+                <div class="form-group row">
+
+				<label for="block" id="block" class="col-sm-2 col-form-label">Block:</label>
+
+				<div class="col-sm-10">
+
+					<select class="form-control required" id="block" name="block" required>
+
+						<option value="">Select</option>
+						<?php foreach ($block as $key) { ?>
+						<option value="<?=$key->blockcode?>" <?php if($schdtls->soc_block==$key->blockcode){ echo "selected";} ?> ><?=$key->block_name?></option>
+						<?php } ?>
+						
+					</select>
+
+				</div>
+
+			</div>
+
+
+
+            <div class="form-group row">
+				<label for="gpm" class="col-sm-2 col-form-label">Gram Panchayat / Municipality:</label>
+				<div class="col-sm-6">
+
+					<input type="text" id="gpm" name="gpm" class="form-control"  value="<?php echo $schdtls->panc_mun; ?>">
+
+				</div>
+
+				<label for="pin" class="col-sm-1 col-form-label">Pin No.:</label>
+				<div class="col-sm-3">
+
+					<input type="text" id="pin" name="pin" class="form-control" value="<?php echo $schdtls->pin; ?>" >
+
+				</div>
+			</div>
+
+
    
                 <div class="form-group row">
 
@@ -69,16 +109,23 @@
                             />
                         </div>
                 </div>
+                <div class="form-group row">
+				<label for="ph_no" class="col-sm-2 col-form-label">Primary Ph No:</label>
+				<div class="col-sm-4">
 
+					<input type="text" id=ph_no name="ph_no" class="form-control"  value="<?php echo $schdtls->ph_no; ?>"/>
+
+				</div>
+			</div>
                  
                 <div class="form-group row">
 
-                    <label for="ph_no" class="col-sm-2 col-form-label">Ph No.:</label>
+                    <label for="ph_no" class="col-sm-2 col-form-label">Secondary Ph No:</label>
 
                         <div class="col-sm-4">
 
-                            <input type="text" name="ph_no" class="form-control required"  
-                                value = "<?php echo $schdtls->ph_no; ?>" 
+                            <input type="text" name="sph_nos" class="form-control required"  
+                                value = "<?php echo $schdtls->ph_no2; ?>" 
                             />
                         </div>
                         <label for="pan" class="col-sm-2 col-form-label">PAN:</label>
@@ -103,6 +150,36 @@
                     </div>
 
                 </div>
+
+
+
+                <div class="form-group row">
+				<label for="ph_no" class="col-sm-2 col-form-label">License No.:</label>
+				<div class="col-sm-10">
+
+					<input type="text" id=ph_no name="ph_no" class="form-control" value = "<?php echo $schdtls->license_no; ?>"  />
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="licenFdate" class="col-sm-2 col-form-label">License From Date:</label>
+				<div class="col-sm-4">
+
+					<input type="date" id="licenFdate" name="licenFdate" class="form-control"  value = "<?php echo $schdtls->license_from_dt; ?>" />
+
+				</div>
+				
+				<label for="licenTdate" class="col-sm-2 col-form-label">License To Date:</label>
+				<div class="col-sm-4">
+
+					<input type="date" id="licenTdate" name="licenTdate" class="form-control" value = "<?php echo $schdtls->license_to_dt; ?>" >
+
+				</div>
+			</div>
+
+
+
 
                 <div class="form-group row">
                     <label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Type:</label>
