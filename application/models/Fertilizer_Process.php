@@ -836,7 +836,7 @@ public function f_get_tot_purchaselqd($branch_id,$from_dt,$to_dt){				//branchwi
 
 		public function company_Wise_Status($todate,$fDate){
 			$db2 = $this->load->database('findb', TRUE);
-			  $data=$db2->query("select a.sl_no,a.ac_name,a.benfed_ac_code,sum(b.amount) amt from md_achead a,td_vouchers b where a.sl_no = b.acc_code and b.voucher_date BETWEEN '".$fDate."' and '".$todate."' and b.dr_cr_flag = 'Dr' and b.approval_status = 'A' and a.sl_no in (3856,5009,5010,5011,5539,7235,3861,5014,5017,3859,5012,3863,5008,6247,5016,3858,5013,3860,5018,3862,5014,3989,8993) group by a.sl_no,a.ac_name,a.benfed_ac_code order by a.ac_name;")->result();
+			  $data=$db2->query("select a.sl_no,a.ac_name,a.benfed_ac_code,sum(b.amount) amt from md_achead a,td_vouchers b where a.sl_no = b.acc_code and b.voucher_date BETWEEN '".$fDate."' and '".$todate."' and b.dr_cr_flag = 'Dr' and b.approval_status = 'A' and a.sl_no in (5009,5010,5011,5539,7235,3861,5014,5017,3859,5012,5008,5016,5013,5018,3862,5014,3989,8993) group by a.sl_no,a.ac_name,a.benfed_ac_code order by a.ac_name;")->result();
 			  return $data;
 			//   print_r($data);
 			//  echo $db2->last_query();

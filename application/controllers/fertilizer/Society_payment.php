@@ -282,7 +282,7 @@ public function society_payEdit(){
                                             
                                             "created_by"         =>  $this->session->userdata['loggedin']['user_name'],
         
-                                            "created_dt"         =>  date('Y-m-d'),
+                                            "created_dt"         =>  date('Y-m-d H:i:s'),
     
                                             'branch_id'          => $br_cd,
     
@@ -355,7 +355,7 @@ public function society_payEdit(){
 	   
 												   'created_by'    => $this->session->userdata['loggedin']['user_name'],
 	   
-												   'created_dt'    => date('Y-m-d'));
+												   'created_dt'    => date('Y-m-d H:i:s'));
 	   
 						   $this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
                 }
@@ -398,7 +398,7 @@ public function society_payEdit(){
 					
 					"created_by"         =>  $this->session->userdata['loggedin']['user_name'],
 
-					"created_dt"         =>  date('Y-m-d'),
+					"created_dt"         =>  date('Y-m-d H:i:s'),
 
 					'branch_id'          => $br_cd,
 
@@ -457,7 +457,7 @@ public function society_payEdit(){
 						
 						"created_by"         =>  $this->session->userdata['loggedin']['user_name'],
 	
-						"created_dt"         =>  date('Y-m-d'),
+						"created_dt"         =>  date('Y-m-d H:i:s'),
 	
 						'branch_id'          => $br_cd,
 	
@@ -518,7 +518,7 @@ public function society_payEdit(){
 								
 							"created_by"        =>  $this->session->userdata['loggedin']['user_name'],
 		
-							"created_dt"         =>  date('Y-m-d'),
+							"created_dt"         =>  date('Y-m-d H:i:s'),
 		
 							'branch_id'          => $br_cd,
 		

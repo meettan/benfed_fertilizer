@@ -1323,11 +1323,26 @@ public function editsalerate(){
 }
 
 public function deletesalerate(){
-
-
 	$fin_id	   = $this->session->userdata['loggedin']['fin_id'];
+
+	
+
+	
 	 $where    = array(  "bulk_id"  =>  $this->input->get('bulk_id'),
                      "fin_id"    => $fin_id	 );
+		$data= $this->FertilizerModel->f_select('mm_sale_rate',null,$where,0);
+		
+
+	foreach ($data as $keydata) {
+		$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+		$keydata->delete_at = date('Y-m-d H:m:s');
+		// print_r($keydata);
+		$this->FertilizerModel->f_insert('mm_sale_rate_delete', $keydata);
+
+	}
+
+
+
 	
         $this->FertilizerModel->f_delete('mm_sale_rate', $where);        
         $this->session->set_flashdata('msg', 'Successfully Deleted!');

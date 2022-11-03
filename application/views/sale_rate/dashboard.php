@@ -157,7 +157,7 @@
            
             if(result) {
 
-                window.location = "<?php echo site_url('fertilizer/deletesalerate?bulk_id="+bulk_id+"');?>";
+                window.location = "<?php echo site_url('fertilizer/Fertilizer/deletesalerate?bulk_id="+bulk_id+"');?>";
 
             }
             
