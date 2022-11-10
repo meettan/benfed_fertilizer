@@ -300,7 +300,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                      ?></td>
                                       <td class="report"><?php echo ($purc->net_amt*.1);
-                                                                  $tot_tds += ($purc->net_amt*.1);
+                                                                  $tot_tds += round((($purc->net_amt*.1)/100),2);
 
                                      ?></td>
                                    
