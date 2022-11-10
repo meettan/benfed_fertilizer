@@ -1158,7 +1158,7 @@ END ),3)lqdqty,
     public function pc($from_dt,$to_dt,$branch,$company)
     {
 
-        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,
+        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt
                                        a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                                        a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
                                        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit
@@ -1191,7 +1191,7 @@ END ),3)lqdqty,
             echo $e->getMessage();
         }*/
 
-        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,
+        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt
                 a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                 a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
                 c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit
