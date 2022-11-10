@@ -1,6 +1,6 @@
 <div class="wraper">      
             
-	<div class="col-md-6 container form-wraper">
+	<div class="col-md-7 container form-wraper">
 
 		<form method="POST" id="product" action="<?php echo site_url("key/soceityAdd") ?>" >
 
@@ -89,14 +89,14 @@
 				<label for="gstin" class="col-sm-2 col-form-label">GSTIN:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id=gstin name="gstin" class="form-control"  ></textarea>
+					<input type="text" id=gstin name="gstin" class="form-control"  required></textarea>
 
 				</div>
 
 				<label for="mfms" class="col-sm-1 col-form-label">mFMS:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id=mfms name="mfms" class="form-control"  ></textarea>
+					<input type="text" id=mfms name="mfms" class="form-control"  required></textarea>
 
 				</div>
 			</div>
@@ -132,7 +132,7 @@
 				<label for="ph_no" class="col-sm-2 col-form-label">Primary Ph No:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id=ph_no name="ph_no" class="form-control"  />
+					<input type="text" id=ph_no name="ph_no" class="form-control"  required />
 
 				</div>
 			</div>
@@ -157,7 +157,7 @@
 				<label for="email" class="col-sm-2 col-form-label">email:</label>
 				<div class="col-sm-9">
 
-					<input type="email" id=email name="email" class="form-control"  />
+					<input type="email" id=email name="email" class="form-control"  required/>
 
 				</div>
 
@@ -166,26 +166,50 @@
 
 
 			<div class="form-group row">
-				<label for="ph_no" class="col-sm-2 col-form-label">License No. :</label>
+				<label for="ph_no" class="col-sm-2 col-form-label">Whole Sale License No. :</label>
 				<div class="col-sm-9">
 
-					<input type="text" id=ph_no name="ph_no" class="form-control"  />
+					<input type="text" id=license_no name="license_no" class="form-control"  />
 
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="licenFdate" class="col-sm-2 col-form-label">License From Date:</label>
+				<label for="licenFdate" class="col-sm-2 col-form-label">Whole Sale License Fr Date:</label>
 				<div class="col-sm-4">
 
 					<input type="date" id="licenFdate" name="licenFdate" class="form-control"  />
 
 				</div>
 				
-				<label for="licenTdate" class="col-sm-1 col-form-label">License To Date:</label>
-				<div class="col-sm-4">
+				<label for="licenTdate" class="col-sm-2 col-form-label">Whole Sale License To Date:</label>
+				<div class="col-sm-3">
 
 					<input type="date" id="licenTdate" name="licenTdate" class="form-control" >
+
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="ph_no" class="col-sm-2 col-form-label">Retail License No. :</label>
+				<div class="col-sm-9">
+
+					<input type="text" id="retail_license_no" name="retail_license_no" class="form-control"  />
+
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="licenFdate" class="col-sm-2 col-form-label">Retail License Fr Date:</label>
+				<div class="col-sm-4">
+
+					<input type="date" id="retail_license_from_dt" name="retail_license_from_dt" class="form-control"  />
+
+				</div>
+				
+				<label for="licenTdate" class="col-sm-2 col-form-label">Retail License To Date:</label>
+				<div class="col-sm-3">
+
+					<input type="date" id="reatil_license_to_dt" name="reatil_license_to_dt" class="form-control" >
 
 				</div>
 			</div>

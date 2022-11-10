@@ -147,9 +147,14 @@ public function soceityAdd(){
 					"panc_mun"			=>$this->input->post('gpm'),
 					"pin"				=>$this->input->post('pin'),
 					"ph_no2"			=>$this->input->post('sph_nos'),
-					"license_no"		=>$this->input->post('ph_no'),
+					"license_no"		=>$this->input->post('license_no'),
 					"license_from_dt"	=>$this->input->post('licenFdate'),
 					"license_to_dt"		=>$this->input->post('licenTdate'),
+					"retail_license_no" =>$this->input->post('retail_license_no'),
+					"retail_license_from_dt" =>$this->input->post('retail_license_from_dt'),
+					"reatil_license_to_dt"	=>$this->input->post('reatil_license_to_dt'),
+					"created_by"    	=>  $this->session->userdata['loggedin']['user_name'],
+					"created_dt"    	=>  date('Y-m-d h:i:s')
 				);
 
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
@@ -224,12 +229,17 @@ public function editsoceity(){
 
 				"modified_dt"  			=>  date('Y-m-d h:i:s')	,
 				"soc_block"			=>$this->input->post('block'),
-					"panc_mun"			=>$this->input->post('gpm'),
-					"pin"				=>$this->input->post('pin'),
-					"ph_no2"			=>$this->input->post('sph_nos'),
-					"license_no"		=>$this->input->post('ph_no'),
-					"license_from_dt"	=>$this->input->post('licenFdate'),
-					"license_to_dt"		=>$this->input->post('licenTdate'),
+				"panc_mun"			=>$this->input->post('gpm'),
+				"pin"				=>$this->input->post('pin'),
+				"ph_no2"			=>$this->input->post('sph_nos'),
+				"license_no"		=>$this->input->post('license_no'),
+				"license_from_dt"	=>$this->input->post('licenFdate'),
+				"license_to_dt"		=>$this->input->post('licenTdate'),
+				"retail_license_no" =>$this->input->post('retail_license_no'),
+				"retail_license_from_dt" =>$this->input->post('retail_license_from_dt'),
+				"reatil_license_to_dt"	=>$this->input->post('reatil_license_to_dt'),
+				"modified_by"    	=>  $this->session->userdata['loggedin']['user_name'],
+				"modified_dt"    	=>  date('Y-m-d h:i:s')
 			);
 
 		$where = array(
@@ -246,25 +256,15 @@ public function editsoceity(){
 	}else{
 			$select = array(
 						"soc_id",
-
 						"soc_name",
-
 						"soc_add",
-					
 						"gstin",
-					
 						"mfms",
-					
 						"district",
-					
 						"email",
-
 						"pan" ,
-					
 						"ph_no",
-					
 						"stock_point_flag" ,
-					
 						"buffer_flag" ,
 						"status" ,
 						"soc_block"		,
@@ -274,6 +274,9 @@ public function editsoceity(){
 						"license_no"	,
 						"license_from_dt",
 						"license_to_dt"	,
+						"retail_license_no"	,
+						"retail_license_from_dt",
+						"reatil_license_to_dt"	,
 						                                 
 				);
 
