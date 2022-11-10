@@ -343,7 +343,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><b><?=$cgst?></b></td>
                                <td class="report"><b><?=$sgst?></b></td>
                                <td class="report"><b><?=$total?></b></td> 
-                               <td class="report"><b><?=$tot_tds?></b></td> 
+                               <td class="report"><b><?=round($tot_tds,2)?></b></td> 
 
                             </tr>
                         </tfooter>
