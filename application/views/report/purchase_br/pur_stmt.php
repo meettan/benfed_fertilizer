@@ -299,7 +299,7 @@ tr:hover {background-color: #f5f5f5;}
                                                                   $total += $purc->tot_amt;
 
                                      ?></td>
-                                      <td class="report"><?php echo ($purc->net_amt*.1);
+                                      <td class="report"><?php echo round((($purc->net_amt*.1)/100),2);
                                                                   $tot_tds += round((($purc->net_amt*.1)/100),2);
 
                                      ?></td>
@@ -339,7 +339,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><b><?= $trad_margin?></b></td>
                                <td class="report"><b><?=$oth_dis?></b></td>
                                <td class="report"><b><?=$frt_subsidy?></b></td>
-                               <td class="report"><b><?=$taxable?></b></td>
+                               <td class="report"><b><?=round($taxable,2)?></b></td>
                                <td class="report"><b><?=$cgst?></b></td>
                                <td class="report"><b><?=$sgst?></b></td>
                                <td class="report"><b><?=$total?></b></td> 
