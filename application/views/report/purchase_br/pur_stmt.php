@@ -123,13 +123,13 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Less Trade Margin</th>
                                 <th>Less Other Discount</th>
                                 <th>Less Freight Subsidy</th>
+                                <th>Taxable amt</th>
                                 <th>CGST</th>
 
                                 <th>SGST</th>
 
                                 <th>Total amt</th>
-
-                                <!-- <th>No of Bag</th> -->
+                                <th>TDS(.1%)</th>
 
                             </tr>
 
@@ -161,6 +161,7 @@ tr:hover {background-color: #f5f5f5;}
                                     $val =0;
                                     $add_adj_amt=0;
                                     $less_adj_amt=0;
+                                    $tot_tds = 0;
 
                                         foreach($purchase as $purc){
                             ?>
@@ -280,7 +281,10 @@ tr:hover {background-color: #f5f5f5;}
                                                                   $frt_subsidy += $purc->frt_subsidy;
 
                                      ?></td>
-                                     <!-- <td class="report"><?php echo $purc->cgst; ?></td> -->
+                                     <td class="report"><?php echo $purc->net_amt;
+                                                                  $taxable += $purc->net_amt;
+
+                                     ?></td>
                                      <td class="report"><?php echo $purc->cgst;
                                                                   $cgst += $purc->cgst;
 
@@ -295,9 +299,10 @@ tr:hover {background-color: #f5f5f5;}
                                                                   $total += $purc->tot_amt;
 
                                      ?></td>
+                                      <td class="report"><?php echo round((($purc->net_amt*.1)/100),2);
+                                                                  $tot_tds += round((($purc->net_amt*.1)/100),2);
 
-
-                                     <!-- <td class="report"><?php //echo $purc->no_of_bags; ?></td> -->
+                                     ?></td>
                                    
                                 </tr>
  
@@ -334,10 +339,11 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><b><?= $trad_margin?></b></td>
                                <td class="report"><b><?=$oth_dis?></b></td>
                                <td class="report"><b><?=$frt_subsidy?></b></td>
+                               <td class="report"><b><?=round($taxable,2)?></b></td>
                                <td class="report"><b><?=$cgst?></b></td>
                                <td class="report"><b><?=$sgst?></b></td>
-                               <!-- <td class="report"><b><?=$disc?></b></td>  -->
-                               <td class="report"><b><?=$total?></b></td>  
+                               <td class="report"><b><?=$total?></b></td> 
+                               <td class="report"><b><?=round($tot_tds,2)?></b></td> 
 
                             </tr>
                         </tfooter>

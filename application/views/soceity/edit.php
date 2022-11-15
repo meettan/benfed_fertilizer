@@ -1,6 +1,6 @@
     <div class="wraper">      
 
-        <div class="col-md-6 container form-wraper">
+        <div class="col-md-7 container form-wraper">
 
             <form method="POST" id="product" action="<?php echo site_url("key/editsoceity");?>" >
 
@@ -95,7 +95,7 @@
 
                         <div class="col-sm-4">
 
-                            <input type="text" name="gstin" class="form-control required"  
+                            <input type="text" name="gstin" class="form-control required"  required
                                 value = "<?php echo $schdtls->gstin; ?>" 
                             />
                         </div>
@@ -104,7 +104,7 @@
 
                         <div class="col-sm-4">
 
-                            <input type="text" name="mfms" class="form-control required"  
+                            <input type="text" name="mfms" class="form-control required"  required
                                 value = "<?php echo $schdtls->mfms; ?>" 
                             />
                         </div>
@@ -113,7 +113,7 @@
 				<label for="ph_no" class="col-sm-2 col-form-label">Primary Ph No:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id=ph_no name="ph_no" class="form-control"  value="<?php echo $schdtls->ph_no; ?>"/>
+					<input type="text" id=ph_no name="ph_no" class="form-control"  value="<?php echo $schdtls->ph_no; ?>" required/>
 
 				</div>
 			</div>
@@ -131,7 +131,7 @@
                         <label for="pan" class="col-sm-2 col-form-label">PAN:</label>
 
                         <div class="col-sm-4">
-                        <input type="text" name="pan" id="pan" class="form-control required"  
+                        <input type="text" name="pan" id="pan" class="form-control required"  required
                                 value = "<?php echo $schdtls->pan; ?>" 
                             />
                             </div>
@@ -144,7 +144,7 @@
 
                     <div class="col-sm-10">
 
-                        <input type="text" name="email" class="form-control required"  
+                        <input type="text" name="email" class="form-control required"   required
                             value = "<?php echo $schdtls->email; ?>" 
                         />
                     </div>
@@ -154,33 +154,53 @@
 
 
                 <div class="form-group row">
-				<label for="ph_no" class="col-sm-2 col-form-label">License No.:</label>
+				<label for="ph_no" class="col-sm-2 col-form-label">Whole Sale License No.:</label>
 				<div class="col-sm-10">
 
-					<input type="text" id=ph_no name="ph_no" class="form-control" value = "<?php echo $schdtls->license_no; ?>"  />
+					<input type="text" id=license_no name="license_no" class="form-control" value = "<?php echo $schdtls->license_no; ?>"  />
 
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="licenFdate" class="col-sm-2 col-form-label">License From Date:</label>
+				<label for="licenFdate" class="col-sm-2 col-form-label">Whole Sale License Fr Date:</label>
 				<div class="col-sm-4">
 
 					<input type="date" id="licenFdate" name="licenFdate" class="form-control"  value = "<?php echo $schdtls->license_from_dt; ?>" />
 
 				</div>
 				
-				<label for="licenTdate" class="col-sm-2 col-form-label">License To Date:</label>
-				<div class="col-sm-4">
+				<label for="licenTdate" class="col-sm-2 col-form-label">Whole Sale License To Date:</label>
+				<div class="col-sm-3">
 
 					<input type="date" id="licenTdate" name="licenTdate" class="form-control" value = "<?php echo $schdtls->license_to_dt; ?>" >
 
 				</div>
 			</div>
+            <div class="form-group row">
+				<label for="ph_no" class="col-sm-2 col-form-label">Retail License No. :</label>
+				<div class="col-sm-10">
 
+					<input type="text" id="retail_license_no" name="retail_license_no" class="form-control" value = "<?php echo $schdtls->retail_license_no; ?>" />
 
+				</div>
+			</div>
 
+			<div class="form-group row">
+				<label for="licenFdate" class="col-sm-2 col-form-label">Retail License Fr Date:</label>
+				<div class="col-sm-4">
 
+					<input type="date" id="retail_license_from_dt" name="retail_license_from_dt" class="form-control" value = "<?php echo $schdtls->retail_license_from_dt; ?>" />
+
+				</div>
+				
+				<label for="licenTdate" class="col-sm-2 col-form-label">Retail License To Date:</label>
+				<div class="col-sm-3">
+
+					<input type="date" id="reatil_license_to_dt" name="reatil_license_to_dt" class="form-control" value = "<?php echo $schdtls->reatil_license_to_dt; ?>">
+
+				</div>
+			</div>
                 <div class="form-group row">
                     <label for="buffer_flag" id="buffer_flag_label" class="col-sm-2 col-form-label">Buffer Type:</label>
 
