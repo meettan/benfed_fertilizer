@@ -1158,7 +1158,7 @@ END ),3)lqdqty,
     public function pc($from_dt,$to_dt,$branch,$company)
     {
 
-        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
+        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,
                                        a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                                        a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
                                        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit
@@ -1191,7 +1191,7 @@ END ),3)lqdqty,
             echo $e->getMessage();
         }*/
 
-        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
+        $data=$this->db->query('select a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,
                 a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                 a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
                 c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit
@@ -1210,25 +1210,14 @@ END ),3)lqdqty,
 
     public function f_get_hsn_gst($frmDt, $toDt)
     {
-        $query  = $this->db->query("select  c.prod_desc,c.hsn_code,c.qty_per_bag, d.unit_name,sum(a.qty) as qty,sum(a.round_tot_amt)as  sale_tot_amt,a.unit,
+
+        $query  = $this->db->query("select  c.prod_desc,c.hsn_code, d.unit_name,sum(a.qty) as qty,sum(a.round_tot_amt)as  sale_tot_amt,
                                     sum(a.cgst) sale_cgst,sum(a.sgst) sale_sgst,sum(a.taxable_amt) taxable_amt
                                     from td_sale a,mm_product c,mm_unit d
                                     where   a.prod_id=c.prod_id
                                     and a.unit=d.id
                                     and  a.do_dt between '$frmDt' and '$toDt'
-                                    group by c.prod_desc,c.hsn_code ,d.unit_name,a.unit");
-
-        return $query->result();
-    }
-    public function f_pur_hsn_gst($frmDt, $toDt)
-    {
-        $query  = $this->db->query("select  c.prod_desc,c.hsn_code, d.unit_name,c.qty_per_bag,c.unit,c.prod_id,sum(a.qty) as qty,sum(a.tot_amt)as  pur_tot_amt,
-        sum(a.cgst) pur_cgst,sum(a.sgst) pur_sgst,sum(a.net_amt) taxable_amt
-        from td_purchase a,mm_product c,mm_unit d
-        where   a.prod_id=c.prod_id
-        and c.unit=d.id
-        and  a.trans_dt between '$frmDt' and '$toDt'
-        group by c.prod_desc,c.hsn_code ,d.unit_name,c.qty_per_bag,c.unit,c.prod_id");
+                                    group by c.prod_desc,c.hsn_code ,d.unit_name");
 
         return $query->result();
     }

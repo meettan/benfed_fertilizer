@@ -342,8 +342,7 @@
 								   <div class="sub-dropdown-content">
 										<a href="<?php echo site_url("fert/rep/gstrep");?>">GST INOUT Report B2B</a>
 									   <a href="<?php echo site_url("fert/rep/gstrepb2c");?>">GST INOUT Report B2C</a>
-										<a href="<?php echo site_url("fert/rep/hsnsumryrep");?>">Sale GST HSN Summary</a>
-                                        <a href="<?php echo site_url("fert/rep/hsnsumrypurrep");?>">Purchase GST HSN Summary</a>
+										<a href="<?php echo site_url("fert/rep/hsnsumryrep");?>">GST HSN Summery</a>
 										<a href="<?php echo site_url("fert/rep/crngstreg");?>">GST CR Note Register</a>
 										<a href="<?php echo site_url("fert/rep/crngstunreg");?>">GST CR Note UNRegister</a>
 									</div>

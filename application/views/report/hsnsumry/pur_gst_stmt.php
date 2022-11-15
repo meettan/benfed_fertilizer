@@ -65,7 +65,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>HSN/SAC SALE SUMMARY BETWEEN: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>HSN/SAC PURCHASE SUMMARY BETWEEN: <?php echo $_SESSION['date']; ?></h4>
                        
                     </div>
                     <br>  
@@ -153,9 +153,8 @@ tr:hover {background-color: #f5f5f5;}
                                                 } elseif ($purc->unit == 6) {
                                                     echo $purc->qty / 1000000;
                                                 }elseif($purc->unit == 5){
-                                                    
-                                                       echo (($purc->qty)*($purc->qty_per_bag))/1000;
-                                                }
+                                                    echo (($purc->qty)*($purc->qty_per_bag))/1000;
+                                             }
                                         ?>
                                     <!-- elseif li_unit = 5 then 
                                         set  ld_pur_qty = (ld_pur_qty * li_container)/1000;  -->
@@ -166,24 +165,23 @@ tr:hover {background-color: #f5f5f5;}
                                       $tot_taxable += $purc->taxable_amt;?>
                                       </td>
 
-                                      <td class="report"><?php echo $purc->sale_cgst;
-                                       $tot_rbt_add += $purc->sale_cgst; ?>
+                                      <td class="report"><?php echo $purc->pur_cgst;
+                                       $tot_rbt_add += $purc->pur_cgst; ?>
                                       </td>
 
-                                     <td class="report"><?php echo $purc->sale_sgst; 
-                                     $tot_rbt_less += $purc->sale_sgst;?>
+                                     <td class="report"><?php echo $purc->pur_sgst; 
+                                     $tot_rbt_less += $purc->pur_sgst;?>
                                       </td>
-                                      <td class="report"><?php echo  $purc->sale_cgst + $purc->sale_sgst; 
-                                     $tot_tax += $purc->sale_sgst +$purc->sale_cgst ;?>
+                                      <td class="report"><?php echo  $purc->pur_cgst + $purc->pur_sgst; 
+                                     $tot_tax += $purc->pur_sgst +$purc->pur_cgst ;?>
                                       </td>
 
-                                      <td class="report"><?php echo $purc->sale_tot_amt; 
-                                      $tot_spl_rebt += $purc->sale_tot_amt;?>
+                                      <td class="report"><?php echo $purc->pur_tot_amt; 
+                                      $tot_spl_rebt += $purc->pur_tot_amt;?>
                                       </td>
                                       <td class="report"><?php echo round((($purc->taxable_amt)*.1)/100,2); 
                                       $tot_tds += round((($purc->taxable_amt)*.1)/100,2); ?>
                                       </td>
-
                                    
                                 </tr>
  
