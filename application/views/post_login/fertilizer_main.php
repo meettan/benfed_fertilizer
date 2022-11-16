@@ -77,7 +77,32 @@
     min-width: 215px;
  
 }
+
+
+.badge-notify {
+            background: red;
+            position: relative;
+            top: -6px;
+            left: -10px;
+        }
+        #listmotification li{
+            width: 100%;
+        }
+        .dropbtnt{
+            padding: 0px !important;
+            margin-right: 1em;
+        }
     </style>
+
+    
+<style>
+    .dropdown-left-manual {
+  right: 0;
+  left: auto;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+</style>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
     
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet"> 
@@ -97,6 +122,37 @@
     <li><strong>User: </strong><?php if(isset($this->session->userdata['loggedin']['user_name'])){ echo $this->session->userdata['loggedin']['user_name'];}?></li>
     <li><strong>Module:</strong> Fertilizer Management</li>
     <li class="date"><strong>Date: </strong> <?php echo date("d-m-Y");?></li>
+
+    <li class="date">
+
+    <?php if ($this->session->userdata['loggedin']['branch_id'] == "342") { ?>
+
+<div class="dropdown">
+    <div class="dropbtn dropbtnt">
+        <a href="<?php echo site_url("notification"); ?>" style="color: white; text-decoration: none;"><i class="fa fa-bell" style="font-size: 0.73em;"></i> </a>
+    </div>
+
+</div>
+<?php } else { ?>
+
+
+<div class="dropdown">
+    <div class="dropbtn dropbtnt">
+        <a href="#" style="color: white; text-decoration: none;">
+            <i class="fa fa-bell fa-fw" aria-hidden="true" style="font-size: 0.73em;"></i>
+            <span class="badge progress-bar-danger badge-notify" id="notification"></span>
+        </a>
+    </div>
+    <div class="dropdown-content dropdown-left-manual">
+        <ul class="list-group" id="listmotification">
+
+        </ul>
+        <a href="<?= site_url('notification/my-notification');?>" style="text-align: center;">More Notification</a>
+    </div>
+</div>
+
+<?php } ?>
+</li>
 </ul>
 </header>
     

@@ -1,4 +1,6 @@
-    <div class="wraper">      
+   
+ <!-- <?php //print_r($schdtls); ?> -->
+ <div class="wraper">      
 
         <div class="col-md-7 container form-wraper">
 
@@ -114,6 +116,14 @@
 				<div class="col-sm-4">
 
 					<input type="text" id=ph_no name="ph_no" class="form-control"  value="<?php echo $schdtls->ph_no; ?>" required/>
+
+				</div>
+
+
+				<label for="retailmfms" class="col-sm-2 col-form-label">Retail mFMS:</label>
+				<div class="col-sm-4">
+
+					<input type="text" id="retailmfms" name="retailmfms" class="form-control" value="<?php echo $schdtls->ph_no; ?>"  required>
 
 				</div>
 			</div>

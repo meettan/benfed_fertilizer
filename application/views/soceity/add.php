@@ -93,7 +93,7 @@
 
 				</div>
 
-				<label for="mfms" class="col-sm-1 col-form-label">mFMS:</label>
+				<label for="mfms" class="col-sm-1 col-form-label">Wholesale mFms:</label>
 				<div class="col-sm-4">
 
 					<input type="text" id=mfms name="mfms" class="form-control"  required></textarea>
@@ -134,6 +134,13 @@
 
 					<input type="text" id=ph_no name="ph_no" class="form-control"  required />
 
+				</div>
+
+
+				<label for="retailmfms" class="col-sm-1 col-form-label">Retail mFMS:</label>
+				<div class="col-sm-4">
+
+					<input type="text" id="retailmfms" name="retailmfms" class="form-control" required>
 				</div>
 			</div>
 

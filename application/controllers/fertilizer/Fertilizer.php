@@ -120,6 +120,7 @@ public function soceityAdd(){
 					"gstin"				=> $this->input->post('gstin'),
 
 					"mfms" 				=> $this->input->post('mfms'),
+					"retailmfms" 				=> $this->input->post('retailmfms'),
                  
 					"district"  		=> $this->session->userdata['loggedin']['branch_id'],
 					
@@ -212,6 +213,7 @@ public function editsoceity(){
 				"gstin"					=> $this->input->post('gstin'),
 
 				"mfms" 					=> $this->input->post('mfms'),
+				"retailmfms" 				=> $this->input->post('retailmfms'),
 				
 				"email"         		=>  $this->input->post('email'),
 
@@ -255,28 +257,7 @@ public function editsoceity(){
 
 	}else{
 			$select = array(
-						"soc_id",
-						"soc_name",
-						"soc_add",
-						"gstin",
-						"mfms",
-						"district",
-						"email",
-						"pan" ,
-						"ph_no",
-						"stock_point_flag" ,
-						"buffer_flag" ,
-						"status" ,
-						"soc_block"		,
-						"panc_mun"		,
-						"pin"			,
-						"ph_no2"		,
-						"license_no"	,
-						"license_from_dt",
-						"license_to_dt"	,
-						"retail_license_no"	,
-						"retail_license_from_dt",
-						"reatil_license_to_dt"	,
+						"*"
 						                                 
 				);
 
