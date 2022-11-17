@@ -2069,7 +2069,7 @@ public function salecompdelivery_reg(){
        
         $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-        $data['sales']=$this->ReportModel->p_delivery_reg_compwse($from_dt,$to_dt,$branch ,$comp_id);
+        $data['sales']=$this->ReportModel->p_delivery_reg_compwse($from_dt,$to_dt,$branch ,$comp_id); 
     //         echo $this->db->last_query();
     //   die();
         $select      = array("COMP_ID","COMP_NAME");
