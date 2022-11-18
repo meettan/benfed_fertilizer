@@ -125,7 +125,7 @@
 
     <li class="date">
 
-    <?php if ($this->session->userdata['loggedin']['branch_id'] == "342") { ?>
+    <!-- <?php if ($this->session->userdata['loggedin']['branch_id'] == "342") { ?>
 
 <div class="dropdown">
     <div class="dropbtn dropbtnt">
@@ -151,7 +151,7 @@
     </div>
 </div>
 
-<?php } ?>
+<?php } ?> -->
 </li>
 </ul>
 </header>

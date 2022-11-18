@@ -27,7 +27,7 @@
 
 
     
-    <script>
+    <!-- <script>
         get_notification();
         function get_notification(){
            
@@ -61,7 +61,7 @@
 						}
 					})
         }
-    </script>
+    </script> -->
     
     </body>
 
