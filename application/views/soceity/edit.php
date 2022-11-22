@@ -102,7 +102,7 @@
                             />
                         </div>
 
-                    <label for="mfms" class="col-sm-2 col-form-label">mFMS:</label>
+                    <label for="mfms" class="col-sm-2 col-form-label">Wholesale mFms:</label>
 
                         <div class="col-sm-4">
 
@@ -123,7 +123,7 @@
 				<label for="retailmfms" class="col-sm-2 col-form-label">Retail mFMS:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id="retailmfms" name="retailmfms" class="form-control" value="<?php echo $schdtls->ph_no; ?>"  required>
+					<input type="text" id="retailmfms" name="retailmfms" class="form-control" value="<?php echo $schdtls->retailmfms; ?>"  required>
 
 				</div>
 			</div>

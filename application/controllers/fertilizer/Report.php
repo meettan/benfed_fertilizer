@@ -2432,18 +2432,32 @@ public function advance_payment(){
             $data['companyName']=$com[1];
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
-          $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+            $refereceNo  = $this->input->post('refereceNo');
+            if($refereceNo==""||$refereceNo==null){
+                $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+
+                $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
+
+                $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+            }else{
+                $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
+
+                $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date,$refereceNo);
+
+                $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
+                }
+         
         //       echo $this->db->last_query();
         //     echo '<br>';
         //   print_r($data['tableData']);
         //   exit();
-          $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
+         
          
         
           $data['fDate']= $frm_date;
           $data['tDate']=$to_date;
 
-          $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+         
           //print_r($data['total_Voucher']);
         //   exit();
           
