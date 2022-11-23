@@ -2580,5 +2580,31 @@ public function advance_payment(){
     }
 // ================================ End Purchase report =======================================
 
+
+// ====================================active society===============================
+    public function active_society(){
+        if($this->input->post()){
+        $fDate=$this->input->post("fr_date");
+        $tDate=$this->input->post("to_date");
+        $dist=$this->input->post("district");
+
+        $data=array(
+            'fdate'=>$fDate,
+            'tDate'=>$tDate,
+            'reportdata'=>$this->ReportModel->active_society($fDate, $tDate,$dist)
+        );
+
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/active_society/active_society_view.php',$data);
+        $this->load->view('post_login/footer');  
+
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/active_society/active_society_ip.php',$data);
+            $this->load->view('post_login/footer');  
+        }
+    }
         
   }

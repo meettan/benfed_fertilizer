@@ -171,7 +171,7 @@
                     </div>
                     
                     <?php if($this->session->userdata['loggedin']['user_type']!="U" /*&& $this->session->userdata['loggedin']['ho_flag']=="Y"*/){?>
-					<?php if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']=="Y"){?>  
+					<?php if($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']=="Y"){ ?>  
 					<div class="dropdown">
 						<div class="dropdown">
 							<div class="dropbtn">
@@ -359,6 +359,7 @@
 										<a href="<?php echo site_url("fert/rep/stkScomp_ho");?>">Companywise Stock</a>
 										<a href="<?php echo site_url("fert/rep/purrepbr");?>">Purchase</a>
 										<a href="<?php echo site_url("fert/rep/salerepbr");?>">Sale</a>
+										<a href="<?php echo site_url("fert/rep/active_society");?>">Active Society</a>
 									</div>
                                 </div>
 								<a href="<?php echo site_url("fert/rep/soc_wse_cr_dmd");?>"> Society wise Credit Note Demand.</a>
@@ -390,9 +391,22 @@
 
 								<a href="<?php echo site_url("fert/rep/ps_soc");?>">District wise Distribution </a>
 								<!-- <a href="<?php echo site_url("fert/rep/yrwisesale");?>">Year Wise Sale</a> -->
-								<a href="<?php echo site_url("fert/rep/yrwssale");?>">Year Wise Sale</a>
+
+                                <div class="sub-dropdown">
+                                   <a class="sub-dropbtn">Year Wise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
+								   <div class="sub-dropdown-content">
+										
+
+
+                                        <a href="<?php echo site_url("fert/rep/yrwssale");?>">Year Wise Sale</a>
 								<!-- <a href="<?php echo site_url("fert/rep/yrcompwisesale");?>">Year Wise Company Wise Sale</a> -->
 								<a href="<?php echo site_url("fert/rep/yrcompwssale");?>">Year Wise Company Wise Sale</a>
+									</div>
+                                </div>
+
+
+
+								
                                <div class="sub-dropdown">
                                    <a class="sub-dropbtn">GST Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">

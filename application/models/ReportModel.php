@@ -2746,6 +2746,29 @@ if($refereceNo==""||$refereceNo==null){
             echo $e->getMessage();
         }
     }
+
+// ====================================active society===============================
+    function active_society($fDate, $tDate,$dist=null){
+        if($dist==''||$dist==null){
+        $q=$this->db->query("SELECT distinct b.soc_id,d.district_name,b.soc_name,b.soc_add,b.gstin,b.email,b.ph_no,count(a.trans_do) as tot_invoice
+        FROM td_sale a ,mm_ferti_soc b,md_district d
+        WHERE a.soc_id=b.soc_id
+        and a.br_cd=d.district_code
+        and a.do_dt between '".$fDate."' and '".$tDate."'
+        group by b.soc_id,d.district_name,b.soc_name,b.soc_add,b.gstin,b.email,b.ph_no
+        order by d.district_name,b.soc_name");
+        }else{
+            $q=$this->db->query("SELECT distinct b.soc_id,d.district_name,b.soc_name,b.soc_add,b.gstin,b.email,b.ph_no,count(a.trans_do) as tot_invoice
+            FROM td_sale a ,mm_ferti_soc b,md_district d
+            WHERE a.soc_id=b.soc_id
+            and a.br_cd=$dist
+            and a.br_cd=d.district_code
+            and a.do_dt between '".$fDate."' and '".$tDate."'
+            group by b.soc_id,d.district_name,b.soc_name,b.soc_add,b.gstin,b.email,b.ph_no
+            order by d.district_name,b.soc_name");  
+        }
+        return $q->result();
+    }
 }
 
 //  SUM( adv_amt)adv_amt ,SUM(tds)tds ,SUM(net_amt)net_amt FROM 
