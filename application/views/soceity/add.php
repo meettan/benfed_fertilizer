@@ -96,7 +96,7 @@
 				<label for="mfms" class="col-sm-1 col-form-label">Wholesale mFms:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id=mfms name="mfms" class="form-control"  required></textarea>
+					<input type="text" id=mfms name="mfms" class="form-control" ></textarea>
 
 				</div>
 			</div>

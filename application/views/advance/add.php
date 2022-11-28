@@ -1,4 +1,6 @@
-<?php $fyarra=$this->session->userdata('loggedin')['fin_yr']; 
+<?php
+print_r($this->session->userdata('loggedin'));
+$fyarra=$this->session->userdata('loggedin')['fin_yr']; 
 $fy=explode('-',$fyarra);
 $thisyear=$fy[0];
 
