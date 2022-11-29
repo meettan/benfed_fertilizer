@@ -140,7 +140,7 @@
 				<label for="retailmfms" class="col-sm-1 col-form-label">Retail mFMS:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id="retailmfms" name="retailmfms" class="form-control" required>
+					<input type="text" id="retailmfms" name="retailmfms" class="form-control">
 				</div>
 			</div>
 
