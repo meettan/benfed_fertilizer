@@ -106,9 +106,7 @@
 
                         <div class="col-sm-4">
 
-                            <input type="text" name="mfms" class="form-control required"  required
-                                value = "<?php echo $schdtls->mfms; ?>" 
-                            />
+                            <input type="text" name="mfms" class="form-control required" value = "<?php echo $schdtls->mfms; ?>" />
                         </div>
                 </div>
                 <div class="form-group row">
@@ -123,7 +121,7 @@
 				<label for="retailmfms" class="col-sm-2 col-form-label">Retail mFMS:</label>
 				<div class="col-sm-4">
 
-					<input type="text" id="retailmfms" name="retailmfms" class="form-control" value="<?php echo $schdtls->retailmfms; ?>"  required>
+					<input type="text" id="retailmfms" name="retailmfms" class="form-control" value="<?php echo $schdtls->retailmfms; ?>"  >
 
 				</div>
 			</div>
