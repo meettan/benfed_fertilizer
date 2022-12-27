@@ -425,17 +425,17 @@ function set_exists(x){
 
 
 
-    $('#form').submit(function (event) {
+    // $('#form').submit(function (event) {
 
-        var tot_cr_amt = parseFloat($('#tot_amt').val());
-        var sum = 0;
-        let row = $(this).closest('tr');
+    //     var tot_cr_amt = parseFloat($('#tot_amt').val());
+    //     var sum = 0;
+    //     let row = $(this).closest('tr');
 
-        $("input[class *= 'soc_amt']").each(function () {
-            sum += parseFloat($(this).val());
+    //     $("input[class *= 'soc_amt']").each(function () {
+    //         sum += parseFloat($(this).val());
 
-        });
-    });
+    //     });
+    // });
 </script>
 
 <script>
@@ -535,12 +535,10 @@ function set_exists(x){
 
 
     $('#form').submit(function(event){
-
-
-        var sale_qty1=$('#sale_qty').val().toFixed(3);
        
-
-           var totalQty2=$('#total').val().toFixed(3);
+      //  var sale_qty1= $('#sale_qty').val().toFixed(3);
+        var sale_qty1= parseFloat($('#sale_qty').val()).toFixed(3);
+        var totalQty2=parseFloat($('#total').val()).toFixed(3);
 
                         
                     if(parseFloat(sale_qty1) < parseFloat(totalQty2)){
@@ -548,7 +546,6 @@ function set_exists(x){
                         event.preventDefault();
 
                     }
-
                     
            
            $('#intro tr').each(function() {
@@ -570,9 +567,7 @@ function set_exists(x){
                      }
            }); 
 
-
-           
-                 
-        });
+                           
+    });
 </script>
 
