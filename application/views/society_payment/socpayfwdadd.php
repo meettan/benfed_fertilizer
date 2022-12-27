@@ -536,9 +536,15 @@ function set_exists(x){
 
     $('#form').submit(function(event){
        
-      //  var sale_qty1= $('#sale_qty').val().toFixed(3);
-        var sale_qty1= parseFloat($('#sale_qty').val()).toFixed(3);
+      
+       // var sale_qty1 = parseFloat($('#sale_qty').val()).toFixed(3);
+         var sale_qty1 = 0;
         var totalQty2=parseFloat($('#total').val()).toFixed(3);
+        $('.sale_qty').each(function(){
+            sale_qty1 += parseFloat($(this).val()) ? parseFloat($(this).val()) : 0.00;
+			});
+            sale_qty1  = parseFloat(sale_qty1).toFixed(3);
+		$('#total').val(parseFloat(tot).toFixed(3));
 
                         
                     if(parseFloat(sale_qty1) < parseFloat(totalQty2)){
