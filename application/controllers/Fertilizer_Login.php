@@ -13,6 +13,7 @@ class Fertilizer_Login extends MX_Controller
 		$this->load->helper('blance_helper');
 
 		$this->load->model('Fertilizer_Process');
+		$this->load->model('Soc_por_paymodel');
 	}
 
 	public function index()
@@ -300,7 +301,11 @@ class Fertilizer_Login extends MX_Controller
 
 
 				$dash_data['company_Wise_Status']=$this->Fertilizer_Process->company_Wise_Status($_SESSION['sys_date'],$from_yr_day);
-				
+				///   *****      Code start to get unapprove payment list   **  //
+				$pselect = array("count(*) as cnt");
+				$pwehere = array('approve_status' => 'U','status'=>'success');
+				$dash_data['pay_count']=$this->Soc_por_paymodel->f_pselect('td_payment',$pselect,$pwehere,1);
+				///   *****      Code End to get unapprove payment list   **  //
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_one', $dash_data);
 				$this->load->view('post_login/footer');
