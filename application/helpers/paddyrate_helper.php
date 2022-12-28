@@ -136,6 +136,24 @@
     }
  
   }
+  
+  function get_fertisoc_name($id){
+
+    if($id == ""){
+
+       return  "Not Available";
+
+    }else{
+
+    $ci =& get_instance();
+    $ci->load->database();
+    $sql="SELECT soc_name FROM mm_ferti_soc WHERE soc_id ='".$id."' ";
+    $paddy  =   $ci->db->query($sql)->row();
+
+    return  $paddy->soc_name;
+    }
+ 
+  }
   function get_fersociety_name($id){
 
     if($id == ""){

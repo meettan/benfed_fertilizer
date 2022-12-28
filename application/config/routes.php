@@ -91,12 +91,13 @@ $route['b2ccel']           = 'fertilizer/irncancel/b2ccanl';
 $route['b2ccelfilt']       = 'fertilizer/irncancel/b2ccanlfilter';
 $route['viewb2c']          = 'fertilizer/irncancel/viewb2c';
 $route['crCatg']           = 'fertilizer/fertilizer/cr_note_catg';                  //credit note category
-$route['socpay/(:any)']    = 'fertilizer/society_payment/$1';                       //Advance
+$route['socpay/(:any)']    = 'fertilizer/society_payment/$1';                       //Advance                      //Advance
 $route['drcrnote/(:any)']  = 'fertilizer/drcrnote/$1'; 
 $route['compay/(:any)']    = 'fertilizer/company_payment/$1';
 $route['BNK']              = 'fertilizer/fertilizer/bank';                           //Bank Master
 $route['virtualpnt/(:any)']= 'fertilizer/virtual_stk_point/$1';                          
-$route['fert/rep/(:any)']   = 'fertilizer/report/$1';                               //Report                
+$route['fert/rep/(:any)']   = 'fertilizer/report/$1';   
+$route['fert/sppay/(:any)']    = 'fertilizer/Soc_por_payment/$1';                             //Report                
 //For Add New
 
 //$route['add_new/(:any)/(:any)'] = 'paddys/add_new/f_$1_$2';

@@ -106,12 +106,15 @@
                             <textarea class="form-control" readonly><?php echo $payment->note; ?></textarea>
                         </div>
                     </div>
+                    <?php   if($payment->payment_at != null){ ?>
+                  
                     <div class="form-group row">
                         <label for="soc_name" class="col-sm-2 col-form-label">Payment at:</label>
                         <div class="col-sm-4">
                             <input type="text" readonly name="trans_dt" class="form-control"  value='<?php echo date('d/m/Y h:i:sa',strtotime($payment->payment_at)); ?>'/>
                         </div>
                     </div>
+                    <?php } ?>
             
             <h3></h3>
             <div class="row">

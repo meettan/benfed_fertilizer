@@ -24,7 +24,7 @@
 
 		public function paylist()
 		{
-			$pwehere = array('approve_status'=>'U');
+			$pwehere = array('approve_status'=>'U','status'=>'success');
 			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("soceity_pay_portal/dashboard",$data);
@@ -131,8 +131,8 @@
 							$data_array_fin['fin_fulyr']=$fin_year;
 							$data_array_fin['br_nm']= $brn->dist_sort_code;
 							
-							$this->AdvanceModel->f_insert('tdf_advance', $data_array);
 					if($this->ApiVoucher->f_advjnl( $data_array_fin) == 1){
+						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
 						$order_id = $this->input->get('order_id');
 						$data_array = array('approve_status'=>'A',
 										'approved_by' => $this->session->userdata['loggedin']['user_id'],
