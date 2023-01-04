@@ -46,6 +46,8 @@
 		{
 			$order_id    = $this->input->get('order_id');
 			$pay_data    = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,array('order_id'=>$order_id), 1);
+			echo $order_id;
+			print_r($pay_data);
 			if($pay_data->payment_type == 'A'){
 					
 					$branch      = $pay_data->brn_id;
@@ -130,7 +132,7 @@
 											
 							$data_array_fin['fin_fulyr']=$fin_year;
 							$data_array_fin['br_nm']= $brn->dist_sort_code;
-							
+							print_r($data_array_fin);die();
 					if($this->ApiVoucher->f_advjnl($data_array_fin) == 1){
 						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
 						$order_id = $this->input->get('order_id');
