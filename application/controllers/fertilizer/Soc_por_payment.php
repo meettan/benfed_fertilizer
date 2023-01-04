@@ -131,7 +131,7 @@
 							$data_array_fin['fin_fulyr']=$fin_year;
 							$data_array_fin['br_nm']= $brn->dist_sort_code;
 							
-					if($this->ApiVoucher->f_advjnl( $data_array_fin) == 1){
+					if($this->ApiVoucher->f_advjnl($data_array_fin) == 1){
 						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
 						$order_id = $this->input->get('order_id');
 						$data_array = array('approve_status'=>'A',
