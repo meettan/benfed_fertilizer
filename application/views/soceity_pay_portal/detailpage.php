@@ -120,7 +120,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align:center;margin-bottom:20px">
                         <?php if($payment->payment_type == 'A'){  ?> 
-                            <a href="<?=base_url() ; ?>fert/sppay/advpay_approve?order_id=<?php echo $payment->order_id;?>"  class='btn btn-primary'
+                            <a href="<?=base_url() ; ?>fert/sppay/advpayapprove?order_id=<?php echo $payment->order_id;?>"  class='btn btn-primary'
                                          title="Approve">Approve
                                     </a> 
                      <?php   }else{  ?>

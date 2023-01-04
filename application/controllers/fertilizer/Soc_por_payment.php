@@ -42,12 +42,12 @@
 			$this->load->view('post_login/footer');
 
 		}
-		public function advpay_approve(Type $var = null)
+		public function advpayapprove(Type $var = null)
 		{
 			$order_id    = $this->input->get('order_id');
 			$pay_data    = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,array('order_id'=>$order_id), 1);
 			echo $order_id;
-			print_r($pay_data);
+			print_r($pay_data);die();
 			if($pay_data->payment_type == 'A'){
 					
 					$branch      = $pay_data->brn_id;
