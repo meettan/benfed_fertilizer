@@ -411,6 +411,46 @@
 		    }
 					redirect('fert/sppay/paylist');
 	}
+
+    //  **************  Here code start for benfed payment list     //
+	public function bpaymentlist(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+			$from_dt    =   $this->input->post('from_date');
+			$to_dt      =   $this->input->post('to_date');
+			$br_cd   = $this->session->userdata['loggedin']['branch_id'];
+			$cur_dt  = date('Y-m-d');
+			$pwehere = array('trans_date >='=>$from_dt,'trans_date <='=>$to_dt,'brn_id'=>$br_cd,'status'=>'success','approve_status'=>'A');
+			$data['from_date'] = $from_dt;$data['to_dt'] = $to_dt;
+			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("soceity_pay_portal/branch_paylist",$data);
+			$this->load->view('search/search');
+			$this->load->view('post_login/footer');
+
+		}else{
+			$br_cd   = $this->session->userdata['loggedin']['branch_id'];
+			$cur_dt  = date('Y-m-d');
+			$pwehere = array('trans_date'=>$cur_dt,'brn_id'=>$br_cd,'status'=>'success','approve_status'=>'A');
+			$data['from_date'] = $cur_dt;$data['to_dt'] = $cur_dt;
+			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("soceity_pay_portal/branch_paylist",$data);
+			$this->load->view('search/search');
+			$this->load->view('post_login/footer');
+		}
+		
+
+	}
+
+	public function bpaydetail(Type $var = null)
+	{
+		$br_cd   = $this->session->userdata['loggedin']['branch_id'];
+		$pwehere = array('brn_id'=>$br_cd,'order_id'=>base64_decode($this->input->get('order_id')));
+		$data['payment']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,1);
+		$this->load->view("post_login/fertilizer_main");
+		$this->load->view("soceity_pay_portal/branch_detailpage",$data);
+		$this->load->view('post_login/footer');
+	}
 		
 
 
