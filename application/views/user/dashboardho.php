@@ -74,6 +74,8 @@
                                             echo '<span class="badge badge-warning">Accountant</span>';
                                           }elseif ($u_dtls->user_type == 'U') {
                                             echo '<span class="badge badge-dark">General User</span>';
+                                          }elseif ($u_dtls->user_type == 'C') {
+                                            echo '<span class="badge badge-light">Accountant</span>';
                                           }
                                             ?>
                                 </td>
