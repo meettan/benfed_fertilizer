@@ -2466,7 +2466,6 @@ if($comp_id==1){
 
 
             $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt
-           
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
             where c.branch_id = b.id
             and   a.memo_no='$memoNumber'

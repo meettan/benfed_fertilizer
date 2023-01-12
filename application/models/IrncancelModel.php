@@ -245,6 +245,40 @@ return $result;
 				$this->db->delete('td_sale');
 			}
 		}
+
+
+
+
+
+// ===============================================
+
+		function joinTabel(){
+			$this->db->select("a.ack,a.ack_dt,a.irn,c.district_name");
+			$this->db->from('td_sale a');
+			$this->db->join('mm_ferti_soc b', 'a.soc_id = b.soc_id');
+			$this->db->join('md_district c', 'a.br_cd = c.district_code');
+			$this->db->where('HOUR(TIMEDIFF(now(),a.ack_dt))>24',null);
+			$this->db->where('a.irn is not null',null);
+			$this->db->where('fin_yr',$this->session->userdata['loggedin']['fin_id']);
+
+
+		}
+	
+		function count_all_Data(){
+			$this->joinTabel();
+			$q=$this->db->get();
+			
+			return $q->num_rows();
+		}
+	
+		function get_Data($limit,$star){
+			$this->joinTabel();
+			$this->db->limit($limit,$star);
+			$query=$this->db->get();
+			 return $query->result();
+		}
+
+		// ====================================
  
 	}
 ?>

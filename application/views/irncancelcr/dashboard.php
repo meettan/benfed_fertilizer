@@ -21,7 +21,8 @@
                 </div> -->
             </h3> 
 
-            <table class="table table-bordered table-hover" id="example">
+            <!-- <table class="table table-bordered table-hover" id="example"> -->
+            <table class="table table-bordered table-hover">
 
                 <thead>
 
@@ -133,6 +134,10 @@
                 </tfoot>
 
             </table>
+
+
+
+            <?php echo $links;  ?>
             
         </div>
 
