@@ -35,7 +35,7 @@
                             <td>
                             <div class="form-group">
                                 <label for="fdate">From Date</label>
-                                <input type="date" class="form-control" id="fdate">
+                                <input type="date" class="form-control" id="fdate" readonly>
                             </div>
                             </td>
                             <td>
@@ -139,6 +139,10 @@
     <?php } ?>
 </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -152,6 +156,51 @@ $(document).ready(function() {
 } );
 </script>
 
+
+<script>
+
+$( "#fdate" ).datepicker({
+    minDate: -3,
+    maxDate: 3
+});
+
+
+
+//     $('#tdate').change(function(){
+// //         var d = new Date($(this).val());
+// //         // d.setDate($(this).val() - 5)
+// //         d.setDate(d.getDate() - 3);
+// //         $('#fdate').val(d.toLocaleString())
+
+// // console.log(d.toLocaleString());
+
+
+
+
+
+// var from = $("#fdate").val();
+// var to = $("#tdate").val();
+
+
+
+// const toDate = ((Date.parse(to)-3)) => {
+//   const [day, month, year] = dateStr.split("-")
+//   return new Date(year, month - 1, day)
+// }
+
+// var from = ().split("-")
+// var f = new Date(from[2], from[1] - 1, from[0])
+
+// console.log();
+
+// if(Date.parse(to) ){
+//    alert("Invalid Date Range");
+// }
+// else{
+//    alert("Valid date Range");
+// }
+    });
+</script>
 
 
 

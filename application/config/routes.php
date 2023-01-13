@@ -84,7 +84,7 @@ $route['stock/(:any)']     = 'fertilizer/purchase/$1';                          
 $route['adv/(:any)']       = 'fertilizer/advance/$1'; 
 $route['irncan']           = 'fertilizer/irncancel/irncanl';
 $route['irncancr/(:num)']           = 'fertilizer/irncancel/irncanlcr';
-$route['irnafter24']           = 'fertilizer/irncancel/irnAft24';
+$route['irncancr']           = 'fertilizer/irncancel/irnAft24';
 
 $route['viewirn']          = 'fertilizer/irncancel/viewirn';
 $route['irncancelcrv']          = 'fertilizer/irncancel/irncancelcrv';
