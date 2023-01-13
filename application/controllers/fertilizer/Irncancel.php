@@ -169,12 +169,15 @@
         }
 		/****************************************** */		/****************************************** */
 		public function irncanlcr(){
-
+			
+			$serch=$this->input->get('serch');
+			$formdate=$this->input->get('formdate');
+			$todate=$this->input->get('todate');
 
 			$this->load->library("pagination");
 			$config = array();
 			$config["base_url"] = site_url()."/irncancr/";
-			$config["total_rows"] = $this->IrncancelModel->count_all_Data();
+			$config["total_rows"] = $this->IrncancelModel->count_all_Data($serch,$formdate,$todate);
 			$config["per_page"] = 20;
 			$config["uri_segment"] = 2;
 			$config["use_page_numbers"] = TRUE;
@@ -215,9 +218,17 @@
 	
 	
 	
-			$irn["links"] = $this->pagination->create_links();
+			// $irn["links"] = $this->pagination->create_links();
 	
-			$irn['data'] = $this->IrncancelModel->get_Data($config["per_page"],$page);
+			// $irn['data'] = $this->IrncancelModel->get_Data($config["per_page"],$page);
+
+
+
+			$output = array(
+				'pagination_link'		=>	$this->pagination->create_links(),
+				'product_list'			=>	$this->IrncancelModel->get_Data($config["per_page"], $page,$serch,$formdate,$todate)
+			);
+			echo json_encode($output);
 	
 	
 			// $irn['content']='admin/sellar/my_sellar';
@@ -246,15 +257,24 @@
             // $irn['data']    = $this->IrncancelModel->f_select("td_sale a,mm_ferti_soc b,md_district c",$select,$where,0);
         //  echo $this->db->last_query();
         //  die();
-            $this->load->view("post_login/fertilizer_main");
+            // $this->load->view("post_login/fertilizer_main");
         
-            $this->load->view("irncancelcr/dashboard",$irn);
+            // $this->load->view("irncancelcr/dashboard_table",$irn);
         
-            $this->load->view('search/search');
+            // $this->load->view('search/search');
         
-            $this->load->view('post_login/footer');
+            // $this->load->view('post_login/footer');
 
         }
+		public function irnAft24(){
+			$this->load->view("post_login/fertilizer_main");
+        
+            $this->load->view("irncancelcr/dashboard");
+        
+            // $this->load->view('search/search');
+        
+            $this->load->view('post_login/footer');
+		}
 
 		public function irncancelcrv(){
 

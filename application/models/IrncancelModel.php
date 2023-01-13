@@ -252,7 +252,7 @@ return $result;
 
 // ===============================================
 
-		function joinTabel(){
+		function joinTabel($serch,$formdate,$todate){
 			$this->db->select("a.ack,a.ack_dt,a.irn,c.district_name");
 			$this->db->from('td_sale a');
 			$this->db->join('mm_ferti_soc b', 'a.soc_id = b.soc_id');
@@ -260,22 +260,87 @@ return $result;
 			$this->db->where('HOUR(TIMEDIFF(now(),a.ack_dt))>24',null);
 			$this->db->where('a.irn is not null',null);
 			$this->db->where('fin_yr',$this->session->userdata['loggedin']['fin_id']);
+			
+			// $this->db->where('a.ack','182211685187916');
+			// echo $serch;
+			// exit();
+
+			
+			if($formdate!=""||$formdate!=null){
+				$this->db->where('a.ack_dt >=',$formdate); 
+			}
+			if($todate!=""||$todate!=null){
+
+				$this->db->where('a.ack_dt <=',$todate);
+			}
+
+			if($serch!=""||$serch!=null){
+				// $this->db->query('AND a.ack  LIKE "%' . $serch . '%" AND a.ack_dt  LIKE "%' . $serch . '%" AND a.irn  LIKE "%' . $serch . '%" AND c.district_name  LIKE "%' . $serch . '%"');
+				// $this->db->like(array('a.ack' => $serch, 'a.ack_dt' => $serch, 'a.irn' => $serch,'c.district_name' => $serch));
+				$this->db->group_start();
+				$this->db->like('a.ack',$serch);
+				$this->db->or_like('a.ack_dt',$serch);
+				$this->db->or_like('a.irn',$serch);
+				$this->db->or_like('c.district_name',$serch);
+				$this->db->group_end();
+			}
 
 
 		}
 	
-		function count_all_Data(){
-			$this->joinTabel();
+		function count_all_Data($serch,$formdate,$todate){
+			$this->joinTabel($serch,$formdate,$todate);
 			$q=$this->db->get();
 			
 			return $q->num_rows();
 		}
 	
-		function get_Data($limit,$star){
-			$this->joinTabel();
+		function get_Data($limit,$star,$serch,$formdate,$todate){
+			$this->joinTabel($serch,$formdate,$todate);
 			$this->db->limit($limit,$star);
 			$query=$this->db->get();
-			 return $query->result();
+			//  $data['data']= $query->result();
+
+
+
+			 $output = '';
+			//  $i=0;
+           if($query->num_rows() > 0){
+			$i = 1 + ($star-1)*$limit;
+               foreach($query->result_array() as $row){
+               
+                // $page = ($star==1) ? $star : 1;
+				// $i = (($page-1) * $limit) + 1;
+				// $
+
+
+                   $output .='<tr>
+                   <td> '.$i++.' </td>
+                   <td> '.$row['district_name'].' </td>
+                   <td> '.$row['ack'].' </td>
+                   <td> '.$row['ack_dt'].' </td>
+                   <td> '.$row['irn'].' </td>
+                   <td><a href="irncancelcrv?irn='.$row['irn'].'" 
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
+
+                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                    </a> 
+                    </td>
+               </tr>
+                   ';
+                   
+               }
+           }else{
+               $output = '<tr><td colspan="8"><div class="col-lg-12"><div class="feat_property list"><div class="thumb"><div class="card is-loading"><div class="image"></div></div></div><div class="details"><div class="tc_content"><div class="card is-loading"><div class="content"><h2></h2><h2></h2><p>No Data Found</p></div></div></div><div class="fp_footer"></div></div></div></div></td></tr>
+               
+               ';
+           }
+           return $output;
+        //    return $this->db->last_query();
+
+
+
+			//  return $this->load->view("irncancelcr/dashboard_table",$data);
 		}
 
 		// ====================================

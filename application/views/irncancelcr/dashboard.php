@@ -22,6 +22,31 @@
             </h3> 
 
             <!-- <table class="table table-bordered table-hover" id="example"> -->
+                <table class="mb-5 table">
+                    <tbody>
+                        <tr>
+                            <td>
+                            <div class="form-group">
+                                <label for="serch">Search</label>
+                                <input type="serch" class="form-control serch" id="serch" placeholder="Serch................">
+                            </div>
+                               
+                            </td>
+                            <td>
+                            <div class="form-group">
+                                <label for="fdate">From Date</label>
+                                <input type="date" class="form-control" id="fdate">
+                            </div>
+                            </td>
+                            <td>
+                            <div class="form-group">
+                                <label for="tdate">To Date</label>
+                                <input type="date" class="form-control tdate" id="tdate">
+                            </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             <table class="table table-bordered table-hover">
 
                 <thead>
@@ -45,69 +70,10 @@
 
                 </thead>
 
-                <tbody> 
+                <tbody id="tableData"> 
 
-                    <?php 
-                        $i=0;
-                        if($data) {
-                                foreach($data as $value) {
-		            ?>
-
-                            <tr>   
-                                <td><?php echo ++$i; ?></td>
-
-                                <td><?php echo $value->district_name; ?></td>
-
-                                <td><?php echo $value->ack; ?></td>
-
-                                <td><?php echo $value->ack_dt; ?></td>
-
-                                <td ><?php echo $value->irn; ?></td>
-
-                                <!-- <td>
-                                </td> -->
-
-
-			 	                <td><a href="irncancelcrv?irn=<?php echo $value->irn;?>" 
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
-
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
-                                    </a> 
-                                </td>
-                               <!-- <td>
-                               <i class="fa fa-download fa-2x" style="color: #007bff"></i>
-                               </td> -->
-                             <!-- <td> -->
-                                 <!-- <a href="<?php echo site_url('adv/socadvReport?receipt_no='.$value->receipt_no.''); ?>" title="Print">
-
-                            
-                              <i class="fa fa-print fa-2x" style="color:green;"></i>  
-                             
-                              </a>-->
-                            <!-- </td>  -->
-
-                            <!-- <td><button type="button" class="delete" id="<?php echo $value->receipt_no;?>"    
-                                       
-                                       data-toggle="tooltip" data-placement="bottom" title="Delete">
-
-                                       <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                   </button> 
-                               </td> -->
-
-                            </tr>
-
-                    <?php
-                            
-                            }
-
-                        }
-
-                        else {
-
-                            echo "<tr><td colspan='10' style='text-align: center;'>No data Found</td></tr>";
-
-                        }
-                    ?>
+                    
+                    
                 
                 </tbody>
 
@@ -135,9 +101,7 @@
 
             </table>
 
-
-
-            <?php echo $links;  ?>
+            <div class="pagination_link"></div>
             
         </div>
 
@@ -186,4 +150,67 @@ $(document).ready(function() {
         "pagingType": "full_numbers"
     } );
 } );
+</script>
+
+
+
+
+
+<script>
+	$(document).ready(function () {
+				filter_test_data(1);
+
+				function filter_test_data(page) {
+					
+					var action = 'fetch_data';
+					let ftate = $('#fdate').val();
+					let tdate = $('#tdate').val();
+					let serch = $('#serch').val();
+					
+
+					$.ajax({
+						url: "<?php echo site_url(); ?>/irncancr/" + page,
+						method: "get",
+						dataType: "json",
+						data: {
+							action: action,
+							serch: serch,
+							formdate:ftate,
+							todate:tdate
+							
+						},
+						success: function (data) {
+							$('#tableData').html(data.product_list);
+							$('.pagination_link').html(data.pagination_link);
+						}
+					})
+				}
+
+
+
+
+
+        $(document).on('click', '.pagination_link li a', function(event){
+        event.preventDefault();
+        var page = $(this).data('ci-pagination-page');
+        filter_test_data(page);
+    	});
+
+    // $('.common_selector').click(function(){
+    //     filter_test_data(1);
+    // });
+
+	// $('.testSerch').click(function(){
+    //     filter_test_data(1);
+    // });
+	$('.tdate').change(function(){
+        filter_test_data(1);
+    });
+
+	$('.serch').keyup(function(){
+        filter_test_data(1);
+    });
+
+});
+
 </script>
