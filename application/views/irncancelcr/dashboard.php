@@ -35,7 +35,7 @@
                             <td>
                             <div class="form-group">
                                 <label for="fdate">From Date</label>
-                                <input type="date" class="form-control" id="fdate" readonly>
+                                <input type="date" class="form-control" id="fdate">
                             </div>
                             </td>
                             <td>
