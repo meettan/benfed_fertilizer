@@ -337,7 +337,7 @@
             <div class="col-sm-12">
               <h2 class="onClickOpen" data-toggle="collapse" data-target="#demo">
                 Company Payment <span>(Click to Expand)</span>
-                <!-- <i class="fa fa-arrow-circle-down" aria-hidden="false"></i> -->
+                 <i class="fa fa-arrow-circle-down" aria-hidden="false"></i> 
               </h2>
             </div>
 
