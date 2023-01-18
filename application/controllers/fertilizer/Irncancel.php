@@ -169,30 +169,112 @@
         }
 		/****************************************** */		/****************************************** */
 		public function irncanlcr(){
+			
+			$serch=$this->input->get('serch');
+			$formdate=$this->input->get('formdate');
+			$todate=$this->input->get('todate');
 
-            $select	=	array("a.ack" ,"a.ack_dt","a.irn","c.district_name");
+			$this->load->library("pagination");
+			$config = array();
+			$config["base_url"] = site_url()."/irncancr/";
+			$config["total_rows"] = $this->IrncancelModel->count_all_Data($serch,$formdate,$todate);
+			$config["per_page"] = 20;
+			$config["uri_segment"] = 2;
+			$config["use_page_numbers"] = TRUE;
+	
+	
+			$config['full_tag_open']     = '<div class="pagging text-right"><nav><ul class="pagination">';
+			 $config['full_tag_close']   = '</ul></nav></div>';
+			 $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+			 $config['num_tag_close']    = '</span></li>';
+			 $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+			 $config['cur_tag_close']    = '<span class="sr-only"></span></span></li>';
+			 $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+			 $config['next_tag_close']   = '<span aria-hidden="true"></span></span></li>';
+			 $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+			 $config['prev_tag_close']   = '</span></li>';
+			 $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+			 $config['first_tag_close' ] = '</span></li>';
+			 $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+			 $config['last_tag_close']   = '</span></li>';
+	
+	
+	
+			$config["num_links"] = 2;
+			$config['first_link'] = FALSE;
+			$config['last_link'] = FALSE;
+			$config['first_url'] = site_url()."/irncancr/";
+			$this->pagination->initialize($config);
+			// $page = $this->uri->segment('2');
+			$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+	
+			// $start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			// if ($start != 0) $start = ($start - 1) * $config['per_page'];
+	
+	
+			//$start = ($page - 1) * $config["per_page"];
+	
+	
+	
+	
+	
+			// $irn["links"] = $this->pagination->create_links();
+	
+			// $irn['data'] = $this->IrncancelModel->get_Data($config["per_page"],$page);
+
+
+
+			$output = array(
+				'pagination_link'		=>	$this->pagination->create_links(),
+				'product_list'			=>	$this->IrncancelModel->get_Data($config["per_page"], $page,$serch,$formdate,$todate)
+			);
+			echo json_encode($output);
+	
+	
+			// $irn['content']='admin/sellar/my_sellar';
+			// $irn['title']='Admin | My Sellar';
+	
+			
+			
+			// $this->load->view('layout',$data);
+
+
+// =====================================================================
+
+
+
+            // $select	=	array("a.ack" ,"a.ack_dt","a.irn","c.district_name");
         
-            $where  =	array(
-                "a.soc_id=b.soc_id"   => NULL,
-                "a.br_cd=c.district_code" => NULL,
-                "HOUR(TIMEDIFF(now(),a.ack_dt))>24"=>NULL,
-                "a.irn is not null"=>NULL,
-                "fin_yr" => $this->session->userdata['loggedin']['fin_id']
+            // $where  =	array(
+            //     "a.soc_id=b.soc_id"   => NULL,
+            //     "a.br_cd=c.district_code" => NULL,
+            //     "HOUR(TIMEDIFF(now(),a.ack_dt))>24"=>NULL,
+            //     "a.irn is not null"=>NULL,
+            //     "fin_yr" => $this->session->userdata['loggedin']['fin_id']
             
-            );
+            // );
         
-            $irn['data']    = $this->IrncancelModel->f_select("td_sale a,mm_ferti_soc b,md_district c",$select,$where,0);
+            // $irn['data']    = $this->IrncancelModel->f_select("td_sale a,mm_ferti_soc b,md_district c",$select,$where,0);
         //  echo $this->db->last_query();
         //  die();
-            $this->load->view("post_login/fertilizer_main");
+            // $this->load->view("post_login/fertilizer_main");
         
-            $this->load->view("irncancelcr/dashboard",$irn);
+            // $this->load->view("irncancelcr/dashboard_table",$irn);
         
-            $this->load->view('search/search');
+            // $this->load->view('search/search');
         
-            $this->load->view('post_login/footer');
+            // $this->load->view('post_login/footer');
 
         }
+		public function irnAft24(){
+			$this->load->view("post_login/fertilizer_main");
+        
+            $this->load->view("irncancelcr/dashboard");
+        
+            // $this->load->view('search/search');
+        
+            $this->load->view('post_login/footer');
+		}
 
 		public function irncancelcrv(){
 
