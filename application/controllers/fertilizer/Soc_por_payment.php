@@ -24,8 +24,8 @@
 
 		public function paylist()
 		{
-			$pwehere = array('approve_status'=>'U','status'=>'success');
-			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
+			$pwehere = array('a.brn_id = b.district_code' => NULL,'a.approve_status'=>'U','a.bank_status'=>'Captured');
+			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment a,v_district b',NULL,$pwehere,0);
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("soceity_pay_portal/dashboard",$data);
 			$this->load->view('search/search');

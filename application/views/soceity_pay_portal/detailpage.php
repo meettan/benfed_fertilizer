@@ -57,7 +57,10 @@
                                     echo 'INTERNET BANKING';
                                 } ?>'/>
                         </div>
-                       
+                    <label for="soc_name" class="col-sm-2 col-form-label">Payment Date:</label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly  class="form-control"  value='<?php echo $payment->trans_date; ?>'/>
+                    </div>
                     </div>
                     <?php   if($payment->payment_mode == 'Q'){ ?>
                     <div class="form-group row">
@@ -99,6 +102,31 @@
                             <input type="text" readonly name="trans_dt" class="form-control"  value='<?php echo $payment->invoice_id; ?>'/>
                         </div>
                     </div>
+                    <?php } ?>
+                    <?php   if($payment->method != null ){ ?>
+                    <div class="form-group row">
+                        <label for="soc_name" class="col-sm-2 col-form-label">Method:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->method; ?>'/>
+                        </div>
+                        <label for="soc_name" class="col-sm-2 col-form-label">Bank:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->bank; ?>'/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="soc_name" class="col-sm-2 col-form-label">Settlement date:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->settlement_date; ?>'/>
+                        </div>
+                        <label for="soc_name" class="col-sm-2 col-form-label">Bank Status:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->bank_status; ?>'/>
+                        </div>
+                       
+                    </div>
+                    
+
                     <?php } ?>
                     <div class="form-group row">
                         <label for="soc_name" class="col-sm-2 col-form-label">Remarks:</label>

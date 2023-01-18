@@ -27,8 +27,11 @@
 
                     <tr>
                         <th>Sl.No.</th>
+                        <th>District </th>
                         <th>Society Name</th>
-                        <th>Payment Type</th>
+                        <th>Payment Date</th>
+                        <th>Settlement date</th>
+                        <th>Payment Mode</th>
                         <th>Amt</th>
             			<th>Option</th>
                        
@@ -47,13 +50,19 @@
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
                               
-				                <td style="display:none;"><?php echo $value->soc_id; ?></td>
-
+				                <!-- <td style="">
+                                    
+                                </td> -->
+                                <td><?php echo $value->district_name; ?></td>
                                 <td><?php echo get_fertisoc_name($value->soc_id); ?></td>
-                                <td><?php if($value->payment_type == 'A'){
-                                                echo 'Advance';
+                                <td><?php echo $value->trans_date; ?></td>
+                                <td><?php echo $value->settlement_date; ?></td>
+                                <td><?php if($value->payment_mode == 'C'){
+                                                echo 'Cash';
+                                }else if($value->payment_mode == 'Q'){
+                                    echo 'CHEQUE';
                                 }else{
-                                    echo 'Invoice';
+                                    echo 'INTERNET BANKING';
                                 } ?></td>
                                 <td><?php echo $value->amount; ?></td>
                                 <td>
@@ -83,8 +92,11 @@
                     <tr>
                     
                         <th>Sl.No.</th>
+                        <th>District </th>
                         <th>Society Name</th>
-                        <th>Payment Type</th>
+                        <th>Payment Date</th>
+                        <th>Settlement date</th>
+                        <th>Payment Mode</th>
                         <th>Amt</th>
             			<th>Option</th>
                     </tr>
