@@ -183,6 +183,22 @@ return $data->row();
                     
                 }
 
+
+				public function f_get_comp_payment_pending_dtls($from_date,$to_date){
+
+					$data = $this->db->query("select a.pay_dt,a.pay_no,a.district,a.comp_id,a.net_amt net_amt, b.COMP_NAME,c.branch_name 
+					from tdf_company_payment a,mm_company_dtls b,md_branch c 
+					where a.comp_id = b.COMP_ID 
+					and a.district = c.id 
+					and a.pay_no IS NULL");
+        
+                
+                 return $data->result();
+				//  and a.pay_dt BETWEEN '".$from_date."' and '".$to_date."'
+				// group by a.pay_dt,a.pay_no,a.district,a.comp_id,b.COMP_NAME,c.branch_name
+                    
+                }
+
 				// public function f_get_comp_payment_dtls(){
 
 				// 	$data = $this->db->query("select pay_no,district,comp_id,sale_inv_no,pur_ro,pur_inv_no,purchase_rt,

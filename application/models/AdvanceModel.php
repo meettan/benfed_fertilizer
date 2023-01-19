@@ -88,6 +88,18 @@
 	}
 
 
+	public function advtocomp_pendingList($from_date,$to_date){
+		$fny=$this->session->userdata['loggedin']['fin_id'];
+	 $q=$this->db->query('SELECT a.memo_no,a.trans_dt,a.receipt_no,a.comp_id,b.COMP_NAME,a.adv_amt amt
+	 FROM tdf_company_advance a,mm_company_dtls b ,md_branch c 
+	 WHERE a.comp_id = b.COMP_ID
+	 and a.branch_id = c.id 
+	 AND a.receipt_no is null
+	 ');
+	 return $q->result();
+ }
+
+
 
 		public function f_get_receiptReport_dtls($receipt_no)
 		{
