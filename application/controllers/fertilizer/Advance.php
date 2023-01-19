@@ -60,6 +60,46 @@ public function company_advance(){
 	
 }
 
+
+
+/****************************************************Advance pending Dashboard************************************ */
+//Company Advance dashoard
+public function company_advance_pending(){
+
+	if($this->input->post()){
+		$from_date=$this->input->post('from_date');
+		$to_date=$this->input->post('to_date');
+
+		// echo $from_date,$to_date;
+
+		$adv['data']    = $this->AdvanceModel->advtocomp_pendingList($from_date,$to_date);
+// echo $this->db->last_query();
+	$this->load->view("post_login/fertilizer_main");
+
+	$this->load->view("company_advance_pending/dashboard",$adv);
+
+	$this->load->view('search/search');
+
+	$this->load->view('post_login/footer');
+
+
+
+	}else{
+		$from_date=date("Y-m-d");
+		$to_date=date("Y-m-d");
+		$adv['data']    = $this->AdvanceModel->advtocomp_pendingList($from_date,$to_date);
+//echo $this->db->last_query();
+	$this->load->view("post_login/fertilizer_main");
+
+	$this->load->view("company_advance_pending/dashboard",$adv);
+
+	$this->load->view('search/search');
+
+	$this->load->view('post_login/footer');
+	}
+	
+}
+
 //Company Advance add
 public function company_advAddlist(){
    //$dist= $this->AdvanceModel->f_select('tdf_advance' ,array('branch_id'),array('receipt_no'=>$this->input->post('receipt_no')),1);
