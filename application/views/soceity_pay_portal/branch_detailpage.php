@@ -100,6 +100,31 @@
                         </div>
                     </div>
                     <?php } ?>
+                    <?php   if($payment->method != null ){ ?>
+                    <div class="form-group row">
+                        <label for="soc_name" class="col-sm-2 col-form-label">Method:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->method; ?>'/>
+                        </div>
+                        <label for="soc_name" class="col-sm-2 col-form-label">Bank:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->bank; ?>'/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="soc_name" class="col-sm-2 col-form-label">Settlement date:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->settlement_date; ?>'/>
+                        </div>
+                        <label for="soc_name" class="col-sm-2 col-form-label">Bank Status:</label>
+                        <div class="col-sm-4">
+                            <input type="text" readonly class="form-control"  value='<?php echo $payment->bank_status; ?>'/>
+                        </div>
+                       
+                    </div>
+                    
+
+                    <?php } ?>
                     <div class="form-group row">
                         <label for="soc_name" class="col-sm-2 col-form-label">Remarks:</label>
                         <div class="col-sm-10">
@@ -117,16 +142,34 @@
                     <?php } ?>
             
             <h3></h3>
+                <!-- <div class="row">
+                    <div class="col-md-12" style="text-align:center;margin-bottom:20px">
+                    <a href="<?=base_url() ; ?>index.php/fert/sppay/bpaymentlist"  class='btn btn-primary'
+                                            title="Back">Back
+                                        </a> 
+                        
+                            
+                    </div>
+                
+                </div> -->
+            <?php if($payment->bank_status == 'Captured'){  ?> 
             <div class="row">
                 <div class="col-md-12" style="text-align:center;margin-bottom:20px">
-                <a href="<?=base_url() ; ?>index.php/fert/sppay/bpaymentlist"  class='btn btn-primary'
-                                         title="Back">Back
+                        <?php if($payment->payment_type == 'A'){  ?> 
+                            <a href="<?=base_url() ; ?>index.php/fert/sppay/advpayapprove?order_id=<?php echo $payment->order_id;?>"  class='btn btn-primary'
+                                         title="Approve">Approve
                                     </a> 
-                       
+                     <?php   }else{  ?>
+                        <a href="<?=base_url() ; ?>index.php/fert/sppay/invpay_approve?order_id=<?php echo $payment->order_id;?>"  class='btn btn-primary'
+                                         title="Approve">Approve
+                                    </a> 
+
+                        <?php } ?>
                          
                 </div>
              
             </div>
+            <?php } ?>
             
 
         </div>

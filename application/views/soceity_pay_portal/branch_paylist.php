@@ -13,7 +13,7 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-                <form action="<?=base_url()?>index.php/fert/sppay/bpaymentlist" method="post">
+                <!-- <form action="<?=base_url()?>index.php/fert/sppay/bpaymentlist" method="post">
             <div class="form-group">
                 <span for="from_dt" class="col-sm-2">From Date:</span>
                 <div class="col-sm-2">
@@ -29,7 +29,7 @@
                 </div>
                 <input type="submit" name="submit" class="btn btn-primary">
                 </div>
-                </form>
+                </form> -->
                     <span class="confirm-div" style="float:right; color:green;"></span>
                 <div class="input-group" style="margin-left:75%;">
                     <span class="input-group-addon"><i class="fa fa-search"></i></span>

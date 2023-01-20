@@ -145,22 +145,6 @@
                     <?php } ?>
             
             <h3></h3>
-            <div class="row">
-                <div class="col-md-12" style="text-align:center;margin-bottom:20px">
-                        <?php if($payment->payment_type == 'A'){  ?> 
-                            <a href="<?=base_url() ; ?>index.php/fert/sppay/advpayapprove?order_id=<?php echo $payment->order_id;?>"  class='btn btn-primary'
-                                         title="Approve">Approve
-                                    </a> 
-                     <?php   }else{  ?>
-                        <a href="<?=base_url() ; ?>index.php/fert/sppay/invpay_approve?order_id=<?php echo $payment->order_id;?>"  class='btn btn-primary'
-                                         title="Approve">Approve
-                                    </a> 
-
-                        <?php } ?>
-                         
-                </div>
-             
-            </div>
             
 
         </div>

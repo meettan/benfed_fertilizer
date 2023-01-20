@@ -85,7 +85,7 @@
                 <li><a href="<?php echo site_url('material'); ?>">Add Product</a></li>
                 <li><a href="<?php echo site_url('compay/company_payment'); ?>">Company Payment</a></li>
                 <li><a href="<?php echo site_url('fert/rep/brwse_constk'); ?>">Stock Report</a></li>
-                <li><a href="<?php echo site_url('fert/sppay/paylist'); ?>">Payment list (<?=$pay_count->cnt?>)</a></li>
+                <li><a href="<?php echo site_url('fert/sppay/paylist'); ?>">Payment list <span style="color:#FF0000">(<?=$pay_count->cnt?>)</span></a></li>
                 <!-- <li><a href="<?php echo site_url('report/chequestatus'); ?>">Cheque Status</a></li>
 <li><a href="<?php echo site_url('report/returncheque'); ?>">Return Cheque</a></li> -->
               </ul>

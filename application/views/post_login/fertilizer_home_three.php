@@ -70,7 +70,7 @@
             <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/cust_payblepaid">Due Register</a></li>
             <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/soc_ledger">Society Ledger</a></li>
             <li><a href="https://benfed.in/benfed_fertilizer/index.php/fert/rep/overdue_list">Overdue List</a></li>
-            <li><a href="<?=base_url()?>index.php/fert/sppay/bpaymentlist">Payemnt List</a></li>
+            <li><a href="<?=base_url()?>index.php/fert/sppay/bpaymentlist">Payment List</a></li>
           </ul>
         </div>
       </div>

@@ -121,8 +121,10 @@
     <li><strong>Financial Year: </strong><?php if(isset($this->session->userdata['loggedin']['fin_yr'])){ echo $this->session->userdata['loggedin']['fin_yr'];}?></li>
     <li><strong>User: </strong><?php if(isset($this->session->userdata['loggedin']['user_name'])){ echo $this->session->userdata['loggedin']['user_name'];}?></li>
     <li><strong>Module:</strong> Fertilizer Management</li>
-    <li class="date"><strong>Date: </strong> <?php echo date("d-m-Y");?></li>
-
+    <li class="date"><strong>Date: </strong> <?php echo date("d-m-Y");?>&nbsp;&nbsp;&nbsp;
+    <?php if ($this->session->userdata['loggedin']['branch_id'] != "342") { ?>
+        <a href="<?=base_url()?>index.php/fert/sppay/bpaymentlist"><i class="fa fa-bell" aria-hidden="true"></i><span style="color:#FF0000">(<?=pstot($this->session->userdata['loggedin']['branch_id'])?>)</span></a></li>
+    <?php } ?>
     <li class="date">
 
     <!-- <?php if ($this->session->userdata['loggedin']['branch_id'] == "342") { ?>
@@ -180,15 +182,18 @@
 								<i class="fa fa-angle-down"></i>
 							</div>
 							<div class="dropdown-content">
-								  
 								<div class="sub-dropdown">
-								<a class="sub-dropbtn">IFFCO <i class="fa fa-angle-right" style="float: right;"></i></a>
+                                <a class="sub-dropbtn">IFFCO <i class="fa fa-angle-right" style="float: right;"></i></a>
 								<div class="sub-dropdown-content">
 								<a href="<?php echo site_url("fertilizer/Upload_csv/index");?>">Excel/Bill Upload</a> 
 								<a href="<?php echo site_url("fertilizer/Upload_csv/viewupload");?>">View Bill</a>            
 								</div>
 							   </div>
+                               <div class="sub-dropdown">
+								<a href="<?php echo site_url("fertilizer/Upload_csv/hdfcresponse");?>" class="sub-dropbtn">Settlement</a>
+                               </div>
 						  </div>
+                          
 					</div>
 					</div>
 
@@ -425,8 +430,6 @@
 								<a href="<?php echo site_url("fert/rep/yrcompwssale");?>">Year Wise Company Wise Sale</a>
 									</div>
                                 </div>
-
-
 
 								
                                <div class="sub-dropdown">
