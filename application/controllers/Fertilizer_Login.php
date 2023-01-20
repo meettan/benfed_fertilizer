@@ -226,9 +226,7 @@ class Fertilizer_Login extends MX_Controller
 			$prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($_SESSION['sys_date'])));
 			$dash_data['product']          =   $this->Fertilizer_Process->f_get_product_list($branch_id, '2020-04-01');
 			$dash_data['opening']     =   $this->Fertilizer_Process->f_get_balance($branch_id, '2020-04-01', $prevdt);
-
-
-
+           
 			// //Total Solid & Liquid Sale in a year 
 			// $dash_data['totsolidsale']    = $this->Fertilizer_Process->f_get_solid_sale_tot($_SESSION['sys_date'],$_SESSION['sys_date']);
 
@@ -303,8 +301,10 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data['company_Wise_Status']=$this->Fertilizer_Process->company_Wise_Status($_SESSION['sys_date'],$from_yr_day);
 				///   *****      Code start to get unapprove payment list   **  //
 				$pselect = array("count(*) as cnt");
-				$pwehere = array('approve_status' => 'U','status'=>'success');
+				$pwehere = array('approve_status' => 'U','status'=>'success','bank_status IS NULL or status IS NULL'=>NULL);
 				$dash_data['pay_count']=$this->Soc_por_paymodel->f_pselect('td_payment',$pselect,$pwehere,1);
+				
+				
 				///   *****      Code End to get unapprove payment list   **  //
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_one', $dash_data);

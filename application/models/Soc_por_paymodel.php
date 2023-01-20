@@ -70,13 +70,14 @@
 			}
 
 			$value = $db2->get($table);
-
+			
 			if($type==1){
 				return $value->row();
 			}else{
 				return $value->result();
 			}
 		}
+
 
 		public function f_pedit($table_name, $data_array, $where) {
 			$db2 = $this->load->database('socpaydb', TRUE);

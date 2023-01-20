@@ -201,6 +201,12 @@
         $advfwd  =  $ci->db->query($sql)->row();
         return $advfwd->cnt;
    }
-
+   function pstot($branch_id){
+       $ci =& get_instance();
+       $db2 = $ci->load->database('socpaydb', TRUE);
+       $sql="SELECT count(*) as cnt FROM `td_payment` WHERE `brn_id` = '$branch_id' AND `approve_status` = 'U' AND  bank_status = 'Captured' ";
+       $advfwd  =  $db2->query($sql)->row();
+       return $advfwd->cnt;
+   }
 
 ?>

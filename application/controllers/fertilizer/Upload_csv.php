@@ -167,7 +167,7 @@ public function viewupload(){
                     //print_r($data);die();
                     fclose($csvFile);
                     $this->session->set_flashdata('msg','Successfully uploaded');
-                    redirect('fertilizer/Upload_csv/hdfcresponse','refresh'); 
+                    redirect('/fert/sppay/paylist','refresh'); 
             }
         }else{
 

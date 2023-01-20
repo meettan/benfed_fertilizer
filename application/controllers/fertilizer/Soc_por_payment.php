@@ -23,8 +23,8 @@
 
 
 		public function paylist()
-		{
-			$pwehere = array('a.brn_id = b.district_code' => NULL,'a.approve_status'=>'U','a.bank_status'=>'Captured');
+		{   $db2 = $this->load->database('socpaydb', TRUE);
+			$pwehere = array('a.brn_id = b.district_code' => NULL,'a.approve_status'=>'U','(a.status = "success" or a.status IS NULL) '=>NULL,'a.bank_status IS NULL'=>NULL);
 			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment a,v_district b',NULL,$pwehere,0);
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("soceity_pay_portal/dashboard",$data);
@@ -145,7 +145,7 @@
 						$this->session->set_flashdata('msg', 'Error in accounting!!');
 					}
 		    } 
-			redirect('fert/sppay/paylist');
+			redirect('fert/sppay/bpaymentlist');
 		}
 	public function invpay_approve(Type $var = null)
 	{
@@ -409,36 +409,36 @@
 				
                     $this->session->set_flashdata('msg', 'Successfully Added');
 		    }
-					redirect('fert/sppay/paylist');
+					redirect('fert/sppay/bpaymentlist');
 	}
 
     //  **************  Here code start for benfed payment list     //
 	public function bpaymentlist(){
-        if($_SERVER['REQUEST_METHOD'] == "POST") {
-			$from_dt    =   $this->input->post('from_date');
-			$to_dt      =   $this->input->post('to_date');
-			$br_cd   = $this->session->userdata['loggedin']['branch_id'];
-			$cur_dt  = date('Y-m-d');
-			$pwehere = array('trans_date >='=>$from_dt,'trans_date <='=>$to_dt,'brn_id'=>$br_cd,'status'=>'success','approve_status'=>'A');
-			$data['from_date'] = $from_dt;$data['to_dt'] = $to_dt;
-			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
-			$this->load->view("post_login/fertilizer_main");
-			$this->load->view("soceity_pay_portal/branch_paylist",$data);
-			$this->load->view('search/search');
-			$this->load->view('post_login/footer');
+        // if($_SERVER['REQUEST_METHOD'] == "POST") {
+		// 	$from_dt    =   $this->input->post('from_date');
+		// 	$to_dt      =   $this->input->post('to_date');
+		// 	$br_cd   = $this->session->userdata['loggedin']['branch_id'];
+		// 	$cur_dt  = date('Y-m-d');
+		// 	$pwehere = array('trans_date >='=>$from_dt,'trans_date <='=>$to_dt,'brn_id'=>$br_cd,'status'=>'success','approve_status'=>'A');
+		// 	$data['from_date'] = $from_dt;$data['to_dt'] = $to_dt;
+		// 	$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
+		// 	$this->load->view("post_login/fertilizer_main");
+		// 	$this->load->view("soceity_pay_portal/branch_paylist",$data);
+		// 	$this->load->view('search/search');
+		// 	$this->load->view('post_login/footer');
 
-		}else{
+		// }else{
 			$br_cd   = $this->session->userdata['loggedin']['branch_id'];
-			$cur_dt  = date('Y-m-d');
-			$pwehere = array('trans_date'=>$cur_dt,'brn_id'=>$br_cd,'status'=>'success','approve_status'=>'A');
-			$data['from_date'] = $cur_dt;$data['to_dt'] = $cur_dt;
+			//$cur_dt  = date('Y-m-d');
+			//$pwehere = array('trans_date'=>$cur_dt,'brn_id'=>$br_cd,'status'=>'success','approve_status'=>'A');
+			$pwehere = array('brn_id'=>$br_cd,'bank_status'=>'Captured','approve_status'=>'U');
+			//$data['from_date'] = $cur_dt;$data['to_dt'] = $cur_dt;
 			$data['paylist']  = $this->Soc_por_paymodel->f_pselect('td_payment',NULL,$pwehere,0);
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("soceity_pay_portal/branch_paylist",$data);
 			$this->load->view('search/search');
 			$this->load->view('post_login/footer');
-		}
-		
+	    //	}
 
 	}
 
