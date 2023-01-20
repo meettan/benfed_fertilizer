@@ -254,8 +254,17 @@
 
                         <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?> 
                             <div class="dropdown-content">
-                            <a href="<?php echo site_url("adv/company_advance");?>">Advance To Company</a>
-                            <a href="<?php echo site_url("adv/company_advance_pending");?>">Pending Advance To Company</a>
+                            <!-- <a href="<?php echo site_url("adv/company_advance");?>">Advance To Company</a>
+                            <a href="<?php echo site_url("adv/company_advance_pending");?>">Pending Advance To Company</a> -->
+
+                            <div class="sub-dropdown">
+                               <a class="sub-dropbtn">Advance To Company<i class="fa fa-angle-right" style="float: right;"></i></a> 
+                               <div class="sub-dropdown-content">
+                               <a href="<?php echo site_url("adv/company_advance");?>">Advance To Company</a>
+                               <a href="<?php echo site_url("adv/company_advance_pending");?>">Pending Advance To Company</a>
+                                </div>
+                            </div>
+
                             <div class="sub-dropdown">
                                <a class="sub-dropbtn">Credit Note <i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
@@ -263,8 +272,19 @@
                                <a href="<?php echo site_url("drcrnote/branch_crnote");?>">Branch Credit Note Realization</a>
                                 </div>
                             </div>
-                            <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
+                            <!-- <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
+                            <a href="<?php echo site_url("compay/company_payment_pending");?>">Pending Company Payment</a> -->
+
+
+                            <div class="sub-dropdown">
+                               <a class="sub-dropbtn">Company Payment<i class="fa fa-angle-right" style="float: right;"></i></a> 
+                               <div class="sub-dropdown-content">
+                               <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
                             <a href="<?php echo site_url("compay/company_payment_pending");?>">Pending Company Payment</a>
+                                </div>
+                            </div>
+
+
                             <div class="sub-dropdown">
                                <a class="sub-dropbtn">IRN Cancel<i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">

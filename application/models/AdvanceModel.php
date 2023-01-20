@@ -90,11 +90,11 @@
 
 	public function advtocomp_pendingList($from_date,$to_date){
 		$fny=$this->session->userdata['loggedin']['fin_id'];
-	 $q=$this->db->query('SELECT a.memo_no,a.trans_dt,a.receipt_no,a.comp_id,b.COMP_NAME,a.adv_amt amt
-	 FROM tdf_company_advance a,mm_company_dtls b ,md_branch c 
+	 $q=$this->db->query('SELECT b.COMP_NAME, c.district_name
+	 FROM tdf_company_advance a,mm_company_dtls b ,md_district c 
 	 WHERE a.comp_id = b.COMP_ID
-	 and a.branch_id = c.id 
-	 AND a.receipt_no is null
+	 and a.branch_id = c.district_code 
+	 AND a.receipt_no IS NULL
 	 ');
 	 return $q->result();
  }

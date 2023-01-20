@@ -44,13 +44,9 @@
                 <thead>
 
                     <tr>
-                        <th>Date</th>
                         <th>District</th>
-                    	<!-- <th>Payment ID</th> -->
                         <th>Company</th>
-                        <th>NET Amount</th>
-                        <!-- <th>View</th> -->
-                        <!-- <th>Delete</th> -->
+                        <!-- <th>NET Amount</th> -->
                     </tr>
 
                 </thead>
@@ -64,28 +60,13 @@
 		    ?>
 
                             <tr>   
-                                <td><?php echo date('d/m/Y',strtotime($pay->pay_dt)); ?></td>
+                               
                                 <td><?php echo $pay->branch_name; ?></td>
-                                <!-- <td><?php echo $pay->pay_no	; ?></td>    -->
+                              
                                 <td><?php echo $pay->COMP_NAME; ?></td>
-                                <td><?php echo $pay->net_amt; ?></td>
+                                <!-- <td><?php echo $pay->net_amt; ?></td> -->
                                
-			 	                <!-- <td><a  href="cmppay_edit?pay_no=<?=$pay->pay_no;?>&cid=<?=$pay->comp_id;?>&bid=<?=$pay->district;?>" 
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
-
-                                        <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
-                                    </a> 
-                               
-                                    </td>
-                                    <td>
-
-                               <button type="button" class="delete" id="<?=$pay->pay_no;?>"    
-                                       
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete">
-
-                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                                    </button> 
-                                </td> -->
+			 	                
                             </tr>
 
                     <?php
@@ -107,11 +88,11 @@
 
                     <tr>
                     
-                        <th>Date</th>
+                        <!-- <th>Date</th> -->
                         <th>District</th>
                     	<!-- <th>Payment ID</th> -->
                         <th>Company</th>
-                        <th>NET Amount</th>
+                        <!-- <th>NET Amount</th> -->
                         <!-- <th>View</th>
                         <th>Delete</th> -->
                     </tr>

@@ -50,18 +50,11 @@
                     <tr>
                         <th>Sl.No.</th>
 
-                        <th>Date</th>
-
-            			<th>Payment No.</th>
-            			<th>Memo Number</th>
+                        <th>Distric</th>
 
                         <th>Company Name</th>
 
-                        <th>Amount</th>
-
-                        <!-- <th>View</th> -->
-
-                        <!-- <th>Delete</th> -->
+                        <!-- <th>Amount</th> -->
                        
                     </tr>
 
@@ -80,14 +73,13 @@
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
                 
-                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
+                               
 
-                                <td><?php echo $value->receipt_no; ?></td>
-                                <td><?php echo $value->memo_no; ?></td>
+                                <td><?php echo $value->district_name; ?></td>
 
                                 <td><?php echo $value->COMP_NAME; ?></td>
 
-                                <td><?php  echo $value->amt; ?>
+                            
                                 </td>
 
 			 	                <!-- <td><a href="company_editadv?rcpt=<?php echo $value->receipt_no;?>" 
@@ -129,14 +121,14 @@
                     
                     <th>Sl.No.</th>
 
-<th>Date</th>
+<!-- <th>Date</th> -->
 
-<th>Payment No.</th>
-<th>Memo Number</th>
+<th>Distric</th>
+<!-- <th>Memo Number</th> -->
 
 <th>Company Name</th>
 
-<th>Amount</th>
+<!-- <th>Amount</th> -->
 
 <!-- <th>View</th> -->
 

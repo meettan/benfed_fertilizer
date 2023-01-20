@@ -186,11 +186,14 @@ return $data->row();
 
 				public function f_get_comp_payment_pending_dtls($from_date,$to_date){
 
-					$data = $this->db->query("select a.pay_dt,a.pay_no,a.district,a.comp_id,a.net_amt net_amt, b.COMP_NAME,c.branch_name 
+					$data = $this->db->query("select distinct b.COMP_NAME,c.branch_name,a.pay_dt,a.pay_no,a.district,a.comp_id 
 					from tdf_company_payment a,mm_company_dtls b,md_branch c 
 					where a.comp_id = b.COMP_ID 
 					and a.district = c.id 
-					and a.pay_no IS NULL");
+					and a.pay_no IS NULL
+					and a.pay_dt IS NULL
+					
+					");
         
                 
                  return $data->result();
