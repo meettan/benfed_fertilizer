@@ -50,7 +50,7 @@
 					
 					$branch      = $pay_data->brn_id;
 					$soc_id      = $pay_data->soc_id;
-					$bank_id     = 34;
+					$bank_id     = 43;
 					$finYr       = $this->session->userdata['loggedin']['fin_id'];
 					$fin_year    = $this->session->userdata['loggedin']['fin_yr'];
 					$select         = array( "dist_sort_code" );
@@ -157,7 +157,7 @@
 			$note        = $pay_data->note;
 			$cheque_no   = $pay_data->cheque_no;
 			$cheque_dt   = $pay_data->cheque_dt;
-			$bank_id     = 34;
+			$bank_id     = 43;
 			
             
 			if($pay_data->payment_type == 'I'){
@@ -335,8 +335,7 @@
 						'approval_status'    =>'A');
 	
 
-						
-						// if($bank_id>0 ){
+
 						$data_array_fin=$data2;
 				       
 						$data_array_fin['acc_code'] = $soc_acc->acc_cd;
