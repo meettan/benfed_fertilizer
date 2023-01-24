@@ -127,7 +127,7 @@
                             }
 
                         ?>
-                       <option value="34" <?php echo($advDtls->bank==34)?'selected':'';?>>HDFC Bank (6908)</option>
+                       <option value="43" <?php echo($advDtls->bank==43)?'selected':'';?>>HDFC BANK (3772) </option>
                     </select>
                 </div>
                 <label for="ac_no" class="col-sm-2 col-form-label">A/C No.:</label>
