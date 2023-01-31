@@ -1634,11 +1634,11 @@ public function f_get_comppay_company(){
 	
    $where=array(
 	   "a.comp_id=b.comp_id" =>NULL,
-	   "a.district" =>$this->input->get("dist_id")
-	   
+	   "a.district" =>$this->input->get("dist_id"),
+	   'a.pay_no IS NULL' => NULL
 	   ) ;
 
-	$company    = $this->Company_paymentModel->f_select_distinct(' tdf_company_payment a,mm_company_dtls b',$select,$where,0);
+	$company    = $this->Company_paymentModel->f_select_distinct('tdf_company_payment a,mm_company_dtls b',$select,$where,0);
 
     echo json_encode($company);
 
