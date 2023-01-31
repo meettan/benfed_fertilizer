@@ -90,14 +90,20 @@
 
 	public function advtocomp_pendingList($from_date,$to_date){
 		$fny=$this->session->userdata['loggedin']['fin_id'];
-	 $q=$this->db->query('SELECT b.COMP_NAME, c.district_name
-	 FROM tdf_company_advance a,mm_company_dtls b ,md_district c 
-	 WHERE a.comp_id = b.COMP_ID
-	 and a.branch_id = c.district_code 
-	 AND a.receipt_no IS NULL
-	 ');
-	 return $q->result();
- }
+	//  $q=$this->db->query('SELECT b.COMP_NAME, c.district_name
+	//  FROM tdf_company_advance a,mm_company_dtls b ,md_district c 
+	//  WHERE a.comp_id = b.COMP_ID
+	//  and a.branch_id = c.district_code 
+	//  AND a.receipt_no IS NULL
+	//  ');
+		$q=$this->db->query("SELECT distinct b.COMP_NAME, c.district_name
+		FROM tdf_adv_fwd a,mm_company_dtls b ,md_district c ,td_adv_details e
+		WHERE e.comp_id = b.COMP_ID
+		and a.branch_id = c.district_code
+		and a.detail_receipt_no=e.detail_receipt_no
+		and a.comp_pay_flag='N' ");
+	    return $q->result();
+    }
 
 
 
