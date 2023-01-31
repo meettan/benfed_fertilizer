@@ -101,7 +101,7 @@
 		WHERE e.comp_id = b.COMP_ID
 		and a.branch_id = c.district_code
 		and a.detail_receipt_no=e.detail_receipt_no
-		and a.comp_pay_flag='N' ");
+		and a.comp_pay_flag='N' and a.fwd_flag ='Y' ");
 	    return $q->result();
     }
 
