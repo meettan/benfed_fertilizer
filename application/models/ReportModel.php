@@ -1210,7 +1210,7 @@ END ),3)lqdqty,
 
     public function f_get_hsn_gst($frmDt, $toDt)
     {
-        $query  = $this->db->query("select  c.prod_desc,c.hsn_code,c.qty_per_bag, d.unit_name,sum(a.qty) as qty,sum(a.round_tot_amt)as  sale_tot_amt,a.unit,
+        $query  = $this->db->query("select  c.prod_desc,c.hsn_code,c.qty_per_bag,c.GST_RT, d.unit_name,sum(a.qty) as qty,sum(a.round_tot_amt)as  sale_tot_amt,a.unit,
                                     sum(a.cgst) sale_cgst,sum(a.sgst) sale_sgst,sum(a.taxable_amt) taxable_amt
                                     from td_sale a,mm_product c,mm_unit d
                                     where   a.prod_id=c.prod_id
@@ -1222,7 +1222,7 @@ END ),3)lqdqty,
     }
     public function f_pur_hsn_gst($frmDt, $toDt)
     {
-        $query  = $this->db->query("select  c.prod_desc,c.hsn_code, d.unit_name,c.qty_per_bag,c.unit,c.prod_id,sum(a.qty) as qty,sum(a.tot_amt)as  pur_tot_amt,
+        $query  = $this->db->query("select  c.prod_desc,c.hsn_code, d.unit_name,c.qty_per_bag,c.GST_RT,c.unit,c.prod_id,sum(a.qty) as qty,sum(a.tot_amt)as  pur_tot_amt,
         sum(a.cgst) pur_cgst,sum(a.sgst) pur_sgst,sum(a.net_amt) taxable_amt
         from td_purchase a,mm_product c,mm_unit d
         where   a.prod_id=c.prod_id

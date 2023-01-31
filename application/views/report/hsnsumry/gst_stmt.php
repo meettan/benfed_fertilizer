@@ -89,7 +89,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Total Qty</th>
 
                                <th>Taxable Amount</th>
-
+                               <th>Gst rate</th>
                                 <th>Output CGST</th>
 
                                 <th>Output SGST</th>
@@ -165,6 +165,8 @@ tr:hover {background-color: #f5f5f5;}
                                       <td class="report"><?php echo $purc->taxable_amt; 
                                       $tot_taxable += $purc->taxable_amt;?>
                                       </td>
+                                      <td class="report"><?php echo $purc->GST_RT; ?>
+                                      </td>
 
                                       <td class="report"><?php echo $purc->sale_cgst;
                                        $tot_rbt_add += $purc->sale_cgst; ?>
@@ -210,6 +212,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td><td class="report"></td>
 
                                <td class="report"><?=$tot_taxable?></td> 
+                               <td class="report"></td> 
                                
                                <td class="report"><?=$tot_rbt_add?></td> 
 
