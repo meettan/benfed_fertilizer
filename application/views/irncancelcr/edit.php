@@ -302,10 +302,17 @@
                 </div>
 
                 <div class="form-group row">
-
+                    
                     <div class="col-sm-10">
-
+                    <?php if($payment_fwd_cnt == 0) { ?>
                         <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Submit" />
+                        <?php }else {   ?>
+
+                            <div class="alert alert-primary" role="alert">
+                            You can not cancel
+                            </div>
+
+                       <?php } ?>
 
                     </div>
 

@@ -360,11 +360,7 @@
 					}else {
 		
 					$select5                = array("sl_no","cate_desc");
-				
-					// $ro_dt      = $ros->ro_dt;
 					
-					// $prod_id    = $prodd->prod_id;
-					// $br_cd      = $this->session->userdata['loggedin']['branch_id'];
 					// $where5                 =  array('district'     => $this->session->userdata['loggedin']['branch_id']);
 					$product['catg']        = $this->SaleModel->f_select('mm_category',$select5,NULL,0);
 						
@@ -377,8 +373,6 @@
 					$select2                = array("ro_no","qty");
 		
 					$product['rodtls']      = $this->SaleModel->f_select('td_purchase',$select2,NULL,0);
-		
-					// $where1                 =  array('district'     => $this->session->userdata['loggedin']['branch_id']);
 					
 					$select1                = array("soc_id","soc_name","soc_add","gstin");
 					$product['socdtls']     = $this->SaleModel->f_select('mm_ferti_soc',$select1,NULL,0);
@@ -386,8 +380,10 @@
 					$select                = array("prod_id","prod_desc","gst_rt");
 					$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
 					$product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("irn" => $this->input->get('irn')),0);
-		// echo 'hi';
-		// exit;
+					$data  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("irn" => $this->input->get('irn')),1);
+					$paid_id               = $this->IrncancelModel->f_get_paidid($data->trans_do);
+					$product['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+		            
 					$this->load->view('post_login/fertilizer_main');
 		
 					$this->load->view("irncancelcr/edit",$product);

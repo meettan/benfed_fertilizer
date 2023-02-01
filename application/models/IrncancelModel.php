@@ -342,6 +342,19 @@ return $result;
 
 			//  return $this->load->view("irncancelcr/dashboard_table",$data);
 		}
+		public function f_get_paidid($trans_do)
+		{
+		$sql = 'select distinct paid_id from tdf_payment_recv where sale_invoice_no =  "'.$trans_do.'" ';
+		$result = $this->db->query($sql)->row();
+		return $result->paid_id;
+		}
+
+		public function check_payment_forward($paid_id){
+			
+			$sql = 'SELECT count(*) as pcnt FROM `tdf_payment_forward` where paid_id= "'.$paid_id.'" ';
+			$result = $this->db->query($sql)->row();
+			return $result->pcnt;
+		}
 
 		// ====================================
  
