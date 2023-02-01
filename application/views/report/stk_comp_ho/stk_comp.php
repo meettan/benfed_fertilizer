@@ -129,7 +129,7 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
 
-                              <!--   <th>Company</th> -->
+                                <th>HSN Code</th>
 
                                 <th>Product</th>
 
@@ -144,6 +144,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Sale during the period</th>
 
                                 <th>Closing</th>
+                                <th>Average rate</th>
+                                <th>Average Total</th>
 
                             </tr>
 
@@ -151,7 +153,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <tbody>
 
-                            <?php //print_r($product);
+                            <?php 
 
                                 if($product){ 
 
@@ -165,6 +167,8 @@ tr:hover {background-color: #f5f5f5;}
                                         $PurchaseLTR=0.0;
                                         $SaleLTR=0.0;
                                         $ClosingLTR=0.0;
+                                        $avg_tot_MTS = 0.0;
+                                        $avg_tot_LTR = 0.0;
 
 
                                         foreach($product as $prodtls){
@@ -173,6 +177,7 @@ tr:hover {background-color: #f5f5f5;}
                                                 $PurchaseMTS=$PurchaseMTS+$prodtls->purchase;
                                                 $SaleMTS=$SaleMTS+$prodtls->sale;
                                                 $ClosingMTS= $ClosingMTS+$prodtls->closing;
+                                                
                                             }else if($prodtls->unit_id==3){
                                                 $OpeningLTR=$OpeningLTR+ $prodtls->opening;
                                                 $PurchaseLTR=$PurchaseLTR+$prodtls->purchase;
@@ -183,7 +188,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                 <!--     <td class="report"><?php //echo $prodtls->short_name; ?> -->
+                                     <td class="report"><?php echo $prodtls->hsn_code; ?>
                                      <td class="report"><?php echo $prodtls->prod_desc; ?>
                                      <!-- <td class="report"><?php //echo $prodtls->ro_no; ?> -->
                                      <td class="report"><?php echo $prodtls->unit;?>
@@ -200,6 +205,31 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td class="report closing" id="closing">
                                         <?php echo $prodtls->closing; ?>
+                                     </td>
+                                     <td class="report closing" id="closing">
+                                        <?php echo $prodtls->avg_rate; ?>
+                                     </td>
+                                     <td class="report closing" id="closing">
+                                        <?php if($prodtls->avg_rate !='') {
+                                            echo round(($prodtls->avg_rate)*($prodtls->closing),2);
+                                           
+                                            
+                                            }
+                                            if($prodtls->unit_id==1){
+                                                if($prodtls->avg_rate !=''){
+                                                    $avg_tot_MTS += round(($prodtls->avg_rate)*($prodtls->closing),2);
+                                                }
+                                                
+                                                }else{
+
+                                                    if($prodtls->avg_rate !=''){
+                                                        $avg_tot_LTR += round(($prodtls->avg_rate)*($prodtls->closing),2);
+                                                    }
+                            
+                                                }
+                                            
+                                            ?>
+                                    
                                      </td>
                                    
                                 </tr>
@@ -223,28 +253,32 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="3" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
+                               <td class="report" colspan="4" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Average Total</b></td>
                             </tr>
                             <tr>
-                               <td class="report" colspan="3" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
+                               <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$PurchaseMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$SaleMTS?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingMTS ?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$avg_tot_MTS ?></td>
                             </tr>
                             <tr>
                             <tr>
-                               <td class="report" colspan="3" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
+                               <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $PurchaseLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $SaleLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
-                              
-                                  
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$avg_tot_LTR?></td>                                  
                                     
                             </tr>
                         </tfooter>
