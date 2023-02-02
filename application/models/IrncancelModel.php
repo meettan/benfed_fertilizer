@@ -346,7 +346,12 @@ return $result;
 		{
 		$sql = 'select distinct paid_id from tdf_payment_recv where sale_invoice_no =  "'.$trans_do.'" ';
 		$result = $this->db->query($sql)->row();
-		return $result->paid_id;
+		if($result){
+			return $result->paid_id;
+		}else{
+			return NULL;
+		}
+		
 		}
 
 		public function check_payment_forward($paid_id){

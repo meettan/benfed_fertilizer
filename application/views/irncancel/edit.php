@@ -165,9 +165,17 @@
            <div>
 
 				<div class="col-sm-10">
-
+                 
+                <?php if($payment_fwd_cnt == 0) { 
+                    ?>
 					<input type="submit" id="submit" class="btn btn-info cancel active_flag_c" value="Cancel" Onclick="myfunction()"  />
+                    <?php }else {   ?>
 
+                <div class="alert alert-primary" role="alert">
+                You can not cancel
+                </div>
+
+                <?php } ?>
 				</div>
 
 			</div>

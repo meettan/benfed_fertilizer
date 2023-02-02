@@ -382,7 +382,11 @@
 					$product['prod_dtls']  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("irn" => $this->input->get('irn')),0);
 					$data  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("irn" => $this->input->get('irn')),1);
 					$paid_id               = $this->IrncancelModel->f_get_paidid($data->trans_do);
-					$product['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+					if($paid_id){
+						$data['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+					}else{
+						$data['payment_fwd_cnt'] = 0 ;
+					}
 		            
 					$this->load->view('post_login/fertilizer_main');
 		
@@ -492,6 +496,14 @@
                         );
                     
                     $data['irnDtls']        = $this->IrncancelModel->f_get_adv_dtls($this->input->get('irn'));
+					$sdata  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("irn" => $this->input->get('irn')),1);
+					$paid_id               = $this->IrncancelModel->f_get_paidid($sdata->trans_do);
+					if($paid_id){
+						$data['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+					}else{
+						$data['payment_fwd_cnt'] = 0 ;
+					}
+					
         
                     $this->load->view('post_login/fertilizer_main');
         
