@@ -383,7 +383,9 @@
 					$data  = $this->SaleModel->f_get_particulars("td_sale", NULL, array("irn" => $this->input->get('irn')),1);
 					$paid_id               = $this->IrncancelModel->f_get_paidid($data->trans_do);
 					if($paid_id){
+						echo $paid_id;
 						$data['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+						echo $this->db->last_query();
 					}else{
 						$data['payment_fwd_cnt'] = 0 ;
 					}
