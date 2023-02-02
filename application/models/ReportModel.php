@@ -68,7 +68,8 @@ class ReportModel extends CI_Model
   /************Procedure for Companywise Consolidated Stock at branch*************/  
    public function p_companywise_stock($all_data)
    {
-
+            $fr_dt = $all_data[0];
+            $to_dt = $all_data[1];
        try {
            $this->db->reconnect();
 
@@ -81,7 +82,12 @@ class ReportModel extends CI_Model
            echo $e->getMessage();
        }
 
-       return $data_w->result();
+       //return $data_w->result();
+
+       $sql = $this->db->query("select a.comp_name,a.prod_desc,a.unit,a.opening,a.purchase,a.sale,a.closing,a.container,a.unit_id,a.hsn_code,
+       (select round(sum(b.rate)/count(b.rate),3)   from td_purchase b  where a.prod_id=b.prod_id )as avg_rate
+             from   tt_consolidated_stock a");
+       return $data = $sql->result();
 
    }
 
@@ -90,7 +96,7 @@ class ReportModel extends CI_Model
    {
    
             $fr_dt = $all_data[0];
-            $to_dt = $all_data[0];
+            $to_dt = $all_data[1];
 
        try {
            $this->db->reconnect();
