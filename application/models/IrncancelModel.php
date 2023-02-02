@@ -358,7 +358,9 @@ return $result;
 			
 			$sql = 'SELECT count(*) as pcnt FROM `tdf_payment_forward` where paid_id= "'.$paid_id.'" ';
 			$result = $this->db->query($sql)->row();
-			return $result->pcnt;
+			print_r($result);
+			echo $result->pcnt;
+			//return $result->pcnt;
 		}
 
 		// ====================================
