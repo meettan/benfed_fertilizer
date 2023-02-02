@@ -1475,19 +1475,17 @@ public function hsnsumrypurrep(){
 
             }else{
                 
+                    $all_data_n           =   array($from_dt,$to_dt,$company);
+                    
+                    $_SESSION['date']     =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+                    
+                    $data['branch']       =   "0";
+                    
+                    $data['purchase']     =   $this->ReportModel->pcn($from_dt,$to_dt,$company);
 
-                $all_data_n           =   array($from_dt,$to_dt,$company);
-                
-                $_SESSION['date']     =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
-                 
-                $data['branch']       =   "0";
-                
-                $data['purchase']     =   $this->ReportModel->pcn($from_dt,$to_dt,$company);
-
-               
-                $this->load->view('post_login/fertilizer_main');
-                $this->load->view('report/purchase_br/pur_stmt',$data);
-                $this->load->view('post_login/footer');
+                    $this->load->view('post_login/fertilizer_main');
+                    $this->load->view('report/purchase_br/pur_stmt',$data);
+                    $this->load->view('post_login/footer');
             }
 
             }else{

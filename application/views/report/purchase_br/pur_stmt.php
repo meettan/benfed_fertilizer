@@ -87,7 +87,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Company</th>
 
                                 <th>Product</th>
-
+                                <th>HSN code</th>
                                 <th>Ro No</th>
 
                                 <th>Ro Dt</th>
@@ -170,6 +170,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $i++; ?></td>
                                      <td class="report"><?php echo $purc->short_name; ?></td>
                                      <td class="report"><?php echo $purc->PROD_DESC; ?></td>
+                                     <td class="report"><?php echo $purc->HSN_CODE; ?></td>
                                      <td class="report"><?php echo $purc->ro_no; ?></td>
                                      <td class="report"><?php echo date("d/m/Y",strtotime($purc->ro_dt)); ?></td>
                                      <td class="report"><?php echo $purc->invoice_no ?></td>
@@ -326,7 +327,7 @@ tr:hover {background-color: #f5f5f5;}
                         <?php if(!empty($purchase)){ ?>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="11" style="text-align:right"><b>Total</b></td> 
+                               <td class="report" colspan="12" style="text-align:right"><b>Total</b></td> 
                                <td class="report"><b><?=$base_price?></b></td>
                                <td class="report"><b><?=$retlr_margin?></b></td>
                                <td class="report"><b><?=$add_adj_amt?></b></td>
