@@ -385,7 +385,7 @@
 					if($paid_id){
 					   
 						$product['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
-						echo $this->db->last_query();
+						
 					}else{
 						$product['payment_fwd_cnt'] = 0 ;
 					}
