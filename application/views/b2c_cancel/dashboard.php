@@ -21,14 +21,14 @@
                 </div> -->
             </h3> 
             <div class="form-group row">
-              <form method="POST" action="" >
+              <form method="POST" action="<?php echo site_url("b2ccelfilt") ?>" >
 
                         <div class="col-sm-3">
-	                    <input type="date" style="width:300px" id=from_date name="from_date" class="form-control"  />
+	                    <input type="date" style="width:300px" id=from_date name="from_date" class="form-control" required />
                         </div>
 
                         <div class="col-sm-3">
-                        <input type="date" style="width:250px" id=to_date name="to_date" class="form-control"  />
+                        <input type="date" style="width:250px" id=to_date name="to_date" class="form-control"  required/>
 	                    </div>
 
                         <div class="col-sm-3">
@@ -159,9 +159,10 @@
 
     <?php if($this->session->flashdata('msg')){ ?>
 	window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+    <?php } ?>
     });
 
-    <?php } ?>
+    
 </script>
 
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -176,26 +177,3 @@ $(document).ready(function() {
     } );
 } );
 </script>
-
-<script>
-var clicked = false;
-$(".filt").on("click", function() {
-    var frmdt = $('#from_date').val();
-    var todt = $('#to_date').val();
-    // $(".obutn").click(function() {
-    //  $(this).closest("form").attr("action", "/benfed_fertilizer/index.php/trade/salesfilter");   
-    // $(this).closest("form").attr("action", "/benfed_fertilizer/index.php/b2ccelfilt");
-    $(this).closest("form").attr("action", "/fertilizer/index.php/b2ccelfilt");   
-    
-// });
-    if(frmdt=='' && todt==''){
-      //  alert('raj'); 
-        // $(this).closest("form").attr("action", "/benfed_fertilizer/index.php/trade/sale"); 
-        // $(this).closest("form").attr("action", "/benfed_fertilizer/index.php/b2ccel"); 
-        $(this).closest("form").attr("action", "/fertilizer/index.php/b2ccel");  
-    }
-  
-  
-});
-
-        </script>

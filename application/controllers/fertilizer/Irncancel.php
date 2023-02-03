@@ -96,7 +96,14 @@
                         );
                     
                     $data['invDtls']        = $this->IrncancelModel->f_get_b2c_dtls($this->input->get('trans_do'));
-        
+					$paid_id               = $this->IrncancelModel->f_get_paidid($this->input->get('trans_do'));
+					if($paid_id){
+					   
+						$data['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+						
+					}else{
+						$data['payment_fwd_cnt'] = 0 ;
+					}
                     $this->load->view('post_login/fertilizer_main');
         
                     $this->load->view("b2c_cancel/edit",$data);
@@ -156,7 +163,7 @@
             );
         
             $irn['data']    = $this->IrncancelModel->f_select("td_sale a,mm_ferti_soc b,md_district c",$select,$where,0);
-		}
+		   }
         
             $this->load->view("post_login/fertilizer_main");
         
