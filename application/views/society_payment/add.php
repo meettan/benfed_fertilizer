@@ -1097,29 +1097,16 @@
     $('.table tbody').on('change', '.pay', function () {
         var selval = $(this).val();
 
-        // alert(selval);
         if(selval==2||selval==6||selval==1){
            
             let row = $(this).closest('tr');
-            
-            // row.find('td:eq(1) .ref_dt').attr('disabled','disabled');
-            // row.find('td:eq(2) .ref_no').attr('disabled','disabled');
 
             row.find('td:eq(2) .ref_no').prop('required', false);
             row.find('td:eq(1) .ref_dt').prop('required', false);
-            // row.find('td:eq(1) .ref_dt').hide();
-            // row.find('td:eq(2) .ref_no').hide();
-
-            // if(selval==3||selval==4||selval==5||selval==7)
         }else{
             let row = $(this).closest('tr');
-            // row.find('td:eq(1) .ref_dt').removeAttr('disabled');
-            // row.find('td:eq(2) .ref_no').removeAttr('disabled');
-
             row.find('td:eq(1) .ref_dt').prop('required', true);
             row.find('td:eq(2) .ref_no').prop('required', true);
-            // row.find('td:eq(1) .ref_dt').show();
-            // row.find('td:eq(2) .ref_no').show();
         }
 
         var c = 0;
@@ -1138,7 +1125,7 @@
             $("#addrow").show();
             $("#submit").prop('disabled', false);
         }
-
+        
 
     })
 

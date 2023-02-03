@@ -163,8 +163,6 @@ public function society_payEdit(){
 
 		    $tot_qty=	round(($tot_amt/$unit_rate),3);
 
-
-
 			// $presult = $this->AdvanceModel->f_select("td_purchase",array('rate'),array('ro_no'=>trim($ro)),1);
 
 			/*$presult = $this->AdvanceModel->f_select("td_purchase",array('tot_amt','qty'),array('ro_no'=>trim($ro)),1);
@@ -177,9 +175,6 @@ public function society_payEdit(){
 
 			$tot_qty = round(($tot_amt/$tot_rate),3);*/
 
-
-
-		
 
 	/*	$invoiceNo=$this->input->post('trans_do');
 
@@ -200,9 +195,6 @@ public function society_payEdit(){
 				$tot_qty=$tot_qty;
 			}
 	}
-	
-		
-	
 
 		if($soldqty - $tot_qty < 0 ){
 				
@@ -214,9 +206,7 @@ public function society_payEdit(){
 
 
 
-
-
-            $pay_type = $this->input->post('pay_type');
+            $pay_type = array_unique($this->input->post('pay_type'));
             
 					$tot_paid_amt    = 0.00;
 					$tot_soc         = 0.00;
