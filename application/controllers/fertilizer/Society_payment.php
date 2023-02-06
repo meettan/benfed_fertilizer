@@ -138,7 +138,7 @@ public function society_payEdit(){
 		    $where_soc           = array("soc_id"     => $soc_id);
 	        $soc_name            = $this->AdvanceModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
 		    $cnt                 = $this->Society_paymentModel->check_soc_paytype($ro ,$br_cd);
-				
+			$tot_sale_amt        = 0; $pre_paid_amt = 0;$cur_paid_amt=0;$tot_paid_recv=0;	
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 				$soc_id       = $this->input->post('soc_id');
 				$bnk_idd=explode(',',$this->input->post('bnk_id'));
@@ -162,52 +162,18 @@ public function society_payEdit(){
 			$tot_amt = array_sum($_POST['paid_amt']);
 
 		    $tot_qty=	round(($tot_amt/$unit_rate),3);
-
-			// $presult = $this->AdvanceModel->f_select("td_purchase",array('rate'),array('ro_no'=>trim($ro)),1);
-
-			/*$presult = $this->AdvanceModel->f_select("td_purchase",array('tot_amt','qty'),array('ro_no'=>trim($ro)),1);
-
-            $tot_amt = array_sum($_POST['paid_amt']);
-
-			$tot_rate = round((($presult->tot_amt)/$presult->qty),3);
-
-			$soldqty =$this->input->post('sold');
-
-			$tot_qty = round(($tot_amt/$tot_rate),3);*/
-
-
-	/*	$invoiceNo=$this->input->post('trans_do');
-
-		$pay_count=$this->AdvanceModel->f_select("tdf_payment_recv",array('count(*) pay_count'),array('sale_invoice_no'=>$invoiceNo),1);
-
-		
-
-		if($pay_count->pay_count > 0){
-			$paid_qty=$this->AdvanceModel->f_select("tdf_payment_recv",array('sum(paid_qty) paid_qty'),array('sale_invoice_no'=>$invoiceNo),1);
-
-			$tot_qty = $tot_qty - ( $paid_qty->paid_qty);
-
-		}else{
-
-			 If($tot_qty>$soldqty){
-				$tot_qty=$soldqty;
-			}else{
-				$tot_qty=$tot_qty;
-			}
-	}
-
-		if($soldqty - $tot_qty < 0 ){
-				
-			$tot_qty=$soldqty;
-		
-		}else{
-			$tot_qty=$tot_qty;
-		}*/
-
-
-
-            $pay_type = array_unique($this->input->post('pay_type'));
+			//  Start  Calculation for Total Payment Validation     ///
+            $sale_detail = $this->AdvanceModel->f_select("td_sale",array('round_tot_amt'),array('trans_do'=>$this->input->post('trans_do')),1);
+			$tot_sale_amt = round($sale_detail->round_tot_amt); 
+			$pre_paid_dtls= $this->AdvanceModel->f_select("tdf_payment_recv",array('IFNULL(sum(paid_amt),0) as paid_amt'),array('sale_invoice_no'=>$this->input->post('trans_do')),1);
+			$pre_paid_amt  = $pre_paid_dtls->paid_amt;
+			$cur_paid_amt  = $tot_amt;
+			$tot_paid_recv      = round($pre_paid_amt+$cur_paid_amt);
             
+
+			if($tot_paid_recv <= $tot_sale_amt){
+
+                    $pay_type = array_unique($this->input->post('pay_type'));
 					$tot_paid_amt    = 0.00;
 					$tot_soc         = 0.00;
 					$tot_sundry      = 0.00;
@@ -348,68 +314,68 @@ public function society_payEdit(){
 												   'created_dt'    => date('Y-m-d H:i:s'));
 	   
 						   $this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
-                }
+                    }
 	
 					// }
 
-					$data1     = array(   
-                                            
-					'paid_id'        	=> $cust_pay_recipt,
+							$data1     = array(   
+													
+							'paid_id'        	=> $cust_pay_recipt,
 
-					'paid_dt'           => $this->input->post('paid_dt'),
+							'paid_dt'           => $this->input->post('paid_dt'),
 
-					'soc_id'            => $this->input->post('soc_id'),
+							'soc_id'            => $this->input->post('soc_id'),
 
-					'sale_invoice_no'   => $this->input->post('trans_do'),
+							'sale_invoice_no'   => $this->input->post('trans_do'),
 
-					'sale_invoice_dt'   =>  $this->input->post('do_dt'),
+							'sale_invoice_dt'   =>  $this->input->post('do_dt'),
 
-					'ro_no'             => $this->input->post('sale_ro'),
+							'ro_no'             => $this->input->post('sale_ro'),
 
-					'comp_id'           => $this->input->post('comp_id'),
+							'comp_id'           => $this->input->post('comp_id'),
 
-					'prod_id'           => $this->input->post('prod_id'),
+							'prod_id'           => $this->input->post('prod_id'),
 
-					'ro_rt'             => $this->input->post('ro_rt'),
+							'ro_rt'             => $this->input->post('ro_rt'),
 
-					'adj_dr_note_amt'    => $this->input->post('tot_dr_amt'),
+							'adj_dr_note_amt'    => $this->input->post('tot_dr_amt'),
 
-					'adj_adv_amt'        => $this->input->post('adv_amt'),
+							'adj_adv_amt'        => $this->input->post('adv_amt'),
 
-					'net_recvble_amt'    => $this->input->post('net_amt'),
-					
-					'tot_recvble_amt'    => $this->input->post('tot_recvble_amt'),
-					
-					'remarks'           => $this->input->post('remarks'),
+							'net_recvble_amt'    => $this->input->post('net_amt'),
+							
+							'tot_recvble_amt'    => $this->input->post('tot_recvble_amt'),
+							
+							'remarks'           => $this->input->post('remarks'),
 
-					'bnk_id'            => $bnk_id,
-					
-					'paid_amt'           =>$total,
-					
-					"created_by"         =>  $this->session->userdata['loggedin']['user_name'],
+							'bnk_id'            => $bnk_id,
+							
+							'paid_amt'           =>$total,
+							
+							"created_by"         =>  $this->session->userdata['loggedin']['user_name'],
 
-					"created_dt"         =>  date('Y-m-d H:i:s'),
+							"created_dt"         =>  date('Y-m-d H:i:s'),
 
-					'branch_id'          => $br_cd,
+							'branch_id'          => $br_cd,
 
-					'fin_yr'             => $fin_id,
-					
-					'approval_status'    =>'U');
+							'fin_yr'             => $fin_id,
+							
+							'approval_status'    =>'U');
 
-					$data_cr_fin=$data1;
-					
-					$data_cr_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
-					
-					if ($trans_type=='2'){
-						
-						
-						$data_cr_fin['adv_acc'] = $adv_acc->adv_acc;
-						
-						$this->ApiVoucher->f_recvjnl_dr($data_cr_fin);
-						
-					}
+							$data_cr_fin=$data1;
+							
+							$data_cr_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
+							
+							if ($trans_type=='2'){
+								
+								
+								$data_cr_fin['adv_acc'] = $adv_acc->adv_acc;
+								
+								$this->ApiVoucher->f_recvjnl_dr($data_cr_fin);
+								
+							}
 				
-	}		
+	               }		
 					
 					$data2     = array(   
                                             
@@ -543,8 +509,10 @@ public function society_payEdit(){
 					 }
 				
                     $this->session->set_flashdata('msg', 'Successfully Added');
-        
-                    redirect('socpay/society_payment');
+					redirect('socpay/society_payment');
+				}
+				$this->session->set_flashdata('error', 'Amount mismatched please check ! Saved failed');
+                redirect('socpay/society_payment');
                 
              }else {
     

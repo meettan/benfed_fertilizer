@@ -205,16 +205,17 @@
     });
 </script>
 
-<!-- <script>
+<script>
 
     $(document).ready(function() {
 
-    <?php if($this->session->flashdata('msg')){ ?>
-	window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+    <?php if($this->session->flashdata('error')){ ?>
+	window.alert("<?php echo $this->session->flashdata('error'); ?>");
+    <?php } ?>
     });
 
-    <?php } ?>
-</script> -->
+
+</script>
 
 
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
