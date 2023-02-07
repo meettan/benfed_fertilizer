@@ -173,7 +173,8 @@
                     <tr>
 
                         <th>Sl No.</th>
-                        <th>Branch Name / Fo Number</th>
+                        <th>Branch Name </th>
+                        <th>Fo Number</th>
                         <th>Amount</th>
                         <th>TDS</th>
                         <th>NET Amount</th>
@@ -202,7 +203,7 @@
                                 <td><?php echo $i++; ?></td>
 
                                 <td><?php if(!empty($ptableDatasummary->fo_name)){echo $ptableDatasummary->fo_name;}else{if(!empty($ptableDatasummary->branch_name)){echo $ptableDatasummary->branch_name;}else{echo "";}} ?></td>
-
+                                <td><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
 
                                 <td style="text-align: right;"><?php echo $ptableDatasummary->adv_amt; ?></td>
                                 <td style="text-align: right;"><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2), 2);
@@ -217,7 +218,7 @@
                         <?php    } ?>
 
                         <tr>
-                            <td colspan="2"><b>Total</b></td>
+                            <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalnetamt, 2); ?></b></td>
