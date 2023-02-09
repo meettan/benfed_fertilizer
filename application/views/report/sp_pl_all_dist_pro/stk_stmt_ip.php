@@ -90,6 +90,7 @@
                 <div class="col-sm-6">
                     <select name="dist" id="dist" class="form-control dist" required>
                         <option value="">Select District</option>
+                        <option value="<?php echo '0';?>,<?php echo 'ALL'; ?>"> <?php echo 'ALL'; ?></option>
                         <?php foreach($dist as $row){ ?>
                         <option value="<?php echo $row->district_code;?>,<?php echo $row->district_name;?>">
                             <?php echo $row->district_name;?></option>

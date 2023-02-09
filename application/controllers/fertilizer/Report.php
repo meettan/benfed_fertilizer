@@ -719,9 +719,9 @@ public function ps_pl_all_comp_dist(){
         $this->load->view('post_login/footer');
 
     }else{
-        $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);
+        $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
 
-        $data['dist']=$this->ReportModel->f_select("md_district", NULL, $where1=null,0);
+        $data['dist']=$this->ReportModel->f_select("md_district", NULL,array('1 order by district_name'=>NULL),0);
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/sp_pl_all_dist_pro/stk_stmt_ip',$data);
         $this->load->view('post_login/footer');
@@ -732,7 +732,7 @@ public function ps_pl_all_comp_dist(){
         $comp=$this->input->post('comp_id');
         $ex=explode(',',$comp);
         $comp_id=$ex[0];
-        $where1 = array("COMPANY"  =>  $comp_id);
+        $where1 = array("COMPANY"  =>  $comp_id,'1 order by PROD_DESC'=>NULL);
         $select=array('PROD_DESC','PROD_ID');
 
         $data=$this->ReportModel->f_select("mm_product", $select, $where1,0);
