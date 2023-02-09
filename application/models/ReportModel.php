@@ -1710,18 +1710,22 @@ and a.ro_no not in (select sale_ro from td_sale
             sum(b.round_tot_amt) - a.tot_amt as profit,
             round((round(sum(b.round_tot_amt)/sum(b.qty),2)- round(a.tot_amt /a.qty,3))*sum(b.qty),2) pro,
             round(sum(b.round_tot_amt)/sum(b.qty),2)rt_gst,
-            (a.qty- sum(b.qty))*round(a.tot_amt /a.qty,3) as unsold
-        FROM td_purchase a ,td_sale b,mm_company_dtls c,mm_product d
+            (a.qty- sum(b.qty))*round(a.tot_amt /a.qty,3) as unsold,e.branch_name
+        FROM td_purchase a ,td_sale b,mm_company_dtls c,mm_product d,md_branch e
         WHERE a.ro_no=b.sale_ro
         and a.comp_id=b.comp_id
         and a.prod_id=b.prod_id
         and a.comp_id=c.comp_id
         and a.prod_id=d.prod_id
+
+        and a.br=b.br_cd
+        and b.br_cd=e.id
+
         and a.ro_dt between "' . $fdate . '" and "' . $tdate . '"
         and a.comp_id = ' . $comp . '
         and a.prod_id = ' . $product_id . '
         and a.br = ' . $district_id . '
-        group by c.comp_name,d.prod_desc,a.ro_no,a.ro_dt,round(a.tot_amt /a.qty,3),a.tot_amt,a.qty,d.unit,d.qty_per_bag,b.sale_rt
+        group by c.comp_name,d.prod_desc,a.ro_no,a.ro_dt,round(a.tot_amt /a.qty,3),a.tot_amt,a.qty,d.unit,d.qty_per_bag,b.sale_rt,e.branch_name
         UNION
         SELECT c.short_name comp_name,
             d.prod_desc,
@@ -1738,10 +1742,11 @@ and a.ro_no not in (select sale_ro from td_sale
             0 as profit,
             0 pro,
             0 rt_gst,
-            a.tot_amt as unsold
-        FROM td_purchase a, mm_company_dtls c,mm_product d
+            a.tot_amt as unsold,e.branch_name
+        FROM td_purchase a, mm_company_dtls c,mm_product d,md_branch e
         WHERE a.comp_id=c.COMP_ID
         and a.prod_id=d.PROD_ID
+        and a.br=e.id
         and a.ro_dt between "' . $fdate . '" and "' . $tdate . '"
         and a.comp_id = ' . $comp . '
         and a.prod_id = ' . $product_id . '
@@ -1765,17 +1770,19 @@ and a.ro_no not in (select sale_ro from td_sale
         sum(b.round_tot_amt) - a.tot_amt as profit,
         round((round(sum(b.round_tot_amt)/sum(b.qty),2)- round(a.tot_amt /a.qty,3))*sum(b.qty),2) pro,
         round(sum(b.round_tot_amt)/sum(b.qty),2)rt_gst,
-        (a.qty- sum(b.qty))*round(a.tot_amt /a.qty,3) as unsold
-    FROM td_purchase a ,td_sale b,mm_company_dtls c,mm_product d
+        (a.qty- sum(b.qty))*round(a.tot_amt /a.qty,3) as unsold,e.branch_name
+    FROM td_purchase a ,td_sale b,mm_company_dtls c,mm_product d,md_branch e
     WHERE a.ro_no=b.sale_ro
     and a.comp_id=b.comp_id
     and a.prod_id=b.prod_id
     and a.comp_id=c.comp_id
     and a.prod_id=d.prod_id
+    and a.br=b.br_cd
+    and b.br_cd=e.id
     and a.ro_dt between "' . $fdate . '" and "' . $tdate . '"
     and a.comp_id = ' . $comp . '
     and a.prod_id = ' . $product_id . '
-    group by c.comp_name,d.prod_desc,a.ro_no,a.ro_dt,round(a.tot_amt /a.qty,3),a.tot_amt,a.qty,d.unit,d.qty_per_bag,b.sale_rt
+    group by c.comp_name,d.prod_desc,a.ro_no,a.ro_dt,round(a.tot_amt /a.qty,3),a.tot_amt,a.qty,d.unit,d.qty_per_bag,b.sale_rt,e.branch_name
     UNION
     SELECT c.short_name comp_name,
         d.prod_desc,
@@ -1792,10 +1799,11 @@ and a.ro_no not in (select sale_ro from td_sale
         0 as profit,
         0 pro,
         0 rt_gst,
-        a.tot_amt as unsold
-    FROM td_purchase a, mm_company_dtls c,mm_product d
+        a.tot_amt as unsold,e.branch_name
+    FROM td_purchase a, mm_company_dtls c,mm_product d,md_branch e
     WHERE a.comp_id=c.COMP_ID
     and a.prod_id=d.PROD_ID
+    and a.br=e.id
     and a.ro_dt between "' . $fdate . '" and "' . $tdate . '"
     and a.comp_id = ' . $comp . '
     and a.prod_id = ' . $product_id . '

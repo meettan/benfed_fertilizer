@@ -132,7 +132,7 @@
                                     $salqty=0.00;
                                     $purqty=0.00;
                                     $ratediff=0.00;
-
+                                    $tot_sale_qty = 0.00;
 
 
                                     $par_rate=0;
@@ -151,7 +151,7 @@
 
                     <tr class="rep">
                         <td class="report"><?php echo $i++; ?></td>   <!-- SL.No.--->
-                        <!-- <td class="report"><?php echo $prodtls->comp_name; ?></td>  Company Name - -->
+                        <td class="report"><?php echo $prodtls->branch_name; ?></td> 
                         <td class="report"><?php echo $prodtls->prod_desc; ?></td>  <!-- Product Name--->
 
                         <td class="report"><?php     ///Unit convertion all solid in MT & Liquid in Ltr
@@ -217,70 +217,33 @@
                         <td class="report">      
 
                             <?php          ///Sale Quantity
-                                    // if( $prodtls->sale_qty<>$prodtls->qty)   {
-                                        // echo "<font color='brown'><b>$prodtls->sale_qty</font></b>"; 
-                                    //   echo $prodtls->sale_qty; 
                                     if($prodtls->unit==1){
-
                                         echo $prodtls->sale_qty; 
-                                        
-                                        //$sale_qty=$sale_qty+$prodtls->sale_qty;
+                                        $tot_sale_qty += $prodtls->sale_qty;
                                        }elseif($prodtls->unit==2){
                                            echo ($prodtls->sale_qty)/1000; 
-                                           //$sale_qty=($sale_qty+$prodtls->sale_qty/1000);
+                                           $tot_sale_qty += ($prodtls->sale_qty)/1000; 
                                        }elseif($prodtls->unit==4){
                                            echo ($prodtls->sale_qty)/10;
-                                           //$sale_qty=($sale_qty+$prodtls->sale_qty/10);
+                                           $tot_sale_qty += ($prodtls->sale_qty)/10; 
                                        }elseif($prodtls->unit==6){
                                            echo ($prodtls->sale_qty)/1000000;
-                                           //$sale_qty=($sale_qty+$prodtls->sale_qty)/1000000;
+                                           $tot_sale_qty += ($prodtls->sale_qty)/1000000;
                                        }elseif($prodtls->unit==3){
                                            echo $prodtls->sale_qty;
-                                           //$sale_qty=($sale_qty+$prodtls->sale_qty);
+                                           $tot_sale_qty += $prodtls->sale_qty;
                                        }elseif($prodtls->unit==5){
                                            echo ($prodtls->sale_qty)*($prodtls->qty_per_bag)/1000; 
-                                           //$sale_qty=($sale_qty+$prodtls->sale_qty)/1000;  
+                                           $tot_sale_qty += ($prodtls->sale_qty)*($prodtls->qty_per_bag)/1000; 
                                        }
                                        
-
-                                    /*} else {
-                                        // echo $prodtls->sale_qty; 
-                                        if($prodtls->unit==1){
-                                            echo $prodtls->sale_qty; 
-                                            $sale_qty=($sale_qty+$prodtls->sale_qty);
-                                           }elseif($prodtls->unit==2){
-                                               echo ($prodtls->sale_qty)/1000;
-                                               $sale_qty=($sale_qty+$prodtls->sale_qty)/1000; 
-                                           }elseif($prodtls->unit==4){
-                                               echo ($prodtls->sale_qty)/10;
-                                               $sale_qty=($sale_qty+$prodtls->sale_qty)/10;
-                                           }elseif($prodtls->unit==6){
-                                               echo ($prodtls->sale_qty)/1000000;
-                                               $sale_qty=($sale_qty+$prodtls->sale_qty)/1000000;
-                                           }elseif($prodtls->unit==3){
-                                               echo $prodtls->sale_qty;
-                                               $sale_qty=($sale_qty+$prodtls->sale_qty);
-                                           }elseif($prodtls->unit==5){
-                                               echo ($prodtls->sale_qty)*($prodtls->qty_per_bag)/1000; 
-                                               $sale_qty=($sale_qty+$prodtls->sale_qty)/1000;  
-                                           }
-
-
-                                    }*/
                                      ?>
                         </td>
 
                         <td class="report">      <!--- (Sale rate - Purchase rate)*sale qty --->
                             <?php
-                                    //  if($prodtls->profit<0)   {
-                                    //     echo "<font color='blue'><b>$prodtls->pro</font></b>"; 
-                                    //   } else {
-                                    //   echo $prodtls->profit; 
-                                    // }
-
                                  
                                     if($prodtls->unit==1){
-
                                         // echo $purdtls->qty; 
                                         $salqty1=$prodtls->sale_qty;
                                        }elseif($prodtls->unit==2){
@@ -308,8 +271,6 @@
 
 
                         <td class="report"><?php ////Unsold
-
-
 
                   if($prodtls->unit==1){
                    
@@ -352,7 +313,7 @@
 
 
                                        ?>
-
+                            </td>
                     </tr>
 
                     <?php  
@@ -376,6 +337,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td>Total</td>
                         <td style="font-size:12px !important;"></td>
                         <td style="font-size:12px !important;"><?=round($par_amt,2)?></td>
@@ -383,7 +345,7 @@
                         <td style="font-size:12px !important;"><?=round($sale_rate,2)?></td>
                         <td style="font-size:12px !important;"><?=round($sale_R_With_GST,2)?></td>
                         <td style="font-size:12px !important;"><?=round($sale_amt,2)?></td>
-                        <td style="font-size:12px !important;"></td>
+                        <td style="font-size:12px !important;"><?=$tot_sale_qty?></td>
                         <td style="font-size:12px !important;"><?=$sale_par_rate_qty?></td>
                         <td style="font-size:12px !important;"><?=round($unsold,2)?></td>
 
