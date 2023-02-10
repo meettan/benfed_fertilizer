@@ -440,12 +440,8 @@ public function stkStmt_ho(){
             $data['product']      =    $this->ReportModel->p_consolidated_stock(array($from_dt,$to_dt,$branch));
 
         }
-
-
-
         
         $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
-
 
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/stk_stmt_ho/stk_stmt',$data);
@@ -817,8 +813,8 @@ public function stkScomp_ho(){
 
     }else{
         $select1      = array("district_code","district_name");
-        $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
-        $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);
+        $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, array('1 order by district_name'=>NULL),0);
+        $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
 
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/stk_comp_ho/stk_comp_ip',$data);
@@ -1491,8 +1487,8 @@ public function hsnsumrypurrep(){
             }else{
                 $select1      = array("district_code","district_name");
 				$select2      = array("COMP_ID","COMP_NAME");
-                $data['all_company']      =   $this->ReportModel->f_select("mm_company_dtls", $select2, NULL,0);
-                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, NULL,0);
+                $data['all_company']      =   $this->ReportModel->f_select("mm_company_dtls", $select2, array('1 order by COMP_NAME'=>NULL),0);
+                $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, array('1 order by district_name'=>NULL),0);
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/purchase_br/pur_stmt_ip',$data);
                 $this->load->view('post_login/footer');
@@ -1707,11 +1703,12 @@ public function crngstunreg(){
                 $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $society['societyDtls']   = $this->ReportModel->f_select('mm_ferti_soc',$select,$where,0);
-                $data['all_branch']       = $this->ReportModel->f_select("md_district", $select1, NULL,0);
+                $data['all_branch']       = $this->ReportModel->f_select("md_district", $select1,array('1 order by district_name'=>NULL),0);
                 $this->load->view('post_login/fertilizer_main');
                 // $this->load->view('report/sale_society/input',$society);
                 $this->load->view('report/sale_br/input',$data);
                 $this->load->view('post_login/footer');
+                
             }
 
         }
