@@ -218,17 +218,11 @@
 			// $start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			// if ($start != 0) $start = ($start - 1) * $config['per_page'];
 	
-	
 			//$start = ($page - 1) * $config["per_page"];
-	
-	
-	
-	
 	
 			// $irn["links"] = $this->pagination->create_links();
 	
 			// $irn['data'] = $this->IrncancelModel->get_Data($config["per_page"],$page);
-
 
 
 			$output = array(
@@ -240,8 +234,6 @@
 	
 			// $irn['content']='admin/sellar/my_sellar';
 			// $irn['title']='Admin | My Sellar';
-	
-			
 			
 			// $this->load->view('layout',$data);
 

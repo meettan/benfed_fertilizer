@@ -267,11 +267,11 @@ return $result;
 
 			
 			if($formdate!=""||$formdate!=null){
-				$this->db->where('a.ack_dt >=',$formdate); 
+				$this->db->where("DATE_FORMAT(a.ack_dt, '%Y-%m-%d') >=",$formdate); 
 			}
 			if($todate!=""||$todate!=null){
 
-				$this->db->where('a.ack_dt <=',$todate);
+				$this->db->where("DATE_FORMAT(a.ack_dt, '%Y-%m-%d') <=",$todate);
 			}
 
 			if($serch!=""||$serch!=null){
@@ -300,8 +300,6 @@ return $result;
 			$this->db->limit($limit,$star);
 			$query=$this->db->get();
 			//  $data['data']= $query->result();
-
-
 
 			 $output = '';
 			//  $i=0;
