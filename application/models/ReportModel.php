@@ -962,7 +962,11 @@ from (
         sum(CIL_QTY)CIL_QTY,sum(CIL_LQQTY)CIL_LQQTY,sum(CIL_VALUE)CIL_VALUE,
         sum(KCFL_QTY)KCFL_QTY, sum(KCFL_LQQTY)KCFL_LQQTY,sum(KCFL_VALUE)KCFL_VALUE,
         sum(JCF_QTY)JCF_QTY,sum(JCF_LQQTY)JCF_LQQTY,sum(JCF_VALUE)JCF_VALUE,
-        sum(MIPL_QTY)MIPL_QTY,sum(MIPL_LQQTY)MIPL_LQQTY,sum(MIPL_VALUE)MIPL_VALUE
+        sum(MIPL_QTY)MIPL_QTY,sum(MIPL_LQQTY)MIPL_LQQTY,sum(MIPL_VALUE)MIPL_VALUE,
+        sum(CCFL_QTY)CCFL_QTY,sum(CCFL_LQQTY)CCFL_LQQTY,sum(CCFL_VALUE)CCFL_VALUE,
+        sum(HURL_QTY)HURL_QTY,sum(HURL_LQQTY)HURL_LQQTY,sum(HURL_VALUE)HURL_VALUE,
+        sum(KFL_VALUE)KFL_QTY,sum(KFL_LQQTY)KFL_LQQTY,sum(KFL_VALUE)KFL_VALUE,
+        sum(MFCL_QTY)MFCL_QTY,sum(MFCL_LQQTY)MFCL_LQQTY,sum(MFCL_VALUE)MFCL_VALUE
                                     from(
                                     SELECT b.fin_yr, if(c.comp_id=1,round(sum(CASE
                                     WHEN a.unit = 1 THEN a.qty
@@ -1049,11 +1053,58 @@ from (
                                 WHEN a.unit = 3 THEN a.qty
                                 WHEN a.unit = 5 THEN a.qty/1000
                                 ELSE 0
-                                END ),3),0)CIL_LQQTY,if(c.comp_id=4,sum(a.tot_amt) ,0)CIL_VALUE
+                                END ),3),0)CIL_LQQTY,if(c.comp_id=4,sum(a.tot_amt) ,0)CIL_VALUE,
+                                if(c.comp_id=10,round(sum(CASE
+                                WHEN a.unit = 1 THEN a.qty
+                                WHEN a.unit = 2 THEN a.qty/1000
+                                WHEN a.unit = 4 THEN a.qty/10
+                                WHEN a.unit = 6 THEN a.qty/10000
+                                ELSE 0
+                            END ),3),0)CCFL_QTY,
+                            if(c.comp_id=10,round(sum(CASE
+                            WHEN a.unit = 3 THEN a.qty
+                            WHEN a.unit = 5 THEN a.qty/1000
+                            ELSE 0
+                            END ),3),0)CCFL_LQQTY,if(c.comp_id=10,sum(a.tot_amt) ,0)CCFL_VALUE,
+                                    if(c.comp_id=11,round(sum(CASE
+                                WHEN a.unit = 1 THEN a.qty
+                                WHEN a.unit = 2 THEN a.qty/1000
+                                WHEN a.unit = 4 THEN a.qty/10
+                                WHEN a.unit = 6 THEN a.qty/10000
+                                ELSE 0
+                            END ),3),0)HURL_QTY,
+                            if(c.comp_id=11,round(sum(CASE
+                            WHEN a.unit = 3 THEN a.qty
+                            WHEN a.unit = 5 THEN a.qty/1000
+                            ELSE 0
+                            END ),3),0)HURL_LQQTY,if(c.comp_id=11,sum(a.tot_amt) ,0)HURL_VALUE,
+                            if(c.comp_id=8,round(sum(CASE
+                                    WHEN a.unit = 1 THEN a.qty
+                                    WHEN a.unit = 2 THEN a.qty/1000
+                                    WHEN a.unit = 4 THEN a.qty/10
+                                    WHEN a.unit = 6 THEN a.qty/10000
+                                    ELSE 0
+                                END ),3),0)KFL_QTY,
+                                if(c.comp_id=8,round(sum(CASE
+                                WHEN a.unit = 3 THEN a.qty
+                                WHEN a.unit = 5 THEN a.qty/1000
+                                ELSE 0
+                                END ),3),0)KFL_LQQTY,if(c.comp_id=8,sum(a.tot_amt) ,0)KFL_VALUE,
+                                        if(c.comp_id=9,round(sum(CASE
+                                    WHEN a.unit = 1 THEN a.qty
+                                    WHEN a.unit = 2 THEN a.qty/1000
+                                    WHEN a.unit = 4 THEN a.qty/10
+                                    WHEN a.unit = 6 THEN a.qty/10000
+                                    ELSE 0
+                                END ),3),0)MFCL_QTY,
+                                if(c.comp_id=9,round(sum(CASE
+                                WHEN a.unit = 3 THEN a.qty
+                                WHEN a.unit = 5 THEN a.qty/1000
+                                ELSE 0
+                                END ),3),0)MFCL_LQQTY,if(c.comp_id=9,sum(a.tot_amt) ,0)MFCL_VALUE
                                     FROM td_sale  a ,md_fin_year b ,mm_company_dtls c
                                     WHERE a.fin_yr=b.sl_no
 
-                        
                                     and b.sl_no between $frmyr and $to_yr
                                     AND c.comp_id=a.comp_id
                                     GROUP by a.fin_yr,c.comp_id)a

@@ -2146,9 +2146,9 @@ public function soc_payblepaid(){
                  $toyr      = $_POST['toyr'];
 
                  $select   = array("fin_yr" );
-                 $where_frmyr     = array("sl_no" =>$frmyr   );
+                 $where_frmyr     = array("sl_no" =>$frmyr);
              
-                 $where_tomyr     = array("sl_no" =>$frmyr   );
+                 $where_tomyr     = array("sl_no" =>$frmyr);
                  $data['frmyrnm'] = $this->ReportModel->f_select('md_fin_year ',$select,$where_frmyr,1);
                  $data['toyrnm'] = $this->ReportModel->f_select('md_fin_year ',$select,$where_tomyr,1);
 

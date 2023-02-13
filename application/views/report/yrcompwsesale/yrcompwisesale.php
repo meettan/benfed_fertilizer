@@ -89,39 +89,47 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>IFFCO Solid Qty</th>
                                 <th>IFFCO Liquid Qty</th>
-
                                 <th>IFFCO Value</th>
 
                                 <th>KHRIBO Solid Qty</th>
                                 <th>KHRIBO Liquid Qty</th>
-
-
                                 <th>KHRIBO Value</th>
 
                                 <th>IPL Solid Qty</th>
                                 <th>IPL Liquid Qty</th>
-
                                 <th>IPL Value</th>
 
                                 <th>JCF Solid Qty</th>
                                 <th>JCF Liquid Qty</th>
-
                                 <th>JCF Value</th>
 
                                 <th>MOSAIC Solid Qty</th>
                                 <th>MOSAIC Liquid Qty</th>
+                                <th>MOSAIC Value</th>
 
-                               <th>MOSAIC Value</th>
-
-                               <th>KHAITAN Solid Qty</th>
-                               <th>KHAITAN Liquid Qty</th>
-
+                                <th>KHAITAN Solid Qty</th>
+                                <th>KHAITAN Liquid Qty</th>
                                 <th>KHAITAN Value</th>
 
                                 <th>CIL Solid Qty</th>
                                 <th>CIL Liquid Qty</th>
-
                                 <th>CIL Value</th>
+
+                                <th>CCFL Solid Qty</th>
+                                <th>CCFL Liquid Qty</th>
+                                <th>CCFL Value</th>
+
+                                <th>HURL Solid Qty</th>
+                                <th>HURL Liquid Qty</th>
+                                <th>HURL Value</th>
+
+                                <th>KFL Solid Qty</th>
+                                <th>KFL Liquid Qty</th>
+                                <th>KFL Value</th>
+
+                                <th>MFCL Solid Qty</th>
+                                <th>MFCL Liquid Qty</th>
+                                <th>MFCL Value</th>
 
                             </tr>
 
@@ -167,6 +175,18 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $prodtls->CIL_QTY; ?>
                                      <td class="report"><?php echo $prodtls->CIL_LQQTY; ?>
                                      <td class="report"><?php echo $prodtls->CIL_VALUE; ?>
+                                     <td class="report"><?php echo $prodtls->CCFL_QTY; ?>
+                                     <td class="report"><?php echo $prodtls->CCFL_LQQTY; ?>
+                                     <td class="report"><?php echo $prodtls->CCFL_VALUE; ?>
+                                     <td class="report"><?php echo $prodtls->HURL_QTY; ?>
+                                     <td class="report"><?php echo $prodtls->HURL_LQQTY; ?> 
+                                     <td class="report"><?php echo $prodtls->HURL_VALUE; ?>
+                                     <td class="report"><?php echo $prodtls->KFL_QTY; ?>
+                                     <td class="report"><?php echo $prodtls->KFL_LQQTY; ?>
+                                     <td class="report"><?php echo $prodtls->KFL_VALUE; ?>
+                                     <td class="report"><?php echo $prodtls->MFCL_QTY; ?>
+                                     <td class="report"><?php echo $prodtls->MFCL_LQQTY; ?> 
+                                     <td class="report"><?php echo $prodtls->MFCL_VALUE; ?>
                                 </tr>
  
                                 <?php  
