@@ -297,7 +297,13 @@ return $result;
 	
 		function get_Data($limit,$star,$serch,$formdate,$todate){
 			$this->joinTabel($serch,$formdate,$todate);
-			$this->db->limit($limit,$star);
+			if($star == 0){
+				$stars = $star;
+			}else{
+				$stars = ($star-1)*$limit;
+			}
+
+			$this->db->limit($limit,$stars);
 			$query=$this->db->get();
 			//  $data['data']= $query->result();
 
@@ -335,7 +341,6 @@ return $result;
            }
            return $output;
         //    return $this->db->last_query();
-
 
 
 			//  return $this->load->view("irncancelcr/dashboard_table",$data);

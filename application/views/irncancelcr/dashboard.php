@@ -134,9 +134,10 @@
 
     <?php if($this->session->flashdata('msg')){ ?>
 	window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+    <?php } ?>
     });
 
-    <?php } ?>
+    
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
