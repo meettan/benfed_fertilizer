@@ -87,7 +87,7 @@
 
                         <th>Sl No.</th>
 
-                        <!-- <th>Company</th> -->
+                        <th>District</th>
 
                         <th>Product</th>
 

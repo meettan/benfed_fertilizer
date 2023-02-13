@@ -160,10 +160,10 @@ $(document).ready(function() {
 
 <script>
 
-$( "#fdate" ).datepicker({
-    minDate: -3,
-    maxDate: 3
-});
+// $( "#fdate" ).datepicker({
+//     minDate: -3,
+//     maxDate: 3
+// });
 
 
 
