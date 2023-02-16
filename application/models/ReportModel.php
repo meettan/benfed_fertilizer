@@ -1552,7 +1552,7 @@ order by h.district_name,f.comp_name,a.trans_dt");
     and a.br_cd=$br_cd and a.comp_id=$comp_id
     and a.do_dt between '$frm_dt' and '$to_dt'");*/
         $query  = $this->db->query("SELECT a.do_dt,a.trans_do,a.prod_id,b.prod_desc,a.sale_ro,a.qty,a.soc_id,c.soc_name,d.short_name,b.unit,b.qty_per_bag,
-   (select distinct  paid_dt from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and comp_id=$comp_id and soc_id=a.soc_id) as paid_dt,
+   (select distinct  paid_dt from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and comp_id=$comp_id and soc_id=a.soc_id limit 1) as paid_dt,
    (select distinct ro_dt from td_purchase where ro_no=a.sale_ro and br=$br_cd and comp_id=$comp_id) ro_dt,
     (select   sum(paid_amt) from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and comp_id=$comp_id and soc_id=a.soc_id) as paid_amt
     FROM  td_sale a,mm_product b ,mm_ferti_soc c,mm_company_dtls d
