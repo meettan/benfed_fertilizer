@@ -531,7 +531,9 @@ function get_api_res_cr(){
     // echo 'hi';
     // exit;
     $trans_do = $this->input->post('trans_do');
-    
+    $query = $this->db->get_where('tdf_dr_cr_note', array('invoice_no =' => $this->input->post('trans_do')));
+	if($query->num_rows() == 0){	
+	
     $data = $this->api_callcr($trans_do);
     // echo '<pre>';
     $dt = $data ? $data[0] : $data;
@@ -929,7 +931,10 @@ function get_api_res_cr(){
         }else{
             echo $response;
         }
-       
+    }else{
+        $this->session->set_flashdata('error', 'There are some credit note found kindly delete it first');
+        redirect('irncancr');
+    }
 }
 
 

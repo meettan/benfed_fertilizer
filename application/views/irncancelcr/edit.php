@@ -309,7 +309,7 @@
                         <?php }else {   ?>
 
                             <div class="alert alert-primary" role="alert">
-                            You can not cancel
+                            You can not cancel ! Payment already forwarded.
                             </div>
 
                        <?php } ?>

@@ -135,6 +135,9 @@
     <?php if($this->session->flashdata('msg')){ ?>
 	window.alert("<?php echo $this->session->flashdata('msg'); ?>");
     <?php } ?>
+    <?php if($this->session->flashdata('error')){ ?>
+	window.alert("<?php echo $this->session->flashdata('error'); ?>");
+    <?php } ?>
     });
 
     
