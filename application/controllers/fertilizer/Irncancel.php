@@ -383,7 +383,8 @@
 					$paid_id               = $this->IrncancelModel->f_get_paidid($data->trans_do);
 					if($paid_id){
 					   
-						$product['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+						//$product['payment_fwd_cnt'] = $this->IrncancelModel->check_payment_forward($paid_id);
+						$product['payment_fwd_cnt'] = 0;
 						
 					}else{
 						$product['payment_fwd_cnt'] = 0 ;
