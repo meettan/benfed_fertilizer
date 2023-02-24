@@ -965,7 +965,7 @@ from (
         sum(MIPL_QTY)MIPL_QTY,sum(MIPL_LQQTY)MIPL_LQQTY,sum(MIPL_VALUE)MIPL_VALUE,
         sum(CCFL_QTY)CCFL_QTY,sum(CCFL_LQQTY)CCFL_LQQTY,sum(CCFL_VALUE)CCFL_VALUE,
         sum(HURL_QTY)HURL_QTY,sum(HURL_LQQTY)HURL_LQQTY,sum(HURL_VALUE)HURL_VALUE,
-        sum(KFL_VALUE)KFL_QTY,sum(KFL_LQQTY)KFL_LQQTY,sum(KFL_VALUE)KFL_VALUE,
+        sum(KFL_QTY)KFL_QTY,sum(KFL_LQQTY)KFL_LQQTY,sum(KFL_VALUE)KFL_VALUE,
         sum(MFCL_QTY)MFCL_QTY,sum(MFCL_LQQTY)MFCL_LQQTY,sum(MFCL_VALUE)MFCL_VALUE
                                     from(
                                     SELECT b.fin_yr, if(c.comp_id=1,round(sum(CASE
