@@ -2936,7 +2936,7 @@ if($refereceNo==""||$refereceNo==null){
                         and a.district=c.district_code
                         and a.net_amt > 0
                         and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
-                        group a.pur_inv_no,a.pur_ro
+                        group by a.pur_inv_no,a.pur_ro
                         order by  c.district_name
                     ");
            
