@@ -2907,14 +2907,15 @@ if($refereceNo==""||$refereceNo==null){
         if($comp_id==1){
             
             $q = $this->db->query("
-            select SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro,
+            select SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro,e.tot_amt as pur_amt,
             (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
             SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
             SUM(a.net_amt) as net_amt,
             (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm
-            from tdf_company_payment a, mm_product b,md_district c
+            from tdf_company_payment a, mm_product b,md_district c,td_purchase e
             where a.comp_id=$comp_id
             and b.PROD_ID=a.prod_id
+            and a.pur_ro=e.ro_no
             and a.district=c.district_code
             and a.net_amt > 0
             and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
@@ -2924,14 +2925,14 @@ if($refereceNo==""||$refereceNo==null){
 
         }else{
 
-        $q = $this->db->query("
-                        select c.district_name, SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro
+        $q = $this->db->query("select c.district_name, SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro,e.tot_amt as pur_amt,
                         (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
                         SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
                         SUM(a.net_amt) as net_amt
-                        from tdf_company_payment a, mm_product b,md_district c
+                        from tdf_company_payment a, mm_product b,md_district c,td_purchase e
                         where a.comp_id=$comp_id
                         and b.PROD_ID=a.prod_id
+                        and a.pur_ro=e.ro_no
                         and a.district=c.district_code
                         and a.net_amt > 0
                         and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
