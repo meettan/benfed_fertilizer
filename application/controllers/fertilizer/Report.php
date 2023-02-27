@@ -2314,7 +2314,7 @@ public function soc_payblepaid(){
         }
     }
 		
-public function advance_payment(){
+    public function advance_payment(){
        
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -2487,6 +2487,39 @@ public function advance_payment(){
             $this->load->view('post_login/fertilizer_main');
             $this->load->view('report/active_society/active_society_ip.php',$data);
             $this->load->view('post_login/footer');  
+        }
+    }
+
+    //   ******** Code start for companywise districtwise due    ///
+    public function company_due(){
+       
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $comp_idd  = $_POST['company'];
+            $com=explode(',', $comp_idd);
+            $comp_id=$com[0];
+            $data['companyName']=$com[1];
+            $frm_date = $this->input->post('fr_date');
+
+            $to_date  = $this->input->post('to_date');
+            $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+            $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_due($comp_id,$frm_date,$to_date);
+            $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+        
+            $data['fDate']= $frm_date;
+            $data['tDate']=$to_date;
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/company_due_payment/advPay.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/company_due_payment/advPay_ip.php',$data);
+            $this->load->view('post_login/footer');
         }
     }
         

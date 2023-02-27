@@ -103,13 +103,11 @@
   padding-right: 1px;
 }
 </style>
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-    
+  
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet"> 
     <link href="<?php echo base_url("/assets/css/apps.css");?>" rel="stylesheet">
     <link href="<?php echo base_url("/assets/css/apps_newDashboard.css");?>" rel="stylesheet">
     <link href="<?php echo base_url("/assets/css/res.css");?>" rel="stylesheet">
-    
     
     </head>  
     <body id="page-top" style="background-color: #eff3f6;">
@@ -391,8 +389,14 @@
                                 </div>
 								<a href="<?php echo site_url("fert/rep/soc_wse_cr_dmd");?>"> Society wise Credit Note Demand.</a>
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?> 
-								<a href="<?php echo site_url("fert/rep/advance_report");?>"> Company Advance</a> 
-								<a href="<?php echo site_url("fert/rep/advance_payment");?>">Company Payment</a>
+                                <div class="sub-dropdown">
+                                   <a class="sub-dropbtn">Company <i class="fa fa-angle-right" style="float: right;"></i></a> 
+								   <div class="sub-dropdown-content">
+                                   <a href="<?php echo site_url("fert/rep/advance_report");?>"> Company Advance</a> 
+                                   <a href="<?php echo site_url("fert/rep/advance_payment");?>">Company Payment</a>
+									</div>
+                                </div>
+                                <a href="<?php echo site_url("fert/rep/company_due");?>">Companywise districtwise due</a> 
                                 <?php } ?>
 								<a href="<?php echo site_url("fert/rep/soc_payblepaid");?>">Received From Society</a>
 
