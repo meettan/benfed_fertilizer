@@ -101,6 +101,7 @@ tr:hover {background-color: #f5f5f5;}
                                 if($tableData){ 
 
                                     $i = 1;
+                                    $pur_tot_amt = 0;
                                   $totalRate=0;
                                   $totalAmount=0;
                                   $totalTDS=0;
@@ -113,7 +114,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php  if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;} ?></td>
                                      <td><?php echo $ptableDatasidt->pur_ro ; ?></td>
                                      <td><?php echo $ptableDatasidt->pur_inv_no ;?></td>
-                                     <td><?php echo $ptableDatasidt->pur_amt ;?></td>
+                                     <td><?php echo $ptableDatasidt->pur_amt ;$pur_tot_amt+=$ptableDatasidt->pur_amt ;?></td>
                                      <td><?php echo $ptableDatasidt->taxable_amt ;$totalAmount+=$ptableDatasidt->taxable_amt; ?></td>
                                 </tr>
                                
@@ -125,7 +126,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><b></b></td>
                                     <th>Ro Number</th>
                                     <th>Pur invoice No.</th>
-                                    <th>Pur amt.</th>
+                                    <th><?=$pur_tot_amt?></th>
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     
                                 </tr>
