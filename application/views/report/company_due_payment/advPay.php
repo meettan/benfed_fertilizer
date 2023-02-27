@@ -65,16 +65,14 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Company Payment Statement Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
-                        <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;<?php echo round($total_Voucher->taxable_amt,2); ?> Dr</h5> 
-                     <h5 style="text-align:left"><label><?php foreach($tableData as $bnk){ echo $bnk->bnk; break; };?>:</label> &ensp;&ensp;<?php echo round(($total_Voucher->taxable_amt - $total_Voucher->tds_amt),2); ?> Cr</h5>
-						<h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($total_Voucher->tds_amt,2); ?> Cr </h5>
+                        <h4>Districtwise Company Due Statement Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
+                        <h5 style="text-align:left"><label><?php echo $companyName; ?></label>  &ensp;&ensp;</h5> 
+                  
+
 
                     </div>
                     <br>  
 
-
-                    <h4 style="text-align:left; margin-top: 30px;">Summary </h4>
 
                     <table style="width: 100%;  background-color: #D5D5D5;"" id="example">
 
@@ -86,7 +84,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>District/Fo Number</th>
                                 <th>Ro Number</th>
                                 <th>Pur invoice No.</th>
-                                <th>Pur amt.</th>
+                                <th>Purchase amt.</th>
                                 <th>Paid Amount</th>
                             
                             </tr>
@@ -122,11 +120,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php    } ?>
 
                                 <tr>
-                                    <td><b></b></td>
-                                    <td><b></b></td>
-                                    <th>Ro Number</th>
-                                    <th>Pur invoice No.</th>
-                                    <th><?=$pur_tot_amt?></th>
+                                    <td colspan="4"><b>Total</b></td>
+                                    
+                                    <td><b><?=$pur_tot_amt?></b></td>
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     
                                 </tr>
@@ -147,14 +143,7 @@ tr:hover {background-color: #f5f5f5;}
 
 					<table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
 				<tbody style="border:none;">
-					<tr style="border:none;">
-					 
-					  <td style="border:none;">Prepared By</td>
-						<td style="border:none;">Asst Manager/Dy. Manager</td>
-					  <td style="border:none;">Departmental Manager(S)</td>
-					  <td style="border:none;">CA&amp;AO</td>
-					  <td style="border:none;">General Manager</td>
-					  					</tr>
+					
 				</tbody>
 						
 						</table>
