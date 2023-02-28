@@ -2504,6 +2504,9 @@ public function soc_payblepaid(){
             $to_date  = $this->input->post('to_date');
             $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
             $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_due($comp_id,$frm_date,$to_date);
+            $data['tableData_districtwise']=$this->ReportModel->ComPaydistrictwise_due($comp_id,$frm_date,$to_date);
+           // echo $this->db->last_query();
+           // die();
             $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
         
             $data['fDate']= $frm_date;

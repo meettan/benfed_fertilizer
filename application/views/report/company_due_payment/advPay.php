@@ -138,15 +138,60 @@ tr:hover {background-color: #f5f5f5;}
 
                         </tbody>
 
-                    </table>
+                    </table><br>
+                <h2>SUMMARY</h2>
+					<table style="margin-top: 50px;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <thead>
+                        <tr>
+                            <th>Sl No.</th>
+                            <th>District/Fo Number</th>
+                            <th>Purchase amt.</th>
+                            <th>Paid Amount</th>
+                        </tr>
+                    </thead>   
+				    <tbody>
+                        
+                        <?php
+                            
 
+                            if($tableData){ 
 
-					<table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
-				<tbody style="border:none;">
-					
-				</tbody>
+                                $i = 1;
+                                $dpur_tot_amt = 0;
+                                
+                                $dtotalAmount=0;
+                              
+                                foreach($tableData_districtwise as $dkey){
+                                   
+                        ?>
+                            <tr>
+                                 <td><?php echo $i++; ?></td>
+                                 <td><?php  if(!empty($dkey->fo_nm)){echo $dkey->fo_nm;}else{ echo $dkey->district_name;} ?></td>
+                                 <td><?php echo $dkey->pur_amt ;$dpur_tot_amt+=$dkey->pur_amt ;?></td>
+                                 <td><?php echo $dkey->taxable_amt ;$dtotalAmount+=$dkey->taxable_amt; ?></td>
+                            </tr>
+                           
+                            <?php    } ?>
+
+                            <tr>
+                                <td colspan="2"><b>Total</b></td>
+                                <td><b><?=$dpur_tot_amt?></b></td>
+                                <td><b><?php echo $dtotalAmount; ?></b></td>
+                                
+                            </tr>
+                            <?php 
+                                   }
+                            else{
+
+                                echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
+
+                            }   
+
+                        ?>
+				    </tbody>
 						
-						</table>
+					</table>
+                    <br>
 
                 </div>   
                 

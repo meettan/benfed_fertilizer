@@ -2922,6 +2922,7 @@ if($refereceNo==""||$refereceNo==null){
             group by a.pur_inv_no,a.pur_ro
             order by fo_nm
         ");
+        
 
         }else{
 
@@ -2939,12 +2940,61 @@ if($refereceNo==""||$refereceNo==null){
                         group by a.pur_inv_no,a.pur_ro
                         order by  c.district_name
                     ");
+
+      
            
 
         }
         return $q->result();
     }
+
+    public function ComPaydistrictwise_due($comp_id, $frm_date, $to_date)
+    {
+        
+        if($comp_id==1){
+            $q  = $this->db->query("select district_name,sum(pur_amt) pur_amt,sum(taxable_amt) taxable_amt
+            from( select c.district_name, SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro,e.tot_amt as pur_amt,
+            (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt,
+                SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
+                (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm 
+                from tdf_company_payment a, mm_product b,md_district c,td_purchase e 
+                where a.comp_id=$comp_id and b.PROD_ID=a.prod_id 
+                and a.pur_ro=e.ro_no and a.district=c.district_code 
+                and a.net_amt > 0 and a.pay_dt >= '$frm_date' 
+                and a.pay_dt <= '$to_date' 
+                group by a.pur_inv_no,a.pur_ro 
+                order by c.district_name)a group by district_name order by fo_nm"); 
+
+        }else{
+            $q  = $this->db->query("select district_name,sum(pur_amt) pur_amt,sum(taxable_amt) taxable_amt
+            from( select c.district_name, SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro,e.tot_amt as pur_amt,
+            (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt,
+                SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt 
+                from tdf_company_payment a, mm_product b,md_district c,td_purchase e 
+                where a.comp_id=$comp_id and b.PROD_ID=a.prod_id 
+                and a.pur_ro=e.ro_no and a.district=c.district_code 
+                and a.net_amt > 0 and a.pay_dt >= '$frm_date' 
+                and a.pay_dt <= '$to_date' 
+                group by a.pur_inv_no,a.pur_ro 
+                order by c.district_name)a group by district_name"); 
+
+        }
+        return $q->result();
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
 
 //  SUM( adv_amt)adv_amt ,SUM(tds)tds ,SUM(net_amt)net_amt FROM 
 // (select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
