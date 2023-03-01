@@ -121,16 +121,7 @@
 <label for="cat_id" class="col-sm-2 col-form-label">Type:</label>
 
                        <div class="col-sm-4">
-    
-                            <select name="cat_id" id="cat_id" class="form-control cat_id" required>
-                              <option value="">Select Type</option>
-                            <?php
-                                foreach($catdtls as $catg)
-                            { ?>
-                                <option value="<?php echo $catg->sl_no; ?>"><?php echo $catg->cat_desc; ?></option>
-                            <?php
-                            } ?>
-                            </select> 
+
                        </div>
 
 
@@ -178,8 +169,29 @@
                     <textarea id="remarks" name="remarks" class="form-control" required></textarea>
 
                 </div>
+            </div>
+            <div class="form-group row">
 
+                <label for="trans_dt" class="col-sm-2 col-form-label">YEAR:</label>
 
+                <div class="col-sm-4">
+                      <select name="year" id="year" class="form-control year" >
+                              <option value="">Select Year</option>
+                            <?php
+                                foreach($years as $yr)
+                            { ?>
+                                <option value="<?php echo $yr->sl_no; ?>"><?php echo $yr->fin_yr; ?></option>
+                            <?php
+                            } ?>
+                            </select> 
+                    </div>        
+                   <label for="trans_dt" class="col-sm-2 col-form-label">Ref Invoice:</label>
+                   <div class="col-sm-4">
+
+                        <select name="ref_invoice_no" id="ref_invoice_no" class="form-control sch_cd">
+                            <option value="">Select Invoice</option>
+                        </select>
+                    </div>
 
             </div>
 
@@ -303,6 +315,38 @@
                 });
 
                 $('#inv_no').html(string);
+
+
+            });
+
+
+        });
+        $('#year').change(function () {
+            $('#overlay').fadeIn().delay(3000).fadeOut();
+            $.get(
+
+                '<?php echo site_url("drcrnote/f_get_sale_refinv");?>',
+
+                {
+
+                    soc_id: $('#soc_id').val(),
+                    comp_id: $('#comp_id').val(),
+                    year: $(this).val(),
+
+                }
+
+            ).done(function (data) {
+
+                var string = '<option value="">Select Invoice</option>';
+
+                $.each(JSON.parse(data), function (index, value) {
+
+                    string += '<option value="' + value.trans_do + '">' + value
+                        .trans_do + '</option>'
+
+                });
+
+                $('#ref_invoice_no').html(string);
 
 
             });

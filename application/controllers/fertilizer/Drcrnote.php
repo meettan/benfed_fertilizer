@@ -370,6 +370,13 @@ public function drnoteReport()
 			echo json_encode($inv);
 		
 		}
+		public function f_get_sale_refinv(){
+
+			   
+			$inv = $this->DrcrnoteModel->f_select('td_sale',array("trans_do","sale_ro"),array('soc_id' => $this->input->get("soc_id"),'comp_id'=>$this->input->get("comp_id"),'fin_yr'=>$this->input->get("year")),0);
+			echo json_encode($inv);
+		
+		}
 		public function f_get_sale_invro(){
 
 			$select          = array("sale_ro");
@@ -425,15 +432,9 @@ public function drnoteReport()
 				
 			 for($i = 0; $i < count($tot_amt); $i++){
 
-			     //echo count($tot_amt);
-                
-				//  die();
 			    //  $tot_amt  = $_POST['tot_amt'][$i];
 				//  $cat_id   = $_POST['cat_id'][$i];
-
-				// print_r($tot_amt);
-				//  print_r($cat_id);
-
+				
 	              $data  = array (
 					'recpt_no' => $receipt ,
 					  
@@ -445,7 +446,11 @@ public function drnoteReport()
 
 					"comp_id"	  => $this->input->post('comp_id'),	
 					
-					"invoice_no"  => $this->input->post('inv_no'),	
+					"invoice_no"  => $this->input->post('inv_no'),
+
+					"year"        => $this->input->post('year'),
+					
+					'ref_invoice_no' => $this->input->post('ref_invoice_no'),
 
 					"ro"           => $this->input->post('ro_no'),	
 					
@@ -498,9 +503,6 @@ public function drnoteReport()
 					}else{
 						echo "<script>alert('Credit Note has not yet been done.');</script>";
 					}
-					
-					
-					
 					
 		}
 		$data_cr  = array (
@@ -592,8 +594,7 @@ public function drnoteReport()
 						) ;
 					$product['saleinv']   = $this->DrcrnoteModel->f_select('td_sale',$select,$whereinv,0);
 					$product['mntend']= $this->PurchaseModel->f_get_mnthend($branch );
-
-				
+					$product['years'] = $this->DrcrnoteModel->f_select('md_fin_year',array('sl_no','fin_yr'),NULL,0);
 
 					$product['date']   = $this->PurchaseModel->get_monthendDate();
 
