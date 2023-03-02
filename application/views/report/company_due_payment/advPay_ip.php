@@ -35,14 +35,13 @@ tr:hover {background-color: #f5f5f5;}
                 
                 </div>
 
-                <!-- <div class="form-group row">
+                <div class="form-group row">
 
                     <label for="company" class="col-sm-2 col-form-label">District:</label>
 
                     <div class="col-sm-10">
 
                             <select name="district" id="district" class="form-control" required>
-
                                     <option value="">Select District</option>
                                 <?php
 
@@ -58,7 +57,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
 
-                </div> -->
+                </div>
 
                 <div class="form-group row">
 

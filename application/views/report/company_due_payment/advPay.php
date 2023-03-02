@@ -66,7 +66,8 @@ tr:hover {background-color: #f5f5f5;}
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Districtwise Company Due Statement Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
-                        <h5 style="text-align:left"><label><?php echo $companyName; ?></label>  &ensp;&ensp;</h5> 
+                        <h5 style="text-align:left"><label><?php echo $companyName; ?></label>  &ensp;&ensp;</h5>
+                        <h5 style="text-align:left"><label><?php echo $distname->district_name; ?></label>  &ensp;&ensp;</h5> 
                   
 
 
@@ -81,11 +82,14 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
-                                <th>District/Fo Number</th>
+                                <!-- <th>District/Fo Number</th> -->
+                                <th>Product</th>
                                 <th>Ro Number</th>
+                                <th>Ro date</th>
                                 <th>Pur invoice No.</th>
                                 <th>Purchase amt.</th>
                                 <th>Paid Amount</th>
+                                <th>Due Amount</th>
                             
                             </tr>
 
@@ -103,27 +107,32 @@ tr:hover {background-color: #f5f5f5;}
                                   $totalRate=0;
                                   $totalAmount=0;
                                   $totalTDS=0;
-                                  $totalNETAmount=0;
+                                  $totalNETAmount=0;$totdue = 0;
                                     foreach($tableData_district_name as $ptableDatasidt){
                                        
                             ?>
                                 <tr>
                                      <td><?php echo $i++; ?></td>
-                                     <td><?php  if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;} ?></td>
-                                     <td><?php echo $ptableDatasidt->pur_ro ; ?></td>
-                                     <td><?php echo $ptableDatasidt->pur_inv_no ;?></td>
-                                     <td><?php echo $ptableDatasidt->pur_amt ;$pur_tot_amt+=$ptableDatasidt->pur_amt ;?></td>
-                                     <td><?php echo $ptableDatasidt->taxable_amt ;$totalAmount+=$ptableDatasidt->taxable_amt; ?></td>
+                                     <td><?php echo $ptableDatasidt->prod_desc; ?></td>
+                                     <!-- <td><?php  //if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;} ?></td> -->
+                                     <td><?php echo $ptableDatasidt->ro_no ; ?></td>
+                                     <td><?php echo date('d/m/Y',strtotime($ptableDatasidt->ro_dt)) ; ?></td>
+                                     <td><?php echo $ptableDatasidt->invoice_no ;?></td>
+                                     <td><?php echo $ptableDatasidt->tot_amt ;$pur_tot_amt+=$ptableDatasidt->tot_amt ;?></td>
+                                     <td><?php echo $ptableDatasidt->Comp_pay ;$totalAmount+=$ptableDatasidt->Comp_pay; ?></td>
+                                     <td><?php echo ($ptableDatasidt->tot_amt)-($ptableDatasidt->Comp_pay) ;
+                                     $totdue += ($ptableDatasidt->tot_amt)-($ptableDatasidt->Comp_pay); ?></td>
                                 </tr>
                                
  
                                 <?php    } ?>
 
                                 <tr>
-                                    <td colspan="4"><b>Total</b></td>
+                                    <td colspan="5"><b>Total</b></td>
                                     
                                     <td><b><?=$pur_tot_amt?></b></td>
                                     <td><b><?php echo $totalAmount; ?></b></td>
+                                    <td><b><?php echo $totdue; ?></b></td>
                                     
                                 </tr>
                                 <?php 
@@ -139,7 +148,7 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
 
                     </table><br>
-                <h2>SUMMARY</h2>
+                <!-- <h2>SUMMARY</h2>
 					<table style="margin-top: 50px;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
                     <thead>
                         <tr>
@@ -160,7 +169,6 @@ tr:hover {background-color: #f5f5f5;}
                                 $dpur_tot_amt = 0;
                                 
                                 $dtotalAmount=0;
-                              
                                 foreach($tableData_districtwise as $dkey){
                                    
                         ?>
@@ -190,7 +198,7 @@ tr:hover {background-color: #f5f5f5;}
                         ?>
 				    </tbody>
 						
-					</table>
+					</table> -->
                     <br>
 
                 </div>   

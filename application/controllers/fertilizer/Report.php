@@ -2499,14 +2499,14 @@ public function soc_payblepaid(){
             $com=explode(',', $comp_idd);
             $comp_id=$com[0];
             $data['companyName']=$com[1];
+            $dist = $this->input->post('district');
             $frm_date = $this->input->post('fr_date');
 
             $to_date  = $this->input->post('to_date');
             $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
-            $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_due($comp_id,$frm_date,$to_date);
+            $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_due($dist,$comp_id,$frm_date,$to_date);
             $data['tableData_districtwise']=$this->ReportModel->ComPaydistrictwise_due($comp_id,$frm_date,$to_date);
-           // echo $this->db->last_query();
-           // die();
+            $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$dist), 1);
             $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
         
             $data['fDate']= $frm_date;
