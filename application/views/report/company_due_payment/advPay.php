@@ -120,7 +120,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ptableDatasidt->invoice_no ;?></td>
                                      <td><?php echo $ptableDatasidt->tot_amt ;$pur_tot_amt+=$ptableDatasidt->tot_amt ;?></td>
                                      <td><?php echo $ptableDatasidt->Comp_pay ;$totalAmount+=$ptableDatasidt->Comp_pay; ?></td>
-                                     <td><?php echo ($ptableDatasidt->tot_amt)-($ptableDatasidt->Comp_pay) ;
+                                     <td><?php echo round((($ptableDatasidt->tot_amt)-($ptableDatasidt->Comp_pay)),2) ;
                                      $totdue += ($ptableDatasidt->tot_amt)-($ptableDatasidt->Comp_pay); ?></td>
                                 </tr>
                                
