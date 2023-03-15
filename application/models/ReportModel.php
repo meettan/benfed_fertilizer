@@ -2156,8 +2156,9 @@ ORDER BY `op_bln` ASC");
                  FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no and c.pay_type=7 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
              Union
              
-             SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,c.tot_amt as paid_amt,0 paybl,0,0,c.ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
+             SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,sum(c.tot_amt) as paid_amt,0 paybl,0,0,c.ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
                 FROM tdf_dr_cr_note c,mm_ferti_soc b,td_sale d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.invoice_no = d.trans_do and c.trans_flag='R' and c.trans_dt between '$frmDt' and '$toDt' 
+                group by trans_dt, recpt_no,c.soc_id ,soc_id,soc_name,c.ro
              Union
              SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,c.adv_amt as paid_amt,0 paybl,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'Advance' remarks
                 FROM tdf_advance c,mm_ferti_soc b where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.trans_type='I' and c.trans_dt between '$frmDt' and '$toDt'
