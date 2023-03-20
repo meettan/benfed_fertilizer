@@ -56,6 +56,34 @@
         }, 10);
 
     }
+
+    function printadvDiv() {
+        var divToPrint = document.getElementById('divadvToPrint');
+        var WindowObject = window.open('', 'Print-Window');
+        WindowObject.document.open();
+        WindowObject.document.writeln('<!DOCTYPE html>');
+        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">');
+
+        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+            '                                         .inline { display: inline; }' +
+            '                                         .underline { text-decoration: underline; }' +
+            '                                         .left { margin-left: 315px;} ' +
+            '                                         .right { margin-right: 375px; display: inline; }' +
+            '                                          table { border-collapse: collapse; font-size: 18px;}' +
+            '                                          th, td { border: 0px solid black; border-collapse: collapse; padding: 6px;}' +
+            '                                           th, td { }' +
+            '                                         .border { border: 0px solid black; } ' +
+            '                                         .bottom { bottom: 5px; width: 100%; position: fixed ' +
+            '                                       ' +
+            '                                   } } </style>');
+        WindowObject.document.writeln('</head><body onload="window.print()">');
+        WindowObject.document.writeln(divToPrint.innerHTML);
+        WindowObject.document.writeln('</body></html>');
+        WindowObject.document.close();
+        setTimeout(function() {
+            WindowObject.close();
+        }, 10);
+    }
 </script>
 
 <div class="wraper">
@@ -76,9 +104,6 @@
                                                         break;
                                                     }; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->net_amt, 2); ?> CR</h5>
                 <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($total_Voucher->tds, 2); ?> CR </h5>
-
-
-
 
             </div>
             <br>
@@ -124,7 +149,6 @@
                                 <td><?php echo $i++; ?></td>
                                 <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
                                 <td><?php echo $ptableData->branch_name; ?></td>
-
                                 <td><?php echo $ptableData->PROD_DESC; ?></td>
                                 <td><?= $ptableData->qty; ?></td>
                                 <td><?php echo $ptableData->ro_no; ?></td>
@@ -160,11 +184,7 @@
 
             </table>
 
-
-
-
             <h4 style="text-align:left; margin-top: 30px;">Summary </h4>
-
 
             <table style="width: 100%; background-color: #D5D5D5;" id="example">
 
@@ -233,19 +253,12 @@
 
                 </tbody>
 
-       
-
-
-
             </table>
-
-          
             <table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tbody style="border:none;">
                     <tr style="border:none;">
 
                         <td style="border:none;">Prepared By</td>
-
                         <td style="border:none;">Asst Manager/Dy. Manager</td>
                         <td style="border:none;">Departmental Manager(S)</td>
                         <td style="border:none;">CA&amp;AO</td>
@@ -259,6 +272,7 @@
         <div style="text-align: center;">
 
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+            <button class="btn btn-primary" type="button" onclick="printadvDiv();">Print Advice</button>
             <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
 
         </div>
@@ -266,6 +280,80 @@
     </div>
 
 </div>
+
+
+<div id="divadvToPrint"   style="display:none">
+
+            <div style="text-align:center;">
+                <h4>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h4>
+                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
+                <h3></h3>
+                
+                <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
+                foreach ($tableData as $bnk) {
+                    $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->ac_no;
+                                                        break;
+                                                    }; ?>
+                <p style="text-align:left"> &ensp;MEMO NO.SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
+                <h5 style="text-align:left;font-size:18px"><label>To</label> &ensp;&ensp;<br>The Manager</br><?=$bank_name?>,<br><?=$branch_name?>,
+                <br>Kolkata - 700019</h5>
+
+            </div>
+            <br>
+           <div style="line-height: 1.6;font-size:18px">
+            Sir,<br>&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?> through RTGS/Fund Transfer, details are being provided below:
+
+           <br><br>
+            <table style="width:100%;border:none !important;font-weight:bold" >
+                <tr>
+                    <td style="width:30%">Name of the bank:</td><td>JPMORGAN CHASE BANK N.A.</td>
+                <tr>
+                <tr>
+                    <td style="width:30%">Branch Name:</td><td>Santakruse Mumbai</td>
+                <tr>
+                <tr>
+                    <td style="width:30%">Name of A/C Holder:</td><td>Mosaic india privated limited</td>
+                <tr>
+                <tr>
+                    <td style="width:30%">Account no :</td><td>89589685858585 </td>
+                <tr>
+                <tr>
+                    <td style="width:30%">IFS CODE :</td><td>JP895689</td>
+                <tr>
+                <tr>
+                    <td style="width:30%">Amount :</td><td>Rs.  201278.52 (Rupees Two Lakh One Thousand Two Hundred SeventyEight And FiftyTwo Paisa only)</td>
+                <tr>
+             <table>   
+             
+           </div>
+
+            <table style="width: 100%; background-color: #D5D5D5;" id="example">
+
+            </table>
+            <table style="margin-top: 100px; border:none;font-weight:bold" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody style="border:none;">
+                    <tr style="border:none;">
+
+                     
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Manager (Audit & Accounts)</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Chief Audit & Accounts Officer</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="margin-top:0px; border:none;font-weight:bold" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody style="border:none;">
+                    <tr style="border:none;">
+                        <td style="border:none;">Encl:Cheque bearing No:</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Dated:<?=date('d/m/Y')?></td>
+                        <td style="border:none;"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
 
 <script type="text/javascript">
     /*$(function () {

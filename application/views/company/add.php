@@ -1,7 +1,7 @@
 
 <div class="wraper">      
 		
-	<div class="col-md-6 container form-wraper">
+	<div class="col-md-7 container form-wraper">
 
 		<form method="POST" action="<?php echo site_url("key/companyAdd") ?>" >
 
@@ -99,6 +99,43 @@
 
 				</div>
 			</div>
+			<div class="form-group row">
+
+                    <label for="bank_name" class="col-sm-3 col-form-label">Bank:</label>
+
+                    <div class="col-sm-4">
+
+                        <input type="text"  name="bank_name" class="form-control required"  
+                            value = "" 
+                        />
+                    </div>
+
+                    <label for="bnk_branch_name" class="col-sm-1 col-form-label">Branch:</label>
+
+                    <div class="col-sm-4">
+
+                        <input type="text"  name="bnk_branch_name" class="form-control required"  
+                            value = "" 
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label for="ac_no" class="col-sm-3 col-form-label">Ac. No.:</label>
+
+                    <div class="col-sm-4">
+
+                        <input type="text"  name="ac_no" class="form-control required"  
+                            value = "" 
+                        />
+                    </div>
+
+                    <label for="ifsc" class="col-sm-1 col-form-label">IFSC:</label>
+                    <div class="col-sm-4">
+                        <input type="text"  name="ifsc" class="form-control required"  
+                            value = "" />
+                    </div>
+                </div>
 			 
 			<div class="form-group row">
 

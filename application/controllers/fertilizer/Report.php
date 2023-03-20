@@ -2290,7 +2290,6 @@ public function soc_payblepaid(){
 
             }else{
 
-                
               $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,$memoNumber);
               $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,$memoNumber);
               $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber);
@@ -2328,7 +2327,7 @@ public function soc_payblepaid(){
             $refereceNo  = $this->input->post('refereceNo');
             if($refereceNo==""||$refereceNo==null){
                 $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
-
+                echo $this->db->last_query();die();
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
 
                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);

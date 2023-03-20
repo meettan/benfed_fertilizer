@@ -429,6 +429,14 @@ public function companyAdd(){
 					"mfms"				=> $this->input->post('mfms'),
 
 					"cin"				=> $this->input->post('cin'),
+
+					"bank_name"         =>  $this->input->post('bank_name'),
+
+					"bnk_branch_name" 	=>  $this->input->post('bnk_branch_name'),
+
+					"ac_no"    		    =>  $this->input->post('ac_no'),
+
+					"ifsc" 				=>  $this->input->post('ifsc'),
 				
 					"created_by"    	=>  $this->session->userdata['loggedin']['user_name'],
 
@@ -478,6 +486,14 @@ public function editcompany(){
 
 				"cin" 				=>  $this->input->post('cin'),
 
+				"bank_name"         =>  $this->input->post('bank_name'),
+
+				"bnk_branch_name" 	=>  $this->input->post('bnk_branch_name'),
+
+				"ac_no"    		    =>  $this->input->post('ac_no'),
+
+				"ifsc" 				=>  $this->input->post('ifsc'),
+
 				"modified_by"  		=>  $this->session->userdata['loggedin']['user_name'],
 
 				"modified_dt"  		=>  date('Y-m-d h:i:s')
@@ -496,25 +512,9 @@ public function editcompany(){
 
 	}else{
 			$select = array(
-					"comp_id",
-
-					"comp_name",
-
-					"short_name",
-
-					"comp_add",
-
-					"comp_email_id",
-
-					"comp_pn_no",
-
-					"gst_no"  ,
-
-					"mfms"  ,
-
-					"pan_no",
-
-					"cin"                                
+					"comp_id","comp_name",
+					"short_name","comp_add","comp_email_id","comp_pn_no",
+					"gst_no","mfms","pan_no","cin",'bnk_branch_name','bank_name','ac_no','ifsc'                                
 				);
 
 			$where = array(
