@@ -331,7 +331,7 @@ tr:hover {background-color: #f5f5f5;}
             </div>
             <br>
            <div style="line-height: 1.6;font-size:18px">
-            Sir,<br>&ensp;&ensp; &ensp;&ensp; We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?> through RTGS/Fund Transfer, details are being provided below:
+            Sir,<br>&ensp;&ensp; &ensp;&ensp; We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?> through NEFT/RTGS/Fund Transfer, details are being provided below:
 
            <br><br>
            <?php if($company_id == 1) { ?>
