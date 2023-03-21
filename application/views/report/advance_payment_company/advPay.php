@@ -61,6 +61,8 @@ tr:hover {background-color: #f5f5f5;}
         WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">');
 
         WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+                                                      ' .headeraddress { font-weight: normal;}' +
+                                                     ' .headertitle { font-weight: bold;font-size: 22px;}' +
             '                                         .inline { display: inline; }' +
             '                                         .underline { text-decoration: underline; }' +
             '                                         .left { margin-left: 315px;} ' +
@@ -305,11 +307,17 @@ tr:hover {background-color: #f5f5f5;}
         </div>
 
         <div id="divadvToPrint"   style="display:none">
-
+            <table style="width:100%;border:none !important;" >
+                <tr>
+                    <td style="width:20%"><img src="<?=base_url()?>benfed.png"></td>
+                    <td style="width:79%"><span class="headertitle">The West Bengal State Co-operative Markrting Federation Ltd.</span>
+                <br><span class="headeraddress">Southend Conclave, 3rd Floor,<br> 1582 Rajdanga Main Road, Kolkata-700107.</span>
+        
+                 </td>
+                </tr>
+            </table>
             <div style="text-align:center;">
-                <h4>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h4>
-                <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                <h3></h3>
+              
                 
                 <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
                        $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';
