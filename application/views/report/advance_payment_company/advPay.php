@@ -390,7 +390,7 @@ tr:hover {background-color: #f5f5f5;}
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?=$totalnetamt?> (<?=getIndianCurrency($totalnetamt)?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?=$totalNETAmount?> (<?=getIndianCurrency($totalNETAmount)?>)</td>
                 <tr>
              <table>   
             <?php } ?>  
