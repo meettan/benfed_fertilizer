@@ -344,12 +344,22 @@
             <table style="margin-top: 100px; border:none;font-weight:bold" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tbody style="border:none;">
                     <tr style="border:none;">
-
-                     
+                    <?php    if($sig == 1){    ?>
                         <td style="border:none;"></td>
                         <td style="border:none;">Manager (Audit & Accounts)</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
+                    <?php }elseif($sig == 2){ ?> 
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Manager (Audit & Accounts)</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Administration)</td>   
+                        <?php }elseif($sig == 3){ ?> 
+                            <td style="border:none;"></td>
+                        <td style="border:none;">Chief Audit & Accounts Officer</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Administration)</td>
+                        <?php } ?>
                     </tr>
                 </tbody>
             </table>

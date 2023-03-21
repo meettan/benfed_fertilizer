@@ -318,19 +318,16 @@ tr:hover {background-color: #f5f5f5;}
             </table>
             <div style="text-align:center;">
               
-                
                 <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
                        $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';
                 foreach ($tableData as $bnk) {
                     $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->acc_num;
                     $cbank_name = $bnk->cbank;$cbranch_name = $bnk->cbnk_branch_name; $cacc_num = $bnk->cac_no;$cifsc=$bnk->cifsc;
-                   
                                                         break;
                                                     }; ?>
-                <p style="text-align:left"> &ensp;SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
+                <p style="text-align:left"> &ensp;SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
                 <h5 style="text-align:left;font-size:18px"><label>To</label> &ensp;&ensp;<br>The Manager</br><?=$bank_name?>,<br><?=$branch_name?>,
                 <br>Kolkata - 700019</h5>
-
             </div>
             <br>
            <div style="line-height: 1.6;font-size:18px">
@@ -360,19 +357,28 @@ tr:hover {background-color: #f5f5f5;}
              
            </div>
 
-            <table style="width: 100%; background-color: #D5D5D5;" id="example">
-
-            </table>
+            
             <table style="margin-top: 100px; border:none;font-weight:bold" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tbody style="border:none;">
                     <tr style="border:none;">
-
-                     
+                    <?php    if($sig == 1){    ?>
                         <td style="border:none;"></td>
                         <td style="border:none;">Manager (Audit & Accounts)</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
+                    <?php }elseif($sig == 2){ ?> 
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Manager (Audit & Accounts)</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Administration)</td>   
+                        <?php }elseif($sig == 3){ ?> 
+                            <td style="border:none;"></td>
+                        <td style="border:none;">Chief Audit & Accounts Officer</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Administration)</td>
+                        <?php } ?>
                     </tr>
+                    
                 </tbody>
             </table>
             <table style="margin-top:0px; border:none;font-weight:bold" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">

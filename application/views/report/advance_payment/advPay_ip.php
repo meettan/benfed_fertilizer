@@ -114,6 +114,19 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
 
                 </div>
+                <div class="form-group row">
+                    <label for="company" class="col-sm-2 col-form-label">Sig Combination:</label>
+                    <div class="col-sm-10">
+
+                            <select name="sig_comb" id="sig_comb" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Manager(Audit & Accounts) - Chief Audit & Accounts Officer</option>
+                                    <option value="2">Manager(Audit & Accounts) - General Manager(Administration)</option>
+                                    <option value="3">Chief Audit & Accounts Officer - General Manager(Administration)</option>
+                               
+                            </select>
+                    </div>
+               </div>
 
 
                 <div class="form-group row">
