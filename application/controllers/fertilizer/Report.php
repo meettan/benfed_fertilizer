@@ -2297,7 +2297,7 @@ public function soc_payblepaid(){
               $data['tDate']=$to_date;
 
             }
-          
+           $data['sig'] = $this->input->post('sig_comb');
            $this->load->view('post_login/fertilizer_main');
            $this->load->view('report/advance_payment/advPay.php',$data);
            $this->load->view('post_login/footer');
@@ -2323,6 +2323,7 @@ public function soc_payblepaid(){
             $comp_id=$com[0];
             $data['companyName']=$com[1];
             $frm_date = $this->input->post('fr_date');
+            
             $to_date  = $this->input->post('to_date');
             $refereceNo  = $this->input->post('refereceNo');
             if($refereceNo==""||$refereceNo==null){
@@ -2339,7 +2340,7 @@ public function soc_payblepaid(){
                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
                 }
          
-        
+          $data['sig'] = $this->input->post('sig_comb');
           $data['fDate']= $frm_date;
           $data['tDate']=$to_date;
           
