@@ -1865,7 +1865,7 @@ public function crnote_reliz_rep(){
 //         $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
         
 //       // $data['sales']    =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);  
-//      //   echo $this->db->last_query();
+
 //     //   die();
        
 //         $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
@@ -2327,7 +2327,7 @@ public function soc_payblepaid(){
             $refereceNo  = $this->input->post('refereceNo');
             if($refereceNo==""||$refereceNo==null){
                 $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
-                echo $this->db->last_query();die();
+               
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
 
                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
@@ -2504,7 +2504,6 @@ public function soc_payblepaid(){
             $to_date  = $this->input->post('to_date');
             $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
             $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_due($dist,$comp_id,$frm_date,$to_date);
-            //echo $this->db->last_query();
             $data['tableData_districtwise']=$this->ReportModel->ComPaydistrictwise_due($comp_id,$frm_date,$to_date);
             $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$dist), 1);
             $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);

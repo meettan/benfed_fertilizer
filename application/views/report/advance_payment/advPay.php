@@ -290,11 +290,13 @@
                 <h3></h3>
                 
                 <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
+                 $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';
                 foreach ($tableData as $bnk) {
                     $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->ac_no;
+                    $cbank_name = $bnk->cbank;$cbranch_name = $bnk->cbnk_branch_name; $cacc_num = $bnk->cac_no;$cifsc=$bnk->cifsc;
                                                         break;
                                                     }; ?>
-                <p style="text-align:left"> &ensp;MEMO NO.SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
+                <p style="text-align:left"> &ensp;SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
                 <h5 style="text-align:left;font-size:18px"><label>To</label> &ensp;&ensp;<br>The Manager</br><?=$bank_name?>,<br><?=$branch_name?>,
                 <br>Kolkata - 700019</h5>
 
@@ -305,23 +307,23 @@
 
            <br><br>
             <table style="width:100%;border:none !important;font-weight:bold" >
-                <tr>
-                    <td style="width:30%">Name of the bank:</td><td>JPMORGAN CHASE BANK N.A.</td>
-                <tr>
-                <tr>
-                    <td style="width:30%">Branch Name:</td><td>Santakruse Mumbai</td>
+            <tr>
+                    <td style="width:30%">Name of the bank:</td><td><?=$cbank_name?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Name of A/C Holder:</td><td>Mosaic india privated limited</td>
+                    <td style="width:30%">Branch Name:</td><td><?=$cbranch_name?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Account no :</td><td>89589685858585 </td>
+                    <td style="width:30%">Name of A/C Holder:</td><td><?=$companyName?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">IFS CODE :</td><td>JP895689</td>
+                    <td style="width:30%">Account no :</td><td><?=$cacc_num?> </td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  201278.52 (Rupees Two Lakh One Thousand Two Hundred SeventyEight And FiftyTwo Paisa only)</td>
+                    <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
+                <tr>
+                <tr>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?=$totalnetamt?> (<?=getIndianCurrency($totalnetamt)?>)</td>
                 <tr>
              <table>   
              
