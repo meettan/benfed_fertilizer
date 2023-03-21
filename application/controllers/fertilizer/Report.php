@@ -2298,6 +2298,7 @@ public function soc_payblepaid(){
 
             }
            $data['sig'] = $this->input->post('sig_comb');
+           $data['company_id'] = $com[0];
            $this->load->view('post_login/fertilizer_main');
            $this->load->view('report/advance_payment/advPay.php',$data);
            $this->load->view('post_login/footer');
@@ -2341,6 +2342,7 @@ public function soc_payblepaid(){
                 }
          
           $data['sig'] = $this->input->post('sig_comb');
+          $data['company_id'] = $com[0];
           $data['fDate']= $frm_date;
           $data['tDate']=$to_date;
           

@@ -334,8 +334,47 @@ tr:hover {background-color: #f5f5f5;}
             Sir,<br>&ensp;&ensp; &ensp;&ensp; We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?> through RTGS/Fund Transfer, details are being provided below:
 
            <br><br>
+           <?php if($company_id == 1) { ?>
+           <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
+           <thead>
+                    <tr  >
+                        <th style="border: 1px solid black !important">DISTRICT</th>
+                        <th style="border: 1px solid black !important">IFS CODE</th>
+                        <th style="border: 1px solid black !important">BENEACCNO</th>
+                        <th style="border: 1px solid black !important">BENENAME</th>
+                        <th style="border: 1px solid black !important">AMOUNT</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <?php   
+                            if($tableData) {
+                            $i = 1;
+                            $total = 0;
+                            $totalNETAmount = 0;
+                            $totalTds = 0;
+                            foreach ($tableData_district_name as $ptableDatasidt) {
+                            $total += $ptableDatasidt->net_amt;
+                    ?>
+                    <tr>
+                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;}?></td>
+                        <td style="border: 1px solid black !important"><?=$cifsc?></td>
+                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_num)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
+                        <td style="border: 1px solid black !important">IFFCO</td>
+                        <td style="border: 1px solid black !important"><?php echo $ptableDatasidt->net_amt; $totalNETAmount+=$ptableDatasidt->net_amt;?></td>
+                    </tr>
+
+                    <?php    }  }?>
+                    <tr>
+                        <td colspan="4" style="text-align:center">TOTAL</td>
+                        <td><?=$totalNETAmount?></td>
+                    </tr>
+                </tbody>
+               
+            <table> 
+            <?php }else { ?>
             <table style="width:100%;border:none !important;font-weight:bold" >
-                <tr>
+            <tr>
                     <td style="width:30%">Name of the bank:</td><td><?=$cbank_name?></td>
                 <tr>
                 <tr>
@@ -351,9 +390,10 @@ tr:hover {background-color: #f5f5f5;}
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?=$totalNETAmount?> (<?=getIndianCurrency($totalNETAmount)?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?=$totalnetamt?> (<?=getIndianCurrency($totalnetamt)?>)</td>
                 <tr>
              <table>   
+            <?php } ?>  
              
            </div>
 

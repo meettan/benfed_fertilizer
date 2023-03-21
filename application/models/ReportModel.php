@@ -2736,7 +2736,8 @@ if($refereceNo==""||$refereceNo==null){
             (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
             SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
             SUM(a.net_amt) as net_amt,
-            (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm
+            (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
+            (select DISTINCT h.fo_number from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_num
             from tdf_company_payment a, mm_product b,md_district c
             where a.comp_id=$comp_id
             and b.PROD_ID=a.prod_id
