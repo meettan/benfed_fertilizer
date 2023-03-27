@@ -130,10 +130,8 @@ tr:hover {background-color: #f5f5f5;}
                         <tbody>
 
                             <?php
-                            
 
                                 if($tableData){ 
-
                                     $i = 1;
                                   $totalRate=0;
                                   $totalAmount=0;
