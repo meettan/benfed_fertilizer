@@ -150,7 +150,6 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ptableData->br_dist; ?></td>
                                      <td><?php echo $ptableData->pur_inv_no; ?></td>
                                      <td><?php echo $ptableData->fo_nm; ?></td>
-									
                                      <td><?php echo $ptableData->PROD_DESC; ?></td>
                                      <!-- <td><?= $ptableData->PROD_DESC; ?></td> -->
                                      <td><?php echo $ptableData->pur_ro; ?></td>
