@@ -1408,7 +1408,6 @@ class Purchase extends MX_Controller
 			//redirect('virtualpnt/virtual_stk_pointAdd');
 		}else{
 			echo "<script>alert('Advance to Company has not yet been done.');</script>";
-			//redirect('stock/stockAdd');
 		}
 		} else {
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
