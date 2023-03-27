@@ -11,14 +11,10 @@
     			</div>
 
     			<div class="form-group row">
-
     				<!-- <label for="prod_Id" class="col-sm-3 col-form-label">Prod_Id:</label> -->
 
     				<div class="col-sm-4">
-
     					<input type="hidden" id=prod_Id name="prod_Id" class="form-control" />
-
-
     				</div>
 
     			</div>
@@ -1376,9 +1372,9 @@
     					// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
     					rbt_add = $('#rbt_add').val()
     					console.log(rbt_add);
-    					// rbt_less =$('#rbt_less').val() 
+    					
     					// tot_amt=$('#tot_amt').val() 
-    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+    			
     					// tot_amt = taxable_amt + parseFloat(gst) *2
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
     						parseFloat(rbt_less)
@@ -1457,14 +1453,12 @@
     					// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
     					rbt_add = $('#rbt_add').val()
     					console.log(rbt_add);
-    					rbt_less = $('#rbt_less').val()
+    					rbt_less = parseFloat($('#rbt_less').val());
     					$('#rnd_of_add').val(0);
     					$('#rnd_of_less').val(0);
-    					// tot_amt=$('#tot_amt').val() 
-    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
-    					// tot_amt = taxable_amt + parseFloat(gst) *2
+    				
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
-    						parseFloat(rbt_less)
+    						parseFloat(rbt_less);
     					// tot_amt=Math.round(parseFloat(tot_amt))
     					tot_amt = parseFloat(tot_amt).toFixed(2)
     					$('#tot_amt').val(tot_amt);
@@ -1552,7 +1546,7 @@
     					// $('#rnd_of_add').val(0);
     					// $('#rnd_of_less').val(0);
     					// tot_amt=$('#tot_amt').val() 
-    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+    				
     					// tot_amt = taxable_amt + parseFloat(gst) *2
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
     						parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
@@ -1642,7 +1636,7 @@
     					// $('#rnd_of_add').val(0);
     					// $('#rnd_of_less').val(0);
     					// tot_amt=$('#tot_amt').val() 
-    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
+    			
     					// tot_amt = taxable_amt + parseFloat(gst) *2
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
     						parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
