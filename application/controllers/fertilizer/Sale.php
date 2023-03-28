@@ -196,183 +196,6 @@
 			
 		}
 
-		
-/*public function saleAdd(){   //================================================
-	
-	$br_cd             = $this->session->userdata['loggedin']['branch_id'];
-	$dist_sort_code    = $this->session->userdata['loggedin']['dist_sort_code'];
-	$fin_year_sort_code= substr($this->session->userdata['loggedin']['fin_yr'],2);
-	$fin_id            = $this->session->userdata['loggedin']['fin_id'];
-	$trans_no          = $this->SaleModel->get_trans_no($fin_id,$br_cd);
-	$month             =date('m');
-	// echo $fin_id ;
-	// exit;
-    $j=0;
-	if($_SERVER['REQUEST_METHOD'] == "POST") {
-		
-		
-			$prod_id     = $this->input->post('prod_id');
-
-			$soc_id      = $_POST['soc_id'];
-			
-			$stock_point = $this->input->post('stock_point');
-
-			$catg_id     = $this->input->post('catg_id');
-
-			$gov_sale_rt = $this->input->post('gov_sale_rt');
-
-			$qty         = $this->input->post('qty');
-
-			$sale_rt     = $this->input->post('sale_rt');
-				
-			$taxable_amt = $this->input->post('taxable_amt');
-
-			$cgst        = $this->input->post('cgst');
-
-			$sgst        = $this->input->post('sgst');
-
-			$tot_amt     = $this->input->post('tot_amt');
-
-			$round_tot_amt = $this->input->post('round_tot_amt');
-
-			$br_cd       = $this->session->userdata['loggedin']['branch_name'];
-			// echo ($prod_id);
-			//    die();
-			$comp_id        = $this->input->post('comp_id');
-			$select_comp    = array("short_name" );
-			$where_comp     = array("comp_id" =>$comp_id   );
-			$comp_short_name = $this->SaleModel->f_select('mm_company_dtls ',$select_comp,$where_comp,1);
-			
-			for($i = 0; $i < count($soc_id); $i++){
-				$j=$i+1;
-				$trans_no->trans_no + $i;
-			    $data     = array(// 'trans_do'     =>  'INV/'.$dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no,
-									'trans_do'     =>  'INV/'.$dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no.'_'.$j,
-
-									'trans_no'     =>  $trans_no->trans_no ,
-									
-                                    'do_dt'        => $this->input->post('ro_dt'),
-
-									'sale_due_dt'  => $this->input->post('sale_due_dt'),
-									
-									'no_of_days'   => $this->input->post('no_of_days'),
-
-                                    'trans_type'   => $this->input->post('trans_type'),
-
-									'soc_id'       => $_POST['soc_id'][$i],
-
-									'comp_id'      => $this->input->post('comp_id'),
-
-									 'unit'        => $this->input->post('unit'),
-									 
-									'prod_id'      => $this->input->post('prod_id'),
-								
-									'catg_id'      => $this->input->post('sale_category'),
-
-									'stock_point'  => $this->input->post('stock_point'),
-     
-									'gov_sale_rt'  => $this->input->post('gov_sale_rt'),  
-
-									'sale_rt'      => $this->input->post('sale_rt'), 
-									
-									'sale_ro'      => $this->input->post('ro'),
-                                                            
-                                    'qty'          => $_POST['qty'][$i],
-
-                                    'taxable_amt'  => $_POST['taxable_amt'][$i],
-
-                                    'cgst'         => $_POST['cgst'][$i],
-
-                                    'sgst'         => $_POST['sgst'][$i],
-
-									'tot_amt'      => $_POST['tot_amt'][$i],
-									
-									'round_tot_amt'  => $_POST['round_tot_amt'][$i],
-
-                                    "created_by"   => $this->session->userdata['loggedin']['user_name'],
-
-					                "created_dt"   => date('Y-m-d h:i:s'),
-
-									 "br_cd"       => $this->session->userdata['loggedin']['branch_id'],
-
-									 "fin_yr"      => $fin_id
-                                );
-								
-				$this->SaleModel->f_insert('td_sale', $data);
-	           // $this->SaleModel->f_salejnl( $data);
-				//  echo $this->db->last_query();
-				// die();
-
-			// }
-			
-
-			  //for($i = 0; $i < count($prod_id); $i++){
-			//	 for($i = 0; $i < count($soc_id); $i++){  
-			   $data1     = array(
-                                   'sale_inv_no'  =>  'INV/'.$dist_sort_code.'/'.$comp_short_name->short_name.'/'.$month.'/'.$fin_year_sort_code.'/'. $trans_no->trans_no.'_'.$j,
-			   						'trans_dt'     => $this->input->post('sale_due_dt'),
-
-									'ro_inv_no'    => $this->input->post('ro'),
-								   
-									'branch_id'    => $this->session->userdata['loggedin']['branch_id'],
-                 
-                                    'fin_yr'       => $fin_id,
-
-									'point_id'     => $this->input->post('stock_point'),
-
-                                    'trans_type'   => "O",
-
-									'unit'         => $this->input->post('unit'),
-
-									'quantity'     => $_POST['qty'][$i],
-
-                                    "created_by"   =>  $this->session->userdata['loggedin']['user_name'],
-
-					                "created_dt"   =>  date('Y-m-d h:i:s')
-                                );
-								
-		
-		
-				$this->SaleModel->f_insert('tdf_stock_point_trans', $data1);
-
-			}
-				
-				$this->session->set_flashdata('msg', 'Successfully Added');
-
-					redirect('trade/sale');
-		
-           
-            
-			}else {
-				$select3               = array("comp_id","comp_name");
-				$product['compdtls']   = $this->SaleModel->f_select('mm_company_dtls',$select3,NULL,0);	
-				
-				// $where  =   array(
-
-				// 	'comp_id'     => $this->input->post('comp_id'));
-				$select2         = array("a.ro_no","a.qty","a.unit","b.unit_name");
-				$where           = array('a.br'  => $this->session->userdata['loggedin']['branch_id'],
-			                               "a.unit=b.id"=>NULL,
-										   "a.stock_qty>0"=>NULL);
-					
-				$product['rodtls']   = $this->SaleModel->f_select('td_purchase a,mm_unit b',$select2,$where,0);
-            //    echo $this->db->last_query();
-			//    exit();
-				$select1             = array("soc_id","soc_name","soc_add","gstin");
-				$where1              = array('district'     => $this->session->userdata['loggedin']['branch_id']);
-				$product['socdtls']  = $this->SaleModel->f_select('mm_ferti_soc',$select1,$where1,0);
-
-				$select                = array("prod_id","prod_desc","gst_rt");
-				$product['proddtls']   = $this->SaleModel->f_select('mm_product',$select,NULL,0);	
-
-	$this->load->view('post_login/fertilizer_main');
-
-	$this->load->view("sale/add",$product);
-
-	$this->load->view('post_login/footer');
- }
-
-}*/
 		public function saleAdd(){   //================================================
 	
 			$br_id             = $this->session->userdata['loggedin']['branch_id'];
@@ -469,6 +292,8 @@
 											"created_by"   => $this->session->userdata['loggedin']['user_name'],
 		
 											"created_dt"   => date('Y-m-d h:i:s'),
+
+											"created_ip"   => $_SERVER['REMOTE_ADDR'],
 		
 											 "br_cd"       => $this->session->userdata['loggedin']['branch_id'],
 		
@@ -584,6 +409,8 @@
 								   'tot_amt'      => $_POST['tot_amt'],
 								   
 								   'round_tot_amt' => $_POST['round_tot_amt'],
+
+								   "modified_ip"   => $_SERVER['REMOTE_ADDR'],
 								   
                                    "modified_by"  =>  $this->session->userdata['loggedin']['user_name'],
 
@@ -707,6 +534,7 @@ if($resp==0){
 		foreach ($data2 as $keydata2) {
 			$keydata2->delete_by = $this->session->userdata['loggedin']['user_name'];
 			$keydata2->delete_dt = date('Y-m-d H:m:s');
+			$keydata2->delete_ip = $_SERVER['REMOTE_ADDR'];
 			// print_r($keydata);
 			$this->SaleModel->f_insert('td_sale_delete',$keydata2);
 
