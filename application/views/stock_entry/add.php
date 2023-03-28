@@ -11,10 +11,14 @@
     			</div>
 
     			<div class="form-group row">
+
     				<!-- <label for="prod_Id" class="col-sm-3 col-form-label">Prod_Id:</label> -->
 
     				<div class="col-sm-4">
+
     					<input type="hidden" id=prod_Id name="prod_Id" class="form-control" />
+
+
     				</div>
 
     			</div>
@@ -422,7 +426,6 @@
 
     					<input type="text" style="width:150px" id=trd_mgr name="trd_mgr" class="form-control"
     						value="0" />
-
     				</div>
     				<div class="col-sm-1">
     					<label for="less_trad_margin_flag" style="color:green;">GST</label>
@@ -736,7 +739,7 @@
     					var parseData = JSON.parse(data);
     					tot_qty = $('#qty').val()
     					gst_rt = $('#gst_rt').val()
-    					base_price = tot_qty * $('#rate').val()
+    					base_price = tot_qty * ($('#rate').val());
 
     					base_price = parseFloat(base_price).toFixed(2)
     					taxable_amt = base_price
@@ -1372,9 +1375,9 @@
     					// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
     					rbt_add = $('#rbt_add').val()
     					console.log(rbt_add);
-    					
+    					// rbt_less =$('#rbt_less').val() 
     					// tot_amt=$('#tot_amt').val() 
-    			
+    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
     					// tot_amt = taxable_amt + parseFloat(gst) *2
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
     						parseFloat(rbt_less)
@@ -1441,25 +1444,24 @@
     					retlr_margin = $('#retlr_margin').val()
     					spl_rebt = $('#spl_rebt').val()
     					add_adj_amt = $('#adj_amt').val()
-    					less_adj_amt = $('#less_amt').val()
-    					rbt_add = $('#less_amt').val()
-    					// $('#rbt_add').val(0);
+    					less_adj_amt = $('#less_amt').val();
+						les_oth_dis  = parseFloat($('#les_oth_dis').val()) ? parseFloat($('#les_oth_dis').val()) : 0.00;
+    					//rbt_add = $('#less_amt').val()
 
     					taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(
-    						spl_rebt) + parseFloat(add_adj_amt) - parseFloat(less_adj_amt)
+    						spl_rebt) + parseFloat(add_adj_amt) - parseFloat(less_adj_amt)-parseFloat(les_oth_dis);
     					taxable_amt = parseFloat(taxable_amt).toFixed(2)
-    					gst = (taxable_amt * gst_rt / 100) / 2
-    					gst = parseFloat(gst).toFixed(2)
+    					gst = (taxable_amt * (gst_rt / 100)) / 2;
+    					gst = parseFloat(gst).toFixed(2);
     					// tot_amt=parseFloat(taxable_amt) + parseFloat(gst) *2
-    					rbt_add = $('#rbt_add').val()
+    					rbt_add = $('#rbt_add').val();
     					console.log(rbt_add);
-    					rbt_less = parseFloat($('#rbt_less').val());
+    					rbt_less = $('#rbt_less').val()
     					$('#rnd_of_add').val(0);
     					$('#rnd_of_less').val(0);
-    				
-    					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
-    						parseFloat(rbt_less);
-    					// tot_amt=Math.round(parseFloat(tot_amt))
+    					
+    					tot_amt = parseFloat(taxable_amt) + (gst* 2) + parseFloat(rbt_add) - parseFloat(rbt_less);
+    					//alert(taxable_amt);
     					tot_amt = parseFloat(tot_amt).toFixed(2)
     					$('#tot_amt').val(tot_amt);
     					net_rt = parseFloat(tot_amt / tot_qty).toFixed(3);
@@ -1546,7 +1548,7 @@
     					// $('#rnd_of_add').val(0);
     					// $('#rnd_of_less').val(0);
     					// tot_amt=$('#tot_amt').val() 
-    				
+    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
     					// tot_amt = taxable_amt + parseFloat(gst) *2
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
     						parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
@@ -1636,7 +1638,7 @@
     					// $('#rnd_of_add').val(0);
     					// $('#rnd_of_less').val(0);
     					// tot_amt=$('#tot_amt').val() 
-    			
+    					// tot_amt = taxable_amt  + parseFloat(rbt_add) - parseFloat(rbt_less)
     					// tot_amt = taxable_amt + parseFloat(gst) *2
     					tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 + parseFloat(rbt_add) -
     						parseFloat(rbt_less) + parseFloat(rnd_of_add) - parseFloat(rnd_of_less)
@@ -2028,27 +2030,27 @@ document.getElementById("demo").innerHTML = d;
     					var parseData = JSON.parse(data);
     					tot_qty = $('#qty').val()
     					gst_rt = $('#gst_rt').val()
-    					base_price = tot_qty * $('#rate').val()
-    					base_price = parseFloat(base_price).toFixed(2)
+    					base_price = tot_qty * ($('#rate').val());
+    					base_price = parseFloat(base_price).toFixed(2);
     					retlr_margin = $('#retlr_margin').val()
     					spl_rebt = $('#spl_rebt').val()
     					add_adj_amt = $('#adj_amt').val()
     					less_adj_amt = $('#less_amt').val()
     					less_trad_margin = $('#trd_mgr').val()
-    					less_oth_dis = $('#les_oth_dis').val()
+    					less_oth_dis = $('#les_oth_dis').val();
     					var ckbox6 = $('#less_oth_dis_flag');
 
     					//$('input').on('click', function () {
     					$('#less_oth_dis_flag').on('click', function () {
 
     						if (ckbox6.is(':checked')) {
-
+                               // alert(base_price);
     							taxable_amt = parseFloat(base_price) + parseFloat(
     								retlr_margin) - parseFloat(spl_rebt) + parseFloat(
     								add_adj_amt) - parseFloat(less_adj_amt) - parseFloat(
-    								less_trad_margin) - parseFloat(less_oth_dis)
+    								less_trad_margin) - parseFloat(less_oth_dis);
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
-    							gst = (taxable_amt * gst_rt / 100) / 2
+    							gst = (taxable_amt * (gst_rt / 100)) / 2;
     							gst = parseFloat(gst).toFixed(2)
     							tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2
     							// tot_amt=Math.round(parseFloat(tot_amt))
