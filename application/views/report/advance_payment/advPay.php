@@ -327,7 +327,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php   
+                    <?php   $totalnetamt = 0;
                             if($tableData) {
                             $i = 1;
                             $total = 0;
@@ -349,7 +349,7 @@
                     <?php    }  }?>
                     <tr>
                         <td colspan="4" style="text-align:center">TOTAL</td>
-                        <td><?=$totalnetamt?></td>
+                        <td><?php echo number_format($totalnetamt,2); ?> </td>
                     </tr>
                 </tbody>
                
@@ -372,7 +372,7 @@
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format($totalnetamt,2); ?><?=?> (<?=getIndianCurrency($totalnetamt)?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format($totalnetamt,2); ?> (<?=getIndianCurrency($totalnetamt)?>)</td>
                 <tr>
              <table>   
             <?php } ?> 
