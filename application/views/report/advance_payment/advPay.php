@@ -372,7 +372,7 @@
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?=$totalnetamt?> (<?=getIndianCurrency($totalnetamt)?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format($totalnetamt,2); ?><?=?> (<?=getIndianCurrency($totalnetamt)?>)</td>
                 <tr>
              <table>   
             <?php } ?> 
