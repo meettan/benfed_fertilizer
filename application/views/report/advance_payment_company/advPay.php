@@ -334,7 +334,7 @@ tr:hover {background-color: #f5f5f5;}
            <?php if($company_id == 1) { ?>
            <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
-                    <tr  >
+                    <tr>
                         <th style="border: 1px solid black !important">DISTRICT</th>
                         <th style="border: 1px solid black !important">IFS CODE</th>
                         <th style="border: 1px solid black !important">BENEACCNO</th>
@@ -387,8 +387,7 @@ tr:hover {background-color: #f5f5f5;}
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format($totalNETAmount,2); ?> (
-                        <?php     echo getIndianCurrency($totalNETAmount); ?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format($totalNETAmount,2); ?> (<?=getIndianCurrency($totalNETAmount)?>)</td>
                 <tr>
              <table>   
             <?php } ?>  
