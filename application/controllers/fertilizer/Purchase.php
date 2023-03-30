@@ -1337,6 +1337,8 @@ class Purchase extends MX_Controller
 
 				"created_dt"     =>  date('Y-m-d h:i:s'),
 
+				"created_ip"     =>  $_SERVER['REMOTE_ADDR'],
+
 				"br"             => $this->session->userdata['loggedin']['branch_id'],
 
 				"fin_yr"         => $fin_id,
@@ -1397,8 +1399,6 @@ class Purchase extends MX_Controller
 				$this->PurchaseModel->f_insert('td_purchase', $data_array);
 
 
-
-
 				$this->session->set_flashdata('msg', 'Successfully Added');
 
 				redirect('stock/stock_entry');
@@ -1427,7 +1427,6 @@ class Purchase extends MX_Controller
 			$product['unitdtls']   = $this->PurchaseModel->f_select('mm_unit', $select, NULL, 0);
 			// $data_array=$product;
 			$product['mntend'] = $this->PurchaseModel->f_get_mnthend($br_cd);
-
 
 			// print_r($product);
 			// die();
@@ -1595,6 +1594,7 @@ class Purchase extends MX_Controller
 
 				"less_frght_subsdy_flag" => $this->input->post('less_frght_subsdy_flag'),
 
+				"modified_ip"     =>  $_SERVER['REMOTE_ADDR'],
 
 				"modified_by"    	=>  $this->session->userdata['loggedin']['user_name'],
 
