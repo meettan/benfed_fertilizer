@@ -1463,6 +1463,7 @@ class Purchase extends MX_Controller
 		foreach ($data2 as $keydata2) {
 			$keydata2->delete_by = $this->session->userdata['loggedin']['user_name'];
 			$keydata2->delete_dt = date('Y-m-d H:m:s');
+			$keydata2->delete_ip = $_SERVER['REMOTE_ADDR'];
 			// print_r($keydata);
 			$this->PurchaseModel->f_insert('td_purchase_delete',$keydata2);
 
