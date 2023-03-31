@@ -387,7 +387,7 @@ tr:hover {background-color: #f5f5f5;}
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo ($totalAmount-$totalTDS); ?> (<?=getIndianCurrency($totalAmount-$totalTDS)?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format((float)($totalAmount-$totalTDS), 2, '.', ''); ?> (<?=getIndianCurrency($totalAmount-$totalTDS)?>)</td>
                 <tr>
              <table>   
             <?php } ?>  
