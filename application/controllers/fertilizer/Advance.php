@@ -637,7 +637,8 @@ public function advAdd(){
 
 					"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
 
-					"created_dt"    	=>  date('Y-m-d h:i:s')
+					"created_dt"    	=>  date('Y-m-d h:i:s'),
+					"created_ip"    	=>  $_SERVER['REMOTE_ADDR']
 				);
 				
 				//echo '<pre>';
@@ -718,6 +719,8 @@ public function editadv(){
 				// "bank"                  => $this->input->post('bank'),
 
 				"remarks" 				=> $this->input->post('remarks'),
+
+				"modified_ip"    	=>  $_SERVER['REMOTE_ADDR'],
 				
 				"modifed_by"  			=>  $this->session->userdata['loggedin']['user_name'],
                

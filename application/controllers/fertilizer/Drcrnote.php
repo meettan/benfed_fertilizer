@@ -468,7 +468,9 @@ public function drnoteReport()
 					
 					'created_by'  => $this->session->userdata['loggedin']['user_name'],
 
-					'created_dt'  =>  date('Y-m-d h:i:s')
+					'created_dt'  =>  date('Y-m-d h:i:s'),
+
+					"created_ip"   =>  $_SERVER['REMOTE_ADDR']
 
 				);
 				// print_r($data);
@@ -637,6 +639,8 @@ public function drnoteReport()
 
 						'modified_dt'   =>  date('Y-m-d'),
 
+						'modified_ip'   =>  $_SERVER['REMOTE_ADDR']
+
 						);
 
 			$where3  =   array(
@@ -747,7 +751,8 @@ public function drnoteReport()
 		foreach ($data as $keydata) {
 			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
 			$keydata->delete_dt = date('Y-m-d H:m:s');
-			// print_r($keydata);
+			$keydata->delete_ip = $_SERVER['REMOTE_ADDR'];
+			
 			$this->DrcrnoteModel->f_insert('tdf_dr_cr_note_delete',$keydata);
 
 		}
@@ -1084,7 +1089,9 @@ public function crnote_editvu(){
 				
 				'created_by'  => $this->session->userdata['loggedin']['user_name'],
 
-				'created_dt'  =>  date('Y-m-d h:i:s')
+				'created_dt'  =>  date('Y-m-d h:i:s'),
+
+				'created_ip'  =>  $_SERVER['REMOTE_ADDR']
 
 			);
 		
@@ -1104,7 +1111,7 @@ public function crnote_editvu(){
 			$where_soc           = array("soc_id"     => $soc_id);
 			$soc_name = $this->DrcrnoteModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
 				$data_array_crt['soc_acc']= $soc_name->acc_cd;
-			$data_array_cr['rem'] ="Credit Note raised for ".$soc_name->soc_name." aginst Invoice No. ". $this->input->post('inv_no').",".$this->input->post('remarks');
+			$data_array_cr['rem'] ="Credit Note raised for ".$soc_name->soc_name." aginst Invoice No. ". $this->input->post('ref_invoice_no').",".$this->input->post('remarks');
 
 			$select_br    = array("dist_sort_code");
 			$where_br     = array("district_code"=> $branch );
@@ -1162,7 +1169,7 @@ public function crnote_editvu(){
 		$where_soc            = array("soc_id"     => $soc_id);
 		$soc_name             = $this->DrcrnoteModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
 
-        $data_array_crt['rem'] = "YRLY Credit Note raised for ".$soc_name->soc_name." aginst Invoice No. ". $this->input->post('inv_no').",".$this->input->post('remarks');
+        $data_array_crt['rem'] = "YRLY Credit Note raised for ".$soc_name->soc_name." aginst Invoice No. ". $this->input->post('ref_invoice_no').",".$this->input->post('remarks');
 
 			$select_br    = array("dist_sort_code");
 			$where_br     = array("district_code"=> $branch );
