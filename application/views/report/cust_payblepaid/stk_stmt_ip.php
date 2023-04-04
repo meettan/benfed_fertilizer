@@ -123,8 +123,8 @@
 
                 <div class="col-sm-6">
 
-                    <input type="date" name="from_date" class="form-control required" min='<?php echo explode('-', $this->session->userdata('loggedin')['fin_yr'])[0] . '-04-01' ?>' max='<?php echo ((explode('-', $this->session->userdata('loggedin')['fin_yr'])[0]) + 1) . '-03-31' ?>' value="<?= explode('-', $this->session->userdata('loggedin')['fin_yr'])[0] . '-04-01'; //$frm_dt;
-                                                                                                                                                                                                                                                                                            ?>" readonly />
+                    <input type="date" name="from_date" class="form-control required" value="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>" min="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>"
+ readonly />
 
                 </div>
 
@@ -136,7 +136,7 @@
 
                 <div class="col-sm-6">
 
-                    <input type="date" name="to_date" class="form-control required to_date" min='<?php echo explode('-', $this->session->userdata('loggedin')['fin_yr'])[0] . '-04-01' ?>' max='<?php echo ((explode('-', $this->session->userdata('loggedin')['fin_yr'])[0]) + 1) . '-03-31' ?>' value="<?= $to_dt; ?>" />
+                    <input type="date" name="to_date" class="form-control required to_date" value="<?php echo $this->session->userdata['loggedin']['END_DATE']; ?>" max="<?php echo $this->session->userdata['loggedin']['fin_end']; ?>" />
 
                 </div>
 
