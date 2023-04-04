@@ -53,7 +53,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     <div class="col-sm-3">
 
-                        <input type="date" name="to_date" class="form-control required" value="<?= $to_dt;?>"  min='<?=$year[0]?>-04-01' max="<?= $year[0]+1?>-03-31"/>  
+                        <input type="date" name="to_date" class="form-control required" value="<?php echo $this->session->userdata['loggedin']['END_DATE']; ?>"  min='<?=$year[0]?>-04-01' max="<?= $year[0]+1?>-03-31"/>  
 
                     </div>
 

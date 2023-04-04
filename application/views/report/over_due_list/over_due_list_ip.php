@@ -44,8 +44,7 @@ tr:hover {background-color: #f5f5f5;}
                         <input type="date"
                                name="from_date"
                                class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"
-                               min="2022-04-01"
+                               value="<?php echo $this->session->userdata['loggedin']['END_DATE']; ?>" max="<?php echo $this->session->userdata['loggedin']['fin_end']; ?>"
                         />  
 
                     </div>

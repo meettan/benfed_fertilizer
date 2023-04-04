@@ -96,7 +96,7 @@
                 <div class="col-sm-6">
                     <?php $fyear = $this->session->userdata['loggedin']['fin_yr'];
                     $year = explode('-', $fyear) ?>
-                    <input type="date" name="from_date" class="form-control required from_dt" value="<?php //echo $year[0],'-04-01' //echo $frm_dt; ?>" min='<?= $year[0] ?>-04-01' max="<?= $year[0] + 1 ?>-03-31" required />
+                    <input type="date" name="from_date" class="form-control required from_dt" value="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>" min="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>" required />
 
                 </div>
 
@@ -108,7 +108,7 @@
 
                     <div class="col-sm-6">
 
-                        <input type="date" name="to_date" class="form-control required to_date" value="<?php echo date('Y-m-d'); ?>"  required />  
+                        <input type="date" name="to_date" class="form-control required to_date" value="<?php echo $this->session->userdata['loggedin']['END_DATE']; ?>"  required  max="<?php echo $this->session->userdata['loggedin']['fin_end']; ?>"/>  
 
                     </div>
 

@@ -7,8 +7,6 @@ class Fertilizer_Login extends MX_Controller
 		parent::__construct();
 
 		$this->load->model('Login_Process');
-
-		//$this->load->helper('Purchase_sale');
 		$this->load->helper('purchasesale_helper');
 		$this->load->helper('blance_helper');
 
@@ -21,10 +19,10 @@ class Fertilizer_Login extends MX_Controller
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-			$user_id 	= $_POST['user_id'];
-			$user_pw 	= $_POST['user_pwd'];
-			$branch_id 	= $_POST['branch_id'];
-			$fin_yr		= $_POST['fin_yr'];
+			$user_id 	= $this->input->post('user_id');
+			$user_pw 	= $this->input->post('user_pwd');
+			$branch_id 	= $this->input->post('branch_id');
+			$fin_yr		= $this->input->post('fin_yr');
 
 			$result  		= $this->Login_Process->f_select_password($user_id);
 			
@@ -49,7 +47,7 @@ class Fertilizer_Login extends MX_Controller
 								$loggedin['user_type']      	= $user_data->user_type;
 								$loggedin['user_name']      	= $user_data->user_name;
 								$loggedin['user_status']   		= $user_data->user_status;
-
+								$loggedin['user_pwd']           = $user_pw;
 								$branch_data = $this->Login_Process->f_get_branch_inf($branch_id);
 								$loggedin['branch_id']   		= $branch_data->id;
 								$loggedin['branch_name']   		= $branch_data->branch_name;
@@ -65,7 +63,9 @@ class Fertilizer_Login extends MX_Controller
 								$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
 								$loggedin['fin_id']  			= $fin_data->sl_no;
 								$loggedin['fin_yr']   			= $fin_data->fin_yr;
-								$loggedin['active_flag']   			= $fin_data->active_flag;
+								$loggedin['fin_start']   		= $fin_data->fin_start;
+								$loggedin['fin_end']   		    = $fin_data->fin_end;
+								$loggedin['active_flag']   		= $fin_data->active_flag;
 							} else {
 								$this->session->set_flashdata('login_error', 'Select Branch');
 								redirect('Fertilizer_Login/login');
@@ -80,7 +80,7 @@ class Fertilizer_Login extends MX_Controller
 							$loggedin['branch_id']   	    = $user_data->branch_id;
 							$loggedin['branch_name']   	    = $user_data->branch_name;
 							$loggedin['ho_flag']            = $user_data->ho_flag;
-
+							$loggedin['user_pwd']           = $user_pw;
 							$dist_data 	 = $this->Login_Process->f_get_dist_inf($user_data->districts_catered);
 							$loggedin['dist_id']  			= $dist_data->district_code;
 							$loggedin['dist_name']   		= $dist_data->district_name;
@@ -90,8 +90,20 @@ class Fertilizer_Login extends MX_Controller
 							$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
 							$loggedin['fin_id']  			= $fin_data->sl_no;
 							$loggedin['fin_yr']   			= $fin_data->fin_yr;
-							$loggedin['active_flag']   			= $fin_data->active_flag;
+							$loggedin['fin_start']   		= $fin_data->fin_start;
+							$loggedin['fin_end']   		    = $fin_data->fin_end;
+							$loggedin['active_flag']   	    = $fin_data->active_flag;
 						}
+						
+                        //   *** Start code for Setting max date of financial year      ***   //
+						$currentdate = strtotime(date('Y-m-d'));
+						$finenddate = strtotime($fin_data->fin_end);
+						if($currentdate > $finenddate){
+							$loggedin['END_DATE'] = $fin_data->fin_end;
+						}else{
+							$loggedin['END_DATE'] = date('Y-m-d');
+						}
+						//   *** End code for Setting max date of financial year      ***   //
 
 						$this->session->set_userdata('loggedin', $loggedin);
 
@@ -117,6 +129,114 @@ class Fertilizer_Login extends MX_Controller
 		}
 	}
 
+//***  Code start for login to Insecticide From Fertilizer dashboard       ***///
+	public function redilogin()
+	{ 
+        $q = $this->input->get('q');
+		
+		$udata = explode(",",$q);
+		if ($q != "") {
+
+			$user_id 	= base64_decode($udata[0]);
+			$user_pw    = base64_decode($udata[1]);
+			$fin_yr		= base64_decode($udata[2]);
+			$branch_id 	= base64_decode($udata[3]);
+
+			$result  		= $this->Login_Process->f_select_password($user_id);
+			
+			if ($result) {
+
+				if ($result->user_status == 'A') {
+
+					$match	   = password_verify($user_pw, $result->password);
+
+					if ($match) {
+
+						$user_data = $this->Login_Process->f_get_user_inf($user_id);
+
+						$user_type = $user_data->user_type;
+
+						if ($user_type == 'A') {
+
+							if ($branch_id != '') {
+
+								$loggedin['user_id']            = $user_data->user_id;
+								$loggedin['password']           = $user_data->password;
+								$loggedin['user_type']      	= $user_data->user_type;
+								$loggedin['user_name']      	= $user_data->user_name;
+								$loggedin['user_status']   		= $user_data->user_status;
+								$loggedin['user_pwd']   		= $user_pw;
+								$branch_data = $this->Login_Process->f_get_branch_inf($branch_id);
+								$loggedin['branch_id']   		= $branch_data->id;
+								$loggedin['branch_name']   		= $branch_data->branch_name;
+								$loggedin['ho_flag']            = $branch_data->ho_flag;
+
+								$dist_data 	 = $this->Login_Process->f_get_dist_inf($branch_data->districts_catered);
+								$loggedin['dist_id']  			= $dist_data->district_code;
+								$loggedin['dist_name']   		= $dist_data->district_name;
+								$loggedin['dist_sort_code']   	= $dist_data->dist_sort_code;
+								$loggedin['districts_catered']  = $user_data->districts_catered;
+
+
+								$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
+								$loggedin['fin_id']  			= $fin_data->sl_no;
+								$loggedin['fin_yr']   			= $fin_data->fin_yr;
+								$loggedin['fin_start']   		= $fin_data->fin_start;
+								$loggedin['fin_end']   		    = $fin_data->fin_end;
+								$loggedin['active_flag']   			= $fin_data->active_flag;
+							} else {
+								$this->session->set_flashdata('login_error', 'Select Branch');
+								redirect('Fertilizer_Login/login');
+							}
+						} else {
+
+							$loggedin['user_id']            = $user_data->user_id;
+							$loggedin['password']           = $user_data->password;
+							$loggedin['user_type']      	= $user_data->user_type;
+							$loggedin['user_name']      	= $user_data->user_name;
+							$loggedin['user_status']   		= $user_data->user_status;
+							$loggedin['branch_id']   	    = $user_data->branch_id;
+							$loggedin['branch_name']   	    = $user_data->branch_name;
+							$loggedin['ho_flag']            = $user_data->ho_flag;
+							$loggedin['user_pwd']   		= $user_pw;
+							$dist_data 	 = $this->Login_Process->f_get_dist_inf($user_data->districts_catered);
+							$loggedin['dist_id']  			= $dist_data->district_code;
+							$loggedin['dist_name']   		= $dist_data->district_name;
+							$loggedin['dist_sort_code']   	= $dist_data->dist_sort_code;
+							$loggedin['districts_catered']  = $user_data->districts_catered;
+
+							$fin_data 	 = $this->Fertilizer_Process->f_get_fin_inf($fin_yr);
+							$loggedin['fin_id']  			= $fin_data->sl_no;
+							$loggedin['fin_yr']   			= $fin_data->fin_yr;
+							$loggedin['fin_start']   		= $fin_data->fin_start;
+							$loggedin['fin_end']   		    = $fin_data->fin_end;
+							$loggedin['active_flag']   			= $fin_data->active_flag;
+						}
+
+						$this->session->set_userdata('loggedin', $loggedin);
+
+						$id = $this->Login_Process->f_insert_audit_trail($user_id);
+
+						$this->session->set_userdata('sl_no', $id);
+
+					    redirect('Fertilizer_Login/main');
+					} else {
+						$this->session->set_flashdata('login_error', 'Invalid Password');
+						redirect('Fertilizer_Login/login');
+					}
+				} else {
+					$this->session->set_flashdata('login_error', 'User is inactive please contact Admin');
+					redirect('Fertilizer_Login/login');
+				}
+			} else {
+				$this->session->set_flashdata('login_error', 'Invalid User ID');
+				redirect('Fertilizer_Login/login');
+			}
+		} else {
+			redirect('Fertilizer_Login/login');
+		}
+	}
+//***  Code End for login to Insecticide From Fertilizer dashboard       ***///
 
 	public function login()
 	{
@@ -690,11 +810,6 @@ class Fertilizer_Login extends MX_Controller
 		$tot_recvyr	= collectionForTheDay($from_yr_day, $to_yr_day, $br_id, 'N')->tot_recvamt;
 
 
-
-
-
-
-
 		// $data		= $this->Fertilizer_Process->f_get_tot_purchasesld($br_id, $from_dt, $to_dt);
 		// $data1		= $this->Fertilizer_Process->f_get_tot_purchaselqd($br_id, $from_dt, $to_dt);
 		// // echo $this->db->last_query();
@@ -874,11 +989,6 @@ class Fertilizer_Login extends MX_Controller
 		);
 		echo json_encode($data_array);
 	}
-
-
-
-	
-
 
 
 	public function companyWiseStatus()
