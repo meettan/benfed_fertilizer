@@ -3801,7 +3801,8 @@ public function deleteAccCd() {
 		$fwd_no = $this->input->get('fwd_no');
 		$fin_yr = $this->input->get('fin_yr');
 		$data['spfwd'] = $this->AdvanceModel->f_select('tdf_payment_forward',NULL,array('fwd_no'=>$fwd_no,'fin_yr'=>$fin_yr),1);
-		$data['result'] = $this->Society_paymentModel->f_getfwdpaydetls($fwd_no);
+		$data['result'] = $this->Society_paymentModel->f_getfwdpaydetls($fwd_no,$fin_yr,$dist_id);
+		echo $this
 		$this->load->view("post_login/fertilizer_main");
 		$this->load->view("society_payment/socpayfwdedit",$data);
 		$this->load->view('post_login/footer');
