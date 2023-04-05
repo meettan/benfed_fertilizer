@@ -12,7 +12,6 @@
             $this->session->userdata('fin_yr');
 
             if(!isset($this->session->userdata['loggedin']['user_id'])){
-            
             redirect('User_Login/login');
 
        }
@@ -151,7 +150,6 @@ public function crsummrep_ho(){
         $to_dt      =   $_POST['to_date'];
 
         // $branch     =   $this->session->userdata['loggedin']['branch_id'];
-        // $comp_id  = $_POST['comp'];
 
         $mth        =  date('n',strtotime($from_dt));
 
@@ -172,7 +170,6 @@ public function crsummrep_ho(){
 
         $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
-        
         // $where1              =   array("COMP_ID"  => $comp_id);
         
         // $data['compdtls']      =   $this->ReportModel->f_select("mm_company_dtls", NULL, $where1,1);

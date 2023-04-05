@@ -27,7 +27,6 @@ tr:hover {background-color: #f5f5f5;}
 
         <div class="col-md-6 container form-wraper">
     
-                 <!-- <form method="POST" id="form" action="<?php echo site_url("fert/rep/salerepsoc");?>" > -->
                  <form method="POST" id="form" action="<?php echo site_url("fert/rep/crsummrep_ho");?>" >
                 <div class="form-header">
                 
@@ -43,8 +42,8 @@ tr:hover {background-color: #f5f5f5;}
 
                         <input type="date"
                                name="from_date"
-                               class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"/>  
+                               class="form-control required" readonly
+                               value="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>" min="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>" />
 
                     </div>
 
@@ -59,7 +58,8 @@ tr:hover {background-color: #f5f5f5;}
                         <input type="date"
                                name="to_date"
                                class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"
+                               value="<?php echo $this->session->userdata['loggedin']['END_DATE']; ?>" max="<?php echo $this->session->userdata['loggedin']['fin_end']; ?>"
+                               min="<?php echo $this->session->userdata['loggedin']['fin_start']; ?>"
                         />  
 
                     </div>
