@@ -345,7 +345,7 @@
 											where soc_id='$soc_id' and op_dt='2022-04-01')as adv_amt
 				FROM tdf_advance a 
 				WHERE a.soc_id ='$soc_id'
-				and a.fin_yr <= $fin_id
+			/*	and a.fin_yr <= $fin_id    */
 				and a.trans_type='I'");
 
             return $sql->result();
