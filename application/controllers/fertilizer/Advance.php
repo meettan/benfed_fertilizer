@@ -1070,7 +1070,7 @@ public function f_get_dist_bnk_dtls(){
 		$where  =	array(
 			"a.detail_receipt_no = b.detail_receipt_no" => NULL,
 			"a.branch_id"            => $this->session->userdata['loggedin']['branch_id'],
-			"a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
+		//	"a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
 			"a.trans_dt between '".$frmdt."' and '".$todt."'"=> NULL,
 			//"a.fwd_flag"=> 'N'
 			"1 group by a.trans_dt,a.fwd_receipt_no,a.fwd_flag" =>NULL
@@ -1087,7 +1087,7 @@ public function f_get_dist_bnk_dtls(){
 		$where  =	array(
 			"a.detail_receipt_no = b.detail_receipt_no" => NULL,
 			"a.branch_id"            => $this->session->userdata['loggedin']['branch_id'],
-			"a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
+		//	"a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
 			"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL,
 			//"a.fwd_flag"=> 'N'
 			"1 group by a.trans_dt,a.fwd_receipt_no,a.fwd_flag" =>NULL
