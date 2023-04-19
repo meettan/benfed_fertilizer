@@ -14,6 +14,7 @@
  function getIndianCurrency(float $number){
         $number = number_format((float)$number, 2, '.', '');
         $decimal = round($number - ($no = floor($number)), 2) * 100;
+        $decimal1 = round($number - ($no = floor($number)), 2) * 100;
         $hundred = null;
         $digits_length = strlen($no);
         $i = 0;
@@ -40,7 +41,8 @@
             } else $str[] = null;
     }
     $Rupees = implode('', array_reverse($str));
-    $paise = ($decimal > 0) ? "And " . ($words[$decimal / 10] . " " . $words[$decimal % 10]) . ' Paise ' : '';
+    //$paise = ($decimal > 0) ? "And " . ($words[$decimal / 10] . " " . $words[$decimal1 % 10]) . ' Paise ' : '';
+    $paise = ($decimal > 0) ? "And " . ($words[$decimal / 10] . " " . $words[number_format($decimal)% 10]) . ' Paise ' : '';
     return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise.'Only';
     }
 
