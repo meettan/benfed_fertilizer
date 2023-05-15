@@ -1279,6 +1279,10 @@ class Purchase extends MX_Controller
 
 				"less_adj_amt" => $less_adj_amt,
 
+				"trn_handling_charge" => $this->input->post('trn_handling_charge'),
+
+				"trn_handling_charge_flag" => $this->input->post('trn_handling_charge_flag'),
+
 				"net_amt"      => $net_amt,
 
 				"rbt_add"      => $rbt_add,
