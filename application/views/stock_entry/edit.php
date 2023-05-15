@@ -499,7 +499,7 @@
     				</div>
     				<div class="col-sm-1">
     					<label for="less_adj_amt_flag" style="color:green;">GST</label>
-    					<input type="checkbox" id="trn_handling_charge_flag" name="trn_handling_charge_flag" value="Y" 
+    					<input type="checkbox" id="trn_handling_charge_flag" name="trn_handling_charge_flag" disabled value="Y" 
 						<?php 
 						if ($stock->trn_handling_charge_flag=='Y'){
 							echo "checked";
