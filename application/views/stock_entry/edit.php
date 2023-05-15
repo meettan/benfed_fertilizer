@@ -490,6 +490,22 @@
 					   
 					   ?>>
 				</div>
+				<label for="trn_handling_charge" class="col-sm-1 col-form-label">Transport Handling Charge:</label>
+    				<div class="col-sm-2">
+
+    					<input type="text" readonly style="width:150px" id=trn_handling_charge name="trn_handling_charge" class="form-control"
+    						value="<?php echo $stock->trn_handling_charge; ?>" />
+
+    				</div>
+    				<div class="col-sm-1">
+    					<label for="less_adj_amt_flag" style="color:green;">GST</label>
+    					<input type="checkbox" id="trn_handling_charge_flag" name="trn_handling_charge_flag" value="Y" 
+						<?php 
+						if ($stock->trn_handling_charge_flag=='Y'){
+							echo "checked";
+							}
+					   ?>>
+    				</div>
 			</div>
 
 			<div class="form-group row">
