@@ -363,7 +363,7 @@
                     <td style="width:30%">Branch Name:</td><td><?=$cbranch_name?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Name of A/C Holder:</td><td><?=$companyName?></td>
+                    <td style="width:40%">Name of A/C Holder:</td><td><?=$companyName?></td>
                 <tr>
                 <tr>
                     <td style="width:30%">Account no :</td><td><?=$cacc_num?> </td>
