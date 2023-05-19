@@ -2985,7 +2985,8 @@ if($refereceNo==""||$refereceNo==null){
         return $q->result();
     }
     public function tcs_payable($frm_date,$to_date){
-
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
+        $br     = $this->session->userdata['loggedin']['branch_id'];
         $q  = $this->db->query("select  x.soc_name,sum(April)April,sum(May)May,sum(June)June,sum(July)July,sum(August)August,sum(September)September,sum(October)October,sum(November)November,sum(December)December,sum(January)January,sum(February)February,sum(March)March
         from(
         select b.soc_name,c.month_name,c.id,a.yr,
@@ -3005,8 +3006,8 @@ if($refereceNo==""||$refereceNo==null){
         from(
         SELECT soc_id,sum(`paid_amt`)tot_amt,CAST(substr( paid_dt,6,2) AS UNSIGNED)month,substr( paid_dt,1,4)yr  FROM `tdf_payment_recv`
         WHERE `paid_dt` BETWEEN '$frm_date' AND '$to_date'
-        AND `branch_id` = 338
-        AND `fin_yr` =3
+        AND `branch_id` = $br
+        AND `fin_yr` = $fin_id
         and pay_type<>6
         group by soc_id,substr( paid_dt,6,7),substr( paid_dt,1,4))a,mm_ferti_soc b,md_month c
         where a.soc_id=b.soc_id
