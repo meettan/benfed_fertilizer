@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class ReportModel extends CI_Model
 {
 
-    public function f_select($table, $select = NULL, $where = NULL, $type)
+    public function f_select($table, $select = NULL, $where = NULL, $type=NULL)
     {
         if (isset($select)) {
             $this->db->select($select);
@@ -2984,7 +2984,38 @@ if($refereceNo==""||$refereceNo==null){
         }
         return $q->result();
     }
+    public function tcs_payable($frm_date,$to_date){
 
+        $q  = $this->db->query("select  x.soc_name,sum(April)April,sum(May)May,sum(June)June,sum(July)July,sum(August)August,sum(September)September,sum(October)October,sum(November)November,sum(December)December,sum(January)January,sum(February)February,sum(March)March
+        from(
+        select b.soc_name,c.month_name,c.id,a.yr,
+        if(c.month_name='April',sum(a.tot_amt),0)April,
+        if(c.month_name='May',sum(a.tot_amt),0)May,
+        if(c.month_name='June',sum(a.tot_amt),0)June,
+        if(c.month_name='July',sum(a.tot_amt),0)July,
+        if(c.month_name='August',sum(a.tot_amt),0)August,
+        if(c.month_name='September',sum(a.tot_amt),0)September,
+        if(c.month_name='October',sum(a.tot_amt),0)October,
+        if(c.month_name='November',sum(a.tot_amt),0)November,
+        if(c.month_name='December',sum(a.tot_amt),0)December,
+        if(c.month_name='January',sum(a.tot_amt),0)January,
+        if(c.month_name='February',sum(a.tot_amt),0)February,
+        if(c.month_name='March',sum(a.tot_amt),0)March
+        
+        from(
+        SELECT soc_id,sum(`paid_amt`)tot_amt,CAST(substr( paid_dt,6,2) AS UNSIGNED)month,substr( paid_dt,1,4)yr  FROM `tdf_payment_recv`
+        WHERE `paid_dt` BETWEEN '$frm_date' AND '$to_date'
+        AND `branch_id` = 338
+        AND `fin_yr` =3
+        and pay_type<>6
+        group by soc_id,substr( paid_dt,6,7),substr( paid_dt,1,4))a,mm_ferti_soc b,md_month c
+        where a.soc_id=b.soc_id
+        and a.month=c.id
+        group by b.soc_name,c.month_name,a.yr
+        order by b.soc_name,a.yr,c.month_name)x
+        group by x.soc_name;"); 
+        return $q->result();
+    }
 
 
 

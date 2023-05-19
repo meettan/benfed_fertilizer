@@ -2524,5 +2524,29 @@ public function soc_payblepaid(){
             $this->load->view('post_login/footer');
         }
     }
+    public function tcs_payable(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+           
+            $frm_date = $this->input->post('fr_date');
+            $to_date  = $this->input->post('to_date');
+            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date);
+            $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
+            $data['fDate']= $frm_date;
+            $data['tDate']=$to_date;
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/tcs_payable/advPay.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/tcs_payable/advPay_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
+    
         
   }
