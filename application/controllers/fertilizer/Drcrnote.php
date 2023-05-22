@@ -1286,4 +1286,172 @@ public function crnote_editvu(){
 	    }
 	}
 
+    // *************  Dashboard    DR NOTE TCS   DEVELOPED ON 16/05/2023   BY LOKESH KUMAR JHA     ********** //
+	public function dr_note_tcs(){
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+			$from_date=$this->input->post('from_date');
+			$to_date=$this->input->post('to_date');
+			$select	=	array('a.*',"b.soc_name");
+
+			$where	=	array(
+
+				"a.soc_id = b.soc_id"	=>	NULL,
+			     "a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
+				
+				"a.trans_dt BETWEEN '".$from_date."' AND '".$to_date."'ORDER BY a.trans_dt"=>	NULL
+			);
+		
+		
+		   $data['dr_notes']    = $this->DrcrnoteModel->f_select("tdf_dr_cr_note a,mm_ferti_soc b,mm_company_dtls c ",$select,$where,0);
+	
+			$this->load->view("post_login/fertilizer_main");
+	
+			$this->load->view("dr_note_tcs/dashboard",$data);
+	
+			$this->load->view('search/search');
+	
+			$this->load->view('post_login/footer');
+		}else{
+		
+		$select	=	array('a.*',"b.soc_name");
+
+		$where	=	array(
+
+			"a.soc_id = b.soc_id"	=>	NULL,
+			"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
+			"a.trans_dt BETWEEN '".date('Y-m-d')."' AND '".date('Y-m-d')."' ORDER BY a.trans_dt"=>	NULL
+			
+		);
+		
+		$data['dr_notes']    = $this->DrcrnoteModel->f_select("drnote_tcs a,mm_ferti_soc b",$select,$where,0);
+	
+		$this->load->view("post_login/fertilizer_main");
+   
+		$this->load->view("dr_note_tcs/dashboard",$data);
+   
+		$this->load->view('search/search');
+   
+		$this->load->view('post_login/footer');
+
+	    }
+	}
+
+	// *************  add DR NOTE TCS   DEVELOPED ON 16/05/2023   BY LOKESH KUMAR JHA     ********** //
+	public function drnoteAdd_tcs(){
+
+		$branch  = $this->session->userdata['loggedin']['branch_id'];
+		$finYr          = $this->session->userdata['loggedin']['fin_id'];
+		$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
+		$select         = array("dist_sort_code");
+		$where          = array("district_code"     =>  $branch);
+		$brn           = $this->DrcrnoteModel->f_select("md_district",$select,$where,1); 
+	    $transNo         = $this->DrcrnoteModel->get_trans_no_fortcs($this->session->userdata['loggedin']['fin_id']);
+	    $receipt         = 'TCS/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
+	 
+		
+	    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+			$soc_id    = $this->input->post('soc_id');
+			$tot_amt   = $this->input->post('tot_amt');
+			$tot_cramt = 0.00;
+			
+			
+			$data  = array (
+				
+				'trans_dt'    =>  date('Y-m-d'),
+				'trans_no'    => $transNo->trans_no,
+				'recpt_no'    => $receipt,
+				'soc_id'      => $this->input->post('soc_id'),
+				'frm_date'      => $this->input->post('frm_date'),
+				'to_date'      => $this->input->post('to_date'),
+				'tot_amt'      => $this->input->post('tot_amt'),
+
+				'branch_id'   => $this->session->userdata['loggedin']['branch_id'],
+
+				"remarks"     => $this->input->post('remarks'),
+
+				"fin_yr"      => $this->session->userdata['loggedin']['fin_id'],
+				
+				'created_by'  => $this->session->userdata['loggedin']['user_name'],
+
+				'created_dt'  =>  date('Y-m-d h:i:s'),
+
+				"created_ip"   =>  $_SERVER['REMOTE_ADDR']
+
+			);
+			
+			$tot_cramt = $this->input->post('tot_amt');
+
+			$select_cracc         = array("acc_cd");
+		
+			   $cr_acc = $this->DrcrnoteModel->f_select_finance("md_achead",array("sl_no"),
+			   array("mngr_id"=>3,'subgr_id'=>292,'br_id'=>$this->session->userdata['loggedin']['branch_id']),1);
+
+				$data_array_cr=$data;
+				$data_array_cr['acc_cd'] = $cr_acc->sl_no; 
+				
+				$select_soc         = array("soc_name","acc_cd");
+				$where_soc           = array("soc_id"     => $soc_id);
+				$soc_name = $this->DrcrnoteModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
+				$data_array_crt['soc_acc']= $soc_name->acc_cd;
+				$data_array_cr['dr_acc_cd'] =$soc_name->acc_cd;
+				$data_array_cr['rem'] ="TCS of ".$soc_name->soc_name." aginst ".$this->input->post('remarks');
+				
+				$select_br    = array("dist_sort_code");
+				$where_br     = array("district_code"=> $branch);
+
+				$data_array_cr['fin_fulyr']=$fin_year;
+				$data_array_cr['br_nm']= $brn->dist_sort_code;
+				if($this->DrcrnoteModel->f_drnote_tcs_crnjnl($data_array_cr)!=0){
+					$this->DrcrnoteModel->f_insert('drnote_tcs', $data);
+				}else{
+					echo "<script>alert('Debit Note TCS has not yet been done.');</script>";
+				}
+			
+			$this->session->set_flashdata('msg', 'Successfully Added');
+			redirect('drcrnote/dr_note_tcs');
+			
+		}else {
+
+				$wheres = array("district" => $this->session->userdata['loggedin']['branch_id']);
+				$select1   = array("soc_id","soc_name","soc_add","gstin");
+
+				$product['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+				$select = array("COMP_ID comp_id","COMP_NAME comp_name");
+				$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select,NULL,0);
+
+				$select_cat = array("sl_no","cat_desc");
+				$wherecatagory=array("acc_cd >"=>0);
+
+				$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',$select_cat,$wherecatagory,0);
+
+				$select = array("trans_do");
+				$whereinv=array("soc_id" => $this->input->get("soc_id"));
+
+				$product['saleinv'] = $this->DrcrnoteModel->f_select('td_sale',$select,$whereinv,0);
+				$product['mntend']  = $this->PurchaseModel->f_get_mnthend($branch);
+				$product['years']   = $this->DrcrnoteModel->f_select('md_fin_year',array('sl_no','fin_yr'),NULL,0);
+				$product['date']    = $this->PurchaseModel->get_monthendDate();
+
+				$this->load->view('post_login/fertilizer_main');
+				$this->load->view("dr_note_tcs/add",$product);
+				$this->load->view('post_login/footer');
+		}
+
+	}
+	public function drnotetcs_edit(){
+
+			$data['tcs']  = $this->DrcrnoteModel->f_select('drnote_tcs',NULL,array("id" => $this->input->get('id')),1);
+			$wheres = array("district" => $this->session->userdata['loggedin']['branch_id']);
+			$select1   = array("soc_id","soc_name","soc_add","gstin");
+			$data['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+
+	        $this->load->view('post_login/fertilizer_main');
+	        $this->load->view("dr_note_tcs/edit",$data);
+	        $this->load->view('post_login/footer');
+
+
+    }
+
+
 }

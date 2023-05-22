@@ -33,7 +33,7 @@
 			return $value->result();
 		}
 		
-		public function f_get_particulars($table_name, $select=NULL, $where=NULL, $flag) {
+		public function f_get_particulars($table_name, $select=NULL, $where=NULL, $flag=NULL) {
         
 			if(isset($select)) {
 	
@@ -126,14 +126,45 @@ function f_crnjnl($data){
 	curl_close($curl);
 	return $response;
 	
-}
+   }
+
+	function f_drnote_tcs_crnjnl($data){
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		
+		CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/crn_voucher_tcs',
+		//CURLOPT_URL => 'http://localhost/Benfed_finance/index.php/api_voucher/crn_voucher',
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS =>'{
+			"data": '.json_encode($data).'
+		}',
+		
+		CURLOPT_HTTPHEADER => array(
+			'Content-Type: application/json',
+			'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
+		),
+		));
+		
+		$response = curl_exec($curl);
+		
+		curl_close($curl);
+		return $response;
+		
+	}
 
 /******************************************************** */
 
 
 
 /*Select Data from a table*/		
-		public function f_select($table,$select=NULL,$where=NULL,$type){
+		public function f_select($table,$select=NULL,$where=NULL,$type=NULL){
 			if(isset($select)){
 				$this->db->select($select);
 			}
@@ -172,6 +203,16 @@ function f_crnjnl($data){
 		  return $result->row();
 
 		}
+		public function get_trans_no_fortcs($fin_id){
+
+			$sql="select ifnull(max(trans_no),0) + 1 trans_no
+					 from drnote_tcs where fin_yr = '$fin_id'";
+
+		  $result = $this->db->query($sql);     
+	  
+		  return $result->row();
+
+		}
 
 		public function f_delete($table_name, $where) {			
 
@@ -204,6 +245,22 @@ function f_crnjnl($data){
 
 			$data= $db2->query("DELETE FROM td_vouchers WHERE voucher_id='$recpt_no'");
 			return $data;
+		}
+
+		public function f_select_finance($table,$select=NULL,$where=NULL,$type=NULL){
+			$db2 = $this->load->database('findb', TRUE);
+			if(isset($select)){
+				$db2->select($select);
+			}
+			if(isset($where)){
+				$db2->where($where);
+			}
+			$value = $db2->get($table);
+			if($type==1){
+				return $value->row();
+			}else{
+				return $value->result();
+			}
 		}
 
 
