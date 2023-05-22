@@ -64,6 +64,7 @@ $thisyear=$fy[0];
                         <th style="text-align: center">RO Number</th>
 						<th style="text-align: center">Qty</th>
                         <th style="text-align: center">Rate</th>
+						<th style="text-align: center">Cr Note Amt</th>
                         <th style="text-align: center">Amount</th>
 						<th style="text-align: center">Delete</th>
                     </thead>
@@ -79,6 +80,7 @@ $thisyear=$fy[0];
 					<td><input type="text" name="ro_no[]" class="form-control" value='<?php echo $value->ro_no; ?>' style="" readonly=""></td>
 					<td><input type="text" name="qty[]" class="form-control" value='<?php echo $value->qty;$tot_qty +=$value->qty; ?>' readonly=""></td>
 					<td><input type="text" name="rate[]" class="form-control"value='<?php echo $value->rate; ?>' readonly=""></td>
+					<td><input type="text" name="cramt[]" class="form-control"value='<?php echo $value->cr_amount; ?>' readonly=""></td>
 					<td><input type="text" name="amount[]" class="form-control" value='<?php echo $value->amount;
 																						$tot_amt +=$value->amount; ?>' readonly=""></td>
 				    <td> <?php if($value->fwd_flag == 'N'){ ?>
@@ -97,7 +99,7 @@ $thisyear=$fy[0];
                             <td colspan="4" style="text-align:right">
                                 <strong>Total:</strong>
                             </td>
-							<td><span id="tot_qty"><?=$tot_qty?></span></td><td></td>
+							<td><span id="tot_qty"><?=$tot_qty?></span></td><td></td><td></td>
                            
                             <td colspan="" style="text-align:left">
                                 <strong id="tot_amt"><?=$tot_amt?></strong>

@@ -1213,7 +1213,7 @@ public function f_get_dist_bnk_dtls(){
 		$data['compdtls']   = $this->AdvanceModel->f_select('mm_company_dtls',$selectcompany,NULL,0);
 		$selectprod      = array("PROD_ID","PROD_DESC");
 		$data['prodtls']   = $this->AdvanceModel->f_select('mm_product',$selectprod,NULL,0);
-        $select =array('a.*','b.comp_id','b.prod_id','b.fo_no','b.ro_no','b.qty','b.rate','b.amount','d.soc_name','(SELECT d.fo_name FROM mm_fo_master d where d.fi_id=b.fo_no) fo_name');
+        $select =array('a.*','b.comp_id','b.prod_id','b.fo_no','b.ro_no','b.qty','b.rate','b.cr_amount','b.amount','d.soc_name','(SELECT d.fo_name FROM mm_fo_master d where d.fi_id=b.fo_no) fo_name');
 		$where = array('a.receipt_no = b.receipt_no' => NULL,
 		               'a.detail_receipt_no = b.detail_receipt_no' => NULL,
 					   'b.receipt_no = c.receipt_no' => NULL,
@@ -1221,7 +1221,6 @@ public function f_get_dist_bnk_dtls(){
 					    'a.fwd_receipt_no' => $this->input->get('fwd_receipt_no')); 
 		$data['fwds'] = $this->AdvanceModel->f_select('tdf_adv_fwd a,td_adv_details b,tdf_advance c,mm_ferti_soc d',$select,$where,0); 
 
-		
 		$this->load->view("post_login/fertilizer_main");
 		$this->load->view("advance/advfwd_view",$data);
 		$this->load->view('post_login/footer');
