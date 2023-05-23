@@ -154,7 +154,11 @@
                 </div>
             </div>
 
-            <?php } ?>
+            <?php } else {     ?>
+            
+                <input type="hidden" id="updNetAmt" name="" value="0" />
+            
+          <?php    }  ?>
             <div class="form-group row"><input type="hidden" id="allocate" name="allocate" class="form-control"
                     value="" />
 
@@ -318,7 +322,7 @@
             //return false;
              event.preventDefault();
         }else{
-           // alert('Total amount must be less than advance amount');
+           
            // event.preventDefault();
         }
     });
@@ -553,7 +557,7 @@
         }
         // else 
         // if (allocte_amt > totalamt) {
-        //     alert('Total amount must be less than advance amount');
+       
         //     e.preventDefault();
         // }
     });
