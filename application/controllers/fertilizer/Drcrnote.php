@@ -1354,11 +1354,15 @@ public function crnote_editvu(){
 			$soc_id    = $this->input->post('soc_id');
 			$tot_amt   = $this->input->post('tot_amt');
 			$tot_cramt = 0.00;
-			
-			
+			if($this->session->userdata['loggedin']['fin_id'] > 3){
+				$transdate  = date('Y-m-d');
+			}else{
+				$transdate  = '2023-03-31';
+			}
+			 
 			$data  = array (
 				
-				'trans_dt'    =>  date('Y-m-d'),
+				'trans_dt'    =>  $transdate,
 				'trans_no'    => $transNo->trans_no,
 				'recpt_no'    => $receipt,
 				'soc_id'      => $this->input->post('soc_id'),
@@ -1379,7 +1383,6 @@ public function crnote_editvu(){
 				"created_ip"   =>  $_SERVER['REMOTE_ADDR']
 
 			);
-			
 			$tot_cramt = $this->input->post('tot_amt');
 
 			$select_cracc         = array("acc_cd");
