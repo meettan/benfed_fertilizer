@@ -177,6 +177,8 @@ tr:hover {background-color: #f5f5f5;}
                                     $totalamt=0.00;
 //print_r($all_data[0]); 
                                         foreach($all_data as $prodtls){
+                                            if($prodtls->trans_dt != ''){
+
                             ?>
 
                                 <tr class="rep">
@@ -323,7 +325,7 @@ tr:hover {background-color: #f5f5f5;}
                                 </tr>
  
                                 <?php  
-                                                        
+                                        }                 
                                     }
                                 ?>
 
