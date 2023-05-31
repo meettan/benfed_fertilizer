@@ -297,7 +297,7 @@ tr:hover {background-color: #f5f5f5;}
                                         }
 
                                         // echo $totalamt;
-                                     }elseif($prodtls->remarks=='Sale' || $prodtls->remarks=='TCS'){
+                                     }elseif($prodtls->remarks=='Sale'){
                                       
                                       $totalamt += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst;
 
@@ -315,7 +315,25 @@ tr:hover {background-color: #f5f5f5;}
                                             echo"<td>".abs( $totVal)."</td>";
                                            
                                         }
-                                     }
+                                     }elseif($prodtls->remarks=='TCS'){
+                                      
+                                        $totalamt += $prodtls->tot_payble ;
+  
+                                       
+                                        
+                                          if($totalamt>0){
+                                             
+                                              $totVal=round($totalamt, 2);
+                                              echo"<td>".abs( $totVal)."</td>";
+                                              echo"<td></td>";
+                                          }
+                                          if($totalamt<0){
+                                              echo"<td></td>";
+                                              $totVal=round($totalamt, 2);
+                                              echo"<td>".abs( $totVal)."</td>";
+                                             
+                                          }
+                                       }
                                      ?>
                                      
 
