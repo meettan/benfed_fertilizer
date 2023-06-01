@@ -158,9 +158,9 @@
                                 <td><?php echo $ptableData->adv_amt; ?></td>
                                 <td><?php 
                                 echo round(0.001 * round($ptableData->adv_amt, 2));
-                                $tds = 0.001 * $ptableData->adv_amt;
+                                $tds = round(0.001 * round($ptableData->adv_am, 2));
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td><?php $netamt = (round($ptableData->adv_amt, 2) - $tds);
+                                <td><?php $netamt = round((round($ptableData->adv_amt, 2) - $tds));
                                     echo round($netamt, 2);
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
@@ -231,7 +231,7 @@
                                 <td style="text-align: right;"><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2));
                                 $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2));
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td style="text-align: right;"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);
+                                <td style="text-align: right;"><?php $netamt = round(round($ptableDatasummary->adv_amt, 2) - $tds);
                                     echo round($netamt, 2);
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
@@ -342,7 +342,7 @@
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
                         <td style="border: 1px solid black !important">IFFCO</td>
                         <?php  $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2)); ?>
-                        <td style="border: 1px solid black !important"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);  ?>
+                        <td style="border: 1px solid black !important"><?php $netamt = round(round($ptableDatasummary->adv_amt, 2) - $tds);  ?>
                        
                             <?php        echo round($netamt, 2);
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
@@ -397,10 +397,16 @@
                         <td style="border:none;"></td>
                         <td style="border:none;">General Manager(Administration)</td>   
                         <?php }elseif($sig == 3){ ?> 
-                            <td style="border:none;"></td>
+                        <td style="border:none;"></td>
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">General Manager(Administration)</td>
+                        <?php }elseif($sig == 4){ ?>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Manager Accounts</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Deputy Manager Accounts</td>
+
                         <?php } ?>
                     </tr>
                 </tbody>
