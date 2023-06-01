@@ -157,7 +157,7 @@
                                 <td><?php echo $ptableData->fo_number . '-' . $ptableData->fo_name; ?></td>
                                 <td><?php echo $ptableData->adv_amt; ?></td>
                                 <td><?php 
-                                echo round(0.001 * round($ptableData->adv_amt, 2), 2);
+                                echo round(0.001 * round($ptableData->adv_amt, 2));
                                 $tds = 0.001 * $ptableData->adv_amt;
                                     $totalTds = $totalTds + $tds; ?></td>
                                 <td><?php $netamt = (round($ptableData->adv_amt, 2) - $tds);
@@ -228,8 +228,8 @@
                                 <td><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
 
                                 <td style="text-align: right;"><?php echo $ptableDatasummary->adv_amt; ?></td>
-                                <td style="text-align: right;"><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2), 2);
-                                $tds = 0.001 * $ptableDatasummary->adv_amt;
+                                <td style="text-align: right;"><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2));
+                                $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2));
                                     $totalTds = $totalTds + $tds; ?></td>
                                 <td style="text-align: right;"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);
                                     echo round($netamt, 2);
@@ -341,7 +341,7 @@
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
                         <td style="border: 1px solid black !important">IFFCO</td>
-                        <?php  $tds = 0.001 * $ptableDatasummary->adv_amt; ?>
+                        <?php  $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2)); ?>
                         <td style="border: 1px solid black !important"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);  ?>
                        
                             <?php        echo round($netamt, 2);
