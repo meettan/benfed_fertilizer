@@ -158,7 +158,7 @@
                                 <td><?php echo $ptableData->adv_amt; ?></td>
                                 <td><?php 
                                 echo round(0.001 * round($ptableData->adv_amt, 2));
-                                $tds = round(0.001 * round($ptableData->adv_am, 2));
+                                $tds = round(0.001 * round($ptableData->adv_amt, 2));
                                     $totalTds = $totalTds + $tds; ?></td>
                                 <td><?php $netamt = round((round($ptableData->adv_amt, 2) - $tds));
                                     echo round($netamt, 2);
