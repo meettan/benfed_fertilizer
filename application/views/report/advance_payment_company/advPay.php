@@ -156,10 +156,10 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td><?php echo $ptableData->taxable_amt ;$totalAmount+=$ptableData->taxable_amt; ?></td>
 
-                                     <td><?php echo $ptableData->tds_amt;$totalTDS+=$ptableData->tds_amt;?></td>
+                                     <td><?php echo round($ptableData->tds_amt);$totalTDS+=round($ptableData->tds_amt);?></td>
 
                                      <!--<td><?php //echo $ptableData->net_amt;$totalNETAmount+=$ptableData->net_amt;?></td>-->
-                                     <td><?php echo $ptableData->taxable_amt - $ptableData->tds_amt; $totalNETAmount+=$ptableData->taxable_amt - $ptableData->tds_amt;?></td>
+                                     <td><?php echo round($ptableData->taxable_amt) - round($ptableData->tds_amt); $totalNETAmount+=round($ptableData->taxable_amt) - round($ptableData->tds_amt);?></td>
                                 </tr>
                                
  
@@ -230,7 +230,7 @@ tr:hover {background-color: #f5f5f5;}
                                        // $total=($ptableData->adv_amt+$total);
                                        //$total +=$ptableData->adv_amt;
                             ?>
-<!-- a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro,a.qty,a.rate_amt,a.taxable_amt,a.tds_amt,a.net_amt -->
+
                                 <tr>
                                      <td><?php echo $i++; ?></td>
                                      
@@ -241,10 +241,10 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td><?php echo $ptableDatasidt->taxable_amt ;$totalAmount+=$ptableDatasidt->taxable_amt; ?></td>
 
-                                     <td><?php echo $ptableDatasidt->tds_amt;$totalTDS+=$ptableDatasidt->tds_amt;?></td>
+                                     <td><?php echo round($ptableDatasidt->tds_amt);$totalTDS+=round($ptableDatasidt->tds_amt);?></td>
 
                                      
-                                     <td><?php echo $ptableDatasidt->net_amt; $totalNETAmount+=$ptableDatasidt->net_amt;?></td>
+                                     <td><?php echo round($ptableDatasidt->net_amt); $totalNETAmount+=round($ptableDatasidt->net_amt);?></td>
                                 </tr>
                                
  
@@ -257,7 +257,7 @@ tr:hover {background-color: #f5f5f5;}
                                     
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $totalAmount-$totalTDS; ?></b></td>
+                                    <td><b><?php echo  round($totalAmount-$totalTDS); ?></b></td>
                                 </tr>
                                 <?php 
                                        }
@@ -358,13 +358,13 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_num)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
                         <td style="border: 1px solid black !important">IFFCO</td>
-                        <td style="border: 1px solid black !important"><?php echo $ptableDatasidt->net_amt; $totalNETAmount+=$ptableDatasidt->net_amt;?></td>
+                        <td style="border: 1px solid black !important"><?php echo round($ptableDatasidt->net_amt); $totalNETAmount+=round($ptableDatasidt->net_amt);?></td>
                     </tr>
 
                     <?php    }  }?>
                     <tr>
                         <td colspan="4" style="text-align:center">TOTAL</td>
-                        <td><?=$totalNETAmount?></td>
+                        <td><?=round($totalNETAmount)?></td>
                     </tr>
                 </tbody>
                
@@ -387,7 +387,7 @@ tr:hover {background-color: #f5f5f5;}
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format((float)($totalAmount-$totalTDS), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($totalAmount-$totalTDS), 2, '.', ''))?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format((float)(round($totalAmount-$totalTDS)), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)(round($totalAmount-$totalTDS)), 2, '.', ''))?>)</td>
                 <tr>
              <table>   
             <?php } ?>  
@@ -413,6 +413,12 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">General Manager(Administration)</td>
+                        <?php }elseif($sig == 4){ ?>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Manager Accounts</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Deputy Manager Accounts</td>
+
                         <?php } ?>
                     </tr>
                     
