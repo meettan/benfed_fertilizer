@@ -2419,12 +2419,17 @@ and a.ro_no not in (select sale_ro from td_sale
                             SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
                             (select DISTINCT c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
                             (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
-                            (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk
-                            from tdf_company_payment a, mm_product b,md_district c
+                            (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk,
+                            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk_branch_name,
+                            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bnk_id)acc_num,
+                            d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,d.ac_no as cac_no,
+                            d.ifsc as cifsc
+                            from tdf_company_payment a, mm_product b,md_district c,mm_company_dtls d
                             where a.comp_id=$comp_id
                             and a.ref_no='".$refereceNo."'
                             and b.PROD_ID=a.prod_id
                             and a.district=c.district_code
+                            and a.comp_id=d.comp_id
                             and a.net_amt > 0
                             and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
                             group by  a.pur_ro,a.pur_inv_no,a.paid_id
