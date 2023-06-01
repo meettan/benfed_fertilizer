@@ -341,8 +341,10 @@
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
                         <td style="border: 1px solid black !important">IFFCO</td>
-                        <td style="border: 1px solid black !important"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);
-                                    echo round($netamt, 2);
+                        <?php  $tds = 0.001 * $ptableDatasummary->adv_amt; ?>
+                        <td style="border: 1px solid black !important"><?php $netamt = (round($ptableDatasummary->adv_amt, 2) - $tds);  ?>
+                       
+                            <?php        echo round($netamt, 2);
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                     </tr>
 
@@ -363,7 +365,7 @@
                     <td style="width:30%">Branch Name:</td><td><?=$cbranch_name?></td>
                 <tr>
                 <tr>
-                    <td style="width:70%">Name of A/C Holder:</td><td><?=$companyName?></td>
+                    <td style="width:30%">Name of A/C Holder:</td><td><?=$companyName?></td>
                 <tr>
                 <tr>
                     <td style="width:30%">Account no :</td><td><?=$cacc_num?> </td>
