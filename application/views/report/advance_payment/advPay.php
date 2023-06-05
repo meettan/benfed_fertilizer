@@ -145,7 +145,7 @@
                         foreach ($tableData as $ptableData) {
                             // $total=($ptableData->adv_amt+$total);
                             $total += $ptableData->adv_amt;
-                    ?>
+                        ?>
 
                             <tr>
                                 <td><?php echo $i++; ?></td>
@@ -157,22 +157,21 @@
                                 <td><?php echo $ptableData->fo_number . '-' . $ptableData->fo_name; ?></td>
                                 <td><?php echo $ptableData->adv_amt; ?></td>
                                 <td><?php 
-                                echo round(0.001 * round($ptableData->adv_amt, 2));
-                                $tds = round(0.001 * round($ptableData->adv_amt, 2));
+                                echo 0.001 * round($ptableData->adv_amt, 2);
+                                $tds = 0.001 * round($ptableData->adv_amt, 2);
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td><?php $netamt = round((round($ptableData->adv_amt, 2) - $tds));
-                                    echo round($netamt, 2);
+                                <td><?php $netamt =(round($ptableData->adv_amt, 2) - $tds);
+                                    echo $netamt;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
-
 
                         <?php    } ?>
 
                         <tr>
                             <td colspan="7"><b>Total</b></td>
                             <td><b><?php echo round($total, 2); ?></b></td>
-                            <td><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td><b><?php echo round($totalnetamt, 2); ?></b></td>
+                            <td><b><?php echo $totalTds; ?></b></td>
+                            <td><b><?php echo $totalnetamt; ?></b></td>
                         </tr>
                     <?php
                     } else {
