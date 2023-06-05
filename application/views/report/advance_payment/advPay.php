@@ -99,13 +99,30 @@
                 <h4>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h4>
                 <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                 <h3>Advance Payment Voucher Between:<?php echo  date("d/m/Y", strtotime($fDate)) . ' To ' . date("d/m/Y", strtotime($tDate)) ?></h3>
+                <?php
+
+
+    if ($tableData) {
+
+    $totalnetamth = 0;
+    $totalTdsh = 0;
+    foreach ($tableDatasummary as $ptableDatasummary) {
+    
+        $tdsh = round(0.001 * round($ptableDatasummary->adv_amt, 2));
+        $totalTdsh = $totalTdsh + $tdsh; 
+        $netamth = round(round($ptableDatasummary->adv_amt, 2) - $tdsh);
+        $totalnetamth = $totalnetamth + $netamth;
+
+        } 
+    }
+    ?>
 
                 <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->adv_amt, 2); ?> DR</h5>
                 <h5 style="text-align:left"><label><?php foreach ($tableData as $bnk) {
                                                         echo $bnk->bnk;
                                                         break;
-                                                    }; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->net_amt, 2); ?> CR</h5>
-                <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($total_Voucher->tds, 2); ?> CR </h5>
+                                                    }; ?>:</label> &ensp;&ensp;<?php echo round($totalnetamth); ?> CR</h5>
+                <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($totalTdsh); ?> CR </h5>
 
             </div>
             <br>
@@ -157,10 +174,10 @@
                                 <td><?php echo $ptableData->fo_number . '-' . $ptableData->fo_name; ?></td>
                                 <td><?php echo $ptableData->adv_amt; ?></td>
                                 <td><?php 
-                                echo 0.001 * round($ptableData->adv_amt, 2);
-                                $tds = 0.001 * round($ptableData->adv_amt, 2);
+                                echo round((0.001 * round($ptableData->adv_amt, 2)),2);
+                                $tds = round((0.001 * round($ptableData->adv_amt, 2)),2);
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td><?php $netamt =(round($ptableData->adv_amt, 2) - $tds);
+                                <td><?php $netamt =round(((round($ptableData->adv_amt, 2) - $tds)),2);
                                     echo $netamt;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
@@ -210,7 +227,6 @@
 
 
                     if ($tableData) {
-
                         $i = 1;
                         $total = 0;
                         $totalnetamt = 0;
