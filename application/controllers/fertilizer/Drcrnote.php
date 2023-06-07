@@ -1302,7 +1302,7 @@ public function crnote_editvu(){
 			);
 		
 		
-		   $data['dr_notes']    = $this->DrcrnoteModel->f_select("tdf_dr_cr_note a,mm_ferti_soc b,mm_company_dtls c ",$select,$where,0);
+		   $data['dr_notes']    = $this->DrcrnoteModel->f_select("drnote_tcs a,mm_ferti_soc b ",$select,$where,0);
 	
 			$this->load->view("post_login/fertilizer_main");
 	
