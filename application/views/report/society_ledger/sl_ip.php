@@ -317,9 +317,9 @@ tr:hover {background-color: #f5f5f5;}
                                         }
                                      }elseif($prodtls->remarks=='TCS'){
                                       
-                                        $totalamt += $prodtls->tot_payble * -1 ;
+                                        //$totalamt += $prodtls->tot_payble * -1 ;
    
-                                       
+                                        $totalamt += $prodtls->tot_payble ;
                                         
                                           if($totalamt>0){
                                              
