@@ -2188,8 +2188,10 @@ and a.ro_no not in (select sale_ro from td_sale
             UNION
             select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
-			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,(select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
-            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no,f.bank_name as cbank,f.bnk_branch_name as cbnk_branch_name,f.ac_no as cac_no,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no,
+            f.bank_name as cbank,f.bnk_branch_name as cbnk_branch_name,f.ac_no as cac_no,
             f.ifsc as cifsc
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
                         where c.branch_id = b.id
@@ -2207,7 +2209,9 @@ and a.ro_no not in (select sale_ro from td_sale
 
             $sql = "select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
             where c.branch_id = b.id
             and   a.memo_no='$memoNumber'
@@ -2221,7 +2225,9 @@ and a.ro_no not in (select sale_ro from td_sale
             UNION
             select c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
-			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                         where c.branch_id = b.id
                         and   a.memo_no='$memoNumber'
