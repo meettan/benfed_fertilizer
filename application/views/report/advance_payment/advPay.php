@@ -315,11 +315,14 @@
                 
                 <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
                  $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';
-                foreach ($tableData as $bnk) {
+                 if($company_id != 1){
+                    foreach ($tableData as $bnk) {
                     $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->ac_no;
                     $cbank_name = $bnk->cbank;$cbranch_name = $bnk->cbnk_branch_name; $cacc_num = $bnk->cac_no;$cifsc=$bnk->cifsc;
                                                         break;
-                                                    }; ?>
+                                                    }; 
+                   }                                
+                                                    ?>
                 <p style="text-align:left"> &ensp;SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
                 <h5 style="text-align:left;font-size:18px"><label>To</label> &ensp;&ensp;<br>The Manager</br><?=$bank_name?>,<br><?=$branch_name?>,
                 <br>Kolkata - 700019</h5>
