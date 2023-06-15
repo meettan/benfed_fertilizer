@@ -371,6 +371,9 @@
                         <td colspan="4" style="text-align:center">TOTAL</td>
                         <td><?php echo number_format($totalnetamt,2); ?> </td>
                     </tr>
+                    <tr>
+                        <td colspan="5" style="text-align:center">Rupee : <?=getIndianCurrency($totalnetamt)?></td>
+                    </tr>
                 </tbody>
                
             <table> 
