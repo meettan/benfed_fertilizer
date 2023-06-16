@@ -942,13 +942,11 @@ public function stkScomp_all(){
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $from_dt    =   $_POST['from_date'];
-
                 $to_dt      =   $_POST['to_date'];
 
                 $comp_id    =   $this->input->post('company');
-
                 $prod_id    =   $this->input->post('product');
-
+               
                 $ro         =   $this->input->post('ro');
 
                 $branch     =   $this->session->userdata['loggedin']['branch_id'];
@@ -979,11 +977,10 @@ public function stkScomp_all(){
                 $data['stkpoint']     =   $this->ReportModel->f_get_stockpoint($ro);
                
                 $data['closing']     =   $this->ReportModel->f_get_balance_rowise($branch,$from_dt,$to_dt,$opndt);
-
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
-
                 $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
-                
+                $data['compname']    =   $this->ReportModel->f_select("mm_company_dtls",array('COMP_NAME'),array('COMP_ID'=>$comp_id),1);
+                $data['prodname']    =   $this->ReportModel->f_select("mm_product",array('PROD_DESC'), array('PROD_ID'=>$prod_id),1);
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/stk_ro/stk_ro',$data);
                 $this->load->view('post_login/footer');
@@ -2236,7 +2233,6 @@ public function soc_payblepaid(){
 				$where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 				$br_name      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 				$all_data =$this->ReportModel->f_get_soc_ledger($from_dt,$to_dt , $branch,$soc_id);
-				
 				$paid     =$this->ReportModel->f_get_soc_paid($from_dt,$to_dt , $branch);
                 $gstno=explode('-',$this->input->post('soc_id'))[1];
 		}else{
