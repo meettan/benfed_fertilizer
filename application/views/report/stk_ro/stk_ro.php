@@ -67,12 +67,8 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4> Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        <h5 style="text-align:left"><label>Company: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
-                            echo $prodtls->Company;
-                          }?></h5>
-                        <h5 style="text-align:left"><label>Product: </label> <?php  if($all_data){ foreach($all_data as $prodtls);
-                            echo $prodtls->Product;
-                          }?></h5>
+                        <h5 style="text-align:left"><label>Company: </label> <?php  if($compname){ echo $prodtls->COMP_NAME; }?></h5>
+                        <h5 style="text-align:left"><label>Product: </label> <?php  if($prodname){ echo $prodname->PROD_DESC; }?></h5>
                            <h5 style="text-align:left"><label>Unit: </label>  <?php
                                       
                                       if($stkpoint->unit==1 ){
@@ -166,16 +162,13 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><a href="<?= site_url('trade/saleedit?trans_do=' . $prodtls->Sale_Ro); ?>" target="_blank" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit"><?php echo $prodtls->Sale_Ro; ?>
 
-                                       
                                     </a> 
 
                                 </td>
-
                                      <td class="report"><b>
                                      <?php
                                       if($prodtls->Pruchase_qty>0){ 
                                     //  echo $prodtls->Opening_Stock; 
-										  
 										  
                                      if($stkpoint->unit==1){
 
@@ -367,7 +360,6 @@ tr:hover {background-color: #f5f5f5;}
                                         <?php 
                                              if( $prodtls->Sale_qty>0)   {
 
-                                              
                                                     if( $stkpoint->unit==1){
                                                       $bag=$stkpoint->QTY_PER_BAG;
                                                        echo ceil(number_format((float)($totcls*1000 )/$bag,3,'.',''));                                                      
@@ -391,7 +383,7 @@ tr:hover {background-color: #f5f5f5;}
                                                     // echo $bag;
                                                     }elseif($stkpoint->unit==5){
                                                          $bag=$stkpoint->QTY_PER_BAG;
-														//echo 'ddd';
+														
                                                    echo ceil(number_format((float)( $totcls)/$bag,3,'.',''));
                                                   // echo $totcls;
                                                    //echo $bag;
@@ -414,7 +406,6 @@ tr:hover {background-color: #f5f5f5;}
                                 else{
 
                                     echo "<tr><td colspan='14' style='text-align:center;'>No Data Found</td></tr>";
-
                                 }   
 
                             ?>
@@ -426,7 +417,6 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><b><?=$totlop?></b></td>
                                <td class="report"><b><?=$tot_purchase?></b></td>
                                <td class="report"><b><?=$tot_sale?></b></td> 
-                               
                                 <!-- <td class="report"><?=$total?></td>   -->
                               <td></td>
                             </tr>
