@@ -67,7 +67,7 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4> Stock Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-                        <h5 style="text-align:left"><label>Company: </label> <?php  if($compname){ echo $prodtls->COMP_NAME; }?></h5>
+                        <h5 style="text-align:left"><label>Company: </label> <?php  if($compname){ echo $compname->COMP_NAME; }?></h5>
                         <h5 style="text-align:left"><label>Product: </label> <?php  if($prodname){ echo $prodname->PROD_DESC; }?></h5>
                            <h5 style="text-align:left"><label>Unit: </label>  <?php
                                       
