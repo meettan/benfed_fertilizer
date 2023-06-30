@@ -94,7 +94,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Ro dt</th>
 
-                               <!--  <th>Trans type</th> -->
+                                <th>Ro No.</th>
 
                                 <th>Unit</th>
 
@@ -146,6 +146,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td class="report"><?php echo get_fersociety_name($sal->soc_id);?></td>
                                     <td class="report"><?php echo $sal->trans_do; ?></td>
                                     <td  class="report"><?php echo date("d/m/Y",strtotime($sal->do_dt)); ?></td>
+                                    <td  class="report"><?php echo $sal->sale_ro; ?></td>
                                     <!-- <td class="report"><?php //echo $sal->trans_type; ?></td> -->
                                      <td class="report"><?php 
                                      if($sal->unit==1 ||$sal->unit==2 ||$sal->unit==4 || $sal->unit==6){
@@ -250,7 +251,7 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="7" style="text-align:right">Total</td> 
+                               <td class="report" colspan="8" style="text-align:right">Total</td> 
                                <!-- <td class="report"><?=$tot_qty?></td> -->
                                <td class="report"></td>
                                <td class="report"><?=$tot_taxamt?></td>
@@ -263,20 +264,20 @@ tr:hover {background-color: #f5f5f5;}
  
                             </tr>
                             <tr>
-                               <td class="report" colspan="12" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
+                               <td class="report" colspan="13" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
 
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td>
                                
                             </tr>
                             <tr>
-                               <td class="report" colspan="12" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
+                               <td class="report" colspan="13" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
                                
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$totsld_sal?></td>
                                
                             </tr>
                             <tr>
                             <tr>
-                               <td class="report" colspan="12" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
+                               <td class="report" colspan="13" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
                              
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $totlqd_sal?></td>
                             
