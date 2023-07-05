@@ -138,7 +138,7 @@ public function f_get_api_data($trans_do)
 	 
 	 c.gstin Gstin2,c.soc_name LglNm2,c.soc_name TrdNm2,replace(replace(substr(c.soc_add,1,100),'\r\n',''),'/','-')  Addr1_3,replace(replace(substr(c.soc_add,1,100),'\r\n',''),'/','-')  Addr2_3,'W.B' Loc3,d.pin Pin3,19     Stcd3,
 	 
-	 '1' SlNo,b.prod_desc PrdDesc,'N' IsServc,b.hsn_code HsnCd,''Barcde,a.qty Qty,'0'FreeQty,e.unit_name Unit,a.sale_rt UnitPrice,
+	 '1' SlNo,b.prod_desc PrdDesc,f.COMP_NAME COMP_NAME,'N' IsServc,b.hsn_code HsnCd,''Barcde,a.qty Qty,'0'FreeQty,e.unit_name Unit,a.sale_rt UnitPrice,
 	a.taxable_amt TotAmt,a.dis Discount, 0 PreTaxVal,a.taxable_amt AssAmt,b.gst_rt GstRt,0 IgstAmt,a.cgst  CgstAmt,a.sgst SgstAmt,
 	 0 CesRt,0 CesAmt,0 CesNonAdvlAmt,0 StateCesRt,0 StateCesAmt, 0 StateCesNonAdvlAmt,0 OthChrg,a.taxable_amt+a.cgst+a.sgst TotItemVal,
 	 0 OrdLineRef,'IN' OrgCntry,0 PrdSlNo,

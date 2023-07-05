@@ -349,7 +349,7 @@
             "ItemList": [
                 {
                 "SlNo": "1",
-                "PrdDesc": "'.$dt->PrdDesc.'",
+                "PrdDesc": "'.$dt->COMP_NAME.'_'.$dt->PrdDesc.'",
                 "IsServc": "'.$dt->IsServc.'",
                 "HsnCd": "'.$HsnCd.'",
                 "Barcde": "'.$dt->Barcde.'",
