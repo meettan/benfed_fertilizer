@@ -56,19 +56,13 @@
     			<div class="form-group row">
     				<label for="comp_add" class="col-sm-1 col-form-label">Address:</label>
     				<div class="col-sm-6">
-    					<textarea id=comp_add name="comp_add" class="form-control" rows='2' readonly /></textarea>
+    					<textarea id=comp_add name="comp_add" class="form-control" rows='2' readonly ></textarea>
     				</div>
     				<label for="comp_acc_cd" class="col-sm-1 col-form-label">Account ledger:</label>
-    				<div class="col-sm-3">
-
-    					<select name="comp_acc_cd" class="form-control sch_cd required" id="comp_acc_cd" required>
-    						<option value="">Select</option>
-
-    						<?php  foreach($achead as $ach){ ?>
-    						<option value="<?php echo $ach->sl_no; ?>"><?php echo $ach->ac_name; ?></option>
-    						<?php } ?>
-    					</select>
-    				</div>
+					<div class="col-sm-4">
+					<input type="text"  id="acc_name" name="" class="form-control" value="" readonly />
+					<input type="hidden"  id="comp_acc_cd" name="comp_acc_cd" class="form-control" value="" required/>
+					</div>
 
     			</div>
     			<div class="form-header">
@@ -638,6 +632,24 @@
     				});
 
     		});
+			    $('#comp_id').change(function () {
+
+						$.get(
+
+								'<?php echo site_url("stock/f_get_company_achead");?>', {
+									comp_id: $(this).val()
+								}
+							)
+							.done(function (data) {
+								$('#comp_acc_cd').val('');
+								$('#acc_name').val('');
+								var parseData = JSON.parse(data);
+								$('#comp_acc_cd').val(parseData.ac_code);
+								$('#acc_name').val(parseData.ac_name);
+								
+							});
+
+				});
 
     	});
     </script>

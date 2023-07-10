@@ -959,11 +959,18 @@ class Purchase extends MX_Controller
 			"comp_id" => $this->input->get("comp_id")
 		);
 
-
 		$comp    = $this->PurchaseModel->f_select('mm_company_dtls', $select, $where, 0);
-		// echo $this->db->last_query();
-		// die();
 		echo json_encode($comp);
+	}
+	public function f_get_company_achead()
+	{
+		$select          = array('acc_cd');
+		$where = array("comp_id" => $this->input->get("comp_id"));
+		$comp    = $this->PurchaseModel->f_select('mm_company_dtls', $select, $where, 1);
+        $ac_code = $comp->acc_cd;
+		$ac_name = $this->PurchaseModel->f_get_achead_bysl_no($ac_code);
+		$data =array('ac_code'=>$ac_code,'ac_name'=>$ac_name);
+		echo json_encode($data);
 	}
 	public function f_get_soc()
 	{
@@ -1124,7 +1131,8 @@ class Purchase extends MX_Controller
 	{
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
+			
+			if($this->input->post('comp_acc_cd') > 0){
 			if($this->input->post('adv_status')=='Y'){
 				$where = array('fwd_flag' => 'Y',
 									'comp_pay_flag' => 'Y',
@@ -1413,6 +1421,14 @@ class Purchase extends MX_Controller
 		}else{
 			echo "<script>alert('Advance to Company has not yet been done.');</script>";
 		}
+
+	    }else{
+
+			$this->session->set_flashdata('msg', 'Accout ledger not found');
+			redirect('stock/stock_entry');
+		}
+
+
 		} else {
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 
