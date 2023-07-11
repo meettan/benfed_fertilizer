@@ -2549,11 +2549,20 @@ public function soc_payblepaid(){
            
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
-            $data['tableData']=$this->ReportModel->f_select("td_sale_cancel", NULL, array('do_dt >='=>$frm_date,'do_dt <='=>$to_date), 0);
+            $bt  = $this->input->post('bt');
             
+            $select   = array('a.*','b.branch_name');
+            
+            if($bt == 1){
+                $where = array('a.br_cd=b.id'=> NULL,'a.do_dt >='=>$frm_date,'a.do_dt <='=>$to_date ,'a.ack !='=>'');
+            }else{
+                $where = array('a.br_cd=b.id'=> NULL,'a.do_dt >='=>$frm_date,'a.do_dt <='=>$to_date ,'a.ack ='=>'');
+            }
+            $data['tableData']=$this->ReportModel->f_select("td_sale_cancel a,md_branch b", NULL, $where, 0);
             $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
             $data['fDate']= $frm_date;
             $data['tDate']=$to_date;
+            $data['bt']   = $bt;
           
            $this->load->view('post_login/fertilizer_main');
            $this->load->view('report/cancel_invoice/data_list.php',$data);
