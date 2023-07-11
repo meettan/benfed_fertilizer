@@ -1946,9 +1946,11 @@ and a.ro_no not in (select sale_ro from td_sale
             and c.sale_ro = d.ro_no and c.do_dt between '$frmDt' and '$toDt' 
             and c.prod_id=e.prod_id
             Union
-            SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,sum(tot_amt) as paid_amt,0 paybl,0,0,ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks  FROM tdf_dr_cr_note WHERE branch_id = 335 
-and remarks like '%MIGATED%' and recpt_no like '%YRLY%'
-and trans_dt between '$frmDt' and '$toDt'
+            SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,sum(tot_amt) as paid_amt,0 paybl,0,0,ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
+     FROM tdf_dr_cr_note a ,mm_ferti_soc  c
+     WHERE a.branch_id = $branch and a.remarks like '%MIGATED%' and recpt_no like '%YRLY%' 
+     and a.soc_id=c.soc_id
+     and trans_dt between '$frmDt' and '$toDt'
             Union
             SELECT MAX(trans_dt),'' prod,'' as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,sum(c.tot_amt),0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'TCS' remarks
          FROM drnote_tcs c,mm_ferti_soc b
