@@ -65,8 +65,8 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Cancel Invoice list Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
-                        <h5 style="text-align:left"><label><?php echo $distname->district_name; ?></label>  &ensp;&ensp;</h5> 
+                        <h4><?php if($bt == 1) { echo 'B2B'; } else{ echo 'B2C' ;}?> Cancel Invoice list Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
+                        <h5 style="text-align:left"><label><?php //echo $distname->district_name; ?></label>  &ensp;&ensp;</h5> 
                   
 
                     </div>
@@ -78,13 +78,13 @@ tr:hover {background-color: #f5f5f5;}
                         <thead>
 
                             <tr>
-                            
+                                <th>District.</th>
                                 <th>Invoice No.</th>
                                 <th>Ro Number</th>
                                 <th>Qty</th>
+                                <th>Acknowledgement No.</th>
+                                <th>Acknowledgement Date</th>
                                 <th>Total Amt</th>
-                                
-                                
                             </tr>
 
                         </thead>
@@ -96,14 +96,17 @@ tr:hover {background-color: #f5f5f5;}
                             $i = 0;
                                 if($tableData){ 
 
-                                 
-                                    foreach($tableData as $ptableDatasidt){
+                                 $tot=0;
+                                    foreach($tableData as $pt){
                             ?>
                                 <tr>
-                                     <td><?php echo $ptableDatasidt->trans_do; ?></td>
-                                     <td><?php echo $ptableDatasidt->sale_ro ; ?></td>
-                                     <td><?php echo $ptableDatasidt->qty ; ?></td>
-                                     <td><?php echo $ptableDatasidt->tot_amt ; ?></td>
+                                     <td><?php echo $pt->branch_name; ?></td>
+                                     <td><?php echo $pt->trans_do; ?></td>
+                                     <td><?php echo $pt->sale_ro ; ?></td>
+                                     <td><?php echo $pt->qty ; ?></td>
+                                     <td><?php echo $pt->ack ; ?></td>
+                                     <td><?php if($pt->ack_dt !='') { echo date('d/m/Y',strtotime($pt->ack_dt)); } ?></td>
+                                     <td><?php echo $pt->tot_amt ; $tot +=$pt->tot_amt?></td>
                                     
                                 </tr>
                                
@@ -113,14 +116,13 @@ tr:hover {background-color: #f5f5f5;}
                                 
                                 ?>
 
-                                <!-- <tr>
-                                    <td><b>Total</b></td>
+                                <tr>
+                                    <td colspan="6"><b>Total</b></td>
                                     
-                                    <td><b></b></td>
-                                    <td><b><?php //echo $totalAmount; ?></b></td>
-                                    <td><b><?php //echo $totdue; ?></b></td>
+                                  
+                                    <td><b><?php echo $tot; ?></b></td>
                                     
-                                </tr> -->
+                                </tr>
                                 <?php 
                                        }
                                 else{

@@ -59,6 +59,19 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
 
                 </div>
+                <div class="form-group row">
+
+                    <label for="product" class="col-sm-2 col-form-label">Business Type:</label>
+
+                    <div class="col-sm-10">
+
+                      <select name="bt" class="form-control">
+                             <option value="1">B2B</option>
+                             <option value="2">B2C</option>
+                      </select>
+                    </div>
+
+                </div>
 
 
                 <div class="form-group row">
