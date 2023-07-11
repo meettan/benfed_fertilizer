@@ -1950,6 +1950,7 @@ and a.ro_no not in (select sale_ro from td_sale
      FROM tdf_dr_cr_note a ,mm_ferti_soc  c
      WHERE a.branch_id = $branch and a.remarks like '%MIGATED%' and recpt_no like '%YRLY%' 
      and a.soc_id=c.soc_id
+     and a.soc_id = '$soc_id'
      and trans_dt between '$frmDt' and '$toDt'
             Union
             SELECT MAX(trans_dt),'' prod,'' as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,sum(c.tot_amt),0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'TCS' remarks
