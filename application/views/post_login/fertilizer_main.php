@@ -399,7 +399,8 @@
                                    <a href="<?php echo site_url("fert/rep/advance_payment");?>">Company Payment</a>
 									</div>
                                 </div>
-                                <a href="<?php echo site_url("fert/rep/company_due");?>">Companywise districtwise due</a> 
+                                <a href="<?php echo site_url("fert/rep/company_due");?>">Companywise districtwise due</a>
+                                <a href="<?php echo site_url("fertilizer/report/cancel_invoice_list");?>">Invoice Cancel List</a>
                                 <?php } ?>
 								<a href="<?php echo site_url("fert/rep/soc_payblepaid");?>">Received From Society</a>
 

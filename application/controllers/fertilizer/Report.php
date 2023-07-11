@@ -2543,6 +2543,30 @@ public function soc_payblepaid(){
             $this->load->view('post_login/footer');
         }
     }
+    public function cancel_invoice_list(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+           
+            $frm_date = $this->input->post('fr_date');
+            $to_date  = $this->input->post('to_date');
+            $data['tableData']=$this->ReportModel->f_select("td_sale_cancel", NULL, array('do_dt >='=>$frm_date,'do_dt <='=>$to_date), 0);
+            
+            $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
+            $data['fDate']= $frm_date;
+            $data['tDate']=$to_date;
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/cancel_invoice/data_list.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/cancel_invoice/data_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
     
         
   }
