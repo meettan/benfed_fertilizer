@@ -2065,15 +2065,26 @@ and a.ro_no not in (select sale_ro from td_sale
 
         return $result->row();
     }
-    public function f_get_sales_branch($frmDt, $toDt, $br)
+    public function f_get_sales_branch($frmDt, $toDt, $br,$comp_id)
     {
+        if($br > 0){
+            $branch = 'and a.br_cd = '.$br;
+        }else{
+            $branch = ''; 
+        }
+        if($comp_id > 0){
+            $company = 'and a.comp_id = '.$comp_id;
+        }else{
+            $company = ''; 
+        }
+
         $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,b.unit,b.qty_per_bag,
                                         a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC
                                         from td_sale a,mm_product b,mm_company_dtls c,mm_ferti_soc d
                                         where  a.prod_id = b.PROD_ID
                                         and    a.comp_id = c.COMP_ID
                                         and a.soc_id=d.soc_id
-                                        and    a.br_cd   = '$br'
+                                        $branch  $company 
                                         and    a.do_dt between '$frmDt' and '$toDt'
                                         order by a.do_dt");
 

@@ -59,41 +59,45 @@ tr:hover {background-color: #f5f5f5;}
                         <input type="date"
                                name="to_date"
                                class="form-control required"
-                               value="<?php echo date('Y-m-d');?>"
-                        />  
-
+                               value="<?php echo date('Y-m-d');?>"/>  
                     </div>
 
                 </div>  
 
                 <div class="form-group row">
-                <label for="branch" class="col-sm-2 col-form-label">Branch:</label>
-                <div class="col-sm-6">
+                    <label for="branch" class="col-sm-2 col-form-label">Branch:</label>
+                    <div class="col-sm-6">
+                        <select name="br" class="form-control sch_cd required" id="br" required>
+                            <option value="">Select Branch</option>
+                            <option value="0">All Branch</option>
+                            <?php
 
-                    <select name="br" class="form-control sch_cd required" id="br" required>
-
-                        <option value="">Select Branch</option>
-
-                        <?php
-
-                            foreach($all_branch as $br){
-
-                                
-                        ?>
-
-                        <option value="<?php echo $br->district_code;?>"><?php echo $br->district_name;?></option>
-
-                        <?php
-
-                            }
-
-                        ?>     
-
-                    </select>
-
+                                foreach($all_branch as $br){
+                            ?>
+                            <option value="<?php echo $br->district_code;?>"><?php echo $br->district_name;?></option>
+                            <?php
+                                }
+                            ?>     
+                        </select>
+                    </div>
                 </div>
+                <div class="form-group row">
+                    <label for="branch" class="col-sm-2 col-form-label">Company:</label>
+                    <div class="col-sm-6">
+                        <select name="comp_id" class="form-control sch_cd" id="comp_id" required>
+                            <option value="">Select Company</option>
+                            <option value="0">All Company</option>
+                            <?php
 
-            </div>
+                                foreach($all_company as $cmp){
+                            ?>
+                            <option value="<?php echo $cmp->COMP_ID;?>"><?php echo $cmp->COMP_NAME;?></option>
+                            <?php
+                                }
+                            ?>     
+                        </select>
+                    </div>
+                </div>
 
                 <div class="form-group row">
 
