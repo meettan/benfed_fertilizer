@@ -230,20 +230,34 @@ return $result;
         function del_b2c($trans_do){
 			$this->db->where(array('trans_do' => $trans_do));
 			$quey = $this->db->get('td_sale')->row();
-			if($this->db->insert('td_sale_cancel', $quey)){
-				$this->db->where(array('trans_do' => $trans_do));
-				$this->db->delete('td_sale');
-			}
+			if($this->f_delete_voucher($trans_do)){
+				if($this->db->insert('td_sale_cancel', $quey)){
+					$this->db->where(array('trans_do' => $trans_do));
+					$this->db->update('td_sale_cancel',array('cancel_date' => date('Y-m-d')));
+
+					$this->db->where(array('trans_do' => $trans_do));
+					$this->db->delete('td_sale');
+					$this->f_delete_voucher($trans_do);
+				}
+		    }
 		}
 
 		/***************************************** */
 		function get_irn_details($irn){
 			$this->db->where(array('irn' => $irn));
 			$quey = $this->db->get('td_sale')->row();
-			if($this->db->insert('td_sale_cancel', $quey)){
-				$this->db->where(array('irn' => $irn));
-				$this->db->delete('td_sale');
-			}
+			$trans_do = $quey->trans_do;
+			if($this->f_delete_voucher($trans_do)){
+				if($this->db->insert('td_sale_cancel', $quey)){
+					
+					$this->db->where(array('irn' => $irn));
+					$this->db->update('td_sale_cancel',array('cancel_date' => date('Y-m-d')));
+
+					$this->db->where(array('irn' => $irn));
+					$this->db->delete('td_sale');
+					
+				}
+		    }
 		}
 
 
@@ -362,6 +376,17 @@ return $result;
 			$sql = 'SELECT count(*) as pcnt FROM `tdf_payment_forward` where paid_id= "'.$paid_id.'" ';
 			$result = $this->db->query($sql)->row();
 			return $result->pcnt;
+		}
+		public function f_delete_voucher($where_fin){
+			$db2 = $this->load->database('findb', TRUE);
+				$data=$db2->select('')->where(array('trans_no'=>$where_fin))->get('td_vouchers')->result();
+			foreach ($data as $keydata) {
+				$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+				$keydata->delete_dt = date('Y-m-d H:m:s');
+				$db2->insert('td_vouchers_delete', $keydata);
+			}
+			$data= $db2->query("DELETE FROM td_vouchers WHERE trans_no='$where_fin'");
+			return $data;
 		}
 
 		// ====================================

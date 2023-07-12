@@ -1030,7 +1030,7 @@ function f_salecrjnl($data){
 					$row[$k] = $v;
 				}
 
-				
+				$row['cancel_date'] = date('Y-m-d');
 				$row['nwirn'] = $irn;
 				$row['cnl_flag'] = 'CRN';
 				if($this->db->insert('td_sale_cancel', $row)){

@@ -66,6 +66,7 @@
                 redirect('irncan');
             }else{
                 $this->irncancelmodel->get_irn_details($irn);
+                $this->session->set_flashdata('msg', 'Irn canceled');
                 redirect('irncan'); 
             }
             // var_dump($msg);exit;
@@ -931,6 +932,9 @@ function get_api_res_cr(){
         }else{
             echo $response;
         }
+        //$this->irncancelmodel->f_delete_voucher($trans_do);
+        $this->session->set_flashdata('msg', 'Irn Canceled');
+        redirect('irncancr');
     }else{
         $this->session->set_flashdata('error', 'There are some credit note found kindly delete it first');
         redirect('irncancr');
