@@ -100,31 +100,17 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>CGST</th>
                                 <th>SGST</th>
                                 <th>Total amt</th>
-
                                 <th>Cash dis</th>
-                                <th>Dis</th>
+                                <th>Discount</th>
                                 <th>Transport subsidy</th>
                                 <th>Spl rbt</th>
-                                <th>Price Prot</th>
-                                <th>Qty rbt</th>
+                                <th>Price <br>Protection</th>
+                                <th>Qty Rebate</th>
                                 <th>Rail dis</th>
                                 <th>Matrix</th>
                                 <th>Gst tds</th>
-                                <th>Trans handl.</th>
-                                <th>Rebate/ Subsidy/ Discount</th>
-
-                                <td class="report"><?php echo $sal->cash_dis; ?></td>
-                                <td class="report"><?php echo $sal->dis; ?></td>
-                                <td class="report"><?php echo $sal->trans_sub; ?></td>
-                                <td class="report"><?php echo $sal->spl_rbt; ?></td>
-                                <td class="report"><?php echo $sal->prce_prot; ?></td>
-                                <td class="report"><?php echo $sal->qty_rbt; ?></td>
-                                <td class="report"><?php echo $sal->rail_dis; ?></td>
-                                <td class="report"><?php echo $sal->matrix; ?></td>
-                                <td class="report"><?php echo $sal->gst_tds; ?></td>
-                                <td class="report"><?php echo $sal->trans_hanl; ?></td>
-                                <td class="report"><?php echo $sal->rbt_sbs; ?></td>
-
+                                <th>Transport <br>Handling </th>
+                                <th>Rebate/ Subsidy</th>
                             </tr>
 
                         </thead>
