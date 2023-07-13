@@ -160,7 +160,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td class="report"><?php echo $sal->soc_name; ?></td>
                                     <td class="report"><?php echo $sal->sale_ro; ?></td>
                                     <td class="report"><?php echo $sal->trans_do; ?></td>
-                                    <td class="report"><?php echo date("d/m/yy",strtotime($sal->do_dt)); ?></td>
+                                    <td class="report"><?php echo date("d/m/Y",strtotime($sal->do_dt)); ?></td>
                                     <td class="report">
                                         <?php 
                                         // echo $sal->qty; 

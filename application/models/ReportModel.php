@@ -2102,7 +2102,7 @@ and a.ro_no not in (select sale_ro from td_sale
         from td_sale a,mm_product b,mm_company_dtls c,mm_ferti_soc d 
         where a.prod_id = b.PROD_ID and a.comp_id = c.COMP_ID and a.soc_id=d.soc_id 
         $branch  $company
-        and a.do_dt between '2022-04-01' and '2023-03-31' 
+        and a.do_dt between '$frmDt' and '$toDt' 
         group by a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,b.unit,b.qty_per_bag, a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC") ;                               
 
         return $query->result();
