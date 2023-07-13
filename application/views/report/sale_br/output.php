@@ -130,6 +130,17 @@ tr:hover {background-color: #f5f5f5;}
                                     $total   = 0.00;
 
                                     $val =0;
+                                    $cash_dis_tot = 0;
+                                    $dis_tot = 0;
+                                    $trans_sub_tot=0; 
+                                    $spl_rbt_tot=0; 
+                                    $prce_prot_tot=0; 
+                                    $qty_rbt_tot=0; 
+                                    $rail_dis_tot=0; 
+                                    $matrix_tot=0; 
+                                    $gst_tds_tot=0; 
+                                    $trans_hanl_tot=0; 
+                                    $rbt_sbs_tot=0; 
 
                                         foreach($br_sales as $sal){
                             ?>
@@ -190,17 +201,17 @@ tr:hover {background-color: #f5f5f5;}
                                                                   $total += $sal->tot_amt;
 
                                      ?></td>
-                                      <td class="report"><?php echo $sal->cash_dis; ?></td>
-                                <td class="report"><?php echo $sal->dis; ?></td>
-                                <td class="report"><?php echo $sal->trans_sub; ?></td>
-                                <td class="report"><?php echo $sal->spl_rbt; ?></td>
-                                <td class="report"><?php echo $sal->prce_prot; ?></td>
-                                <td class="report"><?php echo $sal->qty_rbt; ?></td>
-                                <td class="report"><?php echo $sal->rail_dis; ?></td>
-                                <td class="report"><?php echo $sal->matrix; ?></td>
-                                <td class="report"><?php echo $sal->gst_tds; ?></td>
-                                <td class="report"><?php echo $sal->trans_hanl; ?></td>
-                                <td class="report"><?php echo $sal->rbt_sbs; ?></td>
+                                <td class="report"><?php echo $sal->cash_dis; $cash_dis_tot+=$sal->cash_dis;?></td>
+                                <td class="report"><?php echo $sal->dis; $dis_tot +=$sal->dis;?></td>
+                                <td class="report"><?php echo $sal->trans_sub; $trans_sub_tot +=$sal->trans_sub; ?></td>
+                                <td class="report"><?php echo $sal->spl_rbt; $spl_rbt_tot += $sal->spl_rbt; ?></td>
+                                <td class="report"><?php echo $sal->prce_prot; $prce_prot_tot += $sal->prce_prot; ?></td>
+                                <td class="report"><?php echo $sal->qty_rbt; $qty_rbt_tot += $sal->qty_rbt; ?></td>
+                                <td class="report"><?php echo $sal->rail_dis; $rail_dis_tot += $sal->rail_dis; ?></td>
+                                <td class="report"><?php echo $sal->matrix; $matrix_tot += $sal->matrix; ?></td>
+                                <td class="report"><?php echo $sal->gst_tds; $gst_tds_tot += $sal->gst_tds; ?></td>
+                                <td class="report"><?php echo $sal->trans_hanl; $trans_hanl_tot +=$sal->trans_hanl; ?></td>
+                                <td class="report"><?php echo $sal->rbt_sbs; $rbt_sbs_tot += $sal->rbt_sbs; ?></td>
                                    
                                 </tr>
  
@@ -224,9 +235,19 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><?=$taxable?></td>
                                <td class="report"><?=$cgst?></td>
                                <td class="report"><?=$sgst?></td>
-                               <!-- <td class="report"><?=$disc?></td>  -->
+                             
                                <td class="report"><?=$total?></td>  
-                               <td class="report" colspan="11" >Total</td> 
+                               <td class="report"><?=$cash_dis_tot?></td> 
+                               <td class="report"><?=$dis_tot?></td> 
+                               <td class="report"><?=$trans_sub_tot?></td> 
+                                <td class="report"><?=$spl_rbt_tot?></td> 
+                                <td class="report"><?=$prce_prot_tot?></td> 
+                                <td class="report"><?=$qty_rbt_tot?></td> 
+                                <td class="report"><?=$rail_dis_tot?></td> 
+                                <td class="report"><?=$matrix_tot?></td> 
+                                <td class="report"><?=$gst_tds_tot?></td> 
+                                <td class="report"><?=$trans_hanl_tot?></td> 
+                                <td class="report"><?=$rbt_sbs_tot?></td> 
 
                             </tr>
                         </tfooter>
