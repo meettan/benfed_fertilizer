@@ -1597,6 +1597,8 @@ public function crngstunreg(){
 
                 $soc_id     =   $this->input->post('soc_id');
 
+                $comp_id     =   $this->input->post('comp_id');
+
                 $br         =   $this->input->post('br');
 
                 $branch     =   $this->session->userdata['loggedin']['branch_id'];
@@ -1621,7 +1623,7 @@ public function crngstunreg(){
                 $_SESSION['date']   =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
                 
                 $data['sales']      =   $this->ReportModel->f_get_sales_society($branch,$from_dt,$to_dt,$soc_id);
-                $data['br_sales']   =   $this->ReportModel->f_get_sales_branch($from_dt,$to_dt,$br);
+                $data['br_sales']   =   $this->ReportModel->f_get_sales_branch($from_dt,$to_dt,$br,$comp_id);
               
                 $where1             =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
                 $where2             =   array("district_code"  => $br);
@@ -1640,9 +1642,10 @@ public function crngstunreg(){
                 $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
 
                 $society['societyDtls']   = $this->ReportModel->f_select('mm_ferti_soc',$select,$where,0);
+              
+                $data['all_company']      =   $this->ReportModel->f_select("mm_company_dtls",array("COMP_ID","COMP_NAME"), array('1 order by COMP_NAME'=>NULL),0);
                 $data['all_branch']       = $this->ReportModel->f_select("md_district", $select1,array('1 order by district_name'=>NULL),0);
                 $this->load->view('post_login/fertilizer_main');
-                // $this->load->view('report/sale_society/input',$society);
                 $this->load->view('report/sale_br/input',$data);
                 $this->load->view('post_login/footer');
                 

@@ -86,36 +86,44 @@ tr:hover {background-color: #f5f5f5;}
                         <thead>
 
                             <tr>
-                            
                                 <th>Sl No.</th>
-
                                 <th>Company</th>
-
                                 <th>Product</th>
-
                                 <th>Unit</th>
-
                                 <th>Society</th>
-
                                 <th>Ro No</th>
-
                                 <th>Sale invoice</th>
-
                                 <th>Do dt</th>
-
                                 <th>Qty</th>
-
                                 <th>Sale Rate</th>
-
                                 <th>Taxable Amt</th>
-
                                 <th>CGST</th>
-
                                 <th>SGST</th>
-
-                               <!--  <th>Discount</th> -->
-
                                 <th>Total amt</th>
+
+                                <th>Cash dis</th>
+                                <th>Dis</th>
+                                <th>Transport subsidy</th>
+                                <th>Spl rbt</th>
+                                <th>Price Prot</th>
+                                <th>Qty rbt</th>
+                                <th>Rail dis</th>
+                                <th>Matrix</th>
+                                <th>Gst tds</th>
+                                <th>Trans handl.</th>
+                                <th>Rebate/ Subsidy/ Discount</th>
+
+                                <td class="report"><?php echo $sal->cash_dis; ?></td>
+                                <td class="report"><?php echo $sal->dis; ?></td>
+                                <td class="report"><?php echo $sal->trans_sub; ?></td>
+                                <td class="report"><?php echo $sal->spl_rbt; ?></td>
+                                <td class="report"><?php echo $sal->prce_prot; ?></td>
+                                <td class="report"><?php echo $sal->qty_rbt; ?></td>
+                                <td class="report"><?php echo $sal->rail_dis; ?></td>
+                                <td class="report"><?php echo $sal->matrix; ?></td>
+                                <td class="report"><?php echo $sal->gst_tds; ?></td>
+                                <td class="report"><?php echo $sal->trans_hanl; ?></td>
+                                <td class="report"><?php echo $sal->rbt_sbs; ?></td>
 
                             </tr>
 
@@ -196,6 +204,17 @@ tr:hover {background-color: #f5f5f5;}
                                                                   $total += $sal->tot_amt;
 
                                      ?></td>
+                                      <td class="report"><?php echo $sal->cash_dis; ?></td>
+                                <td class="report"><?php echo $sal->dis; ?></td>
+                                <td class="report"><?php echo $sal->trans_sub; ?></td>
+                                <td class="report"><?php echo $sal->spl_rbt; ?></td>
+                                <td class="report"><?php echo $sal->prce_prot; ?></td>
+                                <td class="report"><?php echo $sal->qty_rbt; ?></td>
+                                <td class="report"><?php echo $sal->rail_dis; ?></td>
+                                <td class="report"><?php echo $sal->matrix; ?></td>
+                                <td class="report"><?php echo $sal->gst_tds; ?></td>
+                                <td class="report"><?php echo $sal->trans_hanl; ?></td>
+                                <td class="report"><?php echo $sal->rbt_sbs; ?></td>
                                    
                                 </tr>
  
@@ -221,6 +240,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report"><?=$sgst?></td>
                                <!-- <td class="report"><?=$disc?></td>  -->
                                <td class="report"><?=$total?></td>  
+                               <td class="report" colspan="11" >Total</td> 
 
                             </tr>
                         </tfooter>
