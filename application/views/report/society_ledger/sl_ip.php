@@ -280,7 +280,7 @@ tr:hover {background-color: #f5f5f5;}
                                            
                                         }
 
-                                    }elseif(/*$prodtls->remarks=='Advance/Cr.Note Adj'||*/ $prodtls->remarks=='NEFT Adj' || $prodtls->remarks=='Pay Order Adj' || $prodtls->remarks=='Draft Adj'|| $prodtls->remarks=='Cheque Adj'){
+                                    }elseif(/*$prodtls->remarks=='Advance/Cr.Note Adj'||*/ $prodtls->remarks=='NEFT Adj' || $prodtls->remarks=='Net Banking'||$prodtls->remarks=='Pay Order Adj' || $prodtls->remarks=='Draft Adj'|| $prodtls->remarks=='Cheque Adj'){
                                         //echo $prodtls->remarks .' '.$totalamt;
                                         //$totalamt -= (($prodtls->tot_recv) +($prodtls->tot_paid));
 										$totalamt -= (($prodtls->tot_recv));
