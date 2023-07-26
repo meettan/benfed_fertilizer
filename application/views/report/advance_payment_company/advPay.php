@@ -366,6 +366,9 @@ tr:hover {background-color: #f5f5f5;}
                         <td colspan="4" style="text-align:center">TOTAL</td>
                         <td><?=round($totalNETAmount)?></td>
                     </tr>
+                    <tr>
+                        <td colspan="5" style="text-align:center">Rupee : <?=getIndianCurrency($totalNETAmount)?></td>
+                    </tr>
                 </tbody>
                
             <table> 
