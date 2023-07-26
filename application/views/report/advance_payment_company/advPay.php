@@ -364,7 +364,9 @@ tr:hover {background-color: #f5f5f5;}
                     <?php    }  }?>
                     <tr>
                         <td colspan="4" style="text-align:center">TOTAL</td>
-                        <td><?=round($totalNETAmount)?></td>
+                       
+                        <td><?php echo number_format($totalNETAmount,2); ?> </td>
+                        
                     </tr>
                     <tr>
                         <td colspan="5" style="text-align:center">Rupee : <?=getIndianCurrency($totalNETAmount)?></td>
