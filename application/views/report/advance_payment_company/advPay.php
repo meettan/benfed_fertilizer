@@ -365,11 +365,11 @@ tr:hover {background-color: #f5f5f5;}
                     <tr>
                         <td colspan="4" style="text-align:center">TOTAL</td>
                        
-                        <td><?php echo number_format($totalNETAmount,2); ?> </td>
+                        <td><?php echo number_format(round($totalAmount-$totalTDS),2); ?> </td>
                         
                     </tr>
                     <tr>
-                        <td colspan="5" style="text-align:center">Rupee : <?=getIndianCurrency($totalNETAmount)?></td>
+                        <td colspan="5" style="text-align:center">Rupee : <?=getIndianCurrency(round($totalAmount-$totalTDS))?></td>
                     </tr>
                 </tbody>
                
