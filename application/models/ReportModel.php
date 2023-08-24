@@ -2295,7 +2295,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
         if ($memoNumber == null) {
 
-            if($comp_id==1){
+            if($comp_id==1||$comp_id==10||$comp_id==11){
 
 
                 $sql = "select sum(a.adv_amt)adv_amt,
@@ -2355,7 +2355,7 @@ and a.ro_no not in (select sale_ro from td_sale
         } else {
 
 
-            if($comp_id==1){
+            if($comp_id==1||$comp_id==10||$comp_id==11){
 
                 $sql = "select sum(a.adv_amt)adv_amt,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
@@ -2492,7 +2492,7 @@ and a.ro_no not in (select sale_ro from td_sale
     public function getCompanyPayment_district_name($comp_id, $frm_date, $to_date,$refereceNo=null)
     {
         
-        if($comp_id==1){
+        if($comp_id==1 ||$comp_id==10||$comp_id==11 ){
             if($refereceNo==null||$refereceNo==""){
 
             
@@ -2684,7 +2684,7 @@ and a.ro_no not in (select sale_ro from td_sale
     public function getCompanyPayment_due($dist,$comp_id, $frm_date, $to_date)
     {
         
-        if($comp_id==1){
+        if($comp_id==1||$comp_id==10||$comp_id==11){
             
            
             $q = $this->db->query("select b.prod_desc,a.invoice_no,a.ro_no,a.ro_dt,a.tot_amt ,IFNULL((SELECT sum(c.paid_amt) FROM tdf_company_payment c
@@ -2719,7 +2719,7 @@ and a.ro_no not in (select sale_ro from td_sale
     public function ComPaydistrictwise_due($comp_id, $frm_date, $to_date)
     {
         
-        if($comp_id==1){
+        if($comp_id==1||$comp_id==10||$comp_id==11){
             $q  = $this->db->query("select district_name,sum(pur_amt) pur_amt,sum(taxable_amt) taxable_amt
             from( select c.district_name, SUM(a.qty) as qty,a.pur_inv_no,a.pur_ro,e.tot_amt as pur_amt,
             (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt,

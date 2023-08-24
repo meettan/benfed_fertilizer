@@ -331,7 +331,7 @@ tr:hover {background-color: #f5f5f5;}
             Sir,<br>&ensp;&ensp; &ensp;&ensp; We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?> through NEFT/RTGS/Fund Transfer, details are being provided below:
 
            <br><br>
-           <?php if($company_id == 1) { ?>
+           <?php if($company_id == 1 ||$company_id==10||$company_id==11) { ?>
            <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
                     <tr>
