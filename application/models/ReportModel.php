@@ -2300,7 +2300,7 @@ and a.ro_no not in (select sale_ro from td_sale
             if($comp_id==1||$comp_id==10||$comp_id==11){
 
 
-                $sql = "select sum(a.adv_amt)adv_amt,f.sort_name,
+                $sql = "select sum(a.adv_amt)adv_amt,f.short_name,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
                 from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
@@ -2314,7 +2314,7 @@ and a.ro_no not in (select sale_ro from td_sale
                 and   c.comp_pay_flag = 'Y'
                 group by fo_name
                 UNION
-                select sum(a.adv_amt)adv_amt,f.sort_name,
+                select sum(a.adv_amt)adv_amt,f.short_name,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
                             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
@@ -2361,7 +2361,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
             if($comp_id==1||$comp_id==10||$comp_id==11){
 
-                $sql = "select sum(a.adv_amt)adv_amt,f.sort_name,
+                $sql = "select sum(a.adv_amt)adv_amt,f.short_name,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
@@ -2376,7 +2376,7 @@ and a.ro_no not in (select sale_ro from td_sale
             and   c.comp_pay_flag = 'Y'
             group by fo_name
             UNION
-            select sum(a.adv_amt)adv_amt,f.sort_name,
+            select sum(a.adv_amt)adv_amt,f.short_name,
             (select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
             (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
@@ -2503,7 +2503,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
             
             $q = $this->db->query("
-            select SUM(a.qty) as qty,f.sort_name,
+            select SUM(a.qty) as qty,f.short_name,
             (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
             SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
             SUM(a.net_amt) as net_amt,
