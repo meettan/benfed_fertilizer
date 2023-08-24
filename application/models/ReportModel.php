@@ -2300,12 +2300,13 @@ and a.ro_no not in (select sale_ro from td_sale
             if($comp_id==1||$comp_id==10||$comp_id==11){
 
 
-                $sql = "select sum(a.adv_amt)adv_amt,
+                $sql = "select sum(a.adv_amt)adv_amt,f.sort_name,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
-                from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+                from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
                 where c.branch_id = b.id
                 and   a.adv_dtl_id = c.receipt_no
+                and   a.comp_id =f.comp_id
                 and   a.adv_receive_no = c.detail_receipt_no
                 and   c.prod_id = d.PROD_ID
                 and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2313,10 +2314,10 @@ and a.ro_no not in (select sale_ro from td_sale
                 and   c.comp_pay_flag = 'Y'
                 group by fo_name
                 UNION
-                select sum(a.adv_amt)adv_amt,
+                select sum(a.adv_amt)adv_amt,f.sort_name,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
-                            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
+                            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
                             where c.branch_id = b.id
                             and   a.adv_receive_no = c.detail_receipt_no
                             and   c.prod_id = d.PROD_ID
@@ -2324,6 +2325,7 @@ and a.ro_no not in (select sale_ro from td_sale
                             and   c.detail_receipt_no = e.detail_receipt_no
                             and   a.trans_dt between '$frm_date' and '$to_date'
                             and   a.comp_id = '$comp_id'
+                            and   a.comp_id =f.comp_id
                             and   e.comp_pay_flag = 'Y'
                             group by fo_name";
 
@@ -2359,10 +2361,10 @@ and a.ro_no not in (select sale_ro from td_sale
 
             if($comp_id==1||$comp_id==10||$comp_id==11){
 
-                $sql = "select sum(a.adv_amt)adv_amt,
+                $sql = "select sum(a.adv_amt)adv_amt,f.sort_name,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
-            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
             where c.branch_id = b.id
             and   a.memo_no='$memoNumber'
             and   a.adv_dtl_id = c.receipt_no
@@ -2370,13 +2372,14 @@ and a.ro_no not in (select sale_ro from td_sale
             and   c.prod_id = d.PROD_ID
             and   a.trans_dt between '$frm_date' and '$to_date'
             and   a.comp_id = '$comp_id'
+            and   a.comp_id =f.comp_id
             and   c.comp_pay_flag = 'Y'
             group by fo_name
             UNION
-            select sum(a.adv_amt)adv_amt,
+            select sum(a.adv_amt)adv_amt,f.sort_name,
             (select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
             (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
-                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
+                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
                         where c.branch_id = b.id
                         and   a.memo_no='$memoNumber'
                         and   a.adv_receive_no = c.detail_receipt_no
@@ -2385,6 +2388,7 @@ and a.ro_no not in (select sale_ro from td_sale
                         and   c.detail_receipt_no = e.detail_receipt_no
                         and   a.trans_dt between '$frm_date' and '$to_date'
                         and   a.comp_id = '$comp_id'
+                        and   a.comp_id =f.comp_id
                         and   e.comp_pay_flag = 'Y'
                          group by fo_name";
 
@@ -2499,14 +2503,15 @@ and a.ro_no not in (select sale_ro from td_sale
 
             
             $q = $this->db->query("
-            select SUM(a.qty) as qty,
+            select SUM(a.qty) as qty,f.sort_name,
             (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
             SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
             SUM(a.net_amt) as net_amt,
             (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
             (select DISTINCT h.fo_number from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_num
-            from tdf_company_payment a, mm_product b,md_district c
+            from tdf_company_payment a, mm_product b,md_district c,mm_company_dtls f
             where a.comp_id=$comp_id
+            and   a.comp_id =f.comp_id
             and b.PROD_ID=a.prod_id
             and a.district=c.district_code
             and a.net_amt > 0
