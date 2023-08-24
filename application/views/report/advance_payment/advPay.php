@@ -358,7 +358,7 @@
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_name)){echo $ptableDatasummary->fo_name;}?></td>
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
-                        <td style="border: 1px solid black !important">$ptableDatasummary->short_name,</td>
+                        <td style="border: 1px solid black !important"><?php echo $ptableDatasummary->short_name ?></td>
                         <?php  $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2)); ?>
                         <td style="border: 1px solid black !important"><?php $netamt = round(round($ptableDatasummary->adv_amt, 2) - $tds);  ?>
                        
