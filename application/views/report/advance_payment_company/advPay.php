@@ -316,9 +316,9 @@ tr:hover {background-color: #f5f5f5;}
             <div style="text-align:center;">
               
                 <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
-                       $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';
+                       $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';$comp_name='';
                 foreach ($tableData as $bnk) {
-                    $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->acc_num;
+                    $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->acc_num;$comp_name= $bnk->comp_name;
                     $cbank_name = $bnk->cbank;$cbranch_name = $bnk->cbnk_branch_name; $cacc_num = $bnk->cac_no;$cifsc=$bnk->cifsc;
                                                         break;
                                                     }; ?>
@@ -328,7 +328,8 @@ tr:hover {background-color: #f5f5f5;}
             </div>
             <br>
            <div style="line-height: 1.6;font-size:18px">
-            Sir,<br>&ensp;&ensp; &ensp;&ensp; We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?> through NEFT/RTGS/Fund Transfer, details are being provided below:
+            Sir,<br>&ensp;&ensp; &ensp;&ensp; We are authorizing you to remit by debiting our Savings Account No.  <?=$acc_num?>  in favour of
+            <?=$comp_name?> through NEFT/RTGS/Fund Transfer, details are being provided below:
 
            <br><br>
            <?php if($company_id == 1 ||$company_id==10||$company_id==11) { ?>
@@ -338,7 +339,7 @@ tr:hover {background-color: #f5f5f5;}
                         <th style="border: 1px solid black !important">DISTRICT</th>
                         <th style="border: 1px solid black !important">IFS CODE</th>
                         <th style="border: 1px solid black !important">BENEACCNO</th>
-                        <th style="border: 1px solid black !important">BENENAME</th>
+                        <!-- <th style="border: 1px solid black !important">BENENAME</th> -->
                         <th style="border: 1px solid black !important">AMOUNT</th>
                     </tr>
                 </thead>
@@ -357,19 +358,19 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;}?></td>
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_num)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
-                        <td style="border: 1px solid black !important">IFFCO</td>
+                        <!-- <td style="border: 1px solid black !important">IFFCO</td> -->
                         <td style="border: 1px solid black !important"><?php echo round($ptableDatasidt->net_amt); $totalNETAmount+=round($ptableDatasidt->net_amt);?></td>
                     </tr>
 
                     <?php    }  }?>
                     <tr>
-                        <td colspan="4" style="text-align:center">TOTAL</td>
+                        <td colspan="3" style="text-align:center">TOTAL</td>
                        
                         <td><?php echo number_format(round($totalAmount-$totalTDS),2); ?> </td>
                         
                     </tr>
                     <tr>
-                        <td colspan="5" style="text-align:center">Rupee : <?=getIndianCurrency(round($totalAmount-$totalTDS))?></td>
+                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency(round($totalAmount-$totalTDS))?></td>
                     </tr>
                 </tbody>
                
@@ -382,9 +383,9 @@ tr:hover {background-color: #f5f5f5;}
                 <tr>
                     <td style="width:30%">Branch Name:</td><td><?=$cbranch_name?></td>
                 <tr>
-                <tr>
+                <!-- <tr>
                     <td style="width:30%">Name of A/C Holder:</td><td><?=$companyName?></td>
-                <tr>
+                <tr> -->
                 <tr>
                     <td style="width:30%">Account no :</td><td><?=$cacc_num?> </td>
                 <tr>
