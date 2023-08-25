@@ -67,7 +67,7 @@ tr:hover {background-color: #f5f5f5;}
             '                                         .underline { text-decoration: underline; }' +
             '                                         .left { margin-left: 315px;} ' +
             '                                         .right { margin-right: 375px; display: inline; }' +
-            '                                          table { border-collapse: collapse; font-size: 18px;}' +
+            '                                          table { border-collapse: collapse; font-size: 12px;}' +
             '                                          th, td { border: 0px solid black; border-collapse: collapse; padding: 6px;}' +
             '                                           th, td { }' +
             '                                         .border { border: 0px solid black; } ' +
