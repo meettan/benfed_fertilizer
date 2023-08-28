@@ -45,7 +45,7 @@
                     <div class="col-sm-10">
 
                         <input type="text" name="short_name" class="form-control required"  
-                            value = "<?php echo $schdtls->short_name; ?>" 
+                            value = "<?php echo $schdtls->short_name; ?>" readonly
                         />
                     </div>
 
