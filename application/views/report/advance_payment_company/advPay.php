@@ -243,8 +243,10 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td><?php echo round($ptableDatasidt->tds_amt);$totalTDS+=round($ptableDatasidt->tds_amt);?></td>
 
-                                     <td><?php echo round($ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt); $totalNETAmount+=round($ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt);?></td>
-                                     <!-- <td><?//php echo round($ptableDatasidt->net_amt); $totalNETAmount+=round($ptableDatasidt->net_amt);?></td> -->
+                                     <td><?php echo round($ptableDatasidt->taxable_amt - round($ptableDatasidt->tds_amt));$totalNETAmount+= round($ptableDatasidt->taxable_amt - round($ptableDatasidt->tds_amt));
+                                     
+                                     ?></td>
+                                     
                                 </tr>
                                
  
