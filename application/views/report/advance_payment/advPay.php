@@ -243,11 +243,11 @@
                                 <td><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
 
                                 <td style="text-align: right;"><?php echo $ptableDatasummary->adv_amt; ?></td>
-                                <td style="text-align: right;"><?php  echo round(0.001 * round($ptableDatasummary->adv_amt, 2));
-                                $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2));
+                                <td style="text-align: right;"><?php  echo 0.001 * round($ptableDatasummary->adv_amt, 2);
+                                $tds = 0.001 * round($ptableDatasummary->adv_amt, 2);
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td style="text-align: right;"><?php $netamt = round(round($ptableDatasummary->adv_amt, 2) - $tds);
-                                    echo round($netamt, 2);
+                                <td style="text-align: right;"><?php $netamt = $ptableDatasummary->adv_amt - $tds;
+                                    echo $netamt;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
 
@@ -360,10 +360,10 @@
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
                        
-                        <?php  $tds = round(0.001 * round($ptableDatasummary->adv_amt, 2)); ?>
-                        <td style="border: 1px solid black !important"><?php $netamt = round(round($ptableDatasummary->adv_amt, 2) - $tds);  ?>
+                        <?php  $tds = 0.001 * round($ptableDatasummary->adv_amt, 2); ?>
+                        <td style="border: 1px solid black !important"><?php $netamt = $ptableDatasummary->adv_amt - $tds;  ?>
                        
-                            <?php        echo round($netamt, 2);
+                            <?php        echo $netamt, 2;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                     </tr>
 
