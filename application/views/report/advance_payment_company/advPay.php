@@ -153,13 +153,9 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ptableData->pur_ro; ?></td>
                                      <td><?php echo $ptableData->qty; ?></td>
                                      <td><?php echo  $ptableData->rate_amt ; $totalRate+=$ptableData->rate_amt; ?></td>
-
                                      <td><?php echo $ptableData->taxable_amt ;$totalAmount+=$ptableData->taxable_amt; ?></td>
-
-                                     <td><?php echo round($ptableData->tds_amt);$totalTDS+=round($ptableData->tds_amt);?></td>
-
-                                     <!--<td><?php //echo $ptableData->net_amt;$totalNETAmount+=$ptableData->net_amt;?></td>-->
-                                     <td><?php echo round($ptableData->taxable_amt) - round($ptableData->tds_amt); $totalNETAmount+=round($ptableData->taxable_amt) - round($ptableData->tds_amt);?></td>
+                                     <td><?php echo $ptableData->tds_amt;$totalTDS+=$ptableData->tds_amt;?></td>
+                                     <td><?php echo $ptableData->taxable_amt - $ptableData->tds_amt; $totalNETAmount+=$ptableData->taxable_amt - $ptableData->tds_amt;?></td>
                                 </tr>
                                
  
@@ -177,7 +173,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><b><?php //echo round($totalRate,2); ?></b></td>
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $totalNETAmount; ?></b></td>
+                                    <td><b><?php echo round($totalNETAmount); ?></b></td>
                                 </tr>
                                 <?php 
                                        }
@@ -241,9 +237,10 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td><?php echo $ptableDatasidt->taxable_amt ;$totalAmount+=$ptableDatasidt->taxable_amt; ?></td>
 
-                                     <td><?php echo round($ptableDatasidt->tds_amt);$totalTDS+=round($ptableDatasidt->tds_amt);?></td>
+                                     <td><?php echo $ptableDatasidt->tds_amt;$totalTDS+=$ptableDatasidt->tds_amt;?></td>
 
-                                     <td><?php echo round($ptableDatasidt->taxable_amt - round($ptableDatasidt->tds_amt));$totalNETAmount+= round($ptableDatasidt->taxable_amt - round($ptableDatasidt->tds_amt));
+                                     <td><?php echo $ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt;
+                                     $totalNETAmount+= $ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt;
                                      
                                      ?></td>
                                      

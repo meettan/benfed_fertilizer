@@ -174,10 +174,10 @@
                                 <td><?php echo $ptableData->fo_number . '-' . $ptableData->fo_name; ?></td>
                                 <td><?php echo $ptableData->adv_amt; ?></td>
                                 <td><?php 
-                                echo round((0.001 * round($ptableData->adv_amt, 2)),2);
-                                $tds = round((0.001 * round($ptableData->adv_amt, 2)),2);
+                                echo 0.001 * $ptableData->adv_amt;
+                                $tds = 0.001 * $ptableData->adv_amt;
                                     $totalTds = $totalTds + $tds; ?></td>
-                                <td><?php $netamt =round(((round($ptableData->adv_amt, 2) - $tds)),2);
+                                <td><?php $netamt =$ptableData->adv_amt - $tds;
                                     echo $netamt;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                             </tr>
@@ -188,7 +188,7 @@
                             <td colspan="7"><b>Total</b></td>
                             <td><b><?php echo round($total, 2); ?></b></td>
                             <td><b><?php echo $totalTds; ?></b></td>
-                            <td><b><?php echo $totalnetamt; ?></b></td>
+                            <td><b><?php echo round($totalnetamt); ?></b></td>
                         </tr>
                     <?php
                     } else {
@@ -243,8 +243,8 @@
                                 <td><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
 
                                 <td style="text-align: right;"><?php echo $ptableDatasummary->adv_amt; ?></td>
-                                <td style="text-align: right;"><?php  echo 0.001 * round($ptableDatasummary->adv_amt, 2);
-                                $tds = 0.001 * round($ptableDatasummary->adv_amt, 2);
+                                <td style="text-align: right;"><?php  echo 0.001 * $ptableDatasummary->adv_amt;
+                                $tds = 0.001 * $ptableDatasummary->adv_amt;
                                     $totalTds = $totalTds + $tds; ?></td>
                                 <td style="text-align: right;"><?php $netamt = $ptableDatasummary->adv_amt - $tds;
                                     echo $netamt;
@@ -258,7 +258,7 @@
                             <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td style="text-align: right;"><b><?php echo round($totalnetamt, 2); ?></b></td>
+                            <td style="text-align: right;"><b><?php echo round($totalnetamt); ?></b></td>
                         </tr>
                     <?php
                     } else {
@@ -360,20 +360,20 @@
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
                        
-                        <?php  $tds = 0.001 * round($ptableDatasummary->adv_amt, 2); ?>
+                        <?php  $tds = 0.001 * $ptableDatasummary->adv_amt; ?>
                         <td style="border: 1px solid black !important"><?php $netamt = $ptableDatasummary->adv_amt - $tds;  ?>
                        
-                            <?php        echo $netamt, 2;
+                            <?php        echo $netamt;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
                     </tr>
 
                     <?php    }  }?>
                     <tr>
                         <td colspan="3" style="text-align:center">TOTAL</td>
-                        <td><?php echo number_format($totalnetamt,2); ?> </td>
+                        <td><?php echo number_format(round($totalnetamt),2); ?> </td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency($totalnetamt)?></td>
+                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency(round($totalnetamt))?></td>
                     </tr>
                 </tbody>
                
@@ -396,7 +396,7 @@
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format($totalnetamt,2); ?> (<?=getIndianCurrency($totalnetamt)?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format(round($totalnetamt),2); ?> (<?=getIndianCurrency(round($totalnetamt))?>)</td>
                 <tr>
              <table>   
             <?php } ?> 
