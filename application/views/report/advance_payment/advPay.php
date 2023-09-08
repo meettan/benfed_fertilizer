@@ -360,8 +360,8 @@
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasummary->fo_number)){echo $ptableDatasummary->fo_number;}else{ echo "";} ?></td>
                        
-                        <?php  $tds = 0.001 * $ptableDatasummary->adv_amt; ?>
-                        <td style="border: 1px solid black !important"><?php $netamt = $ptableDatasummary->adv_amt - $tds;  ?>
+                        <?php  $tds = round((0.001 * $ptableDatasummary->adv_amt),2); ?>
+                        <td style="border: 1px solid black !important"><?php $netamt = round(($ptableDatasummary->adv_amt - $tds),2);  ?>
                        
                             <?php        echo $netamt;
                                     $totalnetamt = $totalnetamt + $netamt; ?></td>
