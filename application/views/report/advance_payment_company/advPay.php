@@ -173,7 +173,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><b><?php //echo round($totalRate,2); ?></b></td>
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo round($totalNETAmount); ?></b></td>
+                                    <td><b><?php echo $totalNETAmount; ?></b></td>
                                 </tr>
                                 <?php 
                                        }
@@ -256,7 +256,7 @@ tr:hover {background-color: #f5f5f5;}
                                     
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  round($totalAmount-$totalTDS); ?></b></td>
+                                    <td><b><?php echo  $totalAmount-$totalTDS; ?></b></td>
                                 </tr>
                                 <?php 
                                        }
@@ -358,18 +358,18 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_num)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
                         <!-- <td style="border: 1px solid black !important">IFFCO</td> -->
-                        <td style="border: 1px solid black !important"><?php echo round($ptableDatasidt->net_amt); $totalNETAmount+=round($ptableDatasidt->net_amt);?></td>
+                        <td style="border: 1px solid black !important"><?php echo $ptableDatasidt->net_amt; $totalNETAmount+=round(($ptableDatasidt->net_amt),2);?></td>
                     </tr>
 
                     <?php    }  }?>
                     <tr>
                         <td colspan="3" style="text-align:center">TOTAL</td>
                        
-                        <td><?php echo number_format(round($totalAmount-$totalTDS),2); ?> </td>
+                        <td><?php echo round(($totalAmount-$totalTDS),2); ?> </td>
                         
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency(round($totalAmount-$totalTDS))?></td>
+                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency(round(($totalAmount-$totalTDS),2))?></td>
                     </tr>
                 </tbody>
                
