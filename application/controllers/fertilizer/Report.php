@@ -2301,7 +2301,6 @@ public function soc_payblepaid(){
         }else{
 
             $data['branch']     =   $this->ReportModel->f_get_district_asc();
-
             $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
 
             $this->load->view('post_login/fertilizer_main');
