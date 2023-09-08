@@ -188,7 +188,7 @@
                             <td colspan="7"><b>Total</b></td>
                             <td><b><?php echo round($total, 2); ?></b></td>
                             <td><b><?php echo $totalTds; ?></b></td>
-                            <td><b><?php echo round($totalnetamt); ?></b></td>
+                            <td><b><?php echo $totalnetamt; ?></b></td>
                         </tr>
                     <?php
                     } else {
@@ -396,7 +396,7 @@
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
                 <tr>
-                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format(round($totalnetamt),2); ?> (<?=getIndianCurrency(round($totalnetamt))?>)</td>
+                    <td style="width:30%">Amount :</td><td>Rs.  <?php echo $totalnetamt; ?> (<?=getIndianCurrency($totalnetamt)?>)</td>
                 <tr>
              <table>   
             <?php } ?> 
