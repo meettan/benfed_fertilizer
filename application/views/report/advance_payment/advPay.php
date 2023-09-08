@@ -352,6 +352,7 @@
                             $total = 0;
                             $totalnetamt = 0;
                             $totalTds = 0;
+                            $tds = 0;
                             foreach ($tableDatasummary as $ptableDatasummary) {
                             $total += $ptableDatasummary->adv_amt;
                     ?>
