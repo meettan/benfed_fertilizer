@@ -258,7 +258,7 @@
                             <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td style="text-align: right;"><b><?php echo round($totalnetamt); ?></b></td>
+                            <td style="text-align: right;"><b><?php echo $totalnetamt; ?></b></td>
                         </tr>
                     <?php
                     } else {
@@ -370,10 +370,10 @@
                     <?php    }  }?>
                     <tr>
                         <td colspan="3" style="text-align:center">TOTAL</td>
-                        <td><?php echo number_format(round($totalnetamt),2); ?> </td>
+                        <td><?php echo number_format($totalnetamt); ?> </td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency(round($totalnetamt))?></td>
+                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency($totalnetamt)?></td>
                     </tr>
                 </tbody>
                
