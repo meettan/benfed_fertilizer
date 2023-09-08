@@ -370,7 +370,7 @@
                     <?php    }  }?>
                     <tr>
                         <td colspan="3" style="text-align:center">TOTAL</td>
-                        <td><?php echo number_format($totalnetamt); ?> </td>
+                        <td><?php echo $totalnetamt; ?> </td>
                     </tr>
                     <tr>
                         <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency($totalnetamt)?></td>
