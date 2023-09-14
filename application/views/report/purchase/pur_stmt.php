@@ -67,21 +67,16 @@ tr:hover {background-color: #f5f5f5;}
                 <div id="divToPrint">
 
                     <div style="text-align:center;">
-
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Purchase Statement Between: <?php echo $_SESSION['date']; ?></h4>
                         <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
-
                     </div>
                     <br>  
 
                     <table style="width: 100%;" id="example">
-
                         <thead>
-
                             <tr>
-                            
                                 <th>Sl No.</th>
                                 <th>Company</th>
                                 <th>Product</th>
@@ -106,8 +101,6 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>SGST</th>
                                 <th>Total amt</th>
                                 <th>Container</th>
-                                <!-- <th>No of Bag</th> -->
-
                             </tr>
 
                         </thead>
@@ -147,14 +140,12 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $purc->PROD_DESC; ?></td>
                                      <td class="report"><?php echo $purc->ro_no; ?></td>
                                      <td class="report"><?php echo date("d/m/Y",strtotime($purc->ro_dt)); ?></td>
-
                                      <td class="report"><?php echo $purc->soc_name; ?></td>
                                      <!-- <td class="report"><?php //echo date("d/m/y",strtotime($purc->invoice_dt)); ?></td> -->
                                      <td class="report">
                                          <?php 
                                         // echo $purc->qty; 
                                         if($purc->unit==1){
-
                                             echo $purc->qty; 
                                             $totsld_pur+=$purc->qty;
                                             $contain= $purc->qty*1000/$purc->qty_per_bag; 
@@ -314,12 +305,10 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
                               </tr> 
-
                             <tr>
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$totsld_pur?></td>
                             </tr>
-                            
                             <tr>
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $totlqd_pur?></td>
