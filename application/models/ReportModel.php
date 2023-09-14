@@ -1292,7 +1292,7 @@ END ),3)lqdqty,
     }
     public function f_get_purchaserep($branch, $frmDt, $toDt)
     {
-        $query  = $this->db->query("select a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,a.retlr_margin,
+        $query  = $this->db->query("select a.ro_no,a.ro_dt,a.invoice_no,a.invoice_dt,a.qty,a.retlr_margin,a.less_adj_amt,
                                         a.spl_rebt,a.rbt_add,a.rbt_less,a.rnd_of_add,a.rnd_of_less,b.qty_per_bag,
                                         b.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
                                         c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,d.soc_name
@@ -1304,7 +1304,6 @@ END ),3)lqdqty,
                                         and    a.trans_dt between '$frmDt' and '$toDt'
                                         and    a.trans_flag = 1
                                         order by  c.short_name, a.ro_dt ");
-
         return $query->result();
     }
 

@@ -1354,7 +1354,6 @@ public function hsnsumrypurrep(){
                 $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 
                 // $data['stkpoint']     =   $this->ReportModel->f_get_stockpoint($ro);
-                
                 $data['purchase']    =   $this->ReportModel->f_get_purchaserep($branch,$from_dt,$to_dt);
 
                 $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);

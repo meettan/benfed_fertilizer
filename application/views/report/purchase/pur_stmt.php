@@ -83,31 +83,18 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Sl No.</th>
-
                                 <th>Company</th>
-
                                 <th>Product</th>
-
                                 <th>Ro No</th>
-
                                 <th>Ro Dt</th>
-
                                 <th>Stock Point</th>
-
-                                <!-- <th>Invoice Dt</th> -->
-
                                 <th>Qty</th>
-
                                 <th>Unit</th>
-
-                                <!-- <th>Stock Qty</th> -->
-
                                 <th>Rate</th>
-
                                 <th>Base Price</th>
-
                                 <th>Add RTL Margin</th>
                                 <th>Less Spl Rebt</th>
+                                <th>Less Adj Amt</th>
                                 <th>Add Rebt</th>
                                 <th>Less Rebt</th>
                                 <th>Add Rnd off</th>
@@ -116,13 +103,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Less Other Discount</th>
                                 <th>Less Freight Subsidy</th>
                                 <th>CGST</th>
-
                                 <th>SGST</th>
-
                                 <th>Total amt</th>
-
                                 <th>Container</th>
-
                                 <!-- <th>No of Bag</th> -->
 
                             </tr>
@@ -147,6 +130,7 @@ tr:hover {background-color: #f5f5f5;}
                                     $tot_rbt_less    = 0.00;
                                     $tot_rbt_add    =0.00;
                                     $tot_spl_rebt   =0.00;
+                                    $tot_less_adj_amt = 0.00;
                                     $tot_retlr_margin =0.00;
                                     $tot_base_price  =0.00;
                                     $val =0;
@@ -219,6 +203,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                      <td class="report"><?php echo $purc->spl_rebt; 
                                       $tot_spl_rebt += $purc->spl_rebt;?></td>
+                                      <td class="report"><?php echo $purc->less_adj_amt; 
+                                      $tot_less_adj_amt += $purc->less_adj_amt;?></td>
 
                                      <td class="report"><?php echo $purc->rbt_add;
                                       $tot_rbt_add += $purc->rbt_add; ?></td>
@@ -305,33 +291,23 @@ tr:hover {background-color: #f5f5f5;}
                         <tfooter>
                             <tr>
                                <td class="report" colspan="7" style="text-align:right">Total</td> 
-                               <!-- <td class="report"><?=$taxable_amt?></td>
-                               <td class="report"><?=$cgst?></td>
-                               <td class="report"><?=$sgst?></td>  -->
+                               <!-- <td class="report"><?=$taxable_amt?></td>-->
                                <td class="report"></td>
                                <td class="report"></td>
                                <td class="report"><?= $tot_base_price?></td>
                                <td class="report"><?= $tot_retlr_margin?></td>
-                              
                                <td class="report"><?=$tot_spl_rebt?></td>
-                               
+                               <td class="report"><?=$tot_less_adj_amt?></td>
                                <td class="report"><?=$tot_rbt_add?></td> 
-                               
                                <td class="report"><?=$tot_rbt_less?></td>
-                               
                                <td class="report"><?=$tot_rnd_of_add?></td>
                                <td class="report"><?=$tot_rnd_of_less?></td>
-                               
-                               
                                <td class="report"><?=$tot_trad_margin?></td>
-                               
                                <td class="report"><?=$tot_oth?></td>
-                               
                                <td class="report"><?=$tot_frt?></td>
                                <td class="report"><?=$tot_cgst?></td>
                                <td class="report"><?=$tot_sgst?></td>
-                               
-                                <td class="report"><?=$total?></td>  
+                               <td class="report"><?=$total?></td>  
  
                             </tr>
                             <tr>
