@@ -25,7 +25,7 @@
 
 		}
 																				/*Select Data from a table*/				
-		public function f_select($table,$select=NULL,$where=NULL,$type){
+		public function f_select($table,$select=NULL,$where=NULL,$type = NULL){
 
 			if(isset($select)){
 				$this->db->select($select);
@@ -44,7 +44,7 @@
 			}
 		}
 
-		public function f_select_distinct($table,$select=NULL,$where=NULL,$type){	/**Select distinct data */
+		public function f_select_distinct($table,$select=NULL,$where=NULL,$type = NULL){	/**Select distinct data */
 
 			$this->db->distinct();
 
@@ -266,7 +266,7 @@ return $result;
 		 
 			 return;
 		}
-		public function f_sselect($table,$select=NULL,$where=NULL,$type){
+		public function f_sselect($table,$select=NULL,$where=NULL,$type = NULL){
 			$db2 = $this->load->database('findb', TRUE);
 			if(isset($select)){
 				$db2->select($select);
@@ -347,6 +347,23 @@ return $result;
 			
 			$branchId=$this->session->userdata['loggedin']['branch_id'];
 			return $this->db->query('SELECT * FROM td_month_end  where branch_id = '.$branchId.' and   sl_no = (select max(sl_no) from td_month_end  where  branch_id = '.$branchId.')')->row();
+		}
+
+		public function get_society_remain_amt($soc_id){
+			$fny=$this->session->userdata['loggedin']['fin_id'];
+			$branchId=$this->session->userdata['loggedin']['branch_id'];
+			$sql ="SELECT b.soc_id,a.receipt_no,sum(a.net_amount)fwd_amt,sum(b.adv_amt)adv_amt,
+					sum(b.adv_amt)-sum(a.net_amount) pending_amt
+					FROM td_adv_details a,tdf_advance b
+					WHERE a.receipt_no=b.receipt_no
+					and a.branch_id=$branchId 
+					and a.fin_yr=$fny
+					and b.soc_id=$soc_id
+					group by a.receipt_no , b.soc_id 
+					HAVING sum(b.adv_amt)-sum(a.net_amount)>0
+					ORDER BY pending_amt ASC";
+			$result = $this->db->query($sql);		
+			return 	$result->result();	
 		}
  
 	}

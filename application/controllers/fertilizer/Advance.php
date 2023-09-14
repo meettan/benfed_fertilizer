@@ -1184,7 +1184,6 @@ public function f_get_dist_bnk_dtls(){
 	    $this->session->set_flashdata('msg', 'Successfully Deleted!');
 
 
-
 		$data=$this->AdvanceModel->f_select('tdf_adv_fwd',null,$where,0);
 		foreach ($data as $keydata) {
 			$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
@@ -1242,6 +1241,27 @@ public function f_get_dist_bnk_dtls(){
 	}
    
    ///    *************  Code End for Adance Forward   27/06/2022  **************  //	
+
+   public function fwd_remain_amt(){
+
+		$select   = array("soc_id","soc_name");   
+        $where    = array("district"  =>  $this->session->userdata['loggedin']['branch_id'] );
+		$data['compdtls']   = $this->AdvanceModel->f_select('mm_company_dtls',array("comp_id","comp_name"),NULL,0);
+		$data['societyDtls'] = $this->AdvanceModel->f_select('mm_ferti_soc',$select,$where,0);
+		$fo_where    = array("dist_id"  =>  $this->session->userdata['loggedin']['branch_id'] );
+		$data['folist']   = $this->AdvanceModel->f_select('mm_fo_master',array("fi_id","fo_name"),$fo_where,0);
+		$this->load->view("post_login/fertilizer_main");
+		$this->load->view("advance/adv_remain_add",$data);
+		$this->load->view('post_login/footer');
+   }
+
+   public function f_get_society_remin_amt(){
+
+	   $soc_id = $this->input->get('soc_id');
+	   $data['remain_list']  =$this->AdvanceModel->get_society_remain_amt($soc_id);
+	   $list = $this->load->view('advance/adv_remain_detail',$data,true);
+	   echo $list;
+   }
 
 }
 ?>
