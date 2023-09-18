@@ -162,7 +162,7 @@ tr:hover {background-color: #f5f5f5;}
                                         $OpeningLTR=0.0;
                                         $PurchaseLTR=0.0;
                                         $SaleLTR=0.0;
-                                        $ClosingLTR=0.0;  $tot_amt = 0.00;
+                                        $ClosingLTR=0.0;  $tot_amt_solid = 0.00;$tot_amt_liquid = 0.00;
 
                                         foreach($product as $prodtls){
 
@@ -171,11 +171,13 @@ tr:hover {background-color: #f5f5f5;}
                                                 $PurchaseMTS=$PurchaseMTS+$prodtls->purchase;
                                                 $SaleMTS=$SaleMTS+$prodtls->sale;
                                                 $ClosingMTS= $ClosingMTS+$prodtls->closing;
+                                                $tot_amt_solid += round($prodtls->closing*$prodtls->hsn_code);
                                             }else if($prodtls->unit_id==3){
                                                 $OpeningLTR=$OpeningLTR+ $prodtls->opening;
                                                 $PurchaseLTR=$PurchaseLTR+$prodtls->purchase;
                                                 $SaleLTR=$SaleLTR+$prodtls->sale;
                                                 $ClosingLTR= $ClosingLTR+$prodtls->closing;
+                                                $tot_amt_liquid += round($prodtls->closing*$prodtls->hsn_code);
                                             }
                             ?>
 
@@ -215,7 +217,7 @@ tr:hover {background-color: #f5f5f5;}
                                      </td>
                                      <td class="report closing" id="closing">
                                         <?php echo round($prodtls->closing*$prodtls->hsn_code);
-                                        $tot_amt += round($prodtls->closing*$prodtls->hsn_code);
+                                     
                                         
                                         ?>
                                      </td>
@@ -240,13 +242,28 @@ tr:hover {background-color: #f5f5f5;}
 
                         </tbody>
                         <tfooter>
-                            <tr style="font-weight: bold;">
-                              
+                            <!-- <tr style="font-weight: bold;">
                                <td colspan="3"></td>
                                <td></td>
                                <td></td>
                                <td>Total</td>
-                               <td><?=$tot_amt?></td>
+                               <td></td>
+                            </tr> -->
+                            <tr>
+                               <td class="report" colspan="4" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Total amount</b></td>
+                            </tr>
+                            <tr>
+                               <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
+                               <td><?=$tot_amt_solid?></td>
+                            </tr>
+                            <tr>
+                            <tr>
+                               <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
+                               <td><?=$tot_amt_liquid?></td>
                             </tr>
                         </tfooter>
                     </table>
