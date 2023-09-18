@@ -244,7 +244,7 @@ tr:hover {background-color: #f5f5f5;}
                                <!-- <td class="report" colspan="4" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td> -->
-                               <td ></td>
+                               <td colspan="4"></td>
                                <td></td>
                                <td></td>
                                <td>Total</td>
