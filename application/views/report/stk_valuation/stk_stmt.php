@@ -138,8 +138,10 @@ tr:hover {background-color: #f5f5f5;}
                                 <!-- <th>Purchase during the period</th> -->
 
                                 <!-- <th>Sale during the period</th> -->
-
+                               
                                 <th>Closing</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
 
                             </tr>
 
@@ -160,7 +162,7 @@ tr:hover {background-color: #f5f5f5;}
                                         $OpeningLTR=0.0;
                                         $PurchaseLTR=0.0;
                                         $SaleLTR=0.0;
-                                        $ClosingLTR=0.0;
+                                        $ClosingLTR=0.0;  $tot_amt = 0.00;
 
                                         foreach($product as $prodtls){
 
@@ -198,6 +200,15 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report closing" id="closing">
                                         <?php echo $prodtls->closing;?>
                                      </td>
+                                     <td class="report closing" id="closing">
+                                        <?php echo $prodtls->rate;?>
+                                     </td>
+                                     <td class="report closing" id="closing">
+                                        <?php echo $prodtls->closing*$prodtls->rate;
+                                        $tot_amt += $prodtls->closing*$prodtls->rate;
+                                        
+                                        ?>
+                                     </td>
                                    
                                 </tr>
  
@@ -225,6 +236,8 @@ tr:hover {background-color: #f5f5f5;}
                                <!-- <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td> -->
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
+                               <td></td>
+                               <td><?=$tot_amt?></td>
                             </tr>
                             <tr>
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
