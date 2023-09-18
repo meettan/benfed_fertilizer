@@ -133,7 +133,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Unit</th>
 
-                                <th>Opening</th>
+                                <!-- <th>Opening</th> -->
 
                                 <!-- <th>Purchase during the period</th> -->
 
@@ -187,11 +187,11 @@ tr:hover {background-color: #f5f5f5;}
                                       echo $prodtls->unit
                                         ?>
                                      </td>
-                                     <td class="report opening" id="opening">
-                                        <?php echo $prodtls->opening;
-                                       // $prod_id = $prodtls->prod_id;
+                                     <!-- <td class="report opening" id="opening">
+                                        <?php //echo $prodtls->opening;
+                                     
                                         ?>
-                                     </td>
+                                     </td> -->
                                      <?php 
                                     //  $sql = "SELECT rate FROM td_purchase 
                                     //              WHERE trans_dt=(select max(trans_dt) from td_purchase 
@@ -240,11 +240,9 @@ tr:hover {background-color: #f5f5f5;}
 
                         </tbody>
                         <tfooter>
-                            <tr>
-                               <!-- <td class="report" colspan="4" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td> -->
-                               <td colspan="4"></td>
+                            <tr style="font-weight: bold;">
+                              
+                               <td colspan="3"></td>
                                <td></td>
                                <td></td>
                                <td>Total</td>
