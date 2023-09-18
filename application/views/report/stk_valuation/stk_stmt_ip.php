@@ -74,8 +74,7 @@ tr:hover {background-color: #f5f5f5;}
 
         <div class="col-md-6 container form-wraper">
     
-                 <!-- <form method="POST" id="form" action="<?php echo site_url("fert/rep/salerepsoc");?>" > -->
-                 <form method="POST" id="form" action="<?php echo site_url("fert/rep/stkStmt_ho");?>" >
+                 <form method="POST" id="form" action="<?php echo site_url("fert/rep/stock_valuation");?>" >
                 <div class="form-header">
                 
                     <h4> Date Range & Branch</h4>
