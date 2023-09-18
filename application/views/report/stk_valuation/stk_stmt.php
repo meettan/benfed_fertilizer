@@ -214,8 +214,8 @@ tr:hover {background-color: #f5f5f5;}
                                         <?php echo $prodtls->hsn_code;?>
                                      </td>
                                      <td class="report closing" id="closing">
-                                        <?php echo $prodtls->closing*$prodtls->hsn_code;
-                                        $tot_amt += $prodtls->closing*$prodtls->hsn_code;
+                                        <?php echo round($prodtls->closing*$prodtls->hsn_code);
+                                        $tot_amt += round($prodtls->closing*$prodtls->hsn_code);
                                         
                                         ?>
                                      </td>
