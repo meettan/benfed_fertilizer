@@ -448,6 +448,40 @@ public function stkStmt_ho(){
 
 }
 
+   public function stock_valuation(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $from_dt    =   $this->input->post('from_date');
+            $to_dt      =   $this->input->post('to_date');
+            $branch     =   $this->input->post('br');
+
+            $where1              =   array("district_code"  => $branch);
+            $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+            if ($branch == 0){
+                $data['product']      =    $this->ReportModel->p_consolidated_stock_all(array($from_dt,$to_dt));
+            }else{
+                $data['product']      =    $this->ReportModel->p_consolidated_stock(array($from_dt,$to_dt,$branch));
+
+            }
+            
+            $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/stk_valuation/stk_stmt',$data);
+            $this->load->view('post_login/footer');
+
+        }else{
+
+            $select1      = array("district_code","district_name");
+            $where =array('1 order by district_name'=>null);
+            $data['all_branch']      =   $this->ReportModel->f_select("md_district", $select1, $where,0);
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/stk_valuation/stk_stmt_ip',$data);
+            $this->load->view('post_login/footer');
+        }
+
+    }
+
         /****************************** */
 
         public function ps_soc(){
