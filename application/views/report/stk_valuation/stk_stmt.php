@@ -188,8 +188,18 @@ tr:hover {background-color: #f5f5f5;}
                                         ?>
                                      </td>
                                      <td class="report opening" id="opening">
-                                        <?php echo $prodtls->opening?>
+                                        <?php echo $prodtls->opening;
+                                       // $prod_id = $prodtls->prod_id;
+                                        ?>
                                      </td>
+                                     <?php 
+                                    //  $sql = "SELECT rate FROM td_purchase 
+                                    //              WHERE trans_dt=(select max(trans_dt) from td_purchase 
+                                    //              where trans_dt<='2023-03-31' and br=335 and prod_id=$prod_id)
+                                    //                and br=335
+                                    //               and prod_id=$prod_id";
+                                     
+                                     ?>
                                      <!-- <td class="report purchase" id="purchase">
                                         <?php ///echo $prodtls->purchase; ?>
                                      </td> -->
@@ -201,11 +211,11 @@ tr:hover {background-color: #f5f5f5;}
                                         <?php echo $prodtls->closing;?>
                                      </td>
                                      <td class="report closing" id="closing">
-                                        <?php echo $prodtls->rate;?>
+                                        <?php echo $prodtls->hsn_code;?>
                                      </td>
                                      <td class="report closing" id="closing">
-                                        <?php echo $prodtls->closing*$prodtls->rate;
-                                        $tot_amt += $prodtls->closing*$prodtls->rate;
+                                        <?php echo $prodtls->closing*$prodtls->hsn_code;
+                                        $tot_amt += $prodtls->closing*$prodtls->hsn_code;
                                         
                                         ?>
                                      </td>
