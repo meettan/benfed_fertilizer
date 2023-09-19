@@ -68,7 +68,8 @@
     19 => 'nineteen', 20 => 'twenty', 30 => 'thirty',
     40 => 'forty', 50 => 'fifty', 60 => 'sixty',
     70 => 'seventy', 80 => 'eighty', 90 => 'ninety');
-    $digits = array('', 'hundred','thousand','lakh', '');
+    $digits = array('', 'hundred','thousand','lakh', 'crore');
+    $digitsp = array('', 'hundred','thousand','lakh', '');
     
      while( $i < $digits_length ) {
      $divider = ($i == 2) ? 10 : 100;
@@ -91,7 +92,7 @@
      if ($decimal_number) {
      $plurals = (($counter = count($str2)) && $decimal_number > 9) ? '' : null;
      $hundreds = ($counter == 1 && $str2[0]) ? ' and ' : null;
-     @$str2 [] = ($decimal_number < 21) ? $words[$decimal_number].' '. $digits[$decimal_number]. $plural.' '.$hundred:$words[floor($decimal_number / 10) * 10].' '.$words[$decimal_number % 10]. ' '.$digits[$counter].$plural.' '.$hundred;
+     @$str2 [] = ($decimal_number < 21) ? $words[$decimal_number].' '. $digitsp[$decimal_number]. $plural.' '.$hundred:$words[floor($decimal_number / 10) * 10].' '.$words[$decimal_number % 10]. ' '.$digitsp[$counter].$plural.' '.$hundred;
       } else $str2[] = null;
     }
     
