@@ -1242,25 +1242,146 @@ public function f_get_dist_bnk_dtls(){
    
    ///    *************  Code End for Adance Forward   27/06/2022  **************  //	
 
+   public function pending_amt_list(){
+	    $where    = array("branch_id"  =>  $this->session->userdata['loggedin']['branch_id'],"1 group by bulk_trans_id" =>NULL);
+        $data['list']  = $this->AdvanceModel->f_select('td_pending_soc_amt',array('trans_dt','bulk_trans_id','tot_amt','cuml_adv_no','adv_receipt_no','status'),$where,0);
+		$this->load->view("post_login/fertilizer_main");
+		$this->load->view("cumulative_advance/advfwd_dashboard",$data);
+		$this->load->view('post_login/footer');
+   }
+
    public function fwd_remain_amt(){
 
+	    if($_SERVER['REQUEST_METHOD'] == "POST") {
+			$cntrow   = count($this->input->post('receipt_no'));
+			$result = $this->db->query("select  IFNULL(max(bulk_trans_id),0) as bulk_trans_id from td_pending_soc_amt")->row();
+					$bulk_id = $result->bulk_trans_id + 1;  
+					$branch       = $this->session->userdata['loggedin']['branch_id'];
+					$fin_year     = $this->session->userdata['loggedin']['fin_yr'];
+					$brn          = $this->AdvanceModel->f_select("md_district",array("dist_sort_code"),array("district_code" => $branch),1);  
+
+			 $cuml = 'CUMLADV/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id; 
+			 $cuml_no = 'FWD/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id;  
+			for($i=0; $i<$cntrow; $i++) {   
+					
+					$data = array(
+					'trans_dt'       => $this->input->post('trans_dt'),
+					'soc_id'         => $this->input->post('society'),
+					'adv_receipt_no' => explode(',',$this->input->post('receipt_no')[$i])[0],
+					'cuml_adv_no'    => $cuml,
+					'amt'            => explode(',',$this->input->post('receipt_no')[$i])[1],
+					'comp_id'        => $this->input->post('comp_id'),
+					'fo_id'          => $this->input->post('fo_no'),
+					'prod_id'        => $this->input->post('prod_id'),
+					'qty'            => $this->input->post('qty'),
+					'rate'           => $this->input->post('rate'),
+					'tot_amt'        => $this->input->post('amount'),
+					'bulk_trans_id'  => $bulk_id,
+					'branch_id'      => $this->session->userdata['loggedin']['branch_id'],
+					'fin_id'         => $this->session->userdata['loggedin']['fin_id'],
+					'created_by'     => $this->session->userdata['loggedin']['user_name'],
+					'created_at'     => date('Y-m-d h:i:s')
+					);
+				if(explode(',',$this->input->post('receipt_no')[$i])[1] > 0){
+					$this->AdvanceModel->f_insert('td_pending_soc_amt', $data);
+				}
+		    }
+         $this->pending_amt_list();
+		}else{
+			$select   = array("soc_id","soc_name");   
+			$where    = array("district"  =>  $this->session->userdata['loggedin']['branch_id'] );
+			$data['compdtls']   = $this->AdvanceModel->f_select('mm_company_dtls',array("comp_id","comp_name"),NULL,0);
+			$data['societyDtls'] = $this->AdvanceModel->f_select('mm_ferti_soc',$select,$where,0);
+			$fo_where    = array("dist_id"  =>  $this->session->userdata['loggedin']['branch_id'] );
+			$data['folist']   = $this->AdvanceModel->f_select('mm_fo_master',array("fi_id","fo_name"),$fo_where,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("cumulative_advance/adv_remain_add",$data);
+			$this->load->view('post_login/footer');
+		}
+		
+   }
+   public function f_pending_amt_view(){
+        $bulk_id = base64_decode($this->input->get('fwd_no'));
 		$select   = array("soc_id","soc_name");   
-        $where    = array("district"  =>  $this->session->userdata['loggedin']['branch_id'] );
+		$where    = array("district"  =>  $this->session->userdata['loggedin']['branch_id'] );
 		$data['compdtls']   = $this->AdvanceModel->f_select('mm_company_dtls',array("comp_id","comp_name"),NULL,0);
 		$data['societyDtls'] = $this->AdvanceModel->f_select('mm_ferti_soc',$select,$where,0);
 		$fo_where    = array("dist_id"  =>  $this->session->userdata['loggedin']['branch_id'] );
 		$data['folist']   = $this->AdvanceModel->f_select('mm_fo_master',array("fi_id","fo_name"),$fo_where,0);
+		$data['pending_amt_list']   = $this->AdvanceModel->f_select('td_pending_soc_amt',NULL,array('bulk_trans_id'=>$bulk_id),0);
 		$this->load->view("post_login/fertilizer_main");
-		$this->load->view("advance/adv_remain_add",$data);
+		$this->load->view("cumulative_advance/adv_remain_view",$data);
 		$this->load->view('post_login/footer');
+   }
+
+   public function pending_amt_fwd(){
+
+	     //$bulk_id = base64_decode($this->input->get('fwd_no'));
+		 $branch         = $this->session->userdata['loggedin']['branch_id'];
+		 $finYr          = $this->session->userdata['loggedin']['fin_id'];
+		 $fin_year       = $this->session->userdata['loggedin']['fin_yr'];
+		 $brn            = $this->AdvanceModel->f_select("md_district",array("dist_sort_code"),array("district_code" => $branch),1);  
+
+		 $ids = $this->AdvanceModel->f_select('tdf_adv_fwd',array('ifnull(max(id),0) as id'),array('fin_yr'=>$finYr),1);
+		 $id = ($ids->id)+1;
+		 $fwd_receipt_no = 'FWD/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$id;
+		 $data = array(
+					'id'        => $id,
+					'trans_dt'  => date("Y-m-d"),
+					'soc_id'    => $this->input->post('soc_id'),
+					'receipt_no'=> $this->input->post('cumulative_fwd_no'),
+					'detail_receipt_no'=>$this->input->post('cumulative_fwd_no'),
+					'fwd_receipt_no'=>$fwd_receipt_no,
+					'fwd_flag'  => 'Y',
+					'branch_id' =>$this->session->userdata['loggedin']['branch_id'],
+					'fin_yr'    => $finYr
+		        );
+			$maxid = $this->AdvanceModel->f_select('td_adv_details',array("ifnull(max(id),0)+1 as id"),array("fin_yr"=>$finYr),1);
+	
+			$data2 = array(
+				'id'        => $maxid->id,
+				'trans_dt'  => date("Y-m-d"),
+				'receipt_no'=> $this->input->post('cumulative_fwd_no'),
+				'detail_receipt_no'=> $this->input->post('cumulative_fwd_no'),
+				'comp_id'   => $this->input->post('comp_id'),
+				'prod_id'   => $this->input->post('prod_id'),
+				'fo_no'     => $this->input->post('fo_no'),
+				'ro_no'     => 'ADVANCE',
+				'qty'       => $this->input->post('qty'),
+				'rate'      =>$this->input->post('rate'),
+				'amount'    =>$this->input->post('amount'),
+				'branch_id' =>$this->session->userdata['loggedin']['branch_id'],
+				'fin_yr'    => $finYr,
+				'created_by' =>$this->session->userdata['loggedin']['user_name'],
+				'created_dt' => date('Y-m-d h:i:s')
+			);
+
+			$this->AdvanceModel->f_insert('td_adv_details', $data2);
+
+			$this->AdvanceModel->f_insert('tdf_adv_fwd', $data);
+			$this->AdvanceModel->f_edit('td_pending_soc_amt',array('status'=>'Y'),array('cuml_adv_no'=>$this->input->post('cumulative_fwd_no')));		
+				echo "<script>
+				alert('Cumulative Payment data forwarded successfully');
+				window.location.href='pending_amt_list';
+				</script>";
    }
 
    public function f_get_society_remin_amt(){
 
 	   $soc_id = $this->input->get('soc_id');
 	   $data['remain_list']  =$this->AdvanceModel->get_society_remain_amt($soc_id);
-	   $list = $this->load->view('advance/adv_remain_detail',$data,true);
+	   $list = $this->load->view('cumulative_advance/adv_remain_detail',$data,true);
 	   echo $list;
+   }
+
+   public function pending_amt_Del(){
+	$data = $this->input->get('data');	
+	$where = array(
+		'cuml_adv_no' =>  $data
+	);
+	$this->session->set_flashdata('msg', 'Successfully Deleted!');
+	$this->AdvanceModel->f_delete('td_pending_soc_amt', $where);
+	$this->pending_amt_list();
    }
 
 }

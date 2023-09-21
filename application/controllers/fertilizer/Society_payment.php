@@ -539,11 +539,12 @@ public function society_payEdit(){
     public function society_payment(){
 		$br_cd          = $this->session->userdata['loggedin']['branch_id'];
 		$fin_id         = $this->session->userdata['loggedin']['fin_id'];
-		$this->sysdate  = $_SESSION['sys_date'];
-		$to_date=$this->input->post('to_date');
-		$from_date=$this->input->post('from_date');
-
-		if($this->input->post()){
+		//$this->sysdate  = $_SESSION['sys_date'];
+		
+    
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			$to_date=$this->input->post('to_date');
+		    $from_date=$this->input->post('from_date');
 			$data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls($br_cd,$fin_id,$to_date,$from_date);
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("society_payment/dashboard",$data);
@@ -554,7 +555,6 @@ public function society_payEdit(){
 			$today=date('Y-m-d');
 			$fDate=$today;
 			$data['soc_pay']    = $this->Society_paymentModel->f_get_soc_payment_dtls($br_cd,$fin_id,$today,$fDate);
-
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("society_payment/dashboard",$data);
 			$this->load->view('search/search');

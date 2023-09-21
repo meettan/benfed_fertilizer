@@ -18,7 +18,7 @@
 			return;
 
 		}
-		public function f_select_distinct($table,$select=NULL,$where=NULL,$type){	/**Select distinct data */
+		public function f_select_distinct($table,$select=NULL,$where=NULL,$type =NULL){	/**Select distinct data */
 
 			$this->db->distinct();
 
@@ -39,7 +39,7 @@
 			}
 		}
 /*Select Data from a table*/		
-		public function f_select($table,$select=NULL,$where=NULL,$type){
+		public function f_select($table,$select=NULL,$where=NULL,$type =NULL){
 			if(isset($select)){
 				$this->db->select($select);
 			}
@@ -376,7 +376,7 @@ return $data->row();
 			
 		}
    // Code Written By lokesh Kumar jha on 02/04/2020  //
-       public function f_get_particulars($table_name, $select=NULL, $where=NULL, $flag) {
+       public function f_get_particulars($table_name, $select=NULL, $where=NULL, $flag =NULL) {
         
         if(isset($select)) {
 
