@@ -241,7 +241,7 @@ $(document).ajaxComplete(function(){
 		if ($(this).is(':checked')) {
 			var hasil = parseFloat($(this).attr("id"));
 			total = parseFloat(total)+ parseFloat(hasil);
-			$('#amount').val(total);
+			$('#amount').val(parseFloat(total).toFixed(2));
 		}else{
 			var hasil = parseFloat($(this).attr("id"));
 			total = parseFloat(total) - parseFloat(hasil);
