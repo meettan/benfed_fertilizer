@@ -69,7 +69,7 @@
     40 => 'forty', 50 => 'fifty', 60 => 'sixty',
     70 => 'seventy', 80 => 'eighty', 90 => 'ninety');
     $digits = array('', 'hundred','thousand','lakh', 'crore');
-    $digitsp = array('', 'hundred','thousand','lakh', '');
+    $digitsp = array('', '','','', '');
     
      while( $i < $digits_length ) {
      $divider = ($i == 2) ? 10 : 100;
