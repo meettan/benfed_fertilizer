@@ -215,13 +215,17 @@
                             <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
                             <a href="<?php echo site_url("BNK");?>">Bank Master</a>
                             <a href="<?php echo site_url("fomaster");?>">Fo Master</a> 
+                            <a href="<?php echo site_url("customer");?>">Society/Stock Point</a>	
                             <?php 
                         // }elseif($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']!="Y" ){ 
                         }elseif($this->session->userdata['loggedin']['ho_flag']=="N"){
-	?>
-						  <a href="<?php echo site_url("customer");?>">Society/Stock Point</a>	
+	                     ?>
+						 
 							<?php
-}elseif($this->session->userdata['loggedin']['user_id']=="sss1"){
+                            if($this->session->userdata['loggedin']['user_type'] =='M'){    ?>
+                                <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
+                           <?php      }
+                         }elseif($this->session->userdata['loggedin']['user_id']=="sss1"){
                             ?>
                                 <!-- <a href="<?php echo site_url("fomaster");?>">Fo Master</a>     -->
                            <a href="<?php echo site_url("customer");?>">Society/Stock Point</a> 
@@ -369,7 +373,6 @@
 									    <a href="<?php echo site_url("fert/rep/stock_report");?>"> Stock </a>
 									    <a href="<?php echo site_url("fert/rep/sale_report");?>"> Sale </a>
 									    <a href="<?php echo site_url("fert/rep/purchase_report");?>"> Purchase </a>
-
                                         <a href="<?php echo site_url("fert/rep/stkScomp_all");?>">Summary </a>
 									    
 									</div>
