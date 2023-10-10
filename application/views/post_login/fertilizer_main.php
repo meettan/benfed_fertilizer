@@ -222,7 +222,7 @@
 	                     ?>
 						 <a href="<?php echo site_url("customer");?>">Society/Stock Point</a>
 							<?php
-                            if($this->session->userdata['loggedin']['user_type'] =='M'){    ?>
+                            if($this->session->userdata['loggedin']['ho_flag'] =='Y'){    ?>
                                 <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
                            <?php      }
                          }elseif($this->session->userdata['loggedin']['user_id']=="sss1"){
