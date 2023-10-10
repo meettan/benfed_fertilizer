@@ -52,6 +52,7 @@ class Fertilizer_Login extends MX_Controller
 								$loggedin['branch_id']   		= $branch_data->id;
 								$loggedin['branch_name']   		= $branch_data->branch_name;
 								$loggedin['ho_flag']            = $branch_data->ho_flag;
+								$loggedin['user_branch_id']     = $user_data->branch_id;
 
 								$dist_data 	 = $this->Login_Process->f_get_dist_inf($branch_data->districts_catered);
 								$loggedin['dist_id']  			= $dist_data->district_code;
@@ -78,6 +79,7 @@ class Fertilizer_Login extends MX_Controller
 							$loggedin['user_name']      	= $user_data->user_name;
 							$loggedin['user_status']   		= $user_data->user_status;
 							$loggedin['branch_id']   	    = $user_data->branch_id;
+							$loggedin['user_branch_id']     = $user_data->branch_id;
 							$loggedin['branch_name']   	    = $user_data->branch_name;
 							$loggedin['ho_flag']            = $user_data->ho_flag;
 							$loggedin['user_pwd']           = $user_pw;

@@ -215,7 +215,7 @@
                             <a href="<?php echo site_url("rateslab");?>">Sale Rate</a>
                             <a href="<?php echo site_url("BNK");?>">Bank Master</a>
                             <a href="<?php echo site_url("fomaster");?>">Fo Master</a> 
-                            <a href="<?php echo site_url("customer");?>">Society/Stock Point</a>	
+                            <!-- <a href="<?php //echo site_url("customer");?>">Society/Stock Point</a>	 -->
                             <?php 
                         // }elseif($this->session->userdata['loggedin']['user_type']!="U" && $this->session->userdata['loggedin']['ho_flag']!="Y" ){ 
                         }elseif($this->session->userdata['loggedin']['ho_flag']=="N"){
