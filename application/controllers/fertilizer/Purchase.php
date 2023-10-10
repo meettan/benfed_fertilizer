@@ -1094,42 +1094,8 @@ class Purchase extends MX_Controller
 		}
 	}
 
-	// Add stock_entry
-	//public function stockAdd(){
-
-	// //*********************************** */
-	// $curl = curl_init();
-
-	// curl_setopt_array($curl, array(
-	//   CURLOPT_URL => 'http://localhost/benfed_fin/index.php/transaction/f_acc_code',
-	//   CURLOPT_RETURNTRANSFER => true,
-	//   CURLOPT_ENCODING => '',
-	//   CURLOPT_MAXREDIRS => 10,
-	//   CURLOPT_TIMEOUT => 0,
-	//   CURLOPT_FOLLOWLOCATION => true,
-	//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	//   CURLOPT_CUSTOMREQUEST => 'GET',
-	//   CURLOPT_HTTPHEADER => array(
-	// 	'Cookie: ci_session=kdj63c5dnt6e3m0ursvh4rg4p269dtjr'
-	//   ),
-	// ));
-
-	// $response = curl_exec($curl);
-
-	// curl_close($curl);
-	// // echo $response;
-	// echo '<pre>';
-	// // var_dump(json_decode($response));
-	// $product['acc_cd']   = json_decode($response);
-	// var_dump($product['acc_cd']);
-	// exit;
-
-	//}
-	// /*************************************** */
-
 	public function stockAdd()
 	{
-
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
 			if($this->input->post('comp_acc_cd') > 0){
@@ -1278,6 +1244,8 @@ class Purchase extends MX_Controller
 				"cgst"         => $cgst,
 
 				"sgst"         => $sgst,
+
+				"tcs"         => $this->input->post('tcs'),
 
 				"retlr_margin" => $retlr_margin,
 

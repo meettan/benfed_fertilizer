@@ -97,6 +97,9 @@ public function f_get_pan_cnt(){
 // Add Soceity
 
 public function soceityAdd(){
+	if( $this->session->userdata['loggedin']['ho_flag']!="Y"){
+		redirect('Fertilizer_Login/main');
+	}
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		$soc= $this->FertilizerModel->f_get_acc();
@@ -1130,6 +1133,8 @@ public function salerateAdd(){
 
 					"unit"     => $unit,
 
+					'pur_rate' => $this->input->post('pur_rate'),
+
 					"sp_mt"    =>  $sp_mt,
 
 					"sp_bag"   =>  $sp_bag,
@@ -1189,6 +1194,7 @@ public function editsalerate(){
 				//"prod_id"  =>  $this->input->post('prod_id'),			/**Changed By Tan 18.03.21 */
 
 				//"comp_id"  =>  $this->input->post('comp_id'),
+				 'pur_rate' => $this->input->post('pur_rate'),
 
 				 "unit"        =>  $this->input->post('unit'),
 				
@@ -1223,18 +1229,16 @@ public function editsalerate(){
 
 		$this->FertilizerModel->f_edit('mm_sale_rate', $data_array, $where);
 
-		    //  echo $this->db->last_query();
-			//  exit();
 		$this->session->set_flashdata('msg', 'Successfully Updated');
 
-		redirect('fertilizer/sale_rate');
+		redirect('fertilizer/rateslab');
 
 	}else{
 			$select = array("a.bulk_id",
 			
 							"a.prod_id",
 
-							"a.comp_id",
+							"a.comp_id","a.pur_rate",
 
 							"a.fin_id",
 
@@ -1281,8 +1285,8 @@ public function editsalerate(){
 
 		$sch['schdtls']   = $this->FertilizerModel->f_select_distinct("mm_sale_rate a,mm_product b,mm_company_dtls c,md_district d,mm_category e, mm_unit f",$select,$where,1);
 
-		// echo $this->db->last_query();
-		// die();
+		///echo $this->db->last_query();
+		//die();
 		$sch['dist']      = $this->FertilizerModel->f_district($this->input->get('bulk_id'),$fin_id);
 
 		$select_cat          = array("sl_no","cate_desc");

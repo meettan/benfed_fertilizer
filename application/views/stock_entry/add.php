@@ -466,6 +466,10 @@
     					<input type="text" style="width:150px" id=sgst name="sgst" class="form-control" value="0" />
 
     				</div>
+					<label for="tcs" class="col-sm-1 col-form-label" style="color:red">TCS:</label>
+    				<div class="col-sm-3">
+    					<input type="number" style="width:150px;border-color:red" id="tcs" name="tcs" class="form-control" value="0" />
+    				</div>
 
     			</div>
     			<div class="form-group row">
