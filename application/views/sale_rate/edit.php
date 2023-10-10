@@ -121,6 +121,11 @@
 							<input type="date" id=frm_dt name="frm_dt" class="form-control"  value="<?=$schdtls->frm_dt?>"  />
 
 						</div>
+						<label for="frm_dt" class="col-sm-2 col-form-frm_dt">Purchase Rate:</label>
+						<div class="col-sm-4">
+							<input type="number" id=pur_rate name="pur_rate" class="form-control"   value="<?=$schdtls->pur_rate?>" 
+							required />
+						</div>
 							</div>
 					<!-- <label for="to_dt" class="col-sm-2 col-form-label">To Date:</label>
 					<div class="col-sm-4">

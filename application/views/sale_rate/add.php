@@ -113,13 +113,12 @@
 					<div class="form-group row">
 						<label for="frm_dt" class="col-sm-2 col-form-frm_dt">From Date:</label>
 						<div class="col-sm-4">
-
 							<input type="date" id=frm_dt name="frm_dt" class="form-control"  required />
-
 						</div>
-						<!-- <div class="form-group row"> -->
-						
-					
+						<label for="frm_dt" class="col-sm-2 col-form-frm_dt">Purchase Rate:</label>
+						<div class="col-sm-4">
+							<input type="number" id=pur_rate name="pur_rate" class="form-control"  required />
+						</div>
 					</div>
 
 					<div class="form-group row">
