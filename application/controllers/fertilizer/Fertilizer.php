@@ -97,9 +97,9 @@ public function f_get_pan_cnt(){
 // Add Soceity
 
 public function soceityAdd(){
-	if( $this->session->userdata['loggedin']['ho_flag']!="Y"){
-		redirect('Fertilizer_Login/main');
-	}
+	// if( $this->session->userdata['loggedin']['ho_flag']=="A"){
+	// 	redirect('Fertilizer_Login/main');
+	// }
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 		$soc= $this->FertilizerModel->f_get_acc();
