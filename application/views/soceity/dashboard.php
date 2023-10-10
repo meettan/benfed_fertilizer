@@ -13,7 +13,7 @@
         <div class="col-lg-12 container contant-wraper">    
 
             <h3>
-            <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){ ?> 
+            <?php  if( $this->session->userdata['loggedin']['user_type']=="A"){ ?> 
 		        <small><a href="<?php echo site_url("key/soceityAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                 <?php } ?>
                     <span class="confirm-div" style="float:right; color:green;"></span>

@@ -117,7 +117,7 @@
 						</div>
 						<label for="frm_dt" class="col-sm-2 col-form-frm_dt">Purchase Rate:</label>
 						<div class="col-sm-4">
-							<input type="number" id=pur_rate name="pur_rate" class="form-control"  required />
+							<input type="text" id=pur_rate name="pur_rate" class="form-control"  required />
 						</div>
 					</div>
 
