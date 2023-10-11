@@ -316,6 +316,7 @@
 						    <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>
                             <div class="sub-dropdown">
                                <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
+                             
                             </div>
                             <div class="sub-dropdown">
                                <a class="sub-dropbtn">Stock <i class="fa fa-angle-right" style="float: right;"></i></a> 
@@ -378,10 +379,9 @@
 									</div>
                                 </div>
 
-                                
 								<a href="<?php echo site_url("fert/rep/brwse_constk");?>">Consolidated Stock</a>
-								
 								<a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
+                                <a href="<?php echo site_url("fert/rep/tcs_report");?>">Tcs Report</a>
 								<!--<div class="sub-dropdownbr"> -->
                                 <div class="sub-dropdown">
                                    <a class="sub-dropbtn">Branchwise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
@@ -429,6 +429,7 @@
                                 <?php } ?>
 
 								<a href="<?php echo site_url("fert/rep/ps_soc");?>">District wise Distribution </a>
+                                
 								<!-- <a href="<?php echo site_url("fert/rep/yrwisesale");?>">Year Wise Sale</a> -->
 
                                 <div class="sub-dropdown">

@@ -2580,8 +2580,6 @@ public function soc_payblepaid(){
     }
     public function cancel_invoice_list(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-           
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
             $bt  = $this->input->post('bt');
@@ -2608,6 +2606,37 @@ public function soc_payblepaid(){
             $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
             $this->load->view('post_login/fertilizer_main');
             $this->load->view('report/cancel_invoice/data_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
+    public function tcs_report(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $frm_date = $this->input->post('fr_date');
+            $to_date  = $this->input->post('to_date');
+            $select   = array('a.*','b.branch_name','c.COMP_NAME');
+
+            $whered = array();$wherec = array();
+            if($this->input->post('branch_id') != 0){
+                $whered = array('a.br '=>$this->input->post('branch_id'));
+            }
+            if($this->input->post('comp_id') != 0){
+                $wherec = array('a.comp_id '=>$this->input->post('comp_id'));
+            }
+            $where = array('a.br=b.id'=> NULL,'a.comp_id=c.COMP_ID'=> NULL,'a.invoice_dt >='=>$frm_date,'a.invoice_dt <='=>$to_date);
+            
+            $data['tableData'] = $this->ReportModel->f_select("td_purchase a,md_branch b,mm_company_dtls c", NULL,array_merge($where,$whered,$wherec), 0);
+            $data['fDate']= $frm_date;
+            $data['tDate']=$to_date;
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/tcs/data_list.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/tcs/data_ip.php',$data);
             $this->load->view('post_login/footer');
         }
     }
