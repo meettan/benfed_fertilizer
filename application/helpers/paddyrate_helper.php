@@ -109,7 +109,7 @@
      $wordsp = array(0 => '', 1 => 'one', 2 => 'two',
      3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
      7 => 'seven', 8 => 'eight', 9 => 'nine');
-     $paise_n = $wordsp[$first_p].' '.$wordsp[$second_p];
+     $paise_n = $wordsp[round($first_p)].' '.$wordsp[round($second_p)].' Paise';
      return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise_n;
     }
     
