@@ -95,10 +95,21 @@
      @$str2 [] = ($decimal_number < 21) ? $words[$decimal_number].' '. $digitsp[$decimal_number]. $plural.' '.$hundred:$words[floor($decimal_number / 10) * 10].' '.$words[$decimal_number % 10]. ' '.$digitsp[$counter].$plural.' '.$hundred;
       } else $str2[] = null;
     }
-    
+   
      $Rupees = implode('', array_reverse($str));
      $paise = implode('', array_reverse($str2));
-     $paise = ($decimal_part > 0) ? $paise . ' Paise' : '';
+     //$paise = ($decimal_part > 0) ? $paise . ' Paise' : '';
+     $first_p =0 ;
+     $second_p =0 ;
+     $new_paisa = '';
+     if($decimal_part > 0 ){
+      $first_p =  intdiv(89, 10); 
+      $second_p = 89 % 10;
+     }
+     $wordsp = array(0 => '', 1 => 'one', 2 => 'two',
+     3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
+     7 => 'seven', 8 => 'eight', 9 => 'nine');
+     $$paise = $wordsp['$first_p'].' '.$wordsp['$second_p'];
      return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise;
     }
     
