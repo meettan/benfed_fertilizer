@@ -260,7 +260,7 @@
                             <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td style="text-align: right;"><b><?php echo $totalnetamt;  ?> </b></td>
+                            <td style="text-align: right;"><b><?php echo $totalnetamt;  ?> <?php $summary_tot=$totalnetamt?></b></td>
                         </tr>
                     <?php
                     } else {
