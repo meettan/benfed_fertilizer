@@ -260,7 +260,7 @@
                             <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td style="text-align: right;"><b><?php echo $totalnetamt;  ?>fdff <?=$summary_tot=$totalnetamt?></b></td>
+                            <td style="text-align: right;"><b><?php echo $totalnetamt;  ?> </b></td>
                         </tr>
                     <?php
                     } else {
@@ -376,7 +376,7 @@
                         <td><?php echo $summary_tot; ?> </td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align:center">Rupee : <?=$summary_tot?><?=getIndianCurrency($summary_tot)?></td>
+                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency($summary_tot)?></td>
                     </tr>
                 </tbody>
                
