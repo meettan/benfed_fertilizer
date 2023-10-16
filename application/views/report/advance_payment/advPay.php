@@ -225,7 +225,7 @@
 
                     <?php
 
-
+                         $summary_tot = 0;
                     if ($tableData) {
                         $i = 1;
                         $total = 0;
@@ -258,7 +258,7 @@
                             <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td style="text-align: right;"><b><?php echo $totalnetamt; ?></b></td>
+                            <td style="text-align: right;"><b><?php echo $totalnetamt;  $summary_tot =$totalnetamt;  ?></b></td>
                         </tr>
                     <?php
                     } else {
@@ -371,10 +371,10 @@
                     <?php    }  }?>
                     <tr>
                         <td colspan="3" style="text-align:center">TOTAL</td>
-                        <td><?php echo $totalnetamt; ?> </td>
+                        <td><?php echo $summary_tot; ?> </td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency($totalnetamt)?></td>
+                        <td colspan="4" style="text-align:center">Rupee : <?=getIndianCurrency($summary_tot)?></td>
                     </tr>
                 </tbody>
                
