@@ -103,13 +103,13 @@
      $second_p =0 ;
      $new_paisa = '';
      if($decimal_part > 0 ){
-      $first_p =  intdiv(89, 10); 
-      $second_p = 89 % 10;
+      $first_p =  intdiv($decimal_part, 10); 
+      $second_p = $decimal_part % 10;
      }
      $wordsp = array(0 => '', 1 => 'one', 2 => 'two',
      3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
      7 => 'seven', 8 => 'eight', 9 => 'nine');
-     $$paise = $wordsp['$first_p'].' '.$wordsp['$second_p'];
+     $paise = $wordsp[$first_p].' '.$wordsp[$second_p];
      return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise;
     }
     
