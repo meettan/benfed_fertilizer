@@ -179,7 +179,8 @@ tr:hover {background-color: #f5f5f5;}
                                              $totsld_sal+=($sal->qty)/1000000;
                                            }elseif($sal->unit==3){
                                               echo $sal->qty;
-                                              $sal_qty=$sal->qty*1000/($sal->qty_per_bag);
+                                            //  $sal_qty=$sal->qty*1000/($sal->qty_per_bag);
+                                              $sal_qty=$sal->qty/($sal->qty_per_bag);
                                               $totlqd_sal+=$sal->qty;
                                            }elseif($sal->unit==5){
                                             echo ($sal->qty)/1000; 
