@@ -176,5 +176,76 @@ public function viewupload(){
             $this->load->view('post_login/footer');
         }    
    }
+
+   ///   ***    Reconcile Code  Start 02/11/2023      //
+
+	public function reconcile(){
+
+        $demand_data['dmd_data'] = $this->upload_csv_model->get_dmd_data();
+      
+        $this->load->view('post_login/fertilizer_main');
+		$this->load->view('reconcile/view', $demand_data);
+        $this->load->view('post_login/footer');
+    }
+    public function upload_reconcile(){
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $csvMimes = array('text/x-comma-separated-values',
+            'text/comma-separated-values',
+            'application/octet-stream',
+            'application/vnd.ms-excel',
+            'application/x-csv',
+            'text/x-csv',
+            'text/csv',
+            'application/csv',
+            'application/excel',
+            'application/vnd.msexcel',
+            'text/plain');
+
+            if(!empty($_FILES['upload_file']['name']) && in_array($_FILES['upload_file']['type'],$csvMimes)){
+                
+                    $csvFile  = fopen($_FILES['upload_file']['tmp_name'], 'r');
+                    $totqty = 0;
+                    
+                    while(($line = fgetcsv($csvFile)) !== FALSE){
+                    
+                        if($line[2] !='') {
+                            $data[] = array(
+                            "upload_dt"            =>  trim($line[0]),
+                            'inv_no'               =>  $line[1],
+                            "inv_dt"               =>  trim($line[2]),
+                            "comp_id"              =>  $line[3],
+                            "branch_id"            =>  trim($line[4]),
+                            "qty"                  =>  $line[5],
+                            "taxable_amt"          =>  $line[6],
+                            "gst_amt"              =>  $line[7],
+                            "created_by"           =>   $this->session->userdata['loggedin']['user_name'],
+                            "created_dt"           =>  date('Y-m-d h:i:s')
+                            );
+                        }
+
+
+                    }
+                    
+                    unset($data[0]);
+                    
+                    $data = array_values($data);
+                    //print_r($data );die();
+                   
+                    $this->db->insert_batch('td_reconcile', $data); 
+                    
+                    fclose($csvFile);
+                    $this->session->set_flashdata('msg','Successfully uploaded');
+                    redirect('fertilizer/Upload_csv/reconcile','refresh'); 
+            }
+        }else{
+
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('reconcile/entry');
+            $this->load->view('post_login/footer');
+        }
+    }
+
+   /// ***  Reconcile Code  End  02/11/2023   //
 }
 ?>
