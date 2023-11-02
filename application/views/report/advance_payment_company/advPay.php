@@ -104,7 +104,7 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
                     <br>  
 
-                    <table style="width: 80%;">
+                    <table style="width: 100%;">
 
                         <thead>
 
