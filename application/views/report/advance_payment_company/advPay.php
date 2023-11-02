@@ -104,16 +104,17 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
                     <br>  
 
-                    <table style="width: 100%;" id="example">
+                    <table style="width: 80%;">
 
                         <thead>
 
                             <tr>
                             
                                 <th>Sl No.</th>
-                                <th>Date</th>
+                                <th>Pay Date</th>
                                 <th>District</th>
                                 <th>Purchase Invoice</th>
+                                <th>Invoice Dt</th>
 								<th>FO Name</th>
                                 <th>Product</th>
                                 <th>Purchase Ro</th>
@@ -147,6 +148,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo date("d/m/Y", strtotime($ptableData->pay_dt)); ?></td>
                                      <td><?php echo $ptableData->br_dist; ?></td>
                                      <td><?php echo $ptableData->pur_inv_no; ?></td>
+                                     <td><?php echo date("d/m/Y", strtotime($ptableData->invoice_dt)); ?></td>
                                      <td><?php echo $ptableData->fo_nm; ?></td>
                                      <td><?php echo $ptableData->PROD_DESC; ?></td>
                                      <!-- <td><?= $ptableData->PROD_DESC; ?></td> -->
@@ -162,6 +164,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <?php    } ?>
 
                                 <tr>
+                                    <td><b></b></td>
                                     <td><b></b></td>
                                     <td><b></b></td>
                                     <td><b></b></td>
