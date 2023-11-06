@@ -371,7 +371,7 @@ return $result;
 			// 		group by a.receipt_no , b.soc_id 
 			// 		HAVING sum(b.adv_amt)-sum(a.net_amount)>0
 			// 		ORDER BY pending_amt ASC";
-			// $result = $this->db->query($sql);		
+			 $result = $this->db->query($sql);		
 			return 	$result->result();	
 		}
  
