@@ -249,7 +249,7 @@
                             <div class="sub-dropdown">
                               <a href="<?php echo site_url("adv/advancefilter");?>">Advance</a>
                               <a href="<?php echo site_url("adv/advancefwd");?>">Advance Forward</a>
-                              <a href="<?php echo site_url("adv/pending_amt_list");?>">Cumalitive Advance Forward</a>
+                              <a href="<?php echo site_url("adv/pending_amt_list");?>">Cumulative Advance Forward</a>
                               <a href="<?php echo site_url("stock/stock_entry");?>">Purchase</a>
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("drcrnote/dr_note");?>">Credit Note </a>
