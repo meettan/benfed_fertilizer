@@ -104,7 +104,7 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
                     <br>  
 
-                    <table style="width: 100%;">
+                    <table style="width: 100%;" id="example">
 
                         <thead>
 
@@ -480,7 +480,7 @@ tr:hover {background-color: #f5f5f5;}
         dom: 'Bfrtip',
         buttons: [{
             extend: 'excelHtml5',
-            title: ' Company Payment Statement',
+            title: ' Company-Payment-Statement',
             text: 'Export to excel'
 
         }]
