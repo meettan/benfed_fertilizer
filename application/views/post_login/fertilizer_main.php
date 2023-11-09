@@ -249,6 +249,7 @@
                             <div class="sub-dropdown">
                               <a href="<?php echo site_url("adv/advancefilter");?>">Advance</a>
                               <a href="<?php echo site_url("adv/advancefwd");?>">Advance Forward</a>
+                              <a href="<?php echo site_url("adv/pending_amt_list");?>">Cumalitive Advance Forward</a>
                               <a href="<?php echo site_url("stock/stock_entry");?>">Purchase</a>
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("drcrnote/dr_note");?>">Credit Note </a>
@@ -283,17 +284,13 @@
                             </div>
                             <!-- <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
                             <a href="<?php echo site_url("compay/company_payment_pending");?>">Pending Company Payment</a> -->
-
-
                             <div class="sub-dropdown">
                                <a class="sub-dropbtn">Company Payment<i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
                                <a href="<?php echo site_url("compay/company_payment");?>">Company Payment</a>
-                            <a href="<?php echo site_url("compay/company_payment_pending");?>">Pending Company Payment</a>
-                                </div>
+                               <a href="<?php echo site_url("compay/company_payment_pending");?>">Pending Company Payment</a>
                             </div>
-
-
+                            </div>
                             <div class="sub-dropdown">
                                <a class="sub-dropbtn">IRN Cancel<i class="fa fa-angle-right" style="float: right;"></i></a> 
                                <div class="sub-dropdown-content">
@@ -302,6 +299,7 @@
                              </div>
                             </div>
                             <a href="<?php echo site_url("b2ccel");?>"> B2C Cancel </a>
+                            <a href="<?php echo site_url("fertilizer/Upload_csv/reconcile");?>"> Reconcile</a>
                             </div>
                     <?php } ?>
                     </div> 

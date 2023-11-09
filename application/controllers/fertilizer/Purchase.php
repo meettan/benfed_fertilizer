@@ -3802,4 +3802,5 @@ class Purchase extends MX_Controller
 			echo 0;
 		}
 	}
+
 }
