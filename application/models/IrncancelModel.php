@@ -251,15 +251,31 @@ return $result;
 				if($this->db->insert('td_sale_cancel', $quey)){
 					
 					$this->db->where(array('irn' => $irn));
-					$this->db->update('td_sale_cancel',array('cancel_date' => date('Y-m-d')));
+					
+					$this->db->update('td_sale_cancel',array('cancel_date' => date('Y-m-d'),'irn_cnl_rem'=> 'IRNCNL'));
 
 					$this->db->where(array('irn' => $irn));
 					$this->db->delete('td_sale');
+					$this->delete_td_vouchers($trans_do);
 					
 				}
 		    }
 		}
+        public function delete_td_vouchers($trans_no){
+			$db2 = $this->load->database('findb', TRUE);
 
+			$db2 = $this->load->database('findb', TRUE);
+			$data=$db2->select('')->where(array('trans_no'=>$trans_no))->get('td_vouchers')->result();
+			foreach ($data as $keydata) {
+				$keydata->delete_by = $this->session->userdata['loggedin']['user_name'];
+				$keydata->delete_dt = date('Y-m-d H:m:s');
+				// print_r($keydata);
+				$db2->insert('td_vouchers_delete', $keydata);
+			}
+
+			$data= $db2->query("DELETE FROM td_vouchers WHERE trans_no='$trans_no'");
+			return $data;
+		}
 
 
 
