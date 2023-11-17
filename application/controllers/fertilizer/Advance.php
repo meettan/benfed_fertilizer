@@ -1263,7 +1263,7 @@ public function f_get_dist_bnk_dtls(){
 			 $cuml = 'CUMLADV/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id; 
 			// $cuml_no = 'FWD/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id;  
 			for($i=0; $i<$cntrow; $i++) {   
-					
+				
 					$data = array(
 					'trans_dt'       => $this->input->post('trans_dt'),
 					'soc_id'         => $this->input->post('society'),
@@ -1273,7 +1273,7 @@ public function f_get_dist_bnk_dtls(){
 					'comp_id'        => $this->input->post('comp_id'),
 					'fo_id'          => $this->input->post('fo_no'),
 					'prod_id'        => $this->input->post('prod_id'),
-					'qty'            => $this->input->post('qty'),
+					'qty'            => round(($this->input->post('amount')/$this->input->post('rate')),3),
 					'rate'           => $this->input->post('rate'),
 					'tot_amt'        => $this->input->post('amount'),
 					'bulk_trans_id'  => $bulk_id,
