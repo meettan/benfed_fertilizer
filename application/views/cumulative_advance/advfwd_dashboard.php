@@ -50,7 +50,7 @@
                                 <td><?php echo $value->cuml_adv_no; ?></td>
                                 <td><?php $sql = "select fwd_receipt_no from tdf_adv_fwd where detail_receipt_no ='$value->cuml_adv_no' ";
                                              $result = $this->db->query($sql)->row();
-                                             echo $this->db->last_query();
+                                            // echo $this->db->last_query();
                                  if(isset($result->fwd_receipt_no)); echo $result->fwd_receipt_no;  ?></td>
                                 <td><?php echo $value->bulk_trans_id; ?></td>
                                 <th><?php echo $value->tot_amt; ?></th>
