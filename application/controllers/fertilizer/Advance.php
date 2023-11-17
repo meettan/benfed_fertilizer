@@ -1261,7 +1261,7 @@ public function f_get_dist_bnk_dtls(){
 					$brn          = $this->AdvanceModel->f_select("md_district",array("dist_sort_code"),array("district_code" => $branch),1);  
 
 			 $cuml = 'CUMLADV/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id; 
-			 $cuml_no = 'FWD/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id;  
+			// $cuml_no = 'FWD/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$bulk_id;  
 			for($i=0; $i<$cntrow; $i++) {   
 					
 					$data = array(

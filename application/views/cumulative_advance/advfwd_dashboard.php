@@ -31,6 +31,7 @@
                         <th>Date</th>
                         <th>Advance No</th>
                         <th>Cumulative Adv No</th>
+                        <th>Forward Adv No</th>
                         <th>Bulk Transaction id</th>
                         <th>Amount</th>
                         <th>Option</th>
@@ -47,6 +48,9 @@
                                 <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
                                 <td><?php echo $value->adv_receipt_no; ?></td>
                                 <td><?php echo $value->cuml_adv_no; ?></td>
+                                <td><?php $sql = "select fwd_receipt_no from tdf_adv_fwd where detail_receipt_no ='.$value->cuml_adv_no.' ";
+                                             $result = $this->db->query($sql)->row();
+                                echo $result->fwd_receipt_no; ?></td>
                                 <td><?php echo $value->bulk_trans_id; ?></td>
                                 <th><?php echo $value->tot_amt; ?></th>
                                

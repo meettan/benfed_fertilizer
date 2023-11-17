@@ -87,7 +87,7 @@ $thisyear=$fy[0];
 					        </select>
 						</td>
 						<td>
-						<input type="text" name="qty" class="form-control qty" id="qty" required>
+						<input type="text" name="qty" class="form-control qty" id="qty"  readonly>
 						</td>
 						<td>
 						<input type="text" name="rate" class="form-control rate" id="rate" required>
