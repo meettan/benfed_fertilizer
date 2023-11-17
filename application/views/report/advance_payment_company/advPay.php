@@ -434,7 +434,11 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border:none;">Manager Accounts</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">Deputy Manager Accounts</td>
-
+                        <?php }elseif($sig == 5){ ?>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Dy. Manager (Accounts)</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Chief Audit & Accounts Officer</td>
                         <?php } ?>
                     </tr>
                     
