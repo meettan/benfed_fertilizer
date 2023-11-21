@@ -305,7 +305,7 @@
             <table style="width:100%;border:none !important;" >
                 <tr>
                     <td style="width:20%"><img src="<?=base_url()?>benfed.png"></td>
-                    <td style="width:79%"><span class="headertitle">The West Bengal State Co-operative Markrting Federation Ltd.</span>
+                    <td style="width:79%"><span class="headertitle">The West Bengal State Co-operative Marketing Federation Ltd.</span>
                 <br><span class="headeraddress">Southend Conclave, 3rd Floor,<br> 1582 Rajdanga Main Road, Kolkata-700107.</span>
         
                  </td>
