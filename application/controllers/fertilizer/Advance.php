@@ -932,7 +932,6 @@ public function add_advdetail(){
 						$data['folis']    = $this->AdvanceModel->f_select('mm_fo_master',$select=NULL,$where3,0);
 
 				}
-		//echo $this->session->userdata['loggedin']['branch_id'];
 
 		$this->load->view('post_login/fertilizer_main');
 		$this->load->view("advance/addadv_detail",$data);
@@ -1383,6 +1382,207 @@ public function f_get_dist_bnk_dtls(){
 	$this->AdvanceModel->f_delete('td_pending_soc_amt', $where);
 	$this->pending_amt_list();
    }
+   public function advtrans(){
+
+		$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+		$fin_id     = $this->session->userdata['loggedin']['fin_id'];
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+		$frmdt      = $this->input->post('from_date');
+		$todt       = $this->input->post('to_date');
+		
+		$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
+
+		$where  =	array(
+			"a.soc_id=b.soc_id"   => NULL,
+			"a.branch_id"            => $this->session->userdata['loggedin']['branch_id'],
+			"a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
+			"a.trans_type='I'"   => NULL,
+			"a.trans_dt between '$frmdt ' and '$todt'"=> NULL
+		);
+		
+		$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
+		$this->load->view("post_login/fertilizer_main");
+		$this->load->view("advance/dashboard",$adv);
+		$this->load->view('search/search');
+		$this->load->view('post_login/footer');
+
+		}else{
+
+			$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
+			$where  =	array(
+				"a.soc_id=b.soc_id"   => NULL,
+				"b.district"          => $this->session->userdata['loggedin']['branch_id'],
+				"a.fin_yr"            => $this->session->userdata['loggedin']['fin_id'],
+				"a.trans_type='I'"    => NULL,
+				"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL
+			);
+
+			$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("advance_transfer/dashboard",$adv);
+			$this->load->view('search/search');
+			$this->load->view('post_login/footer');
+		}
+
+
+    }
+	public function f_get_advance_no(){
+		$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+		$soc_id = $this->input->get('soc_id');
+		$where  =	array(
+			"soc_id"          => $soc_id,
+			"branch_id"       => $this->session->userdata['loggedin']['branch_id'],
+			"fin_yr"          => $this->session->userdata['loggedin']['fin_id'],
+			"trans_type='I'"  => NULL
+		);
+	
+		$data   = $this->AdvanceModel->f_select("tdf_advance",array('receipt_no'),$where,0);
+		echo json_encode($data);
+	
+	}
+	public function f_get_advamt_dr_dtls(){
+		$soc_id = $this->input->get('soc_id');
+		$receipt_no = $this->input->get('receipt_no');
+		$data   = $this->AdvanceModel->f_get_advamt_dr_dtls($soc_id,$receipt_no);
+		echo json_encode($data);
+
+	}
+	
+	public function advtransAdd(){
+		$branch         = $this->session->userdata['loggedin']['branch_id'];
+		
+		$finYr          = $this->session->userdata['loggedin']['fin_id'];
+	
+		$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
+	
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+	
+			$soc_id=$this->input->post('society');
+	
+				$select         = array( "dist_sort_code" );
+	
+				$where          = array( "district_code"     =>  $branch );
+	
+				$brn            = $this->AdvanceModel->f_select("md_district",$select,$where,1);  
+	
+				$transCd 	    = $this->AdvanceModel->get_advance_code($branch,$finYr);
+
+				$adv_number     = $this->input->post('receipt_no');
+				$receipt        = 'INS'.substr($adv_number,3);
+				
+				$bnk_acc = NULL;
+				if($this->input->post('cshbank')==1){
+					$select_bnkacc         = array("acc_code"
+					);
+					$where_bnkacc          = array(
+						"sl_no"     => $this->input->post('bank_id')
+					);
+				$bnk_acc = $this->AdvanceModel->f_select("mm_feri_bank",$select_bnkacc,$where_bnkacc,1);
+				
+				}
+	
+	
+			 $select_adv         = array( "adv_acc",'acc_cd');
+	
+			$where_adv          = array(
+				"district"     =>  $branch,
+				"soc_id"     => $this->input->post('society')
+			);
+	
+			$adv_acc= $this->AdvanceModel->f_select("mm_ferti_soc",$select_adv,$where_adv,1);
+
+			$bbranch=$this->input->post('bank_id');
+			if(empty($bbranch)){
+			$branchid=0;
+			}else{
+				$branchid=$bbranch;
+				
+			}
+				$data_array = array (
+	
+						"trans_dt" 			=> $this->input->post('trans_dt'),
+						"sl_no" 			=> $transCd->sl_no,
+						"receipt_no"        => $receipt,
+						"fin_yr"            => $finYr,
+						"branch_id"  		=> $branch,
+						"soc_id"            => $this->input->post('society'),
+					    "cshbnk_flag"        => 0,
+						"trans_type"   		=> 'O',
+						'transfer_flag'     => 'Y',
+						"adv_amt"			=> $this->input->post('adv_amt'),
+						"bank"              => $branchid,
+						"remarks" 			=> 'TRANSFER AMOUNT TO INSECTICIDE',
+						"referenceNo"		=> $this->input->post('referenceNo'),
+						"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
+						"created_dt"    	=>  date('Y-m-d h:i:s'),
+						"created_ip"    	=>  $_SERVER['REMOTE_ADDR']
+					);
+					
+					$data_arrayi = array (
+	
+						"trans_dt" 			=> $this->input->post('trans_dt'),
+						"sl_no" 			=> $transCd->sl_no,
+						"receipt_no"        => $receipt,
+						"fin_yr"            => $finYr,
+						"branch_id"  		=> $branch,
+						"soc_id"            => $this->input->post('society'),
+					    "cshbnk_flag"        => '0',
+						"trans_type"   		=> 'I',
+						"adv_amt"			=> $this->input->post('adv_amt'),
+						'adv_number'        => $adv_number, 
+						"bank"              => $branchid,
+						"remarks" 			=> 'TRANSFER AMOUNT TO INSECTICIDE',
+						"referenceNo"		=> $this->input->post('referenceNo'),
+						"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
+						"created_dt"    	=>  date('Y-m-d h:i:s'),
+						"created_ip"    	=>  $_SERVER['REMOTE_ADDR']
+					);
+					
+				
+					
+					$data_array_fin=$data_array;
+					$data_array_fin['acc_code'] = $adv_acc->adv_acc; 
+					$data_array_fin['adv_acc'] = $adv_acc->acc_cd; 
+	
+					$select_soc         = array("soc_name");
+					$where_soc           = array("soc_id"     => $soc_id);
+					$soc_name = $this->AdvanceModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
+					
+					$data_array_fin['rem'] ="Advance Received From ".$soc_name->soc_name.','.$this->input->post('remarks');
+					$select_br    = array("dist_sort_code");
+					$where_br     = array("district_code"=> $branch );
+									
+					$data_array_fin['fin_fulyr']=$fin_year;
+					$data_array_fin['br_nm']= $brn->dist_sort_code;
+
+				
+					if($this->ApiVoucher->f_advtrnjnl( $data_array_fin)==1){
+						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
+						$this->AdvanceModel->f_insert_insecticide('tdf_advance', $data_arrayi);
+						
+						$this->session->set_flashdata('msg', 'Successfully Added');
+					 }else{
+					 	$this->session->set_flashdata('msg', 'Error in accounting!!');
+					 }
+				  redirect('fertilizer/advance/advtrans');
+	
+				}else {
+	
+					$select          		= array("soc_id","soc_name");
+					$where                  = array(
+						"district"  =>  $this->session->userdata['loggedin']['branch_id']
+	                );
+					$society['societyDtls'] = $this->AdvanceModel->f_select('mm_ferti_soc',$select,$where,0);
+					$society['bnk_dtls']    = $this->AdvanceModel->f_getbnk_dtl($branch);	
+					$society['date']   = $this->AdvanceModel->get_monthendDate();
+					$this->load->view('post_login/fertilizer_main');
+					$this->load->view("advance_transfer/add",$society);
+					$this->load->view('post_login/footer');
+				}
+	}
+	
 
 }
 ?>

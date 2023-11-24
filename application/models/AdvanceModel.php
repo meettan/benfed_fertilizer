@@ -14,6 +14,11 @@
 			return;
 
 		}
+		public function f_insert_insecticide($table_name, $data_array){
+			$db3 = $this->load->database('insecticidedb', TRUE);
+			$db3->insert($table_name, $data_array);
+			return;
+		}
 																				/*Update table data*/
 		public function f_edit($table_name, $data_array, $where) {
 
@@ -373,6 +378,26 @@ return $result;
 			// 		ORDER BY pending_amt ASC";
 			 $result = $this->db->query($sql);		
 			return 	$result->result();	
+		}
+
+		public function f_get_advamt_dr_dtls($soc_id,$receipt_no) // For Jquery
+		{
+				$thisfnyear=$this->session->userdata('loggedin')['fin_yr'];
+				$fin_id     = $this->session->userdata['loggedin']['fin_id'];
+				$yearex=explode('-',$thisfnyear);
+					$opdate=$yearex[0].'-04-01';
+					$sql = $this->db->query("SELECT ifnull(sum(a.adv_amt),0) -(select  ifnull(sum(adv_amt),0) 
+																				from tdf_advance 
+																				WHERE soc_id ='$soc_id'
+																				and receipt_no = '$receipt_no'
+																				and trans_type='O')
+												+ (select (-1)*sum(balance) from td_soc_opening
+												where soc_id='$soc_id' and op_dt='2022-04-01')as adv_amt
+					FROM tdf_advance a 
+					WHERE a.soc_id ='$soc_id'
+					and a.receipt_no = '$receipt_no'
+					and a.trans_type='I'");
+				return $sql->result();
 		}
  
 	}
