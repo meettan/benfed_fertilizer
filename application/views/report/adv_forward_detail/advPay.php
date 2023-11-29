@@ -96,7 +96,7 @@
 
                 <h4>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h4>
                 <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                <h3>Advance Payment Voucher for Fertilizer Between:<?php echo  date("d/m/Y", strtotime($fDate)) . ' To ' . date("d/m/Y", strtotime($tDate)) ?></h3>
+                <h3>Advance Forward Detail for Fertilizer Between:<?php echo  date("d/m/Y", strtotime($fDate)) . ' To ' . date("d/m/Y", strtotime($tDate)) ?></h3>
                 <?php
 
 
@@ -108,12 +108,13 @@
     }
     ?>
 
-                <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->adv_amt, 2); ?> DR</h5>
+                 <h5 style="text-align:left"><label><?php //echo $companyName; ?>:</label> &ensp;&ensp;</h5>
+              <!--  <?php //echo round($total_Voucher->adv_amt, 2); ?> DR</h5>
                 <h5 style="text-align:left"><label><?php foreach ($tableData as $bnk) {
                                                         echo $bnk->bnk;
                                                         break;
                                                     }; ?>:</label> &ensp;&ensp;<?php echo round($totalnetamth); ?> CR</h5>
-                <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($totalTdsh); ?> CR </h5>
+                <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($totalTdsh); ?> CR </h5> -->
 
             </div>
             <br>
@@ -127,6 +128,7 @@
                         <th>Sl No.</th>
                         <th>Date</th>
                         <th>Date Time</th>
+                        <th></th>
                         <th>Branch Name.</th>
                         <th>Product Name</th>
                         <th>Qty</th>
@@ -160,6 +162,7 @@
                                 <td><?php echo $i++; ?></td>
                                 <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
                                 <td><?php if($ptableData->created_at !=NULL) echo date("Y-m-d H:i:s", strtotime($ptableData->created_at)); ?></td>
+                                <td><?php echo $ptableData->fwd_receipt_no; ?></td>
                                 <td><?php echo $ptableData->branch_name; ?></td>
                                 <td><?php echo $ptableData->PROD_DESC; ?></td>
                                 <td><?= $ptableData->qty; ?></td>
@@ -178,7 +181,7 @@
                         <?php    } ?>
 
                         <tr>
-                            <td colspan="7"><b>Total</b></td>
+                            <td colspan="9"><b>Total</b></td>
                             <td><b><?php echo round($total, 2); ?></b></td>
                             <td><b><?php echo $totalTds; ?></b></td>
                             <td><b><?php echo $totalnetamt; ?></b></td>
