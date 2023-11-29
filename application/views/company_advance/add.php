@@ -279,7 +279,7 @@ $("#submit").hide();
 
             $.each(JSON.parse(data), function( index, value ) {
 
-                string += '<option value="' + value.fwd_receipt_no + '">' + value.fwd_receipt_no + ' ' + value.created_at + '</option>'
+                string += '<option value="' + value.fwd_receipt_no + '">' + value.fwd_receipt_no + ' - ' + value.created_at + '</option>'
             });
 
             $("#receipt_no").html(string);
