@@ -104,14 +104,7 @@
 
     $totalnetamth = 0;
     $totalTdsh = 0;
-    foreach ($tableDatasummary as $ptableDatasummary) {
     
-        $tdsh = round(0.001 * round($ptableDatasummary->adv_amt, 2));
-        $totalTdsh = $totalTdsh + $tdsh; 
-        $netamth = round(round($ptableDatasummary->adv_amt, 2) - $tdsh);
-        $totalnetamth = $totalnetamth + $netamth;
-
-        } 
     }
     ?>
 
