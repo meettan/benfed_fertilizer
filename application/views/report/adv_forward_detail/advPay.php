@@ -126,6 +126,7 @@
 
                         <th>Sl No.</th>
                         <th>Date</th>
+                        <th>Date Time</th>
                         <th>Branch Name.</th>
                         <th>Product Name</th>
                         <th>Qty</th>
@@ -158,6 +159,7 @@
                             <tr>
                                 <td><?php echo $i++; ?></td>
                                 <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
+                                <td><?php echo date("Y-m-d H:i:s", strtotime($ptableData->created_at)); ?></td>
                                 <td><?php echo $ptableData->branch_name; ?></td>
                                 <td><?php echo $ptableData->PROD_DESC; ?></td>
                                 <td><?= $ptableData->qty; ?></td>
