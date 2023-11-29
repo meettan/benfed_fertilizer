@@ -2640,6 +2640,38 @@ public function soc_payblepaid(){
             $this->load->view('post_login/footer');
         }
     }
+
+    public function advance_fwd_detail(){
+       
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+           $comp_idd  = $_POST['company'];
+           $com=explode(',', $comp_idd);
+           $comp_id=$com[0];
+           $data['companyName']=$com[1];
+           $branch_id = $this->input->post('branch_id');
+           $frm_date = $this->input->post('fr_date');
+           $to_date  = $this->input->post('to_date');
+           $data['tableData']=$this->ReportModel->getallAdvfwdData($comp_id,$frm_date,$to_date,$branch_id);
+        //   $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,null);
+           $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,null);
+           $data['fDate']= $frm_date;
+           $data['tDate']=$to_date;
+           $data['sig'] = 1;
+           $data['company_id'] = $com[0];
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/adv_forward_detail/advPay.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/adv_forward_detail/advPay_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
     
         
   }

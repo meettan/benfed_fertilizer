@@ -2289,6 +2289,91 @@ and a.ro_no not in (select sale_ro from td_sale
         return $q->result();
     }
 
+    public function getallAdvfwdData($comp_id, $frm_date, $to_date, $branch_id)
+    {
+
+        if ($branch_id == 0) {
+
+            $sql = "select e.COMP_NAME as comp_name,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no,
+            e.bank_name as cbank,e.bnk_branch_name as cbnk_branch_name,e.ac_no as cac_no,
+            e.ifsc as cifsc
+            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls e
+            where c.branch_id = b.id
+            and   a.adv_dtl_id = c.receipt_no
+            and   a.adv_receive_no = c.detail_receipt_no
+            and   c.prod_id = d.PROD_ID
+            and   a.comp_id = e.comp_id
+            and   a.trans_dt between '$frm_date' and '$to_date'
+            and   a.comp_id = '$comp_id'
+            and   c.comp_pay_flag = 'Y'
+            
+            UNION
+            select f.COMP_NAME,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no,
+            f.bank_name as cbank,f.bnk_branch_name as cbnk_branch_name,f.ac_no as cac_no,
+            f.ifsc as cifsc
+                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
+                        where c.branch_id = b.id
+                        and   a.adv_receive_no = c.detail_receipt_no
+                        and   c.prod_id = d.PROD_ID
+                        and   c.comp_id = f.comp_id
+                        and   a.adv_dtl_id = e.fwd_receipt_no
+                        and   c.detail_receipt_no = e.detail_receipt_no
+                        and   a.trans_dt between '$frm_date' and '$to_date'
+                        and   a.comp_id = '$comp_id'
+                        and   e.comp_pay_flag = 'Y'
+                        ";
+        } else {
+
+            $sql = "select e.COMP_NAME as comp_name,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no,
+            e.bank_name as cbank,e.bnk_branch_name as cbnk_branch_name,e.ac_no as cac_no,
+            e.ifsc as cifsc
+            from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls e
+            where c.branch_id = b.id
+            and   a.adv_dtl_id = c.receipt_no
+            and   a.adv_receive_no = c.detail_receipt_no
+            and   c.prod_id = d.PROD_ID
+            and   a.comp_id = e.comp_id
+            and   a.trans_dt between '$frm_date' and '$to_date'
+            and   a.comp_id = '$comp_id'
+            and   c.comp_pay_flag = 'Y'
+            
+            UNION
+            select f.COMP_NAME,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
+			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)ac_no,
+            f.bank_name as cbank,f.bnk_branch_name as cbnk_branch_name,f.ac_no as cac_no,
+            f.ifsc as cifsc
+                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
+                        where c.branch_id = b.id
+                        and   a.adv_receive_no = c.detail_receipt_no
+                        and   c.prod_id = d.PROD_ID
+                        and   c.comp_id = f.comp_id
+                        and   a.adv_dtl_id = e.fwd_receipt_no
+                        and   c.detail_receipt_no = e.detail_receipt_no
+                        and   a.trans_dt between '$frm_date' and '$to_date'
+                        AND   e.branch_id  = '$branch_id'
+                        and   a.comp_id = '$comp_id'
+                        and   e.comp_pay_flag = 'Y'
+                        ";
+        }
+        $q = $this->db->query($sql);
+        return $q->result();
+    }
+
 
 
     public function getallAdvData_summary($comp_id, $frm_date, $to_date, $memoNumber)
