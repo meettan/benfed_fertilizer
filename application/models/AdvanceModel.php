@@ -300,7 +300,7 @@ return $result;
 			return $q->result();
 		}
 		public function get_fwdrecep_no($c_id,$dist_id){
-			$q=$this->db->query("SELECT distinct a.fwd_receipt_no
+			$q=$this->db->query("SELECT distinct a.fwd_receipt_no,a.created_at
 			FROM tdf_adv_fwd a,td_adv_details b
 			where a.detail_receipt_no = b.detail_receipt_no
 			and b.comp_id = $c_id

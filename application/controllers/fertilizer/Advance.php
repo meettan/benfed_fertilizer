@@ -1150,7 +1150,8 @@ public function f_get_dist_bnk_dtls(){
 						'detail_receipt_no'=>$this->input->post('detail_receipt_no')[$i],
 						'fwd_receipt_no'=>$fwd_receipt_no,
 						'branch_id' =>$this->session->userdata['loggedin']['branch_id'],
-						'fin_yr'    => $finYr
+						'fin_yr'    => $finYr,
+						'created_at' => date('Y-m-d H:i:s')
 					);
 				if($this->input->post('amount')[$i] > 0){
 					$this->AdvanceModel->f_insert('tdf_adv_fwd', $data);
