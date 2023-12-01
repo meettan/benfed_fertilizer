@@ -167,8 +167,6 @@ public function soceityAdd(){
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
 				$this->FertilizerModel->f_insert_insectcide('mm_ferti_soc', $data_array);
 				
-				
-				
 				$data_array2=array(
 					'br_cd'=>$this->session->userdata('loggedin')['branch_id'],
 					'op_dt'=>explode('-',$this->session->userdata('loggedin')['fin_yr'])[0].'-04-01',

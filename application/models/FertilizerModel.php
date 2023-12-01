@@ -118,6 +118,24 @@
 				return $value->result();
 			}
 		}
+		public function f_select_insecticide($table,$select=NULL,$where=NULL,$type=NULL){
+			$dbi = $this->load->database('insecticidedb', TRUE);
+			if(isset($select)){
+				$dbi->select($select);
+			}
+
+			if(isset($where)){
+				$dbi->where($where);
+			}
+
+			$value = $dbi->get($table);
+
+			if($type==1){
+				return $value->row();
+			}else{
+				return $value->result();
+			}
+		}
 
 		public function checkhsn_select($table,$select=NULL,$where=NULL,$type=NULL){
 

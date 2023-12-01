@@ -11,6 +11,7 @@
 
 			$this->load->model('AdvanceModel');
 			$this->load->model('ApiVoucher');
+			$this->load->model('FertilizerModel');
 			
 			$this->session->userdata('fin_yr');
 
@@ -1486,13 +1487,21 @@ public function f_get_dist_bnk_dtls(){
 	
 	
 			 $select_adv         = array( "adv_acc",'acc_cd');
-	
+			
 			$where_adv          = array(
 				"district"     =>  $branch,
 				"soc_id"     => $this->input->post('society')
 			);
 	
 			$adv_acc= $this->AdvanceModel->f_select("mm_ferti_soc",$select_adv,$where_adv,1);
+			
+			$where_advi          = array(
+				"district"     =>  $branch,
+				"soc_id"     => $this->input->post('society')
+			);
+	
+			$adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
+			
 
 			$bbranch=$this->input->post('bank_id');
 			if(empty($bbranch)){
@@ -1545,7 +1554,7 @@ public function f_get_dist_bnk_dtls(){
 					
 					$data_array_fin=$data_array;
 					$data_array_fin['acc_code'] = $adv_acc->adv_acc; 
-					$data_array_fin['adv_acc'] = $adv_acc->acc_cd; 
+					$data_array_fin['adv_acc'] = $adv_acci->i_adv_acc;
 	
 					$select_soc         = array("soc_name");
 					$where_soc           = array("soc_id"     => $soc_id);
@@ -1557,7 +1566,6 @@ public function f_get_dist_bnk_dtls(){
 									
 					$data_array_fin['fin_fulyr']=$fin_year;
 					$data_array_fin['br_nm']= $brn->dist_sort_code;
-
 				
 					if($this->ApiVoucher->f_advtrnjnl( $data_array_fin)==1){
 						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
