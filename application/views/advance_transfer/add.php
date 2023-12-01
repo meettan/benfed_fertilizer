@@ -21,7 +21,7 @@ $thisyear=$fy[0];
 
 	<div class="col-md-6 container form-wraper">
 
-		<form method="POST" id="product" action="<?php echo site_url("fertilizer/advance/advtransAdd") ?>">
+		<form method="POST" id="adv_transfer" action="<?php echo site_url("fertilizer/advance/advtransAdd") ?>">
 
 			<div class="form-header">
 
@@ -46,13 +46,9 @@ $thisyear=$fy[0];
 						<option value="<?php echo $soc->soc_id;?>"><?php echo $soc->soc_name;?></option>
 
 						<?php
-
                             }
-
                         ?>
-
 					</select>
-
 				</div>
 
 			</div>
@@ -61,91 +57,36 @@ $thisyear=$fy[0];
                 <div class="col-sm-4">
                     <select name="receipt_no"  class="form-control sch_cd required" id="receipt_no">
                         <option value="">Select</option>
-                       
                     </select>
                 </div>
 				<label for="ava_amt" class="col-sm-2 col-form-label">Balance Amount:</label>
                 <div class="col-sm-4">
 					<input type="text" value="" name="ava_amt"  id="ava_amt" class="form-control" readonly>
-                  
                 </div>
             </div>
 			<div class="form-group row">
 				<label for="trans_type" class="col-sm-2 col-form-label">Transaction Type:</label>
 				<div class="col-sm-4">
-
 					<select name="trans_type" class="form-control required" id="trans_type" required>
 						<option value="T">Transfer</option>
 					</select>
-
 				</div>
 
 				<label for="adv_amt" class="col-sm-2 col-form-label">Amount:</label>
 				<div class="col-sm-4">
-
 					<input type="text" id=adv_amt name="adv_amt" class="form-control required" required />
-
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="trans_dt" class="col-sm-2 col-form-label">Date:</label>
-
 				<div class="col-sm-4">
-
 				<input type="date" id=trans_dt name="trans_dt" class="form-control" min="<?=$thisyear?>-04-01" max="<?php $d=$thisyear+1;echo $d;?>-03-31" value="<?=date("Y-m-d") ?>" readonly required />
-
-				</div>
-				
-				
-			
-			</div>
-
-			<div class="form-group row acno">
-
-				<label for="referenceNo" class="col-sm-2 col-form-label">Reference No :</label>
-				<div class="col-sm-4">
-					<input type="text" id="referenceNo" name="referenceNo" value="" class="form-control"
-						 />
-					
-
-				</div>
-			</div>
-			
-			<div class="form-group row acno">
-
-				<label for="bank_id" class="col-sm-2 col-form-label">Bank:</label>
-		
-				<div class="col-sm-4">
-
-					<select name="bank_id" class="form-control bank_id" id="bank_id" disabled>
-						<option value="">Select</option>
-						<?php
-                       foreach($bnk_dtls as $bnk){
-                            ?>
-						<option value="<?php echo $bnk->sl_no;?>"><?php echo $bnk->bank_name;?></option>
-						<?php    }    ?>
-					</select>
-				</div>
-				<label for="ifsc" class="col-sm-2 col-form-label">IFSC :</label>
-				<div class="col-sm-4">
-					<input type="text" style="width:160px" id="ifsc" name="ifsc" value="" class="form-control"
-						readonly />
-					
-				</div>
-			</div>
-			<div class="form-group row acno">
-				<label for="ac_no" class="col-sm-2 col-form-label">A/C No:</label>
-				<div class="col-sm-3">
-					<input type="text" style="width:200px" id="ac_no" name="ac_no" value="" class="form-control"
-						readonly />
 				</div>
 			</div>
 			
 
 			<div class="col-sm-10">
-
 				<input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
-
 			</div>
 
 	</div>
@@ -242,6 +183,22 @@ $thisyear=$fy[0];
 				var adv_amt = parseData[0].adv_amt;
 				$('#ava_amt').val(adv_amt);
 			});
+
+		});
+
+		$('#adv_transfer').submit(function () {
+
+			var ava_amt = $('#ava_amt').val();
+			var trs_amt = $('#adv_amt').val();
+			
+			if(parseFloat(trs_amt) > parseFloat(ava_amt))
+			{
+				alert('Transfer amount Can not be grater than Balance Amount');
+				event.preventDefault()
+			}else{
+
+			}
+			
 
 		});
     });

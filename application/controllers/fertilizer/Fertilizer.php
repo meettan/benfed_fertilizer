@@ -123,7 +123,7 @@ public function soceityAdd(){
 					"gstin"				=> $this->input->post('gstin'),
 
 					"mfms" 				=> $this->input->post('mfms'),
-					"retailmfms" 				=> $this->input->post('retailmfms'),
+					"retailmfms" 		=> $this->input->post('retailmfms'),
                  
 					"district"  		=> $this->session->userdata['loggedin']['branch_id'],
 					
@@ -142,6 +142,9 @@ public function soceityAdd(){
 					"acc_cd"            => $soc->acc_cd,
 
 					"adv_acc"           => $soc->adv_cd,
+					"i_acc_cd"            => $soc->i_acc_cd,
+
+					"i_adv_acc"           => $soc->i_adv_cd,
 
 					"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
 
@@ -162,7 +165,9 @@ public function soceityAdd(){
 				);
 
 				$this->FertilizerModel->f_insert('mm_ferti_soc', $data_array);
-				// $soc_id=$this->db->insert_id();
+				$this->FertilizerModel->f_insert_insectcide('mm_ferti_soc', $data_array);
+				
+				
 				
 				$data_array2=array(
 					'br_cd'=>$this->session->userdata('loggedin')['branch_id'],

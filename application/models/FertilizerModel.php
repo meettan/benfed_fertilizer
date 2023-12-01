@@ -18,6 +18,14 @@
 			return;
 
 		}
+		public function f_insert_insectcide($table_name, $data_array) {
+
+			$dbi = $this->load->database('insecticidedb', TRUE);
+			$data = $dbi->insert($table_name, $data_array);
+
+			return $data;
+
+		}
 																				/*Update table data*/
 		public function f_edit($table_name, $data_array, $where) {
 
@@ -157,7 +165,7 @@
            
 			$db2 = $this->load->database('findb', TRUE);
 			
-			 $data= $db2->query("select max(sl_no)+1 as sl_no from md_achead ");
+			 $data= $db2->query("select max(sl_no)+1 as sl_no from md_achead");
 		 
 			 $result = $data->row();
 			 return $result->sl_no;
@@ -165,7 +173,7 @@
 		 public function f_get_acc(){
 			$db2 = $this->load->database('findb', TRUE);
 			
-			 $data= $db2->query("select  max(sl_no)+1 as acc_cd,max(sl_no)+2 as adv_cd
+			 $data= $db2->query("select  max(sl_no)+1 as acc_cd,max(sl_no)+2 as adv_cd,max(sl_no)+3 as i_acc_cd,max(sl_no)+4 as i_adv_cd
 			 from   md_achead ");
 			// echo $db2->last_query();
 			//  die();
