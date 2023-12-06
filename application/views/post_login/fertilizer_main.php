@@ -314,7 +314,7 @@
                         <div class="dropdown-content">
 						    <?php if( $this->session->userdata['loggedin']['ho_flag']!="Y"){?>
                             <div class="sub-dropdown">
-                            <?php if($this->session->userdata['loggedin']['user_type']=="M") { ?>
+                            <?php if($this->session->userdata['loggedin']) { ?>
                                <a href="<?php echo site_url("fert/rep/rateslab");?>">Sale Rate Slab</a>
                                <?php } ?>
                             </div>
