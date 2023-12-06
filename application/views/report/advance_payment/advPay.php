@@ -436,6 +436,11 @@
                         <td style="border:none;">Dy. Manager (Accounts)</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
+                        <?php }elseif($sig == 6){ ?>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Manager Accounts</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Business)</td>
                         <?php } ?>
                     </tr>
                 </tbody>

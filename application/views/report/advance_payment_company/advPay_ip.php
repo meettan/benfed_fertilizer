@@ -130,6 +130,7 @@ tr:hover {background-color: #f5f5f5;}
                                     <option value="3">Chief Audit & Accounts Officer - General Manager(Administration)</option>
                                     <option value="4">Manager Accounts - Deputy Manager Accounts</option>
                                     <option value="5">Dy. Manager (Accounts) - Chief Audit & Accounts Officer</option>
+                                    <option value="6">Manager Accounts - General Manager(Business)</option>
                             </select>
                     </div>
                </div>
