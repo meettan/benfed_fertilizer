@@ -95,6 +95,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Rate/Bag</th>
 
                                 <th>Govt.Sale Rate</th>
+                                <th>Purchase Rate</th>
 
                             </tr>
 
@@ -122,6 +123,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ratedtls->sale_rtgst; ?></td>
                                      <td><?php echo $ratedtls->sp_bag; ?></td>
                                      <td><?php echo $ratedtls->sp_govt; ?></td>
+                                     <td><?php echo $ratedtls->pur_rate; ?></td>
                                 </tr>
  
                                 <?php    } ?>
