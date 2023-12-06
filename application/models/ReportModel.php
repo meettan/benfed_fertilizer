@@ -2514,6 +2514,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
     public function getCompanyPayment($comp_id, $frm_date, $to_date, $refereceNo=null)
     {
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
         /* $q= $this->db->query("
                         select a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty, SUM(a.rate_amt) as rate_amt, SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
                         (select c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
@@ -2549,6 +2550,7 @@ and a.ro_no not in (select sale_ro from td_sale
                         and a.pur_inv_no=e.invoice_no
                         and a.net_amt > 0
                         and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                        AND a.fin_yr =  $fin_id
                         group by  a.pur_ro,a.pur_inv_no,a.paid_id
                         order by  c.district_name,a.pay_dt
                     ");
@@ -2575,6 +2577,7 @@ and a.ro_no not in (select sale_ro from td_sale
                             and a.pur_inv_no=e.invoice_no
                             and a.net_amt > 0
                             and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                            AND a.fin_yr =  $fin_id
                             group by  a.pur_ro,a.pur_inv_no,a.paid_id
                             order by  c.district_name,a.pay_dt
                         ");
