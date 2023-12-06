@@ -384,7 +384,7 @@ function papulate_blance_purchase($fDate, $tDate,$dist){
     public function f_get_salerateho($comp_id, $district, $frm_date, $to_date, $fin_id)
     {
 
-        $sql = "SELECT a.sale_rtgst,`a`.`frm_dt`, `a`.`to_dt`, `a`.`catg_id`, `a`.`sp_mt`, `a`.`sp_bag`, `a`.`sp_govt`,'a.pur_rate', `b`.`cate_desc`, `c`.`PROD_DESC` 
+        $sql = "SELECT a.sale_rtgst,`a`.`frm_dt`, `a`.`to_dt`, `a`.`catg_id`, `a`.`sp_mt`, `a`.`sp_bag`, `a`.`sp_govt`,`a`.`pur_rate`, `b`.`cate_desc`, `c`.`PROD_DESC` 
             FROM `mm_sale_rate` `a`, `mm_category` `b`, `mm_product` `c` 
             WHERE `a`.`catg_id` = `b`.`sl_no` 
             AND `a`.`prod_id` = `c`.`PROD_ID` 
