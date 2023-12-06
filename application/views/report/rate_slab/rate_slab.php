@@ -87,18 +87,13 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Sl No.</th>
                                 <th>Category</th>
                                 <th>From Date</th>
-
                            <!--      <th>To Date</th> -->
-
                                 <th>Rate/Unit</th>
-
                                 <th>Rate/Bag</th>
-
                                 <th>Govt.Sale Rate</th>
                                 <th>Purchase Rate</th>
-
+                                <th>Sale Rate With Gst</th>
                             </tr>
-
                         </thead>
 
                         <tbody>
@@ -122,6 +117,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ratedtls->sp_bag; ?></td>
                                      <td><?php echo $ratedtls->sp_govt; ?></td>
                                      <td><?php echo $ratedtls->pur_rate; ?></td>
+                                     <td><?php echo $ratedtls->sale_rtgst; ?></td>
                                     
                                 </tr>
  

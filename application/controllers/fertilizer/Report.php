@@ -27,7 +27,7 @@
 
                $select      = array(
 
-                'a.frm_dt',"a.to_dt","a.catg_id","a.pur_rate","a.sp_mt","a.sp_bag","a.sp_govt","b.cate_desc","c.comp_name");
+                'a.frm_dt',"a.to_dt","a.catg_id","a.pur_rate","a.sale_rtgst","a.sp_mt","a.sp_bag","a.sp_govt","b.cate_desc","c.comp_name");
 
                $where       = array(
 
