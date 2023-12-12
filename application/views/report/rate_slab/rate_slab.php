@@ -91,7 +91,9 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Rate/Unit</th>
                                 <th>Rate/Bag</th>
                                 <th>Govt.Sale Rate</th>
+                                <?php if($this->session->userdata['loggedin']['user_type']=="M"){ ?>
                                 <th>Purchase Rate</th>
+                                <?php } ?>
                                 <th>Sale Rate With Gst</th>
                             </tr>
                         </thead>
@@ -116,7 +118,9 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ratedtls->sp_mt; ?></td>
                                      <td><?php echo $ratedtls->sp_bag; ?></td>
                                      <td><?php echo $ratedtls->sp_govt; ?></td>
+                                     <?php if($this->session->userdata['loggedin']['user_type']=="M"){ ?>
                                      <td><?php echo $ratedtls->pur_rate; ?></td>
+                                     <?php } ?>
                                      <td><?php echo $ratedtls->sale_rtgst; ?></td>
                                     
                                 </tr>
