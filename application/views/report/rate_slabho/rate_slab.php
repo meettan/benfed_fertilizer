@@ -123,7 +123,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ratedtls->sale_rtgst; ?></td>
                                      <td><?php echo $ratedtls->sp_bag; ?></td>
                                      <td><?php echo $ratedtls->sp_govt; ?></td>
-                                     <td><?php echo $ratedtls->pur_rate; ?></td>
+                                     <td><?php  if(isset($ratedtls->pur_rate)) echo $ratedtls->pur_rate; ?></td>
                                 </tr>
  
                                 <?php    } ?>
