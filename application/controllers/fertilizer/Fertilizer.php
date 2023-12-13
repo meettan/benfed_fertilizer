@@ -528,6 +528,8 @@ public function editcompany(){
 				);
 
 		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_company_dtls",$select,$where,1);
+		$sch['catdtls'] = $this->FertilizerModel->f_select("mm_product_type",NULL,NULL,0);
+		$sch['pccadtls'] = $this->FertilizerModel->f_select("td_prod_comp_cat_acc",NULL,NULL,0);
 																															
 		$this->load->view('post_login/fertilizer_main');
 
@@ -535,6 +537,47 @@ public function editcompany(){
 
 		$this->load->view("post_login/footer");
 	}
+}
+
+
+public function addeditprodcat(){
+
+	$comp_id         =  $this->input->post('comp_id');
+	$cat_id          =  $this->input->post('cat_id');
+	$bank_name       =  $this->input->post('bank_name');
+	$bnk_branch_name =  $this->input->post('bnk_branch_name');
+	$ac_no   		 =  $this->input->post('ac_no');
+	$ifsc 			 =  $this->input->post('ifsc');
+	$cntrow   = count($this->input->post('cat_id'));
+	for($i=0; $i<$cntrow; $i++) {
+		$data = array(
+			'comp_id'         => $this->input->post('comp_id'),
+			'cat_id'          => $this->input->post('cat_id')[$i],
+			'bank_name'       => $this->input->post('bank_name')[$i],
+			'bnk_branch_name' => $this->input->post('bnk_branch_name')[$i],
+			'ac_no'           => $this->input->post('ac_no')[$i],
+			'ifsc'            => $this->input->post('ifsc')[$i],
+			'created_at'      => date('Y-m-d H:i:s'),
+			'created_by'      => $this->session->userdata['loggedin']['user_name'],
+			'created_ip'      => $_SERVER['REMOTE_ADDR']
+		);
+	$count_exist = $this->db->get_where('td_prod_comp_cat_acc',array('comp_id =' => $comp_id,'cat_id'=>$this->input->post('cat_id')[$i]))->result();
+		if(count($count_exist) == 0){
+			$this->FertilizerModel->f_insert('td_prod_comp_cat_acc', $data);
+		}else{
+			$this->session->set_flashdata('msg', 'Please check Category You entered!');
+		}	
+    }
+	redirect('key/editcompany?comp_id='.$comp_id);
+}
+public function pccaDel(){
+	$data = explode(',',trim($this->input->get('data')));
+	$where = array(
+		"id"  =>  $data[0]
+	);
+	$this->session->set_flashdata('msg', 'Successfully Deleted!');
+	$this->FertilizerModel->f_delete('td_prod_comp_cat_acc', $where);
+	redirect('key/editcompany?comp_id='.$data[1]);
 }
 
 /*************************************************Product Master*********************************************** */
