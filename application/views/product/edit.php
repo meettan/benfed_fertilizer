@@ -74,6 +74,10 @@
 
                             <option value="3" <?php echo ($schdtls->prod_type == 3)? 'selected' : '';?>>Bio-Fertilizer
                             </option>
+                            <option value="4" <?php echo ($schdtls->prod_type == 4)? 'selected' : '';?>>SND
+                            </option>
+                            <option value="5" <?php echo ($schdtls->prod_type == 5)? 'selected' : '';?>>SSP
+                            </option>
 
                         </select>
                     </div>
