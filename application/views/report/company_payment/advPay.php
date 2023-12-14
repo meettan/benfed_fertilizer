@@ -442,10 +442,10 @@ tr:hover {background-color: #f5f5f5;}
             <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
                     <tr>
-                        <th style="border: 1px solid black !important">DISTRICT</th>
+                         <th style="border: 1px solid black !important">TYPE</th>
                         <th style="border: 1px solid black !important">Bank Name</th>
                         <th style="border: 1px solid black !important">AC.No.</th>
-                        <th style="border: 1px solid black !important">IFS CODE</th>
+                        <th style="border: 1px solid black !important">IFSC CODE</th>
                         <th style="border: 1px solid black !important">AMOUNT</th>
                     </tr>
                 </thead>
@@ -454,14 +454,30 @@ tr:hover {background-color: #f5f5f5;}
                 <?php
                                 if($sumrydtls){ 
                                     $i = 1;
-                                    
+                                    $summary_tot = 0;
                                     foreach($sumrydtls as $sumr){
                             ?>
                     <tr>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->type_name)){echo $sumr->type_name;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->bnk)){echo $sumr->bnk;}?></td>
-                        <td style="border:1px solid black !important"><?php if(!empty($sumr->ac_no)){echo $sumr->ac_no;}?></td>
+                        <td style="border:1px solid black !important"><?php if(!empty($sumr->acc_num)){echo $sumr->acc_num;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->cifsc)){echo $sumr->cifsc;}?></td>
+                        <td style="border:1px solid black !important"><?php if(!empty($sumr->net_amt)){echo $sumr->net_amt;
+                                                                                $summary_tot +=$sumr->net_amt;
+                        }?></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align:center">TOTAL</td>
+                       
+                        <td><?php echo number_format((float)($summary_tot), 2, '.', ''); ?> </td>
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align:center">Rupee : 
+                        <?php echo number_format((float)($summary_tot), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($summary_tot), 2, '.', ''))?>)
+                        
+                        </td>
                     </tr>
 
                     <?php    } }?>
@@ -500,7 +516,7 @@ tr:hover {background-color: #f5f5f5;}
                         <th style="border: 1px solid black !important">TYPE</th>
                         <th style="border: 1px solid black !important">Bank Name</th>
                         <th style="border: 1px solid black !important">AC.No.</th>
-                        <th style="border: 1px solid black !important">IFS CODE</th>
+                        <th style="border: 1px solid black !important">IFSC CODE</th>
                         <th style="border: 1px solid black !important">AMOUNT</th>
                     </tr>
                 </thead>
@@ -515,7 +531,7 @@ tr:hover {background-color: #f5f5f5;}
                     <tr>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->type_name)){echo $sumr->type_name;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->bnk)){echo $sumr->bnk;}?></td>
-                        <td style="border:1px solid black !important"><?php if(!empty($sumr->ac_no)){echo $sumr->ac_no;}?></td>
+                        <td style="border:1px solid black !important"><?php if(!empty($sumr->acc_num)){echo $sumr->acc_num;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->cifsc)){echo $sumr->cifsc;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->net_amt)){echo $sumr->net_amt;
                                                                                 $summary_tot +=$sumr->net_amt;
