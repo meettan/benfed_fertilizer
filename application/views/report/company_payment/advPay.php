@@ -281,7 +281,7 @@ tr:hover {background-color: #f5f5f5;}
                         <thead>
                             <tr>
                                 <th>Sl No.</th>
-                                <th>District/Fo Number</th>
+                                <th>Product Type</th>
                                 <th>Amount</th>
                                 <th>TDS</th>
                                 <th>NET Amount</th>
@@ -313,7 +313,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr>
                                     <td><b></b></td>
                                     <td><b></b></td>
-                                    <td><b></b></td>
+                                  
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
                                     <td><b><?php echo  $totalNETAmount; ?>
