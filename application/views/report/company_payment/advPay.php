@@ -539,15 +539,13 @@ tr:hover {background-color: #f5f5f5;}
                     </tr>
 
                     <?php    } }?>
-                    <tr>
+                    <!-- <tr>
                         <td colspan="4" style="text-align:center">TOTAL</td>
-                       
-                        <td><?php echo number_format((float)($summary_tot), 2, '.', ''); ?> </td>
-                        
-                    </tr>
+                        <td><?php //echo number_format((float)($summary_tot), 2, '.', ''); ?> </td>
+                    </tr> -->
                     <tr>
                         <td colspan="4" style="text-align:center">Rupee : 
-                        <?php echo number_format((float)($summary_tot), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($summary_tot), 2, '.', ''))?>)
+                        <?php echo number_format((float)($totalAmount-$totalTDS), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($totalAmount-$totalTDS), 2, '.', ''))?>)
                         
                         </td>
                     </tr>
