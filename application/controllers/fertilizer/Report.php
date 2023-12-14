@@ -2403,7 +2403,7 @@ public function soc_payblepaid(){
                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
             }else{
                 $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
-
+                $data['sumrydtls']= $this->ReportModel->getpaymentsummary($comp_id,$frm_date,$to_date);
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date,$refereceNo);
 
                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
