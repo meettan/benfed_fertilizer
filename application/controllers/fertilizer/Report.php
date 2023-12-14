@@ -119,9 +119,7 @@
             }else{
 
                 $data['branch']     =   $this->ReportModel->f_get_district_asc();
-
                 $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
-
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/rate_slabho/rate_slab_ip.php',$data);
                 $this->load->view('post_login/footer');
@@ -2347,12 +2345,10 @@ public function soc_payblepaid(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $comp_idd  = $_POST['company'];
-
             $com=explode(',', $comp_idd);
             $comp_id=$com[0];
             $data['companyName']=$com[1];
             $frm_date = $this->input->post('fr_date');
-            
             $to_date  = $this->input->post('to_date');
             $refereceNo  = $this->input->post('refereceNo');
             if($refereceNo==""||$refereceNo==null){
@@ -2384,6 +2380,50 @@ public function soc_payblepaid(){
 
             $this->load->view('post_login/fertilizer_main');
             $this->load->view('report/advance_payment_company/advPay_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
+    public function company_payment(){
+       
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            $comp_idd  = $_POST['company'];
+            $com=explode(',', $comp_idd);
+            $comp_id=$com[0];
+            $data['companyName']=$com[1];
+            $frm_date = $this->input->post('fr_date');
+            $to_date  = $this->input->post('to_date');
+            $refereceNo  = $this->input->post('refereceNo');
+            if($refereceNo==""||$refereceNo==null){
+                $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+                $data['sumrydtls']= $this->ReportModel->getpaymentsummary($comp_id,$frm_date,$to_date);
+               
+                $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
+
+                $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+            }else{
+                $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
+
+                $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date,$refereceNo);
+
+                $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
+                }
+         
+          $data['sig'] = $this->input->post('sig_comb');
+          $data['company_id'] = $com[0];
+          $data['fDate']= $frm_date;
+          $data['tDate']=$to_date;
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/company_payment/advPay.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/company_payment/advPay_ip.php',$data);
             $this->load->view('post_login/footer');
         }
     }

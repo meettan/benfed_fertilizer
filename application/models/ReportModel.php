@@ -2584,6 +2584,29 @@ and a.ro_no not in (select sale_ro from td_sale
     }
         return $q->result();
     }
+    public function getpaymentsummary($comp_id, $frm_date, $to_date, $refereceNo=null)
+    {
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
+                    $q = $this->db->query("select y.type_name,SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt,
+                                          SUM(a.net_amt) as net_amt,
+                                            x.bank_name bnk,x.bnk_branch_name bnk_branch_name,
+                                           x.ac_no acc_num,x.ifsc as cifsc
+                                           from tdf_company_payment a, mm_product b,md_district c,mm_company_dtls d,td_purchase e,td_prod_comp_cat_acc x,mm_product_type y
+                                           where a.comp_id=$comp_id
+                                           and b.PROD_ID=a.prod_id
+                                           and a.district=c.district_code
+                                           and a.comp_id=d.comp_id
+                                           and a.pur_inv_no=e.invoice_no
+                                            and d.comp_id=x.comp_id
+                                            and b.prod_type=x.cat_id
+                                           and b.prod_type=y.id
+                                           and a.net_amt > 0
+                                           and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                                           AND a.fin_yr =  $fin_id
+                                         group by  y.type_name,x.bank_name ,x.bnk_branch_name ,x.ac_no ,x.ifsc");
+    
+        return $q->result();
+    }
 
     public function getCompanyPayment_district_name($comp_id, $frm_date, $to_date,$refereceNo=null)
     {
