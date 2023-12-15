@@ -2914,7 +2914,6 @@ and a.ro_no not in (select sale_ro from td_sale
                     and a.comp_id=b.comp_id
                     and a.do_dt between '$frm_date' and '$to_date'
                     and a.br_cd=$branch_id
-                    and a.comp_id=$comp_id
                     group by x.type_name,a.do_dt,b.comp_name;");
 
         }else{
@@ -2925,7 +2924,7 @@ and a.ro_no not in (select sale_ro from td_sale
                     and a.comp_id=b.comp_id
                     and a.do_dt between '$frm_date' and '$to_date'
                     and a.br_cd=$branch_id
-                    and a.comp_id IN('4','10')
+                    and a.comp_id=$comp_id
                     group by x.type_name,a.do_dt,b.comp_name;");
 
         }

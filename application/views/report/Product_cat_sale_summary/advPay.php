@@ -51,35 +51,7 @@ tr:hover {background-color: #f5f5f5;}
         }, 10);
 
   }
-  function printadvDiv() {
-        var divToPrint = document.getElementById('divadvToPrint');
-        var WindowObject = window.open('', 'Print-Window');
-        WindowObject.document.open();
-        WindowObject.document.writeln('<!DOCTYPE html>');
-        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title></title><style type="text/css">');
-
-        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-                                                      ' .headeraddress { font-weight: normal;}' +
-                                                     ' .headertitle { font-weight: bold;font-size: 22px;}' +
-            '                                         .inline { display: inline; }' +
-            '                                         .underline { text-decoration: underline; }' +
-            '                                         .left { margin-left: 315px;} ' +
-            '                                         .right { margin-right: 375px; display: inline; }' +
-            '                                          table { border-collapse: collapse; font-size: 12px;}' +
-            '                                          th, td { border: 0px solid black; border-collapse: collapse; padding: 6px;}' +
-            '                                           th, td { }' +
-            '                                         .border { border: 0px solid black; } ' +
-            '                                         .bottom { bottom: 5px; width: 100%; position: fixed ' +
-            '                                       ' +
-            '                                   } } </style>');
-        WindowObject.document.writeln('</head><body onload="window.print()">');
-        WindowObject.document.writeln(divToPrint.innerHTML);
-        WindowObject.document.writeln('</body></html>');
-        WindowObject.document.close();
-        setTimeout(function() {
-            WindowObject.close();
-        }, 10);
-    }
+  
 </script>
 
         <div class="wraper"> 
@@ -92,17 +64,14 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Product Typewise Sale Summary Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
+                        <h4>Product Type wise Sale Summary Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
     
-                        <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;</h5> 
-                   
-					
-                  
+                        <h5 style="text-align:left"><label><?php echo $companyName; ?></label>  &ensp;&ensp;</h5> 
 
                     </div>
                     <br> 
                     
-                    <table style="width: 100%;  background-color: #D5D5D5;"" id="example">
+                    <table style="width: 100%;  background-color: #D5D5D5;" id="example">
                         <thead>
                             <tr>
                                 <th>Sl No.</th>
@@ -141,6 +110,7 @@ tr:hover {background-color: #f5f5f5;}
                                
                                 <?php    } ?>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>Total</td>

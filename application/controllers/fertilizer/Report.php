@@ -2737,7 +2737,7 @@ public function soc_payblepaid(){
         }else{
 
             $data['branch']     =   $this->ReportModel->f_get_district_asc();
-            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('COMP_ID in(4,10)'=>NULL), 0);
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
 
             $this->load->view('post_login/fertilizer_main');
             $this->load->view('report/Product_cat_sale_summary/advPay_ip.php',$data);
