@@ -92,7 +92,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Company Product Type Sale Statement of Fertilizer Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
+                        <h4>Product Typewise Sale Summary Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
     
                         <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;</h5> 
                    
@@ -101,11 +101,12 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
                     <br> 
-                    <h4 style="text-align:left; margin-top: 30px;">Product Typewise Summary </h4>
+                    
                     <table style="width: 100%;  background-color: #D5D5D5;"" id="example">
                         <thead>
                             <tr>
                                 <th>Sl No.</th>
+                                <th>Sale Date</th>
                                 <th>Product Type</th>
                                 <th>Qty</th>
                                 <th>Amount</th>
@@ -128,6 +129,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr>
                                      <td><?php echo $i++; ?></td>
+                                     <td><?php echo $sumr->do_dt; ?></td>
                                      <td><?php echo $sumr->type_name; ?></td>
                                      <td><?php echo $sumr->qty; ?></td>
                                      <td><?php echo $sumr->taxable_amt; $tot_taxable +=$sumr->taxable_amt; ?></td>
