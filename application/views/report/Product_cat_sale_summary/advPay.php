@@ -98,7 +98,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr>
                                      <td><?php echo $i++; ?></td>
-                                     <td><?php echo $sumr->do_dt; ?></td>
+                                     <td><?php echo date("d/m/Y", strtotime($sumr->do_dt)); ?></td>
                                      <td><?php echo $sumr->type_name; ?></td>
                                      <td><?php echo $sumr->qty; ?></td>
                                      <td><?php echo $sumr->taxable_amt; $tot_taxable +=$sumr->taxable_amt; ?></td>

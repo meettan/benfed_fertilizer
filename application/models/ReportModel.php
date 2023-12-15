@@ -2914,7 +2914,8 @@ and a.ro_no not in (select sale_ro from td_sale
                     and a.comp_id=b.comp_id
                     and a.do_dt between '$frm_date' and '$to_date'
                     and a.br_cd=$branch_id
-                    group by x.type_name,a.do_dt,b.comp_name;");
+                    group by x.type_name,a.do_dt,b.comp_name
+                    order by a.do_dt,x.type_name;");
 
         }else{
             $q = $this->db->query("SELECT x.type_name,a.do_dt,b.comp_name,sum(qty)qty,sum(a.taxable_amt)taxable_amt,sum(a.cgst)cgst,sum(a.sgst)sgst,sum(a.round_tot_amt)tot_amt
@@ -2925,7 +2926,9 @@ and a.ro_no not in (select sale_ro from td_sale
                     and a.do_dt between '$frm_date' and '$to_date'
                     and a.br_cd=$branch_id
                     and a.comp_id=$comp_id
-                    group by x.type_name,a.do_dt,b.comp_name;");
+                    group by x.type_name,a.do_dt,b.comp_name
+                    order by a.do_dt,x.type_name
+                    ;");
 
         }
                     
