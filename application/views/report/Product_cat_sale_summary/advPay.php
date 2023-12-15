@@ -156,21 +156,6 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                     </table>
 
-					<table style="margin-top: 100px; border:none;" id="example" width="100%" cellspacing="0" cellpadding="0" border="0">
-				<tbody style="border:none;">
-					<tr style="border:none;">
-					 
-					  <td style="border:none;">Prepared By</td>
-					 
-					  						<td style="border:none;">Asst Manager/Dy. Manager</td>
-					  <td style="border:none;">Departmental Manager(S)</td>
-					  <td style="border:none;">CA&amp;AO</td>
-					  <td style="border:none;">General Manager</td>
-					  					</tr>
-				</tbody>
-						
-						</table>
-
                 </div>   
                 
                 <div style="text-align: center;">

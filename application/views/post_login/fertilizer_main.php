@@ -373,7 +373,7 @@
 									<div class="sub-dropdown-content">
 									    <a href="<?php echo site_url("fert/rep/stock_report");?>"> Stock </a>
 									    <a href="<?php echo site_url("fert/rep/sale_report");?>"> Sale </a>
-                                        <a href="<?php echo site_url("fert/rep/prod_type_sale_sumr");?>">Prod Type Sale Summary</a>
+                                        <a href="<?php echo site_url("fert/rep/prod_type_sale_sumr");?>">Product Typewise Sale Summary</a>
 									    <a href="<?php echo site_url("fert/rep/purchase_report");?>"> Purchase </a>
                                         <a href="<?php echo site_url("fert/rep/stkScomp_all");?>">Summary </a>
 									    
