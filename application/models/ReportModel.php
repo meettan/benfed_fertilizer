@@ -2906,7 +2906,8 @@ and a.ro_no not in (select sale_ro from td_sale
     public function get_prod_cat_sale_summary($comp_id, $frm_date, $to_date, $branch_id)
     {
         $fin_id = $this->session->userdata['loggedin']['fin_id'];
-                    $q = $this->db->query("SELECT x.type_name,a.do_dt,b.comp_name,sum(qty)qty,sum(a.taxable_amt)taxable_amt,sum(a.cgst)cgst,sum(a.sgst)sgst,sum(a.round_tot_amt)tot_amt
+        if($comp_id == 0){
+            $q = $this->db->query("SELECT x.type_name,a.do_dt,b.comp_name,sum(qty)qty,sum(a.taxable_amt)taxable_amt,sum(a.cgst)cgst,sum(a.sgst)sgst,sum(a.round_tot_amt)tot_amt
                     FROM td_sale a ,mm_company_dtls b,mm_product c,mm_product_type x
                     where c.prod_type=x.id
                     and a.prod_id=c.prod_id
@@ -2915,6 +2916,20 @@ and a.ro_no not in (select sale_ro from td_sale
                     and a.br_cd=$branch_id
                     and a.comp_id=$comp_id
                     group by x.type_name,a.do_dt,b.comp_name;");
+
+        }else{
+            $q = $this->db->query("SELECT x.type_name,a.do_dt,b.comp_name,sum(qty)qty,sum(a.taxable_amt)taxable_amt,sum(a.cgst)cgst,sum(a.sgst)sgst,sum(a.round_tot_amt)tot_amt
+                    FROM td_sale a ,mm_company_dtls b,mm_product c,mm_product_type x
+                    where c.prod_type=x.id
+                    and a.prod_id=c.prod_id
+                    and a.comp_id=b.comp_id
+                    and a.do_dt between '$frm_date' and '$to_date'
+                    and a.br_cd=$branch_id
+                    and a.comp_id IN('4','10')
+                    group by x.type_name,a.do_dt,b.comp_name;");
+
+        }
+                    
     
         return $q->result();
     }

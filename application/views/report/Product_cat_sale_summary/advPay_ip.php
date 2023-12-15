@@ -45,6 +45,7 @@ tr:hover {background-color: #f5f5f5;}
                     <div class="col-sm-10">
                             <select name="company" id="company" class="form-control" required>
                                     <option value="">Select Company</option>
+                                    <option value="0">All Company</option>
                                 <?php
                                     foreach($company as $row){
                                 ?>
