@@ -276,7 +276,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     </table>
 
-                    <h4 style="text-align:left; margin-top: 30px;">NEW Summary </h4>
+                    <h4 style="text-align:left; margin-top: 30px;">Product Typewise Summary </h4>
                     <table style="width: 100%;  background-color: #D5D5D5;"" id="example">
                         <thead>
                             <tr>
@@ -442,7 +442,7 @@ tr:hover {background-color: #f5f5f5;}
             <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
                     <tr>
-                         <th style="border: 1px solid black !important">TYPE</th>
+                         <th style="border: 1px solid black !important">Product Type</th>
                         <th style="border: 1px solid black !important">Bank Name</th>
                         <th style="border: 1px solid black !important">AC.No.</th>
                         <th style="border: 1px solid black !important">IFSC CODE</th>
@@ -513,7 +513,7 @@ tr:hover {background-color: #f5f5f5;}
              <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
                     <tr>
-                        <th style="border: 1px solid black !important">TYPE</th>
+                        <th style="border: 1px solid black !important">Product Type</th>
                         <th style="border: 1px solid black !important">Bank Name</th>
                         <th style="border: 1px solid black !important">AC.No.</th>
                         <th style="border: 1px solid black !important">IFSC CODE</th>
