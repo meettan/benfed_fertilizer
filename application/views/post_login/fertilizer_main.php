@@ -457,7 +457,7 @@
 										<a href="<?php echo site_url("fert/rep/hsnsumryrep");?>">Sale GST HSN Summary</a>
                                         <a href="<?php echo site_url("fert/rep/hsnsumrypurrep");?>">Purchase GST HSN Summary</a>
 										<a href="<?php echo site_url("fert/rep/crngstreg");?>">GST CR Note Register</a>
-										<a href="<?php echo site_url("fert/rep/crngstunreg");?>">GST CR Note UNRegister</a>
+										<a href="<?php echo site_url("fert/rep/crngstunreg");?>">GST CR Note UnRegister</a>
 									</div>
                                 </div>
 								<?php } ?>

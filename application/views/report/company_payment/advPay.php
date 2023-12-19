@@ -293,9 +293,7 @@ tr:hover {background-color: #f5f5f5;}
                                 if($sumrydtls){ 
                                     $i = 1;
                                   $totalRate=0;
-                                //  $totalAmount=0;
-                                //  $totalTDS=0;
-                                //  $totalNETAmount=0;
+                                
                                     foreach($sumrydtls as $sumr){
                             ?>
 
@@ -499,12 +497,14 @@ tr:hover {background-color: #f5f5f5;}
                 <!-- <tr>
                     <td style="width:30%">Name of A/C Holder:</td><td><?=$companyName?></td>
                 <tr> -->
+                <?php if($company_id != 4 && $company_id !=10)  { ?>   
                 <tr>
                     <td style="width:30%">Account no :</td><td><?=$cacc_num?> </td>
                 <tr>
                 <tr>
                     <td style="width:30%">IFS CODE :</td><td><?=$cifsc?></td>
                 <tr>
+                <?php } ?>    
                 <tr>
                     <td style="width:30%">Amount :</td><td>Rs.  <?php echo number_format((float)($totalAmount-$totalTDS), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($totalAmount-$totalTDS), 2, '.', ''))?>)</td>
                 <tr>
