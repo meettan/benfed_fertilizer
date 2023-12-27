@@ -1246,7 +1246,7 @@ END ),3)lqdqty,
         //                             and  a.do_dt between '$frmDt' and '$toDt'
         //                             group by c.prod_desc,c.hsn_code ,d.unit_name,a.unit");
 
-        $query  = $this->db->query("select  (select  prod_desc from mm_product where prod_id=b.prod_id)prod_desc,d.unit_name,sum(a.qty) as qty,
+        $query  = $this->db->query("select  d.unit_name,sum(a.qty) as qty,
         (select  hsn_code from mm_product where prod_id=b.prod_id)hsn_code,
         sum(a.round_tot_amt)as sale_tot_amt,a.unit,  (select  gst_rt from mm_product where prod_id=b.prod_id) as GST_RT,
         sum(a.cgst) sale_cgst,sum(a.sgst) sale_sgst,sum(a.taxable_amt) taxable_amt ,
@@ -1255,7 +1255,7 @@ END ),3)lqdqty,
         where a.sale_ro=b.ro_no
         and a.unit=d.id 
         and a.do_dt between '$frmDt' and '$toDt' 
-        group by GST_RT,unit_name,prod_desc,hsn_code;
+        group by GST_RT,unit_name,hsn_code;
         ");
 
         return $query->result();

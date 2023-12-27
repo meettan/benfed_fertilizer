@@ -80,7 +80,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>HSN/SAC</th>
 
-                                <th>Description</th>
+                                <!-- <th>Description</th> -->
 
                                 <th>Type Of Supply</th>
 
@@ -137,7 +137,7 @@ tr:hover {background-color: #f5f5f5;}
                                    
                                      <td class="report"><?php echo $purc->hsn_code; ?></td>
 
-                                    <td class="report"><?php echo $purc->prod_desc; ?></td>
+                                    <!-- <td class="report"><?php //echo $purc->prod_desc; ?></td> -->
                            
                                      <td class="report">Goods</td>
 
