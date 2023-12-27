@@ -207,7 +207,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <tfooter>
                             <tr style="font-weight:700">
-                               <td class="report" colspan="4" style="text-align:right">Total</td>
+                               <td class="report" colspan="3" style="text-align:right">Total</td>
 
                                <td><td class="report"></td>
 
