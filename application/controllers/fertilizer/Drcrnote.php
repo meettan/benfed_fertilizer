@@ -1455,6 +1455,19 @@ public function crnote_editvu(){
 
 
     }
+	public function drnotetcs_recipt(){
+
+		$data['tcs']  = $this->DrcrnoteModel->f_select('drnote_tcs',NULL,array("id" => $this->input->get('id')),1);
+		$wheres = array("district" => $this->session->userdata['loggedin']['branch_id']);
+		$select1   = array("soc_id","soc_name","soc_add","gstin");
+		$data['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+
+		$this->load->view('post_login/fertilizer_main');
+		$this->load->view("dr_note_tcs/receipt",$data);
+		$this->load->view('post_login/footer');
+
+
+}
 
 
 }

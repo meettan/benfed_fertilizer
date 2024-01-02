@@ -54,6 +54,7 @@
                     <th>Date</th>
                     <th>Amount</th>
                     <th>View</th>
+                    <th>Print</th>
                     <th>Delete</th>
                 </tr>
 
@@ -82,6 +83,12 @@
                             </a>
                     </td>
                     <td>
+                              <a href="drnotetcs_recipt?id=<?=$dr->id;?>" title="Print">
+                              <i class="fa fa-print fa-2x" style="color:green;"></i>  
+                              <!-- <span class="mdi mdi-printer"></span> -->
+                              </a>
+                            </td>
+                    <td>
                         <button type="button" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->id;?>&recpt_no=<?=$dr->recpt_no?>"
                             data-toggle="tooltip" data-placement="bottom" title="Delete"  >
                             <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
@@ -104,6 +111,7 @@
                     <th>Date</th>
                     <th>Amount</th>
                     <th>View</th>
+                    <th>Print</th>
                     <th>Delete</th>
                 </tr>
             </tfoot>
