@@ -55,7 +55,7 @@
                     <th>Amount</th>
                     <th>View</th>
                     <th>Print</th>
-                    <th>Delete</th>
+                    <!-- <th>Delete</th> -->
                 </tr>
 
             </thead>
@@ -88,12 +88,12 @@
                               <!-- <span class="mdi mdi-printer"></span> -->
                               </a>
                             </td>
-                    <td>
+                     <!--<td>
                         <button type="button" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->id;?>&recpt_no=<?=$dr->recpt_no?>"
                             data-toggle="tooltip" data-placement="bottom" title="Delete"  >
                             <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                        </button>
-                    </td>
+                        </button> 
+                    </td>-->
                 </tr>
                 <?php
                             }
@@ -112,7 +112,7 @@
                     <th>Amount</th>
                     <th>View</th>
                     <th>Print</th>
-                    <th>Delete</th>
+                    <!-- <th>Delete</th> -->
                 </tr>
             </tfoot>
         </table>
@@ -128,12 +128,10 @@
             // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
             var result = confirm("Do you really want to delete this record?");
 
-            if (result) {
+            //if (result) {
+                window.location = "<?php //echo site_url('drcrnote/deletedr_notetcs?trans_dt=" + id +"');?>";
 
-                window.location = "<?php echo site_url('drcrnote/deletedr_note?trans_dt=" + id +
-                    "');?>";
-
-            }
+          //  }
 
         });
 
