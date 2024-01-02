@@ -36,9 +36,41 @@
             }
         }
     </style>
+    <script>
+  function printDiv() {
+
+        var divToPrint = document.getElementById('divToPrint');
+        var WindowObject = window.open('', 'Print-Window');
+        WindowObject.document.open();
+        WindowObject.document.writeln('<!DOCTYPE html>');
+        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title></title><style type="text/css">');
+
+
+        WindowObject.document.writeln('@media print { .center { text-align: center;}' +
+            '                                         .inline { display: inline; }' +
+            '                                         .underline { text-decoration: underline; }' +
+            '                                         .left { margin-left: 315px;} ' +
+            '                                         .right { margin-right: 375px; display: inline; }' +
+            '                                          table { border-collapse: collapse; font-size: 12px;}' +
+            '                                          th, td { border: 1px solid black; border-collapse: collapse; padding: 6px;}' +
+            '                                           th, td { }' +
+            '                                         .border { border: 1px solid black; } ' +
+            '                                         .bottom { bottom: 5px; width: 100%; position: fixed ' +
+            '                                       ' +
+            '                                   } } </style>');
+        WindowObject.document.writeln('</head><body onload="window.print()">');
+        WindowObject.document.writeln(divToPrint.innerHTML);
+        WindowObject.document.writeln('</body></html>');
+        WindowObject.document.close();
+        setTimeout(function () {
+            WindowObject.close();
+        }, 10);
+
+  }
+</script>
     <div class="wraper">
     <div class="col-md-2 container"></div>
-    <div class="col-md-8 container form-wraper">
+    <div class="col-md-8 container form-wraper" id="divToPrint">
 
         <form method="POST" action="<?php //echo site_url("drcrnote/drnoteAdd_tcs") ?>" onsubmit="return valid_data()"
             id="form">
@@ -104,21 +136,13 @@
 
             </div>
             </div>
-
-          
-            <!-- <div class="form-group row">
-
-                <div class="col-sm-10">
-
-                    <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
-
-                </div>
-
-            </div> -->
-
         </form>
-
-
+    </div>
+       
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+        </div>
     </div>
 
 </div>
