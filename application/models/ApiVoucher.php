@@ -45,7 +45,7 @@ class ApiVoucher extends CI_Model{
         $curl = curl_init();
     
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/adv_voucher',
+            CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/adv_voucher',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
