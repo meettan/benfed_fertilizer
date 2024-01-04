@@ -100,3 +100,9 @@ define('AUTHKOKEN', '1.249874fd-e3cd-402c-a503-b0a47cb0711f_3d64af076bfe30480c2e
 //define('OWNERID', 'd5c19ef6-b179-45a9-b661-f15c507a1aa9');//FOR SANDBOX TESTING
   define('OWNERID', 'fded77f8-4880-4dc6-8b6c-9d23f3374517');//FOR PRODUCTION SERVER
 define('PRODUCT', 'EInvoice');
+
+// ****************** Start Finance Base URL  **************** //
+  //define('FIN_BASE_URL', 'http://localhost/Benfed_finance/');    // Finance Base URL Localhost
+  define('FIN_BASE_URL', 'http://localhost/benfed/Benfed_finance/');    // Finance Base URL Server
+
+// ****************** END Finance Base URL  **************** //
