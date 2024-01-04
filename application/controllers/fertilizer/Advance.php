@@ -416,7 +416,7 @@ public function advancefilter(){
         //"b.district"            => $this->session->userdata['loggedin']['branch_id'],
     	 "a.branch_id"            => $this->session->userdata['loggedin']['branch_id'],
         "a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
-		"a.trans_type='I' OR a.trans_type='OP' "   => NULL,
+		"(a.trans_type='I' OR a.trans_type='OP') "   => NULL,
 		"a.trans_dt between '$frmdt ' and '$todt'"=> NULL,
     );
 	
