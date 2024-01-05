@@ -290,8 +290,10 @@ tr:hover {background-color: #f5f5f5;}
 
                         <tbody>
                             <?php
+                                 $prod_net_tot = 0;
                                 if($sumrydtls){ 
                                     $i = 1;
+                                   
                                   $totalRate=0;
                                 
                                     foreach($sumrydtls as $sumr){
@@ -303,7 +305,7 @@ tr:hover {background-color: #f5f5f5;}
                                     
                                      <td><?php echo $sumr->taxable_amt; ?></td>
                                      <td><?php echo $sumr->tds_amt; ?></td>
-                                     <td><?php echo $sumr->net_amt; ?></td>
+                                     <td><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td>
                                      </td>
                                 </tr>
                                
@@ -314,7 +316,7 @@ tr:hover {background-color: #f5f5f5;}
                                   
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $totalNETAmount; ?>
+                                    <td><b><?php echo  $prod_net_tot; ?>
                                     <?php //echo  $totalAmount-$totalTDS; ?></b></td>
                                 </tr>
                                 <?php 
@@ -545,7 +547,7 @@ tr:hover {background-color: #f5f5f5;}
                     </tr> -->
                     <tr>
                         <td colspan="4" style="text-align:center">Rupee : 
-                        <?php echo number_format((float)($totalAmount-$totalTDS), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($totalAmount-$totalTDS), 2, '.', ''))?>)
+                        <?php echo number_format((float)($prod_net_tot), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($prod_net_tot), 2, '.', ''))?>)
                         
                         </td>
                     </tr>
