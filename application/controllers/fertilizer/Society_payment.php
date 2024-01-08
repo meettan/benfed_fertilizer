@@ -3824,14 +3824,18 @@ public function deleteAccCd() {
 							'district'   =>$this->session->userdata['loggedin']['branch_id'],
 							'fin_yr'     => $this->session->userdata['loggedin']['fin_id']
 						);
-		$this->Society_paymentModel->f_insert('tdf_company_payment',$data);					
-		$data_array = array('fwd_status' => 'A',
-	                        'fwd_by' => $this->session->userdata['loggedin']['user_name'],
-							'fwd_date' => date("Y-m-d h:i:s")
-						    );
-		$where = array('ro_no' => $this->input->post('ro_no'),
-		               'paid_id'    =>$this->input->post('paid_id')[$i]);					
-		$this->Society_paymentModel->f_edit('tdf_payment_forward',$data_array,$where);
+		$query_check = $this->db->get_where('tdf_company_payment',array('sale_inv_no' => $this->input->post('sale_invoice')[$i],'paid_id'=>$this->input->post('paid_id')[$i]));				
+		$rowcount = $query_check->num_rows();	
+			if($rowcount == 0)	{
+				$this->Society_paymentModel->f_insert('tdf_company_payment',$data);		
+				$data_array = array('fwd_status' => 'A',
+								'fwd_by' => $this->session->userdata['loggedin']['user_name'],
+								'fwd_date' => date("Y-m-d h:i:s")
+								);
+				$where = array('ro_no' => $this->input->post('ro_no'),
+						'paid_id'    =>$this->input->post('paid_id')[$i]);					
+				$this->Society_paymentModel->f_edit('tdf_payment_forward',$data_array,$where);
+			}
 		}
 		redirect('socpay/soc_payment_fwd');
 	}
