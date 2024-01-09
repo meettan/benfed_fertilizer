@@ -100,9 +100,6 @@ class ApiVoucher extends CI_Model{
   }
 
 
-
-
-
     /********************************************** */
     /* function for purchase */
 
