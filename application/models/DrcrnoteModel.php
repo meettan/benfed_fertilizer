@@ -62,12 +62,9 @@
 		   }
 	function f_totcrnjnl($data){
 	
-	$curl = curl_init();
-
-	curl_setopt_array($curl, array(
-	
-	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/totcrn_voucher',
-	
+	  $curl = curl_init();
+	  curl_setopt_array($curl, array(
+	  CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/totcrn_voucher',
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,
@@ -77,7 +74,7 @@
 	  CURLOPT_CUSTOMREQUEST => 'POST',
 	  CURLOPT_POSTFIELDS =>'{
 		"data": '.json_encode($data).'
-	}',
+	    }',
 	
 	  CURLOPT_HTTPHEADER => array(
 		'Content-Type: application/json',
@@ -86,24 +83,17 @@
 	));
 	
 	$response = curl_exec($curl);
-	
 	curl_close($curl);
 	echo $response;
-	
 }
 
 /******************************************************** */
 function f_crnjnl($data){
 	// echo'<pre>';
 	// print_r($data);
-	// echo'</pre>';
-	// echo"first<br>";
-	$curl = curl_init();
-
-	curl_setopt_array($curl, array(
-	
-	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/crn_voucher',
-	//CURLOPT_URL => 'http://localhost/Benfed_finance/index.php/api_voucher/crn_voucher',
+	  $curl = curl_init();
+	  curl_setopt_array($curl, array(
+	  CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/crn_voucher',
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,

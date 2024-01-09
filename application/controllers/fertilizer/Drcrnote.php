@@ -546,8 +546,8 @@ public function drnoteReport()
 
 		$data_array_crt['acc_cd'] = $soc_acc_cd->acc_cd;
 
-		unset($select_soc);   
-		unset($where_soc);      
+			unset($select_soc);   
+			unset($where_soc);      
 
 		$select_soc           = array("soc_name");
 		$where_soc            = array("soc_id"     => $soc_id);
