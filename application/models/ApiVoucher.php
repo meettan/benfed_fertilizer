@@ -109,10 +109,8 @@ class ApiVoucher extends CI_Model{
 function f_purchasejnl($data){
 	$curl = curl_init();
   // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt_array($curl, array(
-	
-	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/purchase_voucher',
-
+	 curl_setopt_array($curl, array(
+	 CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/purchase_voucher',
 	 CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,
@@ -122,7 +120,7 @@ function f_purchasejnl($data){
 	  CURLOPT_CUSTOMREQUEST => 'POST',
 	  CURLOPT_POSTFIELDS =>'{
 		"data": '.json_encode($data).'
-	}',
+	   }',
 	
 	  CURLOPT_HTTPHEADER => array(
 		'Content-Type: application/json',
@@ -131,9 +129,7 @@ function f_purchasejnl($data){
 	));
 	
 	$response = curl_exec($curl);
-	
-	curl_close($curl);
-  
+	curl_close($curl); 
 	// print_r($response);
 	return $response;
 	// exit;
