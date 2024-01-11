@@ -1239,11 +1239,26 @@ public function f_get_dist_bnk_dtls(){
    ///    *************  Code End for Adance Forward   27/06/2022  **************  //	
 
    public function pending_amt_list(){
-	    $where    = array("branch_id"  =>  $this->session->userdata['loggedin']['branch_id'],"1 group by bulk_trans_id" =>NULL);
-        $data['list']  = $this->AdvanceModel->f_select('td_pending_soc_amt',array('trans_dt','bulk_trans_id','tot_amt','cuml_adv_no','adv_receipt_no','status'),$where,0);
-		$this->load->view("post_login/fertilizer_main");
-		$this->load->view("cumulative_advance/advfwd_dashboard",$data);
-		$this->load->view('post_login/footer');
+	    
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+			
+			$frmdt      = $this->input->post('from_date');
+			$todt       = $this->input->post('to_date');
+			$where    = array("branch_id"  =>  $this->session->userdata['loggedin']['branch_id'],"trans_dt between '".$frmdt."' and '".$todt."'"=> NULL,"1 group by bulk_trans_id" =>NULL);	
+			$data['frmdt']   = $frmdt;
+			$data['todt']   = $todt;
+			$data['list']  = $this->AdvanceModel->f_select('td_pending_soc_amt',array('trans_dt','bulk_trans_id','tot_amt','cuml_adv_no','adv_receipt_no','status'),$where,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("cumulative_advance/advfwd_dashboard",$data);
+			$this->load->view('post_login/footer');
+		}else{
+
+			$where    = array("branch_id"  =>  $this->session->userdata['loggedin']['branch_id'],"1 group by bulk_trans_id" =>NULL);
+			$data['list']  = $this->AdvanceModel->f_select('td_pending_soc_amt',array('trans_dt','bulk_trans_id','tot_amt','cuml_adv_no','adv_receipt_no','status'),$where,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("cumulative_advance/advfwd_dashboard",$data);
+			$this->load->view('post_login/footer');
+		}
    }
 
    public function fwd_remain_amt(){

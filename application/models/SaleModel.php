@@ -972,12 +972,9 @@ function f_salecrjnl($data){
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
-			//   CURLOPT_URL => 'http://localhost/benfed_fertilizer/index.php/fertilizer/api_journal/sale_voucher',
-			CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/sale_voucher',
-
-			//  CURLOPT_URL => 'https://benfed.in/benfed_fin/index.php/api_voucher/sale_voucher',
-			  CURLOPT_RETURNTRANSFER => true,
-			  CURLOPT_ENCODING => '',
+			CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/sale_voucher',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
 			  CURLOPT_MAXREDIRS => 10,
 			  CURLOPT_TIMEOUT => 0,
 			  CURLOPT_FOLLOWLOCATION => true,

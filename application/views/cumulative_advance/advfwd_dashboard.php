@@ -11,7 +11,7 @@
               
             </h3>
             <div class="form-group row">
-            <!-- <form method="POST" action="<?=base_url()?>index.php/adv/advancefwd" >
+            <form method="POST" action="<?=base_url()?>index.php/adv/pending_amt_list">
                         <div class="col-sm-3">
 	                    <input type="date" style="width:300px" id=from_date name="from_date" class="form-control" value='<?=$frmdt?>' />
                         </div>
@@ -21,8 +21,9 @@
                         <div class="col-sm-3">
                         <input type="submit" id= "submit" class="filt" value="Filter" />
                         </div>
-            </form> -->
+            </form>
             </div>
+            
             <table class="table table-bordered table-hover" id="example">
 
                 <thead>
