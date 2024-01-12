@@ -142,7 +142,7 @@ function f_recvjnl_soc($data){
    $curl = curl_init();
 
    curl_setopt_array($curl, array(
-   CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/recv_voucher_soc',
+   CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/recv_voucher_soc',
      CURLOPT_RETURNTRANSFER => true,
      CURLOPT_ENCODING => '',
      CURLOPT_MAXREDIRS => 10,
@@ -175,7 +175,7 @@ function f_recvjnl($data){
 
     curl_setopt_array($curl, array(
       
-      CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/recv_voucher',
+      CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/recv_voucher',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,
@@ -204,11 +204,9 @@ function f_recvjnl($data){
 function f_recvjnl_dr($data){
     //  echo '<pre>';var_dump($data);
     //  exit();
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-    
-    CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/recv_voucher_dr',
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+      CURLOPT_URL => FIN_BASE_URL.'index.php/api_voucher/recv_voucher_dr',
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,

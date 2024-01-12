@@ -488,7 +488,7 @@ public function society_payEdit(){
 
 						
 						$data_array_fin['rem'] ="Amount Received From ".$soc_name->soc_name." vide sale invoice no: " .$this->input->post('trans_do');
-						// $this->Society_paymentModel->f_recvjnl_soc($data3);
+					
 					   $this->ApiVoucher->f_recvjnl_soc($data_array_fin);
 
                       // if ($trans_type=='6'){
