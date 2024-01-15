@@ -1911,6 +1911,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
     public function f_get_soc_ledger($frmDt, $toDt, $branch, $soc_id)
     {
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
         $sql = "select  trans_dt,prod,inv_no, soc_id,soc_name,sum(paid_amt) as tot_paid,sum(paybl) as tot_payble,sum(cgst)cgst,sum(sgst)sgst,ro_no,ro_dt,sum(qty) qty ,sum(tot_recv) tot_recv,remarks
         from( 
           SELECT c.op_dt as trans_dt,'' prod,'' as inv_no, c.soc_id soc_id,b.soc_name,if(sum(c.balance)<0,
@@ -1951,7 +1952,8 @@ and a.ro_no not in (select sale_ro from td_sale
          SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,c.adv_amt as paid_amt,0 paybl,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'Advance' remarks
             FROM tdf_advance c,mm_ferti_soc b where c.soc_id=b.soc_id 
             and c.soc_id = '$soc_id'
-            and c.branch_id='$branch' 
+            and c.branch_id='$branch'
+            and c.fin_yr='$fin_id'
             and c.trans_type='I' 
             and c.trans_dt between '$frmDt' and '$toDt'
          union
