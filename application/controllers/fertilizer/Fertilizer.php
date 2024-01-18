@@ -1741,7 +1741,8 @@ public function deletesalerate(){
 		}
 	
 		
-	
+		$select         = array("comp_id","comp_name");
+		$fomaster['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
 		$this->load->view("post_login/fertilizer_main");
 	
 		$this->load->view("fomaster/dashboard",$fomaster);

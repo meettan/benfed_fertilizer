@@ -29,6 +29,7 @@
                         <th>Sl.No.</th>
                         <th>Fo No</th>
                         <th>Fo Name</th>
+                        <th>Company</th>
                        <?php if($this->session->userdata('loggedin')['branch_id']!=342){?>
                         <th>Virtual No</th>
 <?php }else{ ?>
@@ -53,6 +54,12 @@
                                 <td><?php echo $value->fo_number; ?></td>
                               
 				                <td><?php echo $value->fo_name; ?></td>
+                                <td> <?php foreach($compdtls as $comp) { ?>
+							 <?php if($value->compid==$comp->comp_id){ echo $comp->comp_name; } ?>
+							<?php } ?>
+                                    
+                                
+                               </td>
 
                                 <?php if($this->session->userdata('loggedin')['branch_id']!=342){?>
                                 <td><?php echo $value->fo_virtual_no; ?></td>
@@ -89,6 +96,7 @@
                         <th>Sl.No.</th>
                         <th>Fo No</th>
                         <th>Fo Name</th>
+                        <th>Company</th>
                        <?php if($this->session->userdata('loggedin')['branch_id']!=342){?>
                         <th>Virtual No</th>
 <?php }else{ ?>
