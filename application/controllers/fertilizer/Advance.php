@@ -1110,7 +1110,7 @@ public function f_get_dist_bnk_dtls(){
 
 	public function js_get_reciept_detail(){
 		$detail_receipt_no = $this->input->get('detail_receipt_no');
-		$select = array('a.*','c.soc_id','c.soc_name','(SELECT d.fo_name FROM mm_fo_master d where d.fi_id=a.fo_no) fo_name');
+		$select = array('a.*','c.soc_id','c.soc_name','(SELECT d.fo_name FROM mm_fo_master d where d.fi_id=a.fo_no and d.compid=a.comp_id) fo_name');
 		$where = array('a.receipt_no = b.receipt_no' => NULL,
 		               'b.soc_id = c.soc_id' => NULL,
 					    'a.detail_receipt_no'=>$detail_receipt_no
