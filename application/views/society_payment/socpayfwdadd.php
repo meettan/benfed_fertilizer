@@ -92,14 +92,14 @@
             <label for="fo_no" class="col-sm-2 col-form-label">Fo No:</label>
                 <div class="col-sm-3">
                     <select name="fo_no"  class="form-control fo_no required" id="fo_no" required>
-                        <option value="">Select Fo Number</option>
-                        <?php if(!empty($dist)){
-                            foreach($dist as $dst){
+                       
+                        <!-- <?php //if(!empty($dist)){
+                        //    foreach($dist as $dst){
                             ?>
                             <option value="<?=$dst->fi_id ?>"><?=$dst->fo_number ?>-<?=$dst->fo_name ?></option>
                             <?php
-                            }
-                        }  ?>
+                          //  }
+                      //  }  ?> -->
                     </select>
                 </div>
             </div>
@@ -442,7 +442,6 @@ function set_exists(x){
     $(document).ready(function () {
 
         $('#ro_no').change(function () {
-
             $.get('<?php echo site_url("socpay/f_rodetail");?>',{
                     ro_no: $(this).val()
                 }).done(function (data) {
@@ -451,27 +450,40 @@ function set_exists(x){
                 $('#prod').val(parseData.PROD_DESC);
                 if(parseData.adv_status == 'Y'){
                     $('#adv').val("YES");
-
                     alert('Advance payment alredy done !');
                     $('#submit').attr("disabled", true);
                     $('#addrow').hide();
                     $('#advfwdno').val(parseData.advance_receipt_no);
-
                     $('#advanceFwdNo').show();
                 }else{
                     $("#submit").removeAttr("disabled");
                     $('#addrow').show();
-
                     $('#advanceFwdNo').hide();
-
                     $('#adv').val("NO");
                     $('#advfwdno').val('Not Found');
                 }
-               
-                //$('#advfwdno').val(parseData.advance_receipt_no);
             });
-
         });
+
+        $('#ro_no').change(function () {
+            $('#fo_no').append('');
+            $.get('<?php echo site_url("socpay/f_fodetail");?>',{
+                    ro_no: $(this).val()
+                }).done(function (data) {
+                    var bata = JSON.parse(data);
+                    var string = ' <option value="">Select Fo Number</option>';
+                console.log(bata.condtionalfo);
+                 $.each(bata.condtionalfo, function (index, value) {
+				 	 string += '<option value="' + value.fi_id + ' ">' + value.fo_number + '-' + value.fo_name + '</option>'
+                 });
+                 $.each(bata.otherfo, function (index, value) {
+				 	 string += '<option value="' + value.fi_id + ' ">' + value.fo_number + '-' + value.fo_name + '</option>'
+                 });
+                 $('#fo_no').append(string);
+            });
+        });
+
+
 
     });
 </script>

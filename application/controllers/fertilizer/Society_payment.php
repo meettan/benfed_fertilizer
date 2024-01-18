@@ -3666,6 +3666,17 @@ public function deleteAccCd() {
 		$result = $this->Society_paymentModel->f_select('td_purchase a,mm_company_dtls b,mm_product c',$select,$where,1);
 		echo json_encode($result);
 	}
+	public function f_fodetail(){
+        $ro_no  = trim($this->input->get('ro_no'));
+		$br     = $this->session->userdata['loggedin']['branch_id'];
+		$select = array('comp_id');
+		$where  = array('ro_no'=>$ro_no,'br'=>$br);
+		$result = $this->Society_paymentModel->f_select('td_purchase',NULL,$where,1);
+		$data['condtionalfo'] = $this->Society_paymentModel->f_select('mm_fo_master',NULL,array('compid'=>$result->comp_id),0);
+		$data['otherfo'] = $this->Society_paymentModel->f_select('mm_fo_master',NULL,array('compid'=>0),0);
+
+		echo json_encode($data);
+	}
 	public function f_advoffwd(){
 		$ro_no  = trim($this->input->get('ro_no'));
 			$select = array('a.adv_status','a.advance_receipt_no','b.COMP_NAME','c.PROD_DESC');
