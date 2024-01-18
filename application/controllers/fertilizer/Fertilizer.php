@@ -1692,11 +1692,12 @@ public function deletesalerate(){
 			$fono=$this->input->post('fono');
 			$foname=$this->input->post('foname');
 			$virtualno=$this->input->post('virtualno');
-			if(!empty($this->input->post('branchId'))){
+			if(!empty($this->input->post('branchId'))){ 
 				$data=array(
 					'fo_number'=>$fono,
 					'fo_name '=>$foname,
 					'fo_virtual_no'=>$virtualno,
+					'compid'  =>$this->input->post('compid'),
 					'dist_id'=>$this->input->post('branchId'),
 					'create_by'=>$this->session->userdata('loggedin')['user_name'],
 					'ctrate_dt'=>date('Y-m-d H:i:s')
@@ -1706,6 +1707,7 @@ public function deletesalerate(){
 					'fo_number'=>$fono,
 					'fo_name '=>$foname,
 					'fo_virtual_no'=>$virtualno,
+					'compid'  =>$this->input->post('compid'),
 					'dist_id'=>$this->session->userdata('loggedin')['branch_id'],
 					'create_by'=>$this->session->userdata('loggedin')['user_name'],
 					'ctrate_dt'=>date('Y-m-d H:i:s')
@@ -1714,10 +1716,12 @@ public function deletesalerate(){
 			$this->FertilizerModel->f_insert('mm_fo_master', $data);
 			redirect('fomaster');
 		}else{
-			$select_dist           = array("district_code","district_name");	
-				$society['distDtls']   = $this->FertilizerModel->f_select('md_district',$select_dist,NULL,0);
+			    $select_dist           = array("district_code","district_name");	
+				$data['distDtls']   = $this->FertilizerModel->f_select('md_district',$select_dist,NULL,0);
+				$select         = array("comp_id","comp_name");
+	            $data['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
 				$this->load->view('post_login/fertilizer_main');
-				$this->load->view("fomaster/add",$society);
+				$this->load->view("fomaster/add",$data);
 				$this->load->view('post_login/footer');
 		}
 	}
@@ -1770,10 +1774,11 @@ public function deletesalerate(){
 							$where  =	array('fi_id' =>$id);
 						}
 
-							$select_dist           = array("district_code","district_name");	
+				$select_dist           = array("district_code","district_name");	
 				$fomaster['distDtls']   = $this->FertilizerModel->f_select('md_district',$select_dist,NULL,0);
-	
-			$fomaster['data']    = $this->FertilizerModel->f_select('mm_fo_master',$select=NULL,$where,1);
+			    $fomaster['data']    = $this->FertilizerModel->f_select('mm_fo_master',$select=NULL,$where,1);
+				$select         = array("comp_id","comp_name");
+	            $fomaster['compdtls']   = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view("fomaster/add_edit",$fomaster);
 				$this->load->view('post_login/footer');

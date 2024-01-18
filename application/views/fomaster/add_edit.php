@@ -45,6 +45,18 @@
 				</div>
 
 			</div>
+			<div class="form-group row">
+				<label for="compid" id="compid" class="col-sm-2 col-form-label">Company:<span style="color:red"> *<span></label>
+				<div class="col-sm-9">
+					<select class="form-control" id="compid" name="compid" required>
+							<option value="">Select</option>
+							<option value="0" <?php if($data->compid==0){echo'selected';} ?>>Other</option>
+							 <?php foreach($compdtls as $comp) { ?>
+							<option value="<?=$comp->comp_id?>" <?php if($data->compid==$comp->comp_id){echo'selected';} ?>><?=$comp->comp_name?></option>
+							<?php } ?>
+					</select>
+				</div>
+			</div>
 			<?php if($this->session->userdata('loggedin')['branch_id']==342){?>
 			<div class="form-group row">
 
