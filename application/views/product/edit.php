@@ -130,7 +130,7 @@
 
                     <div class="col-sm-10">
 
-                        <input type="text" name="hsn_code" id="hsn_code" class="form-control required"
+                        <input type="text" name="hsn_code" id="hsn_code" class="form-control" readonly
                             value="<?php echo $schdtls->hsn_code; ?>" />
                     </div>
 

@@ -691,7 +691,7 @@ public function editproduct(){
 
 				"gst_rt"      =>  $this->input->post('gst_rt'),
 
-				"hsn_code"    =>  $this->input->post('hsn_code'),
+				//"hsn_code"    =>  $this->input->post('hsn_code'),
 
 				"qty_per_bag" =>  $this->input->post('bag'),
 
