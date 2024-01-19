@@ -3672,9 +3672,8 @@ public function deleteAccCd() {
 		$select = array('comp_id');
 		$where  = array('ro_no'=>$ro_no,'br'=>$br);
 		$result = $this->Society_paymentModel->f_select('td_purchase',NULL,$where,1);
-		$data['condtionalfo'] = $this->Society_paymentModel->f_select('mm_fo_master',NULL,array('compid'=>$result->comp_id),0);
-		$data['otherfo'] = $this->Society_paymentModel->f_select('mm_fo_master',NULL,array('compid'=>0),0);
-
+		$data['condtionalfo'] = $this->Society_paymentModel->f_select('mm_fo_master',NULL,array('compid'=>$result->comp_id,'dist_id'=>$br),0);
+		$data['otherfo'] = $this->Society_paymentModel->f_select('mm_fo_master',NULL,array('compid'=>0,'dist_id'=>$br),0);
 		echo json_encode($data);
 	}
 	public function f_advoffwd(){
