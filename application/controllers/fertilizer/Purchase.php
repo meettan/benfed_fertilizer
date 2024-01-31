@@ -3871,10 +3871,10 @@ class Purchase extends MX_Controller
 
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 			$select1          = array("comp_id", "comp_name");
-			$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls', $select1, NULL, 0);
-
+			$data['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls', $select1, NULL, 0);
+			$data['days']   = $this->PurchaseModel->f_select('md_days', NULL, NULL, 0);
 			$this->load->view('post_login/fertilizer_main');
-			$this->load->view("purchase_ackw/add", $product);
+			$this->load->view("purchase_ackw/add", $data);
 			$this->load->view('post_login/footer');
 		}
 	}

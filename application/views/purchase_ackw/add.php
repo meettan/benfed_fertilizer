@@ -67,9 +67,14 @@
     				<div class="col-sm-3">
 					<select name="no_of_days" class="form-control required" id="no_of_days" required>
 						<option value="">Select</option>
-						<option value="30">30 Days</option>
-						<option value="60">60 Days</option>
-						<option value="90">90 Days</option>
+						<?php
+								foreach($days as $day){
+							?>
+    						<option value="<?php echo $day->days;?>"><?php echo $day->days;?> Days</option>
+
+    						<?php
+								}
+							?>
 					</select>
     				</div>
     			</div>
