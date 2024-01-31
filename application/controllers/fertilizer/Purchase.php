@@ -3879,4 +3879,35 @@ class Purchase extends MX_Controller
 		}
 	}
 
+	public function pur_ackwrep()
+	{
+		if ($this->input->post()) {
+			$from_date = $this->input->post('from_date');
+			$dist_id = $this->input->post('dist_id');
+			$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+			$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+			$select = array('a.*','b.COMP_NAME','c.PROD_DESC');
+			$where = array('a.comp_id = b.COMP_ID'=> NULL,'a.prod_id = c.PROD_ID'=> NULL,'a.branch_id' =>$dist_id,'a.fin_id'=>$fin_id );
+			$bank['data']  = $this->PurchaseModel->f_select('td_purchase_ackw a,mm_company_dtls b,mm_product c',$select,$where,0);
+			$bank['district']  = $this->PurchaseModel->f_select('md_branch',NULL,NULL,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("purchase_ackw/dashboard_rep", $bank);
+			$this->load->view('search/search');
+			$this->load->view('post_login/footer');
+		} else {
+			$todayday = date('Y-m-d');
+			$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+			$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+			$select = array('a.*','b.COMP_NAME','c.PROD_DESC');
+			$where = array('a.comp_id = b.COMP_ID'=> NULL,'a.prod_id = c.PROD_ID'=> NULL,'a.branch_id' =>$br_cd,'a.fin_id'=>$fin_id );
+			$bank['data']  = $this->PurchaseModel->f_select('td_purchase_ackw a,mm_company_dtls b,mm_product c',$select,$where,0);
+			$bank['district']  = $this->PurchaseModel->f_select('md_branch',NULL,NULL,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("purchase_ackw/dashboard_rep", $bank);
+			$this->load->view('search/search');
+			$this->load->view('post_login/footer');
+		}
+	}
+
+
 }
