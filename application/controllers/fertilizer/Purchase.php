@@ -3803,4 +3803,80 @@ class Purchase extends MX_Controller
 		}
 	}
 
+	public function purackw()
+	{
+		if ($this->input->post()) {
+			$from_date = $this->input->post('from_date');
+			$to_date = $this->input->post('to_date');
+			$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+			$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+			$select = array('a.*','b.COMP_NAME','c.PROD_DESC');
+			$where = array('a.comp_id = b.COMP_ID'=> NULL,'a.prod_id = c.PROD_ID'=> NULL,'a.branch_id' =>$br_cd,'a.fin_id'=>$fin_id );
+			$bank['data']  = $this->PurchaseModel->f_select('td_purchase_ackw a,mm_company_dtls b,mm_product c',$select,$where,0);
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("purchase_ackw/dashboard", $bank);
+			$this->load->view('search/search');
+			$this->load->view('post_login/footer');
+		} else {
+			$todayday = date('Y-m-d');
+			$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+			$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+			$select = array('a.*','b.COMP_NAME','c.PROD_DESC');
+			$where = array('a.comp_id = b.COMP_ID'=> NULL,'a.prod_id = c.PROD_ID'=> NULL,'a.branch_id' =>$br_cd,'a.fin_id'=>$fin_id );
+			$bank['data']  = $this->PurchaseModel->f_select('td_purchase_ackw a,mm_company_dtls b,mm_product c',$select,$where,0);
+
+			$this->load->view("post_login/fertilizer_main");
+			$this->load->view("purchase_ackw/dashboard", $bank);
+			$this->load->view('search/search');
+
+			$this->load->view('post_login/footer');
+		}
+	}
+
+	public function pur_ackwadd()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			
+			
+			$fin_year =  $this->session->userdata['loggedin']['fin_yr'];
+
+			$fin_id = $this->session->userdata['loggedin']['fin_id'];
+
+			$qty           = $this->input->post('qty');
+
+			$br_cd       = $this->session->userdata['loggedin']['branch_id'];
+
+			$data_array = array(
+
+				'trans_dt'     => date('Y-m-d'),
+				'memo_no'      => $this->input->post('memo_no'),
+				"comp_id"      => $this->input->post('comp_id'),
+				"prod_id"      => $this->input->post('prod_id'),
+				"no_of_days"   => $this->input->post('no_of_days'),
+				"qty"          =>  $this->input->post('qty'),
+				"branch_id"    => $this->session->userdata['loggedin']['branch_id'],
+				"fin_id"       => $fin_id,
+				"created_by"   =>  $this->session->userdata['loggedin']['user_name'],
+				"created_dt"   =>  date('Y-m-d h:i:s'),
+				"created_ip"   =>  $_SERVER['REMOTE_ADDR']
+				
+			);
+				$this->PurchaseModel->f_insert('td_purchase_ackw', $data_array);
+
+				$this->session->set_flashdata('msg', 'Successfully Added');
+				redirect('stock/purackw');
+
+
+		} else {
+
+			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+			$select1          = array("comp_id", "comp_name");
+			$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls', $select1, NULL, 0);
+
+			$this->load->view('post_login/fertilizer_main');
+			$this->load->view("purchase_ackw/add", $product);
+			$this->load->view('post_login/footer');
+		}
+	}
+
 }

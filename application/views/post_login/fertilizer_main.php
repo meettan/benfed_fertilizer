@@ -252,6 +252,7 @@
                               <a href="<?php echo site_url("adv/advancefwd");?>">Advance Forward</a>
                               <a href="<?php echo site_url("adv/pending_amt_list");?>">Cumulative Advance Forward</a>
                               <a href="<?php echo site_url("stock/stock_entry");?>">Purchase</a>
+                              <a href="<?php echo site_url("stock/purackw");?>">Purchase acknowledge</a>
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("drcrnote/dr_note");?>">Credit Note </a>
                               <a href="<?php echo site_url("drcrnote/dr_note_tcs");?>">Debit Note TCS </a>
