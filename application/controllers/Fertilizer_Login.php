@@ -268,9 +268,6 @@ class Fertilizer_Login extends MX_Controller
 			// yesterday date
 			$yesterday = date('Y-m-d', strtotime("-1 days"));
 
-			/*$this->session->set_userdata('cashcode', $this->Login_Process->f_get_parameters(13));
-				$_SESSION['cash_code']=$this->session->userdata('cashcode')->param_value;*/
-
 			$fin_id = $this->session->userdata['loggedin']['fin_id'];  		//Retrieving financial year,branch
 			$fin_yr = $this->session->userdata['loggedin']['fin_yr'];
 			$branch_id = $this->session->userdata['loggedin']['branch_id'];
@@ -361,9 +358,7 @@ class Fertilizer_Login extends MX_Controller
 				//Total Received Amount in all branch (Advance + Other mode)
 				$dash_data["ho_recvamt_day"]		= collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y');
 
-
 				//Total Purchase in all branches solid & liquid
-
 				$dash_data["ho_purchase_daysld"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
 				$dash_data["ho_purchase_daylqd"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L'); 
 
@@ -371,36 +366,11 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data["ho_sale_daysld"]        = get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
 				$dash_data["ho_sale_daylqd"]		= get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L');
 
-
-
-
-				// $dash_data["ho_purchase_iffco"]		= $this->Fertilizer_Process->f_get_tot_puriffco($from_yr_day,$to_yr_day);
-				// $dash_data["ho_purchase_cil"]		= $this->Fertilizer_Process->f_get_tot_purcil($from_yr_day,$to_yr_day);
-				// $dash_data["ho_purchase_ipl"]       = $this->Fertilizer_Process->f_get_tot_puripl($from_yr_day,$to_yr_day);
-				// $dash_data["ho_purchase_jcf"]       = $this->Fertilizer_Process->f_get_tot_purjcf($from_yr_day,$to_yr_day);
-				// $dash_data["ho_purchase_kcfl"]      = $this->Fertilizer_Process->f_get_tot_purkcfl($from_yr_day,$to_yr_day);
-				// $dash_data["ho_purchase_kribhco"]   = $this->Fertilizer_Process->f_get_tot_purkribhco($from_yr_day,$to_yr_day);
-				// $dash_data["ho_purchase_mipl"]      = $this->Fertilizer_Process->f_get_tot_purmipl($from_yr_day,$to_yr_day);
-
-
-
-				// $dash_data["ho_paid_iffco"]		     = $this->Fertilizer_Process->f_get_tot_paidiffco($from_yr_day,$to_yr_day);
-				// $dash_data["ho_paid_ipl"]            = $this->Fertilizer_Process->f_get_tot_paidipl($from_yr_day,$to_yr_day);
-				// $dash_data["ho_paid_cil"]		     = $this->Fertilizer_Process->f_get_tot_paidcil($from_yr_day,$to_yr_day);
-				// $dash_data["ho_paid_jcf"]            = $this->Fertilizer_Process->f_get_tot_paidjcf($from_yr_day,$to_yr_day);
-				// $dash_data["ho_paid_kcfl"]           = $this->Fertilizer_Process->f_get_tot_paidkcfl($from_yr_day,$to_yr_day);
-				// $dash_data["ho_paid_kribhco"]        = $this->Fertilizer_Process->f_get_tot_paidkribhco($from_yr_day,$to_yr_day);
-				// $dash_data["ho_paid_mipl"]           = $this->Fertilizer_Process->f_get_tot_paidmipl($from_yr_day,$to_yr_day);
-
-
 				$select1                             = array("district_code", "district_name");
 				$dash_data['distdtls']               = $this->Fertilizer_Process->f_select('md_district', $select1, NULL, 0);
 
-
-
 				$select11                             = array("short_name", "COMP_ID");
 				$dash_data['compdtls']               = $this->Fertilizer_Process->f_select('mm_company_dtls', $select11, NULL, 0);
-
 
 				//Districtwise Bar Graph for Solid & Liquid Sale for a financial year
 
@@ -418,7 +388,6 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data['coloction_distwise'] = $this->Fertilizer_Process->get_coloction_distwise($from_yr_day, $to_yr_day);
 				$dash_data['tot_coloction'] = $this->Fertilizer_Process->get_tot_coloction($from_yr_day, $to_yr_day);
 
-
 				$dash_data['company_Wise_Status']=$this->Fertilizer_Process->company_Wise_Status($_SESSION['sys_date'],$from_yr_day);
 				///   *****      Code start to get unapprove payment list   **  //
 				$pselect = array("count(*) as cnt");
@@ -427,6 +396,12 @@ class Fertilizer_Login extends MX_Controller
 				
 				
 				///   *****      Code End to get unapprove payment list   **  //
+				$districts  = $this->Fertilizer_Process->f_select('md_district',NULL,array('1 order by district_name ASC'=>NULL),0);
+				foreach($districts as $dist){
+                    $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
+				}
+			
+                $dash_data['districts']  = $districts;
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_one', $dash_data);
 				$this->load->view('post_login/footer');
@@ -435,18 +410,14 @@ class Fertilizer_Login extends MX_Controller
 					//Total Sale in all branches solid & liquid
 					$dash_data["ho_sale_daysld"]        = get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
 					$dash_data["ho_sale_daylqd"]		= get_sale($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L');
-	
 
 				//Total Purchase Solid & Liquid for a period branchwise
 				$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N', 'S');
 				$dash_data['totliquidpur']	  = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N', 'L');
 
-
 				
 				$dash_data["ho_purchase_daysld"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'S');
 				$dash_data["ho_purchase_daylqd"]    = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'Y', 'L');
-
-
 
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_two', $dash_data);
@@ -456,12 +427,9 @@ class Fertilizer_Login extends MX_Controller
 
 			} elseif ($this->session->userdata['loggedin']['ho_flag']  == 'N' && ($this->session->userdata['loggedin']['user_type'] == 'C'||$this->session->userdata['loggedin']['user_type'] == 'S' ||$this->session->userdata['loggedin']['user_type'] == 'M' || $this->session->userdata['loggedin']['user_type'] == 'A')) {
 
-
-
 				//Stock Opening Balance Solid and Liquid
 				$dash_data['openingS'] = stock_balance($yesterday, $branch_id, 'S');
 				$dash_data['openingL'] = stock_balance($yesterday, $branch_id, 'L');
-
 
 				//Total Purchase Solid & Liquid for a period branchwise
 				$dash_data['totsolidpur']     = get_purchase($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N', 'S');
@@ -474,13 +442,9 @@ class Fertilizer_Login extends MX_Controller
 				//Stock Closing Balance Solid and Liquid
 				$dash_data['closingS'] = stock_balance($_SESSION['sys_date'], $branch_id, 'S');
 				$dash_data['closingL'] = stock_balance($_SESSION['sys_date'], $branch_id, 'L');
-
-
 				
 				$select11                             = array("short_name", "COMP_ID");
 				$dash_data['compdtls']               = $this->Fertilizer_Process->f_select('mm_company_dtls', $select11, NULL, 0);
-
-
 
 				//Total Collection for a period branchwise
 				$dash_data['todaycollection'] = collectionForTheDay($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id, 'N');
@@ -529,7 +493,7 @@ class Fertilizer_Login extends MX_Controller
 				$dash_data['b2b']   = $this->Fertilizer_Process->get_b2bfortoday($_SESSION['sys_date'], $_SESSION['sys_date'], $branch_id);
 
 
-
+				
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_four', $dash_data);
 				$this->load->view('post_login/footer');

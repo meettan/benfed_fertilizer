@@ -99,16 +99,8 @@
             <div class="threeBoxNewmain">
               <div class="col-sm-4 float-left">
                 <div class="threeBoxNewSmall">
-                  <!-- <div class="value"><strong>&#2352;</strong>
-              <?php
-              /*if($this->session->userdata['loggedin']['ho_flag']=="Y"){
-                      echo $ho_purchase_day->tot_purchase_ho; 
-                  }else{
-                      echo $purchase_day->tot_purchase; 
-                  }*/
-              ?>
-</div> -->
-                  <div class="threeBoxImg darkBlue"><img src="<?= base_url() ?>assets/images/boxIcon_a.png" alt=""></div>
+                  <!-- <div class="value"><strong>&#2352;</strong></div> -->
+                  <div class="threeBoxImg darkBlue"><img src="<?=base_url() ?>assets/images/boxIcon_a.png" alt=""></div>
                   <div class="threeBoxTxt">
                     <h2>Purchase For The Day</h2>
                     <p class="price"><span class="mt">
@@ -138,8 +130,6 @@
                   </div>
                 </div>
               </div>
-
-
 
               <div class="col-sm-4 float-left">
                 <div class="threeBoxNewSmall">
@@ -190,6 +180,36 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-9 float-left rightSideSec">
+          <!-- WORKING-->
+          <?php //print_r($district_pay_detail);
+                //   $color = 'btn-success btn-sm';
+                   $btn = 'btn-success btn-sm';
+              foreach($districts as $dist) {
+                if(isset($districts)){
+               if(isset($district_pay_detail[$dist->district_code])){
+                if($district_pay_detail[$dist->district_code] != '0000-00-00'){
+                  if($district_pay_detail[$dist->district_code] > date('Y-m-d') ){
+                        $btn = 'btn-success btn-sm';
+                  }
+                  else{
+                  
+                  $btn = 'btn-danger btn-sm';
+                  }
+                }else{
+                $btn = 'btn-success btn-sm';
+               }
+            
+                ?>
+                <div class="col-sm-2 float-left" style="margin-bottom:10px">
+                <button class="btn <?=$btn?>" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg"><?=$dist->district_name?></button>
+                </div>
+            <?php  }  
+                 }
+                }
+            ?>    
+        </div>  
+
       </div>
 
       <div class="col-sm-12 rightSideSec">
@@ -375,14 +395,8 @@
                     <tfoot>
                       <tr>
                         <td class="report" colspan="2" style="text-align:left"><b>Total</b></td>
-
-
                         <td class="report"><b></b></td>
-
                         <td class="report"><b><?= $amt ?></b></td>
-
-
-
                       </tr>
                     </tfoot>
 
@@ -447,15 +461,7 @@
               </h2>
 
             </div>
-
-
           </div>
-
-
-
-
-
-
 
 
           <!-- =========================================================================== -->
@@ -622,25 +628,6 @@
 
 
           <!-- ============================================================================== -->
-          <!-- <div class="stockPointSecTitle" >
-                <div class="col-sm-12">
-                  <div class="get-quote">
-                    <div class="row">
-                        <div class="col-sm-10 col-12">
-                            <h2 id="quote">Overdue List</h2>
-                        </div>
-                        <div class="col-sm-2 col-12">
-                          <form action="<?php echo site_url("fert/rep/overdue_list") ?>" method="post">
-                            <input type="hidden" name="from_date" value="<?= date('Y-m-d') ?>">
-                            <button type="submit" class="btn btn-primary pull-right" >Open</button>
-                          </form>
-                        </div>
-                    </div>
-                </div>                    
-
-              </div>
-            </div> -->
-
 
           <!-- ======================================== -->
 
@@ -1139,10 +1126,53 @@ $(".brdaypurchasec").click(function(){
     }
   });
 
-
-
   function overdueList() {
     var daet = "<?= date('Y-m-d');  ?>"
 
   }
+
+  function ackwdetail(br_id) {
+    
+    var $modalDiv = $(this.delegateTarget);
+   // var comp_id = $('#company_dtls').val();
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url("stock/ajaxackwrep") ?>",
+      data: {
+        br_id: br_id
+      },
+      beforeSend: function () {
+      //$modalDiv.addClass('modalloading');
+      $('#dist_content').html('');
+      $('#overlay').fadeIn();
+      },
+      success: function(data) {
+        console.log(data);
+        var data = JSON.parse(data);
+
+        $('#dist_content').html(data.page);
+      },
+      complete: function () {
+         //$modalDiv.removeClass('modalloading');
+         $('#overlay').fadeOut();
+      }
+
+      // error: function() { alert("Error posting feed."); }
+    });
+  }
 </script>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <div class="modal-body" id="dist_content">
+      
+      </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+  </div>
+</div>

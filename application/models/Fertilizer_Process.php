@@ -41,6 +41,22 @@
 				return $value->result();
 			}
 		}
+		public function get_pay_min_dt_dist($dist_id){
+
+			$data=$this->db->query( "SELECT DATE(trans_dt)+ INTERVAL no_of_days DAY as filt_dt 
+			FROM `td_purchase_ackw` 
+			where branch_id = '$dist_id' order by filt_dt ASC Limit 1" );
+
+             if(count($data->result_array())>0)
+			 {
+				return $data->row()->filt_dt;
+			 }else{
+				return '0000-00-00';
+		
+			 }
+			 
+
+		}
 		
         //Total receive amount in all branches (refelcted in HO Admin & Manager Dashboard) 
 		public function f_get_tot_recvamt_ho($from_dt,$to_dt){	
@@ -59,6 +75,8 @@
 
             return $data->row();
 		}
+
+
 
 		public function f_get_tot_recvamt($branch_id,$from_dt,$to_dt){	
 			$this->db->select('ifnull(SUM(a.paid_amt), 0)  tot_recvamt');
