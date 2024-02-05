@@ -1234,6 +1234,7 @@ class Purchase extends MX_Controller
 
 				"qty"          =>  $qty,
 				"advance_receipt_no"   => $receipt_no,
+				'indent_memo_no'   => $this->input->post('indent_memo_no'),
 
 				"unit"         => $unit,
 
