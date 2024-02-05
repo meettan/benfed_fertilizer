@@ -3828,7 +3828,6 @@ class Purchase extends MX_Controller
 			$this->load->view("post_login/fertilizer_main");
 			$this->load->view("purchase_ackw/dashboard", $bank);
 			$this->load->view('search/search');
-
 			$this->load->view('post_login/footer');
 		}
 	}
@@ -3839,13 +3838,9 @@ class Purchase extends MX_Controller
 			
 			
 			$fin_year =  $this->session->userdata['loggedin']['fin_yr'];
-
 			$fin_id = $this->session->userdata['loggedin']['fin_id'];
-
 			$qty           = $this->input->post('qty');
-
 			$br_cd       = $this->session->userdata['loggedin']['branch_id'];
-
 			$data_array = array(
 
 				'trans_dt'     => date('Y-m-d'),
@@ -3854,6 +3849,8 @@ class Purchase extends MX_Controller
 				"prod_id"      => $this->input->post('prod_id'),
 				"no_of_days"   => $this->input->post('no_of_days'),
 				"qty"          =>  $this->input->post('qty'),
+				'del_qty'      =>  $this->input->post('del_qty'),
+				'del_dt'       => $this->input->post('del_date'),
 				"branch_id"    => $this->session->userdata['loggedin']['branch_id'],
 				"fin_id"       => $fin_id,
 				"created_by"   =>  $this->session->userdata['loggedin']['user_name'],

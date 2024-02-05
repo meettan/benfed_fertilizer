@@ -6,7 +6,7 @@
 
     			<div class="form-header">
 
-    				<h4>Purchase Acknowledge</h4>
+    				<h4>Material Acknowledge</h4>
     			</div>
 
     			<div class="form-group row">
@@ -33,9 +33,7 @@
     				</div>
     				<label for="memo_no" class="col-sm-1 col-form-label">Memo No:</label>
     				<div class="col-sm-3">
-
     					<input type="text"  id=memo_no name="memo_no" class="form-control"  />
-
     				</div>
     				
     			</div>
@@ -56,26 +54,25 @@
 							?>
     					</select>
     				</div>
-					<label for="qty" class="col-sm-1 col-form-label">Qty:</label>
+					<label for="qty" class="col-sm-1 col-form-label">Indent Qty:</label>
     				<div class="col-sm-3">
-    					<input type="text" style="width:200px" id=qty name="qty" class="form-control" required />
+    					<input type="text" style="form-control" id=qty name="qty" class="form-control" required />
+    				</div>
+					<label for="qty" class="col-sm-1 col-form-label">Delivery Qty:</label>
+    				<div class="col-sm-3">
+    					<input type="text" style="form-control" id=del_qty name="del_qty" class="form-control" required />
     				</div>
     			</div>
 
     			<div class="form-group row">
-				<label for="qty" class="col-sm-1 col-form-label">No of Days:</label>
+				<label for="qty" class="col-sm-1 col-form-label">Delivery Dt:</label>
     				<div class="col-sm-3">
-					<select name="no_of_days" class="form-control required" id="no_of_days" required>
-						<option value="">Select</option>
-						<?php
-								foreach($days as $day){
-							?>
-    						<option value="<?php echo $day->days;?>"><?php echo $day->days;?> Days</option>
+					<input type="date" style="form-control" id=del_date name="del_date" class="form-control" required />
+    				</div>
 
-    						<?php
-								}
-							?>
-					</select>
+					<label for="qty" class="col-sm-1 col-form-label">Remain Qty:</label>
+    				<div class="col-sm-3">
+    					<input type="text" style="form-control" id=rem_qty name="rem_qty" class="form-control" readonly />
     				</div>
     			</div>
 
@@ -126,9 +123,18 @@
 
 
     			});
+				
 
 
     		});
+
+
+			$('#del_qty').change(function () {
+                  var qty = parseFloat($('#qty').val());
+				  var del_qty = parseFloat($(this).val());
+
+					$('#rem_qty').val(parseFloat(qty-del_qty));
+           });
 
     	});
     </script>

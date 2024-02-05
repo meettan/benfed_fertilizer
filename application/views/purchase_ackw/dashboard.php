@@ -11,7 +11,7 @@ a.dt-button{
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Purchase Acknowledge</strong></h1>
+                <h1><strong>Material Acknowledge</strong></h1>
 
             </div>
 
@@ -70,16 +70,25 @@ a.dt-button{
                         $i=0;
                     if($data) {
                             foreach($data as $value) {
-                            //    $disable_btn = $value->sale_cnt ? 'hidden' : '';
-                            //    $enable_btn = $value->sale_cnt ? '' : 'hidden';
+                             
+                                $start_ts = strtotime($value->trans_dt);
+                                $end_ts = strtotime(date('Y-m-d'));
+                                $diff = $end_ts - $start_ts;
+                                $interval = round($diff / 86400); 
+                                $color="";
+                              if( $interval > $value->no_of_days) {
+                                $color ='red';
+                               }else{
+                                $color ='green';
+                               }
                                 
 		    ?>
 
-                            <tr>   
+                            <tr style="color:<?=$color?>">   
                                 <td><?php echo ++$i; ?></td>
                                 <td><?php echo $value->trans_dt; ?></td>
                                 <td><?php echo $value->memo_no; ?></td>
-                                <td><?php echo $value->PROD_DESC; ?></td>
+                                <td><?php echo $value->COMP_NAME; ?></td>
                                 <td><?php echo $value->PROD_DESC; ?></td>
                                 <td><?php echo $value->qty; ?></td>
                                 <td><?php echo $value->no_of_days; ?></td>

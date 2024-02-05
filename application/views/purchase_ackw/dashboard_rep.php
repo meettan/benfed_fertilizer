@@ -11,7 +11,7 @@ a.dt-button{
             
             <div class="col-lg-9 col-sm-12">
 
-                <h1><strong>Purchase Acknowledge Districtwise</strong></h1>
+                <h1><strong>Material Districtwise</strong></h1>
 
             </div>
 
@@ -27,17 +27,8 @@ a.dt-button{
                     <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
                 </div> -->
             </h3>
-
             <div class="form-group row">
               <form method="POST" action="<?php echo site_url("stock/pur_ackwrep");?>" >
-
-                        <!-- <div class="col-sm-3">
-	                    <input type="date" style="width:300px" id=from_date name="from_date" class="form-control" value="<?php echo  date('Y-m-d'); ?>" />
-                        </div>
-
-                        <div class="col-sm-3">
-                        <input type="date" style="width:250px" id=to_date name="to_date" class="form-control" value="<?php echo  date('Y-m-d'); ?>"  />
-	                    </div> -->
                         
                         <div class="col-sm-3">
                         <select name="dist_id" class="form-control required" id="dist_id" required>
@@ -103,7 +94,7 @@ a.dt-button{
                                 <td><?php echo ++$i; ?></td>
                                 <td><?php echo $value->trans_dt; ?></td>
                                 <td><?php echo $value->memo_no; ?></td>
-                                <td><?php echo $value->PROD_DESC; ?></td>
+                                <td><?php echo $value->COMP_NAME; ?></td>
                                 <td><?php echo $value->PROD_DESC; ?></td>
                                 <td><?php echo $value->qty; ?></td>
                                 <td><?php echo $value->no_of_days; ?></td>
