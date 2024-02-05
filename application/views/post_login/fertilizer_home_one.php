@@ -193,8 +193,17 @@
                         $btn = 'btn-success btn-sm';
                   }
                   else{
+                    $start_ts = strtotime($district_pay_detail[$dist->district_code]);
+                    $end_ts = strtotime(date('Y-m-d'));
+                    $diff = $end_ts - $start_ts;
+                    $interval = round($diff / 86400); 
+                    
+                    if(is_numeric($interval) && $interval > 0 && $interval <= 3){
+                      $btn = 'btn btn-warning btn-sm';
+                    }else{
+                      $btn = 'btn-danger btn-sm';
+                    }
                   
-                  $btn = 'btn-danger btn-sm';
                   }
                 }else{
                 $btn = 'btn-success btn-sm';
