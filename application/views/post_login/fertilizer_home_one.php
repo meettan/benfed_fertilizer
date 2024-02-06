@@ -184,41 +184,70 @@
           <!-- WORKING-->
           <?php //print_r($district_pay_detail);
                 //   $color = 'btn-success btn-sm';
-                   $btn = 'btn-success btn-sm';
+                $interval = 0;
+                   $btn = '';
               foreach($districts as $dist) {
-                if(isset($districts)){
-               if(isset($district_pay_detail[$dist->district_code])){
-                if($district_pay_detail[$dist->district_code] != '0000-00-00'){
-                  if($district_pay_detail[$dist->district_code] > date('Y-m-d') ){
-                        $btn = 'btn-success btn-sm';
-                  }
-                  else{
-                    $start_ts = strtotime($district_pay_detail[$dist->district_code]);
-                    $end_ts = strtotime(date('Y-m-d'));
-                    $diff = $end_ts - $start_ts;
-                    $interval = round($diff / 86400); 
-                    
-                    if(is_numeric($interval) && $interval > 0 && $interval <= 3){
-                      $btn = 'btn btn-warning btn-sm';
-                    }else{
-                      $btn = 'btn-danger btn-sm';
-                    }
-                  
-                  }
-                }else{
-                $btn = 'btn-success btn-sm';
-               }
+               // if(isset($districts)){
+               if(isset($district_pay_detail[$dist->district_code]) && $district_pay_detail[$dist->district_code] !='0000-00-00'){
+                  if(date('Y-m-d') > $district_pay_detail[$dist->district_code])  {
             
                 ?>
                 <div class="col-sm-2 float-left" style="margin-bottom:10px">
-                <button class="btn <?=$btn?>" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg"><?=$dist->district_name?></button>
+                <button class="btn btn-danger btn-sm" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg"><?=$dist->district_name?></button>
                 </div>
-            <?php  }  
-                 }
+            <?php     }else {
+
+                      $start_ts = strtotime($district_pay_detail[$dist->district_code]);
+                      $end_ts = strtotime(date('Y-m-d'));
+                      $diff = $end_ts - $start_ts;
+                      $interval = round($diff / 86400); 
+                      if(is_numeric($interval) && $interval >= 0 && $interval <= 3){   
+              ?>
+
+              <div class="col-sm-2 float-left" style="margin-bottom:10px">
+                <button class="btn btn-warning btn-sm" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg"><?=$dist->district_name?></button>
+                </div>
+               <?php }else{  ?>
+            <div class="col-sm-2 float-left" style="margin-bottom:10px">
+                <button class="btn btn-success btn-sm 3" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg"><?=$dist->district_name?></button>
+                </div>
+
+            <?php      }
+                         }
+                      }
+                 //  }
                 }
             ?>    
         </div>  
 
+
+        <?php 
+        
+        
+            // $btn = 'btn-success btn-sm';
+                    //    $btn = 'btn-danger btn-sm 2,'.date('Y-m-d').','.$district_pay_detail[$dist->district_code];
+                  // }else{
+                  //   // $start_ts = strtotime($district_pay_detail[$dist->district_code]);
+                  //   // $end_ts = strtotime(date('Y-m-d'));
+                  //   // $diff = $end_ts - $start_ts;
+                  //   // $interval = round($diff / 86400); 
+                  //   // if(is_numeric($interval) && $interval >= 0 && $interval <= 3){
+                  //   //   $btn = 'btn btn-warning btn-sm';
+                  //   // }else{
+                  //   //   $btn = 'btn-danger btn-sm';
+                  //   // }
+                  
+                  // }
+           //     }else{
+             //   $btn = 'btn-success btn-sm 3';
+           //    }
+        
+        
+        
+        
+        
+        
+        ?>
       </div>
 
       <div class="col-sm-12 rightSideSec">

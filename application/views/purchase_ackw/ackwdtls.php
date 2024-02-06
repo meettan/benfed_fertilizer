@@ -29,17 +29,20 @@
                             $diff = $end_ts - $start_ts;
                             $interval = round($diff / 86400); 
                             $color="";
+                            $diff_interval = $value->no_of_days-$interval;
                           if( $interval > $value->no_of_days) {
                             $color ='red';
+                           }else if(is_numeric($diff_interval) && $diff_interval >= 0 && $diff_interval <= 3){
+                            $color ='yellow';
                            }else{
                             $color ='green';
                            }
 		       ?>
 
-                            <tr style="color:<?=$color?>">   
+                            <tr style="background-color:<?=$color?>">   
                                 <td><?php echo ++$i; ?></td>
-                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?><?=$interval?></td>
-                                <td><?php echo $value->memo_no; ?></td>
+                                <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
+                                <td><?php echo $value->memo_no; ?><?=$interval?></td>
                                 <td><?php echo $value->COMP_NAME; ?></td>
                                 <td><?php echo $value->PROD_DESC; ?></td>
                                 <td><?php echo $value->qty; ?></td>
