@@ -182,12 +182,10 @@
         </div>
         <div class="col-sm-9 float-left rightSideSec">
           <!-- WORKING-->
-          <?php //print_r($district_pay_detail);
-                //   $color = 'btn-success btn-sm';
+          <?php 
                 $interval = 0;
                    $btn = '';
               foreach($districts as $dist) {
-               // if(isset($districts)){
                if(isset($district_pay_detail[$dist->district_code]) && $district_pay_detail[$dist->district_code] !='0000-00-00'){
                   if(date('Y-m-d') > $district_pay_detail[$dist->district_code])  {
             
@@ -215,7 +213,6 @@
             <?php      }
                          }
                       }
-                 //  }
                 }
             ?>    
         </div>  

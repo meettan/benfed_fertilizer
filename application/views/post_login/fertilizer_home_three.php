@@ -55,7 +55,41 @@
       <div class="col-sm-3 float-left">
         <div class="left_bar_new">
           <h2>Quick Links <i class="fa fa-link" aria-hidden="true"></i></h2>
+          <?php 
+                $interval = 0;
+                   $btn = '';
+              foreach($districts as $dist) {
+               if(isset($district_pay_detail[$dist->district_code]) && $district_pay_detail[$dist->district_code] !='0000-00-00'){
+                  if(date('Y-m-d') > $district_pay_detail[$dist->district_code])  {
+            
+                ?>
+                
+                <button class="btn btn-danger btn-sm" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg">Payment Status</button>
+              
+            <?php     }else {
+
+                      $start_ts = strtotime($district_pay_detail[$dist->district_code]);
+                      $end_ts = strtotime(date('Y-m-d'));
+                      $diff = $end_ts - $start_ts;
+                      $interval = round($diff / 86400); 
+                      if(is_numeric($interval) && $interval >= 0 && $interval <= 3){   
+              ?>
+
+           
+                <button class="btn btn-warning btn-sm" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg">Payment Status</button>
+              
+               <?php }else{  ?>
+           
+                <button class="btn btn-success btn-sm 3" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg">Payment Status</button>
+              
+
+            <?php      }
+                         }
+                      }
+                }
+            ?>  
           <ul>
+         
             <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefilter">Advance</a></li>
             <li><a href="https://benfed.in/benfed_fertilizer/index.php/adv/advancefwd">Advance Forward</a></li>
             <li><a href="https://benfed.in/benfed_fertilizer/index.php/stock/stock_entry">Purchase</a></li>
@@ -634,16 +668,33 @@ $("#company_dtls").click(function(){
 
     });
 
+    
+
   });
 </script>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <div class="modal-body" id="dist_content">
+      
+      </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+  </div>
+</div>
 <script>
   <?php
   $label = '';
   $qty   = '';
-  foreach ($distwisesale as $key) {
-    $label .=  '"' . $key->district_name . '",';
-    $qty   .=   ($key->qty) . ',';
-  }
+  //foreach ($distwisesale as $key) {
+ //   $label .=  '"' . $key->district_name . '",';
+ //   $qty   .=   ($key->qty) . ',';
+ // }
 
   ?>
   window.onload = function() {
@@ -686,67 +737,13 @@ $("#company_dtls").click(function(){
       }]
     }
 
-    // var barChartId = document.getElementById("barChart");
-    // if (barChartId) {
-    //   var ctxB = document.getElementById("barChart").getContext('2d');
-    //   var myBarChart = new Chart(ctxB, {
-    //     type: 'bar',
-    //     data: data,
-    //     options: {
-    //       "hover": {
-    //         "animationDuration": 0
-    //       },
-    //       "animation": {
-    //         "duration": 1,
-    //         "onComplete": function() {
-    //           var chartInstance = this.chart,
-    //             ctx = chartInstance.ctx;
-    //           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-    //           ctx.textAlign = 'center';
-    //           ctx.textBaseline = 'bottom';
-
-    //           this.data.datasets.forEach(function(dataset, i) {
-    //             var meta = chartInstance.controller.getDatasetMeta(i);
-    //             meta.data.forEach(function(bar, index) {
-    //               var data = dataset.data[index];
-    //               ctx.fillText(data, bar._model.x, bar._model.y - 5);
-    //             });
-    //           });
-    //         }
-    //       },
-    //       legend: {
-    //         "display": false
-    //       },
-    //       tooltips: {
-    //         "enabled": false
-    //       },
-    //       scales: {
-    //         yAxes: [{
-    //           scaleLabel: {
-    //             display: true,
-    //             labelString: 'Unit in MT'
-    //           }
-    //           // ,
-    //           // ticks: {
-    //           // min: 0, // minimum value
-    //           // max: 1600, // maximum value
-    //           // stepSize: 200
-    //           // }
-    //         }]
-    //       }
-    //     }
-
-
-    //   });
-    // }
-
     <?php
     $label = '';
     $qty   = '';
-    foreach ($distwisesaleltr as $key) {
-      $label .=  '"' . $key->district_name . '",';
-      $qty   .=   ($key->qty) . ',';
-    }
+   // foreach ($distwisesaleltr as $key) {
+  //    $label .=  '"' . $key->district_name . '",';
+  //    $qty   .=   ($key->qty) . ',';
+ //   }
 
     ?>
     var data = {
@@ -786,59 +783,6 @@ $("#company_dtls").click(function(){
         borderWidth: 1
       }]
     }
-
-    // var barChartId = document.getElementById("barChartl");
-    // if (barChartId) {
-    //   var ctxB = document.getElementById("barChartl").getContext('2d');
-    //   var myBarChart = new Chart(ctxB, {
-    //     type: 'bar',
-    //     data: data,
-    //     options: {
-    //       "hover": {
-    //         "animationDuration": 0
-    //       },
-    //       "animation": {
-    //         "duration": 1,
-    //         "onComplete": function() {
-    //           var chartInstance = this.chart,
-    //             ctx = chartInstance.ctx;
-    //           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-    //           ctx.textAlign = 'center';
-    //           ctx.textBaseline = 'bottom';
-
-    //           this.data.datasets.forEach(function(dataset, i) {
-    //             var meta = chartInstance.controller.getDatasetMeta(i);
-    //             meta.data.forEach(function(bar, index) {
-    //               var data = dataset.data[index];
-    //               ctx.fillText(data, bar._model.x, bar._model.y - 5);
-    //             });
-    //           });
-    //         }
-    //       },
-    //       legend: {
-    //         "display": false
-    //       },
-    //       tooltips: {
-    //         "enabled": false
-    //       },
-    //       scales: {
-    //         yAxes: [{
-    //           scaleLabel: {
-    //             display: true,
-    //             labelString: 'Unit in LTR'
-    //           }
-    //           // ,
-    //           // ticks: {
-    //           // min: 0, // minimum value
-    //           // max: 1600, // maximum value
-    //           // stepSize: 200
-    //           // }
-    //         }]
-    //       }
-    //     }
-
-    //   });
-    // }
 
   }
   <?php
@@ -888,53 +832,7 @@ $("#company_dtls").click(function(){
     }]
   }
 
-  // var barChartBottomId = document.getElementById("barChartBottom");
-  // if (barChartBottomId) {
-  //   var ctxC = document.getElementById("barChartBottom").getContext('2d');
-
-  //   var myBarChartBot = new Chart(ctxC, {
-  //     type: 'bar',
-  //     data: data,
-  //     options: {
-  //       "hover": {
-  //         "animationDuration": 0
-  //       },
-  //       "animation": {
-  //         "duration": 1,
-  //         "onComplete": function() {
-  //           var chartInstance = this.chart,
-  //             ctx = chartInstance.ctx;
-  //           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-  //           ctx.textAlign = 'center';
-  //           ctx.textBaseline = 'bottom';
-
-  //           this.data.datasets.forEach(function(dataset, i) {
-  //             var meta = chartInstance.controller.getDatasetMeta(i);
-  //             meta.data.forEach(function(bar, index) {
-  //               var data = dataset.data[index];
-  //               ctx.fillText(data, bar._model.x, bar._model.y - 5);
-  //             });
-  //           });
-  //         }
-  //       },
-  //       legend: {
-  //         "display": false
-  //       },
-  //       tooltips: {
-  //         "enabled": false
-  //       },
-  //       scales: {
-  //         yAxes: [{
-  //           scaleLabel: {
-  //             display: true,
-  //             labelString: 'Amount in crores'
-  //           }
-  //         }]
-  //       }
-  //     }
-
-  //   });
-  // }
+  
   $('#toggleDiv').hide();
 
   function expandDiv() {
@@ -964,4 +862,35 @@ $("#company_dtls").click(function(){
     arrows: true,
     slidesToScroll: 1
   });
+
+
+  function ackwdetail(br_id) {
+    
+    var $modalDiv = $(this.delegateTarget);
+   // var comp_id = $('#company_dtls').val();
+    $.ajax({
+      type: "POST",
+      url: "<?php echo site_url("stock/ajaxackwrep") ?>",
+      data: {
+        br_id: br_id
+      },
+      beforeSend: function () {
+      //$modalDiv.addClass('modalloading');
+      $('#dist_content').html('');
+      $('#overlay').fadeIn();
+      },
+      success: function(data) {
+        console.log(data);
+        var data = JSON.parse(data);
+
+        $('#dist_content').html(data.page);
+      },
+      complete: function () {
+         //$modalDiv.removeClass('modalloading');
+         $('#overlay').fadeOut();
+      }
+
+      // error: function() { alert("Error posting feed."); }
+    });
+  }
 </script>

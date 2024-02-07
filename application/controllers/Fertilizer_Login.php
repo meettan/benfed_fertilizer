@@ -457,6 +457,12 @@ class Fertilizer_Login extends MX_Controller
 				//Populating all society list under the branch
 				$dash_data['soc'] = $this->Fertilizer_Process->f_all_soc($branch_id);
 
+				$districts  = $this->Fertilizer_Process->f_select('md_district',NULL,array('district_code'=>$branch_id),0);
+				foreach($districts as $dist){
+                    $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
+				}
+                $dash_data['districts']  = $districts;
+
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_three', $dash_data);
 				$this->load->view('post_login/footer');
