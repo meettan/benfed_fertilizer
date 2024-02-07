@@ -43,10 +43,9 @@
 		}
 		public function get_pay_min_dt_dist($dist_id){
 
-			$data=$this->db->query( "SELECT DATE(trans_dt)+ INTERVAL no_of_days DAY as filt_dt 
-			FROM `td_purchase_ackw` 
-			where branch_id = '$dist_id' order by filt_dt ASC Limit 1" );
-
+			$data=$this->db->query( "SELECT DATE(b.invoice_dt)+ INTERVAL b.no_of_days DAY as filt_dt 
+			FROM td_purchase_ackw a,td_purchase b
+			where a.memo_no = b.indent_memo_no AND a.branch_id = '$dist_id' order by filt_dt ASC Limit 1" );
              if(count($data->result_array())>0)
 			 {
 				return $data->row()->filt_dt;

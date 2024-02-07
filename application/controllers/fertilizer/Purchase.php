@@ -3912,9 +3912,9 @@ class Purchase extends MX_Controller
 		$dist_id = $this->input->post('br_id');
 		$br_cd         = $this->session->userdata['loggedin']['branch_id'];
 		$fin_id        = $this->session->userdata['loggedin']['fin_id'];
-		$select = array('a.*','b.COMP_NAME','c.PROD_DESC');
-		$where = array('a.comp_id = b.COMP_ID'=> NULL,'a.prod_id = c.PROD_ID'=> NULL,'a.branch_id' =>$dist_id,'a.fin_id'=>$fin_id );
-		$bank['data']  = $this->PurchaseModel->f_select('td_purchase_ackw a,mm_company_dtls b,mm_product c',$select,$where,0);
+		$select = array('a.memo_no','a.qty','b.COMP_NAME','c.PROD_DESC','d.invoice_dt as trans_dt','d.no_of_days');
+		$where = array('a.comp_id = b.COMP_ID'=> NULL,'a.prod_id = c.PROD_ID'=> NULL,'a.memo_no = d.indent_memo_no'=> NULL,'a.branch_id' =>$dist_id,'a.fin_id'=>$fin_id );
+		$bank['data']  = $this->PurchaseModel->f_select('td_purchase_ackw a,mm_company_dtls b,mm_product c,td_purchase d',$select,$where,0);
 		
 		$page_data = $this->load->view("purchase_ackw/ackwdtls", $bank, true);
 		$array = array('status' => '1', 'error' => '', 'page' => $page_data);
