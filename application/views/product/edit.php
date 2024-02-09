@@ -66,18 +66,27 @@
 
                             <option value="">Select Product Type</option>
 
-                            <option value="1" <?php echo ($schdtls->prod_type == 1)? 'selected' : '';?>>
+                            <option value="">Select Company</option>
+							<?php
+								foreach($prod_type as $pt){
+							?>
+								<option value="<?php echo $pt->id;?>" <?php echo ($schdtls->prod_type == $pt->id)? 'selected' : '';?> ><?php echo $pt->type_name;?></option>
+							<?php
+							}
+							?>  
+
+                            <!-- <option value="1" <?php //echo ($schdtls->prod_type == 1)? 'selected' : '';?>>
                                 Chemical-Fertilizer</option>
 
-                            <option value="2" <?php echo ($schdtls->prod_type == 2)? 'selected' : '';?>>
+                            <option value="2" <?php //echo ($schdtls->prod_type == 2)? 'selected' : '';?>>
                                 Organic-Fertilizer</option>
 
-                            <option value="3" <?php echo ($schdtls->prod_type == 3)? 'selected' : '';?>>Bio-Fertilizer
+                            <option value="3" <?php //echo ($schdtls->prod_type == 3)? 'selected' : '';?>>Bio-Fertilizer
                             </option>
-                            <option value="4" <?php echo ($schdtls->prod_type == 4)? 'selected' : '';?>>SND
+                            <option value="4" <?php //echo ($schdtls->prod_type == 4)? 'selected' : '';?>>SND
                             </option>
-                            <option value="5" <?php echo ($schdtls->prod_type == 5)? 'selected' : '';?>>SSP
-                            </option>
+                            <option value="5" <?php //echo ($schdtls->prod_type == 5)? 'selected' : '';?>>SSP
+                            </option> -->
 
                         </select>
                     </div>
