@@ -417,6 +417,7 @@ public function advancefilter(){
     	 "a.branch_id"            => $this->session->userdata['loggedin']['branch_id'],
         "a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
 		"(a.trans_type='I' OR a.trans_type='OP') "   => NULL,
+		"a.transfer_flag" => 'N',
 		"a.trans_dt between '$frmdt ' and '$todt'"=> NULL,
     );
 	
@@ -438,15 +439,12 @@ public function advancefilter(){
 
 	$where  =	array(
         "a.soc_id=b.soc_id"   => NULL,
-
         "b.district"            => $this->session->userdata['loggedin']['branch_id'],
 
         "a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
-		"a.trans_type='I'"   => NULL,
-		"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL,
-
-
-
+		"(a.trans_type='I' OR a.trans_type='OP') "   => NULL,
+		"a.transfer_flag" => 'N',
+		"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL
     );
 
 		$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
@@ -1410,7 +1408,7 @@ public function f_get_dist_bnk_dtls(){
 			"a.soc_id=b.soc_id"   => NULL,
 			"a.branch_id"            => $this->session->userdata['loggedin']['branch_id'],
 			"a.fin_yr"              => $this->session->userdata['loggedin']['fin_id'],
-			"a.trans_type='I'"   => NULL,
+			"a.transfer_flag='Y'"   => NULL,
 			"a.trans_dt between '$frmdt ' and '$todt'"=> NULL
 		);
 		
@@ -1427,7 +1425,7 @@ public function f_get_dist_bnk_dtls(){
 				"a.soc_id=b.soc_id"   => NULL,
 				"b.district"          => $this->session->userdata['loggedin']['branch_id'],
 				"a.fin_yr"            => $this->session->userdata['loggedin']['fin_id'],
-				"a.trans_type='I'"    => NULL,
+				"a.transfer_flag='Y'"    => NULL,
 				"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL
 			);
 
