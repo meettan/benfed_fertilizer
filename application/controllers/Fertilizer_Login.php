@@ -398,7 +398,7 @@ class Fertilizer_Login extends MX_Controller
 				///   *****      Code End to get unapprove payment list   **  //
 				$districts  = $this->Fertilizer_Process->f_select('md_district',NULL,array('1 order by district_name ASC'=>NULL),0);
 				foreach($districts as $dist){
-                    $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
+                 //   $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
 				}
 			
                 $dash_data['districts']  = $districts;
@@ -459,7 +459,7 @@ class Fertilizer_Login extends MX_Controller
 
 				$districts  = $this->Fertilizer_Process->f_select('md_district',NULL,array('district_code'=>$branch_id),0);
 				foreach($districts as $dist){
-                    $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
+                  //  $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
 				}
                 $dash_data['districts']  = $districts;
 
