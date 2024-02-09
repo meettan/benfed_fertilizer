@@ -68,22 +68,17 @@
                     <tr>
                         
                         <th>Sl.No.</th>
-
                         <th>Date</th>
-                        
             			<th>Receipt No.</th>
-
                         <th>Society Name</th>
-
                         <th>Amount(Rs)</th>
-
                         <!-- <th>Forward</th> -->
 
                         <th>Edit</th>
 
                         <th>Print</th>
                       
-                        <th>Delete</th>
+                        <!-- <th>Delete</th> -->
                        
                     </tr>
                 </thead>
@@ -97,50 +92,33 @@
 
                             <tr>   
                                 <td><?php echo ++$i; ?></td>
-
                                 <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
-
                                 <td><?php echo $value->receipt_no; ?></td>
-
                                 <td><?php echo $value->soc_name; ?></td>
-
                                 <td><?php echo $value->adv_amt; ?></td>
-
                                 <!-- <td><?php echo $value->forward_flag; ?></td> -->
-
-                                <!-- <td>  
-                                <?php //if($value->forward_flag == 'N') { ?>
-                                 <a href="<?php //echo site_url('adv/f_adv_forward?receipt_no='.$value->receipt_no.''); ?>"> 
-                                <button class="btn btn-primary forwardbutton" receipt_no="<?php //$value->receipt_no; ?>">Forward</button>
-                                  </a> 
-                                <?php //} ?> 
-                                </td> -->
 
 			 	                <td><a href="editadv?rcpt=<?php echo $value->receipt_no;?>" 
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
-
                                         <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
                                     </a> 
                                 </td>
 
                                 <td>
                               <a href="<?php echo site_url('adv/socadvReport?receipt_no='.$value->receipt_no.''); ?>" title="Print">
-
-                            
                               <i class="fa fa-print fa-2x" style="color:green;"></i>  
-                              <!-- <span class="mdi mdi-printer"></span> -->
                               </a>
                             </td>
                            
-                            <td>
-                            <?php if($value->no_of_rcpt == 0){ 
-                                if($value->forward_flag == 'N') { ?>
-                                <button type="button" class="delete" receipt_no="<?php echo $value->receipt_no;?>"  data-toggle="tooltip" data-placement="bottom" title="Delete">
+                            <!-- <td>
+                            <?php// if($value->no_of_rcpt == 0){ 
+                              //  if($value->forward_flag == 'N') { ?>
+                                <button type="button" class="delete" receipt_no="<?php //echo $value->receipt_no;?>"  data-toggle="tooltip" data-placement="bottom" title="Delete">
 
                                        <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                    </button> 
-                                   <?php } } ?> 
-                               </td>
+                                   <?php //} } ?> 
+                               </td> -->
 
                             </tr>
 
@@ -162,24 +140,14 @@
                 <tfoot>
 
                     <tr>
-                    
                         <th>Sl.No.</th>
-
                         <th>Date</th>
-
                         <th>Receipt No.</th>
-
                         <th>Society Name</th>
-
                         <th>Amount(Rs)</th>
-
-                        <!-- <th>Forward</th> -->
-
                         <th>Edit</th>
-
                         <th>Print</th>
-
-                        <th>Delete</th>
+                        <!-- <th>Delete</th> -->
                     </tr>
                 
                 </tfoot>
