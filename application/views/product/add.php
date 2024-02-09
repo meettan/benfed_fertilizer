@@ -46,12 +46,20 @@
 				<div class="col-sm-4">
 
 					<select class="form-control required" id="prod_type" name="prod_type"  required>
-						<option value="">Select Product Type</option>
+						<!-- <option value="">Select Product Type</option>
 						<option value="1">Chemical-Fertilizer</option>
 						<option value="2">Organic-Fertilizer</option>
 						<option value="3">Bio-Fertilizer</option>
 						<option value="4">SND</option>
-						<option value="5">SSP</option>
+						<option value="5">SSP</option> -->
+						<option value="">Select Company</option>
+							<?php
+								foreach($prod_type as $pt){
+							?>
+								<option value="<?php echo $pt->id;?>"><?php echo $pt->type_name;?></option>
+							<?php
+							}
+							?>   
 					</select>
 				</div>
 				

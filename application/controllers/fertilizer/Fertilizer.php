@@ -645,17 +645,12 @@ public function productAdd(){
 		}else {
 
 				$select          		= array("comp_id","comp_name");
-
 				$product['compdtls']    = $this->FertilizerModel->f_select('mm_company_dtls',$select,NULL,0);
-
 				$select1          		= array("id","unit_name");
-
 				$product['unitdtls']    = $this->FertilizerModel->f_select('mm_unit',$select1,NULL,0);
-				
+				$product['prod_type']    = $this->FertilizerModel->f_select('mm_product_type',NULL,NULL,0);
 				$this->load->view('post_login/fertilizer_main');
-
 				$this->load->view("product/add",$product);
-
 				$this->load->view('post_login/footer');
 		}
 }
