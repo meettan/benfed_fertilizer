@@ -181,7 +181,14 @@ $thisyear=$fy[0];
 			).done(function (data) {
 				var parseData = JSON.parse(data);
 				var adv_amt = parseData[0].adv_amt;
+				
 				$('#ava_amt').val(adv_amt);
+				if(adv_amt > 0){
+					$('#submit').attr('type','submit');
+				}else{
+					alert('Amount is less Than Zero.Transfer is not possible');
+					$('#submit').attr('type','button');
+				}
 			});
 
 		});
