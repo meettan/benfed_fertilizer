@@ -66,7 +66,7 @@
 
                             <option value="">Select Product Type</option>
 
-                            <option value="">Select Company</option>
+                            <!-- <option value="">Select Company</option> -->
 							<?php
 								foreach($prod_type as $pt){
 							?>

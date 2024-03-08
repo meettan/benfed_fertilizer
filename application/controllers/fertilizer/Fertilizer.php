@@ -733,17 +733,20 @@ public function editproduct(){
 					
 					"a.storage",
 
-					"a.unit"
+					"a.unit",
+
+					"c.type_name"
 				);
 
 			$where = array(
 				"a.prod_id" => $this->input->get('prod_id'),
 
-				"a.company=b.comp_id"=>NULL
-
+				"a.company=b.comp_id"=>NULL,
+				"a.prod_type=c.id"=>NULL
+                 
 				);
 
-			$product['schdtls'] = $this->FertilizerModel->f_select("mm_product a,mm_company_dtls b",$select,$where,1);
+			$product['schdtls'] = $this->FertilizerModel->f_select("mm_product a,mm_company_dtls b,mm_product_type c",$select,$where,1);
 
 			// echo $this->db->last_query();
 			// exit;
@@ -756,6 +759,9 @@ public function editproduct(){
 
 			$product['unitdtls']    = $this->FertilizerModel->f_select('mm_unit',$select1,NULL,0);
 
+			$select2          		= array("id","type_name");
+
+			$product['prod_type']    = $this->FertilizerModel->f_select('mm_product_type a',$select2,NULL,0);
 		
 			$this->load->view('post_login/fertilizer_main');
 
