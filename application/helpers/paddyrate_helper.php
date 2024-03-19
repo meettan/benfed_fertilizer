@@ -51,7 +51,11 @@
     {
      $no = floor($number);
      $decimal = round($number - $no, 2) * 100;
+     if($decimal>0){
      $decimal_part = $decimal;
+     }else{
+      $decimal_part=0;
+     }
      $hundred = null;
      $hundreds = null;
      $digits_length = strlen($no);
