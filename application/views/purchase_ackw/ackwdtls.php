@@ -42,7 +42,7 @@
                             <tr style="background-color:<?=$color?>">   
                                 <td><?php echo ++$i; ?></td>
                                 <td><?php echo date('d/m/Y',strtotime($value->trans_dt)); ?></td>
-                                <td><?php echo $value->memo_no; ?><?=$interval?></td>
+                                <td><?php echo $value->memo_no; ?></td>
                                 <td><?php echo $value->COMP_NAME; ?></td>
                                 <td><?php echo $value->PROD_DESC; ?></td>
                                 <td><?php echo $value->qty; ?></td>
