@@ -30,8 +30,11 @@
                             $interval = round($diff / 86400); 
                             $color="";
                             $diff_interval = $value->no_of_days-$interval;
-                          if( $interval > $value->no_of_days) {
+                          if( $interval > $value->no_of_days && $value->cnt==0) {
                             $color ='red';
+                         }else if( $interval > $value->no_of_days && $value->cnt>0) {
+
+                            $color ='yellow';
                            }else if(is_numeric($diff_interval) && $diff_interval >= 0 && $diff_interval <= 3){
                             $color ='yellow';
                            }else{
@@ -45,7 +48,7 @@
                                 <td><?php echo $value->memo_no; ?></td>
                                 <td><?php echo $value->COMP_NAME; ?></td>
                                 <td><?php echo $value->PROD_DESC; ?></td>
-                                <td><?php echo $value->qty; ?></td>
+                                <td><?php echo $value->qty; ?><?php echo '-' ?><?php echo $value->cnt; ?></td>
                                 <td><?php echo $value->no_of_days; ?></td>
                             </tr>
 

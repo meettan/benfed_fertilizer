@@ -165,13 +165,7 @@
                     <h2>Collection For The Day</h2>
                     <p class="price">
                       <span class="lit"><strong><i class="fa fa-inr" aria-hidden="true"></i> </strong><?php
-                                                                                                      if ($this->session->userdata['loggedin']['ho_flag'] == "Y")            //In Ho
-                                                                                                      {
-                                                                                                        echo $ho_recvamt_day->tot_recvamt;
-                                                                                                      } else {                                                      //In branch
-                                                                                                        echo '0';
-                                                                                                      }
-                                                                                                      ?></span>
+                                                                                                 ?></span>
                     </p>
                   </div>
                 </div>
@@ -187,19 +181,20 @@
                    $btn = '';
               foreach($districts as $dist) {
                if(isset($district_pay_detail[$dist->district_code]) && $district_pay_detail[$dist->district_code] !='0000-00-00'){
-                  if(date('Y-m-d') > $district_pay_detail[$dist->district_code])  {
-            
+                  if((date('Y-m-d') > $district_pay_detail[$dist->district_code]) && $district_pay_cnt[$dist->district_code]=0)  {
+                           echo $district_pay_cnt[$dist->district_code];
                 ?>
                 <div class="col-sm-2 float-left" style="margin-bottom:10px">
                 <button class="btn btn-danger btn-sm" onclick="ackwdetail(<?=$dist->district_code?>)" data-toggle="modal" data-target=".bd-example-modal-lg"><?=$dist->district_name?></button>
                 </div>
             <?php     }else {
 
-                      $start_ts = strtotime($district_pay_detail[$dist->district_code]);
+                       $start_ts = strtotime($district_pay_detail[$dist->district_code]);
+                 
                       $end_ts = strtotime(date('Y-m-d'));
                       $diff = $end_ts - $start_ts;
                       $interval = round($diff / 86400); 
-                      if(is_numeric($interval) && $interval >= 0 && $interval <= 3){   
+                      if(is_numeric($interval) && $interval >= 0 && $interval <= 3 && $district_pay_cnt[$dist->district_code]>0){   
               ?>
 
               <div class="col-sm-2 float-left" style="margin-bottom:10px">

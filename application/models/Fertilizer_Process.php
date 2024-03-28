@@ -43,20 +43,45 @@
 		}
 		public function get_pay_min_dt_dist($dist_id){
 			$fin_id= $this->session->userdata['loggedin']['fin_id'];
-			$data=$this->db->query( "SELECT DATE(b.invoice_dt)+ INTERVAL b.no_of_days DAY as filt_dt 
+			$data=$this->db->query( "SELECT DATE(b.invoice_dt)+ INTERVAL b.no_of_days DAY as filt_dt ,(select count(*) cnt_pay from tdf_company_payment e where b.ro_no=e.pur_ro ) as cnt_pay
 			FROM td_purchase_ackw a,td_purchase b
-			where a.memo_no = b.indent_memo_no AND a.branch_id = '$dist_id' AND a.fin_id = '$fin_id' order by filt_dt ASC Limit 1" );
-             if(count($data->result_array())>0)
+			where a.memo_no = b.indent_memo_no AND a.branch_id = '$dist_id' AND a.fin_id = '$fin_id'
+			order by filt_dt ASC Limit 1" );
+            //  echo $this->db->last_query();
+			//  die();
+			 if(count($data->result_array())>0)
 			 {
-				return $data->row()->filt_dt;
+				 return $data->row()->filt_dt;
+				// return $data->row()->cnt_pay;
 			 }else{
-				return '0000-00-00';
-		
+				 return '0000-00-00';
+				// return $data->result();
 			 }
 			 
 
 		}
-		
+		public function get_pay_min_dt_cnt($dist_id){
+			$fin_id= $this->session->userdata['loggedin']['fin_id'];
+			$data=$this->db->query( "SELECT  count(*) cnt 
+			from td_purchase_ackw a,td_purchase b,tdf_company_payment e 
+			where a.memo_no = b.indent_memo_no 
+			AND a.branch_id = '$dist_id'
+			 AND a.fin_id = '$fin_id'
+			 AND b.ro_no=e.pur_ro 
+			order by cnt ASC Limit 1" );
+            //  echo $this->db->last_query();
+			//  die();
+			 if(count($data->result_array())>0)
+			 {
+				 return $data->row()->cnt;
+			
+			 }else{
+				 return '0';
+				
+			 }
+			 
+
+		}
         //Total receive amount in all branches (refelcted in HO Admin & Manager Dashboard) 
 		public function f_get_tot_recvamt_ho($from_dt,$to_dt){	
 		

@@ -399,9 +399,11 @@ class Fertilizer_Login extends MX_Controller
 				$districts  = $this->Fertilizer_Process->f_select('md_district',NULL,array('1 order by district_name ASC'=>NULL),0);
 				foreach($districts as $dist){
                     $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
+					$dash_data['district_pay_cnt'][$dist->district_code]    = $this->Fertilizer_Process->get_pay_min_dt_cnt($dist->district_code);
 				}
 			
                 $dash_data['districts']  = $districts;
+				
 				$this->load->view('post_login/fertilizer_main');
 				$this->load->view('post_login/fertilizer_home_one', $dash_data);
 				$this->load->view('post_login/footer');
@@ -460,6 +462,7 @@ class Fertilizer_Login extends MX_Controller
 				$districts  = $this->Fertilizer_Process->f_select('md_district',NULL,array('district_code'=>$branch_id),0);
 				foreach($districts as $dist){
                     $dash_data['district_pay_detail'][$dist->district_code] = $this->Fertilizer_Process->get_pay_min_dt_dist($dist->district_code);
+					$dash_data['district_pay_cnt'][$dist->district_code]    = $this->Fertilizer_Process->get_pay_min_dt_cnt($dist->district_code);
 				}
                 $dash_data['districts']  = $districts;
 
