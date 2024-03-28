@@ -663,7 +663,17 @@
 			}
 			
 		}
-
+		public function f_get_ack($dist_id,$fin_id){
+			$data=$this->db->query('select a.memo_no,a.qty,b.COMP_NAME,c.PROD_DESC,
+			d.invoice_dt as trans_dt,d.no_of_days
+			from td_purchase_ackw a,mm_company_dtls b,mm_product c,td_purchase d
+			where a.comp_id = b.COMP_ID and b.comp_id = d.COMP_ID 
+			and a.prod_id = c.PROD_ID and c.prod_id = d.PROD_ID
+			and a.memo_no = d.indent_memo_no 
+			and a.branch_id =>'.$dist_id.' and a.fin_id=>'.$fin_id.'"');
+			
+      return $data->result();
+		}
 
 		public function f_adv_fwd_product($advfwdid,$company_id,$product_id){
 			/*$a=$this->db->query('SELECT distinct a.comp_id,a.prod_id 
