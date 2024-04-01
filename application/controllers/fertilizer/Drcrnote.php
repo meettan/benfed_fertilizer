@@ -1357,7 +1357,7 @@ public function crnote_editvu(){
 			if($this->session->userdata['loggedin']['fin_id'] > 3){
 				$transdate  = date('Y-m-d');
 			}else{
-				$transdate  = '2023-03-31';
+				$transdate  = '2024-03-31';
 			}
 			 
 			$data  = array (

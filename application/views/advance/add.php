@@ -95,8 +95,8 @@ $thisyear=$fy[0];
 
 				<div class="col-sm-4">
 
-				<input type="date" id=trans_dt name="trans_dt" class="form-control" min="<?=$thisyear?>-04-01" max="<?php $d=$thisyear+1;echo $d;?>-03-31" value="<?=date("Y-m-d") ?>" readonly required />
-
+				<!-- <input type="date" id=trans_dt name="trans_dt" class="form-control" min="<?=$thisyear?>-04-01" max="<?php $d=$thisyear+1;echo $d;?>-03-31" value="<?=date("Y-m-d") ?>" readonly required /> -->
+				<input type="date" id=trans_dt name="trans_dt" class="form-control"  value=""  required />
 				</div>
 				<div class="col-sm-2">
 
@@ -163,8 +163,8 @@ $thisyear=$fy[0];
 
 			<div class="col-sm-10">
 
-				<input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" />
-
+				<!-- <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" /> -->
+				<input type="submit" id="submit" class="btn btn-info" value="Save" />
 			</div>
 
 	</div>
