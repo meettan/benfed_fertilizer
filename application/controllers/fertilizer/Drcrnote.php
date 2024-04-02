@@ -1354,7 +1354,7 @@ public function crnote_editvu(){
 			$soc_id    = $this->input->post('soc_id');
 			$tot_amt   = $this->input->post('tot_amt');
 			$tot_cramt = 0.00;
-			if($this->session->userdata['loggedin']['fin_id'] > 3){
+			if($this->session->userdata['loggedin']['fin_id'] > 4){
 				$transdate  = date('Y-m-d');
 			}else{
 				$transdate  = '2024-03-31';
