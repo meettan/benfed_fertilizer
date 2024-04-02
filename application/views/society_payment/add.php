@@ -78,8 +78,10 @@
                 <label for="paid_dt" class="col-sm-2 col-form-label">Date:</label>
                 <div class="col-sm-3">
 
-                    <input type="date"  id="paid_dt" name="paid_dt" class="form-control"
-                        value="<?php echo date('Y-m-d');  ?>" readonly required />
+                    <!-- <input type="date"  id="paid_dt" name="paid_dt" class="form-control"
+                        value="<?php echo date('Y-m-d');  ?>" readonly required /> -->
+                        <input type="date"  id="paid_dt" name="paid_dt" class="form-control"
+                        value=""  required />
                 </div>
                 <!-- </div> -->
             </div>
@@ -333,7 +335,8 @@
 
                 <div class="col-sm-10">
 
-                    <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" onclick="return myFunction();" />
+                    <!-- <input type="submit" id="submit" class="btn btn-info active_flag_c" value="Save" onclick="return myFunction();" /> -->
+                    <input type="submit" id="submit" class="btn btn-info" value="Save" onclick="return myFunction();" />
 
                 </div>
 
