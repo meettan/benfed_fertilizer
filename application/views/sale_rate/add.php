@@ -169,16 +169,17 @@
 						</div>
                    <label for="salerate" class="col-sm-2 col-form-label"></label>
 						<div class="col-sm-10">
-												<!-- <div class="col-sm-2">
+												<div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="327">DAR
-					</div> -->
+					</div>
 											<div class="col-sm-2">
 							
 
 					<input type="checkbox" name="district[]" id="checkItem" value="328">JPG
 					</div>
+					
 											<div class="col-sm-2">
 							
 
