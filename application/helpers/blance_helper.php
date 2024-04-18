@@ -343,10 +343,33 @@ if (!function_exists('soc_balance_amt')) {
       $oth_amt = 0;
     
     }
+//////tcs////
+$count    = 0;
+    $rtncount = 0;
+    $rtndata  = 0;
+    $tcs_amt   = 0;
 
+    $rtncount = $ci->db->query("select count(*) row_count from   drnote_tcs  where  soc_id 	= '".$soc."'
+     and    trans_dt    between '".$maxdate."' and '".$date."'")->row();  
+
+    $count = $rtncount->row_count;
+
+    if ($count > 0 ){
+      $rtndata = $ci->db->query("select sum(((tot_amt)))tcs_amt
+                                  from   drnote_tcs
+                                  where  soc_id 	= '".$soc."'
+                                 and    trans_dt   between '".$maxdate."' and '".$date."'")->row();
+                                  
+      $tcs_amt=$rtndata->tcs_amt;
+    }else{
+      $tcs_amt = 0;
+    
+    }
+
+//////
     $cls_amt = 0;
 
-    $cls_amt = ($opn_amt + $adv_amt + $cr_amt + $oth_amt) - $sale_amt;
+    $cls_amt = ($opn_amt + $adv_amt + $cr_amt + $oth_amt) - ($sale_amt + $tcs_amt) ;
 
     return $cls_amt;
    
