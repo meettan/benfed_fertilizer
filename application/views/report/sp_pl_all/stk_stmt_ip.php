@@ -84,8 +84,30 @@
                        
 
                 </div>
+        </div> 
+    <div class="form-group row">
 
-                </div> 
+<label for="Branch" class="col-sm-2 col-form-label">Branch:</label>
+
+<div class="col-sm-6">
+
+        <select name="br_id" id="br" class="form-control" required>
+
+                <option value="">Select Branch</option>
+            <?php
+                foreach($branch as $row){
+            ?>
+
+                <option value="<?php echo $row->district_code ;?>,<?php echo $row->district_name;?>"><?php echo $row->district_name;?></option>
+            <?php
+                }
+            ?>
+        </select>
+   
+
+</div>
+            </div>
+
             <div class="form-group row">
 
                 <div class="col-sm-10">

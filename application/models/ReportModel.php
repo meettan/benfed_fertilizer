@@ -1631,7 +1631,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
     }
     /************************************************ */
-    public function p_ro_wise_prof_calc_all($fdate, $tdate, $comp)
+    public function p_ro_wise_prof_calc_all($fdate, $tdate, $comp, $br)
     {
 
         //     try {
@@ -1651,7 +1651,7 @@ and a.ro_no not in (select sale_ro from td_sale
         //     }
 
 
-        $q = $this->db->query('SELECT c.short_name comp_name,
+    $q = $this->db->query('SELECT c.short_name comp_name,
     d.prod_desc,
     a.ro_no,
     a.ro_dt,
@@ -1675,6 +1675,7 @@ and a.comp_id=c.comp_id
 and a.prod_id=d.prod_id
 and a.ro_dt between "' . $fdate . '" and "' . $tdate . '"
 and a.comp_id = ' . $comp . '
+and a.br= ' . $br. '
 group by c.comp_name,d.prod_desc,a.ro_no,a.ro_dt,round(a.tot_amt /a.qty,3),a.tot_amt,a.qty,d.unit,d.qty_per_bag,b.sale_rt
 UNION
 SELECT c.short_name comp_name,
@@ -1698,8 +1699,10 @@ WHERE a.comp_id=c.COMP_ID
 and a.prod_id=d.PROD_ID
 and a.ro_dt between "' . $fdate . '" and "' . $tdate . '"
 and a.comp_id = ' . $comp . '
+and a.br= ' . $br. '
 and a.ro_no not in (select sale_ro from td_sale 
                  where do_dt between "' . $fdate . '" and "' . $tdate . '"
+                 and br_cd= ' . $br. '
                  and   comp_id = ' . $comp . ')');
 
         return $q->result();

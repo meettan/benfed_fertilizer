@@ -72,8 +72,8 @@
                 <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                 <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                 <h4>Purchase & Sale Statement Between: <?php echo $_SESSION['date']; ?></h4> <br>
-                <h5 style="text-align:left"><label>Company: </label><?php echo $compName ?></h5>
-
+                <h5 style="text-align:left"><label>Company : </label><?php echo $compName ?></h5>
+                <h5 style="text-align:left"><label>Branch  : </label><?php echo $brName ?></h5>
             </div>
            
 

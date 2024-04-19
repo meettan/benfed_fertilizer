@@ -615,12 +615,17 @@ public function ps_pl_all(){
         $comp=$arid[0];
         $data['compName']=$arid[1];
 
+        $brname=$_POST['br_id'];
+        $arid=explode(',',$brname);
+        $br=$arid[0];
+        $data['brName']=$arid[1];
+
         // $branch     =   $this->session->userdata['loggedin']['branch_id'];
 
         $mth        =  date('n',strtotime($from_dt));
 
         $yr         =  date('Y',strtotime($from_dt));
-        $all_data            =   array($from_dt,$to_dt );
+        $all_data   =   array($from_dt,$to_dt );
         if($mth > 3){
 
             $year = $yr;
@@ -650,14 +655,16 @@ public function ps_pl_all(){
 
         // $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
        
-        $data['all_data']    =   $this->ReportModel->p_ro_wise_prof_calc_all($from_dt,$to_dt,$comp);
-   
+        $data['all_data']    =   $this->ReportModel->p_ro_wise_prof_calc_all($from_dt,$to_dt,$comp,$br);
+//    echo $this->db->last_query();
+//    die();
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/sp_pl_all/stk_stmt',$data);
         $this->load->view('post_login/footer');
 
     }else{
         $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL, 0);
+        $data['branch']      =  $this->ReportModel->f_select("md_district", NULL, NULL, NULL, 0);
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/sp_pl_all/stk_stmt_ip',$data);
         $this->load->view('post_login/footer');
