@@ -94,6 +94,8 @@
         <select name="br_id" id="br" class="form-control" required>
 
                 <option value="">Select Branch</option>
+                <option value="0">All Branch</option>
+
             <?php
                 foreach($branch as $row){
             ?>

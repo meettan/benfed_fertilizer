@@ -618,8 +618,17 @@ public function ps_pl_all(){
         $brname=$_POST['br_id'];
         $arid=explode(',',$brname);
         $br=$arid[0];
-        $data['brName']=$arid[1];
-
+        
+            
+        if ($br>0){
+            $data['brName']=$arid[1];
+        }else{
+            $data['brName']='All Branch';
+        }
+        
+        
+// print_r( $arid);
+// die();
         // $branch     =   $this->session->userdata['loggedin']['branch_id'];
 
         $mth        =  date('n',strtotime($from_dt));
@@ -654,10 +663,17 @@ public function ps_pl_all(){
         // $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
 
         // $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        
        
+       if ($br>0){
         $data['all_data']    =   $this->ReportModel->p_ro_wise_prof_calc_all($from_dt,$to_dt,$comp,$br);
-//    echo $this->db->last_query();
-//    die();
+       
+       }else{
+       
+        $data['all_data']    =   $this->ReportModel->p_ro_wise_prof_calc_allbr($from_dt,$to_dt,$comp);
+      
+        }
+
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/sp_pl_all/stk_stmt',$data);
         $this->load->view('post_login/footer');
@@ -671,9 +687,6 @@ public function ps_pl_all(){
     }
 
 }
-
-
-
 
 
 public function ps_pl_all_comp_dist(){
