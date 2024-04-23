@@ -591,7 +591,11 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border:none;">Manager Accounts</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">General Manager(Business)</td>
-                        <?php } ?>
+                        <?php } elseif($sig == 7){ ?>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">Chief Audit & Accounts Officer</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Business)</td>?>
                     </tr>
                     
                 </tbody>
