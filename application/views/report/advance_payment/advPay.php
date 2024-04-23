@@ -445,7 +445,7 @@
                         <td style="border:none;"></td>
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
                         <td style="border:none;"></td>
-                        <td style="border:none;">General Manager(Business)</td>?>
+                        <td style="border:none;">General Manager(Business)</td><?php }?>
                     </tr>
                 </tbody>
             </table>
