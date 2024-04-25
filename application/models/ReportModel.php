@@ -1361,10 +1361,10 @@ public function f_get_gstrb2b( $frmDt, $toDt)
 
     public function f_get_gstrb2c( $frmDt, $toDt)
     {
-        $query  = $this->db->query("   SELECT count(*)no_of_b2b,ifnull(sum(a.taxable_amt),0)taxable_amt,ifnull(sum(a.cgst),0)cgst,ifnull(sum(a.sgst),0)sgst,ifnull(sum(a.tot_amt),0)tot_amt 
-                                        FROM   td_sale a 
-                                        WHERE  a.gst_type_flag='N'
-                                       and    a.do_dt between '$frmDt' and '$toDt'");
+        $query  = $this->db->query("SELECT count(*)no_of_b2b,ifnull(sum(a.taxable_amt),0)taxable_amt,ifnull(sum(a.cgst),0)cgst,ifnull(sum(a.sgst),0)sgst,ifnull(sum(a.tot_amt),0)tot_amt 
+                                    FROM   td_sale a 
+                                    WHERE  a.gst_type_flag='N'
+                                    and    a.do_dt between '$frmDt' and '$toDt'");
 
         return $query->result();
     }
