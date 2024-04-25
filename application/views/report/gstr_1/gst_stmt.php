@@ -54,7 +54,7 @@ tr:hover {background-color: #f5f5f5;}
 
   }
 </script>	<div class="wrapper">
-<div class="col-lg-14 container contant-wraper">
+<div class="col-lg-12 container contant-wraper">
 	<!-- <div class="billPrintWrapper"> -->
   <div id="divToPrint">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
