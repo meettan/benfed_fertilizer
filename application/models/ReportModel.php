@@ -1348,7 +1348,29 @@ END ),3)lqdqty,
         return $query->result();
     }
 
+//////
+public function f_get_gstrb2b( $frmDt, $toDt)
+    {
+        $query  = $this->db->query("SELECT a.count(*)no_of_b2b,sum(a.taxable_amt)taxable_amt,sum(a.cgst)cgst,sum(a.sgst)sgst,sum(a.tot_amt)tot_amt
+                                        FROM   td_sale a 
+                                        WHERE  a.gst_type_flag='Y'
+                                       and    a.do_dt between '$frmDt' and '$toDt'");
 
+        return $query->result();
+    }
+
+    public function f_get_gstrb2c( $frmDt, $toDt)
+    {
+        $query  = $this->db->query("SELECT a.count(*)no_of_b2b,sum(a.taxable_amt)taxable_amt,sum(a.cgst)cgst,sum(a.sgst)sgst,sum(a.tot_amt)tot_amt
+                                        FROM   td_sale a 
+                                        WHERE  a.gst_type_flag='N'
+                                       and    a.do_dt between '$frmDt' and '$toDt'");
+
+        return $query->result();
+    }
+
+
+///////
 
     public function p_soc_wise_sale($all_data)
     {
