@@ -1488,7 +1488,7 @@ public function hsnsumrypurrep(){
 
 
 ////************************************************* */
-public function gstr1(){
+public function gstr_1(){
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -1524,13 +1524,13 @@ public function gstr1(){
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
         $this->load->view('post_login/fertilizer_main');
-        $this->load->view('report/gstr1/gst_stmt',$data);
+        $this->load->view('report/gstr_1/gst_stmt',$data);
         $this->load->view('post_login/footer');
 
     }else{
 
         $this->load->view('post_login/fertilizer_main');
-        $this->load->view('report/gstr1/gst_stmt_ip');
+        $this->load->view('report/gstr_1/gst_stmt_ip');
         $this->load->view('post_login/footer');
     }
 
