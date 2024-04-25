@@ -1519,7 +1519,7 @@ public function gstr_1(){
         
         $data['b2b']       =   $this->ReportModel->f_get_gstrb2b($from_dt,$to_dt);
 
-        //$where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+        $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
         $data['b2c']       =   $this->ReportModel->f_get_gstrb2c($from_dt,$to_dt);
         $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 

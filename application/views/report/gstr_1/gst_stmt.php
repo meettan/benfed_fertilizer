@@ -1,14 +1,27 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Untitled Document</title>
-<link rel="stylesheet" type="text/css" href="css/apps.css">
-</head>
+<style>
+table {
+    border-collapse: collapse;
+}
 
-<body>
-	
-	<script>
+table, td, th {
+    border: 1px solid #dddddd;
+
+    padding: 6px;
+
+    font-size: 14px;
+}
+
+th {
+
+    text-align: center;
+
+}
+
+tr:hover {background-color: #f5f5f5;}
+
+</style>
+
+<script>
   function printDiv() {
 
         var divToPrint = document.getElementById('divToPrint');
@@ -16,33 +29,21 @@
         var WindowObject = window.open('', 'Print-Window');
         WindowObject.document.open();
         WindowObject.document.writeln('<!DOCTYPE html>');
-        WindowObject.document.writeln('<html><head><title>Test Print</title><style type="text/css">');
+        WindowObject.document.writeln('<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title></title><style type="text/css">');
 
-//	  	WindowObject.document.writeln('');
+
         WindowObject.document.writeln('@media print { .center { text-align: center;}' +
-'body{font-family:Arial, Tahoma, Verdana;font-size: 14px;color: #6f7479;}' +
-'.wrapper{box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); max-width: 1100px; width: 100%; margin: 0 auto; font-family:Arial, Tahoma, Verdana;}' +
-'.billPrintWrapper{padding: 15px; color: #000;}' +
-'.billPrintWrapper p {margin: 0; padding: 0;}' +
-'.normal {color: #000; font-family:Arial, Tahoma, Verdana; font-size: 15px; margin:0; padding:0; line-height: 29px;}' +
-'.td_normal{color: #000; font-family:Arial, Tahoma, Verdana; font-size: 15px; padding:5px 3px;}' +
-'.txt_center{text-align: center}' +
-'.txt_left{text-align: left}' +
-'.txt_right{text-align: right}' +
-'.font_big{font-size: 16px;}' +
-'.divLeft{float: left; padding-bottom: 6px;}' +
-'.divRight{float: right; padding-bottom: 6px;}' +
-'.width_half{width: 50%; padding: 5px 3px;}' +
-'.td_pading_top{padding-top: 15px;}' +
-'.table_body_cus tr td:first-child{border-left: #ccc solid 1px;}'+ 
-'.table_body_cus tr td{border-bottom: #ccc solid 1px; border-right: #ccc solid 1px;}' +
-'.sl_td{width: 5%; padding: 5px 3px; font-size: 14px;}' +
-'.particu_td{width:25%; padding: 3px; font-size: 14px;}' +
-'.general_td{width:8.5%; padding: 3px; font-size: 14px; text-align: right;}' +
-'.inv_td{width:10%; padding: 3px; font-size: 14px; text-align: right;}' +
-'.bg_color_td{background: #D9D9D9;}' +
-'.table_head_cus tr td{background: #D9D9D9;}' +
-        '} </style>');
+            '                                         .inline { display: inline; }' +
+            '                                         .underline { text-decoration: underline; }' +
+            '                                         .left { margin-left: 315px;} ' +
+            '                                         .right { margin-right: 375px; display: inline; }' +
+            '                                          table { border-collapse: collapse; font-size: 12px;}' +
+            '                                          th, td { border: 1px solid black; border-collapse: collapse; padding: 6px;}' +
+            '                                           th, td { }' +
+            '                                         .border { border: 1px solid black; } ' +
+            '                                         .bottom { bottom: 5px; width: 100%; position: fixed ' +
+            '                                       ' +
+            '                                   } } </style>');
         WindowObject.document.writeln('</head><body onload="window.print()">');
         WindowObject.document.writeln(divToPrint.innerHTML);
         WindowObject.document.writeln('</body></html>');
@@ -52,13 +53,10 @@
         }, 10);
 
   }
-</script>
-	
-	<div class="wrapper">
-	<div id="divToPrint">
-	<div class="billPrintWrapper">
-
-		
+</script>	<div class="wrapper">
+<div class="col-lg-14 container contant-wraper">
+	<!-- <div class="billPrintWrapper"> -->
+  <div id="divToPrint">
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tbody>
 	  <tr>
@@ -68,9 +66,8 @@
 	  
     <tr>
       <td align="left" valign="top"><p class="normal txt_center font_big"><strong>GSTR-1</strong></p>
-        <p class="normal txt_center"><?php echo $_SESSION['date']; ?></p></td>
-        
-        
+        <p class="normal txt_center"><?php echo $_SESSION['date']; ?></p></td>   
+      
     </tr>
     <tr>
       <td align="left" valign="top">
@@ -133,6 +130,7 @@
 		  </thead>
         <tbody class="table_body_cus">
         <?php
+         $i                = 1;
         foreach($b2b as $sale)
         {
          ?>
