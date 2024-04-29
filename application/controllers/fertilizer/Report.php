@@ -4,7 +4,7 @@
         public function __construct(){
 
             parent::__construct();
-
+            // $this->db2 = $this->load->database('findb', TRUE);
             $this->load->model('ReportModel');
 
             $this->load->helper('paddyrate');
@@ -1515,13 +1515,14 @@ public function gstr_1(){
 
         $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
 
-        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+        $_SESSION['date']  =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
         
         $data['b2b']       =   $this->ReportModel->f_get_gstrb2b($from_dt,$to_dt);
 
-        $where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+        $where1            =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
         $data['b2c']       =   $this->ReportModel->f_get_gstrb2c($from_dt,$to_dt);
-        $data['branch']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        $data['tot_tax']   =   $this->ReportModel->f_get_tot_tax($from_dt,$to_dt);
+        $data['branch']    =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/gstr_1/gst_stmt',$data);

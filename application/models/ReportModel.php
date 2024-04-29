@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class ReportModel extends CI_Model
 {
 
+    
     public function f_select($table, $select = NULL, $where = NULL, $type=NULL)
     {
         if (isset($select)) {
@@ -1368,7 +1369,24 @@ public function f_get_gstrb2b( $frmDt, $toDt)
 
         return $query->result();
     }
+    public function f_get_tot_tax( $frmDt, $toDt)
+    {
+        // $db2 = $this->load->database('findb', TRUE);
+        
+        $db2 = $this->load->database('findb', TRUE);
+        
+            $data   =   $db2->query("
+                                    select count(*) no_of_b2b ,ifnull(sum(taxable_amt),0)taxable_amt,ifnull(sum(cgst_amt),0)cgst,ifnull(sum(sgst_amt),0)sgst,ifnull(sum(total_amt),0)total_amt
+                                    from td_rent_collection
+                                    where trans_dt  between '$frmDt' and '$toDt'
+                                    union
+                                    select count(*) no_of_rent ,ifnull(sum(taxable_amt),0)taxable_amt,ifnull(sum(cgst_amt),0)cgst_amt,ifnull(sum(sgst_amt),0)sgst_amt,ifnull(sum(total_amt),0)total_amt
+                                    from td_htc_rent_collection
+                                    where trans_dt  between '$frmDt' and '$toDt'
+                                    ");
 
+        return $data->result();
+    }
 
 ///////
 

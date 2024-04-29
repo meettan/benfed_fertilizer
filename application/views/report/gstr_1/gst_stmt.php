@@ -57,7 +57,7 @@ tr:hover {background-color: #f5f5f5;}
 <div class="col-lg-12 container contant-wraper">
 	<!-- <div class="billPrintWrapper"> -->
   <div id="divToPrint">
-	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<!-- <table width="100%" border="0" cellpadding="0" cellspacing="0"> -->
   <tbody>
 	  <tr>
       <td align="left" valign="top"><p class="normal txt_center font_big"><strong>THE WEST BENGAL STATE CO OPERATIVE MARKETING FEDERATION LIMITED</strong></p>
@@ -131,38 +131,43 @@ tr:hover {background-color: #f5f5f5;}
         <tbody class="table_body_cus">
         <?php
          $i                = 1;
-        foreach($b2b as $sale)
+        foreach($tot_tax as $tottx)
         {
          ?>
           <tr>
             <td align="left" valign="top" class="sl_td"><?php echo $i++; ?></td>
             <td align="left" valign="top" class="particu_td">B2B Invoices - 4A, 4B, 4C, 6B, 6C</td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->no_of_b2b; ?></td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->taxable_amt; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $tottx->no_of_b2b; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $tottx->taxable_amt; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->cgst; ?></td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->sgst; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $tottx->cgst; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $tottx->sgst; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td"><?php echo ($sale->cgst + $sale->sgst) ; ?></td>
-            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($sale->taxable_amt +$sale->cgst + $sale->sgst) ; ?></span></td>
+            <td align="left" valign="top" class="general_td"><?php echo ($tottx->cgst + $tottx->sgst) ; ?></td>
+            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($tottx->taxable_amt +$tottx->cgst + $tottx->sgst) ; ?></span></td>
           </tr>
           <?php  
                }
             ?>
-           
+            <?php
+        foreach($b2c as $bc)
+        {
+         ?>
           <tr>
             <td align="left" valign="top" class="sl_td">&nbsp;</td>
             <td align="left" valign="top" class="particu_td">Taxable Sales</td>
-            <td align="left" valign="top" class="general_td">&nbsp;</td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->no_of_b2b; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->taxable_amt; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->cgst; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->sgst; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="inv_td"><span class="general_td">0.00</span></td>
+            <td align="left" valign="top" class="general_td"><?php echo ($bc->cgst + $bc->sgst) ; ?></td>
+            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($bc->taxable_amt +$bc->cgst + $bc->sgst) ; ?></span></td>
           </tr>
-         
+          <?php  
+               }
+            ?>
           <tr>
             <td align="left" valign="top" class="sl_td">&nbsp;</td>
             <td align="left" valign="top" class="particu_td">Reverse charge supplies</td>
@@ -176,11 +181,11 @@ tr:hover {background-color: #f5f5f5;}
             <td align="left" valign="top" class="inv_td">0.00</td>
             </tr>
             <?php
-        foreach($b2c as $b2)
+        foreach($b2c as $bc)
         {
          ?>
           <tr>
-            <!-- <td align="left" valign="top" class="sl_td">2</td>
+            <td align="left" valign="top" class="sl_td">2</td>
             <td align="left" valign="top" class="particu_td">B2C(Large) Invoices - 5A, 5B</td>
             <td align="left" valign="top" class="general_td">#</td>
             <td align="left" valign="top" class="general_td">0.00</td>
@@ -189,33 +194,25 @@ tr:hover {background-color: #f5f5f5;}
             <td align="left" valign="top" class="general_td">0.00</td>
             <td align="left" valign="top" class="general_td">0.00</td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="inv_td">0.00</td> -->
+            <td align="left" valign="top" class="inv_td">0.00</td>
 
-            <td align="left" valign="top" class="sl_td"><?php echo $i++; ?></td>
-            <td align="left" valign="top" class="particu_td">B2C(Large) Invoices - 5A, 5B</td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->no_of_b2b; ?></td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->taxable_amt; ?></td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->cgst; ?></td>
-            <td align="left" valign="top" class="general_td"><?php echo $sale->sgst; ?></td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td"><?php echo ($sale->cgst + $sale->sgst) ; ?></td>
-            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($sale->taxable_amt +$sale->cgst + $sale->sgst) ; ?></span></td>
             </tr>
             <?php  
                }
             ?>
           <tr>
-            <td align="left" valign="top" class="sl_td">3</td>
-            <td align="left" valign="top" class="particu_td">B2C(Small) Invoices - 7</td>
-            <td align="left" valign="top" class="general_td">&nbsp;</td>
+             
+            <td align="left" valign="top" class="sl_td"><?php echo $i++; ?></td>
+            <td align="left" valign="top" class="particu_td">B2C(Small) Invoices - 5A, 5B</td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->no_of_b2b; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->taxable_amt; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->cgst; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bc->sgst; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="inv_td">0.00</td>
+            <td align="left" valign="top" class="general_td"><?php echo ($bc->cgst + $bc->sgst) ; ?></td>
+            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($bc->taxable_amt +$bc->cgst + $bc->sgst) ; ?></span></td>
+
             </tr>
           <tr>
             <td align="left" valign="top" class="sl_td">4</td>
@@ -326,17 +323,36 @@ tr:hover {background-color: #f5f5f5;}
 </table>
 
 	
-	
-		
 		
 	</div>
 	</div>
 		<div class="print_sec">
 
-                    <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+      <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
 
-                </div>
+      </div>
 	
 		</div>
-</body>
-</html>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<script>
+   $('#example').dataTable({
+    destroy: true,
+   searching: false,ordering: false,paging: false,
+
+    dom: 'Bfrtip',
+    buttons: [
+    {
+    extend: 'excelHtml5',
+    title: 'BENFEDgstr_1 REPORT',
+    text: 'Export to excel'
+
+   }
+]
+   });
+</script>
