@@ -28,7 +28,7 @@ tr:hover {background-color: #f5f5f5;}
         <div class="col-md-6 container form-wraper">
     
                 
-                 <form method="POST" id="form" action="<?php echo site_url("fert/rep/gstr_1");?>" >
+                 <form method="POST" id="form" action="<?php echo site_url("fert/rep/gstr1rep");?>" >
                 <div class="form-header">
                  
                     <h4>Date Range</h4> 

@@ -150,20 +150,20 @@ tr:hover {background-color: #f5f5f5;}
                }
             ?>
             <?php
-        foreach($b2c as $bc)
+        foreach($b2b as $bb)
         {
          ?>
           <tr>
             <td align="left" valign="top" class="sl_td">&nbsp;</td>
             <td align="left" valign="top" class="particu_td">Taxable Sales</td>
-            <td align="left" valign="top" class="general_td"><?php echo $bc->no_of_b2b; ?></td>
-            <td align="left" valign="top" class="general_td"><?php echo $bc->taxable_amt; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bb->no_of_b2b; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bb->taxable_amt; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td"><?php echo $bc->cgst; ?></td>
-            <td align="left" valign="top" class="general_td"><?php echo $bc->sgst; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bb->cgst; ?></td>
+            <td align="left" valign="top" class="general_td"><?php echo $bb->sgst; ?></td>
             <td align="left" valign="top" class="general_td">0.00</td>
-            <td align="left" valign="top" class="general_td"><?php echo ($bc->cgst + $bc->sgst) ; ?></td>
-            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($bc->taxable_amt +$bc->cgst + $bc->sgst) ; ?></span></td>
+            <td align="left" valign="top" class="general_td"><?php echo ($bb->cgst + $bb->sgst) ; ?></td>
+            <td align="left" valign="top" class="inv_td"><span class="general_td"><?php echo ($bb->taxable_amt +$bb->cgst + $bb->sgst) ; ?></span></td>
           </tr>
           <?php  
                }

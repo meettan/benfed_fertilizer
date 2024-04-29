@@ -1488,7 +1488,7 @@ public function hsnsumrypurrep(){
 
 
 ////************************************************* */
-public function gstr_1(){ 
+public function gstr1rep(){ 
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 
