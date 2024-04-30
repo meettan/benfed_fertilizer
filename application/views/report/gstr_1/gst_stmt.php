@@ -168,7 +168,7 @@ tr:hover {background-color: #f5f5f5;}
           <?php  
                }
             ?>
-          <tr>
+          <tr> 
             <td align="left" valign="top" class="sl_td">&nbsp;</td>
             <td align="left" valign="top" class="particu_td">Reverse charge supplies</td>
             <td align="left" valign="top" class="general_td">&nbsp;</td>
