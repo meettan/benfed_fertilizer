@@ -367,8 +367,8 @@ return $result;
 			// HAVING sum(b.adv_amt)-sum(x.net_amount)>0;";
 
 			$sql ="SELECT b.soc_id,b.receipt_no,sum(b.adv_amt)adv_amt,sum(x.net_amount)fwd_amt,sum(b.adv_amt)-sum(x.net_amount) pending_amt 
-			FROM tdf_advance b ,(select a.receipt_no,sum(a.net_amount)net_amount from td_adv_details a where  a.fin_yr=$fny 
-			and a.branch_id=$branchId  group by a.receipt_no)x
+			FROM tdf_advance b ,(select a.receipt_no,sum(a.net_amount)net_amount from td_adv_details a 
+			where  a.branch_id=$branchId  group by a.receipt_no)x
 			where  b.receipt_no=x.receipt_no
 			and   b.branch_id=$branchId 
 			and b.soc_id=$soc_id
