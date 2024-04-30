@@ -316,13 +316,13 @@ return $result;
         //     where c.branch_id = b.id
         //     and   a.adv_dtl_id = c.receipt_no
         //     and   a.adv_receive_no = c.detail_receipt_no
-		// 	and	  a.adv_dtl_id=f.receipt_no
+		// 	   and	  a.adv_dtl_id=f.receipt_no
 			
         //     and   c.prod_id = d.PROD_ID
         //     and   c.comp_pay_flag = 'Y'
-		// 	and	  a.receipt_no='$rcpt'
-		// 	and   c.comp_id = e.COMP_ID
-		// 	;"   
+		// 	   and	  a.receipt_no='$rcpt'
+		// 	   and   c.comp_id = e.COMP_ID
+		// 	  ;"   
         //     );
         //     return $q->row();	
 		// }
@@ -333,8 +333,7 @@ return $result;
             and   a.adv_dtl_id = c.receipt_no
             and   a.adv_receive_no = c.detail_receipt_no
 			and	  a.adv_dtl_id=f.receipt_no
-			
-            and   c.prod_id = d.PROD_ID
+			   and   c.prod_id = d.PROD_ID
             and   c.comp_pay_flag = 'Y'
 			and	  a.receipt_no='$rcpt'
 			and   c.comp_id = e.COMP_ID
@@ -357,12 +356,21 @@ return $result;
 		public function get_society_remain_amt($soc_id){
 			$fny=$this->session->userdata['loggedin']['fin_id'];
 			$branchId=$this->session->userdata['loggedin']['branch_id'];
+			// $sql ="SELECT b.soc_id,b.receipt_no,sum(b.adv_amt)adv_amt,sum(x.net_amount)fwd_amt,sum(b.adv_amt)-sum(x.net_amount) pending_amt 
+			// FROM tdf_advance b ,(select a.receipt_no,sum(a.net_amount)net_amount from td_adv_details a where  a.fin_yr=$fny 
+			// and a.branch_id=$branchId  group by a.receipt_no)x
+			// where  b.receipt_no=x.receipt_no
+			// and   b.branch_id=$branchId 
+			// and b.fin_yr=$fny 
+			// and b.soc_id=$soc_id
+			// group by b.receipt_no,b.soc_id
+			// HAVING sum(b.adv_amt)-sum(x.net_amount)>0;";
+
 			$sql ="SELECT b.soc_id,b.receipt_no,sum(b.adv_amt)adv_amt,sum(x.net_amount)fwd_amt,sum(b.adv_amt)-sum(x.net_amount) pending_amt 
 			FROM tdf_advance b ,(select a.receipt_no,sum(a.net_amount)net_amount from td_adv_details a where  a.fin_yr=$fny 
 			and a.branch_id=$branchId  group by a.receipt_no)x
 			where  b.receipt_no=x.receipt_no
 			and   b.branch_id=$branchId 
-			and b.fin_yr=$fny 
 			and b.soc_id=$soc_id
 			group by b.receipt_no,b.soc_id
 			HAVING sum(b.adv_amt)-sum(x.net_amount)>0;";
