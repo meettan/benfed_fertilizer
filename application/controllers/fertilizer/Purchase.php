@@ -1369,7 +1369,7 @@ class Purchase extends MX_Controller
 			$data_array_pur['br_nm'] = $br_nm->dist_sort_code;
 
 
-			print_r($data_array_pur);
+			// print_r($data_array_pur);
 			// exit();
 			// print_r($this->ApiVoucher->f_purchasejnl($data_array_pur));
 			// exit();
@@ -3877,7 +3877,104 @@ class Purchase extends MX_Controller
 			$this->load->view('post_login/footer');
 		}
 	}
+/////////////////////////////////
+// public function pur_ackwedit(){
 
+// 	$prod_id = $this->input->get('prod_id');
+
+// 	// echo $prod_id ;
+// 	// die();
+// 	if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+// 		$data_array = array(
+
+// 				// "trans_dt"              => $this->input->post('trans_dt'),
+
+// 				// "soc_id"   			    => $this->input->post('society'),
+
+// 				//"cshbnk_flag"        => $this->input->post('cshbank'),
+
+// 				// "trans_type"    		=>  $this->input->post('trans_type'),
+
+// 				// "adv_amt"				=> $this->input->post('adv_amt'),
+
+// 				// "bank"                  => $this->input->post('bank'),
+
+// 				"remarks" 				=> $this->input->post('remarks'),
+
+// 				"modified_ip"    	=>  $_SERVER['REMOTE_ADDR'],
+				
+// 				"modifed_by"  			=>  $this->session->userdata['loggedin']['user_name'],
+               
+// 				"modifed_dt"  			=>  date('Y-m-d h:i:s')	
+// 			);
+
+// 		$where = array(
+//             "receipt_no"     		    =>  $this->input->post('receipt_no')
+// 		);
+		 
+
+// 		$this->PurchaseModel->f_edit('td_purchase_ackw', $data_array, $where);
+
+// 		$this->session->set_flashdata('msg', 'Successfully Updated');
+
+// 		// redirect('adv/advancefilter');
+
+// 	}else{
+// 			$select = array(
+// 						"trans_dt",
+
+// 						"receipt_no",
+
+// 						"soc_id",
+					
+// 						"trans_type",
+
+// 					    "cshbnk_flag",
+						
+// 						"adv_amt",
+
+// 						"bank",
+						
+// 						"remarks" ,
+// 						"referenceNo"                         
+// 				);
+
+// 			$where = array(
+
+// 				"memo_no" => $this->input->get('memo_no')
+				
+//                 );
+// 			$select2          		= array("sl_no","bank_name");
+// 			$where2                 = array(
+//                 "dist_cd"  =>  $this->session->userdata['loggedin']['branch_id']
+//             );    
+//             $select1          		= array("soc_id","soc_name");
+            
+//             $where1                 = array(
+//                 "district"  =>  $this->session->userdata['loggedin']['branch_id']
+//             );       
+
+			
+// 			$data['mempDtls']        = $this->PurchaseModel->f_get_memo_dtls($this->input->get('memo_no'),$prod_id);
+// 			// print_r($data['mempDtls']);
+// 			// exit();
+
+// 			$data['societyDtls']    = $this->PurchaseModel->f_select("mm_ferti_soc",$select1,$where1,0);
+// 			$selectprod         = array("prod_id","prod_desc");
+// 			$data['proddtls']    = $this->PurchaseModel->f_select("mm_product",$selectprod,NULL,0);  
+// 			$selectcompany         = array("comp_id","comp_name");
+// 			$data['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls',$selectcompany,NULL,0);
+//             $this->load->view('post_login/fertilizer_main');
+
+//             $this->load->view("purchase_ackw/edit",$data);
+ 
+//             $this->load->view("post_login/footer");
+// 	}
+// }
+
+
+//////////////////////////
 	public function pur_ackwrep()
 	{
 		if ($this->input->post()) {
