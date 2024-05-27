@@ -596,7 +596,13 @@ tr:hover {background-color: #f5f5f5;}
                         <td style="border:none;">Chief Audit & Accounts Officer</td>
                         <td style="border:none;"></td>
                         <td style="border:none;">General Manager(Business)</td>
+                        <?php } elseif($sig == 8){ ?>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Administration)</td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;">General Manager(Business)</td>
                         <?php }?>
+                        
                     </tr>
                     
                 </tbody>
