@@ -75,6 +75,8 @@
 
                         <th>Society Name</th>
 
+                        <th>Bank Name</th>
+
                         <th>Amount(Rs)</th>
 
                         <!-- <th>Forward</th> -->
@@ -103,6 +105,7 @@
                                 <td><?php echo $value->receipt_no; ?></td>
 
                                 <td><?php echo $value->soc_name; ?></td>
+                                <td><?php echo $value->bank_name; ?></td>
 
                                 <td><?php echo $value->adv_amt; ?></td>
 
@@ -170,6 +173,8 @@
                         <th>Receipt No.</th>
 
                         <th>Society Name</th>
+                        
+                        <th>Bank Name</th>
 
                         <th>Amount(Rs)</th>
 
