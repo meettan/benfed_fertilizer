@@ -115,11 +115,11 @@
 		public function f_get_receiptReport_dtls($receipt_no)
 		{
 	
-		  $sql = $this->db->query(" select  a.trans_dt,a.sl_no,a.receipt_no,a.soc_id,b.soc_name,a.trans_type, a.adv_amt,a.inv_no,a.ro_no,CONCAT(a.remarks," - ",c.bank_name)remarks
+		  $sql = $this->db->query("select  a.trans_dt,a.sl_no,a.receipt_no,a.soc_id,b.soc_name,a.trans_type, a.adv_amt,a.inv_no,a.ro_no,CONCAT(a.remarks,c.bank_name)remarks
                                      from tdf_advance a ,mm_ferti_soc b,mm_feri_bank c
 									 where a.soc_id=b.soc_id
 									 and a.bank=c.sl_no
-									 and receipt_no='$receipt_no'");			
+									 and receipt_no= '$receipt_no'");			
 		  return $sql->row();
 	
 		}
