@@ -3878,103 +3878,280 @@ class Purchase extends MX_Controller
 		}
 	}
 /////////////////////////////////
-// public function pur_ackwedit(){
+public function pur_ackwedit(){
 
-// 	$prod_id = $this->input->get('prod_id');
+	$prod_id = $this->input->get('prod_id');
 
-// 	// echo $prod_id ;
-// 	// die();
-// 	if($_SERVER['REQUEST_METHOD'] == "POST") {
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
 
-// 		$data_array = array(
+		$data_array = array(
 
-// 				// "trans_dt"              => $this->input->post('trans_dt'),
+				"remarks" 				=> $this->input->post('remarks'),
 
-// 				// "soc_id"   			    => $this->input->post('society'),
-
-// 				//"cshbnk_flag"        => $this->input->post('cshbank'),
-
-// 				// "trans_type"    		=>  $this->input->post('trans_type'),
-
-// 				// "adv_amt"				=> $this->input->post('adv_amt'),
-
-// 				// "bank"                  => $this->input->post('bank'),
-
-// 				"remarks" 				=> $this->input->post('remarks'),
-
-// 				"modified_ip"    	=>  $_SERVER['REMOTE_ADDR'],
+				"modified_ip"    	=>  $_SERVER['REMOTE_ADDR'],
 				
-// 				"modifed_by"  			=>  $this->session->userdata['loggedin']['user_name'],
+				"modifed_by"  			=>  $this->session->userdata['loggedin']['user_name'],
                
-// 				"modifed_dt"  			=>  date('Y-m-d h:i:s')	
-// 			);
+				"modifed_dt"  			=>  date('Y-m-d h:i:s')	
+			);
 
-// 		$where = array(
-//             "receipt_no"     		    =>  $this->input->post('receipt_no')
-// 		);
+		$where = array(
+            "receipt_no"     		    =>  $this->input->post('receipt_no')
+		);
 		 
 
-// 		$this->PurchaseModel->f_edit('td_purchase_ackw', $data_array, $where);
+		$this->PurchaseModel->f_edit('td_purchase_ackw', $data_array, $where);
 
-// 		$this->session->set_flashdata('msg', 'Successfully Updated');
+		$this->session->set_flashdata('msg', 'Successfully Updated');
 
-// 		// redirect('adv/advancefilter');
+		// redirect('adv/advancefilter');
 
-// 	}else{
-// 			$select = array(
-// 						"trans_dt",
+	}else{
+			$select = array(
+						"trans_dt",
 
-// 						"receipt_no",
+						"receipt_no",
 
-// 						"soc_id",
+						"soc_id",
 					
-// 						"trans_type",
+						"trans_type",
 
-// 					    "cshbnk_flag",
+					    "cshbnk_flag",
 						
-// 						"adv_amt",
+						"adv_amt",
 
-// 						"bank",
+						"bank",
 						
-// 						"remarks" ,
-// 						"referenceNo"                         
-// 				);
+						"remarks" ,
+						"referenceNo"                         
+				);
 
-// 			$where = array(
+			$where = array(
 
-// 				"memo_no" => $this->input->get('memo_no')
+				"memo_no" => $this->input->get('memo_no')
 				
-//                 );
-// 			$select2          		= array("sl_no","bank_name");
-// 			$where2                 = array(
-//                 "dist_cd"  =>  $this->session->userdata['loggedin']['branch_id']
-//             );    
-//             $select1          		= array("soc_id","soc_name");
+                );
+			$select2          		= array("sl_no","bank_name");
+			$where2                 = array(
+                "dist_cd"  =>  $this->session->userdata['loggedin']['branch_id']
+            );    
+            $select1          		= array("soc_id","soc_name");
             
-//             $where1                 = array(
-//                 "district"  =>  $this->session->userdata['loggedin']['branch_id']
-//             );       
+            $where1                 = array(
+                "district"  =>  $this->session->userdata['loggedin']['branch_id']
+            );       
 
 			
-// 			$data['mempDtls']        = $this->PurchaseModel->f_get_memo_dtls($this->input->get('memo_no'),$prod_id);
-// 			// print_r($data['mempDtls']);
-// 			// exit();
+			$data['mempDtls']        = $this->PurchaseModel->f_get_memo_dtls($this->input->get('memo_no'),$prod_id);
+			
 
-// 			$data['societyDtls']    = $this->PurchaseModel->f_select("mm_ferti_soc",$select1,$where1,0);
-// 			$selectprod         = array("prod_id","prod_desc");
-// 			$data['proddtls']    = $this->PurchaseModel->f_select("mm_product",$selectprod,NULL,0);  
-// 			$selectcompany         = array("comp_id","comp_name");
-// 			$data['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls',$selectcompany,NULL,0);
-//             $this->load->view('post_login/fertilizer_main');
+			$data['societyDtls']    = $this->PurchaseModel->f_select("mm_ferti_soc",$select1,$where1,0);
+			$selectprod         = array("prod_id","prod_desc");
+			$data['proddtls']    = $this->PurchaseModel->f_select("mm_product",$selectprod,NULL,0);  
+			$selectcompany         = array("comp_id","comp_name");
+			$data['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls',$selectcompany,NULL,0);
+            $this->load->view('post_login/fertilizer_main');
 
-//             $this->load->view("purchase_ackw/edit",$data);
+            $this->load->view("purchase_ackw/edit",$data);
  
-//             $this->load->view("post_login/footer");
-// 	}
-// }
+            $this->load->view("post_login/footer");
+	}
+}
 
 
 //////////////////////////
+
+// public function purackdtladd(){
+// 	$prod_id = $this->input->get('prod_id');
+// 	if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+// 		$transNo = $this->PurchaseModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
+				
+// 		$data  = array (
+// 				'soc_id'      => 0,
+
+// 				'trans_dt'    =>  $this->input->post('trans_dt'),
+
+// 				"trans_no"	  =>  $transNo->trans_no,
+
+// 				"catg"	  =>  $this->input->post('catg'),
+
+// 				'tot_amt'     => $this->input->post('tot_amt'),
+
+// 				"comp_id"	  => $this->input->post('comp_id'),		
+
+// 				'branch_id'   => $this->session->userdata['loggedin']['branch_id'],
+
+// 				"remarks"     => $this->input->post('remarks'),
+
+// 				"note_type"	  => 'C',
+
+// 				"fin_yr"      => $this->session->userdata['loggedin']['fin_id'],
+				
+// 				'created_by'  => $this->session->userdata['loggedin']['user_name'],
+
+// 				'created_dt'  =>  date('Y-m-d h:i:s')
+
+// 			);
+						
+// 				$this->PurchaseModel->f_insert('tdf_dr_cr_note', $data);
+						
+// 				$this->session->set_flashdata('msg', 'Successfully Added');
+
+// 				redirect('drcrnote/cr_note');
+				
+// 	}else {
+
+// 			$wheres = array(
+
+// 			"district" => $this->session->userdata['loggedin']['branch_id']
+				
+// 			);
+// 			$data['mempDtls']        = $this->PurchaseModel->f_get_memo_dtls($this->input->get('memo_no'),$prod_id);
+// 			$select1   				= array("soc_id","soc_name","soc_add","gstin");
+
+// 			$product['socdtls']   	= $this->PurchaseModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+
+// 			$select 				= array("COMP_ID comp_id","COMP_NAME comp_name");
+
+// 			//  $data['proddtls']    = $this->PurchaseModel->f_select("mm_product",$selectprod,NULL,0);  
+// 			$selectcompany         = array("comp_id","comp_name");
+// 			$data['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls',$selectcompany,NULL,0);
+// 			$this->load->view('post_login/fertilizer_main');
+		
+// 			 $this->load->view("purchase_ackw/purdtladd",$product);
+// 			//$this->load->view("purchase_ackw/purdtladd");
+		
+// 			$this->load->view('post_login/footer');
+// 	}
+
+// }
+
+public function purackdtladd(){
+
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+		$tot_amt   = $this->input->post('tot_amt');
+		// $transNo = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
+		for($i = 0; $i < count($tot_amt); $i++){		
+		$data  = array (
+				'memo_no'      =>  $this->input->post('memo_no'),
+				
+				'qty'     => $_POST['tot_amt'][$i],
+
+				"prod_id"	  => $this->input->post('prod_id'),
+
+				"soc_id"	  =>$_POST['soc_id'][$i],		
+				
+				'created_by'  => $this->session->userdata['loggedin']['user_name'],
+
+				'created_dt'  =>  date('Y-m-d h:i:s')
+
+			);
+						
+				$this->PurchaseModel->f_insert('td_purchase_ackw_dtls', $data);
+						
+				$this->session->set_flashdata('msg', 'Successfully Added');
+		}
+				redirect('stock/purackw');
+				
+	}else {
+
+			$wheres = array(
+
+			"district" => $this->session->userdata['loggedin']['branch_id']
+				
+			);
+			
+			$prod_id = $this->input->get('prod_id');
+			$wherep = array('prod_id' =>$prod_id );
+			$product['mempDtls']        = $this->PurchaseModel->f_get_memo_dtls($this->input->get('memo_no'),$prod_id);
+            
+			$select2   				= array("PROD_ID","PROD_DESC");
+
+			$product['prodtls']   	= $this->PurchaseModel->f_select('mm_product',$select2,$wherep,1);
+			$select1   				= array("soc_id","soc_name","soc_add","gstin");
+
+			$product['socdtls']   	= $this->PurchaseModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+
+			$select 				= array("COMP_ID comp_id","COMP_NAME comp_name");
+
+			$product['compdtls']    = $this->PurchaseModel->f_select('mm_company_dtls',$select,NULL,0);
+			$product['catdtls']   = $this->PurchaseModel->f_select('mm_cr_note_category',NULL,NULL,0);
+			$this->load->view('post_login/fertilizer_main');
+		
+			$this->load->view("purchase_ackw/purdtladd",$product);
+		
+			$this->load->view('post_login/footer');
+	}
+
+}
+/////////////////////////////
+
+public function purackdtledit(){
+
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
+		$tot_amt   = $this->input->post('tot_amt');
+		// $transNo = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
+		for($i = 0; $i < count($tot_amt); $i++){		
+		$data  = array (
+				'memo_no'      =>  $this->input->post('memo_no'),
+				
+				'qty'     => $this->input->post('qty'),
+
+				"prod_id"	  => $this->input->post('prod_id'),		
+		
+				'created_by'  => $this->session->userdata['loggedin']['user_name'],
+
+				'created_dt'  =>  date('Y-m-d h:i:s')
+
+			);
+						
+				$this->PurchaseModel->f_insert('td_purchase_ackw_dtls', $data);
+						
+				$this->session->set_flashdata('msg', 'Successfully Added');
+		}
+				redirect('stock/purackw');
+				
+	}else {
+
+			$wheres = array(
+
+			"district" => $this->session->userdata['loggedin']['branch_id']
+				
+			);
+			$memo_no=$this->input->get('memo_no');
+			$prod_id = $this->input->get('prod_id');
+			$wherep = array('prod_id' =>$prod_id );
+			$product['mempDtls']    = $this->PurchaseModel->f_get_memo_dtls($this->input->get('memo_no'),$prod_id);
+			$product['mempDts']    = $this->PurchaseModel->f_get_memo_dtls_nw($this->input->get('memo_no'),$prod_id);
+			$wheredtl = array('a.prod_id' =>$prod_id,'a.memo_no'=>$memo_no,'a.soc_id=b.soc_id'=> NULL );
+			$select3   				= array("a.memo_no","a.prod_id","b.soc_name","a.soc_id","a.qty");
+			$select2   				= array("PROD_ID","PROD_DESC");
+
+			$product['prodtls']   	= $this->PurchaseModel->f_select('mm_product',$select2,$wherep,1);
+			$select1   				= array("soc_id","soc_name","soc_add","gstin");
+
+			$product['socdtls']   	= $this->PurchaseModel->f_select('mm_ferti_soc',$select1,$wheres,0);
+
+			$select 				= array("COMP_ID comp_id","COMP_NAME comp_name");
+
+			$product['compdtls']    = $this->PurchaseModel->f_select('mm_company_dtls',$select,NULL,0);
+			$product['catdtls']     = $this->PurchaseModel->f_select('mm_cr_note_category',NULL,NULL,0);
+
+			$product['purdtls']    = $this->PurchaseModel->f_select('td_purchase_ackw_dtls a ,mm_ferti_soc b',$select3 ,$wheredtl,0);
+		
+			$this->load->view('post_login/fertilizer_main');
+		
+			$this->load->view("purchase_ackw/purdtlsedit",$product);
+		
+			$this->load->view('post_login/footer');
+	}
+
+}
+
+/////////////////////////////
+
+/////////
 	public function pur_ackwrep()
 	{
 		if ($this->input->post()) {
