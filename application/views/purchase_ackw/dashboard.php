@@ -59,6 +59,8 @@ a.dt-button{
                         <th>Product</th>
                         <th>Qty</th>
             			<th>No fo Days</th>
+                        <th>Edit</th>
+                        <th>Detail view</th>
                         <th>Delete</th>
                     </tr>
 
@@ -92,6 +94,18 @@ a.dt-button{
                                 <td><?php echo $value->PROD_DESC; ?></td>
                                 <td><?php echo $value->qty; ?></td>
                                 <td><?php echo $value->no_of_days; ?></td>
+                                <td><a href="pur_ackwedit?memo_no=<?php echo $value->memo_no;?>&prod_id=<?php echo $value->prod_id;?> " 
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
+
+                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                    </a> 
+                                </td>
+                                <td><a href="purackdtledit?memo_no=<?php echo $value->memo_no;?>&prod_id=<?php echo $value->prod_id;?> " 
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit">
+
+                                        <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
+                                    </a> 
+                                </td>
                                 <td>
                                     <!-- <button type="button" name="delete_<?= $i ?>" class="delete" id="<?=$value->ro_no;?>"    
                                        
@@ -128,6 +142,8 @@ a.dt-button{
                         <th>Product</th>
                         <th>Qty</th>
             			<th>No fo Days</th>
+                        <th>Edit</th>
+                        <th>Detail view</th>
                         <th>Delete</th>
                     </tr>
                 

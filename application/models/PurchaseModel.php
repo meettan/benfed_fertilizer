@@ -95,7 +95,15 @@
 		$sql = $this->db->query("SELECT a.stock_qty -  (select  ifnull(sum(qty) ,0) from td_sale where sale_ro ='$ro') stkqty,a.prod_id ,b.gst_rt ,a.govt_sale_rt FROM td_purchase a ,mm_product b WHERE a.prod_id=b.prod_id and  a.ro_no = '$ro'");
 			return $sql->row();
 		}
-		
+		public function f_get_memo_dtls($memo_no,$prod_id){
+			$sql = $this->db->query("SELECT * from td_purchase_ackw where memo_no='$memo_no' and prod_id='$prod_id'");
+			return $sql->row();
+		}
+
+		public function f_get_memo_dtls_nw($memo_no,$prod_id){
+			$sql = $this->db->query("SELECT * from td_purchase_ackw where memo_no='$memo_no' and prod_id='$prod_id'");
+			return $sql->result();
+		}
 		public function f_get_drnote_dtls(){
 
 		$data = $this->db->query("select a.comp_id,a.ro_no,a.ro_dt,a.invoice_no, sum(a.soc_amt) as tot_amt,b.COMP_NAME COMP_NAME
