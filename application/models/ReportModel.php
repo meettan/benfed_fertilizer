@@ -298,7 +298,6 @@ function papulate_blance_purchase($fDate, $tDate,$dist){
                                 from   td_purchase a,mm_product b,mm_company_dtls c
                                 where  a.prod_id = b.PROD_ID
                                 and    a.comp_id = c.COMP_ID
-                               
                                 and     a.br       = $branch
                                 order by a.comp_id,a.prod_id");
 
@@ -2963,9 +2962,9 @@ and a.ro_no not in (select sale_ro from td_sale
     public function tcs_payable($frm_date,$to_date){
         $fin_id = $this->session->userdata['loggedin']['fin_id'];
         $br     = $this->session->userdata['loggedin']['branch_id'];
-        $q  = $this->db->query("select  x.soc_name,sum(April)April,sum(May)May,sum(June)June,sum(July)July,sum(August)August,sum(September)September,sum(October)October,sum(November)November,sum(December)December,sum(January)January,sum(February)February,sum(March)March
+        $q  = $this->db->query("select  x.soc_name,sum(April)April,sum(May)May,sum(June)June,sum(July)July,sum(August)August,sum(September)September,sum(October)October,sum(November)November,sum(December)December,sum(January)January,sum(February)February,sum(March)March,if(op_bal<0,adv_amt,adv_amt+op_bal)adv_amt
         from(
-        select b.soc_name,c.month_name,c.id,a.yr,
+        select b.soc_name,c.month_name,c.id,a.yr,adv_amt,b.soc_id,op_bal,
         if(c.month_name='April',sum(a.tot_amt),0)April,
         if(c.month_name='May',sum(a.tot_amt),0)May,
         if(c.month_name='June',sum(a.tot_amt),0)June,
@@ -2978,9 +2977,21 @@ and a.ro_no not in (select sale_ro from td_sale
         if(c.month_name='January',sum(a.tot_amt),0)January,
         if(c.month_name='February',sum(a.tot_amt),0)February,
         if(c.month_name='March',sum(a.tot_amt),0)March
-        
         from(
-        SELECT soc_id,sum(`paid_amt`)tot_amt,CAST(substr( paid_dt,6,2) AS UNSIGNED)month,substr( paid_dt,1,4)yr  FROM `tdf_payment_recv`
+        SELECT soc_id,sum(`paid_amt`)tot_amt,CAST(substr( paid_dt,6,2) AS UNSIGNED)month,substr( paid_dt,1,4)yr  ,
+        (select sum(adv_amt)
+        from  tdf_advance e
+        where trans_type='I' 
+        and trans_dt   BETWEEN '$frm_date' AND '$to_date'
+        and e.soc_id=tdf_payment_recv.soc_id
+        AND e.branch_id = $br)as adv_amt,
+        (select  IFNULL(y.balance,0) from td_soc_opening y 
+        where y.soc_id=tdf_payment_recv.soc_id
+        and y.br_cd=$br
+        and op_dt =(select fin_start from md_fin_year where sl_no=$fin_id))as op_bal
+
+
+        FROM `tdf_payment_recv`
         WHERE `paid_dt` BETWEEN '$frm_date' AND '$to_date'
         AND `branch_id` = $br
         AND `fin_yr` = $fin_id
@@ -2989,7 +3000,9 @@ and a.ro_no not in (select sale_ro from td_sale
         where a.soc_id=b.soc_id
         and a.month=c.id
         group by b.soc_name,c.month_name,a.yr
-        order by b.soc_name,a.yr,c.month_name)x
+        order by b.soc_name,a.yr,c.month_name)x,td_soc_opening y
+        where x.soc_id=y.soc_id
+        
         group by x.soc_name;"); 
         return $q->result();
     }

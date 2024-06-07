@@ -93,6 +93,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>January </th>
                                 <th>February </th>
                                 <th>March </th>
+                                <th>Total </th>
+                                <th>Advance amount </th>
                             
                             </tr>
 
@@ -124,7 +126,12 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ptableDatasidt->January ; ?></td>
                                      <td><?php echo $ptableDatasidt->February ; ?></td>
                                      <td><?php echo $ptableDatasidt->March ; ?></td>
-                                    
+                                     <td><?php echo $ptableDatasidt->April+ $ptableDatasidt->May +
+                                      $ptableDatasidt->June + $ptableDatasidt->July +$ptableDatasidt->August+
+                                      $ptableDatasidt->September+ $ptableDatasidt->October+ $ptableDatasidt->November
+                                      + $ptableDatasidt->December+$ptableDatasidt->January+ $ptableDatasidt->February+
+                                      $ptableDatasidt->March;?></td>
+                                      <td><?php echo $ptableDatasidt->adv_amt ; ?></td>
                                 </tr>
                                
  
