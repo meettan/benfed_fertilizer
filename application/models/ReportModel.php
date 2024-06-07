@@ -2987,10 +2987,8 @@ and a.ro_no not in (select sale_ro from td_sale
         AND e.branch_id = $br)as adv_amt,
         (select  IFNULL(y.balance,0) from td_soc_opening y 
         where y.soc_id=tdf_payment_recv.soc_id
-        and y.br_cd=$br
+        and y.br_cd=$br 
         and op_dt =(select fin_start from md_fin_year where sl_no=$fin_id))as op_bal
-
-
         FROM `tdf_payment_recv`
         WHERE `paid_dt` BETWEEN '$frm_date' AND '$to_date'
         AND `branch_id` = $br
@@ -3000,9 +2998,7 @@ and a.ro_no not in (select sale_ro from td_sale
         where a.soc_id=b.soc_id
         and a.month=c.id
         group by b.soc_name,c.month_name,a.yr
-        order by b.soc_name,a.yr,c.month_name)x,td_soc_opening y
-        where x.soc_id=y.soc_id
-        
+        order by b.soc_name,a.yr,c.month_name)x
         group by x.soc_name;"); 
         return $q->result();
     }
