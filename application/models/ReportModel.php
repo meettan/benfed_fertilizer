@@ -949,7 +949,8 @@ from (
         sum(CCFL_QTY)CCFL_QTY,sum(CCFL_LQQTY)CCFL_LQQTY,sum(CCFL_VALUE)CCFL_VALUE,
         sum(HURL_QTY)HURL_QTY,sum(HURL_LQQTY)HURL_LQQTY,sum(HURL_VALUE)HURL_VALUE,
         sum(KFL_QTY)KFL_QTY,sum(KFL_LQQTY)KFL_LQQTY,sum(KFL_VALUE)KFL_VALUE,
-        sum(MFCL_QTY)MFCL_QTY,sum(MFCL_LQQTY)MFCL_LQQTY,sum(MFCL_VALUE)MFCL_VALUE
+        sum(MFCL_QTY)MFCL_QTY,sum(MFCL_LQQTY)MFCL_LQQTY,sum(MFCL_VALUE)MFCL_VALUE,
+        sum(NFL_QTY)NFL_QTY,sum(NFL_LQQTY)NFL_LQQTY,sum(NFL_VALUE)NFL_VALUE
                                     from(
                                     SELECT b.fin_yr, if(c.comp_id=1,round(sum(CASE
                                     WHEN a.unit = 1 THEN a.qty
@@ -976,7 +977,9 @@ from (
                                     WHEN a.unit = 3 THEN a.qty
                                     WHEN a.unit = 5 THEN a.qty/1000
                                     ELSE 0
-                                    END ),3),0)KRIBCO_LQQTY,if(c.comp_id=2,sum(a.tot_amt) ,0)KRIBCO_VALUE,
+                                    END ),3),0)KRIBCO_LQQTY,
+                                    if(c.comp_id=2,sum(a.tot_amt) ,0)KRIBCO_VALUE,
+
                                     if(c.comp_id=3,round(sum(CASE
                                     WHEN a.unit = 1 THEN a.qty
                                     WHEN a.unit = 2 THEN a.qty/1000
@@ -988,7 +991,9 @@ from (
                                     WHEN a.unit = 3 THEN a.qty
                                     WHEN a.unit = 5 THEN a.qty/1000
                                     ELSE 0
-                                    END ),3),0)IPL_LQQTY,if(c.comp_id=3,sum(a.tot_amt) ,0)IPL_VALUE,
+                                    END ),3),0)IPL_LQQTY,
+                                    if(c.comp_id=3,sum(a.tot_amt) ,0)IPL_VALUE,
+
                                     if(c.comp_id=6,round(sum(CASE
                                     WHEN a.unit = 1 THEN a.qty
                                     WHEN a.unit = 2 THEN a.qty/1000
@@ -1049,7 +1054,7 @@ from (
                             WHEN a.unit = 5 THEN a.qty/1000
                             ELSE 0
                             END ),3),0)CCFL_LQQTY,if(c.comp_id=10,sum(a.tot_amt) ,0)CCFL_VALUE,
-                                    if(c.comp_id=11,round(sum(CASE
+                            if(c.comp_id=11,round(sum(CASE
                                 WHEN a.unit = 1 THEN a.qty
                                 WHEN a.unit = 2 THEN a.qty/1000
                                 WHEN a.unit = 4 THEN a.qty/10
@@ -1060,7 +1065,21 @@ from (
                             WHEN a.unit = 3 THEN a.qty
                             WHEN a.unit = 5 THEN a.qty/1000
                             ELSE 0
-                            END ),3),0)HURL_LQQTY,if(c.comp_id=11,sum(a.tot_amt) ,0)HURL_VALUE,
+                            END ),3),0)HURL_LQQTY,
+                            if(c.comp_id=11,sum(a.tot_amt) ,0)HURL_VALUE,
+                            if(c.comp_id=13,round(sum(CASE
+                                    WHEN a.unit = 1 THEN a.qty
+                                    WHEN a.unit = 2 THEN a.qty/1000
+                                    WHEN a.unit = 4 THEN a.qty/10
+                                    WHEN a.unit = 6 THEN a.qty/10000
+                                    ELSE 0
+                                END ),3),0)NFL_QTY, 
+                                    if(c.comp_id=13,round(sum(CASE
+                                    WHEN a.unit = 3 THEN a.qty
+                                    WHEN a.unit = 5 THEN a.qty/1000
+                                    ELSE 0
+                                    END ),3),0)NFL_LQQTY,
+                                    if(c.comp_id=13,sum(a.tot_amt) ,0)NFL_VALUE,
                             if(c.comp_id=8,round(sum(CASE
                                     WHEN a.unit = 1 THEN a.qty
                                     WHEN a.unit = 2 THEN a.qty/1000

@@ -131,6 +131,10 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>MFCL Liquid Qty</th>
                                 <th>MFCL Value</th>
 
+                                <th>NFL Solid Qty</th>
+                                <th>NFL Liquid Qty</th>
+                                <th>NFL Value</th>
+
                             </tr>
 
                         </thead>
@@ -187,6 +191,9 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $prodtls->MFCL_QTY; ?>
                                      <td class="report"><?php echo $prodtls->MFCL_LQQTY; ?> 
                                      <td class="report"><?php echo $prodtls->MFCL_VALUE; ?>
+                                     <td class="report"><?php echo $prodtls->NFL_QTY; ?>
+                                     <td class="report"><?php echo $prodtls->NFL_LQQTY; ?> 
+                                     <td class="report"><?php echo $prodtls->NFL_VALUE; ?>
                                 </tr>
  
                                 <?php  
