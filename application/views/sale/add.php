@@ -154,6 +154,7 @@
                         required>
                         <option value="N">No</option>
                         <option value="Y">Yes</option>
+                        <option value="X">FPO</option>
                     </select>
                 </div>
             </div>
