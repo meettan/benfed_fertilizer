@@ -1575,12 +1575,15 @@ public function f_get_dist_bnk_dtls(){
 									
 					$data_array_fin['fin_fulyr']=$fin_year;
 					$data_array_fin['br_nm']= $brn->dist_sort_code;
+			
 				
+				
+				echo $this->ApiVoucher->f_advtrnjnl( $data_array_fin);
+die();
 					if($this->ApiVoucher->f_advtrnjnl( $data_array_fin)==1){
 						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
 						$this->AdvanceModel->f_insert_insecticide('tdf_advance', $data_arrayi);
-					echo $this->db->last_query();
-					die();
+					
 						$this->session->set_flashdata('msg', 'Successfully Added');
 					 }else{
 					 	$this->session->set_flashdata('msg', 'Error in accounting!!');
