@@ -152,9 +152,9 @@
                     <table class="table table-striped table-bordered table-hover">
 
                         <thead>
-                            <th style="text-align: center;width:100px">Type</th>
+                            <th style="text-align: center;width:100px">Name</th>
 
-                            <th style="text-align: center;width:100px">Amount</th>
+                            <th style="text-align: center;width:100px">Qty</th>
 
                             <th>
                                 <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
