@@ -1496,13 +1496,13 @@ public function f_get_dist_bnk_dtls(){
 	
 	
 			 $select_adv         = array( "adv_acc",'acc_cd');
-			 $select_advinse        = array( 'i_adv_acc','i_acc_cd');
+			 
 			
 			$where_adv          = array(
 				"district"     =>  $branch,
 				"soc_id"     => $this->input->post('society')
 			);
-	
+			$select_advinse        = array( 'i_adv_acc','i_acc_cd');
 			$adv_acc= $this->AdvanceModel->f_select("mm_ferti_soc",$select_adv,$where_adv,1);
 		
 			$where_advi          = array(
@@ -1512,8 +1512,7 @@ public function f_get_dist_bnk_dtls(){
 	
 			// $adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
 			$adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",$select_advinse,$where_advi,1);
-		print_r($adv_acci->i_adv_acc);
-			// 	echo $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
+		echo $this->db->last_query();
 		 die();
 
 			$bbranch=$this->input->post('bank_id');
