@@ -1567,7 +1567,9 @@ public function f_get_dist_bnk_dtls(){
 					$data_array_fin=$data_array;
 					$data_array_fin['acc_code'] = $adv_acc->adv_acc; 
 					$data_array_fin['adv_acc'] = $adv_acci->i_adv_acc;
-	
+	print_r($adv_acc->adv_acc);
+	print_r($adv_acci->i_adv_accc);
+	exit();
 					$select_soc         = array("soc_name");
 					$where_soc           = array("soc_id"     => $soc_id);
 					$soc_name = $this->AdvanceModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
