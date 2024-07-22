@@ -1496,7 +1496,7 @@ public function f_get_dist_bnk_dtls(){
 	
 	
 			 $select_adv         = array( "adv_acc",'acc_cd');
-			 $select_advinse        = array( "i_adv_acc",'i_acc_cd');
+			 $select_advinse        = array( 'i_adv_acc','i_acc_cd');
 			
 			$where_adv          = array(
 				"district"     =>  $branch,
