@@ -1510,7 +1510,7 @@ public function f_get_dist_bnk_dtls(){
 			);
 	
 			$adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
-			echo $this->db->last_query();
+			echo $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
 		die();
 
 			$bbranch=$this->input->post('bank_id');
