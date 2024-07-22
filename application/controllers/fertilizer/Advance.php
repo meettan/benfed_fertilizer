@@ -1496,7 +1496,7 @@ public function f_get_dist_bnk_dtls(){
 	
 	
 			 $select_adv         = array( "adv_acc",'acc_cd');
-			 $select_advi        = array( "i_adv_acc",'i_acc_cd');
+			 $select_advinse        = array( "i_adv_acc",'i_acc_cd');
 			
 			$where_adv          = array(
 				"district"     =>  $branch,
@@ -1511,8 +1511,8 @@ public function f_get_dist_bnk_dtls(){
 			);
 	
 			// $adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
-			$adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",$select_advi,$where_advi,1);
-		echo $this->db->last_query();
+			$adv_acci= $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",$select_advinse,$where_advi,1);
+		print_r($adv_acci->i_adv_acc);
 			// 	echo $this->FertilizerModel->f_select_insecticide("mm_ferti_soc",array("i_adv_acc",'i_acc_cd'),$where_advi,1);
 		 die();
 
