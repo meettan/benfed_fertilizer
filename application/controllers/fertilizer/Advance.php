@@ -1531,7 +1531,8 @@ public function f_get_dist_bnk_dtls(){
 						"trans_type"   		=> 'O',
 						'transfer_flag'     => 'Y',
 						"adv_amt"			=> $this->input->post('adv_amt'),
-						"bank"              => $branchid,
+						// "bank"              => $branchid,
+						"bank"              => 0,
 						"remarks" 			=> 'TRANSFER AMOUNT TO INSECTICIDE',
 						"referenceNo"		=> $this->input->post('referenceNo'),
 						"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
@@ -1551,7 +1552,8 @@ public function f_get_dist_bnk_dtls(){
 						"trans_type"   		=> 'I',
 						"adv_amt"			=> $this->input->post('adv_amt'),
 						'adv_number'        => $adv_number, 
-						"bank"              => $branchid,
+						// "bank"              => $branchid,
+						"bank"              => 0,
 						"remarks" 			=> 'TRANSFER AMOUNT TO INSECTICIDE',
 						"referenceNo"		=> $this->input->post('referenceNo'),
 						"created_by"    	=> $this->session->userdata['loggedin']['user_name'],    
@@ -1578,8 +1580,8 @@ public function f_get_dist_bnk_dtls(){
 			
 				
 				
-				echo $this->ApiVoucher->f_advtrnjnl( $data_array_fin);
-die();
+// 				echo $this->ApiVoucher->f_advtrnjnl( $data_array_fin);
+// die();
 					if($this->ApiVoucher->f_advtrnjnl( $data_array_fin)==1){
 						$this->AdvanceModel->f_insert('tdf_advance', $data_array);
 						$this->AdvanceModel->f_insert_insecticide('tdf_advance', $data_arrayi);
