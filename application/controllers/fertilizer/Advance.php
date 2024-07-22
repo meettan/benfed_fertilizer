@@ -1503,7 +1503,8 @@ public function f_get_dist_bnk_dtls(){
 			);
 	
 			$adv_acc= $this->AdvanceModel->f_select("mm_ferti_soc",$select_adv,$where_adv,1);
-			
+		echo $this->db->last_query();
+		die();
 			$where_advi          = array(
 				"district"     =>  $branch,
 				"soc_id"     => $this->input->post('society')
