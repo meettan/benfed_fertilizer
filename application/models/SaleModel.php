@@ -373,7 +373,7 @@ return $sql->result();
 										                 and district='$br_cd'
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
-			}elseif($gov_sale_rt =="Y"){
+			}else if($gov_sale_rt =="Y"){
 									$sql = $this->db->query("SELECT sp_govt  
 														     from  mm_sale_rate
 										                     where  catg_id = '$category'
@@ -381,7 +381,7 @@ return $sql->result();
 								                             and comp_id='$comp_id'
 								                             and prod_id ='$prod_id'
 															 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
-										 						and district='$br_cd'
+										 					and district='$br_cd'
 															and comp_id='$comp_id'
 															and prod_id ='$prod_id')");
 			}else{
