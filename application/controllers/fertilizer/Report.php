@@ -2429,6 +2429,8 @@ public function soc_payblepaid(){
             if($memoNumber==''||$memoNumber==null){
             
                 $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,null);
+            //     echo $this->db->lastr_query();
+            //   die();
                 $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,null);
                 $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,null);
 
@@ -2438,6 +2440,7 @@ public function soc_payblepaid(){
             }else{
 
               $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,$memoNumber);
+              
               $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,$memoNumber);
               $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber);
               $data['fDate']= $frm_date;
@@ -2473,7 +2476,8 @@ public function soc_payblepaid(){
             $refereceNo  = $this->input->post('refereceNo');
             if($refereceNo==""||$refereceNo==null){
                 $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
-               
+            //    echo $this->db->last_query();
+            //    die();
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
 
                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
@@ -2516,6 +2520,7 @@ public function soc_payblepaid(){
             $refereceNo  = $this->input->post('refereceNo');
             if($refereceNo==""||$refereceNo==null){
                 $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+                
                 $data['sumrydtls']= $this->ReportModel->getpaymentsummary($comp_id,$frm_date,$to_date);
                
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
@@ -2717,11 +2722,18 @@ public function soc_payblepaid(){
     }
     public function tcs_payable(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-
+            // $selectstyr   = array("fin_start" );
+          
            
+            $fin_id = $this->session->userdata['loggedin']['fin_id'];
+            $wherefin=array('sl_no ='=>$fin_id);
+            $data['finstrt'] = $this->ReportModel->f_select('md_fin_year ',$selectstyr,$wherefin,1);
+            $op_dt=$data['finstrt'];
+            echo $op_dt;
+            // die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
-            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date);
+            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date,$op_dt);
             $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
             $data['fDate']= $frm_date;
             $data['tDate']=$to_date;
