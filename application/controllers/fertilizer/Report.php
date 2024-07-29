@@ -2722,7 +2722,7 @@ public function soc_payblepaid(){
     }
     public function tcs_payable(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-            // $selectstyr   = array("fin_start" );
+             $selectstyr   = array("fin_start" );
           
            
             $fin_id = $this->session->userdata['loggedin']['fin_id'];
