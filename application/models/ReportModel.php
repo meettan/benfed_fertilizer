@@ -2657,6 +2657,7 @@ and a.ro_no not in (select sale_ro from td_sale
                         and a.district=c.district_code
                         and a.comp_id=d.comp_id
                         and a.pur_inv_no=e.invoice_no
+                        and a.pur_ro=e.ro_no
                         and a.net_amt > 0
                         and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
                         AND a.fin_yr =  $fin_id
@@ -2684,6 +2685,7 @@ and a.ro_no not in (select sale_ro from td_sale
                             and a.district=c.district_code
                             and a.comp_id=d.comp_id
                             and a.pur_inv_no=e.invoice_no
+                            and a.pur_ro=e.ro_no
                             and a.net_amt > 0
                             and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
                             AND a.fin_yr =  $fin_id
