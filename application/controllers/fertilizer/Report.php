@@ -2729,8 +2729,8 @@ public function soc_payblepaid(){
             $wherefin=array('sl_no ='=>$fin_id);
             $op_dt = $this->ReportModel->f_select('md_fin_year ',$selectstyr,$wherefin,1);
             // $op_dt=$data['finstrt'];
-            // echo $op_dt;
-            // die();
+             echo $op_dt;
+             die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
             $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date,$op_dt);
