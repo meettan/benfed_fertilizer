@@ -81,20 +81,12 @@ tr:hover {background-color: #f5f5f5;}
                             <tr>
                             
                                 <th>Society Name.</th>
-                                <th>April</th>
-                                <th>May</th>
-                                <th>June</th>
-                                <th>July</th>
-                                <th>August</th>
-                                <th>September</th>
-                                <th>October </th>
-                                <th>November </th>
-                                <th>December </th>
-                                <th>January </th>
-                                <th>February </th>
-                                <th>March </th>
-                                <th>Total </th>
-                                <th>Advance amount </th>
+                                <th>Sale</th>
+                                <th>Advance</th>
+                                <th>Cumulative Sale</th>
+                                <th>Cumulative Advance</th>
+                                <!-- <th>Total </th>
+                                <th>Advance amount </th> -->
                             
                             </tr>
 
@@ -114,24 +106,16 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr>
                                     
                                      <td><?php echo $ptableDatasidt->soc_name; ?></td>
-                                     <td><?php echo $ptableDatasidt->April ; ?></td>
-                                     <td><?php echo $ptableDatasidt->May ; ?></td>
-                                     <td><?php echo $ptableDatasidt->June ; ?></td>
-                                     <td><?php echo $ptableDatasidt->July ; ?></td>
-                                     <td><?php echo $ptableDatasidt->August ; ?></td>
-                                     <td><?php echo $ptableDatasidt->September ; ?></td>
-                                     <td><?php echo $ptableDatasidt->October ; ?></td>
-                                     <td><?php echo $ptableDatasidt->November ; ?></td>
-                                     <td><?php echo $ptableDatasidt->December ; ?></td>
-                                     <td><?php echo $ptableDatasidt->January ; ?></td>
-                                     <td><?php echo $ptableDatasidt->February ; ?></td>
-                                     <td><?php echo $ptableDatasidt->March ; ?></td>
-                                     <td><?php echo $ptableDatasidt->April+ $ptableDatasidt->May +
+                                     <td><?php echo $ptableDatasidt->sale_amt ; ?></td>
+                                     <td><?php echo $ptableDatasidt->adv_amt ; ?></td>
+                                     <td><?php echo $ptableDatasidt->sale_upto ; ?></td>
+                                     <td><?php echo $ptableDatasidt->adv_amt_upto ; ?></td>
+                                     <!-- <td><?php echo $ptableDatasidt->April+ $ptableDatasidt->May +
                                       $ptableDatasidt->June + $ptableDatasidt->July +$ptableDatasidt->August+
                                       $ptableDatasidt->September+ $ptableDatasidt->October+ $ptableDatasidt->November
                                       + $ptableDatasidt->December+$ptableDatasidt->January+ $ptableDatasidt->February+
                                       $ptableDatasidt->March;?></td>
-                                      <td><?php echo $ptableDatasidt->adv_amt ; ?></td>
+                                      <td><?php echo $ptableDatasidt->adv_amt ; ?></td> -->
                                 </tr>
                                
  
@@ -141,7 +125,7 @@ tr:hover {background-color: #f5f5f5;}
                                 ?>
 
                                 <tr>
-                                    <td colspan="5"><b>Total</b></td>
+                                    <!-- <td colspan="5"><b>Total</b></td> -->
                                     
                                     <td><b></b></td>
                                     <td><b><?php //echo $totalAmount; ?></b></td>
