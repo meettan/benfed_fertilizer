@@ -1200,7 +1200,7 @@ END ),3)lqdqty,
 
     public function f_get_op_dt($fin_yr){
         // $data=$this->db->query("select from md_fin_year where sl_no=$fin_yr");
-        $query  = $this->db->query("select from md_fin_year where sl_no=$fin_yr");
+        $query  = $this->db->query("select fin_start from md_fin_year where sl_no=$fin_yr");
         return $query->row();
 
     }
