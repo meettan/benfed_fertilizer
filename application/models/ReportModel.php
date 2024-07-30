@@ -1198,7 +1198,12 @@ END ),3)lqdqty,
         return $query->result();
     }
 
+    public function f_get_op_dt($fin_yr){
+        // $data=$this->db->query("select from md_fin_year where sl_no=$fin_yr");
+        $query  = $this->db->query("select from md_fin_year where sl_no=$fin_yr");
+        return $query->row();
 
+    }
 //==============================Branchwise Purchase Report at HO (individual and all branch)===========================
     public function pc($from_dt,$to_dt,$branch,$company)
     {

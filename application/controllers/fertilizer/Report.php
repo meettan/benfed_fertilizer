@@ -2722,12 +2722,14 @@ public function soc_payblepaid(){
     }
     public function tcs_payable(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
-             $selectstyr   = array("fin_start" );
+            //  $selectstyr   = array("fin_start" );
           
            
             $fin_id = $this->session->userdata['loggedin']['fin_id'];
-            $wherefin=array('sl_no ='=>$fin_id);
-            $op_dt = $this->ReportModel->f_select("md_fin_year",$selectstyr,$wherefin,1);
+            // $wherefin=array('sl_no ='=>$fin_id);
+            // $op_dt = $this->ReportModel->f_select("md_fin_year",$selectstyr,$wherefin,1);
+            $op_dt =$this->ReportModel->f_get_op_dt($fin_id);
+
             // $op_dt=$data['finstrt'];
             //  echo $this->db->last_query();
             //  die();
