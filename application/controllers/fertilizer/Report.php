@@ -2733,7 +2733,7 @@ public function soc_payblepaid(){
             // $op_dt=$data['finstrt'];
             //  echo $this->db->last_query();
             //  die();
-             echo $op_dt;
+             echo $op_dt->fin_start;
             die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
