@@ -2726,17 +2726,16 @@ public function soc_payblepaid(){
           
            
             $fin_id = $this->session->userdata['loggedin']['fin_id'];
-            // $wherefin=array('sl_no ='=>$fin_id);
-            // $op_dt = $this->ReportModel->f_select('md_fin_year ',$selectstyr,$wherefin,0);
+            $wherefin=array('sl_no ='=>$fin_id);
+            $op_dt = $this->ReportModel->f_select("md_fin_year",$selectstyr,$wherefin,1);
             // $op_dt=$data['finstrt'];
             //  echo $this->db->last_query();
             //  die();
-            $op_dt =$this->db->query("select fin_start from md_fin_year where sl_no=$fin_id");
-        echo $op_dt;
-        die();
+            echo $op_dt;
+            die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
-            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date);
+            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date,$op_dt);
             $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
             $data['fDate']= $frm_date;
             $data['tDate']=$to_date;
