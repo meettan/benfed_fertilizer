@@ -2729,7 +2729,7 @@ public function soc_payblepaid(){
             $wherefin=array('sl_no ='=>$fin_id);
             $op_dt = $this->ReportModel->f_select('md_fin_year ',$selectstyr,$wherefin,0);
             // $op_dt=$data['finstrt'];
-             echo $op_dt;
+             echo $this->db->last_query();
              die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
