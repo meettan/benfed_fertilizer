@@ -2731,6 +2731,9 @@ public function soc_payblepaid(){
             // $op_dt=$data['finstrt'];
             //  echo $this->db->last_query();
             //  die();
+            $op_dt =$this->db->query("select fin_start from md_fin_year where sl_no=$fin_id");
+        echo $op_dt;
+        die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
             $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date);
