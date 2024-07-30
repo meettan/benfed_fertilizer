@@ -2731,10 +2731,10 @@ public function soc_payblepaid(){
             $op_dt =$this->ReportModel->f_get_op_dt($fin_id);
 
             // $op_dt=$data['finstrt'];
-            //  echo $this->db->last_query();
-            //  die();
-            echo $op_dt;
-            die();
+             echo $this->db->last_query();
+             die();
+            // echo $op_dt;
+            // die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
             $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date,$op_dt);
