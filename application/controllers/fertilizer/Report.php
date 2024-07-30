@@ -2733,7 +2733,7 @@ public function soc_payblepaid(){
             //  die();
             $frm_date = $this->input->post('fr_date');
             $to_date  = $this->input->post('to_date');
-            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_datet);
+            $data['tableData']=$this->ReportModel->tcs_payable($frm_date,$to_date);
             $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
             $data['fDate']= $frm_date;
             $data['tDate']=$to_date;
