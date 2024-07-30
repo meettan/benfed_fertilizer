@@ -2985,7 +2985,7 @@ and a.ro_no not in (select sale_ro from td_sale
         }
         return $q->result();
     }
-    public function tcs_payable($frm_date,$to_date){
+    public function tcs_payable($frm_date,$to_date,$op_dt){
         $fin_id = $this->session->userdata['loggedin']['fin_id'];
         $br     = $this->session->userdata['loggedin']['branch_id'];
         
