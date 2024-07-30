@@ -2980,9 +2980,12 @@ and a.ro_no not in (select sale_ro from td_sale
         }
         return $q->result();
     }
-    public function tcs_payable($frm_date,$to_date,$op_dt){
+    public function tcs_payable($frm_date,$to_date){
         $fin_id = $this->session->userdata['loggedin']['fin_id'];
         $br     = $this->session->userdata['loggedin']['branch_id'];
+        $op_dt =$this->db->query("select fin_start from md_fin_year where sl_no=$fin_id");
+        echo $op_dt;
+        die();
         // $q  = $this->db->query("select  x.soc_name,sum(April)April,sum(May)May,sum(June)June,sum(July)July,sum(August)August,sum(September)September,sum(October)October,sum(November)November,sum(December)December,sum(January)January,sum(February)February,sum(March)March,if(op_bal<0,adv_amt,adv_amt+op_bal)adv_amt
         // from(
         // select b.soc_name,c.month_name,c.id,a.yr,adv_amt,b.soc_id,op_bal,
