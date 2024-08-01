@@ -138,6 +138,7 @@
 
                         <select name="ref_invoice_no" id="ref_invoice_no" class="form-control sch_cd">
                             <option value="">Select Invoice</option>
+                            <option value="0">Others</option>
                         </select>
                     </div>
 
