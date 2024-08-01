@@ -138,7 +138,7 @@
 
                         <select name="ref_invoice_no" id="ref_invoice_no" class="form-control sch_cd">
                             <option value="">Select Invoice</option>
-                            <option value="0">Others</option>
+                            <!-- <option value="0">Others</option> -->
                         </select>
                     </div>
 
@@ -296,7 +296,7 @@
             ).done(function (data) {
 
                 var string = '<option value="">Select Invoice</option>';
-
+                string += '<option value="0">Others</option>';
                 $.each(JSON.parse(data), function (index, value) {
 
                     string += '<option value="' + value.trans_do + '">' + value
