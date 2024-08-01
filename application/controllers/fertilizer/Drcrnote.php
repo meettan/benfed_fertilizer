@@ -378,9 +378,9 @@ public function drnoteReport()
 // $a2=array("blue","yellow");
 // print_r(array_merge($a1,$a2));
 
-$a=array("trans_do");
-$a=array_push($a,"others);
-			$inv = $this->DrcrnoteModel->f_select('td_sale',$a,array('soc_id' => $this->input->get("soc_id"),'comp_id'=>$this->input->get("comp_id"),'fin_yr'=>$this->input->get("year")),0);
+// $a=array("trans_do");
+// $ap=array_push($a,"others);
+			$inv = $this->DrcrnoteModel->f_select('td_sale',array("trans_do","sale_ro"),array('soc_id' => $this->input->get("soc_id"),'comp_id'=>$this->input->get("comp_id"),'fin_yr'=>$this->input->get("year")),0);
 			echo json_encode($inv);
 		
 		}
