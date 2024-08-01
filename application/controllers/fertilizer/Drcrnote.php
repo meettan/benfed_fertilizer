@@ -372,8 +372,15 @@ public function drnoteReport()
 		}
 		public function f_get_sale_refinv(){
 
-			   
-			$inv = $this->DrcrnoteModel->f_select('td_sale',array("trans_do","sale_ro"),array('soc_id' => $this->input->get("soc_id"),'comp_id'=>$this->input->get("comp_id"),'fin_yr'=>$this->input->get("year")),0);
+			// $a=array("red","green");
+			// array_push($a,"blue","yellow");
+// 			$a1=array("red","green");
+// $a2=array("blue","yellow");
+// print_r(array_merge($a1,$a2));
+
+$a=array("trans_do");
+$a=array_push($a,"others);
+			$inv = $this->DrcrnoteModel->f_select('td_sale',$a,array('soc_id' => $this->input->get("soc_id"),'comp_id'=>$this->input->get("comp_id"),'fin_yr'=>$this->input->get("year")),0);
 			echo json_encode($inv);
 		
 		}
@@ -408,206 +415,7 @@ public function drnoteReport()
 		}
 
 //ADD
-	public function drnoteAdd(){
-
-		        $branch  = $this->session->userdata['loggedin']['branch_id'];
-				$finYr          = $this->session->userdata['loggedin']['fin_id'];
-				$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
-				$select         = array("dist_sort_code");
-				$where          = array("district_code"     =>  $branch);
-                $brn           = $this->DrcrnoteModel->f_select("md_district",$select,$where,1); 
-
-			 $transNo         = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
-
-			 $receipt         = 'Crnote/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
-			 
-                
-			 if($_SERVER['REQUEST_METHOD'] == "POST") {
-
-				$soc_id    = $this->input->post('soc_id');
-				$tot_amt   = $this->input->post('tot_amt');
-                $tot_cramt = 0.00;
-
-
-				
-			 for($i = 0; $i < count($tot_amt); $i++){
-
-			    //  $tot_amt  = $_POST['tot_amt'][$i];
-				//  $cat_id   = $_POST['cat_id'][$i];
-				
-	              $data  = array (
-					'recpt_no' => $receipt ,
-					  
-					'soc_id'      => $this->input->post('soc_id'),
-
-					'trans_dt'    =>  $this->input->post('trans_dt'),
-
-					"trans_no"	  =>  $transNo->trans_no,
-
-					"comp_id"	  => $this->input->post('comp_id'),	
-					
-					"invoice_no"  => $this->input->post('inv_no'),
-
-					"year"        => $this->input->post('year'),
-					
-					'ref_invoice_no' => $this->input->post('ref_invoice_no'),
-
-					"ro"           => $this->input->post('ro_no'),	
-					
-					'catg'         => $_POST['cat_id'][$i],
-
-					'tot_amt'      => $_POST['tot_amt'][$i],
-
-					'branch_id'   => $this->session->userdata['loggedin']['branch_id'],
-
-					"remarks"     => $this->input->post('remarks'),
-
-					"note_type"	  => 'D',
-
-					"fin_yr"      => $this->session->userdata['loggedin']['fin_id'],
-					
-					'created_by'  => $this->session->userdata['loggedin']['user_name'],
-
-					'created_dt'  =>  date('Y-m-d h:i:s'),
-
-					"created_ip"   =>  $_SERVER['REMOTE_ADDR']
-
-				);
-				// print_r($data);
-				
-			$tot_cramt += $_POST['tot_amt'][$i];
-
-				$select_cracc         = array("acc_cd"
-			                               );
-			$where_cracc          = array(
-				"sl_no"     => $_POST['cat_id'][$i]
-			);
-
-		   $cr_acc = $this->DrcrnoteModel->f_select("mm_cr_note_category",$select_cracc,$where_cracc,1);
-
-                    $data_array_cr=$data;
-				    $data_array_cr['acc_cd'] = $cr_acc->acc_cd; 
-					
-					$select_soc         = array("soc_name","acc_cd");
-		            $where_soc           = array("soc_id"     => $soc_id);
-	                $soc_name = $this->DrcrnoteModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
-						$data_array_crt['soc_acc']= $soc_name->acc_cd;
-					$data_array_cr['rem'] ="Credit Note raised for ".$soc_name->soc_name." aginst Invoice No. ". $this->input->post('inv_no').",".$this->input->post('remarks');
-
-					$select_br    = array("dist_sort_code");
-					$where_br     = array("district_code"=> $branch );
-				
-	
-					$data_array_cr['fin_fulyr']=$fin_year;
-					$data_array_cr['br_nm']= $brn->dist_sort_code;
-					if($this->DrcrnoteModel->f_crnjnl($data_array_cr)!=0){
-						$this->DrcrnoteModel->f_insert('tdf_dr_cr_note', $data);
-					}else{
-						echo "<script>alert('Credit Note has not yet been done.');</script>";
-					}
-					
-		}
-		$data_cr  = array (
-			'recpt_no' => $receipt ,
-			  
-			'soc_id'      => $this->input->post('soc_id'),
-
-			'trans_dt'    =>  $this->input->post('trans_dt'),
-
-			"trans_no"	  =>  $transNo->trans_no,
-
-			"comp_id"	  => $this->input->post('comp_id'),	
-			
-			"invoice_no"  => $this->input->post('inv_no'),	
-
-			"ro"           => $this->input->post('ro_no'),	
-			
-			// 'catg'         => $_POST['cat_id'][$i],
-
-			'tot_amt'      => $tot_cramt,
-
-			'branch_id'   => $this->session->userdata['loggedin']['branch_id'],
-
-			"remarks"     => $this->input->post('remarks'),
-
-			"note_type"	  => 'D',
-
-			"fin_yr"      => $this->session->userdata['loggedin']['fin_id'],
-			
-			'created_by'  => $this->session->userdata['loggedin']['user_name'],
-
-			'created_dt'  =>  date('Y-m-d h:i:s'));
-
-		$data_array_crt       =$data_cr;
-
-		$select_soc           = array("acc_cd");
-		$where_soc            = array("soc_id"     => $soc_id);
-		$soc_acc_cd             = $this->DrcrnoteModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
-
-		$data_array_crt['acc_cd'] = $soc_acc_cd->acc_cd;
-
-			unset($select_soc);   
-			unset($where_soc);      
-
-		$select_soc           = array("soc_name");
-		$where_soc            = array("soc_id"     => $soc_id);
-		$soc_name             = $this->DrcrnoteModel->f_select("mm_ferti_soc",$select_soc,$where_soc,1);
-
-		$data_array_crt['rem'] = "Credit Note raised for ".$soc_name->soc_name." aginst Invoice No. ". $this->input->post('inv_no').",".$this->input->post('remarks');
-
-					$select_br    = array("dist_sort_code");
-					$where_br     = array("district_code"=> $branch );
-				
-	
-					$data_array_crt['fin_fulyr']=$fin_year;
-					$data_array_crt['br_nm']= $brn->dist_sort_code;
-					$this->DrcrnoteModel->f_totcrnjnl( $data_array_crt);
-					
-					$this->session->set_flashdata('msg', 'Successfully Added');
-	
-				    redirect('drcrnote/dr_note');
-				
-				   
-					
-			}else {
-		
-					$wheres = array(
-
-					"district" => $this->session->userdata['loggedin']['branch_id']
-						
-					);
-
-					$select1   = array("soc_id","soc_name","soc_add","gstin");
-
-					$product['socdtls']   = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select1,$wheres,0);
-
-					$select = array("COMP_ID comp_id","COMP_NAME comp_name");
-
-					$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select,NULL,0);
-
-					$select_cat = array("sl_no","cat_desc");
-					$wherecatagory=array("acc_cd >"=>0);
-
-					$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',$select_cat,$wherecatagory,0);
-
-					$select = array("trans_do");
-					$whereinv=array(
-						"soc_id" =>$this->input->get("soc_id")
-						) ;
-					$product['saleinv']   = $this->DrcrnoteModel->f_select('td_sale',$select,$whereinv,0);
-					$product['mntend']= $this->PurchaseModel->f_get_mnthend($branch );
-					$product['years'] = $this->DrcrnoteModel->f_select('md_fin_year',array('sl_no','fin_yr'),NULL,0);
-
-					$product['date']   = $this->PurchaseModel->get_monthendDate();
-
-					$this->load->view('post_login/fertilizer_main');
-				
-					$this->load->view("dr_note/add",$product);
-				
-					$this->load->view('post_login/footer');
-	   }
-	
-	}
+	     
 //edit
     public function drnote_edit(){
 
