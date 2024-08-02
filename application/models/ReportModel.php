@@ -2049,6 +2049,15 @@ and a.ro_no not in (select sale_ro from td_sale
             FROM tdf_dr_cr_note c,mm_ferti_soc b,td_sale d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.invoice_no = d.trans_do and c.trans_flag='R' and c.trans_dt between '$frmDt' and '$toDt' 
             group by trans_dt, recpt_no,c.soc_id ,soc_id,soc_name,c.ro
             union
+            SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,sum(c.tot_amt) as paid_amt,0 paybl,0,0,c.ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
+            FROM tdf_dr_cr_note c,mm_ferti_soc b 
+            where c.soc_id=b.soc_id 
+            and c.soc_id = '$soc_id'
+            and c.branch_id='$branch'
+            and c.ref_invoice_no='0'
+             and c.trans_flag='R' and c.trans_dt between '$frmDt' and '$toDt' 
+            group by trans_dt, recpt_no,c.soc_id ,soc_id,soc_name,c.ro
+            union
          SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,c.adv_amt as paid_amt,0 paybl,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'Advance' remarks
             FROM tdf_advance c,mm_ferti_soc b where c.soc_id=b.soc_id 
             and c.soc_id = '$soc_id'
@@ -2091,7 +2100,7 @@ and a.ro_no not in (select sale_ro from td_sale
 
         $query  = $this->db->query("select e.short_name,a.ro_no,c.district_name,a.paid_dt,b.soc_name,
 								sum(a.paid_amt)tot_paid,sum(a.net_recvble_amt)tot_payble
-								from tdf_payment_recv a,mm_ferti_soc b,md_district c,mm_company_dtls e
+								from t df_payment_recv a,mm_ferti_soc b,md_district c,mm_company_dtls e
 								where a.soc_id=b.soc_id
 								and b.district=c.district_code
 								and a.comp_id=$comp_id
