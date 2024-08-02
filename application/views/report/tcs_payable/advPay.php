@@ -82,9 +82,9 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Society Name.</th>
                                 <th>Sale</th>
-                                <th>Advance</th>
+                                <th>Collection</th>
                                 <th>Cumulative Sale</th>
-                                <th>Cumulative Advance</th>
+                                <th>Cumulative Collection</th>
                                 <!-- <th>Total </th>
                                 <th>Advance amount </th> -->
                             

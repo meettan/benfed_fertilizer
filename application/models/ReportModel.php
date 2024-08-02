@@ -3029,11 +3029,21 @@ and a.ro_no not in (select sale_ro from td_sale
         // group by x.soc_name;");
         $q=$this->db->query("SELECT sum(tot_amt) sale_amt,a.soc_id,c.soc_name,
         (select sum(IFNULL(b.adv_amt,0)) from tdf_advance b
-         where b.trans_dt between '$frm_date' and '$to_date' and b.branch_id=a.br_cd and a.soc_id=b.soc_id group by b.soc_id)adv_amt,
+         where b.trans_dt between '$frm_date' and '$to_date' and b.branch_id=a.br_cd and a.soc_id=b.soc_id group by b.soc_id)
+         + (select sum(x.paid_amt) FROM tdf_payment_recv x
+         WHERE x.paid_dt BETWEEN '$frm_date' and '$to_date'
+        AND x.branch_id = a.br_cd 
+          and x.soc_id=c.soc_id
+                and x.pay_type<>6)adv_amt,
         (SELECT sum(e.tot_amt) FROM td_sale e  
           WHERE a.soc_id=e.soc_id and e.do_dt between '$op_dt' and '$to_date' and a.br_cd='$br' and a.soc_id=c.soc_id)sale_upto,
         (select sum(IFNULL(b.adv_amt,0)) from tdf_advance b 
-           where b.trans_dt between '$op_dt' and '$to_date' and b.branch_id=a.br_cd and a.soc_id=b.soc_id group by b.soc_id)adv_amt_upto
+           where b.trans_dt between '$op_dt' and '$to_date' and b.branch_id=a.br_cd and a.soc_id=b.soc_id group by b.soc_id)
+           + (select sum(x.paid_amt) FROM tdf_payment_recv x
+         WHERE x.paid_dt BETWEEN '$op_dt' and '$to_date'
+        AND x.branch_id = a.br_cd 
+          and x.soc_id=c.soc_id
+                and x.pay_type<>6)adv_amt_upto
             FROM td_sale a,mm_ferti_soc c
             WHERE a.do_dt between '$frm_date' and '$to_date' 
             and a.br_cd='$br'
