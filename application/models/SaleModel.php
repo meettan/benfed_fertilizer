@@ -373,6 +373,18 @@ return $sql->result();
 										                 and district='$br_cd'
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
+			}else if($gov_sale_rt =="X"){
+				$sql = $this->db->query("SELECT fpo as rate
+				from  mm_sale_rate
+				where  catg_id = '$category'
+				and district='$br_cd'
+				and comp_id='$comp_id'
+				and prod_id ='$prod_id'
+				and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+			and district='$br_cd'
+	   and comp_id='$comp_id'
+	   and prod_id ='$prod_id')");
+
 			}else{
 				$sql = $this->db->query("SELECT sp_govt  
 														     from  mm_sale_rate
