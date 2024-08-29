@@ -128,7 +128,7 @@
 							<input type="text" id="sp_mt" name="sp_mt" class="form-control" value=0 />
 
 						</div>
-						<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price Per Container Without GST:</label>
+						<label for="sp_bag" class="col-sm-2 col-form-label">Sale Price Per Bag Without GST:</label>
 						<div class="col-sm-4">
 
 							<input type="text" id="sp_bag" name="sp_bag" class="form-control" value=0 />
@@ -142,7 +142,7 @@
 							<input type="text" id=sale_rtgst name="sale_rtgst" class="form-control" value=0  />
 
 						</div>
-						<label for="sp_bag_gst" class="col-sm-2 col-form-label">Sales Price Per <br>Container With GST:</label>
+						<label for="sp_bag_gst" class="col-sm-2 col-form-label">Sales Price Per <br>Bag With GST:</label>
 					<div class="col-sm-4">
 				    <input type="text" id="sp_bag_gst" name="sp_bag_gst" class="form-control" value=0  />
 					</div>
@@ -155,7 +155,7 @@
 							<input type="text" id=fpo_wtoutgst name="fpo_wtoutgst" class="form-control" value=0  />
 
 						</div>
-						<label for="fpo_gst" class="col-sm-2 col-form-label">FPO/FPC Price Per <br>Container With GST:</label>
+						<label for="fpo_gst" class="col-sm-2 col-form-label">FPO/FPC Price Per <br>Bag With GST:</label>
 					<div class="col-sm-4">
 				    <input type="text" id="fpo_gst" name="fpo_gst" class="form-control" value=0  />
 					</div>
