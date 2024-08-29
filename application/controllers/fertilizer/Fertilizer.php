@@ -1154,6 +1154,8 @@ public function salerateAdd(){
 		   $sp_bag     = $this->input->post('sp_bag');
 		   $sp_govt    = $this->input->post('sp_govt');
 		   $fpo        = $this->input->post('fpo');
+		   $fpo_gst    = $this->input->post('fpo_gst');
+		   $fpo_wtoutgst = $this->input->post('fpo_wtoutgst');
 		   $mrp_gst    = $this->input->post('mrp_gst');
 		   $sale_rtgst = $this->input->post('sale_rtgst');
 		   $sp_bag_gst = $this->input->post('sp_bag_gst');
@@ -1189,7 +1191,11 @@ public function salerateAdd(){
 
 					"sp_govt"  =>  $sp_govt,
 
-					"fpo"  =>  $fpo,
+					"fpo"      =>  $fpo,
+
+				"fpo_wtoutgst" =>$fpo_wtoutgst,
+
+					"fpo_gst"  =>$fpo_gst,
 
 					"mrp_gst"  =>  $mrp_gst ,
 

@@ -147,6 +147,20 @@
 				    <input type="text" id="sp_bag_gst" name="sp_bag_gst" class="form-control" value=0  />
 					</div>
 						</div>
+
+						<div class="form-group row">
+				   <label for="fpo_wtoutgst" class="col-sm-2 col-form-label">FPO/FPC Price Per Unit With GST:</label>
+						<div class="col-sm-4">
+
+							<input type="text" id=fpo_wtoutgst name="fpo_wtoutgst" class="form-control" value=0  />
+
+						</div>
+						<label for="fpo_gst" class="col-sm-2 col-form-label">FPO/FPC Price Per <br>Container With GST:</label>
+					<div class="col-sm-4">
+				    <input type="text" id="fpo_gst" name="fpo_gst" class="form-control" value=0  />
+					</div>
+						</div>
+
 				   	<div class="form-group row">
 
 					<label for="sp_govt" class="col-sm-2 col-form-label">Govt. Sale Rate:</label>
