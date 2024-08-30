@@ -149,16 +149,21 @@
 						</div>
 
 						<div class="form-group row">
-				   <label for="fpo_wtoutgst" class="col-sm-2 col-form-label">FPO/FPC Price Per Unit With GST:</label>
+						<label for="fpo" class="col-sm-2 col-form-label">FPO/FPC With GST:</label>
+					<div class="col-sm-1">
+					<input type="text" id="fpo" name="fpo" class="form-control" value=0 required />
+					</div>
+				   <label for="fpo_wtoutgst" class="col-sm-2 col-form-label">FPO/FPC Price Per Unit Without GST:</label>
 						<div class="col-sm-4">
 
 							<input type="text" id=fpo_wtoutgst name="fpo_wtoutgst" class="form-control" value=0  />
 
 						</div>
-						<label for="fpo_gst" class="col-sm-2 col-form-label">FPO/FPC Price Per <br>Bag With GST:</label>
+						<!-- <label for="fpo_gst" class="col-sm-2 col-form-label">FPO/FPC Price Per <br>Bag With GST:</label>
 					<div class="col-sm-4">
 				    <input type="text" id="fpo_gst" name="fpo_gst" class="form-control" value=0  />
-					</div>
+					</div> -->
+					
 						</div>
 
 				   	<div class="form-group row">
@@ -167,10 +172,7 @@
 					<div class="col-sm-1">
 					<input type="text" id="sp_govt" name="sp_govt" class="form-control" value=0 required />
 					</div>
-					<label for="fpo" class="col-sm-2 col-form-label">FPO/FPC:</label>
-					<div class="col-sm-1">
-					<input type="text" id="fpo" name="fpo" class="form-control" value=0 required />
-					</div>
+					
 
 					<label for="mrp_gst" class="col-sm-2 col-form-label">MRP With GST:</label>
 						<div class="col-sm-2">
