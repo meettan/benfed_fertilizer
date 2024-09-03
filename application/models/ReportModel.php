@@ -1232,7 +1232,7 @@ END ),3)lqdqty,
         $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
                 a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                 a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
-                c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE
+                c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
                 from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
                 where  a.prod_id = b.PROD_ID
                 and    a.comp_id = c.COMP_ID
