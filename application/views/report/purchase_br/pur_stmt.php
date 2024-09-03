@@ -99,15 +99,11 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Society</th>
 
-                                
-
-                                <!-- <th>Invoice Dt</th> -->
 
                                 <th>Qty</th>
 
                                 <th>Unit</th>
 
-                                <!-- <th>Stock Qty</th> -->
 
                                 <th>Rate</th>
 
@@ -131,6 +127,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Total amt</th>
                                 <th>TDS(.1%)</th>
+
+                                <th>Advance Status</th>
 
                             </tr>
 
@@ -307,7 +305,7 @@ tr:hover {background-color: #f5f5f5;}
                                                                   $tot_tds += round((($purc->net_amt*.1)/100),2);
 
                                      ?></td>
-                                   
+                                    <td class="report"><?php echo $purc->adv_flag; ?></td>
                                 </tr>
  
                                 <?php  
