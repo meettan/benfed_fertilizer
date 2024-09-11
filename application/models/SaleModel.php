@@ -361,7 +361,8 @@ return $sql->result();
 
 		public function get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt)
 		{
-
+        //    echo $gov_sale_rt;
+		//    die();
 			if($gov_sale_rt =="N"){
 									 $sql = $this->db->query("SELECT sp_mt as rate
 														     from  mm_sale_rate
@@ -374,7 +375,7 @@ return $sql->result();
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
 			}else if($gov_sale_rt =="X"){
-				$sql = $this->db->query("SELECT fpo as rate
+				$sql = $this->db->query("SELECT distinct fpo as rate
 				from  mm_sale_rate
 				where  catg_id = '$category'
 				and district='$br_cd'

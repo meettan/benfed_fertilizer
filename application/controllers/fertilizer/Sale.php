@@ -111,6 +111,7 @@
 			$sale_category=$this->input->post("sale_category");
 
 			$sale_rt=$this->input->post("sale_rt");	
+			
 
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 
@@ -142,8 +143,8 @@
 			$ro = $this->input->get('ro');
 			$comp_id = $this->input->get('comp_id');
 			$category = $this->input->get('sale_category');
-			$gov_sale_rt = $this->input->get('sale_category');
-
+			$gov_sale_rt = $this->input->get('gov_sale_rt');
+              
 			 $where  =   array(
 
 					'comp_id'     => $this->input->get('comp_id'),
@@ -159,7 +160,8 @@
             $ro_dt      = $ros->ro_dt;
             $prod_id    = $ros->prod_id;
             $br_cd      = $this->session->userdata['loggedin']['branch_id'];
-
+			// echo $gov_sale_rt;
+			// die();
             $result = $this->SaleModel->get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt);		
 			// echo $this->db->last_query();
 			// die();
