@@ -389,7 +389,7 @@ return $sql->result();
 			}else{
 				$sql = $this->db->query("SELECT sp_govt  
 														     from  mm_sale_rate
-										      git commit -m "d               where  catg_id = '$category'
+										                  where  catg_id = '$category'
 										                     and district='$br_cd'
 								                             and comp_id='$comp_id'
 								                             and prod_id ='$prod_id'
