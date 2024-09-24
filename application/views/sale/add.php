@@ -733,7 +733,8 @@
         var row = $(this).closest('tr');
         var ro = $('#ro').val();
         var sale_category = $('#sale_category').val();
-
+        var gov_rt= $('#gov_sale_rt').val();
+        
         // $(this).closest('tr').find('td:eq(0) .qty').val("0");
         $(this).closest('tr').find('td:eq(0) .qty').val("0");
         var string1 = '<option value="">Select</option>';
@@ -742,15 +743,28 @@
                 comp_id: $("#comp_id").val(),
                 sale_category: sale_category,
                 gov_sale_rt: $(this).val()
+                
             })
 
             .done(function (data) {
+                
                 var string1 = '<option value="">Select</option>';
 
                 $.each(JSON.parse(data), function (index, value) {
-
+                    if(gov_rt='X'){
+                    // sl_rt=  value.fpo;
+                    
+                    string1 += '<option value="' + value.rate + '">' + value.rate +
+                        '</option>'
+                    
+                    }else{
+                        // sl_rt=  value.sp_govt;
+                        
                     string1 += '<option value="' + value.sp_govt + '">' + value.sp_govt +
                         '</option>'
+                    }
+                   
+                
 
                 });
 
