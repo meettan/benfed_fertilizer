@@ -334,7 +334,7 @@ return $sql->result();
 					                     and district='$br_cd'
 			                             and comp_id='$comp_id'
 			                             and prod_id ='$prod_id'
-			                             and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+			                             and frm_dt <=(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
 										 and district='$br_cd'
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
