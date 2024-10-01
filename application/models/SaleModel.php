@@ -315,7 +315,7 @@ return $sql->result();
 													and comp_id='$comp_id'
 													and prod_id ='$prod_id')");
 
-			return $sql->result();
+			return $sql->result(); 
 		}
 
 		public function get_sale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category)
