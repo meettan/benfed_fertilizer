@@ -1288,7 +1288,7 @@
     							// 	add_adj_amt) - parseFloat(trn_handling_charge);
 									taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(spl_rebt) - parseFloat(less_adj_amt)
 					+ parseFloat(add_adj_amt) + parseFloat(less_adj_amt) ;
-					alert(taxable_amt);
+					//alert(taxable_amt);
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * gst_rt / 100) / 2
     							gst = parseFloat(gst).toFixed(2)
