@@ -974,7 +974,7 @@
     						taxable_amt = parseFloat(taxable_amt).toFixed(2)
     						gst = (taxable_amt * gst_rt / 100) / 2
     						gst = parseFloat(gst).toFixed(2)
-    						tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2
+    						tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 -parseFloat(spl_rebt)
     						// tot_amt=Math.round(parseFloat(tot_amt))
     						tot_amt = parseFloat(tot_amt).toFixed(2)
     						// console.log(parseData);
@@ -1003,10 +1003,6 @@
 
     		});
 
-
-
-
-
     		//console.log(data);
     		//var parseData = JSON.parse(data);
     		tot_qty = $('#qty').val()
@@ -1024,8 +1020,7 @@
     			// $('input').on('click', function () {
 
     			if (ckbox2.is(':checked')) {
-    				taxable_amt = parseFloat(base_price) + parseFloat(
-    					retlr_margin) - parseFloat(spl_rebt);
+    				taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(spl_rebt);
     				taxable_amt = parseFloat(taxable_amt).toFixed(2)
     				gst = (taxable_amt * gst_rt / 100) / 2
     				gst = parseFloat(gst).toFixed(2)
@@ -1063,8 +1058,8 @@
     				$('#tot_amt').val(tot_amt);
     				$('#retlr_margin').val(retlr_margin);
     				$('#spl_rebt').val(spl_rebt);
-    				// $('#cgst').val(gst);
-    				// $('#sgst').val(gst);
+    				 $('#cgst').val(gst);
+    				$('#sgst').val(gst);
     				$('#rbt_add').val(0);
     				$('#rbt_less').val(0);
     				$('#rnd_of_add').val(0);
@@ -1253,18 +1248,22 @@
 						less_adj_amt = $('#less_amt').val();
 						var trn_handling_charge = $('#trn_handling_charge').val();
     					var ckbox4 = $('#less_adj_amt_flag');
-
+						//alert('hello');
+						tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_adj_amt);
+						// alert(tot_amt);
+						$('#tot_amt').val(tot_amt);
+						net_rt = parseFloat(tot_amt / tot_qty).toFixed(3);
+    							$('#tot_pur_rt').val(net_rt);
     					$('#less_adj_amt_flag').on('click', function () {
     						// $('input').on('click', function () {
 
     						if (ckbox4.is(':checked')) {
-    							taxable_amt = parseFloat(base_price) + parseFloat(
-    								retlr_margin) - parseFloat(spl_rebt) + parseFloat(
-    								add_adj_amt) - parseFloat(less_adj_amt);
+    				taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(spl_rebt) - parseFloat(less_adj_amt)
+					+ parseFloat(add_adj_amt) ;
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * gst_rt / 100) / 2
     							gst = parseFloat(gst).toFixed(2)
-    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2
+    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_adj_amt )
     							// tot_amt=Math.round(parseFloat(tot_amt))
     							tot_amt = parseFloat(tot_amt).toFixed(2)
     							
@@ -1285,13 +1284,16 @@
     							$('#tot_pur_rt').val(net_rt);
 
     						} else {
-    							taxable_amt = parseFloat(base_price) + parseFloat(
-    								retlr_margin) - parseFloat(spl_rebt) + parseFloat(
-    								add_adj_amt) - parseFloat(trn_handling_charge);
+    							// taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(spl_rebt) + parseFloat(
+    							// 	add_adj_amt) - parseFloat(trn_handling_charge);
+									taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(spl_rebt) - parseFloat(less_adj_amt)
+					+ parseFloat(add_adj_amt) + parseFloat(less_adj_amt) ;
+					alert(taxable_amt);
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * gst_rt / 100) / 2
     							gst = parseFloat(gst).toFixed(2)
-    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2
+								//alert(less_adj_amt);
+    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_adj_amt)
     							// tot_amt=Math.round(parseFloat(tot_amt))
     							tot_amt = parseFloat(tot_amt).toFixed(2)
     							// console.log(parseData);
@@ -1303,8 +1305,8 @@
     							$('#tot_amt').val(tot_amt);
     							$('#retlr_margin').val(retlr_margin);
     							$('#spl_rebt').val(spl_rebt);
-    							// $('#cgst').val(gst);
-    							// $('#sgst').val(gst);
+    							$('#cgst').val(gst);
+    							$('#sgst').val(gst);
     							$('#rbt_add').val(0);
     							$('#rbt_less').val(0);
     							$('#rnd_of_add').val(0);
@@ -2018,6 +2020,11 @@ document.getElementById("demo").innerHTML = d;
     					less_oth_dis = $('#les_oth_dis').val();
     					var ckbox6 = $('#less_oth_dis_flag');
 
+						tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_oth_dis);
+						// alert(tot_amt);
+						$('#tot_amt').val(tot_amt);
+						net_rt = parseFloat(tot_amt / tot_qty).toFixed(3);
+    							$('#tot_pur_rt').val(net_rt);
     					//$('input').on('click', function () {
     					$('#less_oth_dis_flag').on('click', function () {
 
@@ -2030,7 +2037,7 @@ document.getElementById("demo").innerHTML = d;
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * (gst_rt / 100)) / 2;
     							gst = parseFloat(gst).toFixed(2)
-    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2
+    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2 - parseFloat(less_oth_dis);
     							// tot_amt=Math.round(parseFloat(tot_amt))
     							tot_amt = parseFloat(tot_amt).toFixed(2);
     							$('#base_price').val(base_price);
@@ -2049,14 +2056,13 @@ document.getElementById("demo").innerHTML = d;
 
     						} else {
 
-    							taxable_amt = parseFloat(base_price) + parseFloat(
-    								retlr_margin) - parseFloat(spl_rebt) + parseFloat(
-    								add_adj_amt) - parseFloat(less_adj_amt) - parseFloat(
-    								less_trad_margin);
+    taxable_amt = parseFloat(base_price) + parseFloat(retlr_margin) - parseFloat(spl_rebt) 
+	+ parseFloat(add_adj_amt) - parseFloat(less_adj_amt) 
+	- parseFloat(less_trad_margin);
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * gst_rt / 100) / 2
     							gst = parseFloat(gst).toFixed(2)
-    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst) * 2
+    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_oth_dis);
     							// tot_amt=Math.round(parseFloat(tot_amt))
     							tot_amt = parseFloat(tot_amt).toFixed(2);
     							$('#base_price').val(base_price);
@@ -2064,8 +2070,8 @@ document.getElementById("demo").innerHTML = d;
     							$('#tot_amt').val(tot_amt);
     							$('#retlr_margin').val(retlr_margin);
     							$('#spl_rebt').val(spl_rebt);
-    							// $('#cgst').val(gst);
-    							// $('#sgst').val(gst);
+    							$('#cgst').val(gst);
+    							$('#sgst').val(gst);
     							$('#rbt_add').val(0);
     							$('#rbt_less').val(0);
     							$('#rnd_of_add').val(0);
@@ -2085,7 +2091,7 @@ document.getElementById("demo").innerHTML = d;
     	});
     </script>
     <script>
-    	$(document).ready(function () {
+    	$(document).ready(function () {   
 
     		var i = 2;
     		var tot_qty = 0.00;
