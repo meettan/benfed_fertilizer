@@ -1263,7 +1263,7 @@
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * gst_rt / 100) / 2
     							gst = parseFloat(gst).toFixed(2)
-    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_adj_amt )
+    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 ;
     							// tot_amt=Math.round(parseFloat(tot_amt))
     							tot_amt = parseFloat(tot_amt).toFixed(2)
     							
@@ -2037,7 +2037,7 @@ document.getElementById("demo").innerHTML = d;
     							taxable_amt = parseFloat(taxable_amt).toFixed(2)
     							gst = (taxable_amt * (gst_rt / 100)) / 2;
     							gst = parseFloat(gst).toFixed(2)
-    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 - parseFloat(less_oth_dis);
+    							tot_amt = parseFloat(taxable_amt) + parseFloat(gst)*2 ;
     							// tot_amt=Math.round(parseFloat(tot_amt))
     							tot_amt = parseFloat(tot_amt).toFixed(2);
     							$('#base_price').val(base_price);
