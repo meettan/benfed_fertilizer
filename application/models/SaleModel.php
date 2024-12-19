@@ -342,7 +342,7 @@ return $sql->result();
 			return $sql->result();
 		}
 
-
+ 
        function get_mrp($br_cd,$comp_id,$ro_dt,$prod_id,$sale_category,$sale_rt){
 		$q=$this->db->query("SELECT distinct mrp_gst,sale_rtgst,sp_bag_gst
 							 from  mm_sale_rate		   							
@@ -354,7 +354,7 @@ return $sql->result();
 			                               and district='$br_cd'
 						                   and comp_id='$comp_id'
 						                   and prod_id ='$prod_id'
-										   and  sp_mt = $sale_rt)
+										   and catg_id = '$sale_category')
 						    and  sp_mt = $sale_rt");
 		return $q->result();
 	   }
