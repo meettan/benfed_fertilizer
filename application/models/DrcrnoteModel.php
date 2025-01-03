@@ -204,6 +204,33 @@ function f_crnjnl($data){
 
 		}
 
+		public function f_getdo_dtl($br_cd,$soc_id){
+	
+			$data = $this->db->query("select distinct trans_do
+										from td_sale 
+									where br_cd = '$br_cd'
+									and soc_id='$soc_id'
+									and round_tot_amt-paid_amt>0
+									union
+									select  sale_invoice_no
+									from  tdf_payment_recv
+									where branch_id='$br_cd'
+									and pay_type='O' and soc_id='$soc_id'
+									 ");
+								   
+	   return $data->result();
+		   
+	   }
+		public function get_trans_no_forbr($fin_id){
+
+			$sql="select ifnull(max(trans_no),0) + 1 trans_no
+					 from drnote_br where fin_yr = '$fin_id'";
+
+		  $result = $this->db->query($sql);     
+	  
+		  return $result->row();
+
+		}
 		public function f_delete($table_name, $where) {			
 
 			$this->db->delete($table_name, $where);

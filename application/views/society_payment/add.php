@@ -134,7 +134,11 @@
                     <input type="text"  id="sold" name="sold" value="0"
                         class="form-control" readonly />
                 </div>
-                
+                <label for="debt_amt" class="col-sm-2 col-form-label">DR Note</label>
+                <div class="col-sm-3">
+                    <input type="text"  id="debt_amt" name="debt_amt" value="0"
+                        class="form-control" readonly />
+                </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-12"  id='show_detail'>
@@ -565,7 +569,6 @@
 
             $.get(
 
-
                     '<?php echo site_url("socpay/f_get_ro_dt");?>', {
 
                         trans_do: $(this).val(),
@@ -838,7 +841,48 @@
 
     });
 </script>
+//*****debit amount */
+<script>
+    $(document).ready(function () {
 
+        var i = 0;
+
+        $('#sale_ro').change(function () {
+
+            $.get(
+
+                '<?php echo site_url("socpay/f_get_debit_amt");?>',
+
+                {
+
+                    soc_id: $('#soc_id').val(),
+                    trans_do: $('#trans_do').val(),
+                    sale_ro: $('#sale_ro').val(),
+                    // tot_recvble_amt: $('#tot_recvble_amt').val()
+
+                }
+
+            ).done(function (data) {
+                var tot_cr_amt = 0.00;
+                var net_amt = 0.00;
+                var rnd_net_amt = 0.00;
+                var rnd_ro_tot = 0.00;
+                var parseData = JSON.parse(data);
+
+                tot_cr_amt = tot_cr;
+                //    alert(tot_cr);
+                tot_amt = parseData[0].tot_amt;
+                
+                $('#debt_amt').val(tot_amt);
+                
+                
+            });
+
+        });
+
+    });
+</script>
+///****** */
 <script>
     $(document).ready(function () {
 
