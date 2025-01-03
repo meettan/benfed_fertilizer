@@ -523,7 +523,7 @@ public function society_payEdit(){
 					$where1           = array('district'   => $br_cd );
 
                     $product['socdtls']   = $this->Society_paymentModel->f_select('mm_ferti_soc',$select1,$where1,0);
-					// $product['ro_dtls']   = $this->Society_paymentModel->f_getdo_dtl($br_cd,$soc_id);
+					 $product['ro_dtls']   = $this->Society_paymentModel->f_getdo_dtl($br_cd,$soc_id);
 					
 				$product['bnk_dtls']   = $this->Society_paymentModel->f_getbnk_dtl($br_cd);
 					
@@ -1120,6 +1120,19 @@ public function f_get_payro(){
 			// $tot_recvble_amt= $this->input->get('tot_recvble_amt');
 			
 			$data = $this->Society_paymentModel->f_get_adv_net_amt_dtls($soc_id,$sale_invoice_no,$ro_no);
+			echo json_encode($data);
+
+		}
+
+		public function f_get_debit_amt()
+        {
+
+            $soc_id = $this->input->get('soc_id');
+			$sale_invoice_no = $this->input->get('trans_do');
+			$ro_no = $this->input->get('sale_ro');
+			// $tot_recvble_amt= $this->input->get('tot_recvble_amt');
+			
+			$data = $this->Society_paymentModel->f_get_debit_amt_dtls($soc_id,$sale_invoice_no,$ro_no);
 			echo json_encode($data);
 
 		}

@@ -240,7 +240,8 @@
 	   }
 	   public function f_get_ro_trans_dtls($trans_do){
 	
-		$data = $this->db->query("select a.do_dt,a.sale_ro,a.tot_amt,a.comp_id,a.prod_id,b.rate
+		$data = $this->db->query("select a.do_dt,a.sale_ro,a.tot_amt
+		,a.comp_id,a.prod_id,b.rate
 									from td_sale a ,td_purchase b
 								where a.trans_do='$trans_do'
 								and a.sale_ro=b.ro_no
@@ -248,7 +249,9 @@
 								select  ref_dt,ro_no,tot_recvble_amt,comp_id,prod_id,ro_rt
 								from  tdf_payment_recv
 								where sale_invoice_no='$trans_do'
-								and pay_type='O'");
+								and pay_type='O'
+								
+								");
 							   
    return $data->result();
 	   
@@ -510,6 +513,16 @@
 			return $sql->row();
 		 }
 
+
+		 public function f_get_debit_amt_dtls($soc_id,$sale_invoice_no,$ro_no) // For Jquery
+        {
+			$sql = $this->db->query(" select ifnull(sum(tot_amt),0)tot_amt
+			                          from drnote_br
+									  where invoice_no='$sale_invoice_no'
+									  and ro='$ro_no'
+									  and soc_id='$soc_id' ");
+		return $sql->result();
+		}
 		public function f_get_adv_net_amt_dtls($soc_id,$sale_invoice_no,$ro_no) // For Jquery
         {
 
@@ -518,12 +531,17 @@
 									FROM tdf_payment_recv a 
 									WHERE a.soc_id ='$soc_id'
 									and sale_invoice_no='$sale_invoice_no'
-									and ro_no='$ro_no' and  a.pay_type<>'O') +
+									and ro_no='$ro_no' and  a.pay_type<>'O')
+									+
 			(SELECT ifnull(sum(a.tot_recvble_amt),0)  - ifnull(sum(a.paid_amt),0)
 			FROM tdf_payment_recv a 
 			WHERE a.soc_id ='$soc_id'
 			and sale_invoice_no='$sale_invoice_no'
-			and ro_no='$ro_no'  and a.pay_type='O')as net_amt,
+			and ro_no='$ro_no'  and a.pay_type='O') + 
+			(select ifnull(tot_amt,0)	
+			from drnote_br
+			where invoice_no='$sale_invoice_no' 
+			and soc_id ='$soc_id') as net_amt,
 			ifnull(sum(round_tot_amt),0) - 
 			 (SELECT ifnull(sum(a.paid_amt),0)  
 									FROM tdf_payment_recv a 
@@ -534,13 +552,21 @@
 			 FROM tdf_payment_recv a 
 			 WHERE a.soc_id ='$soc_id'
 			 and sale_invoice_no='$sale_invoice_no'
-			 and ro_no='$ro_no'  and a.pay_type='O')as rnd_net_amt,
+			 and ro_no='$ro_no'  and a.pay_type='O') + 
+			 (select ifnull(tot_amt,0)	
+			 from drnote_br
+			 where invoice_no='$sale_invoice_no' 
+			 and soc_id ='$soc_id') as rnd_net_amt,
 									ifnull(sum(tot_amt),0)+
 									(SELECT ifnull(sum(a.tot_recvble_amt),0)  - ifnull(sum(a.paid_amt),0)
 									FROM tdf_payment_recv a 
 									WHERE a.soc_id ='$soc_id'
 									and sale_invoice_no='$sale_invoice_no'
-									and ro_no='$ro_no' and a.pay_type='O' )as tot_ro_amt
+									and ro_no='$ro_no' and a.pay_type='O' )+  
+									(select ifnull(tot_amt,0)	
+									from drnote_br
+									where invoice_no='$sale_invoice_no' 
+									and soc_id ='$soc_id')as tot_ro_amt
 									from  td_sale where  trans_do = '$sale_invoice_no'
 									and sale_ro='$ro_no'");
 			return $sql->result();
