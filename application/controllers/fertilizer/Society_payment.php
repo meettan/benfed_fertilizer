@@ -1111,7 +1111,7 @@ public function f_get_payro(){
 
 		}
 
-		public function f_get_adv_net_amt()
+		public function f_get_adv_net_amt()  
         {
 
             $soc_id = $this->input->get('soc_id');
