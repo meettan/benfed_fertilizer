@@ -1518,7 +1518,7 @@ public function dr_note_br(){
 		$this->load->view('search/search');
 
 		$this->load->view('post_login/footer');
-	}else{
+	}else{ 
 	
 	$select	=	array('a.*',"b.soc_name");
 
