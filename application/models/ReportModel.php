@@ -2065,6 +2065,15 @@ and a.ro_no not in (select sale_ro from td_sale
             and c.fin_yr='$fin_id'
             and c.trans_type='I' 
             and c.trans_dt between '$frmDt' and '$toDt'
+            union
+            SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,0,c.adv_amt,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'TRF TO INSECTICIDE' remarks
+            FROM tdf_advance c,mm_ferti_soc b where c.soc_id=b.soc_id 
+            and c.soc_id = '$soc_id'
+            and c.branch_id='$branch'
+            and c.fin_yr='$fin_id'
+            and c.trans_type='O' 
+            and transfer_flag='Y'
+            and c.trans_dt between '$frmDt' and '$toDt'
          union
          SELECT c.do_dt,e.prod_desc prod,c.trans_do as inv_no, c.soc_id,b.soc_name,0 tot_paid ,c.taxable_amt as tot_payble,c.cgst ,c.sgst,c.sale_ro,d.ro_dt,c.qty ,0,'Sale' remarks
             FROM mm_ferti_soc b ,td_sale c,td_purchase d ,mm_product e
