@@ -2066,7 +2066,7 @@ and a.ro_no not in (select sale_ro from td_sale
             and c.trans_type='I' 
             and c.trans_dt between '$frmDt' and '$toDt'
             union
-            SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,0,c.adv_amt,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'TRF TO INSECTICIDE' remarks
+            SELECT trans_dt,'' prod,receipt_no as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,c.adv_amt tot_payble,0,0,''as ro_no,trans_dt as ro_dt,0 as qty ,0,'TRF TO INSECT' remarks
             FROM tdf_advance c,mm_ferti_soc b where c.soc_id=b.soc_id 
             and c.soc_id = '$soc_id'
             and c.branch_id='$branch'
