@@ -125,7 +125,7 @@ tr:hover {background-color: #f5f5f5;}
                                     Deposit Date</th>
                                 <th>Qty</th>
                                 <th>Taxable 
-                                    Amount</th>
+                                    Amount/TRF</th>
                                 <th>CGST</th>
                                 <th>SGST</th>
 								<th>Total 
