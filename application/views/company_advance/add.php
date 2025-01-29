@@ -137,7 +137,11 @@
             <div class="form-group row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-10">
+
                 <table class="table table-bordered">
+                <input type="button"  onclick="selects()" value="Select All" id="selectall" name="selectall" class="btn btn-info active"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" onclick="deselects()" value="Deselect All" id="deselectall" name="deselectall" class="btn btn-info active">
                         <tbody id='list'></tbody>
                     </table>
                 </div>	
@@ -292,6 +296,47 @@ $("#submit").hide();
     });
 
 });
+</script>
+
+<script>
+function selects() {
+    //alert('hi');
+    var amt = 0.00;
+    var qty = 0.00;
+    var tot_amt = 0.00;
+    var tot_qty=0.00;
+    const checkboxes = document.querySelectorAll('.ckamt');
+    checkboxes.forEach(checkbox => {
+        $("#submit").show();
+       checkbox.checked = true;
+        $('.ckamt:checked').each(function() {
+                qty = parseFloat($(this).parents('tr').find("td").eq(4).html()); 
+                amt = parseFloat($(this).parents('tr').find("td").eq(5).html()); 
+               
+            });
+            tot_amt=parseFloat(tot_amt)+parseFloat(amt);
+            //alert(amt);
+            tot_amt=parseFloat(tot_amt).toFixed(2);
+            tot_qty=parseFloat(qty)+tot_qty;
+            $('#approve_tot').html(tot_amt);
+			$('#approve_qty').html(tot_qty);
+            $('#selectall').prop('disabled', true);
+    });
+}
+</script>
+<script>
+function deselects() {
+    var tot_amt=0.00;
+    var tot_qty=0.00;
+    const checkboxes = document.querySelectorAll('.ckamt');
+    checkboxes.forEach(checkbox => {
+        $("#submit").hide();
+        checkbox.checked = false;
+    });
+    $('#approve_tot').html(tot_amt);
+    $('#approve_qty').html(tot_qty);
+    $('#selectall').prop('disabled', false);
+}
 </script>
 <script>
     // $('#dist').change(function(){
