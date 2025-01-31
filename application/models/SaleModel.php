@@ -23,7 +23,7 @@
 				$this->db->select($select);
 			}
 			if(isset($where)){
-				$this->db->where($where);
+				$this- >db->where($where);
 			}
 			$value = $this->db->get($table);
 			if($type==1){
