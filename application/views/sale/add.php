@@ -757,14 +757,12 @@
                     string1 += '<option value="' + value.rate + '">' + value.rate +
                         '</option>'
                     
-                    }else if(gov_rt='Y'){
+                    }else {
                         // sl_rt=  value.sp_govt;
                         
-                    string1 += '<option value="' + value.sp_govt + '">' + value.sp_govt +
-                        '</option>'
-                    }else{
-                        string1 += '<option value="' + value.rate + '">' + value.rate +
-                        '</option>'
+                    // string1 += '<option value="' + value.sp_govt + '">' + value.sp_govt +
+                    string1 += '<option value="' + value.rate + '">' + value.rate +
+                        '</option>' 
                     }
                    
                 

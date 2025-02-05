@@ -23,7 +23,7 @@
 				$this->db->select($select);
 			}
 			if(isset($where)){
-				$this- >db->where($where);
+				$this->db->where($where);
 			}
 			$value = $this->db->get($table);
 			if($type==1){
@@ -364,43 +364,64 @@ return $sql->result();
 		{
         //    echo $gov_sale_rt;
 		//    die();
-			if($gov_sale_rt =="N"){
-									 $sql = $this->db->query("SELECT sp_mt as rate
-														     from  mm_sale_rate
-										                     where  catg_id = '$category'
-										                     and district='$br_cd'
-								                             and comp_id='$comp_id'
-								                             and prod_id ='$prod_id'
-															 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
-										                 and district='$br_cd'
-													and comp_id='$comp_id'
-													and prod_id ='$prod_id')");
-			}else if($gov_sale_rt =="X"){
-				$sql = $this->db->query("SELECT distinct fpo as rate
-				from  mm_sale_rate
-				where  catg_id = '$category'
-				and district='$br_cd'
-				and comp_id='$comp_id'
-				and prod_id ='$prod_id'
-				and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
-			and district='$br_cd'
-	   and comp_id='$comp_id'
-	   and prod_id ='$prod_id')");
+	// 		if($gov_sale_rt =="N"){
+	// 								 $sql = $this->db->query("SELECT sp_mt as rate
+	// 													     from  mm_sale_rate
+	// 									                     where  catg_id = '$category'
+	// 									                     and district='$br_cd'
+	// 							                             and comp_id='$comp_id'
+	// 							                             and prod_id ='$prod_id'
+	// 														 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+	// 									                 and district='$br_cd'
+	// 												and comp_id='$comp_id'
+	// 												and prod_id ='$prod_id')");
+	// 		}else if($gov_sale_rt =="X"){
+	// 			$sql = $this->db->query("SELECT distinct fpo as rate
+	// 			from  mm_sale_rate
+	// 			where  catg_id = '$category'
+	// 			and district='$br_cd'
+	// 			and comp_id='$comp_id'
+	// 			and prod_id ='$prod_id'
+	// 			and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+	// 		and district='$br_cd'
+	//    and comp_id='$comp_id'
+	//    and prod_id ='$prod_id')");
 
-			}else{
-				$sql = $this->db->query("SELECT sp_govt  
-														     from  mm_sale_rate
-										                  where  catg_id = '$category'
-										                     and district='$br_cd'
-								                             and comp_id='$comp_id'
-								                             and prod_id ='$prod_id'
-															 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
-										 					and district='$br_cd'
-															and comp_id='$comp_id'
-															and prod_id ='$prod_id')");
-			 }
+	// 		}else {
+	// 			$sql = $this->db->query("SELECT sp_govt  
+	// 													     from  mm_sale_rate
+	// 									                  where  catg_id = '$category'
+	// 									                     and district='$br_cd'
+	// 							                             and comp_id='$comp_id'
+	// 							                             and prod_id ='$prod_id'
+	// 														 and frm_dt =(select  max(frm_dt) from mm_sale_rate where frm_dt<='$ro_dt'
+	// 									 					and district='$br_cd'
+	// 														and comp_id='$comp_id'
+	// 														and prod_id ='$prod_id')");
+	// 		 }
 
-		
+	$rate_column = '';
+	if($gov_sale_rt == "N"){
+		$rate_column = 'sp_mt';
+	} else if($gov_sale_rt == "X"){
+		$rate_column = 'fpo';
+	} else {
+		$rate_column = 'sp_govt';
+	}
+	
+	$sql = $this->db->query("SELECT $rate_column as rate
+							 FROM mm_sale_rate
+							 WHERE catg_id = '$category'
+							 AND district = '$br_cd'
+							 AND comp_id = '$comp_id'
+							 AND prod_id = '$prod_id'
+							 AND frm_dt = (SELECT max(frm_dt) 
+										   FROM mm_sale_rate 
+										   WHERE frm_dt <= '$ro_dt'
+										   AND district = '$br_cd'
+										   AND comp_id = '$comp_id'
+										   AND prod_id = '$prod_id')");
+	
 			// return $sql->row();
 			return $sql->result();
 		}
