@@ -245,6 +245,8 @@
                                         </option>
                                         <option value="7" <?php echo ($pay->pay_type == 7)? 'selected' : '';?>>NEFT/RTGS
                                         </option>
+                                        <option value="8" <?php echo ($pay->pay_type == 8)? 'selected' : '';?>>Yearly Cr Note
+                                        </option>
 
                                     </select>
 

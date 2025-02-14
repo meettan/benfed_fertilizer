@@ -171,6 +171,12 @@
                     <input type="text" id="net_amt" name="net_amt" value="0" class="form-control"
                         readonly />
                 </div>
+                <label for="yrly_crnt" class="col-sm-2 col-form-label">Yearly Cr Note:</label> 
+                 <div class="col-sm-2">
+                 <input type="text" id="yrly_crnt_amt" name="yrly_crnt_amt" value="0" class="form-control"
+                        readonly />
+                </div> 
+                
                 <div class="col-sm-2">
                     <input id="cshbank" name="cshbank" type="radio" class="radio-label cshbankk" value="0" />
 
@@ -181,7 +187,9 @@
 
                     <label for="cshbank" class="radio-label cshbank">Bank</label>
                 </div>
-                <!-- </div></div>  -->
+              
+                
+                       
                 <!-- <label for="bnk_id" class="col-sm-2 col-form-label">Bank Name :</label>
 						<div class="col-sm-3">
                       
@@ -294,6 +302,7 @@
                                         <option value="5">Pay Order</option>
                                         <option value="6">CR Note</option>
                                         <option value="7">NEFT/RTGS</option>
+                                        <option value="8">Yearly Cr Note</option>
 
                                     </select>
 
@@ -370,10 +379,10 @@
 
             if (cashbank == 0) {
                 var ovalue =
-                    '<option value="">Select Pay Type</option><option value="1">Cash</option><option value="2">Advance</option><option value="6">CR Note</option>';
+                    '<option value="">Select Pay Type</option><option value="1">Cash</option><option value="2">Advance</option><option value="6">CR Note</option><option value="8">Yearly Cr Note</option>';
             } else {
                 var ovalue =
-                    '<option value="">Select Pay Type</option><option value="2">Advance</option><option value="3">Cheque</option><option value="4">Draft</option><option value="5">Pay Order</option><option value="6">CR Note</option><option value="7">NEFT/RTGS</option>';
+                    '<option value="">Select Pay Type</option><option value="2">Advance</option><option value="3">Cheque</option><option value="4">Draft</option><option value="5">Pay Order</option><option value="6">CR Note</option><option value="7">NEFT/RTGS</option><option value="8">Yearly Cr Note</option>';
             }
 
             var newElement = '<tr>' +
@@ -714,6 +723,7 @@
 
                 var tot_dr_amt = parseFloat($('#tot_dr_amt').val());
                 var adv_amt = parseFloat($('#adv_amt').val());
+
                 // var tot_recvble_amt = parseFloat($('#tot_recvble_amt').val());
                 // var net_amt = tot_recvble_amt - 
             });
@@ -748,6 +758,38 @@
                 var adv_amt = parseData[0].adv_amt;
 
                 $('#adv_amt').val(adv_amt);
+
+            });
+
+
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        var i = 0;
+
+        $('#soc_id').change(function () {
+
+            $.get(
+
+                '<?php echo site_url("socpay/f_get_yrlycr_amt");?>',
+
+                {
+
+                    soc_id: $(this).val()
+
+                }
+
+            ).done(function (data) {
+
+                var parseData = JSON.parse(data);
+
+                var yrly_amt = parseData[0].yrly_amt;
+
+                $('#yrly_crnt_amt').val(yrly_amt);
 
             });
 
@@ -924,7 +966,10 @@
 
             var rnd_net_amt = $('#rndtot_recvble_amt').val();
             var total = $('#total').val();
-
+            // var tot_yrly_cr = $('#yrly_crnt_amt').val();
+            var pay_type = $(this).find('td:eq(0) .pay').val();
+            // alert(tot_yrly_cr);
+            // alert(pay_type)
             if (parseFloat(total) > parseFloat(rnd_net_amt)) {
                 $('#total').css('border-color', 'red');
                 // alert('Paid Amount Should Not Greater Than Net Amount!');
@@ -937,6 +982,18 @@
                 $('#total').css('border-color', 'gray');
                 return true;
             }
+            // if (parseFloat(total) > parseFloat(rnd_net_amt)) {
+            //     $('#total').css('border-color', 'red');
+            //     // alert('Paid Amount Should Not Greater Than Net Amount!');
+            //     alert('Amount must be less than or equal to net amount');
+            //     $('#submit').prop('disabled', true);
+
+            //     return false;
+            // } else {
+            //     $('#submit').prop('disabled', false);
+            //     $('#total').css('border-color', 'gray');
+            //     return true;
+            // }
 
         })
 
@@ -1144,7 +1201,7 @@
     $('.table tbody').on('change', '.pay', function () {
         var selval = $(this).val();
 
-        if(selval==2||selval==6||selval==1){
+        if(selval==2||selval==6||selval==1 ||selval==8){
            
             let row = $(this).closest('tr');
 
@@ -1183,7 +1240,7 @@
         var amt = parseFloat($(this).val()).toFixed(2);
 
         var abc = row.find('td:eq(0) .pay').val();
-
+// alert(abc);
         if (abc == 6) {
             var crAmount = parseFloat($('#tot_dr_amt').val()).toFixed(2);
             
@@ -1201,7 +1258,7 @@
         if (abc == 2) {
            
             var adv_amt = parseFloat($('#adv_amt').val()).toFixed(2);
-                
+                // alert(adv_amt);
             if (parseFloat(amt) > parseFloat(adv_amt)){
                 alert('Amount must be less than advance amount');
                 $("#addrow").hide();
@@ -1211,6 +1268,19 @@
                 $("#addrow").show();
             }
         }
+        if (abc == 8) {
+           
+           var yearly_cr = parseFloat($('#yrly_crnt_amt').val()).toFixed(2);
+            //    alert(yearly_cr);
+           if (parseFloat(amt) > parseFloat(yearly_cr)){
+               alert('Amount must be less than Yearly Cr. amount');
+               $("#addrow").hide();
+               $("#submit").prop('disabled', false);
+           }else{
+               $("#submit").prop('disabled', true);
+               $("#addrow").show();
+           }
+       }
 
     });
     $(document).ready(function () {
@@ -1244,4 +1314,3 @@
 
     });
 </script>
-

@@ -353,6 +353,26 @@
 
 		}
 
+		public function f_get_yrlycr_amt_dtl($soc_id) // For Jquery
+        {
+			$thisfnyear=$this->session->userdata('loggedin')['fin_yr'];
+			$fin_id     = $this->session->userdata['loggedin']['fin_id'];
+			$yearex=explode('-',$thisfnyear);
+
+				$opdate=$yearex[0].'-04-01';
+				$sql = $this->db->query("SELECT ifnull(sum(a.tot_amt),0) -
+
+				(select ifnull(sum(b.tot_amt),0)  FROM tdf_dr_cr_note b
+				WHERE b.soc_id ='$soc_id'  	and b.trans_flag='O'
+				and b.recpt_no like '%YRLY%')	as yrly_amt
+				FROM tdf_dr_cr_note a 
+				WHERE a.soc_id ='$soc_id'
+			 	and a.trans_flag='R'
+				and a.recpt_no like '%YRLY%'");
+
+            return $sql->result();
+ 
+		}
 
 
 		// function f_recvjnl($data){

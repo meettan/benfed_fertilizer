@@ -105,7 +105,7 @@ public function society_payEdit(){
 	        $this->load->view('post_login/fertilizer_main');
 
 	        $this->load->view("Society_payment/edit",$product);
-
+ 
 	        $this->load->view('post_login/footer');
     }
 
@@ -177,6 +177,7 @@ public function society_payEdit(){
 					$tot_paid_amt    = 0.00;
 					$tot_soc         = 0.00;
 					$tot_sundry      = 0.00;
+					$tot_yrlycr      =0.00 ;
 					$tot_adv		 = 0.00;
 					$tot_csh		 = 0.00;
 					$tot_drft		 = 0.00;
@@ -270,6 +271,9 @@ public function society_payEdit(){
 						}elseif($trans_type==7){
 
 							$tot_nft += $_POST['paid_amt'][$i];
+						}elseif($trans_type==8){
+
+							$tot_yrlycr += $_POST['paid_amt'][$i];
 						}
 						$tot_soc = ( $tot_csh  + $tot_drft +  $tot_nft + $tot_payord + $tot_chq + $tot_adv);
 						$tot_bnk = ( $tot_csh  + $tot_drft +  $tot_nft + $tot_payord + $tot_chq);
@@ -315,8 +319,66 @@ public function society_payEdit(){
 	   
 						   $this->Society_paymentModel->f_insert('tdf_advance', $data_adv_pay);
                     }
-	
-					// }
+	///////////////////////////for yearly cr note////
+	if ($trans_type=='8'){
+		$branch  = $this->session->userdata['loggedin']['branch_id'];
+		$finYr          = $this->session->userdata['loggedin']['fin_id'];
+		$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
+		$select         = array("dist_sort_code");
+		$where          = array("district_code"     =>  $branch);
+		$brn            = $this->DrcrnoteModel->f_select("md_district",$select,$where,1); 
+		$transNo        = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
+		// $receipt         = 'YRLY_Crnadj/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
+        $receipt        = 'YRLY_Crnadj/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
+
+		$total = $_POST['paid_amt'][$i];
+
+		$soc_id= $this->input->post('soc_id');
+
+		$data_yrly_cr     = array('trans_dt'        => date('Y-m-d'),
+
+								   'trans_no'       =>$transNo->trans_no ,
+
+								   'recpt_no'       => $receipt,
+
+							       'soc_id'         => $this->input->post('soc_id'),
+								 
+                                  'comp_id'         =>$this->input->post('comp_id'),
+								   
+								   'invoice_no'    => $this->input->post('trans_do'),
+
+								   'ref_invoice_no'=> $this->input->post('trans_do'),
+
+								   'ro'            => $this->input->post('sale_ro'),
+								   
+								   'year'          => $fin_id,
+
+								   'catg'          => 5,
+
+								   'tot_amt'       => $total,
+
+								   'trans_flag'    => 'O',
+
+								   'note_type'     => 'D',
+
+								   'fwd_flag'       => 'N',
+
+								   'br_adj_flag'    => 'N',
+
+								   'comp_adjflag'   => 'N',
+								   
+								   'branch_id '      => $br_cd,
+
+								   'fin_yr'         => $fin_id,
+
+								   'remarks'        => 'YRLY CR ADJ',
+
+								   'created_by'    => $this->session->userdata['loggedin']['user_name'],
+
+								   'created_dt'    => date('Y-m-d H:i:s'));
+
+		   $this->Society_paymentModel->f_insert('tdf_dr_cr_note', $data_yrly_cr);
+	}
 
 							$data1     = array(   
 													
@@ -501,7 +563,7 @@ public function society_payEdit(){
 						$where_drcr  =   array(
 
 							'invoice_no'   => $this->input->post('trans_do')
-						
+  						
 					);
 		
 					$this->DrcrnoteModel->f_edit('tdf_dr_cr_note', $data_drcr, $where_drcr);
@@ -1109,6 +1171,15 @@ public function f_get_payro(){
 			
             echo json_encode($data);
 
+		}
+
+		public function f_get_yrlycr_amt()
+		{
+			$soc_id = $this->input->get('soc_id');
+           
+			$data = $this->Society_paymentModel->f_get_yrlycr_amt_dtl($soc_id);
+			
+            echo json_encode($data);
 		}
 
 		public function f_get_adv_net_amt()  
