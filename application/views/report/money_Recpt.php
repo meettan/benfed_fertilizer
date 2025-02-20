@@ -118,6 +118,8 @@
                             echo 'CR Note';
                           }else if($pTPD->pay_type==7){
                             echo 'NEFT/RTGS';
+                          }else if($pTPD->pay_type==8){
+                            echo 'YEARLY CR Note'; 
                           }; ?></td>
                         <!-- <td scope="row" class="double_1Body"><?php //date("d/m/Y", strtotime($pTPD->ref_dt)); ?></td>
                         <td scope="row" class="double_1Body"><?php //$pTPD->ref_no; ?></td> -->
