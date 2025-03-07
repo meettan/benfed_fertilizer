@@ -1051,9 +1051,9 @@ public function crnote_editvu(){
 		$fin_year       = $this->session->userdata['loggedin']['fin_yr'];
 		$select         = array("dist_sort_code");
 		$where          = array("district_code"     =>  $branch);
-		$brn           = $this->DrcrnoteModel->f_select("md_district",$select,$where,1); 
-		$transNo         = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
-		$receipt         = 'YRLY_Crnote/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
+		$brn            = $this->DrcrnoteModel->f_select("md_district",$select,$where,1); 
+		$transNo        = $this->DrcrnoteModel->get_trans_no($this->session->userdata['loggedin']['fin_id']);
+		$receipt        = 'YRLY_Crnote/'.$brn->dist_sort_code.'/'.$fin_year.'/'.$transNo->trans_no;
 	 
 		
 	 if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -1249,7 +1249,7 @@ public function crnote_editvu(){
 				
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 				
-				"a.trans_dt BETWEEN '".$from_date."' AND '".$to_date."' group by  a.invoice_no ORDER BY a.trans_dt"			=>	NULL
+				"a.trans_dt BETWEEN '".$from_date."' AND '".$to_date."' group by  a.invoice_no,a.recpt_no ORDER BY a.trans_dt"			=>	NULL
 			);
 		//a.fin_yr='".$this->session->userdata['loggedin']['fin_id']."'
 		
