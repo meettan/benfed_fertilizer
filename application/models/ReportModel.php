@@ -2031,19 +2031,23 @@ and a.ro_no not in (select sale_ro from td_sale
             and c.pay_type=3 
             and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
             union
-             SELECT paid_dt,'' prod,c.paid_id  as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,sum(c.paid_amt) tot_recv , 'Draft Adj' remarks
+             SELECT paid_dt,'' prod,c.paid_id  as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,sum(c.paid_amt) tot_recv ,
+              'Draft Adj' remarks
              FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
              and c.pay_type=4 
              and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
              union
              SELECT paid_dt,'' prod,c.paid_id  as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0,0,'' as ro_no,d.ro_dt as ro_dt,0 as qty,sum(c.paid_amt) tot_recv ,'Pay Order Adj' remarks
-             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no and c.pay_type=5 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
+             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
+             and c.pay_type=5 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
              union
              SELECT paid_dt,'' prod,c.paid_id as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,sum(c.paid_amt) tot_recv ,'NEFT Adj' remarks
-             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no and c.pay_type=7 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
+             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
+             and c.pay_type=7 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
              union
-             SELECT paid_dt,'' prod,c.paid_id as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,sum(c.paid_amt) tot_recv ,'Net Banking' remarks
-             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no and c.pay_type=8 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
+             SELECT paid_dt,'' prod,c.paid_id as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,sum(c.paid_amt) paybl,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,0 tot_recv ,'Yearly Cr Note' remarks
+             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
+             and c.pay_type=8 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
              union
          SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,sum(c.tot_amt) as paid_amt,0 paybl,0,0,c.ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
             FROM tdf_dr_cr_note c,mm_ferti_soc b,td_sale d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.invoice_no = d.trans_do and c.trans_flag='R' and c.trans_dt between '$frmDt' and '$toDt' 
