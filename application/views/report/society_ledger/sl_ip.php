@@ -297,7 +297,7 @@ tr:hover {background-color: #f5f5f5;}
                                         }
 
                                         // echo $totalamt;
-                                     }elseif($prodtls->remarks=='Sale'||$prodtls->remarks=='TRF TO INSECT'){
+                                     }elseif($prodtls->remarks=='Sale'||$prodtls->remarks=='TRF TO INSECT' ||$prodtls->remarks=='Yearly Cr Note'){
                                       
                                       $totalamt += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst;
 
