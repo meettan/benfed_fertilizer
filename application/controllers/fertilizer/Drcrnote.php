@@ -362,6 +362,14 @@ public function drnoteReport()
         //     $this->DrcrnoteModel->f_edit('tdf_dr_cr_note', $data, $where);
 		// }
  
+		public function f_get_sale_inv_dr(){
+
+			   
+			$inv    = $this->DrcrnoteModel->get_sel_inv($this->input->get("soc_id"),$this->input->get("comp_id"),$this->input->get("year"));
+		
+			echo json_encode($inv);
+		
+		}
 
 		public function f_get_sale_inv(){
 
@@ -1305,6 +1313,113 @@ public function crnote_editvu(){
 		echo json_encode($payro);
 	
 	}
+	//*******DR note Edit fir branch****** */
+
+	public function drnote_editbr(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+			$tot_amt = $this->input->post('tot_amt');
+							
+						
+			$data    = array(
+
+						
+
+						// 'remarks'       => $this->input->post('remarks'),
+
+						// 'soc_id'        => $this->input->post('soc_id'),
+
+						// 'comp_id'       => $this->input->post('comp_id'),
+
+						// 'invoice_no'    => $this->input->post('inv_no'),
+
+						//  'ro'           => $this->input->post('ro_no'),
+						 
+						// 'catg'          => $this->input->post('cat_id'),
+						
+
+						'modified_by'   => $this->session->userdata['loggedin']['user_name'],
+
+						'modified_dt'   =>  date('Y-m-d'),
+
+						'modified_ip'   =>  $_SERVER['REMOTE_ADDR']
+
+						);
+
+			$where3  =   array(
+
+				'invoice_no'     => $this->input->post('inv_no'),
+				'trans_type'     =>'R'
+
+		   );
+			
+            $this->DrcrnoteModel->f_edit('drnote_br', $data, $where3);
+			// echo $this->db->last_query();
+			// die();
+
+		$this->session->set_flashdata('msg', 'Successfully Updated');
+
+			redirect('drcrnote/dr_note');
+			
+            
+		}else {
+
+
+            // $where3 = array(
+
+            //   	"trans_dt" => $this->input->get('trans_dt'),
+                    
+            //     "trans_no" => $this->input->get('trans_no')
+            // );
+
+
+			$where1 = array(
+				"soc_id"=> $this->input->get('soc_id'),
+		);
+			$select        = array("soc_id soc_id","soc_name soc_name");
+
+			$select1       = array("COMP_ID comp_id","COMP_NAME comp_name");
+
+			$select3       =array("a.trans_dt",
+									"a.trans_no",
+									"a.comp_id",
+									"a.invoice_no",
+									"a.ro",
+									"a.recpt_no",
+									"a.soc_id",
+									"a.frm_date",
+									"a.to_date",
+									"a.tot_amt",
+									"a.remarks",
+									"a.pay_flag");
+									
+									$where_cr =array(
+									"id" => $this->input->get('id'));
+			 
+			$product['socdtls']    = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select,NULL,0);
+			
+			$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select1,NULL,0);
+
+			$product['dr_dtls']     = $this->DrcrnoteModel->f_get_particulars("drnote_br", NULL, $where_cr,0);
+				
+			$select_cr = array(
+				"count(ro)as cr_cnt"
+			);	
+
+			$where_cr = array(
+				"id"	=> $this->input->get('id'));
+			$product['cr_cnt']= $this->DrcrnoteModel->f_select("drnote_br",$select_cr,$where_cr,0);
+// echo $this->db->last_query();
+// die();
+	        $this->load->view('post_login/fertilizer_main');
+
+	        $this->load->view("dr_note_br/edit",$product);
+
+	        $this->load->view('post_login/footer');
+        }
+
+    }
+
 	//*********DR note for branch add *********/
 	public function drnoteAdd_br(){
 		$branch  = $this->session->userdata['loggedin']['branch_id'];
@@ -1325,12 +1440,6 @@ public function crnote_editvu(){
 	$tot_amt   = $this->input->post('tot_amt');
 	$tot_cramt = 0.00;
 
-
-	
-//  for($i = 0; $i < count($tot_amt); $i++){
-
-	//  $tot_amt  = $_POST['tot_amt'][$i];
-	//  $cat_id   = $_POST['cat_id'][$i];
 	
 	  $data  = array (
 		'recpt_no' => $receipt ,
@@ -1360,17 +1469,7 @@ public function crnote_editvu(){
 		"created_ip"   =>  $_SERVER['REMOTE_ADDR']
 
 	);
-	// print_r($data);
-	
-// $tot_cramt += $_POST['tot_amt'][$i];
 
-	// $select_cracc         = array("acc_cd"
-							//    );
-// $where_cracc          = array(
-	// "sl_no"     => $_POST['cat_id'][$i]
-// );
-
-// $cr_acc = $this->DrcrnoteModel->f_select("mm_cr_note_category",$select_cracc,$where_cracc,1);
 
 		$data_array_cr=$data;
 		// $data_array_cr['acc_cd'] = $cr_acc->acc_cd; 
@@ -1387,14 +1486,7 @@ public function crnote_editvu(){
 
 		$data_array_cr['fin_fulyr']=$fin_year;
 		$data_array_cr['br_nm']= $brn->dist_sort_code;
-		
-		// if($this->DrcrnoteModel->f_crnjnl($data_array_cr)!=0){
-		// 	$this->DrcrnoteModel->f_insert('drnote_br', $data);
-		// }else{
-		// 	echo "<script>alert('Debit Note has not yet been done.');</script>";
-		// }
-		
-// }
+	
 $data_cr  = array (
 'recpt_no' => $receipt ,
   

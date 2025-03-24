@@ -84,34 +84,32 @@
                 </div>
             </div>
             <div class="form-group row">
+            <label for="year" class="col-sm-2 col-form-label">YEAR:</label>
 
-                <label for="inv_no" class="col-sm-2 col-form-label">Invoice No.:</label>
-                <div class="col-sm-4">
-
-                    <select name="inv_no" id="inv_no" class="form-control inv_no sch_cd select2-hidden-accessible" required>
-                        <option value="">Select Invoice</option>
-                        <?php
-      foreach($saleinv as $inv)
-      { ?>
-                        <option value="<?php echo $inv->trans_do; ?>"><?php echo $inv->trans_do; ?></option>
-                        <?php
-      } ?>
-                    </select>
-
-                </div>
-
+<div class="col-sm-4">
+      <select name="year" id="year" class="form-control year" >
+              <option value="">Select Year</option>
+              <?php
+                foreach($years as $yr)
+            { ?>
+                <option value="<?php echo $yr->sl_no; ?>"><?php echo $yr->fin_yr; ?></option>
+            <?php
+            } ?>
+            </select> 
+    </div>     
+               
                 <label for="ro_no" class="col-sm-2 col-form-label">RO No:</label>
 
                 <div class="col-sm-4">
 
                     <select name="ro_no" id="ro_no" class="form-control sch_cd ro_no" required>
                         <option value="">Select Ro</option>
-                        <!-- <?php
+                        <?php
           foreach($compdtls as $row)
       { ?>
           <option value="<?php echo $row->comp_id; ?>"><?php echo $row->comp_name; ?></option>
       <?php
-      } ?> -->
+      } ?>
                     </select>
                 </div>
 
@@ -145,18 +143,34 @@
             </div>
             <div class="form-group row">
 
-                <label for="trans_dt" class="col-sm-2 col-form-label">Credit Note Date:</label>
+                <label for="trans_dt" class="col-sm-2 col-form-label">Debit Note Date:</label>
 
                 <div class="col-sm-4">
                     <input type="date" id="trans_dt" min="" name="trans_dt" value="<?php echo set_value('trans_dt'); ?>"
                         class="form-control mindate" required />
                 </div>
-
+                </div>
+                <div class="form-group row">
                 <!-- <label for="dr_amt" class="col-sm-2 col-form-label">Amount:</label> -->
+                <label for="inv_no" class="col-sm-2 col-form-label">Invoice No.:</label>
+                <div class="col-sm-4">
+
+                    <select name="inv_no" id="inv_no" class="form-control inv_no sch_cd select2-hidden-accessible" required>
+                        <option value="">Select Invoice</option>
+                        <?php
+      foreach($saleinv as $inv)
+      { ?>
+                        <option value="<?php echo $inv->trans_do; ?>"><?php echo $inv->trans_do; ?></option>
+                        <?php
+      } ?>
+                    </select>
+
+                </div>
 
                 <div class="col-sm-4">
                     <!-- <input type="text" id="tot_amt" name="tot_amt" class="form-control" required /> -->
                     <input type="hidden" id="recpt_no" name="recpt_no" class="form-control" />
+                       
                 </div>
 
 
@@ -181,27 +195,6 @@
                 </div>
             </div>
             <div class="form-group row">
-
-                <!-- <label for="trans_dt" class="col-sm-2 col-form-label">YEAR:</label>
-
-                <div class="col-sm-4">
-                      <select name="year" id="year" class="form-control year" >
-                              <option value="">Select Year</option>
-                            <?php
-                                foreach($years as $yr)
-                            { ?>
-                                <option value="<?php echo $yr->sl_no; ?>"><?php echo $yr->fin_yr; ?></option>
-                            <?php
-                            } ?>
-                            </select> 
-                    </div>         -->
-                   <!-- <label for="trans_dt" class="col-sm-2 col-form-label">Ref Invoice:</label>
-                   <div class="col-sm-4">
-
-                        <select name="ref_invoice_no" id="ref_invoice_no" class="form-control sch_cd">
-                            <option value="">Select Invoice</option>
-                        </select>
-                    </div> -->
 
             </div>
 
@@ -306,13 +299,13 @@
             $('#overlay').fadeIn().delay(3000).fadeOut();
             $.get(
 
-                '<?php echo site_url("drcrnote/f_get_sale_inv");?>',
+                '<?php echo site_url("drcrnote/f_get_sale_inv_dr");?>',
 
                 {
 
                     soc_id: $('#soc_id').val(),
-                    comp_id: $('#comp_id').val()
-
+                    comp_id: $('#comp_id').val(),
+                    fin_yr: $('#year').val()
                 }
 
             ).done(function (data) {
@@ -337,7 +330,7 @@
             $('#overlay').fadeIn().delay(3000).fadeOut();
             $.get(
 
-                '<?php echo site_url("drcrnote/f_get_sale_refinv");?>',
+                '<?php echo site_url("drcrnote/f_get_sale_inv_dr");?>',
 
                 {
 

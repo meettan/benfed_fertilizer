@@ -103,7 +103,7 @@
                     <td>
                         <button type="button" name="Edit<?= $i ?>" class="Edit_" id="Edit" data-toggle="tooltip"
                             data-placement="bottom" title="Edit_" >
-                            <a href="drnotetcs_edit?id=<?=$dr->id;?>" data-toggle="tooltip"
+                            <a href="drnote_editbr?id=<?=$dr->id;?>" data-toggle="tooltip"
                                 data-placement="bottom" id="edit_<?= $i ?>">
                                 <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
                             </a>
