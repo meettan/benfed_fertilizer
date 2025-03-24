@@ -97,22 +97,36 @@
             } ?>
             </select> 
     </div>     
-               
-                <label for="ro_no" class="col-sm-2 col-form-label">RO No:</label>
+    <label for="inv_no" class="col-sm-2 col-form-label">Invoice No.:</label>
+                <div class="col-sm-4">
+
+                    <select name="inv_no" id="inv_no" class="form-control inv_no sch_cd select2-hidden-accessible" required>
+                        <option value="">Select Invoice</option>
+                        <?php
+      foreach($saleinv as $inv)
+      { ?>
+                        <option value="<?php echo $inv->trans_do; ?>"><?php echo $inv->trans_do; ?></option>
+                        <?php
+      } ?>
+                    </select>
+
+                </div>
+
+                <!-- <label for="ro_no" class="col-sm-2 col-form-label">RO No:</label>
 
                 <div class="col-sm-4">
 
                     <select name="ro_no" id="ro_no" class="form-control sch_cd ro_no" required>
                         <option value="">Select Ro</option>
                         <?php
-          foreach($compdtls as $row)
+          foreach($saleinv as $inv)
       { ?>
-          <option value="<?php echo $row->comp_id; ?>"><?php echo $row->comp_name; ?></option>
+          <option value="<?php echo $inv->ro; ?>"><?php echo $inv->ro; ?></option>
       <?php
       } ?>
                     </select>
                 </div>
-
+ -->
 
             </div>
 
@@ -151,8 +165,24 @@
                 </div>
                 </div>
                 <div class="form-group row">
+                <label for="ro_no" class="col-sm-2 col-form-label">RO No:</label>
+
+<div class="col-sm-4">
+
+    <select name="ro_no" id="ro_no" class="form-control sch_cd ro_no" required>
+        <option value="">Select Ro</option>
+        <?php
+foreach($saleinv as $inv)
+{ ?>
+<option value="<?php echo $inv->ro; ?>"><?php echo $inv->ro; ?></option>
+<?php
+} ?>
+    </select>
+</div>
+
+
                 <!-- <label for="dr_amt" class="col-sm-2 col-form-label">Amount:</label> -->
-                <label for="inv_no" class="col-sm-2 col-form-label">Invoice No.:</label>
+                <!-- <label for="inv_no" class="col-sm-2 col-form-label">Invoice No.:</label>
                 <div class="col-sm-4">
 
                     <select name="inv_no" id="inv_no" class="form-control inv_no sch_cd select2-hidden-accessible" required>
@@ -165,7 +195,7 @@
       } ?>
                     </select>
 
-                </div>
+                </div> -->
 
                 <div class="col-sm-4">
                     <!-- <input type="text" id="tot_amt" name="tot_amt" class="form-control" required /> -->
@@ -336,7 +366,7 @@
 
                     soc_id: $('#soc_id').val(),
                     comp_id: $('#comp_id').val(),
-                    year: $(this).val(),
+                    year: $('#year').val(),
 
                 }
 
@@ -351,7 +381,7 @@
 
                 });
 
-                $('#ref_invoice_no').html(string);
+                $('#inv_no').html(string);
 
 
             });

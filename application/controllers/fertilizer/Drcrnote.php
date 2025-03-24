@@ -365,7 +365,7 @@ public function drnoteReport()
 		public function f_get_sale_inv_dr(){
 
 			   
-			$inv    = $this->DrcrnoteModel->get_sel_inv($this->input->get("soc_id"),$this->input->get("comp_id"),$this->input->get("year"));
+			$inv    = $this->DrcrnoteModel->get_sel_inv_dr($this->input->get("soc_id"),$this->input->get("comp_id"),$this->input->get("year"));
 		
 			echo json_encode($inv);
 		
@@ -1313,7 +1313,7 @@ public function crnote_editvu(){
 		echo json_encode($payro);
 	
 	}
-	//*******DR note Edit fir branch****** */
+	//*******DR note Edit for branch****** */
 
 	public function drnote_editbr(){
 

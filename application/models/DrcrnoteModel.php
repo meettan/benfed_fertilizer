@@ -25,6 +25,16 @@
 			return;
 
 		}
+		
+
+		public function get_sel_inv_dr($sosid,$cmpid,$year){
+			$value=$this->db->query('SELECT trans_do,sale_ro FROM td_sale
+			where soc_id = '.$sosid.'
+			and comp_id = '.$cmpid.' 
+			and fin_yr = '.$year.' 
+			');
+			return $value->result();
+		}
 		public function get_sel_inv($sosid,$cmpid){
 			$value=$this->db->query('SELECT trans_do,sale_ro FROM td_sale
 			where soc_id = '.$sosid.'
