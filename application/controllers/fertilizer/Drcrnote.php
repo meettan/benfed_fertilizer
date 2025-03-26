@@ -247,7 +247,23 @@ function update_dr_cr_note(){
 	//var_dump($data);
 	//exit;
 }
-
+/******yearly dr note receipt**** */
+public function drnote_brRep()
+    {
+        $id = $this->input->get('id');
+        $dr['data']    = $this->DrcrnoteModel->f_get_drnotebrrep($id);
+        // echo $this->db->last_query();
+		// exit();
+        $dr['id'] = $id;
+        
+        $this->load->view("post_login/fertilizer_main");
+    
+        $this->load->view('report/drnotebr_receipt', $dr);
+    
+        $this->load->view('post_login/footer');
+        
+    }
+    
 
 /******************************************Debit Note For Customer ********************************************/		
 
@@ -1051,6 +1067,93 @@ public function crnote_editvu(){
 		redirect('drcrnote/cr_note');
 
 	}
+	///******edit yearly cr note*/** * */
+	public function yearlydrnote_edit(){
+
+		if($_SERVER['REQUEST_METHOD'] == "POST") {
+			$tot_amt = $this->input->post('tot_amt');
+							
+						  for($i = 0; $i < count($tot_amt); $i++){
+   
+			$data    = array(
+						'catg'          =>$_POST['cat_id'][$i],
+
+						'tot_amt'       =>$_POST['tot_amt'][$i],
+
+						'modified_by'   => $this->session->userdata['loggedin']['user_name'],
+
+						'modified_dt'   =>  date('Y-m-d'),
+
+						'modified_ip'   =>  $_SERVER['REMOTE_ADDR']
+
+						);
+
+			$where3  =   array(
+
+				'recpt_no'     => $this->input->post('recpt_no')
+
+		   );
+			
+            $this->DrcrnoteModel->f_edit('tdf_dr_cr_note', $data, $where3);
+			// echo $this->db->last_query();
+			// die();
+
+		}
+			$this->session->set_flashdata('msg', 'Successfully Updated');
+
+			redirect('drcrnote/dr_note');
+			
+            
+		}else {
+
+
+            $where3 = array(
+                          
+                "recpt_no" => $this->input->get('recpt_no')
+            );
+
+
+			$where1 = array(
+				"soc_id"=> $this->input->get('soc_id'),
+		);
+			
+		$select        = array("soc_id","soc_name","soc_add","gstin");
+
+		$select1       = array("COMP_ID comp_id","COMP_NAME comp_name");
+		 
+		$product['socdtls']    = $this->DrcrnoteModel->f_select('mm_ferti_soc',$select,NULL,0);
+		
+		$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select1,NULL,0);
+
+		$product['catg']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',NULL,NULL,0);
+		$product['cr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note',NULL,$where3,1);
+
+		    // $product['dr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note a,mm_cr_note_category b ',$select3,$where,0);
+			// echo $this->db->last_query();
+			// exit();
+			$product['dr_dtls']     = $this->DrcrnoteModel->f_get_particulars("tdf_dr_cr_note", NULL, $where3,0);
+			
+				// echo $this->db->last_query();
+				// exit();
+			$select_cr = array(
+				"count(ro)as cr_cnt"
+			);	
+			$where_cr = array(
+				"invoice_no"	=> $this->input->get('invoice_no') ,
+				"trans_flag"    =>'A'
+		);
+			$product['cr_cnt']= $this->DrcrnoteModel->f_select("tdf_dr_cr_note",$select_cr,$where_cr,0);
+// echo $this->db->last_query();
+// die();
+	        $this->load->view('post_login/fertilizer_main');
+
+	        $this->load->view("dr_note/edit_yearly",$product);
+
+	        $this->load->view('post_login/footer');
+        }
+
+    }
+
 
 	public function yearlydrnoteAdd(){
 
@@ -1197,7 +1300,7 @@ public function crnote_editvu(){
 			
 			$this->session->set_flashdata('msg', 'Successfully Added');
 
-			redirect('drcrnote/dr_note');
+			redirect('drcrnote/yearlydr_note');
 		
 		   
 			
@@ -1254,6 +1357,7 @@ public function crnote_editvu(){
 				"a.trans_flag"			=>	'R',
 
 				"a.note_type"			=>	'D',
+				"a.recpt_no LIKE"       => "%YRLY_Crnote%",
 				
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 				
@@ -1265,7 +1369,7 @@ public function crnote_editvu(){
 		
 			$this->load->view("post_login/fertilizer_main");
 	
-			$this->load->view("dr_note/dashboard",$data);
+			$this->load->view("dr_note/yearlydashboard",$data);
 	
 			$this->load->view('search/search');
 	

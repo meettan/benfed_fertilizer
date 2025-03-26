@@ -54,8 +54,8 @@
                     <th>Amount</th>
                     <th>Edit</th>
                     <th>Print</th>
-                    <th>Download</th>
-                    <th>Delete</th>
+                    <!-- <th>Download</th> -->
+                    <!-- <th>Delete</th> -->
                 </tr>
 
             </thead>
@@ -81,51 +81,37 @@
                     
                     <td><?php echo date("d/m/Y",strtotime($dr->trans_dt)); ?></td>
 
-                    <!--<td><?php /*if($dr->trans_flag=='R'){
-                                                echo "Raised";
-                                            }else{
-                                                echo "Adjusted";
-                                            } */
-                                    ?>
-                                </td>-->
-
-                    <!-- <td><?php echo $dr->COMP_NAME; ?></td> -->
-
-                    <!-- <td><?php echo $dr->soc_name; ?></td> -->
                     <td><?php echo $dr->tot_amt; ?></td>
+
                     <td>
                         <button type="button" name="Edit<?= $i ?>" class="Edit_" id="Edit" data-toggle="tooltip"
-                            data-placement="bottom" title="Edit_" <?= $disable_btn; ?>>
-
-                            <!-- <a href="drnote_edit?trans_dt=<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>&soc_id=<?=$dr->soc_id;?>" 
-                                        data-toggle="tooltip" data-placement="bottom" id="edit_<?= $i ?>">
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i> -->
-
-                            <a href="drnote_edit?invoice_no=<?=$dr->invoice_no;?>" data-toggle="tooltip"
+                            data-placement="bottom" title="Edit_" >
+                            <a href="yearlydrnote_edit?recpt_no=<?=$dr->recpt_no;?>" data-toggle="tooltip"
                                 data-placement="bottom" id="edit_<?= $i ?>">
-                                <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
-                                <!-- <a href="<?php echo site_url('drnote_edit?trans_dt='.$dr->trans_dt.''); ?>" id="edit_<?= $i ?>" title="Edit"><i class="fa fa-edit fa-2x" style="color:blue;"></i></a> -->
+                                <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
                             </a>
                     </td>
+                    
                     <td>
                         <button type="button" name="Print<?= $i ?>" class="Print_" id="Print" data-toggle="tooltip"
                             data-placement="bottom" title="Print_" <?= $disable_btn; ?>>
-
-                            <a href="<?php echo site_url('drcrnote/drnoteReport?invoice_no='.$dr->invoice_no.''); ?>"
-                                title="Print">
+                             
+                            <!-- <a href="<?php echo site_url('drcrnote/drnoteReport?invoice_no='.$dr->invoice_no.''); ?>" -->
+                            <!-- <a href="<?php echo site_url('drcrnote/drnoteReport?recpt_no='.$dr->recpt_no.''); ?>"
+                                title="Print"> -->
 
                                 <i class="fa fa-print fa-2x" style="color:green;"></i>
 
-                            </a>
+                            <!-- </a> -->
                     </td>
-                    <td>
+                    <!-- <td>
                         <button type="button" name="download_<?= $i ?>" class="download_" id="download"
                             data-toggle="tooltip" data-placement="bottom" title="download_" <?= $enable_btn; ?>>
 
                             <a href="<?php echo site_url('api/print_irn?irn='.$dr->irn.''); ?>"
                                 id="down_clk_td_<?= $i ?>" title="Download"><i class="fa fa-download fa-2x"
                                     style="color:green;"></i></a>
-                    </td>
+                    </td> -->
                     <!-- <td>
                     <button type="button" name="delete" class="delete_" id="delete"  
                                 data-toggle="tooltip" data-placement="bottom" title="delete_" <?= $disable_btn; ?>>
@@ -146,13 +132,13 @@
                     </button>
                     </td> -->
 
-                    <td>
+                    <!-- <td>
 
                     <?php
                     if($dr->br_adj_flag!='Y'){
 
                     
-                    if(empty($dr->irn)){ ?>
+                    if(empty($dr->irn)){ ?> -->
                         <!-- <button type="button" name="delete_<?= $i ?>" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>"    
                                        
                                        data-toggle="tooltip" data-placement="bottom" title="Delete" <?= $disable_del_btn; ?>>
@@ -162,14 +148,14 @@
                                </td> -->
 
 
-                        <button type="button" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>&recpt_no=<?=$dr->recpt_no?>&sale_invoice_no=<?=$dr->invoice_no?>"
+                        <!-- <button type="button" class="delete" id="<?=$dr->trans_dt;?>&trans_no=<?=$dr->trans_no;?>&recpt_no=<?=$dr->recpt_no?>&sale_invoice_no=<?=$dr->invoice_no?>"
                             data-toggle="tooltip" data-placement="bottom" title="Delete" <?=$disable_btn?> >
 
                             <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
-                        </button>
+                        </button> -->
 
-                        <?php }} ?>
-                    </td>
+                        <!-- <?php }} ?>
+                    </td> -->
                 </tr>
 
                 <?php
@@ -200,8 +186,8 @@
                     <th>Amount</th>
                     <th>Edit</th>
                     <th>Print</th>
-                    <th>Download</th>
-                    <th>Delete</th>
+                    <!-- <th>Download</th> -->
+                    <!-- <th>Delete</th> -->
                 </tr>
 
             </tfoot>

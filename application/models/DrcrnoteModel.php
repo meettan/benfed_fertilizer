@@ -26,6 +26,17 @@
 
 		}
 		
+		public function f_get_drnotebrrep($id)
+		{
+	
+		  $sql = $this->db->query("select  a.trans_dt,a.id,a.recpt_no,a.soc_id,b.soc_name,a.tot_amt,a.invoice_no,a.ro,a.remarks remarks
+		  from drnote_br a ,mm_ferti_soc b
+		  where a.soc_id=b.soc_id
+		  and id= '$id'");			
+		  return $sql->row();
+	
+		}
+		
 
 		public function get_sel_inv_dr($sosid,$cmpid,$year){
 			$value=$this->db->query('SELECT trans_do,sale_ro FROM td_sale
