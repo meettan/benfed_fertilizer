@@ -1388,6 +1388,7 @@ public function crnote_editvu(){
 				"a.comp_id = c.COMP_ID"	=>	NULL,
 				"a.trans_flag"			=>	'R',
 				"a.note_type"			=>	'D',
+				"a.recpt_no LIKE"       => "%YRLY_Crnote%",
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 				"a.trans_dt BETWEEN '".date('Y-m-d')."' AND '".date('Y-m-d')."' group by  a.invoice_no ORDER BY a.trans_dt"			=>	NULL,
 
