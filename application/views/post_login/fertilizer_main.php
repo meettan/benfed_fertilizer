@@ -256,7 +256,8 @@
                               <a href="<?php echo site_url("trade/sale");?>">Sale</a>
                               <a href="<?php echo site_url("drcrnote/dr_note");?>">Credit Note </a>
                               <a href="<?php echo site_url("drcrnote/dr_note_tcs");?>">Debit Note TCS </a>
-                               <a href="<?php echo site_url("drcrnote/dr_note_br");?>">Debit Note Br </a>
+                              <a href="<?php echo site_url("drcrnote/dr_note_br");?>">Debit Note Br </a>
+                              <a href="<?php echo site_url("drcrnote/dr_noteadj_br");?>">Debit Note Adjustment</a>
                               <a href="<?php echo site_url("drcrnote/yearlydr_note");?>">Yearly Credit Note </a>
                               <a href="<?php echo site_url("socpay/society_payment");?>">Receive Payment</a>
                               <a href="<?php echo site_url("socpay/soc_payment_fwd");?>">Forward Payment</a>
@@ -356,6 +357,7 @@
 								 <a href="<?php echo site_url("fert/rep/soc_ledger");?>">Society Ledger</a>
                                  <a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
                                  <a href="<?php echo site_url("fert/rep/tcs_payable");?>">TCS Payable</a>
+                                 <a href="<?php echo site_url("fert/rep/dr_notebr");?>">Debit Note</a>
 								</div>
                                 <?php } ?>
                                 

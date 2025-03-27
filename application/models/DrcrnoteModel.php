@@ -26,6 +26,28 @@
 
 		}
 		
+		public function f_getdrnotebr_dtl($br_cd,$soc_id){
+	
+			$data = $this->db->query("select recpt_no trans_do
+										from drnote_br 
+									where branch_id = '$br_cd'
+									and soc_id='$soc_id'
+									and pay_flg='N' ");
+								   
+	   return $data->result();
+		   
+	   }
+
+	   public function f_get_drnote_recpdtls($trans_do){
+	
+		$data = $this->db->query("select a.trans_dt do_dt,a.ro ro,a.tot_amt,a.comp_id
+									from drnote_br a
+								where a.recpt_no='$trans_do'
+								");
+							   
+   return $data->result();
+	   
+   }
 		public function f_get_drnotebrrep($id)
 		{
 	
