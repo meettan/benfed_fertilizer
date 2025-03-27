@@ -1999,6 +1999,8 @@ and a.ro_no not in (select sale_ro from td_sale
         return $query->result();
     }
 
+   
+
     public function s_ro_wise_soc_ro($from_dt, $to_dt, $branch)
     {
         $sql = "select a.sale_ro,b.soc_name,sum(a.qty)tot_qty,ifnull(sum(a.round_tot_amt),0)tot_amt 
@@ -2045,6 +2047,12 @@ and a.ro_no not in (select sale_ro from td_sale
              FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
              and c.pay_type=7 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
              union
+             SELECT c.trans_dt  paid_dt,'' prod,c.recpt_no as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,0 paybl,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,sum(c.tot_amt) tot_recv ,'DR Note' remarks
+             FROM drnote_br c,mm_ferti_soc b,td_purchase d 
+             where c.soc_id=b.soc_id  and c.soc_id = '$soc_id'  and c.branch_id='$branch' 
+             and c.ro= d.ro_no   and c.trans_dt between '$frmDt' and '$toDt' 
+  group by soc_name,c.soc_id,c.recpt_no,d.ro_dt,c.trans_dt
+  union
              SELECT paid_dt,'' prod,c.paid_id as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,sum(c.paid_amt) as tot_payble,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,0 tot_recv ,'YRLY Cr Note Adj' remarks
              FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
              and c.pay_type=8 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
@@ -2097,7 +2105,7 @@ and a.ro_no not in (select sale_ro from td_sale
          FROM drnote_tcs c,mm_ferti_soc b
          where c.soc_id=b.soc_id
          and c.soc_id = '$soc_id'
-         and c.branch_id='$branch'
+         and c.branch_id ='$branch'
          and c.trans_dt between '$frmDt' and '$toDt'
          and c.trans_dt and c.tot_amt>0
            )a
