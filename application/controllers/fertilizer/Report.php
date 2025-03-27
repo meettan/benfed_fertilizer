@@ -2384,9 +2384,11 @@ public function soc_payblepaid(){
 				$_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
 				$product    =   $this->ReportModel->f_get_product_list($branch,$opndt);
 			
-				$where1              =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
-				$br_name      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+				$where1     =   array("district_code"  =>  $this->session->userdata['loggedin']['branch_id']);
+				$br_name    =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
 				$all_data =$this->ReportModel->f_get_soc_ledger($from_dt,$to_dt , $branch,$soc_id);
+            // echo $this->db->last_query();
+            // die();
 				$paid     =$this->ReportModel->f_get_soc_paid($from_dt,$to_dt , $branch);
                 $gstno=explode('-',$this->input->post('soc_id'))[1];
 		}else{
@@ -2412,6 +2414,8 @@ public function soc_payblepaid(){
         $this->load->view('report/society_ledger/sl_ip',$data);
         $this->load->view('post_login/footer');
     }
+
+    
 
      public function advance_report(){
        
@@ -2720,6 +2724,43 @@ public function soc_payblepaid(){
             $this->load->view('post_login/footer');
         }
     }
+    /*******dr note for br**** */
+    public function dr_notebr(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            //  $selectstyr   = array("fin_start" );
+          
+           
+            $fin_id = $this->session->userdata['loggedin']['fin_id'];
+            // $wherefin=array('sl_no ='=>$fin_id);
+            // $op_dt = $this->ReportModel->f_select("md_fin_year",$selectstyr,$wherefin,1);
+            $op_dt =$this->ReportModel->f_get_op_dt($fin_id);
+
+            // $op_dt=$data['finstrt'];
+            //  echo $this->db->last_query();
+            //  die();
+              $op_dt=$op_dt->fin_start;
+            // echo $op_dt;
+            // die();
+            $frm_date = $this->input->post('fr_date');
+            $to_date  = $this->input->post('to_date');
+            $data['tableData']=$this->ReportModel->dr_notebr($frm_date,$to_date);
+            $data['distname']    =   $this->ReportModel->f_select("md_district", NULL, array('district_code'=>$this->session->userdata['loggedin']['branch_id']), 1);
+            $data['fDate']= $frm_date;
+            $data['tDate']=$to_date;
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/dr_notebr/advPay.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/dr_notebr/advPay_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
+    /********** */
     public function tcs_payable(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
             //  $selectstyr   = array("fin_start" );
