@@ -17,10 +17,7 @@
             <small><a href="<?php echo site_url("drcrnote/dr_noteadj_bradd");?>" class="btn btn-primary"
                     style="width: 100px;">Add</a></small>
             <span class="confirm-div" style="float:right; color:green;"></span>
-            <!-- <div class="input-group" style="margin-left:75%;">
-                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
-                </div> -->
+           
         </h3>
 
 
@@ -58,7 +55,7 @@
                     <!-- <th>Company</th> -->
                     <!-- <th>Customer</th> -->
                     <th>Amount</th>
-                    <th>Edit</th>
+                    <th>View</th>
                     <th>Print</th>
                     <!-- <th>Download</th> -->
                     <!-- <th>Delete</th> -->
@@ -110,8 +107,7 @@
                     </td>
                     <td>
                               <a href="drnote_brRep?id=<?=$dr->id;?>" title="Print">
-                              <!-- <a href="<?php echo site_url('drcrnote/drnote_brRep?id='.$dr->id.''); ?>"
-                                title="Print"> -->
+                              
                               <i class="fa fa-print fa-2x" style="color:green;"></i>  
                               <!-- <span class="mdi mdi-printer"></span> -->
                               </a>
@@ -176,7 +172,7 @@
                     <!-- <th>Company</th>
                     <th>Customer</th> -->
                     <th>Amount</th>
-                    <th>Edit</th>
+                    <th>View</th>
                     <th>Print</th>
                     <!-- <th>Download</th> -->
                     <!-- <th>Delete</th> -->

@@ -108,12 +108,7 @@
             <div class="form-group row">
                 <label for="sale_ro" class="col-sm-2 col-form-label">RO No:</label>
                 <div class="col-sm-3">
-                    <!-- <select name="sale_ro" class="form-control sch_cd required" id="sale_ro" 
-                        required>
-
-                        <option value="">Select</option>
-
-                    </select> -->
+                    
                     <input type="text" id="sale_ro" name="sale_ro" class="form-control" readonly />
                 </div>
                 
@@ -121,11 +116,7 @@
                 
             </div>
                 <div class="form-group row">
-                <!-- <label for="tot_recvble_amt" class="col-sm-2 col-form-label">Sold Qty:</label>
-                <div class="col-sm-3">
-                    <input type="text"  id="sold" name="sold" value="0"
-                        class="form-control" readonly />
-                </div> -->
+                
                 <label for="debt_amt" class="col-sm-2 col-form-label">Amount</label>
                 <div class="col-sm-3">
                     <input type="text"  id="debt_amt" name="debt_amt" value="0"
@@ -166,11 +157,11 @@
                             <th style="text-align: center;width:100px">Reference Date.</th>
                             <th style="text-align: center;width:100px">Reference NO.</th>
                             <th style="text-align: center;width:100px">Amount</th>
-                            <th>
-                                <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
+                            <!-- <th> -->
+                                <!-- <button class="btn btn-success" type="button" id="addrow" style="border-left: 10px"
                                     data-toggle="tooltip" data-original-title="Add Row" data-placement="bottom"><i
-                                        class="fa fa-plus" aria-hidden="true"></i></button></th>
-                            </th>
+                                        class="fa fa-plus" aria-hidden="true"></i></button></th> -->
+                            <!-- </th> -->
 
                         </thead>
 
@@ -260,33 +251,33 @@
     $(document).ready(function () {
 
         // For add row option
-        $('#addrow').click(function () {
-            var cashbank = $('input[name="cshbank"]:checked').val();
-            var ovalue =
-            '<option value="">Select Pay Type</option><option value="1">Cash</option><option value="2">Bank</option>';
+        // $('#addrow').click(function () {
+        //     var cashbank = $('input[name="cshbank"]:checked').val();
+        //     var ovalue =
+        //     '<option value="">Select Pay Type</option><option value="1">Cash</option><option value="2">Bank</option>';
 
-               var newElement = '<tr>' +
-                '<td id="t_type">' +
-                '<select name="pay_type[]" id="pay_type" style="width:230px"class="form-control pay soc_id" required>' +
-                ovalue +
-                '</td>' +
-                '<td>' +
-                '<input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt" value= "" id="ref_dt"  >' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no"  >' +
-                '</td>' +
-                '<td>' +
-                '<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>' +
-                '</td>' +
-                '<td>' +
-                '<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>' +
-                '</td>'
-            '</tr>';
+        //        var newElement = '<tr>' +
+        //         '<td id="t_type">' +
+        //         '<select name="pay_type[]" id="pay_type" style="width:230px"class="form-control pay soc_id" required>' +
+        //         ovalue +
+        //         '</td>' +
+        //         '<td>' +
+        //         '<input type="date" name="ref_dt[]" style="width:200px;" class="form-control ref_dt" value= "" id="ref_dt"  >' +
+        //         '</td>' +
+        //         '<td>' +
+        //         '<input type="text" name="ref_no[]" style="width:200px;" class="form-control ref_no" value= "" id="ref_no"  >' +
+        //         '</td>' +
+        //         '<td>' +
+        //         '<input type="text" name="paid_amt[]" style="width:130px;" class="form-control paid_amt" value= "" id="paid_amt" required>' +
+        //         '</td>' +
+        //         '<td>' +
+        //         '<button class="btn btn-danger" type= "button" data-toggle="tooltip" data-original-title="Remove Row" data-placement="bottom" id="removeRow"><i class="fa fa-remove" aria-hidden="true"></i></button>' +
+        //         '</td>'
+        //     '</tr>';
 
-            $("#intro").append($(newElement));
+        //     $("#intro").append($(newElement));
 
-        });
+        // });
 
         
 
@@ -337,8 +328,6 @@
     $(document).ready(function () {
 
         var i = 2;
-
-
 
         $('#do_no').change(function () {
 
@@ -560,7 +549,7 @@
 
 
 
-<script>
+<!-- <script>
     $(document).ready(function () {
 
         var i = 0;
@@ -606,9 +595,9 @@
         });
 
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
     $(document).ready(function () {
 
         var i = 0;
@@ -639,8 +628,8 @@
         });
 
     });
-</script>
-<script>
+</script> -->
+<!-- <script>
     $(document).ready(function () {
 
         var i = 0;
@@ -671,8 +660,8 @@
         });
 
     });
-</script>
-<script>
+</script> -->
+<!-- <script>
     var tot_cr = '';
     $(document).ready(function () {
 
@@ -708,9 +697,9 @@
         });
 
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
     $(document).ready(function () {
 
         var i = 0;
@@ -756,9 +745,9 @@
         });
 
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
     $(document).ready(function () {
 
         var i = 0;
@@ -797,7 +786,7 @@
         });
 
     });
-</script>
+</script> -->
 
 <script>
     $(document).ready(function () {
@@ -874,7 +863,7 @@
     })
 </script>
 
-<script>
+<!-- <script>
     $(document).ready(function () {
         $("#paid_dt").change(function () {
 
@@ -900,8 +889,8 @@
             }
         })
     });
-</script>
-<script>
+</script> -->
+<!-- <script>
     $(document).ready(function () {
         $("#paid_dt").change(function () {
 
@@ -922,9 +911,9 @@
             }
         })
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
     $(document).ready(function () {
         $("#sale_ro").change(function () {
 
@@ -940,9 +929,9 @@
             }
         })
     });
-</script>
+</script> -->
 
-<script>
+<!-- <script>
     $(document).ready(function () {
 
         var i = 2;
@@ -966,7 +955,7 @@
         });
 
     });
-</script>
+</script> -->
 
 <script>
     $('input:radio[name="cshbank"]').change(function () {
