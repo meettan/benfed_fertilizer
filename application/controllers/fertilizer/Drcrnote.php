@@ -1998,6 +1998,7 @@ public function dr_noteadj_br(){
 
 				$data_array_cr['fin_fulyr']=$fin_year;
 				$data_array_cr['br_nm']= $brn->dist_sort_code;
+				$this->DrcrnoteModel->f_drnote_tcs_crnjnl($data_array_cr);
 				$this->DrcrnoteModel->f_insert('drnote_tcs', $data);
 				// if($this->DrcrnoteModel->f_drnote_tcs_crnjnl($data_array_cr)!=0){
 				// 	$this->DrcrnoteModel->f_insert('drnote_tcs', $data);
