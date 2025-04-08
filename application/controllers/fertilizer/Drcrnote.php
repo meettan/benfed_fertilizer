@@ -1998,13 +1998,12 @@ public function dr_noteadj_br(){
 
 				$data_array_cr['fin_fulyr']=$fin_year;
 				$data_array_cr['br_nm']= $brn->dist_sort_code;
-				$this->DrcrnoteModel->f_drnote_tcs_crnjnl($data_array_cr);
-				$this->DrcrnoteModel->f_insert('drnote_tcs', $data);
-				// if($this->DrcrnoteModel->f_drnote_tcs_crnjnl($data_array_cr)!=0){
-				// 	$this->DrcrnoteModel->f_insert('drnote_tcs', $data);
-				// }else{
-				// 	echo "<script>alert('Debit Note TCS has not yet been done.');</script>";
-				// }
+				
+				if($this->DrcrnoteModel->f_drnote_tcs_crnjnl($data_array_cr)!=0){
+					$this->DrcrnoteModel->f_insert('drnote_tcs', $data);
+				}else{
+					echo "<script>alert('Debit Note TCS has not yet been done.');</script>";
+				}
 			
 			$this->session->set_flashdata('msg', 'Successfully Added');
 			redirect('drcrnote/dr_note_tcs');
