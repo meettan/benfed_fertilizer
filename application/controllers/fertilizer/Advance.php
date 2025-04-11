@@ -421,7 +421,8 @@ public function advancefilter(){
 		"a.trans_dt between '$frmdt ' and '$todt'"=> NULL,
     );
 	
-	$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
+	// $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
+	$adv['data']    = $this->AdvanceModel->f_get_advlist($frmdt,$todt,$br_cd,$fin_id);
 	// echo $this->db->last_query();
 	// exit();
 	// $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
@@ -434,7 +435,8 @@ public function advancefilter(){
 
 	$this->load->view('post_login/footer');
 	}else{
-
+		$frmdt      = $this->input->post('from_date');
+		$todt       = $this->input->post('to_date');
 		$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","c.bank_name","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
 
 	$where  =	array(
@@ -448,7 +450,8 @@ public function advancefilter(){
 		"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL
     );
 
-		$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
+		// $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
+		$adv['data']    = $this->AdvanceModel->f_get_advlist($frmdt,$todt,$br_cd,$fin_id);
 		// print_r($adv['data']);
 		//  echo $this->db->last_query();
 		//  exit();

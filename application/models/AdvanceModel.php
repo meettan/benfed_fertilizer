@@ -236,6 +236,32 @@ return $result;
  
 			return $result;
 		 }
+
+		 public function f_get_advlist($frm_dt,$to_dt,$branch,$finyr){
+			$data  =  $this->db->query("select	a.receipt_no,a.trans_dt,a.receipt_no,a.soc_id,a.trans_type,c.bank_name,b.soc_name,a.adv_amt,a.forward_flag forward_flag,(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt
+			from tdf_advance a,mm_ferti_soc b,mm_feri_bank c
+				where a.soc_id=b.soc_id
+					and a.bank=c.sl_no
+					and b.district=$branch 
+					and a.fin_yr=$finyr
+					and (a.trans_type='I' OR a.trans_type='OP' OR cshbnk_flag='0')
+					and a.transfer_flag='N'
+					and a.trans_dt between '$frm_dt' and '$to_dt'
+					UNION
+					select	a.receipt_no,a.trans_dt,a.receipt_no,a.soc_id,a.trans_type,'Cash',b.soc_name,a.adv_amt,a.forward_flag forward_flag,(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt
+			from tdf_advance a,mm_ferti_soc b
+				where a.soc_id=b.soc_id
+				    and b.district=$branch 
+					and a.fin_yr=$finyr
+					and (a.trans_type='I' OR a.trans_type='OP' )
+					and a.cshbnk_flag='0'
+					and a.transfer_flag='N'
+					and a.trans_dt between '$frm_dt' and '$to_dt'");
+			$result = $data->row();  
+ 
+			return $result;
+
+		 }
 		 public function f_get_comp_advance_code($branch,$fin){
 
             $data   =   $this->db->query("select ifnull(max(sl_no),0) +1 sl_no
