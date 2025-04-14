@@ -421,10 +421,10 @@ public function advancefilter(){
 		"a.trans_dt between '$frmdt ' and '$todt'"=> NULL,
     );
 	
-	 $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
-	//$adv['data']    = $this->AdvanceModel->f_get_advlist($frmdt,$todt,$br_cd,$fin_id);
-	// echo $this->db->last_query();
-	// exit();
+	//  $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
+	$adv['data']    = $this->AdvanceModel->f_get_advlist($frmdt,$todt,$br_cd,$fin_id);
+	echo $this->db->last_query();
+	exit();
 	// $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
 
 	$this->load->view("post_login/fertilizer_main");
@@ -450,11 +450,11 @@ public function advancefilter(){
 		"a.trans_dt between '".date("Y-m-d")."' and '".date("Y-m-d")."'"=> NULL
     );
 
-		$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
-		//$adv['data']    = $this->AdvanceModel->f_get_advlist($frmdt,$todt,$br_cd,$fin_id);
+		// $adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b,mm_feri_bank c",$select,$where,0);
+		$adv['data']    = $this->AdvanceModel->f_get_advlist($frmdt,$todt,$br_cd,$fin_id);
 		// print_r($adv['data']);
-		//  echo $this->db->last_query();
-		//  exit();
+		 echo $this->db->last_query();
+		 exit();
 
 		$this->load->view("post_login/fertilizer_main");
 
