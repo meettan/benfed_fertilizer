@@ -438,8 +438,8 @@ public function advancefilter(){
 
 	$this->load->view('post_login/footer');
 	}else{
-		$frmdt      = $this->input->post('from_date');
-		$todt       = $this->input->post('to_date');
+		$frmdt      = date("Y-m-d");
+		$todt       = date("Y-m-d");
 		$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","c.bank_name","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
 
 	$where  =	array(
