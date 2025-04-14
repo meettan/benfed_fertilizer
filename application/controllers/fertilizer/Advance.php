@@ -402,10 +402,13 @@ public function company_advDel(){
 public function advancefilter(){
 	$br_cd      = $this->session->userdata['loggedin']['branch_id'];
 	$fin_id     = $this->session->userdata['loggedin']['fin_id'];
+	$frmdt      = $this->input->post('from_date');
+	$todt       = $this->input->post('to_date');
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$frmdt      = $this->input->post('from_date');
 	$todt       = $this->input->post('to_date');
-	
+	// echo $frmdt;
+	// die();
 	$select	=	array("a.trans_dt","a.receipt_no","a.soc_id","a.trans_type","c.bank_name","b.soc_name","a.adv_amt","a.forward_flag forward_flag","(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt");
 
 	
