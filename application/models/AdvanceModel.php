@@ -238,7 +238,7 @@ return $result;
 		 }
 
 		 public function f_get_advlist($frm_dt,$to_dt,$branch,$finyr){
-			$data  =  $this->db->query("select	a.receipt_no,a.trans_dt,a.receipt_no,a.soc_id,a.trans_type,c.bank_name,b.soc_name,a.adv_amt,a.forward_flag forward_flag,(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt
+			$data  =  $this->db->query("select	a.receipt_no,a.trans_dt trans_dt,a.receipt_no,a.soc_id,a.trans_type,c.bank_name,b.soc_name,a.adv_amt,a.forward_flag forward_flag,(SELECT count(*)no_of_rcpt FROM td_adv_details c where a.receipt_no=c.receipt_no)as no_of_rcpt
 			from tdf_advance a,mm_ferti_soc b,mm_feri_bank c
 				where a.soc_id=b.soc_id
 					and a.bank=c.sl_no
@@ -257,9 +257,9 @@ return $result;
 					and a.cshbnk_flag='0'
 					and a.transfer_flag='N'
 					and a.trans_dt between '$frm_dt' and '$to_dt'");
-			$result = $data->row();  
+			// $result = $data->row();  
  
-			return $result;
+			return $data->result();
 
 		 }
 		 public function f_get_comp_advance_code($branch,$fin){
