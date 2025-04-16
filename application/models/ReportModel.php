@@ -2053,10 +2053,7 @@ and a.ro_no not in (select sale_ro from td_sale
              and c.ro= d.ro_no   and c.trans_dt between '$frmDt' and '$toDt' 
   group by soc_name,c.soc_id,c.recpt_no,d.ro_dt,c.trans_dt
   union
-             SELECT paid_dt,'' prod,c.paid_id as inv_no, c.soc_id soc_id,soc_name,0 as paid_amt,sum(c.paid_amt) as tot_payble,0,0,'' ro_no,d.ro_dt as ro_dt,0 as qty ,0 tot_recv ,'YRLY Cr Note Adj' remarks
-             FROM tdf_payment_recv c,mm_ferti_soc b,td_purchase d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.ro_no = d.ro_no 
-             and c.pay_type=8 and c.paid_dt between '$frmDt' and '$toDt' group by soc_name,c.soc_id,c.paid_id,d.ro_dt,paid_dt
-             union
+            
          SELECT trans_dt,'' prod,recpt_no as inv_no, c.soc_id soc_id,soc_name,sum(c.tot_amt) as paid_amt,0 paybl,0,0,c.ro as ro_no,trans_dt as ro_dt,0 as qty ,0,'Cr note' remarks
             FROM tdf_dr_cr_note c,mm_ferti_soc b,td_sale d where c.soc_id=b.soc_id and c.soc_id = '$soc_id'and c.branch_id='$branch' and c.invoice_no = d.trans_do and c.trans_flag='R' and c.trans_dt between '$frmDt' and '$toDt' 
             group by trans_dt, recpt_no,c.soc_id ,soc_id,soc_name,c.ro
@@ -3019,13 +3016,12 @@ and a.ro_no not in (select sale_ro from td_sale
     public function dr_notebr($frm_date,$to_date){
         $fin_id = $this->session->userdata['loggedin']['fin_id'];
         $br     = $this->session->userdata['loggedin']['branch_id'];
-        
-        
+               
         $q=$this->db->query("SELECT a.trans_dt,b.COMP_NAME,invoice_no,a.ro,a.recpt_no,c.soc_name,a.tot_amt,a.remarks 
-        FROM drnote_br a ,mm_company_dtls b ,mm_ferti_soc c
-        where a.comp_id=b.COMP_ID 
-        and a.soc_id=c.soc_id
-        and a.trans_dt between '$frm_date' and '$to_date' and a.branch_id='$br'");
+                    FROM drnote_br a ,mm_company_dtls b ,mm_ferti_soc c
+                    where a.comp_id=b.COMP_ID 
+                    and a.soc_id=c.soc_id
+                    and a.trans_dt between '$frm_date' and '$to_date' and a.branch_id='$br'");
         return $q->result();
     }
 
