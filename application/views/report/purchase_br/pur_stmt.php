@@ -178,7 +178,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td class="report"><?php echo $purc->district_name; ?></td>
                                      <td class="report"><?php echo $purc->soc_name; ?></td>
                                      <!-- <td class="report"><?php //echo date("d/m/y",strtotime($purc->invoice_dt)); ?></td> -->
-                                     <td class="report"><?php
+                                     <td class="report" width="90%" ><?php
                                     //  echo $purc->qty; 
                                      if($purc->unit==1){
 
