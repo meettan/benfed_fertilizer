@@ -2233,17 +2233,17 @@ and a.ro_no not in (select sale_ro from td_sale
         //                                 and    a.do_dt between '$frmDt' and '$toDt'
         //                                 order by a.do_dt");
         $query  = $this->db->query("select a.trans_do,a.do_dt,a.trans_type,a.sale_ro,a.qty,a.soc_id,d.soc_name,b.unit,b.qty_per_bag, a.sale_rt,a.taxable_amt,a.cgst,a.sgst,a.dis,a.tot_amt,c.short_name,b.PROD_DESC, 
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=1 and remarks!='CRN' ))cash_dis,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=2 and remarks!='CRN' ))dis,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=3 and remarks!='CRN'))trans_sub,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=4 and remarks!='CRN'))spl_rbt,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=5 and remarks!='CRN'))prce_prot,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=6 and remarks!='CRN'))qty_rbt,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=8 and remarks!='CRN'))rail_dis,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=9 and remarks!='CRN'))matrix,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=10 and remarks!='CRN'))gst_tds,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=11 and remarks!='CRN'))trans_hanl,
-        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and catg=12 and remarks!='CRN'))rbt_sbs
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=1 and remarks!='CRN' ))cash_dis,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=2 and remarks!='CRN' ))dis,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=3 and remarks!='CRN'))trans_sub,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=4 and remarks!='CRN'))spl_rbt,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=5 and remarks!='CRN'))prce_prot,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=6 and remarks!='CRN'))qty_rbt,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=8 and remarks!='CRN'))rail_dis,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=9 and remarks!='CRN'))matrix,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=10 and remarks!='CRN'))gst_tds,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=11 and remarks!='CRN'))trans_hanl,
+        sum((select sum(x.tot_amt) from tdf_dr_cr_note x where a.trans_do=x.invoice_no and a.comp_id=x.comp_id and a.soc_id=x.soc_id and catg=12 and remarks!='CRN'))rbt_sbs
         from td_sale a,mm_product b,mm_company_dtls c,mm_ferti_soc d 
         where a.prod_id = b.PROD_ID and a.comp_id = c.COMP_ID and a.soc_id=d.soc_id 
         $branch  $company
