@@ -2936,7 +2936,7 @@ GROUP BY
     }
 
     //Function for overdue list report 1st part for HO ,2nd part for branch
-    function overdue_list_model($date)        
+    function overdue_list_model($date,$comp_id)        
     {
 
         $branciId=$this->session->userdata('loggedin')['branch_id'];
@@ -2959,39 +2959,9 @@ GROUP BY
                 and   a.unit    = e.id
                 and a.trans_do=f.sale_inv_no
                 and   a.do_dt >= '2023-04-01'
+                and a.comp_id=$comp_id
                 and   a.sale_due_dt < '$date'
-                group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt
-                UNION ALL
-SELECT 
-    a.br_cd,
-    b.branch_name,
-    a.soc_id,
-    c.soc_name,
-    a.sale_ro,
-    a.prod_id,
-    d.prod_desc,
-    a.trans_do,
-    a.do_dt,
-    a.no_of_days,
-    a.sale_due_dt,
-    a.qty,
-    a.unit,
-    e.unit_name,
-    a.round_tot_amt,
-    0 AS paid_amt,
-    a.round_tot_amt AS due_amt
-FROM td_sale a
-JOIN md_branch b ON a.br_cd = b.id
-JOIN mm_ferti_soc c ON a.soc_id = c.soc_id
-JOIN mm_product d ON a.prod_id = d.prod_id
-JOIN mm_unit e ON a.unit = e.id
-WHERE a.do_dt >= '2023-04-01'
-  AND a.sale_due_dt < '$date'
-  AND NOT EXISTS (
-      SELECT 1 
-      FROM tdf_company_payment f 
-      WHERE f.sale_inv_no = a.trans_do
-  )");
+                group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt");
 
         }else{
             // $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,a.paid_amt,(a.round_tot_amt - a.paid_amt)due_amt
@@ -3005,13 +2975,14 @@ WHERE a.do_dt >= '2023-04-01'
             //     and   a.sale_due_dt < '".$date."'
             //     and   a.round_tot_amt > paid_amt
             //     order by a.br_cd,a.do_dt");
-            $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt),( a.round_tot_amt-sum(f.paid_amt) )due_amt
+            $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
                 FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_company_payment f
                 where a.br_cd = b.id
                 and   a.soc_id = c.soc_id
                 and   a.prod_id = d.prod_id
                 and   a.unit    = e.id
                 and   a.br_cd=$branciId
+                and a.comp_id=$comp_id
                 and a.trans_do=f.sale_inv_no
                 and   a.do_dt >= '2023-04-01'
                 and   a.sale_due_dt < '$date'
