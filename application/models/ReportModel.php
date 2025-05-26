@@ -2969,9 +2969,9 @@ GROUP BY
         a.prod_id, d.prod_desc,'' AS trans_do,a.trans_dt AS do_dt,
         a.no_of_days,a.due_dt AS sale_due_dt,
         a.qty, a.unit, e.unit_name,
-        SUM(a.tot_amt) AS round_tot_amt,
+        a.tot_amt AS round_tot_amt,
         SUM(f.paid_amt) AS paid_amt,
-        SUM(a.tot_amt) - SUM(f.paid_amt) AS due_amt
+        a.tot_amt - IFNULL(SUM(f.paid_amt),0) AS due_amt
     FROM 
         td_purchase a
     JOIN 
