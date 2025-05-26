@@ -2951,17 +2951,28 @@ GROUP BY
         //         and   a.sale_due_dt < '".$date."'
         //         and   a.round_tot_amt > paid_amt
         //         order by a.br_cd,a.do_dt");
-        $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
-                FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_company_payment f
-                where a.br_cd = b.id
-                and   a.soc_id = c.soc_id
+        // $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
+        //         FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_company_payment f
+        //         where a.br_cd = b.id
+        //         and   a.soc_id = c.soc_id
+        //         and   a.prod_id = d.prod_id
+        //         and   a.unit    = e.id
+        //         and a.trans_do=f.sale_inv_no
+        //         and   a.do_dt >= '2023-04-01'
+        //         and a.comp_id=$comp_id
+        //         and   a.sale_due_dt < '$date'
+        //         group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt");
+
+        $query = $this->db->query("SELECT a.br,b.branch_name,''soc_id,''soc_name,a.ro_no sale_ro,a.prod_id,d.prod_desc,''trans_do,a.trans_dt do_dt,a.no_of_days,a.due_dt sale_due_dt, a.qty,a.unit,e.unit_name,sum(a.tot_amt)round_tot_amt,sum(f.paid_amt)paid_amt,sum(a.tot_amt)-sum(f.paid_amt) due_amt
+                FROM td_purchase a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_company_payment f
+                where a.br= b.id
                 and   a.prod_id = d.prod_id
-                and   a.unit    = e.id
-                and a.trans_do=f.sale_inv_no
-                and   a.do_dt >= '2023-04-01'
-                and a.comp_id=$comp_id
-                and   a.sale_due_dt < '$date'
-                group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt");
+                and   a.unit = e.id
+                and   a.ro_no=f.pur_ro
+                and   a.trans_dt >= '2023-04-01'
+                and   a.comp_id=$comp_id
+                and   a.due_dt < '$date'
+                group by a.br,b.branch_name,a.ro_no,a.prod_id,d.prod_desc,a.due_dt,a.trans_dt, a.qty,a.unit,e.unit_name");
 
         }else{
             // $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,a.paid_amt,(a.round_tot_amt - a.paid_amt)due_amt
