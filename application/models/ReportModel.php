@@ -3004,14 +3004,14 @@ GROUP BY
             //     and   a.round_tot_amt > paid_amt
             //     order by a.br_cd,a.do_dt");
             $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
-                FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_company_payment f
+                FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_payment_recv f
                 where a.br_cd = b.id
                 and   a.soc_id = c.soc_id
                 and   a.prod_id = d.prod_id
                 and   a.unit    = e.id
                 and   a.br_cd=$branciId
                 and a.comp_id=$comp_id
-                and a.trans_do=f.sale_inv_no
+                and a.trans_do=f.sale_invoice_no
                 and   a.do_dt >= '2023-04-01'
                 and   a.sale_due_dt < '$date'
                 group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt");
