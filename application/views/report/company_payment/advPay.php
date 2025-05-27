@@ -509,7 +509,7 @@ tr:hover {background-color: #f5f5f5;}
                     <td style="width:30%">Amount :</td><td>Rs.  <?php //echo number_format((float)($totalAmount-$totalTDS), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($totalAmount-$totalTDS), 2, '.', ''))?>)</td>
                 <tr> -->
              <table> 
-             <?php if($company_id==4) { ?>
+             <?php if($company_id==4 || $company_id==9) { ?>
              <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
                     <tr>
