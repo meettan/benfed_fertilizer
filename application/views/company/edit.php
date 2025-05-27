@@ -125,7 +125,7 @@
             </form>
         </div>
 
-        <?php if($schdtls->comp_id == 4 OR $schdtls->comp_id == 10) { ?>
+        <?php if($schdtls->comp_id == 4 OR $schdtls->comp_id == 10 OR $schdtls->comp_id == 9) { ?>
         <div class="col-md-7">
              <form method="POST" id="form" action="<?php echo site_url("key/addeditprodcat");?>" >
             <div class="form-group row">
