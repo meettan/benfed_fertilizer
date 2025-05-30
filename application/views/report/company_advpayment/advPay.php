@@ -96,9 +96,9 @@ tr:hover {background-color: #f5f5f5;}
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
                         <h4>Company Payment Statement of Fertilizer Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
     <?php //print_r($total_Voucher);  ?>
-                        <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;<?php echo round($total_Voucher->taxable_amt,2); ?> Dr</h5> 
-                     <h5 style="text-align:left"><label><?php foreach($tableData as $bnk){ echo $bnk->bnk; break; };?>:</label> &ensp;&ensp;<?php echo round(($total_Voucher->taxable_amt - $total_Voucher->tds_amt),2); ?> Cr</h5>
-						<h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($total_Voucher->tds_amt,2); ?> Cr </h5>
+                        <!-- <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;<?php echo round($total_Voucher->adv_amt,2); ?> Dr</h5> 
+                     <h5 style="text-align:left"><label><?php foreach($tableData as $bnk){ echo $bnk->bnk; break; };?>:</label> &ensp;&ensp;<?php echo round(($total_Voucher->adv_amt),2); ?> Cr</h5> -->
+						<h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo 0; ?> Cr </h5>
                      <!--<h5 style="text-align:left"><label>Product:</label> <?php //echo $product->PROD_DESC; ?></h5>-->
 
                     </div>
@@ -113,8 +113,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Sl No.</th>
                                 <th>Pay Date</th>
                                 <th>District</th>
-                                <th>Purchase Invoice</th>
-                                <th>Invoice Dt</th>
+                                <th>Receipt NO</th>
+                                <th>Trans Dt</th>
 								<th>FO Name</th>
                                 <th>Product</th>
                                 <th>Purchase Ro</th>
@@ -145,19 +145,19 @@ tr:hover {background-color: #f5f5f5;}
 <!-- a.pay_dt,c.district_name,a.pur_inv_no,b.PROD_DESC,a.pur_ro,a.qty,a.rate_amt,a.taxable_amt,a.tds_amt,a.net_amt -->
                                 <tr>
                                      <td><?php echo $i++; ?></td>
-                                     <td><?php echo date("d/m/Y", strtotime($ptableData->pay_dt)); ?></td>
-                                     <td><?php echo $ptableData->br_dist; ?></td>
-                                     <td><?php echo $ptableData->pur_inv_no; ?></td>
-                                     <td><?php echo date("d/m/Y", strtotime($ptableData->invoice_dt)); ?></td>
-                                     <td><?php echo $ptableData->fo_nm; ?></td>
+                                     <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
+                                     <td><?php echo $ptableData->branch_name; ?></td>
+                                     <td><?php echo $ptableData->receipt_no; ?></td>
+                                     <td><?php echo date("d/m/Y", strtotime($ptableData->trans_dt)); ?></td>
+                                     <td><?php echo $ptableData->fo_number; ?></td>
                                      <td><?php echo $ptableData->PROD_DESC; ?></td>
                                      <!-- <td><?= $ptableData->PROD_DESC; ?></td> -->
-                                     <td><?php echo $ptableData->pur_ro; ?></td>
+                                     <td><?php echo $ptableData->ro_no; ?></td>
                                      <td><?php echo $ptableData->qty; ?></td>
-                                     <td><?php echo  $ptableData->rate_amt ; $totalRate+=$ptableData->rate_amt; ?></td>
-                                     <td><?php echo $ptableData->taxable_amt ;$totalAmount+=$ptableData->taxable_amt; ?></td>
-                                     <td><?php echo $ptableData->tds_amt;$totalTDS+=$ptableData->tds_amt;?></td>
-                                     <td><?php echo $ptableData->taxable_amt - $ptableData->tds_amt; $totalNETAmount+=$ptableData->taxable_amt - $ptableData->tds_amt;?></td>
+                                     <td><?php echo  0 ; $totalRate+=0; ?></td>
+                                     <td><?php echo $ptableData->adv_amt ;$totalAmount+=$ptableData->adv_amt; ?></td>
+                                     <td><?php echo 0;$totalTDS+=0;?></td>
+                                     <td><?php echo $ptableData->adv_amt ; $totalNETAmount+=$ptableData->adv_amt ;?></td>
                                 </tr>
                                
  
@@ -233,17 +233,17 @@ tr:hover {background-color: #f5f5f5;}
                                 <tr>
                                      <td><?php echo $i++; ?></td>
                                      
-                                     <td><?php  if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;} ?></td>
+                                     <td><?php  if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_number;}else{ echo $ptableDatasidt->district_name;} ?></td>
                                      
                                      <td><?php echo $ptableDatasidt->qty; ?></td>
                                     
 
-                                     <td><?php echo $ptableDatasidt->taxable_amt ;$totalAmount+=$ptableDatasidt->taxable_amt; ?></td>
+                                     <td><?php echo $ptableDatasidt->adv_amt ;$totalAmount+=$ptableDatasidt->adv_amt; ?></td>
 
-                                     <td><?php echo $ptableDatasidt->tds_amt;$totalTDS+=$ptableDatasidt->tds_amt;?></td>
+                                     <td><?php echo 0;$totalTDS+=0;?></td>
 
-                                     <td><?php echo $ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt;
-                                     $totalNETAmount+= $ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt;
+                                     <td><?php echo $ptableDatasidt->adv_amt;
+                                     $totalNETAmount+= $ptableDatasidt->adv_amt ;
                                      
                                      ?></td>
                                      
@@ -303,8 +303,8 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $i++; ?></td>
                                      <td><?php echo $sumr->type_name; ?></td>
                                     
-                                     <td><?php echo $sumr->taxable_amt; ?></td>
-                                     <td><?php echo $sumr->tds_amt; ?></td>
+                                     <td><?php echo $sumr->adv_amt; ?></td>
+                                     <td><?php echo 0; ?></td>
                                      <td><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td>
                                      </td>
                                 </tr>
@@ -409,14 +409,14 @@ tr:hover {background-color: #f5f5f5;}
                             $total += $ptableDatasidt->net_amt;
                     ?>
                     <tr>
-                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_nm)){echo $ptableDatasidt->fo_nm;}else{ echo $ptableDatasidt->district_name;}?></td>
+                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_number;}else{ echo $ptableDatasidt->district_name;}?></td>
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
-                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_num)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
+                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
                         <!-- <td style="border: 1px solid black !important">IFFCO</td> -->
-                  <?php      $totalTDS += $ptableDatasidt->tds_amt;  ?>
+                  <?php      $totalTDS += 0;  ?>
                         <td style="border: 1px solid black !important">
-                        <?php echo $ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt;
-                                     $totalNETAmount+= $ptableDatasidt->taxable_amt - $ptableDatasidt->tds_amt;
+                        <?php echo $ptableDatasidt->adv_amt ;
+                                     $totalNETAmount+= $ptableDatasidt->adv_amt ;
                                      
                                      ?>
                         

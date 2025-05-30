@@ -2529,13 +2529,15 @@ public function soc_payblepaid(){
                
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
 
-                $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+               // $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$refereceNo);
             }else{
                 $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
                 $data['sumrydtls']= $this->ReportModel->getpaymentsummary($comp_id,$frm_date,$to_date);
                 $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date,$refereceNo);
 
-                $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
+                 $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
+                //$data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$refereceNo);
                 }
          
           $data['sig'] = $this->input->post('sig_comb');
@@ -2569,17 +2571,17 @@ public function company_advpayment(){
         $to_date  = $this->input->post('to_date');
         $refereceNo  = $this->input->post('refereceNo');
         if($refereceNo==""||$refereceNo==null){
-            // $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date);
+           
             $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,NULL);
-            // $data['sumrydtls']= $this->ReportModel->getpaymentsummary($comp_id,$frm_date,$to_date);
+           
             $data['sumrydtls']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,null);
             $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
 
             $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
         }else{
-            // $data['tableData']=$this->ReportModel->getCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
+            
             $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,$refereceNo);
-            // $data['sumrydtls']= $this->ReportModel->getpaymentsummary($comp_id,$frm_date,$to_date);
+            
             $data['sumrydtls']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,$refereceNo);
             $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date,$refereceNo);
 
