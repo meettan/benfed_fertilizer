@@ -301,11 +301,11 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr>
                                      <td><?php echo $i++; ?></td>
-                                     <td><?php echo $sumr->type_name; ?></td>
+                                     <!-- <td><?php echo $sumr->type_name; ?></td> -->
                                     
                                      <td><?php echo $sumr->adv_amt; ?></td>
                                      <td><?php echo 0; ?></td>
-                                     <td><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td>
+                                     <td><?php echo $sumr->adv_amt; $prod_net_tot +=$sumr->adv_amt;?></td>
                                      </td>
                                 </tr>
                                
