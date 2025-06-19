@@ -2575,19 +2575,24 @@ public function company_advpayment(){
             $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,NULL);
            
             $data['sumrydtls']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,null);
-            $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date);
-
-            // $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date);
+           
+            $data['tableData_district_name']=$this->ReportModel-> getadvCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
+            // echo $this->db->last_query();
+            // Die();
+            $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,null);
+            
             $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,null);
+            $data['advsumrydtls']=$this->ReportModel->getpayadvummary($comp_id, $frm_date, $to_date, null);
         }else{
             
             $data['tableData']=$this->ReportModel->getallAdvData($comp_id,$frm_date,$to_date,$refereceNo);
             
             $data['sumrydtls']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,$refereceNo);
-            $data['tableData_district_name']=$this->ReportModel->getCompanyPayment_district_name($comp_id,$frm_date,$to_date,$refereceNo);
-
+            
+            $data['tableData_district_name']=$this->ReportModel-> getadvCompanyPayment($comp_id,$frm_date,$to_date,$refereceNo);
+            $data['tableDatasummary']=$this->ReportModel->getallAdvData_summary($comp_id,$frm_date,$to_date,$refereceNo);
             // $data['total_Voucher']=$this->ReportModel->totalCompanyPaymentVoucher($comp_id,$frm_date,$to_date,$refereceNo);
-            $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$memoNumber);
+            $data['total_Voucher']=$this->ReportModel->totalAdvVoucher($comp_id,$frm_date,$to_date,$refereceNo);
             }
      
       $data['sig'] = $this->input->post('sig_comb');

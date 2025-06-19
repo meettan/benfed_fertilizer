@@ -94,17 +94,34 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Company Payment Statement of Fertilizer Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
+                        <h4>Company Advance Payment Statement of Fertilizer Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
     <?php //print_r($total_Voucher);  ?>
-                        <!-- <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label>  &ensp;&ensp;<?php echo round($total_Voucher->adv_amt,2); ?> Dr</h5> 
-                     <h5 style="text-align:left"><label><?php foreach($tableData as $bnk){ echo $bnk->bnk; break; };?>:</label> &ensp;&ensp;<?php echo round(($total_Voucher->adv_amt),2); ?> Cr</h5> -->
-						<h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo 0; ?> Cr </h5>
-                     <!--<h5 style="text-align:left"><label>Product:</label> <?php //echo $product->PROD_DESC; ?></h5>-->
 
-                    </div>
-                    <br>  
+    <?php
 
-                    <table style="width: 100%;" id="example">
+
+if ($tableData) {
+
+$totalnetamth = 0;
+$totalTdsh = 0;
+foreach ($tableDatasummary as $ptableDatasummary) {
+
+    $tdsh = round(0.001 * round($ptableDatasummary->adv_amt, 2));
+    $totalTdsh = $totalTdsh + $tdsh; 
+    $netamth = round(round($ptableDatasummary->adv_amt, 2) - $tdsh);
+    $totalnetamth = $totalnetamth + $netamth;
+
+    } 
+}
+?>
+
+    <h5 style="text-align:left"><label><?php echo $companyName; ?>:</label> &ensp;&ensp;<?php echo round($total_Voucher->adv_amt,2); ?> Dr </h5>
+    <h5 style="text-align:left"><label><?php foreach($tableData as $bnk){ echo $bnk->bnk; break; };?>:</label>&ensp;&ensp;<?php echo round(($totalnetamth),2); ?> Cr </h5>
+
+    <h5 style="text-align:left"><label>TDS U/S 194Q:</label> &ensp;&ensp;<?php echo round($totalTdsh); ?> CR </h5>
+</div>
+<br>  
+<table style="width: 100%;" id="example">
 
                         <thead>
 
@@ -137,7 +154,10 @@ tr:hover {background-color: #f5f5f5;}
                                   $totalRate=0;
                                   $totalAmount=0;
                                   $totalTDS=0;
+                                  $totalQTY=0;
+                                  $totalTds=0;
                                   $totalNETAmount=0;
+                                  $totalnetamt=0;
                                     foreach($tableData as $ptableData){
                                        // $total=($ptableData->adv_amt+$total);
                                        //$total +=$ptableData->adv_amt;
@@ -153,11 +173,16 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $ptableData->PROD_DESC; ?></td>
                                      <!-- <td><?= $ptableData->PROD_DESC; ?></td> -->
                                      <td><?php echo $ptableData->ro_no; ?></td>
-                                     <td><?php echo $ptableData->qty; ?></td>
-                                     <td><?php echo  0 ; $totalRate+=0; ?></td>
+                                     <td><?php echo $ptableData->qty; $totalQTY+=$ptableData->qty; ?></td>
+                                     <td><?php echo  $ptableData->rate ; $totalRate+=0; ?></td>
                                      <td><?php echo $ptableData->adv_amt ;$totalAmount+=$ptableData->adv_amt; ?></td>
-                                     <td><?php echo 0;$totalTDS+=0;?></td>
-                                     <td><?php echo $ptableData->adv_amt ; $totalNETAmount+=$ptableData->adv_amt ;?></td>
+                                     <td><?php 
+                                echo round((0.001 * $ptableData->adv_amt),2);
+                                $tds = round((0.001 * $ptableData->adv_amt),2);
+                                    $totalTds = $totalTds + $tds; ?></td>
+                                     <td><?php $netamt =round(($ptableData->adv_amt - $tds),2);
+                                    echo $netamt;
+                                    $totalNETAmount = $totalNETAmount + $netamt; ?></td>
                                 </tr>
                                
  
@@ -171,11 +196,12 @@ tr:hover {background-color: #f5f5f5;}
                                     <td><b></b></td>
                                     <td><b></b></td>
                                     <td><b></b></td>
-                                    <td><b></b></td>
+                                    <!-- <td><b></b></td> -->
                                     <td><b>Total</b></td>
+                                    <td><b><?php echo $totalQTY; ?></b></td>
                                     <td><b><?php //echo round($totalRate,2); ?></b></td>
                                     <td><b><?php echo $totalAmount; ?></b></td>
-                                    <td><b><?php echo $totalTDS; ?></b></td>
+                                    <td><b><?php echo $totalTds; ?></b></td>
                                     <td><b><?php echo $totalNETAmount; ?></b></td>
                                 </tr>
                                 <?php 
@@ -222,45 +248,44 @@ tr:hover {background-color: #f5f5f5;}
 
                                     $i = 1;
                                   $totalRate=0;
+                                  $total =0;
                                   $totalAmount=0;
                                   $totalTDS=0;
                                   $totalNETAmount=0;
-                                    foreach($tableData_district_name as $ptableDatasidt){
-                                       // $total=($ptableData->adv_amt+$total);
-                                       //$total +=$ptableData->adv_amt;
+                                    foreach($tableDatasummary as $ptableDatasidt){
+                                       $total=($ptableData->adv_amt+$total);
+                                       $total +=$ptableData->adv_amt;
                             ?>
 
                                 <tr>
                                      <td><?php echo $i++; ?></td>
                                      
-                                     <td><?php  if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_number;}else{ echo $ptableDatasidt->district_name;} ?></td>
+                                     <td style="text-align: center;"><?php  if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_number;}else{ echo $ptableDatasidt->fo_name;} ?></td>
                                      
-                                     <td><?php echo $ptableDatasidt->qty; ?></td>
+                                     <td style="text-align: center;"><?php echo $ptableDatasidt->qty; ?></td>
                                     
+                                     <td style="text-align: center;"><?php echo $ptableDatasidt->adv_amt ;$totalAmount+=$ptableDatasidt->adv_amt; ?></td>
 
-                                     <td><?php echo $ptableDatasidt->adv_amt ;$totalAmount+=$ptableDatasidt->adv_amt; ?></td>
-
-                                     <td><?php echo 0;$totalTDS+=0;?></td>
-
-                                     <td><?php echo $ptableDatasidt->adv_amt;
-                                     $totalNETAmount+= $ptableDatasidt->adv_amt ;
-                                     
-                                     ?></td>
-                                     
-                                </tr>
-                               
- 
+                                     <td style="text-align: center;"><?php  echo round((0.001 * $ptableDatasummary->adv_amt),2);
+                                       $tds = round((0.001 * $ptableDatasummary->adv_amt),2);
+                                       $totalTds = $totalTds + $tds; ?>
+                                     </td>
+                                    <td style="text-align: center;">
+                                   <?php $netamt = round(($ptableDatasummary->adv_amt - $tds),2);
+                                    echo $netamt;
+                                    $totalNETAmount = $totalNETAmount + $netamt;
+                                    ?>
+                                    </td>
+                                  </tr>
                                 <?php    } ?>
 
                                 <tr>
                                     <td><b></b></td>
                                     <td><b></b></td>
                                     <td><b></b></td>
-                                    
-                                    <td><b><?php echo $totalAmount; ?></b></td>
-                                    <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $totalNETAmount; ?>
-                                        <?php //echo  $totalAmount-$totalTDS; ?></b></td>
+                                    <td  style="text-align: center;"><b><?php echo $totalAmount; ?></b></td>
+                                    <td  style="text-align: center;"><b><?php echo round($totalAmount-  $totalNETAmount,2); ?></b></td>
+                                    <td  style="text-align: center;"><b><?php echo  $totalNETAmount; ?></b></td>
                                 </tr>
                                 <?php 
                                        }
@@ -296,29 +321,29 @@ tr:hover {background-color: #f5f5f5;}
                                    
                                   $totalRate=0;
                                 
-                                    foreach($sumrydtls as $sumr){
+                                    foreach($advsumrydtls as $sumr){
                             ?>
 
-                                <tr>
+                                <tr> 
                                      <td><?php echo $i++; ?></td>
-                                     <!-- <td><?php echo $sumr->type_name; ?></td> -->
+                                     <td style="text-align: center;"><?php echo $sumr->type_name; ?></td>
                                     
-                                     <td><?php echo $sumr->adv_amt; ?></td>
-                                     <td><?php echo 0; ?></td>
-                                     <td><?php echo $sumr->adv_amt; $prod_net_tot +=$sumr->adv_amt;?></td>
-                                     </td>
+                                     <td style="text-align: center;"><?php echo $sumr->taxable_amt; ?></td>
+                                     <td style="text-align: center;"><?php echo $sumr->tds_amt; ?></td>
+                                     <td style="text-align: center;"><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td>
+                                     </td> 
                                 </tr>
                                
                                 <?php    } ?>
-                                <tr>
-                                    <td><b></b></td>
-                                    <td><b></b></td>
+                                <!-- <tr> -->
+                                    <!-- <td><b></b></td>
+                                    <td><b></b></td> -->
                                   
-                                    <td><b><?php echo $totalAmount; ?></b></td>
+                                    <!-- <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $prod_net_tot; ?>
+                                    <td><b><?php echo  $prod_net_tot; ?> -->
                                     <?php //echo  $totalAmount-$totalTDS; ?></b></td>
-                                </tr>
+                                <!-- </tr> -->
                                 <?php 
                                        }
                                 else{
@@ -371,9 +396,11 @@ tr:hover {background-color: #f5f5f5;}
               
                 <?php  $bank_name = '';$branch_name = ''; $acc_num = '';$address ='';
                        $cbank_name ='';$cbranch_name = '';$cacc_num = '';$cifsc ='';$comp_name='';
-                foreach ($tableData as $bnk) {
-                    $bank_name = $bnk->bnk;$branch_name = $bnk->bnk_branch_name; $acc_num = $bnk->acc_num;$comp_name= $bnk->comp_name;
-                    $cbank_name = $bnk->cbank;$cbranch_name = $bnk->cbnk_branch_name; $cacc_num = $bnk->cac_no;$cifsc=$bnk->cifsc;
+                // foreach ($tableData as $bnk) {
+                    foreach ($advsumrydtls as $bnk) {
+                    $bank_name = $bnk->bank_name;$branch_name = $bnk->branch_name;
+                     $acc_num = $bnk->ac_no;$comp_name= $bnk->comp_name;
+                    $cbank_name = $bnk->bnk;$cbranch_name = $bnk->bnk_branch_name; $cacc_num = $bnk->acc_num;$cifsc=$bnk->cifsc;
                                                         break;
                                                     }; ?>
                 <p style="text-align:left"> &ensp;SCMF/FIN/&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;&ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp; &ensp;&ensp;<b>Date:<?=date('d/m/Y')?></b></p>
@@ -386,7 +413,7 @@ tr:hover {background-color: #f5f5f5;}
             <?=$comp_name?> through NEFT/RTGS/Fund Transfer, details are being provided below:
 
            <br><br>
-           <?php if($company_id == 1 ||$company_id==10||$company_id==11) { ?>
+           <?php if($company_id == 1 ||$company_id==10||$company_id==11||$company_id==9) { ?>
            <table style="width:100%;border: 1px solid black !important;border-collapse:collapse !important;" >
            <thead>
                     <tr>
@@ -411,12 +438,12 @@ tr:hover {background-color: #f5f5f5;}
                     <tr>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_number;}else{ echo $ptableDatasidt->district_name;}?></td>
                         <td style="border: 1px solid black !important"><?=$cifsc?></td>
-                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_num;}else{ echo "";} ?></td>
+                        <td style="border: 1px solid black !important"><?php if(!empty($cacc_num)){echo $cacc_num;}else{ echo "";} ?></td>
                         <!-- <td style="border: 1px solid black !important">IFFCO</td> -->
                   <?php      $totalTDS += 0;  ?>
                         <td style="border: 1px solid black !important">
-                        <?php echo $ptableDatasidt->adv_amt ;
-                                     $totalNETAmount+= $ptableDatasidt->adv_amt ;
+                        <?php echo $ptableDatasidt->net_amt ;
+                                     $totalNETAmount+= $ptableDatasidt->net_amt ;
                                      
                                      ?>
                         
@@ -452,10 +479,10 @@ tr:hover {background-color: #f5f5f5;}
                 
                 <tbody>
                 <?php
-                                if($sumrydtls){ 
+                                if($advsumrydtls){ 
                                     $i = 1;
                                     $summary_tot = 0;
-                                    foreach($sumrydtls as $sumr){
+                                    foreach($advsumrydtls as $sumr){
                             ?>
                     <tr>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->type_name)){echo $sumr->type_name;}?></td>
@@ -523,10 +550,10 @@ tr:hover {background-color: #f5f5f5;}
                 
                 <tbody>
                 <?php
-                                if($sumrydtls){ 
+                                if($advsumrydtls){ 
                                     $i = 1;
                                    $summary_tot = 0;
-                                    foreach($sumrydtls as $sumr){
+                                    foreach($advsumrydtls as $sumr){
                             ?>
                     <tr>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->type_name)){echo $sumr->type_name;}?></td>

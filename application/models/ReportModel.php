@@ -2347,7 +2347,6 @@ GROUP BY
     {
         if ($memoNumber == null) {
 
-
             $q = $this->db->query("SELECT SUM( adv_amt)adv_amt ,SUM(tds)tds ,SUM(net_amt)net_amt FROM 
             (select IfNULL(sum(a.adv_amt),0)adv_amt,IfNULL((sum(a.adv_amt)*.001),0) as tds,IfNULL(sum(a.adv_amt)-(sum(a.adv_amt)*.001),0) as net_amt
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
@@ -2410,7 +2409,7 @@ GROUP BY
         if ($memoNumber == null) {
 
 
-            $sql = "select e.COMP_NAME as comp_name,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            $sql = "select e.COMP_NAME as comp_name,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,c.rate,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
 			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
             (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
@@ -2428,7 +2427,7 @@ GROUP BY
             and   c.comp_pay_flag = 'Y'
             
             UNION
-            select f.COMP_NAME,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            select f.COMP_NAME,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,c.rate,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
 			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
             (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
@@ -2449,7 +2448,7 @@ GROUP BY
         } else {
 
 
-            $sql = "select e.COMP_NAME as comp_name,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            $sql = "select e.COMP_NAME as comp_name,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,c.rate,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
 			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
             (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
@@ -2468,7 +2467,7 @@ GROUP BY
             and   c.comp_pay_flag = 'Y'
             
             UNION
-            select f.COMP_NAME,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,
+            select f.COMP_NAME,c.qty, a.trans_dt,a.receipt_no,a.adv_receive_no,c.branch_id,b.branch_name,c.prod_id,d.PROD_DESC,c.ro_no,c.fo_no,a.adv_amt,c.rate,
             (select DISTINCT f.fo_number from mm_fo_master f where  c.fo_no=f.fi_id) fo_number ,(select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name ,
 			(select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
             (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
@@ -2585,10 +2584,10 @@ GROUP BY
 
         if ($memoNumber == null) {
 
-            if($comp_id==1||$comp_id==10||$comp_id==11){
+            if($comp_id==1||$comp_id==10||$comp_id==11 || $comp_id==9){
 
 
-                $sql = "select sum(a.adv_amt)adv_amt,f.COMP_NAME,
+                $sql = "select sum(a.adv_amt)adv_amt,f.COMP_NAME,sum(c.qty)qty,rate,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
                 from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
@@ -2600,9 +2599,9 @@ GROUP BY
                 and   a.trans_dt between '$frm_date' and '$to_date'
                 and   a.comp_id = '$comp_id'
                 and   c.comp_pay_flag = 'Y'
-                group by fo_name
+                group by fo_name,fo_number,f.short_name
                 UNION
-                select sum(a.adv_amt)adv_amt,f.short_name,
+                select sum(a.adv_amt)adv_amt,f.short_name,sum(c.qty)qty,rate,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
                             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
@@ -2615,12 +2614,11 @@ GROUP BY
                             and   a.comp_id = '$comp_id'
                             and   a.comp_id =f.comp_id
                             and   e.comp_pay_flag = 'Y'
-                            group by fo_name";
+                            group by fo_name,fo_number,f.short_name";
 
             }else{
-                        $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt
-                    
-                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
+                        $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate,
+                       from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
                         where c.branch_id = b.id
                         and   a.adv_dtl_id = c.receipt_no
                         and   a.adv_receive_no = c.detail_receipt_no
@@ -2630,7 +2628,7 @@ GROUP BY
                         and   c.comp_pay_flag = 'Y'
                         group by b.branch_name,c.branch_id
                         UNION
-                        select c.branch_id,b.branch_name,sum(a.adv_amt)adv_amt
+                        select c.branch_id,b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate,
                     
                                     from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                                     where c.branch_id = b.id
@@ -2647,9 +2645,9 @@ GROUP BY
         } else {
 
 
-            if($comp_id==1||$comp_id==10||$comp_id==11){
+            if($comp_id==1||$comp_id==10||$comp_id==11||$comp_id==9){
 
-                $sql = "select sum(a.adv_amt)adv_amt,f.COMP_NAME,
+                $sql = "select sum(a.adv_amt)adv_amt,f.COMP_NAME,sum(c.qty)qty,rate,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
                 (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
@@ -2662,9 +2660,9 @@ GROUP BY
             and   a.comp_id = '$comp_id'
             and   a.comp_id =f.comp_id
             and   c.comp_pay_flag = 'Y'
-            group by fo_name
+            group by fo_name,fo_number,f.short_name
             UNION
-            select sum(a.adv_amt)adv_amt,f.short_name,
+            select sum(a.adv_amt)adv_amt,f.short_name,sum(c.qty)qty,rate,
             (select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
             (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
@@ -2678,12 +2676,12 @@ GROUP BY
                         and   a.comp_id = '$comp_id'
                         and   a.comp_id =f.comp_id
                         and   e.comp_pay_flag = 'Y'
-                         group by fo_name";
+                         group by fo_name,fo_number,f.short_name";
 
             }else{
 
 
-            $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt
+            $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
             where c.branch_id = b.id
             and   a.memo_no='$memoNumber'
@@ -2695,7 +2693,7 @@ GROUP BY
             and   c.comp_pay_flag = 'Y'
             group by b.branch_name,c.branch_id
             UNION
-            select c.branch_id,b.branch_name,sum(a.adv_amt)adv_amt
+            select c.branch_id,b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate
           
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                         where c.branch_id = b.id
@@ -2789,6 +2787,63 @@ GROUP BY
     }
         return $q->result();
     }
+    ////***/
+    public function getadvCompanyPayment($comp_id, $frm_date, $to_date, $refereceNo=null)
+    {
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
+        
+    if($refereceNo==""||$refereceNo==null){
+
+
+        $q = $this->db->query("select d.COMP_NAME as comp_name,a.trans_dt,c.district_name,
+        SUM(a.adv_amt) as taxable_amt, round(SUM(0.001*a.adv_amt),2) as tds_amt, SUM(a.adv_amt)-round(SUM(0.001*a.adv_amt),2) as net_amt,
+       
+        (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
+        (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
+        (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)acc_num,
+        d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,d.ac_no as cac_no,
+        d.ifsc as cifsc
+        from tdf_company_advance a,md_district c,mm_company_dtls d,td_adv_details x
+        where a.comp_id=$comp_id
+       and a.adv_receive_no=x.detail_receipt_no
+
+        and c.district_code=x.branch_id
+        and a.comp_id=d.comp_id
+        and a.trans_dt >= '$frm_date' and a.trans_dt <= '$to_date'
+        AND a.fin_yr = $fin_id
+       group by x.branch_id,bnk,bnk_branch_name,acc_num,cac_no
+        order by x.branch_id;");
+
+    }else{
+        $q = $this->db->query("
+                            select d.COMP_NAME as comp_name,a.pay_dt,c.district_name,a.pur_inv_no,e.invoice_dt,a.paid_id,b.PROD_DESC,a.pur_ro, SUM(a.qty) as qty,
+                            (select DISTINCT round(d.tot_amt/d.qty,3) from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br ) as rate_amt, 
+                            SUM(a.taxable_amt) as taxable_amt, SUM(a.tds_amt) as tds_amt, SUM(a.net_amt) as net_amt,
+                            (select DISTINCT c.district_name from td_purchase d where d.ro_no=a.pur_ro and c.district_code=d.br )br_dist,
+                            (select DISTINCT h.fo_name from tdf_payment_forward g , mm_fo_master h where g.ro_no=a.pur_ro and g.paid_id=a.paid_id and g.fo_id=h.fi_id)fo_nm,
+                            (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk,
+                            (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk_branch_name,
+                            (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bnk_id)acc_num,
+                            d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,d.ac_no as cac_no,
+                            d.ifsc as cifsc
+                            from tdf_company_payment a, mm_product b,md_district c,mm_company_dtls d,td_purchase e
+                            where a.comp_id=$comp_id
+                            and a.ref_no='".$refereceNo."'
+                            and b.PROD_ID=a.prod_id
+                            and a.district=c.district_code
+                            and a.comp_id=d.comp_id
+                            and a.pur_inv_no=e.invoice_no
+                            and a.pur_ro=e.ro_no
+                            and a.net_amt > 0
+                            and a.pay_dt >= '$frm_date' and a.pay_dt <= '$to_date'
+                            AND a.fin_yr =  $fin_id
+                            group by  a.pur_ro,a.pur_inv_no,a.paid_id
+                            order by  c.district_name,a.pay_dt
+                        ");
+    }
+        return $q->result();
+    }
+    ////**** */ */
     public function getpaymentsummary($comp_id, $frm_date, $to_date, $refereceNo=null)
     {
         $fin_id = $this->session->userdata['loggedin']['fin_id'];
@@ -2813,6 +2868,51 @@ GROUP BY
         return $q->result();
     }
 
+
+    /***** */
+    public function getpayadvummary($comp_id, $frm_date, $to_date, $refereceNo=null)
+    {
+        $fin_id = $this->session->userdata['loggedin']['fin_id'];
+        /*$q = $this->db->query("select y.type_name,SUM(a.adv_amt) as taxable_amt, SUM(0.001 *a.adv_amt) as tds_amt,d.comp_name,
+        SUM(a.adv_amt) - SUM(0.001 *a.adv_amt)as net_amt,
+      x.bank_name bnk,x.bnk_branch_name bnk_branch_name,
+     x.ac_no acc_num,x.ifsc as cifsc
+     from tdf_company_advance a, mm_product b,md_district c,mm_company_dtls d,td_prod_comp_cat_acc x,mm_product_type y,td_adv_details z
+     where a.comp_id=$comp_id
+     and b.PROD_ID=z.prod_id
+     and a.adv_receive_no=z.detail_receipt_no
+     and a.branch_id=c.district_code
+     and a.comp_id=d.comp_id
+         and d.comp_id=x.comp_id
+      and    x.comp_id=z.comp_id
+      and b.prod_type=x.cat_id
+     and b.prod_type=y.id
+    
+     and a.trans_dt >= '$frm_date' and a.trans_dt <= '$to_date'
+     AND a.fin_yr = $fin_id
+   group by  y.type_name,x.bank_name ,x.bnk_branch_name ,x.ac_no ,x.ifsc,d.comp_name");*/
+   
+   $q = $this->db->query("select y.type_name,SUM(a.adv_amt) as taxable_amt, SUM(0.001 *a.adv_amt) as tds_amt,d.comp_name,
+        SUM(a.adv_amt) - SUM(0.001 *a.adv_amt)as net_amt,
+      x.bank_name bnk,x.bnk_branch_name bnk_branch_name,t.bank_name benfed_bnk,t.ac_no,t.bank_name,t.branch_name,
+     x.ac_no acc_num,x.ifsc as cifsc
+     from tdf_company_advance a, mm_product b,md_district c,mm_company_dtls d,td_prod_comp_cat_acc x,mm_product_type y,td_adv_details z,mm_feri_bank t
+     where a.comp_id=$comp_id
+     and b.PROD_ID=z.prod_id
+     and a.adv_receive_no=z.detail_receipt_no
+     and a.branch_id=c.district_code
+     and a.comp_id=d.comp_id
+     and a.bank=t.sl_no
+     and d.comp_id=x.comp_id
+     and x.comp_id=z.comp_id
+     and b.prod_type=x.cat_id
+     and b.prod_type=y.id
+     and a.trans_dt >= '$frm_date' and a.trans_dt <= '$to_date'
+     AND a.fin_yr = $fin_id
+   group by  y.type_name,x.bank_name ,x.bnk_branch_name ,x.ac_no ,x.ifsc,d.comp_name");
+   return $q->result();
+    }
+    /***** */
     public function getCompanyPayment_district_name($comp_id, $frm_date, $to_date,$refereceNo=null)
     {
         
