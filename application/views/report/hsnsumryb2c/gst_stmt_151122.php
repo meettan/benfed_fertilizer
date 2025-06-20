@@ -65,7 +65,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>HSN/SAC B2B SALE SUMMARY BETWEEN: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>HSN/SAC SUMMERY BETWEEN: <?php echo $_SESSION['date']; ?></h4>
                        
                     </div>
                     <br>  
@@ -80,16 +80,16 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>HSN/SAC</th>
 
-                                <!-- <th>Description</th> -->
+                                <th>Description</th>
 
                                 <th>Type Of Supply</th>
 
-                                <th>UNIT</th>
+                                <th>UQC</th>
 
                                 <th>Total Qty</th>
 
                                <th>Taxable Amount</th>
-                               <th>Gst rate</th>
+
                                 <th>Output CGST</th>
 
                                 <th>Output SGST</th>
@@ -97,7 +97,6 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Total Tax</th>
 
                                 <th>Sale Invoice Amount</th>
-                                <th>TDS(.1%)</th>
 
                             </tr>
 
@@ -127,7 +126,6 @@ tr:hover {background-color: #f5f5f5;}
                                     $tot_tax          = 0.00;
                                     $val              = 0;
                                     $tot_qty          = 0.000;
-                                    $tot_tds          = 0.00;
 
                             foreach($purchase as $purc){
                             ?>
@@ -137,35 +135,18 @@ tr:hover {background-color: #f5f5f5;}
                                    
                                      <td class="report"><?php echo $purc->hsn_code; ?></td>
 
-                                    <!-- <td class="report"><?php //echo $purc->prod_desc; ?></td> -->
+                                    <td class="report"><?php echo $purc->prod_desc; ?></td>
                            
                                      <td class="report">Goods</td>
 
                                      <td class="report"><?php echo $purc->unit_name; ?></td>
 
-                                     <td class="report">
-                                       <?php  if ($purc->unit == 1) {
-                                                     echo $purc->qty;
-                                                } elseif ($purc->unit == 2) {
-                                                    echo $purc->qty / 1000;
-                                                } elseif ($purc->unit == 4) {
-                                                    echo $purc->qty / 10;
-                                                } elseif ($purc->unit == 6) {
-                                                    echo $purc->qty / 1000000;
-                                                }elseif($purc->unit == 5){
-                                                    
-                                                       echo (($purc->qty)*($purc->qty_per_bag))/1000;
-                                                }
-                                        ?>
-                                    <!-- elseif li_unit = 5 then 
-                                        set  ld_pur_qty = (ld_pur_qty * li_container)/1000;  -->
-                                      
+                                     <td class="report"><?php echo $purc->qty;
+                                      $tot_qty += $purc->qty; ?>
                                       </td>
 
                                       <td class="report"><?php echo $purc->taxable_amt; 
                                       $tot_taxable += $purc->taxable_amt;?>
-                                      </td>
-                                      <td class="report"><?php echo $purc->GST_RT; ?>
                                       </td>
 
                                       <td class="report"><?php echo $purc->sale_cgst;
@@ -182,9 +163,6 @@ tr:hover {background-color: #f5f5f5;}
                                       <td class="report"><?php echo $purc->sale_tot_amt; 
                                       $tot_spl_rebt += $purc->sale_tot_amt;?>
                                       </td>
-                                      <td class="report"><?php echo round((($purc->taxable_amt)*.1)/100,2); 
-                                      $tot_tds += round((($purc->taxable_amt)*.1)/100,2); ?>
-                                      </td>
 
                                    
                                 </tr>
@@ -193,6 +171,7 @@ tr:hover {background-color: #f5f5f5;}
                                                         
                                     }
                                 ?>
+
  
                                 <?php 
                                        }
@@ -206,13 +185,12 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
 
                         <tfooter>
-                            <tr style="font-weight:700">
-                               <td class="report" colspan="3" style="text-align:right">Total</td>
+                            <tr>
+                               <td class="report" colspan="4" style="text-align:right">Total</td>
 
-                               <td><td class="report"></td>
+                               <td><td class="report"><?=$tot_qty?></td>
 
                                <td class="report"><?=$tot_taxable?></td> 
-                               <td class="report"></td> 
                                
                                <td class="report"><?=$tot_rbt_add?></td> 
 
@@ -222,7 +200,9 @@ tr:hover {background-color: #f5f5f5;}
 
                                <td class="report"><?=$tot_spl_rebt?></td>
 
-                               <td class="report"><?=$tot_tds?></td>
+                               <!-- <td class="report"><?=$tot_rnd_of_add?></td>
+
+                               <td class="report"><?=$tot_rnd_of_less?></td> -->
                               
                             </tr>
                         </tfooter>
@@ -257,7 +237,7 @@ tr:hover {background-color: #f5f5f5;}
     buttons: [
     {
     extend: 'excelHtml5',
-    title: 'BENFED HSN B2B',
+    title: 'BENFED GST IN OUT REPORT',
     text: 'Export to excel'
 
    }

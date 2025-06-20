@@ -1249,14 +1249,7 @@ END ),3)lqdqty,
 
     public function f_get_hsn_gst($frmDt, $toDt)
     {
-        // $query  = $this->db->query("select  c.prod_desc,c.hsn_code,c.qty_per_bag,c.GST_RT, d.unit_name,sum(a.qty) as qty,sum(a.round_tot_amt)as  sale_tot_amt,a.unit,
-        //                             sum(a.cgst) sale_cgst,sum(a.sgst) sale_sgst,sum(a.taxable_amt) taxable_amt
-        //                             from td_sale a,mm_product c,mm_unit d
-        //                             where   a.prod_id=c.prod_id
-        //                             and a.unit=d.id
-        //                             and  a.do_dt between '$frmDt' and '$toDt'
-        //                             group by c.prod_desc,c.hsn_code ,d.unit_name,a.unit");
-
+        
         $query  = $this->db->query("select  d.unit_name,sum(a.qty) as qty,
         (select  hsn_code from mm_product where prod_id=b.prod_id)hsn_code,
         sum(a.round_tot_amt)as sale_tot_amt,a.unit,  (select  gst_rt from mm_product where prod_id=b.prod_id) as GST_RT,
@@ -1265,12 +1258,33 @@ END ),3)lqdqty,
         from td_sale a,td_purchase b,mm_unit d
         where a.sale_ro=b.ro_no
         and a.unit=d.id 
+        and a.gst_type_flag='Y'
         and a.do_dt between '$frmDt' and '$toDt' 
         group by GST_RT,unit_name,hsn_code;
         ");
 
         return $query->result();
     }
+    /**** */
+    public function f_get_hsn_gstb2c($frmDt, $toDt)
+    {
+        
+        $query  = $this->db->query("select  d.unit_name,sum(a.qty) as qty,
+        (select  hsn_code from mm_product where prod_id=b.prod_id)hsn_code,
+        sum(a.round_tot_amt)as sale_tot_amt,a.unit,  (select  gst_rt from mm_product where prod_id=b.prod_id) as GST_RT,
+        sum(a.cgst) sale_cgst,sum(a.sgst) sale_sgst,sum(a.taxable_amt) taxable_amt ,
+        (select  qty_per_bag from mm_product where prod_id=b.prod_id) as qty_per_bag
+        from td_sale a,td_purchase b,mm_unit d
+        where a.sale_ro=b.ro_no
+        and a.unit=d.id 
+        and a.gst_type_flag='N'
+        and a.do_dt between '$frmDt' and '$toDt' 
+        group by GST_RT,unit_name,hsn_code;
+        ");
+
+        return $query->result();
+    }
+    /**** */
     public function f_pur_hsn_gst($frmDt, $toDt)
     {
         $query  = $this->db->query("select  c.prod_desc,c.hsn_code, d.unit_name,c.qty_per_bag,c.GST_RT,c.unit,c.prod_id,sum(a.qty) as qty,sum(a.tot_amt)as  pur_tot_amt,

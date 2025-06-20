@@ -65,7 +65,7 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>HSN/SAC B2B SALE SUMMARY BETWEEN: <?php echo $_SESSION['date']; ?></h4>
+                        <h4>HSN/SAC B2C SALE SUMMARY BETWEEN: <?php echo $_SESSION['date']; ?></h4>
                        
                     </div>
                     <br>  
@@ -257,7 +257,7 @@ tr:hover {background-color: #f5f5f5;}
     buttons: [
     {
     extend: 'excelHtml5',
-    title: 'BENFED HSN B2B',
+    title: 'BENFED HSN B2C',
     text: 'Export to excel'
 
    }
