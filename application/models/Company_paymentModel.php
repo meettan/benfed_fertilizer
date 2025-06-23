@@ -191,9 +191,7 @@ return $data->row();
 					where a.comp_id = b.COMP_ID 
 					and a.district = c.id 
 					and a.pay_no IS NULL
-					and a.pay_dt IS NULL
-					
-					");
+					and a.pay_dt IS NULL");
         
                 
                  return $data->result();
