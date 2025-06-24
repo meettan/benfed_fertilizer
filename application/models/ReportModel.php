@@ -2641,7 +2641,7 @@ GROUP BY
                             group by fo_name,fo_number,f.short_name";
 
             }else{
-                        $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate,
+                        $sql = "select c.branch_id, b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate
                        from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d
                         where c.branch_id = b.id
                         and   a.adv_dtl_id = c.receipt_no
@@ -2653,7 +2653,7 @@ GROUP BY
                         and   c.comp_pay_flag = 'Y'
                         group by b.branch_name,c.branch_id
                         UNION
-                        select c.branch_id,b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate,
+                        select c.branch_id,b.branch_name,sum(a.adv_amt)adv_amt,sum(c.qty)qty,rate
                     
                                     from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e
                                     where c.branch_id = b.id
