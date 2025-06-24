@@ -112,6 +112,7 @@ public function company_advAddlist(){
 					'a.comp_id = b.COMP_ID' =>NULL, 
 					'a.prod_id = c.PROD_ID' =>NULL,
 					'a.detail_receipt_no = d.detail_receipt_no'=>NULL, 
+					 'a.fin_yr=d.fin_yr'=>NULL,
 					'd.fwd_receipt_no'    => $this->input->post('receipt_no'),
 					'd.comp_pay_flag' => 'N',
 					'a.comp_id'=>$this->input->post('comp_id')
