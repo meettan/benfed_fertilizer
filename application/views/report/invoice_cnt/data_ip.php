@@ -59,7 +59,7 @@ tr:hover {background-color: #f5f5f5;}
                     </div>
 
                 </div>
-                <div class="form-group row">
+                <!-- <div class="form-group row">
 
                     <label for="product" class="col-sm-2 col-form-label">Business Type:</label>
 
@@ -71,7 +71,7 @@ tr:hover {background-color: #f5f5f5;}
                       </select>
                     </div>
 
-                </div>
+                </div> -->
 
 
                 <div class="form-group row">

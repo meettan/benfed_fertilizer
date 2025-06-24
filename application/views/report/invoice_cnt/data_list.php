@@ -65,9 +65,9 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4><?php if($bt == 1) { echo 'B2B'; } else{ echo 'B2C' ;}?> Cancel Invoice list Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
-                        <h5 style="text-align:left"><label><?php //echo $distname->district_name; ?></label>  &ensp;&ensp;</h5> 
-                  
+                        <!-- <h4> Document Issued list Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
+                        <h5 style="text-align:left"><label><?php //echo $distname->district_name; ?></label>  &ensp;&ensp;</h5>  -->
+                        <h4> Document Issued list Between:<?php echo  date("d/m/Y", strtotime($fDate)).' To '.date("d/m/Y", strtotime($tDate)) ?></h4>
 
                     </div>
                     <br>  
@@ -105,7 +105,7 @@ tr:hover {background-color: #f5f5f5;}
                                      <td><?php echo $pt->to_no ; ?></td>
                                      <td><?php echo $pt->tot ; ?></td>
                                      <td><?php echo $pt->cncl ; ?></td>
-                                     <td></td>
+                                     <td><?php echo $pt->netissue; ?></td>
                                      <!-- <td><?php if($pt->ack_dt !='') { echo date('d/m/Y',strtotime($pt->ack_dt)); } ?></td> -->
                                      <!-- <td><?php echo $pt->tot_amt ; $tot +=$pt->tot_amt?></td> -->
                                     
@@ -117,13 +117,13 @@ tr:hover {background-color: #f5f5f5;}
                                 
                                 ?>
 
-                                <tr>
+                                <!-- <tr>
                                     <td colspan="6"><b>Total</b></td>
                                     
                                   
                                     <td><b><?php echo $tot; ?></b></td>
                                     
-                                </tr>
+                                </tr> -->
                                 <?php 
                                        }
                                 else{
@@ -145,7 +145,7 @@ tr:hover {background-color: #f5f5f5;}
                 <div style="text-align: center;">
 
                     <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
-                   <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
+                   <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>
 
                 </div>
 
@@ -172,7 +172,7 @@ tr:hover {background-color: #f5f5f5;}
         dom: 'Bfrtip',
         buttons: [{
             extend: 'excelHtml5',
-            title: ' Company Payment Statement',
+            title: 'Document Issued list',
             text: 'Export to excel'
 
         }]

@@ -2368,6 +2368,7 @@ GROUP BY
                         and   a.adv_dtl_id = c.receipt_no
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
+                        and a.fin_yr=c.fin_yr
                         and   a.trans_dt between '$frm_date' and '$to_date'
                         and   a.comp_id = '$comp_id'
                         and   c.comp_pay_flag = 'Y'
@@ -2379,6 +2380,7 @@ GROUP BY
                                     where c.branch_id = b.id
                                     and   a.adv_receive_no = c.detail_receipt_no
                                     and   c.prod_id = d.PROD_ID
+                                    and a.fin_yr=c.fin_yr
                                     and   a.adv_dtl_id = e.fwd_receipt_no
                                     and   c.detail_receipt_no = e.detail_receipt_no
                                     and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2391,6 +2393,7 @@ GROUP BY
                     where c.branch_id = b.id
                     and   a.memo_no='$memoNumber'
                     and   a.adv_dtl_id = c.receipt_no
+                    and a.fin_yr=c.fin_yr
                     and   a.adv_receive_no = c.detail_receipt_no
                     and   c.prod_id = d.PROD_ID
                     and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2405,6 +2408,7 @@ GROUP BY
                                 and   a.memo_no='$memoNumber'
                                 and   a.adv_receive_no = c.detail_receipt_no
                                 and   c.prod_id = d.PROD_ID
+                                and a.fin_yr=c.fin_yr
                                 and   a.adv_dtl_id = e.fwd_receipt_no
                                 and   c.detail_receipt_no = e.detail_receipt_no
                                 and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2436,6 +2440,7 @@ GROUP BY
             and   a.adv_receive_no = c.detail_receipt_no
             and   c.prod_id = d.PROD_ID
             and   a.comp_id = e.comp_id
+            and a.fin_yr=c.fin_yr
             and   a.trans_dt between '$frm_date' and '$to_date'
             and   a.comp_id = '$comp_id'
             and   c.comp_pay_flag = 'Y'
@@ -2453,6 +2458,7 @@ GROUP BY
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
                         and   c.comp_id = f.comp_id
+                        and a.fin_yr=c.fin_yr
                         and   a.adv_dtl_id = e.fwd_receipt_no
                         and   c.detail_receipt_no = e.detail_receipt_no
                         and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2476,6 +2482,7 @@ GROUP BY
             and   a.adv_receive_no = c.detail_receipt_no
             and   c.prod_id = d.PROD_ID
             and   a.comp_id = e.comp_id
+            and a.fin_yr=c.fin_yr
             and   a.trans_dt between '$frm_date' and '$to_date'
             and   a.comp_id = '$comp_id'
             and   c.comp_pay_flag = 'Y'
@@ -2494,6 +2501,7 @@ GROUP BY
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
                         and   c.comp_id = f.comp_id
+                        and a.fin_yr=c.fin_yr
                         and   a.adv_dtl_id = e.fwd_receipt_no
                         and   c.detail_receipt_no = e.detail_receipt_no
                         and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2612,6 +2620,7 @@ GROUP BY
                 and   c.prod_id = d.PROD_ID
                 and   a.trans_dt between '$frm_date' and '$to_date'
                 and   a.comp_id = '$comp_id'
+                and a.fin_yr=c.fin_yr
                 and   c.comp_pay_flag = 'Y'
                 group by fo_name,fo_number,f.short_name
                 UNION
@@ -2627,6 +2636,7 @@ GROUP BY
                             and   a.trans_dt between '$frm_date' and '$to_date'
                             and   a.comp_id = '$comp_id'
                             and   a.comp_id =f.comp_id
+                            and a.fin_yr=c.fin_yr
                             and   e.comp_pay_flag = 'Y'
                             group by fo_name,fo_number,f.short_name";
 
@@ -2637,6 +2647,7 @@ GROUP BY
                         and   a.adv_dtl_id = c.receipt_no
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
+                        and a.fin_yr=c.fin_yr
                         and   a.trans_dt between '$frm_date' and '$to_date'
                         and   a.comp_id = '$comp_id'
                         and   c.comp_pay_flag = 'Y'
@@ -2648,6 +2659,7 @@ GROUP BY
                                     where c.branch_id = b.id
                                     and   a.adv_receive_no = c.detail_receipt_no
                                     and   c.prod_id = d.PROD_ID
+                                    and a.fin_yr=c.fin_yr
                                     and   a.adv_dtl_id = e.fwd_receipt_no
                                     and   c.detail_receipt_no = e.detail_receipt_no
                                     and   a.trans_dt between '$frm_date' and '$to_date'
@@ -2670,6 +2682,7 @@ GROUP BY
             and   a.adv_dtl_id = c.receipt_no
             and   a.adv_receive_no = c.detail_receipt_no
             and   c.prod_id = d.PROD_ID
+            and a.fin_yr=c.fin_yr
             and   a.trans_dt between '$frm_date' and '$to_date'
             and   a.comp_id = '$comp_id'
             and   a.comp_id =f.comp_id
@@ -2685,6 +2698,7 @@ GROUP BY
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
                         and   a.adv_dtl_id = e.fwd_receipt_no
+                        and a.fin_yr=c.fin_yr
                         and   c.detail_receipt_no = e.detail_receipt_no
                         and   a.trans_dt between '$frm_date' and '$to_date'
                         and   a.comp_id = '$comp_id'
@@ -2702,6 +2716,7 @@ GROUP BY
             and   a.adv_dtl_id = c.receipt_no
             and   a.adv_receive_no = c.detail_receipt_no
             and   c.prod_id = d.PROD_ID
+            and a.fin_yr=c.fin_yr
             and   a.trans_dt between '$frm_date' and '$to_date'
             and   a.comp_id = '$comp_id'
             and   c.comp_pay_flag = 'Y'
@@ -2714,6 +2729,7 @@ GROUP BY
                         and   a.memo_no='$memoNumber'
                         and   a.adv_receive_no = c.detail_receipt_no
                         and   c.prod_id = d.PROD_ID
+                        and a.fin_yr=c.fin_yr
                         and   a.adv_dtl_id = e.fwd_receipt_no
                         and   c.detail_receipt_no = e.detail_receipt_no
                         and   a.trans_dt between '$frm_date' and '$to_date'
@@ -3345,7 +3361,7 @@ GROUP BY
     }
 
 public function invoice_cnt($frm_date, $to_date){
-    $q = $this->db->query("select district_name,sum(frm_no)frm_no,sum(to_no)to_no,sum(tot)tot ,sum(cncl)cncl
+    $q = $this->db->query("select district_name,sum(frm_no)frm_no,sum(to_no)to_no,sum(tot)tot ,sum(cncl)cncl,sum(tot)-sum(cncl) netissue
     from(
     SELECT b.district_name,min(a.trans_no)frm_no,max(a.trans_no)to_no,count(*)tot ,0 cncl
     FROM td_sale a ,md_district b
@@ -3358,7 +3374,8 @@ public function invoice_cnt($frm_date, $to_date){
     WHERE a.br_cd=b.district_code
     and a.do_dt between '$frm_date' and '$to_date'
     group by b.district_name)x
-    group by district_name;");
+    group by district_name
+    order by district_name;");
     return $q->result();
 
 }
