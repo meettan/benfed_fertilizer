@@ -2948,6 +2948,28 @@ public function company_advpayment(){
             $this->load->view('post_login/footer');
         }
     }
+
+    /************************ */
+    public function invoice_cnt(){
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $frm_date = $this->input->post('fr_date');
+            $to_date  = $this->input->post('to_date');
+           
+            $data['tableData']=$this->ReportModel->invoice_cnt($frm_date,$to_date);
+          
+           $this->load->view('post_login/fertilizer_main');
+           $this->load->view('report/invoice_cnt/data_list.php',$data);
+           $this->load->view('post_login/footer');
+        }else{
+
+            $data['branch']     =   $this->ReportModel->f_get_district_asc();
+            $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/invoice_cnt/data_ip.php',$data);
+            $this->load->view('post_login/footer');
+        }
+    }
+    /*********************** */
     public function tcs_report(){
         if($_SERVER['REQUEST_METHOD'] == "POST") {
             $frm_date = $this->input->post('fr_date');

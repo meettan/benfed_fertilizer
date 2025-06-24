@@ -466,6 +466,7 @@
 										<a href="<?php echo site_url("fert/rep/crngstunreg");?>">GST CR Note UnRegister</a>
                                         <a href="<?php echo site_url("fert/rep/gstr1rep");?>">GSTR I</a>
                                         <a href="<?php echo site_url("fert/rep/gstr3brep");?>">GSTR 3B </a>
+                                        <a href="<?php echo site_url("fert/rep/invoice_cnt");?>">Document Issue </a>
 									</div>
                                 </div>
 								<?php } ?>

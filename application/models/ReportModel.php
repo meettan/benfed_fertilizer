@@ -3344,7 +3344,24 @@ GROUP BY
         return $q->result();
     }
 
+public function invoice_cnt($frm_date, $to_date){
+    $q = $this->db->query("select district_name,sum(frm_no)frm_no,sum(to_no)to_no,sum(tot)tot ,sum(cncl)cncl
+    from(
+    SELECT b.district_name,min(a.trans_no)frm_no,max(a.trans_no)to_no,count(*)tot ,0 cncl
+    FROM td_sale a ,md_district b
+    WHERE a.br_cd=b.district_code
+    and a.do_dt between '$frm_date' and '$to_date'
+    group by b.district_name
+    UNION
+    SELECT b.district_name,0,0,0 ,count(*) cncl
+    FROM td_sale_cancel a ,md_district b
+    WHERE a.br_cd=b.district_code
+    and a.do_dt between '$frm_date' and '$to_date'
+    group by b.district_name)x
+    group by district_name;");
+    return $q->result();
 
+}
 
 
 }
