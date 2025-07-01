@@ -2611,7 +2611,7 @@ GROUP BY
 
                 $sql = "select sum(a.adv_amt)adv_amt,f.COMP_NAME,sum(c.qty)qty,rate,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-                (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
+                CONCAT(CONCAT(b.branch_name,' -' ),(select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id))fo_number
                 from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
                 where c.branch_id = b.id
                 and   a.adv_dtl_id = c.receipt_no
@@ -2626,7 +2626,7 @@ GROUP BY
                 UNION
                 select sum(a.adv_amt)adv_amt,f.short_name,sum(c.qty)qty,rate,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-                (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
+                CONCAT(CONCAT(b.branch_name,' -' ),(select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id))fo_number
                             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
                             where c.branch_id = b.id
                             and   a.adv_receive_no = c.detail_receipt_no
@@ -2675,7 +2675,7 @@ GROUP BY
 
                 $sql = "select sum(a.adv_amt)adv_amt,f.COMP_NAME,sum(c.qty)qty,rate,
                 (select DISTINCT f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-                (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
+                CONCAT(CONCAT(b.branch_name,' -' ),(select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id))fo_number
             from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,mm_company_dtls f
             where c.branch_id = b.id
             and   a.memo_no='$memoNumber'
@@ -2691,7 +2691,7 @@ GROUP BY
             UNION
             select sum(a.adv_amt)adv_amt,f.short_name,sum(c.qty)qty,rate,
             (select f.fo_name  from mm_fo_master f where  c.fo_no=f.fi_id)fo_name,
-            (select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id)fo_number
+            CONCAT(CONCAT(b.branch_name,' -' ),(select DISTINCT f.fo_number  from mm_fo_master f where  c.fo_no=f.fi_id))fo_number
                         from tdf_company_advance a, md_branch b,td_adv_details c,mm_product d,tdf_adv_fwd e,mm_company_dtls f
                         where c.branch_id = b.id
                         and   a.memo_no='$memoNumber'
@@ -3361,15 +3361,17 @@ GROUP BY
     }
 
 public function invoice_cnt($frm_date, $to_date){
-    $q = $this->db->query("select district_name,sum(frm_no)frm_no,sum(to_no)to_no,sum(tot)tot ,sum(cncl)cncl,sum(tot)-sum(cncl) netissue
+    $q = $this->db->query("select district_name,
+    f_minmax_do('$frm_date','$to_date',sum(frm_no),district_code)frm_no,
+    f_maxdo('$frm_date','$to_date',sum(to_no),district_code)to_no,tot ,sum(cncl)cncl,sum(tot)-sum(cncl) netissue
     from(
-    SELECT b.district_name,min(a.trans_no)frm_no,max(a.trans_no)to_no,count(*)tot ,0 cncl
+    SELECT b.district_name,min(a.trans_no)frm_no,max(a.trans_no)to_no,count(*)tot ,0 cncl,b.district_code
     FROM td_sale a ,md_district b
     WHERE a.br_cd=b.district_code
     and a.do_dt between '$frm_date' and '$to_date'
     group by b.district_name
     UNION
-    SELECT b.district_name,0,0,0 ,count(*) cncl
+    SELECT b.district_name,0,0,0 ,count(*) cncl,b.district_code
     FROM td_sale_cancel a ,md_district b
     WHERE a.br_cd=b.district_code
     and a.do_dt between '$frm_date' and '$to_date'
