@@ -1054,7 +1054,43 @@ class Purchase extends MX_Controller
 		echo json_encode($ro);
 	}
 
+	public function shortage_entry()
+	{
+		if ($this->input->post()) {
+			$from_date = $this->input->post('from_date');
+			$to_date = $this->input->post('to_date');
+			$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+			$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+			$bank['data']  = $this->PurchaseModel->f_get_shortage_view($br_cd, $fin_id, $from_date, $to_date);
 
+
+			$this->load->view("post_login/fertilizer_main");
+
+			$this->load->view("shortage/dashboard", $bank);
+			// echo $this->db->last_query();
+			// exit();
+
+			$this->load->view('search/search');
+
+			$this->load->view('post_login/footer');
+		} else {
+			$todayday = date('Y-m-d');
+			$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+			$fin_id        = $this->session->userdata['loggedin']['fin_id'];
+			$bank['data']  = $this->PurchaseModel->f_get_shortage_view($br_cd, $fin_id, $todayday, $todayday);
+
+
+			$this->load->view("post_login/fertilizer_main");
+
+			$this->load->view("shortage/dashboard", $bank);
+			// echo $this->db->last_query();
+			// exit();
+
+			$this->load->view('search/search');
+
+			$this->load->view('post_login/footer');
+		}
+	}
 
 	public function stock_entry()
 	{
@@ -1093,7 +1129,208 @@ class Purchase extends MX_Controller
 			$this->load->view('post_login/footer');
 		}
 	}
+	public function js_get_pur_qty()
+		{
 
+			$ro = $this->input->get('ro_no');
+			$result = $this->PurchaseModel->js_get_pur_qty($ro);			
+			
+ 			echo json_encode($result);
+
+		}
+	public function f_get_pur_ro(){
+
+		$br_cd         = $this->session->userdata['loggedin']['branch_id'];
+		$ro_no    = $this->PurchaseModel->get_pur_ro($this->input->get("comp_id"),$br_cd);
+	// echo $this->db->last_query();
+	// die();
+		echo json_encode($ro_no);
+	
+	}
+	public function shortageAdd(){
+
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			
+			if($this->input->post('comp_acc_cd') > 0){
+			if($this->input->post('adv_status')=='Y'){
+				$where = array('fwd_flag' => 'Y',
+									'comp_pay_flag' => 'Y',
+									'fwd_receipt_no' => $this->input->post('receipt_no')
+									);
+				$result   = $this->PurchaseModel->f_select('tdf_adv_fwd', array('count(*) cnt'),$where, 1);
+				$advance_Forward_No=$result->cnt;
+			}else{
+				$advance_Forward_No=1;
+			}
+
+			if($advance_Forward_No!=0){
+
+			$fin_year =  $this->session->userdata['loggedin']['fin_yr'];
+
+			$fin_id = $this->session->userdata['loggedin']['fin_id'];
+
+			$comp_id       = $this->input->post('comp_id');
+
+			$prod_id       = $this->input->post('prod_id');
+
+			$ro_no         = $this->input->post('ro_no');
+
+			$ro_dt         = $this->input->post('ro_dt');
+
+			$trans_dt      = $this->input->post('trans_dt');
+
+			$qty           = $this->input->post('qty');
+			$receipt_no    = $this->input->post('receipt_no');
+			$taxable_amt     = $this->input->post('taxable_amt');
+
+			$cgst           = $this->input->post('cgst');
+
+			$sgst           = $this->input->post('sgst');
+
+		
+			$tot_amt          = $this->input->post('tot_amt');
+
+			
+
+			$trans_flag     = '1';
+
+			$stock_point    = $this->input->post('stkpnt_id');
+
+			$add_ret_margin_flag = $this->input->post('add_ret_margin_flag');
+
+			$less_spl_rbt_flag = $this->input->post('less_spl_rbt_flag');
+
+			$add_adj_amt_flag = $this->input->post('add_adj_amt_flag');
+
+			$less_adj_amt_flag = $this->input->post('less_adj_amt_flag');
+
+			$less_trad_margin_flag = $this->input->post('less_trad_margin_flag');
+
+			$less_oth_dis_flag = $this->input->post('less_oth_dis_flag');
+
+			$less_frght_subsdy_flag = $this->input->post('less_frght_subsdy_flag');
+
+			$rnd_of_add  = $this->input->post('rnd_of_add');
+
+			$rnd_of_less = $this->input->post('rnd_of_less');
+
+			$br_cd       = $this->session->userdata['loggedin']['branch_id'];
+
+			$data_array = array(
+
+				"comp_id"      => $comp_id,
+			
+				"prod_id"      => $prod_id,
+
+				"ro_no"        => $ro_no,
+
+				"ro_dt"        => $ro_dt,
+
+				"qty"          =>  $qty,
+				
+				"taxable_amt"   => $taxable_amt,
+
+				"cgst"         => $cgst,
+
+				"sgst"         => $sgst,
+
+			   "trans_dt"       => $trans_dt,
+
+				"trans_flag"    => $trans_flag,
+
+			    "created_by"     =>  $this->session->userdata['loggedin']['user_name'],
+
+				"created_dt"     =>  date('Y-m-d h:i:s'),
+
+				"created_ip"     =>  $_SERVER['REMOTE_ADDR'],
+
+				"br"             => $this->session->userdata['loggedin']['branch_id'],
+
+				"fin_yr"         => $fin_id,
+
+				"stock_point"    => $stock_point
+			);
+
+
+		
+			$select_prod          = array("prod_desc");
+			$where_prod   = array("prod_id" => $prod_id);
+			$prod_name = $this->PurchaseModel->f_select('mm_product', $select_prod, $where_prod, 1);
+
+			$select_comp          = array("comp_name");
+			$where_comp     = array("comp_id" => $comp_id);
+			$comp_name = $this->PurchaseModel->f_select('mm_company_dtls', $select_comp, $where_comp, 1);
+
+			$select_br    = array("dist_sort_code");
+			$where_br     = array("district_code" => $br_cd);
+			$br_nm = $this->PurchaseModel->f_select('md_district', $select_br, $where_br, 1);
+
+			$data_array_pur = $data_array;
+			$data_array_pur['rem'] = $prod_name->prod_desc . " purchased vide ro no. " . $ro_no . " from " . $comp_name->comp_name;
+			$data_array_pur['fin_fulyr'] = $fin_year;
+			$data_array_pur['br_nm'] = $br_nm->dist_sort_code;
+
+			// if($this->ApiVoucher->f_purchasejnl($data_array_pur)==1){
+
+
+				$this->PurchaseModel->f_insert('tdf_stock_point_trans', $data_array1);
+
+				$this->PurchaseModel->f_insert('td_purchase', $data_array);
+
+
+				$this->session->set_flashdata('msg', 'Successfully Added');
+
+				redirect('stock/stock_entry');
+			// }else{
+			// 	echo "<script>alert('Error in accounts voucher!');</script>";
+			// }
+			//redirect('virtualpnt/virtual_stk_pointAdd');
+		}else{
+			echo "<script>alert('Advance to Company has not yet been done.');</script>";
+		}
+
+	    }else{
+
+			$this->session->set_flashdata('msg', 'Accout ledger not found');
+			redirect('stock/stock_entry');
+		}
+
+
+		} else {
+			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
+
+			$select2    =  array("soc_id", "soc_name");
+			$where2     = array(
+				"stock_point_flag"    =>  'Y',
+				"district" => $br_cd
+			);
+
+			$product['socdtls']   = $this->PurchaseModel->f_select('mm_ferti_soc', $select2, $where2, 0);
+			$select1          = array("comp_id", "comp_name");
+
+			$product['compdtls']   = $this->PurchaseModel->f_select('mm_company_dtls', $select1, NULL, 0);
+
+			$select  = array("id", "unit_name");
+			$product['unitdtls']   = $this->PurchaseModel->f_select('mm_unit', $select, NULL, 0);
+			
+			$product['mntend'] = $this->PurchaseModel->f_get_mnthend($br_cd);
+
+			// print_r($product);
+			// die();
+			
+
+			// $product['achead']=$this->PurchaseModel->f_get_achead($br_cd);
+
+
+			$product['date']   = $this->PurchaseModel->get_monthendDate();
+
+			$this->load->view('post_login/fertilizer_main');
+
+			$this->load->view("shortage/add", $product);
+
+			$this->load->view('post_login/footer');
+		}
+	}
 	public function stockAdd()
 	{
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
