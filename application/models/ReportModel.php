@@ -2944,8 +2944,8 @@ GROUP BY
      AND a.fin_yr = $fin_id
    group by  y.type_name,x.bank_name ,x.bnk_branch_name ,x.ac_no ,x.ifsc,d.comp_name");*/
    
-   $q = $this->db->query("select y.type_name,SUM(a.adv_amt) as taxable_amt, SUM(0.001 *a.adv_amt) as tds_amt,d.comp_name,
-        SUM(a.adv_amt) - SUM(0.001 *a.adv_amt)as net_amt,
+   $q = $this->db->query("select y.type_name,SUM(a.adv_amt) as taxable_amt,ROUND( SUM(0.001 *a.adv_amt),2) as tds_amt,d.comp_name,
+        ROUND(SUM(a.adv_amt) - SUM(0.001 *a.adv_amt),2)as net_amt,
       x.bank_name bnk,x.bnk_branch_name bnk_branch_name,t.bank_name benfed_bnk,t.ac_no,t.bank_name,t.branch_name,
      x.ac_no acc_num,x.ifsc as cifsc
      from tdf_company_advance a, mm_product b,md_district c,mm_company_dtls d,td_prod_comp_cat_acc x,mm_product_type y,td_adv_details z,mm_feri_bank t
@@ -3166,7 +3166,8 @@ GROUP BY
                 and a.trans_do=f.sale_invoice_no
                 and   a.do_dt >= '2023-04-01'
                 and   a.sale_due_dt < '$date'
-                group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt");
+                group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt
+                HAVING a.round_tot_amt-sum(f.paid_amt) >0");
 
         }
         return $query->result();
