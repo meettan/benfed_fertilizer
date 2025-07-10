@@ -22,10 +22,7 @@ a.dt-button{
             <h3>
 		        <small><a href="<?php echo site_url("stock/shortageAdd");?>" class="btn btn-primary" style="width: 100px;">Add</a></small>
                     <span class="confirm-div" style="float:right; color:green;"></span>
-                <!-- <div class="input-group" style="margin-left:75%;">
-                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                    <input type="text" class="form-control" placeholder="Search..." id="search" style="z-index: 0;">
-                </div> -->
+                
             </h3>
 
             <div class="form-group row">
@@ -92,7 +89,7 @@ a.dt-button{
                                         data-toggle="tooltip" data-placement="bottom" title="Edit">
                                         
 
-                                        <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                        <i class="fa fa-eye" style="color: #007bff"></i>
                                     </a>  
                                 </td>
                                 <!-- <td><button type="button" class="delete" id="<?php echo $value->ro_no;?>"    
