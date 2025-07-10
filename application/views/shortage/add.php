@@ -40,7 +40,7 @@
     <div class="col-md-2 container"></div>
     <div class="col-md-8 container form-wraper">
 
-        <form method="POST" action="<?php echo site_url("drcrnote/drnoteAdd") ?>" onsubmit="return valid_data()"
+        <form method="POST" action="<?php echo site_url("stock/shortageAdd") ?>" onsubmit="return valid_data()"
             id="form">
 
             <div class="form-header">
@@ -109,6 +109,7 @@
                
                <div class="col-sm-4">
                <input type="text" name="prod_desc" id="prod_desc" style="width:150px;" class="form-control prod_desc" value="" readonly >
+               <input type="hidden" name="prod_id" id="prod_id" style="width:150px;" class="form-control prod_id" value="" readonly >
                    </div> 
 
                    <label for="unit" class="col-sm-2 col-form-label">Unit:<span style="color: red;">*</span></label>
@@ -322,6 +323,7 @@
                         var ro_dt = unitData.ro_dt;
                          $('#ro_dt').val(ro_dt);
                          $('.prod_desc').eq($('.ro_no').index(this)).val(unitData.prod_desc);
+                         $('.prod_id').eq($('.ro_no').index(this)).val(unitData.prod_id);
                         $('.unit').eq($('.ro_no').index(this)).val(unitData.unit_name);
                         $('.rate').eq($('.ro_no').index(this)).val(unitData.rate);
                         $('.qty').eq($('.ro_no').index(this)).val(unitData.qty);

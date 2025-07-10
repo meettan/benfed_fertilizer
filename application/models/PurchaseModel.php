@@ -79,6 +79,20 @@
 			 return $result;
 	 }
 
+	 public function get_stockrtn_no($fin_id,$branch_id){
+
+		$sql="select  ifnull(substr(`trans_cd`,LOCATE('/', `trans_cd`, LOCATE('/', `trans_cd`, LOCATE('/', `trans_cd`) + 1) + 1)+1,length(trans_cd)) ,0)+1 AS  trans_no
+			  from td_pur_shortage 
+			  where fin_yr = '$fin_id' 
+			  AND br_cd= '$branch_id'";
+
+	  $result = $this->db->query($sql);     
+  
+	  return $result->row();
+
+}
+
+
 		public function get_trans_no($fin_id,$branch_id){
 
 			$sql="select ifnull(max(trans_no),0) + 1 trans_no
@@ -511,10 +525,25 @@
 			return   $value->result();
 			//die();
 		}
+
+		public function f_get_shortage_dtls($trans_cd){
+			$data   =   $this->db->query("select a.trans_cd, a.trans_dt,a.ro_no,a.ro_dt,
+             a.qty,a.rate,a.remarks,a.trans_flag,b.COMP_NAME,c.prod_desc 
+			from td_pur_shortage a ,mm_company_dtls b,mm_product c
+			where a.comp_id=b.COMP_ID
+			and a.prod_id=c.prod_id
+			and a.trans_cd = '$trans_cd'");
+
+$result = $data->row();  
+
+return $result;
+		}
 		public function f_get_shortage_view($banch_id,$fin_id,$fDate,$todate){
-			$data=$this->db->query("select a.* 
-								from td_pur_shortage a
-									where a.br_cd  ='$banch_id' 
+			$data=$this->db->query("select a.* ,b.PROD_DESC prod_desc,c.comp_name 
+								from td_pur_shortage a,mm_product b,mm_company_dtls c
+									where a.prod_id=b.prod_id
+									and a.comp_id=c.comp_id
+									and a.br_cd  ='$banch_id' 
 									and   a.fin_yr ='$fin_id' 
 									and a.trans_dt BETWEEN '".$fDate."' AND '".$todate."'");
 			return $data->result();
