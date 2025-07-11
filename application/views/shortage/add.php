@@ -215,7 +215,7 @@
 
             ).done(function (data) {
 
-                var string = '<option value="">Select Invoice</option>';
+                var string = '<option value="">Select Ro No.</option>';
 
                 $.each(JSON.parse(data), function (index, value) {
 
