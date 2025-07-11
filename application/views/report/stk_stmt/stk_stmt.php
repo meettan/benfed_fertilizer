@@ -141,6 +141,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Sale during the period</th>
 
+                                <th>Shortage/Damage</th>
+
                                 <th>Closing</th>
 
                                 <th>Container</th>
@@ -156,11 +158,13 @@ tr:hover {background-color: #f5f5f5;}
                             $OpeningMTS=0.0;
                             $PurchaseMTS=0.0;
                             $SaleMTS=0.0;
+                            $stgMTS=0.00;
                             $ClosingMTS=0.0;
 
                                 $OpeningLTR=0.0;
                                 $PurchaseLTR=0.0;
                                 $SaleLTR=0.0;
+                                $stgLTR=0.00;
                                 $ClosingLTR=0.0;
                             foreach ($stock as $stock_key) {
                                 $i++;
@@ -169,11 +173,13 @@ tr:hover {background-color: #f5f5f5;}
                                     $OpeningMTS=$OpeningMTS+ $stock_key->opening;
                                     $PurchaseMTS=$PurchaseMTS+$stock_key->purchase;
                                     $SaleMTS=$SaleMTS+$stock_key->sale;
+                                    $stgMTS=$stgMTS +$stock_key->shtg;
                                     $ClosingMTS= $ClosingMTS+$stock_key->closing;
                                 }else if($stock_key->unit_id==3){
                                     $OpeningLTR=$OpeningLTR+ $stock_key->opening;
                                     $PurchaseLTR=$PurchaseLTR+$stock_key->purchase;
                                     $SaleLTR=$SaleLTR+$stock_key->sale;
+                                    $stgLTR=$stgLTR +$stock_key->shtg;
                                     $ClosingLTR= $ClosingLTR+$stock_key->closing;
                                 }
                             ?>
@@ -185,7 +191,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <td class="report"><?php echo $stock_key->opening; ?></td>
                                 <td class="report"><?php echo $stock_key->purchase; ?></td>
                                 <td class="report"><?php echo $stock_key->sale; ?></td>
-                                <td class="report"><?php echo $stock_key->closing; ?></td>
+                                <td class="report"><?php echo $stock_key->shtg; ?></td>
+                                <td class="report"><?php echo $stock_key->closing - $stock_key->shtg; ?></td>
                                 <td class="report"><?php echo $stock_key->container; ?></td>
                             </tr>
                             <?php 
@@ -199,6 +206,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Shortage</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
                             </tr>
                             <tr>
@@ -206,6 +214,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$PurchaseMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$SaleMTS?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
                             </tr>
                             <tr>
@@ -214,6 +223,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $PurchaseLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $SaleLTR?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
                               
                                   

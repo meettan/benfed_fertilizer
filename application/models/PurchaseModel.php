@@ -519,9 +519,22 @@
 		}
 
 		public function get_pur_ro($cmpid,$br){
+			// $value=$this->db->query("SELECT ro_no FROM td_purchase
+			// where  comp_id = '$cmpid' 
+			// and br = '$br'");
 			$value=$this->db->query("SELECT ro_no FROM td_purchase
 			where  comp_id = '$cmpid' 
-			and br = '$br'");
+			and br = '$br'
+            and ro_no not in(select sale_ro from td_sale where comp_id='$cmpid'  and br='$br')
+            union
+           SELECT ro_no 
+            FROM td_purchase a ,td_sale b
+			where a.ro_no=b.sale_ro
+            and a.comp_id = '$cmpid' 
+            and a.br=b.br_cd
+            and a.comp_id=b.comp_id
+			and a.br = '$br'    
+            HAVING sum(a.qty)>sum(b.qty)");
 			return   $value->result();
 			//die();
 		}
