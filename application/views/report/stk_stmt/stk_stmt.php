@@ -206,7 +206,7 @@ tr:hover {background-color: #f5f5f5;}
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Shortage</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Shortage/Damage</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
                             </tr>
                             <tr>
