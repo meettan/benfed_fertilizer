@@ -252,6 +252,7 @@ foreach ($tableDatasummary as $ptableDatasummary) {
                                   $totalAmount=0;
                                   $totalTDS=0;
                                   $totalNETAmount=0;
+                                  $tds=0;
                                     foreach($tableDatasummary as $ptableDatasidt){
                                        $total=($ptableData->adv_amt+$total);
                                        $total +=$ptableData->adv_amt;
@@ -266,12 +267,13 @@ foreach ($tableDatasummary as $ptableDatasummary) {
                                     
                                      <td style="text-align: center;"><?php echo $ptableDatasidt->adv_amt ;$totalAmount+=$ptableDatasidt->adv_amt; ?></td>
 
-                                     <td style="text-align: center;"><?php  echo round((0.001 * $ptableDatasummary->adv_amt),2);
-                                       $tds = round((0.001 * $ptableDatasummary->adv_amt),2);
+                                     <td style="text-align: center;"><?php  echo round((0.001 * $ptableDatasidt->adv_amt),2);
+                                    //    $tds = round((0.001 * $ptableDatasummary->adv_amt),2);
+                                       $tds = round((0.001 * $ptableDatasidt->adv_amt),2);
                                        $totalTds = $totalTds + $tds; ?>
                                      </td>
                                     <td style="text-align: center;">
-                                   <?php $netamt = round(($ptableDatasummary->adv_amt - $tds),2);
+                                   <?php $netamt = round(($ptableDatasidt->adv_amt - $tds),2);
                                     echo $netamt;
                                     $totalNETAmount = $totalNETAmount + $netamt;
                                     ?>
@@ -316,6 +318,8 @@ foreach ($tableDatasummary as $ptableDatasummary) {
                         <tbody>
                             <?php
                                  $prod_net_tot = 0;
+                                 $prod_tds_tot = 0;
+
                                 if($sumrydtls){ 
                                     $i = 1;
                                    
@@ -327,23 +331,20 @@ foreach ($tableDatasummary as $ptableDatasummary) {
                                 <tr> 
                                      <td><?php echo $i++; ?></td>
                                      <td style="text-align: center;"><?php echo $sumr->type_name; ?></td>
-                                    
                                      <td style="text-align: center;"><?php echo $sumr->taxable_amt; ?></td>
-                                     <td style="text-align: center;"><?php echo $sumr->tds_amt; ?></td>
+                                     <td style="text-align: center;"><?php echo $sumr->tds_amt; $prod_tds_tot+=$sumr->tds_amt;?></td>
                                      <td style="text-align: center;"><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td>
                                      </td> 
                                 </tr>
                                
                                 <?php    } ?>
-                                <!-- <tr> -->
-                                    <!-- <td><b></b></td>
-                                    <td><b></b></td> -->
-                                  
-                                    <!-- <td><b><?php echo $totalAmount; ?></b></td>
-                                    <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $prod_net_tot; ?> -->
-                                    <?php //echo  $totalAmount-$totalTDS; ?></b></td>
-                                <!-- </tr> -->
+                                <tr>
+                                    <td><b></b></td>
+                                    <td><b></b></td>
+                                    <td style="text-align: center;"><b><?php echo $totalAmount; ?></b></td>
+                                    <td style="text-align: center;"><b><?php echo $prod_tds_tot;?></b></td>
+                                    <td style="text-align: center;"><b><?php echo $prod_net_tot;?></b></td>
+                                </tr>
                                 <?php 
                                        }
                                 else{
