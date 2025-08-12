@@ -2827,21 +2827,20 @@ GROUP BY
 
         $q = $this->db->query("select d.COMP_NAME as comp_name,a.trans_dt,c.district_name,
         SUM(a.adv_amt) as taxable_amt, round(SUM(0.001*a.adv_amt),2) as tds_amt, SUM(a.adv_amt)-round(SUM(0.001*a.adv_amt),2) as net_amt,
-       
         (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bank)bnk,
         (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bank)bnk_branch_name,
         (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bank)acc_num,
-        d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,d.ac_no as cac_no,
-        d.ifsc as cifsc
+        d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,
+        (select DISTINCT k.ac_no from td_prod_comp_cat_acc k ,mm_product z  where k.cat_id=z.prod_type and k.comp_id=a.comp_id and z.prod_id=x.prod_id) as cac_no,
+        (select DISTINCT k.ifsc from td_prod_comp_cat_acc k ,mm_product z  where k.cat_id=z.prod_type and k.comp_id=a.comp_id and z.prod_id=x.prod_id) as cifsc
         from tdf_company_advance a,md_district c,mm_company_dtls d,td_adv_details x
         where a.comp_id=$comp_id
        and a.adv_receive_no=x.detail_receipt_no
-
         and c.district_code=x.branch_id
         and a.comp_id=d.comp_id
         and a.trans_dt >= '$frm_date' and a.trans_dt <= '$to_date'
         AND a.fin_yr = $fin_id
-       group by x.branch_id,bnk,bnk_branch_name,acc_num,cac_no
+        group by x.branch_id,bnk,bnk_branch_name,acc_num,cac_no
         order by x.branch_id;");
 
     }else{
@@ -2854,8 +2853,9 @@ GROUP BY
                             (select DISTINCT j.bank_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk,
                             (select DISTINCT j.branch_name from mm_feri_bank j where j.sl_no=a.bnk_id)bnk_branch_name,
                             (select DISTINCT j.ac_no from mm_feri_bank j where j.sl_no=a.bnk_id)acc_num,
-                            d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,d.ac_no as cac_no,
-                            d.ifsc as cifsc
+                            d.bank_name as cbank,d.bnk_branch_name as cbnk_branch_name,
+                            (select DISTINCT k.ac_no from td_prod_comp_cat_acc k ,mm_product z  where k.cat_id=z.prod_type and k.comp_id=a.comp_id and z.prod_id=x.prod_id) as cac_no,
+                            (select DISTINCT k.ifsc from td_prod_comp_cat_acc k ,mm_product z  where k.cat_id=z.prod_type and k.comp_id=a.comp_id and z.prod_id=x.prod_id) as cifsc
                             from tdf_company_payment a, mm_product b,md_district c,mm_company_dtls d,td_purchase e
                             where a.comp_id=$comp_id
                             and a.ref_no='".$refereceNo."'

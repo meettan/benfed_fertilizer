@@ -438,8 +438,8 @@ foreach ($tableDatasummary as $ptableDatasummary) {
                     ?>
                     <tr>
                         <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->fo_number)){echo $ptableDatasidt->fo_number;}else{ echo $ptableDatasidt->district_name;}?></td>
-                        <td style="border: 1px solid black !important"><?=$cifsc?></td>
-                        <td style="border: 1px solid black !important"><?php if(!empty($cacc_num)){echo $cacc_num;}else{ echo "";} ?></td>
+                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->cifsc)){echo $ptableDatasidt->cifsc;}else{ echo "";} ?></td>
+                        <td style="border: 1px solid black !important"><?php if(!empty($ptableDatasidt->cac_no)){echo $ptableDatasidt->cac_no;}else{ echo "";} ?></td>
                         <!-- <td style="border: 1px solid black !important">IFFCO</td> -->
                   <?php      $totalTDS += 0;  ?>
                         <td style="border: 1px solid black !important">
