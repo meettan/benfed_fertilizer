@@ -99,6 +99,8 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>Sale during the period</th>
 
+                                <th>Shortage/Damage</th>
+
                                 <th>Closing</th>
 
                             </tr>
@@ -167,7 +169,7 @@ tr:hover {background-color: #f5f5f5;}
                                             }
                                         ?>
                                      </td>
-
+                                     <td class="report shtg" id="shtg"><?php echo $prodtls->shtg; ?></td>
                                      <td class="report closing" id="closing">
                                         <?php 
                                             foreach($closing as $clsdtls){
