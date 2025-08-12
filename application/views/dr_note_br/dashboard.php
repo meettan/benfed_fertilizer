@@ -109,7 +109,9 @@
                             </a>
                     </td>
                     <td>
-                              <a href="drnotetcs_recipt?id=<?=$dr->id;?>" title="Print">
+                              <a href="drnote_brRep?id=<?=$dr->id;?>" title="Print">
+                              <!-- <a href="<?php echo site_url('drcrnote/drnote_brRep?id='.$dr->id.''); ?>"
+                                title="Print"> -->
                               <i class="fa fa-print fa-2x" style="color:green;"></i>  
                               <!-- <span class="mdi mdi-printer"></span> -->
                               </a>
