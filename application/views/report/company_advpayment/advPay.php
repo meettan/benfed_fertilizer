@@ -326,6 +326,7 @@ foreach ($tableDatasummary as $ptableDatasummary) {
                                   $totalRate=0;
                                 
                                     foreach($advsumrydtls as $sumr){
+                                             
                             ?>
 
                                 <tr> 
