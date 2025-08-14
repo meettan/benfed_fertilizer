@@ -408,7 +408,7 @@
                                    <a href="<?php echo site_url("fert/rep/advance_report");?>"> Company Advance</a> 
                                    <a href="<?php echo site_url("fert/rep/advance_payment");?>">Company Payment</a>
                                    <a href="<?php echo site_url("fert/rep/company_payment");?>">Company Payment New</a>
-                                   <a href="<?php echo site_url("fert/rep/company_advpayment");?>">Company Adv Payment New</a>
+                                   <a href="<?php echo site_url("fert/rep/company_advpayment");?>">Company Adv Payment New(Matix)</a>
                                  
                                    <a href="<?php echo site_url("fertilizer/report/advance_fwd_detail");?>">Advance Fwd Detail</a>
 									</div>
