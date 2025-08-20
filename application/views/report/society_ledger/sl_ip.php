@@ -129,7 +129,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>CGST</th>
                                 <th>SGST</th>
 								<th>Total 
-                                    Amount</th>
+                                    Amount/Dr.Note</th>
                                 <th>Advance/
 								    Credit Note</th>
                                 <th>Adjusted 
@@ -280,7 +280,7 @@ tr:hover {background-color: #f5f5f5;}
                                            
                                         }
 
-                                    }elseif( $prodtls->remarks=='NEFT Adj' || $prodtls->remarks=='Net Banking'||$prodtls->remarks=='Pay Order Adj' || $prodtls->remarks=='Draft Adj'|| $prodtls->remarks=='Cheque Adj'||$prodtls->remarks=='DR Note'){
+                                    }elseif( $prodtls->remarks=='NEFT Adj' || $prodtls->remarks=='Net Banking'||$prodtls->remarks=='Pay Order Adj' || $prodtls->remarks=='Draft Adj'|| $prodtls->remarks=='Cheque Adj'){
                                         //echo $prodtls->remarks .' '.$totalamt;
                                         //$totalamt -= (($prodtls->tot_recv) +($prodtls->tot_paid));
 										$totalamt -= (($prodtls->tot_recv));
@@ -297,7 +297,7 @@ tr:hover {background-color: #f5f5f5;}
                                         }
 
                                         // echo $totalamt;
-                                     }elseif($prodtls->remarks=='Sale'||$prodtls->remarks=='TRF TO INSECT' ||$prodtls->remarks=='YRLY Cr Note Adj'){
+                                     }elseif($prodtls->remarks=='Sale'||$prodtls->remarks=='TRF TO INSECT' ||$prodtls->remarks=='YRLY Cr Note Adj'||$prodtls->remarks=='DR Note'){
                                       
                                       $totalamt += $prodtls->tot_payble +$prodtls->cgst + $prodtls->sgst;
 
