@@ -87,6 +87,7 @@ tr:hover {background-color: #f5f5f5;}
 
                             <tr>
                                 <th>Sl No.</th>
+                                <th>District</th>
                                 <th>Company</th>
                                 <th>Product</th>
                                 <th>Unit</th>
@@ -147,6 +148,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr class="rep">
                                     <td class="report"><?php echo $i++; ?></td>
+                                    <td class="report"><?php echo $sal->district_name; ?></td>
                                     <td class="report"><?php echo $sal->short_name; ?></td>
                                     <td class="report"><?php echo $sal->PROD_DESC; ?></td>
                                     <td><?php
@@ -231,7 +233,7 @@ tr:hover {background-color: #f5f5f5;}
                         </tbody>
                         <tfooter>
                             <tr>
-                               <td class="report" colspan="10" style="text-align:right">Total</td> 
+                               <td class="report" colspan="11" style="text-align:right">Total</td> 
                                <td class="report"><?=$taxable?></td>
                                <td class="report"><?=$cgst?></td>
                                <td class="report"><?=$sgst?></td>
