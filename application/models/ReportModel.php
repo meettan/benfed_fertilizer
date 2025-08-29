@@ -2284,6 +2284,7 @@ and a.ro_no not in (select sale_ro from td_sale
     a.tot_amt, 
     c.short_name, 
     b.PROD_DESC,
+    e.district_name,
     COALESCE(x.cash_dis, 0)      AS cash_dis,
     COALESCE(x.dis, 0)           AS dis,
     COALESCE(x.trans_sub, 0)     AS trans_sub,
@@ -2300,6 +2301,7 @@ FROM td_sale a
 JOIN mm_product b ON a.prod_id = b.PROD_ID
 JOIN mm_company_dtls c ON a.comp_id = c.COMP_ID
 JOIN mm_ferti_soc d ON a.soc_id = d.soc_id
+JOIN md_district e ON a.br_cd=e.district_code
 LEFT JOIN (
     SELECT invoice_no,
         SUM(CASE WHEN catg = 1  THEN tot_amt ELSE 0 END) AS cash_dis,
@@ -2323,9 +2325,10 @@ $branch  $company
 GROUP BY 
     a.trans_do, a.do_dt, a.trans_type, a.sale_ro, a.qty, a.soc_id, d.soc_name,
     b.unit, b.qty_per_bag, a.sale_rt, a.taxable_amt, a.cgst, a.sgst,
-    a.dis, a.tot_amt, c.short_name, b.PROD_DESC,
+    a.dis, a.tot_amt, c.short_name, b.PROD_DESC,e.district_name,
     x.cash_dis, x.dis, x.trans_sub, x.spl_rbt, x.prce_prot, x.qty_rbt,
-    x.rail_dis, x.matrix, x.gst_tds, x.trans_hanl, x.rbt_sbs");
+    x.rail_dis, x.matrix, x.gst_tds, x.trans_hanl, x.rbt_sbs
+    order by e.district_name,d.soc_name");
         return $query->result();
     }
 
