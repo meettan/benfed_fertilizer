@@ -47,80 +47,136 @@
 //     }
 
 
-    function getIndianCurrency(float $number)
-    {
-     $no = floor($number);
-     $decimal = round($number - $no, 2) * 100;
-     if($decimal>0){
-     $decimal_part = $decimal;
-     }else{
-      $decimal_part=0;
-     }
-     $hundred = null;
-     $hundreds = null;
-     $digits_length = strlen($no);
-     $decimal_length = strlen($decimal);
-     $i = 0;
-     $str = array();
-     $str2 = array();
-     $words = array(0 => '', 1 => 'one', 2 => 'two',
-    3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
-    7 => 'seven', 8 => 'eight', 9 => 'nine',
-    10 => 'ten', 11 => 'eleven', 12 => 'twelve',
-    13 => 'thirteen', 14 => 'fourteen', 15 => 'fifteen',
-    16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen',
-    19 => 'nineteen', 20 => 'twenty', 30 => 'thirty',
-    40 => 'forty', 50 => 'fifty', 60 => 'sixty',
-    70 => 'seventy', 80 => 'eighty', 90 => 'ninety');
-    $digits = array('', 'hundred','thousand','lakh', 'crore');
-    $digitsp = array('', '','','', '');
+    // function getIndianCurrency(float $number)
+    // {
+    //  $no = floor($number);
+    //  $decimal = round($number - $no, 2) * 100;
+    //  if($decimal>0){
+    //  $decimal_part = $decimal;
+    //  }else{
+    //   $decimal_part=0;
+    //  }
+    //  $hundred = null;
+    //  $hundreds = null;
+    //  $digits_length = strlen($no);
+    //  $decimal_length = strlen($decimal);
+    //  $i = 0;
+    //  $str = array();
+    //  $str2 = array();
+    //  $words = array(0 => '', 1 => 'one', 2 => 'two',
+    // 3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
+    // 7 => 'seven', 8 => 'eight', 9 => 'nine',
+    // 10 => 'ten', 11 => 'eleven', 12 => 'twelve',
+    // 13 => 'thirteen', 14 => 'fourteen', 15 => 'fifteen',
+    // 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen',
+    // 19 => 'nineteen', 20 => 'twenty', 30 => 'thirty',
+    // 40 => 'forty', 50 => 'fifty', 60 => 'sixty',
+    // 70 => 'seventy', 80 => 'eighty', 90 => 'ninety');
+    // $digits = array('', 'hundred','thousand','lakh', 'crore');
+    // $digitsp = array('', '','','', '');
     
-     while( $i < $digits_length ) {
-     $divider = ($i == 2) ? 10 : 100;
-     $number = floor($no % $divider);
-     $no = floor($no / $divider);
-     $i += $divider == 10 ? 1 : 2;
-     if ($number) {
-     $plural = (($counter = count($str)) && $number > 9) ? '' : null;
-     $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
-     $str [] = ($number < 21) ? $words[$number].' '. $digits[$counter]. $plural.' '.$hundred:$words[floor($number / 10) * 10].' '.$words[$number % 10]. ' '.$digits[$counter].$plural.' '.$hundred;
-    } else $str[] = null;
-    }
+    //  while( $i < $digits_length ) {
+    //  $divider = ($i == 2) ? 10 : 100;
+    //  $number = floor($no % $divider);
+    //  $no = floor($no / $divider);
+    //  $i += $divider == 10 ? 1 : 2;
+    //  if ($number) {
+    //  $plural = (($counter = count($str)) && $number > 9) ? '' : null;
+    //  $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
+    //  $str [] = ($number < 21) ? $words[$number].' '. $digits[$counter]. $plural.' '.$hundred:$words[floor($number / 10) * 10].' '.$words[$number % 10]. ' '.$digits[$counter].$plural.' '.$hundred;
+    // } else $str[] = null;
+    // }
     
-     $d = 0;
-    while( $d < $decimal_length ) {
-     $divider = ($d == 2) ? 10 : 100;
-     $decimal_number = floor($decimal % $divider);
-     $decimal = floor($decimal / $divider);
-     $d += $divider == 10 ? 1 : 2;
-     if ($decimal_number) {
-     $plurals = (($counter = count($str2)) && $decimal_number > 9) ? '' : null;
-     $hundreds = ($counter == 1 && $str2[0]) ? ' and ' : null;
-     @$str2 [] = ($decimal_number < 21) ? $words[$decimal_number].' '. $digitsp[$decimal_number]. $plural.' '.$hundred:$words[floor($decimal_number / 10) * 10].' '.$words[$decimal_number % 10]. ' '.$digitsp[$counter].$plural.' '.$hundred;
-      } else $str2[] = null;
-    }
+    //  $d = 0;
+    // while( $d < $decimal_length ) {
+    //  $divider = ($d == 2) ? 10 : 100;
+    //  $decimal_number = floor($decimal % $divider);
+    //  $decimal = floor($decimal / $divider);
+    //  $d += $divider == 10 ? 1 : 2;
+    //  if ($decimal_number) {
+    //  $plurals = (($counter = count($str2)) && $decimal_number > 9) ? '' : null;
+    //  $hundreds = ($counter == 1 && $str2[0]) ? ' and ' : null;
+    //  @$str2 [] = ($decimal_number < 21) ? $words[$decimal_number].' '. $digitsp[$decimal_number]. $plural.' '.$hundred:$words[floor($decimal_number / 10) * 10].' '.$words[$decimal_number % 10]. ' '.$digitsp[$counter].$plural.' '.$hundred;
+    //   } else $str2[] = null;
+    // }
    
-     $Rupees = implode('', array_reverse($str));
-     $paise = implode('', array_reverse($str2));
-     //$paise = ($decimal_part > 0) ? $paise . ' Paise' : '';
-     $first_p =0 ;
-     $second_p =0 ;
-     $new_paisa = '';
-     if($decimal_part > 0 ){
-      $first_p =  intdiv($decimal_part, 10); 
-      $second_p = fmod($decimal_part, 10) ;
-     }
-     $wordsp = array(0 => 'zero', 1 => 'one', 2 => 'two',
-     3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
-     7 => 'seven', 8 => 'eight', 9 => 'nine');
-     if($decimal_part > 0 ){
-     $paise_n = $wordsp[round($first_p)].' '.$wordsp[round($second_p)].' Paise';
-     }else{
-      $paise_n = '';
-     }
-     return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise_n;
+    //  $Rupees = implode('', array_reverse($str));
+    //  $paise = implode('', array_reverse($str2));
+    //  //$paise = ($decimal_part > 0) ? $paise . ' Paise' : '';
+    //  $first_p =0 ;
+    //  $second_p =0 ;
+    //  $new_paisa = '';
+    //  if($decimal_part > 0 ){
+    //   $first_p =  intdiv($decimal_part, 10); 
+    //   $second_p = fmod($decimal_part, 10) ;
+    //  }
+    //  $wordsp = array(0 => 'zero', 1 => 'one', 2 => 'two',
+    //  3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six',
+    //  7 => 'seven', 8 => 'eight', 9 => 'nine');
+    //  if($decimal_part > 0 ){
+    //  $paise_n = $wordsp[round($first_p)].' '.$wordsp[round($second_p)].' Paise';
+    //  }else{
+    //   $paise_n = '';
+    //  }
+    //  return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise_n;
+    // }
+    function getIndianCurrency(float $number)
+{
+    $no = floor($number);
+    $decimal = round($number - $no, 2) * 100;
+    $decimal_part = ($decimal > 0) ? $decimal : 0;
+
+    $hundred = null;
+    $digits_length = strlen($no);
+    $i = 0;
+    $str = array();
+
+    $words = array(
+        0 => '', 1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five',
+        6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 10 => 'ten',
+        11 => 'eleven', 12 => 'twelve', 13 => 'thirteen', 14 => 'fourteen',
+        15 => 'fifteen', 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen',
+        19 => 'nineteen', 20 => 'twenty', 30 => 'thirty', 40 => 'forty',
+        50 => 'fifty', 60 => 'sixty', 70 => 'seventy', 80 => 'eighty', 90 => 'ninety'
+    );
+    $digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+
+    // Convert Rupees
+    while ($i < $digits_length) {
+        $divider = ($i == 2) ? 10 : 100;
+        $number = floor($no % $divider);
+        $no = floor($no / $divider);
+        $i += ($divider == 10) ? 1 : 2;
+
+        if ($number) {
+            $counter = count($str);
+            $plural = (($counter) && $number > 9) ? '' : null;
+            $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
+            if ($number < 21) {
+                $str[] = $words[$number] . ' ' . $digits[$counter] . $plural . ' ' . $hundred;
+            } else {
+                $str[] = $words[floor($number / 10) * 10] . ' ' . $words[$number % 10] . ' ' . $digits[$counter] . $plural . ' ' . $hundred;
+            }
+        } else {
+            $str[] = null;
+        }
     }
-    
+
+    $Rupees = implode('', array_reverse($str));
+
+    // Convert Paise properly
+    $paise_n = '';
+    if ($decimal_part > 0) {
+        if ($decimal_part < 21) {
+            $paise_n = $words[$decimal_part] . ' Paise';
+        } else {
+            $paise_n = $words[floor($decimal_part / 10) * 10] . ' ' . $words[$decimal_part % 10] . ' Paise';
+        }
+    }
+
+    return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise_n;
+}
+
 
     function get_already_procured($kms_yr,$reg_no){
 
