@@ -304,10 +304,7 @@ tr:hover {background-color: #f5f5f5;}
           paging: false,
           searching: false,
           info: false,
-          colReorder: {
-        realtime: true
-    },
-    stateSave: true
+          colReorder:true
       });
 
       $('#sortColumn').on('change', function () {
