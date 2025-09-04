@@ -57,6 +57,29 @@ tr:hover { background-color: #f5f5f5; }
 }
 .modern-select:hover { border-color: #228ed3; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 .modern-select:focus { outline: none; border-color: #228ed3; box-shadow: 0 0 0 3px rgba(34,142,211,0.2); }
+/* Drag handle icon */
+.drag-handle {
+    cursor: move;
+    margin-right: 5px;
+    color: #888;
+    font-weight: bold;
+}
+th:hover .drag-handle { color: #228ed3; }
+
+/* Animated hint for first column */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+.drag-hint { display: inline-block; animation: bounce 1s ease-in-out 3; }
+/* Info box for guidance */
+.info-box {
+    background: #eef6fb;
+    border-left: 4px solid #228ed3;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
 </style>
 </head>
 <body>
@@ -66,6 +89,10 @@ tr:hover { background-color: #f5f5f5; }
 <div class="wraper"> 
     <div class="col-lg-12 container contant-wraper">
         <div id="divToPrint">
+            <!-- Info box for new users -->
+            <div class="info-box">
+                <b>Tip:</b> Click column headers to sort rows. Drag the <span style="font-weight:bold;">≡</span> icon to reorder columns.
+            </div>
             <div style="text-align:center;">
                 <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                 <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
