@@ -216,12 +216,23 @@ function printDiv() {
     var divToPrint = document.getElementById('divToPrint');
     var WindowObject = window.open('', 'Print-Window');
     WindowObject.document.open();
-    WindowObject.document.writeln('<!DOCTYPE html><html><head><meta charset="UTF-8"><title></title><style>@media print { table {border-collapse: collapse; font-size:12px;} th,td {border:1px solid black; padding:6px;} }</style></head><body onload="window.print()">');
+    WindowObject.document.writeln('<!DOCTYPE html>');
+    WindowObject.document.writeln('<html><head><meta charset="UTF-8"><title></title>');
+    WindowObject.document.writeln('<style type="text/css">');
+    WindowObject.document.writeln('@media print { ' +
+        'table { border-collapse: collapse; font-size: 12px; }' +
+        'th, td { border: 1px solid black; padding: 6px; }' +
+        '.no-print { display: none !important; }' +  // ✅ force hide Tip & Sort box
+    '}');
+    WindowObject.document.writeln('</style></head><body onload="window.print()">');
     WindowObject.document.writeln(divToPrint.innerHTML);
     WindowObject.document.writeln('</body></html>');
     WindowObject.document.close();
-    setTimeout(function(){ WindowObject.close(); }, 10);
+    setTimeout(function () {
+        WindowObject.close();
+    }, 10);
 }
+
 
 $(document).ready(function() {
     var table = $('#example').DataTable({
