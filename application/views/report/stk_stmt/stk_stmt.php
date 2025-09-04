@@ -104,7 +104,7 @@ th:hover .drag-handle { color: #228ed3; }
             <br>
 
             <!-- Dropdown to sort rows -->
-            <div class="no-print" style="margin:10px 0;">
+            <!-- <div class="no-print" style="margin:10px 0;">
                 <label for="sortColumn" style="font-weight:600; margin-right:8px;">Sort rows by:</label>
                 <select id="sortColumn" class="modern-select">
                     <option value="0">Sl No.</option>
@@ -118,7 +118,7 @@ th:hover .drag-handle { color: #228ed3; }
                     <option value="8">Closing</option>
                     <option value="9">Container</option>
                 </select>
-            </div>
+            </div> -->
 
             <table id="example">
                 <thead>
