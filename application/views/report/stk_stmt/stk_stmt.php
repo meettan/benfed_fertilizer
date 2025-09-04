@@ -140,6 +140,36 @@ tr:hover { background-color: #f5f5f5; }
                     </tr>
                     <?php }} ?>
                 </tbody>
+                <tfooter>
+                            <tr>
+                               <td class="report" colspan="5" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Shortage/Damage</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
+                            </tr>
+                            <tr>
+                               <td class="report" colspan="5" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningMTS?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$PurchaseMTS?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$SaleMTS?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgMTS?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
+                            </tr>
+                            <tr>
+                            <tr>
+                               <td class="report" colspan="5" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningLTR?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $PurchaseLTR?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $SaleLTR?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgLTR?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
+                              
+                                  
+                                    
+                            </tr>
+                        </tfooter>
             </table>
         </div>
 
