@@ -464,6 +464,7 @@ tr:hover {background-color: #f5f5f5;}
         searching: false,
         ordering: false,
         paging: false,
+        scrollX: true,   // enables horizontal scrollbar in HTML
 
         dom: 'Bfrtip',
         buttons: [
@@ -476,12 +477,26 @@ tr:hover {background-color: #f5f5f5;}
                 extend: 'pdfHtml5',
                 title: 'BENFED All SALE PURCHASE REPORT',
                 text: 'Save as PDF',
-                orientation: 'landscape',  // optional: landscape / portrait
-                pageSize: 'A4',            // optional: A3, A4, A5
+                orientation: 'landscape',   // make PDF wider
+                pageSize: 'A3',             // bigger page size for scroll-like effect
                 exportOptions: {
-                    columns: ':visible'    // exports only visible columns
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    // Reduce font size so table fits better
+                    doc.defaultStyle.fontSize = 7;
+                    doc.styles.tableHeader.fontSize = 8;
+                    
+                    // Force table to not auto-fit (helps emulate horizontal scroll)
+                    doc.styles.tableBodyEven = { alignment: 'left' };
+                    doc.styles.tableBodyOdd = { alignment: 'left' };
+                    
+                    // If still too wide, we can scale table
+                    doc.content[1].table.widths = 
+                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
                 }
             }
         ]
     });
 </script>
+
