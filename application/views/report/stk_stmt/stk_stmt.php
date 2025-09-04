@@ -38,6 +38,27 @@ tr:hover { background-color: #f5f5f5; }
 }
 @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* Modern sorting icons */
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_desc:after {
+            padding-left: 8px;
+            font-size: 14px;
+        }
+        table.dataTable thead .sorting:after {
+            content: "↕";
+            color: #888;
+        }
+        table.dataTable thead .sorting_asc:after {
+            content: "▲";
+            color: #007bff;
+            font-weight: bold;
+        }
+        table.dataTable thead .sorting_desc:after {
+            content: "▼";
+            color: #007bff;
+            font-weight: bold;
+        }
 /* Modern dropdown styling */
 .modern-select {
     appearance: none;
@@ -55,6 +76,7 @@ tr:hover { background-color: #f5f5f5; }
     transition: all 0.2s ease-in-out;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+
 .modern-select:hover { border-color: #228ed3; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 .modern-select:focus { outline: none; border-color: #228ed3; box-shadow: 0 0 0 3px rgba(34,142,211,0.2); }
 /* Drag handle icon */
