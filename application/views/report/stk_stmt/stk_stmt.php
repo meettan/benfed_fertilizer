@@ -1,4 +1,5 @@
 <style>
+
 table {
     border-collapse: collapse;
 }
@@ -59,6 +60,34 @@ tr:hover {background-color: #f5f5f5;}
             transform: rotate(360deg);
         }
     }
+    .modern-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fff url('data:image/svg+xml;utf8,<svg fill="black" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    background-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 40px 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.modern-select:hover {
+    border-color: #228ed3;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.modern-select:focus {
+    outline: none;
+    border-color: #228ed3;
+    box-shadow: 0 0 0 3px rgba(34,142,211,0.2);
+}
+
 </style>
 
 <script>
@@ -102,9 +131,6 @@ tr:hover {background-color: #f5f5f5;}
             <div class="spinner"></div>
         </div>
 
-
-    
-
         <div class="wraper"> 
 
             <div class="col-lg-12 container contant-wraper">
@@ -123,7 +149,7 @@ tr:hover {background-color: #f5f5f5;}
  <!-- Sorting Dropdown -->
  <div style="margin:10px 0;">
                 <label for="sortColumn"><b>Sort by:</b></label>
-                <select id="sortColumn">
+                <select id="sortColumn" class="modern-select">
                     <option value="0">Sl No.</option>
                     <option value="1">Company</option>
                     <option value="2">Product</option>
