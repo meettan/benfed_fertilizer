@@ -206,7 +206,8 @@ $(document).ready(function() {
         },
         stateSave: true // ✅ remembers column positions after reload
     });
-
+// Add tooltip to every column header
+$('#example thead th').attr('title', 'Move by drag / Sort by click');
     // Sort rows via dropdown
     $('#sortColumn').on('change', function() {
         var col = $(this).val();
