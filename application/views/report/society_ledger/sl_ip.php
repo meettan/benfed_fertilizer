@@ -464,7 +464,7 @@ tr:hover {background-color: #f5f5f5;}
         searching: false,
         ordering: false,
         paging: false,
-        scrollX: true,   // enables horizontal scrollbar in HTML
+        scrollX: true,   // still allows horizontal scroll in browser
 
         dom: 'Bfrtip',
         buttons: [
@@ -477,26 +477,34 @@ tr:hover {background-color: #f5f5f5;}
                 extend: 'pdfHtml5',
                 title: 'BENFED All SALE PURCHASE REPORT',
                 text: 'Save as PDF',
-                orientation: 'landscape',   // make PDF wider
-                pageSize: 'A3',             // bigger page size for scroll-like effect
+                orientation: 'landscape',   // wider page
+                pageSize: 'A3',             // bigger page
                 exportOptions: {
                     columns: ':visible'
                 },
                 customize: function (doc) {
-                    // Reduce font size so table fits better
-                    doc.defaultStyle.fontSize = 7;
-                    doc.styles.tableHeader.fontSize = 8;
-                    
-                    // Force table to not auto-fit (helps emulate horizontal scroll)
-                    doc.styles.tableBodyEven = { alignment: 'left' };
-                    doc.styles.tableBodyOdd = { alignment: 'left' };
-                    
-                    // If still too wide, we can scale table
-                    doc.content[1].table.widths = 
-                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                    // Reduce font size
+                    doc.defaultStyle.fontSize = 6;
+                    doc.styles.tableHeader.fontSize = 7;
+
+                    // Force all columns to share space evenly
+                    var table = doc.content[1].table;
+                    var columnCount = table.body[0].length;
+                    table.widths = new Array(columnCount).fill('*');
+
+                    // Optional: shrink to fit page width
+                    doc.content[1].layout = {
+                        hLineWidth: function() { return 0.5; },
+                        vLineWidth: function() { return 0.5; },
+                        paddingLeft: function() { return 2; },
+                        paddingRight: function() { return 2; },
+                        paddingTop: function() { return 2; },
+                        paddingBottom: function() { return 2; }
+                    };
                 }
             }
         ]
     });
 </script>
+
 
