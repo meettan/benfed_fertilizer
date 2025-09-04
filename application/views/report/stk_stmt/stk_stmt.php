@@ -120,7 +120,22 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
                     <br>  
-
+ <!-- Sorting Dropdown -->
+ <div style="margin:10px 0;">
+                <label for="sortColumn"><b>Sort by:</b></label>
+                <select id="sortColumn">
+                    <option value="0">Sl No.</option>
+                    <option value="1">Company</option>
+                    <option value="2">Product</option>
+                    <option value="3">Unit</option>
+                    <option value="4">Opening</option>
+                    <option value="5">Purchase</option>
+                    <option value="6">Sale</option>
+                    <option value="7">Shortage/Damage</option>
+                    <option value="8">Closing</option>
+                    <option value="9">Container</option>
+                </select>
+            </div>
                     <table style="width: 100%;" id="example">
 
                         <thead>
@@ -246,20 +261,23 @@ tr:hover {background-color: #f5f5f5;}
             
         </div>
 
+        <script>
+  $(document).ready(function () {
+      var table = $('#example').DataTable({
+          paging: false,
+          searching: false,
+          info: false
+      });
+
+      $('#sortColumn').on('change', function () {
+          var column = $(this).val();
+          table.order([column, 'asc']).draw();
+      });
+  });
+</script>
         
 
         <script>
-              $('#overlay').fadeIn().delay(2500).fadeOut();
-
-            //   var ready = false;
-            //     $(document).ready(function () {
-            //         ready = true;
-            //     });
-            //     if(ready){
-            //         $('#overlay').fadeOut();
-            //     }else{
-            //         $('#overlay').fadeIn();
-            //     }
-              
+              $('#overlay').fadeIn().delay(2500).fadeOut();             
         </script>
         
