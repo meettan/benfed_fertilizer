@@ -470,12 +470,12 @@ tr:hover {background-color: #f5f5f5;}
         buttons: [
             {
                 extend: 'excelHtml5',
-                title: 'BENFED All SALE PURCHASE REPORT',
+                title: 'Society Ledger',
                 text: 'Export to Excel'
             },
             {
                 extend: 'pdfHtml5',
-                title: 'BENFED All SALE PURCHASE REPORT',
+                title: 'Society Ledger',
                 text: 'Save as PDF',
                 orientation: 'landscape',   // wider page
                 pageSize: 'A3',             // bigger page
