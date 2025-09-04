@@ -9,7 +9,7 @@
 
 <!-- ColReorder JS -->
 <script src="https://cdn.datatables.net/colreorder/1.6.2/js/dataTables.colReorder.min.js"></script>
-
+<style>
 table {
     border-collapse: collapse;
 }
