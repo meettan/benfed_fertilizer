@@ -470,12 +470,12 @@ tr:hover {background-color: #f5f5f5;}
         buttons: [
             {
                 extend: 'excelHtml5',
-                title: '<?php if($all_data){echo $prodtls->soc_name;} ?>-Society Ledger',
+                title: '<?php if($all_data){echo $prodtls->soc_name;} ?>-SOCIETY LEDGER',
                 text: 'Export to Excel'
             },
             {
                 extend: 'pdfHtml5',
-                title: '<?php if($all_data){echo $prodtls->soc_name;} ?>-Society Ledger',
+                title: '<?php if($all_data){echo $prodtls->soc_name;} ?>-SOCIETY LEDGER',
                 text: 'Save as PDF',
                 orientation: 'landscape',   // wider page
                 pageSize: 'A3',             // bigger page
