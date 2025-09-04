@@ -90,7 +90,7 @@ th:hover .drag-handle { color: #228ed3; }
     <div class="col-lg-12 container contant-wraper">
         <div id="divToPrint">
             <!-- Info box for new users -->
-            <div class="info-box">
+            <div class="info-box no-print">
                 <b>Tip:</b> Click column headers to sort rows. Drag to reorder columns.
             </div>
             <div style="text-align:center;">
@@ -104,7 +104,7 @@ th:hover .drag-handle { color: #228ed3; }
             <br>
 
             <!-- Dropdown to sort rows -->
-            <div style="margin:10px 0;">
+            <div class="no-print" style="margin:10px 0;">
                 <label for="sortColumn" style="font-weight:600; margin-right:8px;">Sort rows by:</label>
                 <select id="sortColumn" class="modern-select">
                     <option value="0">Sl No.</option>
