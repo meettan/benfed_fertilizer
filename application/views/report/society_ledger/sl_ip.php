@@ -455,6 +455,8 @@ tr:hover {background-color: #f5f5f5;}
 <!-- <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script> -->
 
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 
 <script>
     $('#example').dataTable({
@@ -464,14 +466,22 @@ tr:hover {background-color: #f5f5f5;}
         paging: false,
 
         dom: 'Bfrtip',
-        buttons: [{
-            extend: 'excelHtml5',
-            title: 'BENFED All SALE PURCHASE REPORT',
-            text: 'Export to excel'
-            //Columns to export
-            // exportOptions: {
-            //    columns: [0, 1, 2, 3]
-            // }
-        }]
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'BENFED All SALE PURCHASE REPORT',
+                text: 'Export to Excel'
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'BENFED All SALE PURCHASE REPORT',
+                text: 'Save as PDF',
+                orientation: 'landscape',  // optional: landscape / portrait
+                pageSize: 'A4',            // optional: A3, A4, A5
+                exportOptions: {
+                    columns: ':visible'    // exports only visible columns
+                }
+            }
+        ]
     });
 </script>
