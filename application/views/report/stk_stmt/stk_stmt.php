@@ -298,7 +298,10 @@ tr:hover {background-color: #f5f5f5;}
           paging: false,
           searching: false,
           info: false,
-          colReorder: true
+          colReorder: {
+        realtime: true
+    },
+    stateSave: true
       });
 
       $('#sortColumn').on('change', function () {
