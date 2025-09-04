@@ -1,3 +1,7 @@
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<!-- ColReorder extension CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.6.2/css/colReorder.dataTables.min.css">
 <style>
 
 table {
@@ -293,7 +297,8 @@ tr:hover {background-color: #f5f5f5;}
       var table = $('#example').DataTable({
           paging: false,
           searching: false,
-          info: false
+          info: false,
+          colReorder: true
       });
 
       $('#sortColumn').on('change', function () {
