@@ -1,282 +1,245 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Stock Report</title>
-
-<!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.6.2/css/colReorder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
 
 <style>
-table { border-collapse: collapse; width: 100%; }
-table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }
-th { text-align: center; cursor: move; } /* cursor indicates draggable column */
-tr:hover { background-color: #f5f5f5; }
+    table {
+        border-collapse: collapse;
+    }
+    table, td, th {
+        border: 1px solid #dddddd;
+        padding: 6px;
+        font-size: 14px;
+    }
+    th {
+        text-align: center;
+    }
+    tr:hover {
+        background-color: #f5f5f5;
+    }
 
-#overlay {
-    background: rgba(100, 100, 100, 0.2);
-    color: #fff;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: 5000;
-    top: 0;
-    left: 0;
-    text-align: center;
-    padding-top: 25%;
-    opacity: 0.8;
-}
-.spinner {
-    margin: 0 auto;
-    height: 64px;
-    width: 64px;
-    animation: rotate 0.8s infinite linear;
-    border: 5px solid #228ed3;
-    border-right-color: transparent;
-    border-radius: 50%;
-}
-@keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    /* Hide DataTables buttons only in print */
+    @media print {
+        .dt-buttons,
+        .print-btn,
+        .pdf-btn {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    }
 
-        /* Modern sorting icons */
-        table.dataTable thead .sorting:after,
-        table.dataTable thead .sorting_asc:after,
-        table.dataTable thead .sorting_desc:after {
-            padding-left: 8px;
-            font-size: 14px;
-        }
-        table.dataTable thead .sorting:after {
-            content: "↕";
-            color: #888;
-        }
-        table.dataTable thead .sorting_asc:after {
-            content: "▲";
-            color: #007bff;
-            font-weight: bold;
-        }
-        table.dataTable thead .sorting_desc:after {
-            content: "▼";
-            color: #007bff;
-            font-weight: bold;
-        }
-/* Modern dropdown styling */
-.modern-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: #fff url('data:image/svg+xml;utf8,<svg fill="black" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center;
-    background-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 8px 40px 8px 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.modern-select:hover { border-color: #228ed3; box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
-.modern-select:focus { outline: none; border-color: #228ed3; box-shadow: 0 0 0 3px rgba(34,142,211,0.2); }
-/* Drag handle icon */
-.drag-handle {
-    cursor: move;
-    margin-right: 5px;
-    color: #888;
-    font-weight: bold;
-}
-th:hover .drag-handle { color: #228ed3; }
-
-/* Animated hint for first column */
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-}
-.drag-hint { display: inline-block; animation: bounce 1s ease-in-out 3; }
-/* Info box for guidance */
-.info-box {
-    background: #eef6fb;
-    border-left: 4px solid #228ed3;
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
+    /* DataTables sorting icons: bigger and colorful */
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_desc:after {
+        font-family: "FontAwesome";
+        font-size: 16px; /* icon size */
+        color: #ff5722;  /* default orange color */
+        opacity: 1;
+        margin-left: 5px;
+    }
+    table.dataTable thead .sorting_asc:after {
+        color: #4caf50; /* green ascending */
+    }
+    table.dataTable thead .sorting_desc:after {
+        color: #f44336; /* red descending */
+    }
+    table.dataTable thead th {
+        cursor: pointer;
+    }
 </style>
-</head>
-<body>
 
-<div id="overlay" style="display:none;"><div class="spinner"></div></div>
-
-<div class="wraper"> 
+<div class="wraper">
     <div class="col-lg-12 container contant-wraper">
         <div id="divToPrint">
-            <!-- Info box for new users -->
-            <div class="info-box no-print">
-                <b>Tip:</b> Click column headers to sort rows. Drag to reorder columns.
-            </div>
+
             <div style="text-align:center;">
                 <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                 <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                <h4>Consolidated Stock Report Between: 
-                    <?php echo date("d/m/Y", strtotime($date[0])) . " - " . date("d/m/Y", strtotime($date[1])) ?>
-                </h4>
-                <h5 style="text-align:left"><label>District: </label> <?php echo $branch->district_name; ?></h5>
+                <h4>Ledger Name: <?=$accdetail->ac_name?></h4>
+                <h4>Ledger Code: <?=$accdetail->benfed_ac_code?></h4>
+                <h4>Account Detail: <?php echo $_SESSION['date']; ?></h4>
+                <h5 style="text-align:left"><label>District: </label>
+                    <?php echo $this->session->userdata['loggedin']['branch_name']; ?></h5>
             </div>
             <br>
 
-            <!-- Dropdown to sort rows -->
-            <!-- <div class="no-print" style="margin:10px 0;">
-                <label for="sortColumn" style="font-weight:600; margin-right:8px;">Sort rows by:</label>
-                <select id="sortColumn" class="modern-select">
-                    <option value="0">Sl No.</option>
-                    <option value="1">Company</option>
-                    <option value="2">Product</option>
-                    <option value="3">Unit</option>
-                    <option value="4">Opening</option>
-                    <option value="5">Purchase</option>
-                    <option value="6">Sale</option>
-                    <option value="7">Shortage/Damage</option>
-                    <option value="8">Closing</option>
-                    <option value="9">Container</option>
-                </select>
-            </div> -->
-
-            <table id="example">
+            <table id="example" class="display" style="width: 100%">
                 <thead>
                     <tr>
-                        <th>Sl No.</th>
-                        <th>Company</th>
-                        <th>Product</th>
-                        <th>Unit</th>
-                        <th>Opening</th>
-                        <th>Purchase during the period</th>
-                        <th>Sale during the period</th>
-                        <th>Shortage/Damage</th>
-                        <th>Closing</th>
-                        <th>Container</th>
+                        <th rowspan='2' style="width:90px !important">Date</th>
+                        <th rowspan='2'>Particulars</th>
+                        <th rowspan='2'>Voucher Type</th>
+                        <th rowspan='2'>Narration</th>
+                        <th rowspan='2'>Voucher No</th>
+                        <th rowspan='2'>Ref. No.</th>
+                        <th rowspan='2'>Invoice No.</th>
+                        <th colspan='2'>Transaction</th>
+                    </tr>
+                    <tr>
+                        <th>Debit</th>
+                        <th>Credit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(!empty($stock)){
-                        $i=0;
-                        $OpeningMTS=0.0; $PurchaseMTS=0.0; $SaleMTS=0.0; $stgMTS=0.0; $ClosingMTS=0.0;
-                        $OpeningLTR=0.0; $PurchaseLTR=0.0; $SaleLTR=0.0; $stgLTR=0.0; $ClosingLTR=0.0;
-
-                        foreach ($stock as $stock_key) {
-                            $i++;
-                            if($stock_key->unit_id==1){
-                                $OpeningMTS += $stock_key->opening; $PurchaseMTS += $stock_key->purchase; 
-                                $SaleMTS += $stock_key->sale; $stgMTS += $stock_key->shtg; 
-                                $ClosingMTS += $stock_key->closing;
-                            } else if($stock_key->unit_id==3){
-                                $OpeningLTR += $stock_key->opening; $PurchaseLTR += $stock_key->purchase; 
-                                $SaleLTR += $stock_key->sale; $stgLTR += $stock_key->shtg; 
-                                $ClosingLTR += $stock_key->closing;
+                    <?php 
+                    if($accdetail){
+                        $tot_debit = 0.00;
+                        $tot_cre =0.00;
+                        $ope_bal = 0.00;
+                        if($opebalcal){
+                            $opdr =$opebalcal->dr_amt;
+                            $opcr =$opebalcal->cr_amt;
+                            if($opebalcal->type == 1 ){
+                               $ope_bal = $ope_bal+$opcr-$opdr;
+                            } else if($opebalcal->type == 2 ){
+                               $ope_bal = $ope_bal+$opdr-$opcr;
+                            } else if( $opebalcal->type ==3|| $opebalcal->type == 4){
+                                $ope_bal=0.00;
                             }
-                    ?>
-                    <tr>
-                        <td><?=$i?></td>
-                        <td><?=$stock_key->comp_name?></td>
-                        <td><?=$stock_key->prod_desc?></td>
-                        <td><?=$stock_key->unit?></td>
-                        <td><?=$stock_key->opening?></td>
-                        <td><?=$stock_key->purchase?></td>
-                        <td><?=$stock_key->sale?></td>
-                        <td><?=$stock_key->shtg?></td>
-                        <td><?=$stock_key->closing - $stock_key->shtg?></td>
-                        <td><?=$stock_key->container?></td>
-                    </tr>
-                    <?php }} ?>
+                        } ?>
+                        <tr>
+                            <td></td>
+                            <td>Opening Balance</td>
+                            <td></td><td></td><td></td><td></td><td></td>
+                            <td><?php if($opebalcal){ if($opebalcal->trans_flag=='DR'){ echo abs($ope_bal); } }?></td>
+                            <td><?php if($opebalcal){ if($opebalcal->trans_flag=='CR'){ echo abs($ope_bal); } }?></td>
+                        </tr>
+
+                        <?php foreach($trail_balnce as $tb){ ?>
+                        <tr class="rep">
+                            <td><?php echo date('d-m-Y',strtotime($tb->voucher_date)); ?></td>
+                            <td><?php echo $tb->ac_name; ?></td>
+                            <td><?php if($tb->voucher_mode == 'C'){echo 'Cash'; } 
+                                elseif($tb->voucher_mode == 'J'){ echo 'Journal'; }
+                                elseif($tb->voucher_mode == 'B'){ echo 'Bank'; }
+                            ?></td>
+                            <td style="width:30%;word-wrap: break-word"><?php echo $tb->remarks; ?></td>
+                            <td><a href="javascript:void(0)" onclick="voucherdtls('<?php echo $tb->voucher_id; ?>')"><?php echo $tb->voucher_id; ?></a></td>
+                            <td><?php if(!empty($tb->trans_no)){echo $tb->trans_no;} ?></td>
+                            <td><?php foreach($inv_detail as $inv) {
+                                if(!empty($tb->trans_no)){
+                                    if($tb->trans_no == $inv->ro_no){ echo $inv->invoice_no; }
+                                }
+                            } ?></td>
+                            <td align="right" style="width:90px !important"><?php echo number_format( $tb->dr_amt,2, '.', ''); $tot_debit +=$tb->dr_amt; ?></td>
+                            <td align="right"><?php echo  number_format($tb->cr_amt,2, '.', ''); $tot_cre +=$tb->cr_amt;?></td>
+                        </tr>
+                        <?php } ?>
+
+                        <tr>
+                            <th>Total</th>
+                            <th colspan="6"></th>
+                            <th align="right"><?=$tot_debit?></th>
+                            <th align="right"><?=$tot_cre?></th>
+                        </tr>
+                    <?php } ?>
                 </tbody>
-                <tfooter>
-                            <tr>
-                               <td class="report" colspan="5" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Opening</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Purchase</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Sale</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Shortage/Damage</b></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
-                            </tr>
-                            <tr>
-                               <td class="report" colspan="5" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningMTS?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$PurchaseMTS?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$SaleMTS?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgMTS?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
-                            </tr>
-                            <tr>
-                            <tr>
-                               <td class="report" colspan="5" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$OpeningLTR?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $PurchaseLTR?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $SaleLTR?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgLTR?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
-                              
-                                  
-                                    
-                            </tr>
-                        </tfooter>
             </table>
+
         </div>
 
-        <div style="text-align:center; margin-top:15px;">
+        <div style="text-align: center; margin-top:15px;">
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
+            <button class="btn btn-danger pdf-btn" type="button" onclick="savePDF();">Save as PDF</button>
         </div>
     </div>
 </div>
 
-<!-- JS Libraries -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/colreorder/1.6.2/js/dataTables.colReorder.min.js"></script>
+<!-- DataTables & Buttons -->
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+
+<!-- jsPDF + jsPDF-AutoTable -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.27/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-function printDiv() {
-    var divToPrint = document.getElementById('divToPrint');
-    var WindowObject = window.open('', 'Print-Window');
-    WindowObject.document.open();
-    WindowObject.document.writeln('<!DOCTYPE html>');
-    WindowObject.document.writeln('<html><head><meta charset="UTF-8"><title></title>');
-    WindowObject.document.writeln('<style type="text/css">');
-    WindowObject.document.writeln('@media print { ' +
-        'table { border-collapse: collapse; font-size: 12px; }' +
-        'th, td { border: 1px solid black; padding: 6px; }' +
-        '.no-print { display: none !important; }' +  // ✅ force hide Tip & Sort box
-    '}');
-    WindowObject.document.writeln('</style></head><body onload="window.print()">');
-    WindowObject.document.writeln(divToPrint.innerHTML);
-    WindowObject.document.writeln('</body></html>');
-    WindowObject.document.close();
-    setTimeout(function () {
-        WindowObject.close();
-    }, 10);
-}
-
-
-$(document).ready(function() {
-    var table = $('#example').DataTable({
-        paging: false,
+    // Initialize DataTable
+    $('#example').dataTable({
+        destroy: true,
         searching: false,
-        info: false,
-        colReorder: {
-            realtime: true
-        },
-        stateSave: true // ✅ remembers column positions after reload
-    });
-// Add tooltip to every column header
-$('#example thead th').attr('title', 'Move by drag / Sort by click');
-    // Sort rows via dropdown
-    $('#sortColumn').on('change', function() {
-        var col = $(this).val();
-        table.order([col, 'asc']).draw();
+        ordering: true, // Enable sorting to see icons
+        paging: false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Accounts Details',
+                text: 'Export to excel'
+            }
+        ]
     });
 
-    $('#overlay').fadeIn().delay(2500).fadeOut();
-});
+    // Print function
+    function printDiv() {
+        var divToPrint = document.getElementById('divToPrint');
+        var WindowObject = window.open('', 'Print-Window');
+        WindowObject.document.open();
+        WindowObject.document.writeln('<!DOCTYPE html>');
+        WindowObject.document.writeln('<html><head><title>Account Details</title><style>');
+        WindowObject.document.writeln(
+            'table { border-collapse: collapse; }'+
+            'table, td, th { border: 1px solid #dddddd; padding: 6px; font-size: 14px; }'+
+            'th { text-align: center; }'+
+            '.dt-buttons, .print-btn, .pdf-btn { display: none !important; visibility: hidden !important; }'+
+            'body { padding:0; margin:0; }'
+        );
+        WindowObject.document.writeln('</style></head><body onload="window.print()">');
+        WindowObject.document.writeln(divToPrint.innerHTML);
+        WindowObject.document.writeln('</body></html>');
+        WindowObject.document.close();
+    }
+
+    // PDF generation using jsPDF + AutoTable
+    function savePDF() {
+        const { jsPDF } = window.jspdf;
+        var doc = new jsPDF('l', 'pt', 'a4'); // landscape
+        doc.setFontSize(10);
+        
+        // Header
+        doc.text("THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.", 40, 40);
+        doc.text("HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.", 40, 55);
+        doc.text("Ledger Name: <?=$accdetail->ac_name?>", 40, 70);
+        doc.text("Ledger Code: <?=$accdetail->benfed_ac_code?>", 40, 85);
+        doc.text("Account Detail: <?php echo $_SESSION['date']; ?>", 40, 100);
+        doc.text("District: <?php echo $this->session->userdata['loggedin']['branch_name']; ?>", 40, 115);
+
+        doc.autoTable({
+            html: '#example',
+            startY: 130,
+            theme: 'grid',
+            styles: { fontSize: 8, overflow: 'linebreak' },
+            headStyles: { fillColor: [52, 73, 94], textColor: 255 },
+            footStyles: { fillColor: [52, 73, 94], textColor: 255 },
+            margin: { left: 20, right: 20 },
+            columnStyles: {
+                0: { cellWidth: 60 },   // Date
+                1: { cellWidth: 120 },  // Particulars
+                2: { cellWidth: 60 },   // Voucher Type
+                3: { cellWidth: 180 },  // Narration
+                4: { cellWidth: 60 },   // Voucher No
+                5: { cellWidth: 60 },   // Ref No
+                6: { cellWidth: 60 },   // Invoice No
+                7: { cellWidth: 'auto', halign: 'right', fontSize: 7 },  // Debit
+                8: { cellWidth: 'auto', halign: 'right', fontSize: 7 }   // Credit
+            },
+            didDrawPage: function (data) {
+                var pageCount = doc.getNumberOfPages();
+                doc.setFontSize(8);
+                doc.text('Page ' + pageCount, data.settings.margin.left, doc.internal.pageSize.height - 10);
+            }
+        });
+
+        doc.save('Account_Details.pdf');
+    }
+
+    // Voucher details popup
+    function voucherdtls(vid){
+        window.open("<?php echo site_url('report/voucher_dtls?voucher_id=');?>"+vid, '_blank');
+    }
 </script>
-
-</body>
-</html>
