@@ -50,7 +50,7 @@ tr:hover { background-color: #f5f5f5; }
         }
         table.dataTable thead .sorting:after {
     content: "↕";
-    color: #888;
+    color: #2020a8;
     font-size: 18px; /* Increase size */
     margin-left: 5px;
 }
