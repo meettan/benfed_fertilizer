@@ -49,19 +49,28 @@ tr:hover { background-color: #f5f5f5; }
     margin-left: 5px; /* Space from header text */
         }
         table.dataTable thead .sorting:after {
-            content: "↕";
-            color: #888;
-        }
-        table.dataTable thead .sorting_asc:after {
-            content: "▲";
-            color: #4caf50;
-            font-weight: bold;
-        }
-        table.dataTable thead .sorting_desc:after {
-            content: "▼";
-            color: #f44336;
-            font-weight: bold;
-        }
+    content: "↕";
+    color: #888;
+    font-size: 18px; /* Increase size */
+    margin-left: 5px;
+}
+
+table.dataTable thead .sorting_asc:after {
+    content: "▲";
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 18px; /* Increase size */
+    margin-left: 5px;
+}
+
+table.dataTable thead .sorting_desc:after {
+    content: "▼";
+    color: #f44336;
+    font-weight: bold;
+    font-size: 18px; /* Increase size */
+    margin-left: 5px;
+}
+
 /* Modern dropdown styling */
 .modern-select {
     appearance: none;
