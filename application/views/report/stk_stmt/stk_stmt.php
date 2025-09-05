@@ -131,7 +131,8 @@ th:hover .drag-handle { color: #228ed3; }
         <div id="divToPrint">
             <!-- Info box for new users -->
             <div class="info-box no-print">
-                <b>Tip:</b> Click column headers to sort rows. Drag to reorder columns.
+            <p style="color: blue;"><b>Tip:</b> Click column headers to sort rows. Drag to reorder columns.</p>
+
             </div>
             <div style="text-align:center;">
                 <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
