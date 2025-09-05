@@ -281,7 +281,7 @@
                         <td style="border:none;">Asst Manager/Dy. Manager</td>
                         <td style="border:none;">Departmental Manager(S)</td>
                         <td style="border:none;">CA&amp;AO</td>
-                        <td style="border:none;">General Manager</td>
+                        <td style="border:none;">General Manager(Business)</td>
                     </tr>
                 </tbody>
             </table>
