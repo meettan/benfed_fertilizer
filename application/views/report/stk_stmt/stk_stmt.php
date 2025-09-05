@@ -42,8 +42,11 @@ tr:hover { background-color: #f5f5f5; }
         table.dataTable thead .sorting:after,
         table.dataTable thead .sorting_asc:after,
         table.dataTable thead .sorting_desc:after {
-            padding-left: 8px;
-            font-size: 14px;
+            font-family: "FontAwesome";
+    font-size: 16px; /* Increase icon size */
+    color: #ff5722;  /* Orange color */
+    opacity: 1;       /* Ensure visible */
+    margin-left: 5px; /* Space from header text */
         }
         table.dataTable thead .sorting:after {
             content: "↕";
@@ -51,12 +54,12 @@ tr:hover { background-color: #f5f5f5; }
         }
         table.dataTable thead .sorting_asc:after {
             content: "▲";
-            color: #007bff;
+            color: #4caf50;
             font-weight: bold;
         }
         table.dataTable thead .sorting_desc:after {
             content: "▼";
-            color: #007bff;
+            color: #f44336;
             font-weight: bold;
         }
 /* Modern dropdown styling */
@@ -286,3 +289,4 @@ $('#example thead th').attr('title', 'Move by drag / Sort by click');
 
 </body>
 </html>
+
