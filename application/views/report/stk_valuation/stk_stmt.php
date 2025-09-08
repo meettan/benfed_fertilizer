@@ -240,12 +240,14 @@ if($prodtls->closing - $prodtls->shtg > 0){
                             <tr>
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Solid( MTS) </b></td> 
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"></td>
                                <td><?=$tot_amt_solid?></td>
                             </tr>
                             <tr>
                             <tr>
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver"><b>Liquid( LTR ) </b></td> 
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"></td>
                                <td><?=$tot_amt_liquid?></td>
                             </tr>
                         </tfooter>
