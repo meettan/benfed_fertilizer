@@ -210,7 +210,7 @@ tr:hover {background-color: #f5f5f5;}
                                      </td> -->
 
                                      <td class="report closing" id="closing">
-                                        <?php echo $prodtls->closing;?>
+                                        <?php echo $prodtls->closing - $prodtls->shtg ;?>
                                      </td>
                                      <td class="report closing" id="closing">
                                         <?php echo $prodtls->hsn_code;?>
