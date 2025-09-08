@@ -234,6 +234,7 @@ if($prodtls->closing - $prodtls->shtg > 0){
                             <tr>
                                <td class="report" colspan="4" style="text-align:left" bgcolor="silver" ><b>Summary</b></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Closing</b></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><b>Total amount</b></td>
                             </tr>
                             <tr>
