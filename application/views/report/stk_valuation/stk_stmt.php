@@ -182,27 +182,47 @@ tr:hover {background-color: #f5f5f5;}
                             ?>
 
                                 <tr class="rep">
-                                <?php
-if($prodtls->closing - $prodtls->shtg > 0){
-?>
-    <td class="report"><?php echo $i++; ?></td>
-    <td class="report"><?php echo $prodtls->comp_name; ?></td>
-    <td class="report"><?php echo $prodtls->prod_desc; ?></td>
-    <td class="report"><?php echo $prodtls->unit; ?></td>
+                                    
+                                     <td class="report"><?php echo $i++; ?></td>
+                                     <td class="report"><?php echo $prodtls->comp_name; ?>
+                                     <td class="report"><?php echo $prodtls->prod_desc; ?>
+                                     <td class="report"><?php
+                                      echo $prodtls->unit
+                                        ?>
+                                     </td>
+                                     <!-- <td class="report opening" id="opening">
+                                        <?php //echo $prodtls->opening;
+                                     
+                                        ?>
+                                     </td> -->
+                                     <?php 
+                                    //  $sql = "SELECT rate FROM td_purchase 
+                                    //              WHERE trans_dt=(select max(trans_dt) from td_purchase 
+                                    //              where trans_dt<='2023-03-31' and br=335 and prod_id=$prod_id)
+                                    //                and br=335
+                                    //               and prod_id=$prod_id";
+                                     
+                                     ?>
+                                     <!-- <td class="report purchase" id="purchase">
+                                        <?php ///echo $prodtls->purchase; ?>
+                                     </td> -->
+                                     <!-- <td class="report sale" id="sale">
+                                        <?php //echo $prodtls->sale;?>
+                                     </td> -->
 
-    <td class="report closing" id="closing">
-        <?php echo $prodtls->closing - $prodtls->shtg; ?>
-    </td>
-    <td class="report closing" id="closing">
-        <?php echo $prodtls->hsn_code; ?>
-    </td>
-    <td class="report closing" id="closing">
-        <?php echo round($prodtls->closing * $prodtls->hsn_code); ?>
-    </td>
-<?php
-}
-?>
-
+                                     <td class="report closing" id="closing">
+                                        <?php echo $prodtls->closing - $prodtls->shtg ;?>
+                                     </td>
+                                     <td class="report closing" id="closing">
+                                        <?php echo $prodtls->hsn_code;?>
+                                     </td>
+                                     <td class="report closing" id="closing">
+                                        <?php echo round($prodtls->closing*$prodtls->hsn_code);
+                                     
+                                        
+                                        ?>
+                                     </td>
+                                   
                                 </tr>
  
                                 <?php  
