@@ -214,10 +214,22 @@ tr:hover {background-color: #f5f5f5;}
                                         <?php echo $prodtls->closing - $prodtls->shtg ;?>
                                      </td>
                                      <td class="report closing" id="closing">
-                                        <?php echo $prodtls->hsn_code;?>
+                                        <?php 
+                                          if($prodtls->closing - $prodtls->shtg>0){
+                                            echo $prodtls->hsn_code ;
+                                        }else
+                                        {
+                                            echo '0';   
+                                        }
+                                            ?>
                                      </td>
                                      <td class="report closing" id="closing">
-                                        <?php echo round($prodtls->closing*$prodtls->hsn_code);
+                                        <?php 
+                                        if($prodtls->closing - $prodtls->shtg>0){
+                                        echo round($prodtls->closing*$prodtls->hsn_code);
+                                        }else{
+                                            echo '0';
+                                        }
                                      
                                         
                                         ?>
