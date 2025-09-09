@@ -198,7 +198,7 @@ if($prodtls->closing - $prodtls->shtg > 0){
         <?php echo $prodtls->hsn_code; ?>
     </td>
     <td class="report closing" id="closing">
-        <?php echo round($prodtls->closing * $prodtls->hsn_code); ?>
+        <?php echo round(($prodtls->closing - - $prodtls->shtg)* $prodtls->hsn_code); ?>
     </td>
 <?php
 }
