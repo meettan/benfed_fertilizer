@@ -533,7 +533,8 @@
             and a.comp_id = '$cmpid' 
             and a.br=b.br_cd
             and a.comp_id=b.comp_id
-			and a.br = '$br'    
+			and a.br = '$br' 
+			group by ro_no   
             HAVING sum(a.qty)>sum(b.qty)");
 			return   $value->result();
 			//die();
