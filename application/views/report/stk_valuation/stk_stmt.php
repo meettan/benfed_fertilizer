@@ -170,14 +170,14 @@ tr:hover {background-color: #f5f5f5;}
                                                 $OpeningMTS=$OpeningMTS+ $prodtls->opening;
                                                 $PurchaseMTS=$PurchaseMTS+$prodtls->purchase;
                                                 $SaleMTS=$SaleMTS+$prodtls->sale;
-                                                $ClosingMTS= $ClosingMTS+$prodtls->closing;
-                                                $tot_amt_solid += round($prodtls->closing*$prodtls->hsn_code);
+                                                $ClosingMTS= $ClosingMTS+$prodtls->closing - $prodtls->shtg;
+                                                $tot_amt_solid += round(($prodtls->closing- $prodtls->shtg)*$prodtls->hsn_code);
                                             }else if($prodtls->unit_id==3){
                                                 $OpeningLTR=$OpeningLTR+ $prodtls->opening;
                                                 $PurchaseLTR=$PurchaseLTR+$prodtls->purchase;
                                                 $SaleLTR=$SaleLTR+$prodtls->sale;
-                                                $ClosingLTR= $ClosingLTR+$prodtls->closing;
-                                                $tot_amt_liquid += round($prodtls->closing*$prodtls->hsn_code);
+                                                $ClosingLTR= $ClosingLTR+$prodtls->closing  - $prodtls->shtg ;
+                                                $tot_amt_liquid += round(($prodtls->closing- $prodtls->shtg)*$prodtls->hsn_code);
                                             }
                             ?>
 
@@ -198,7 +198,7 @@ if($prodtls->closing - $prodtls->shtg > 0){
         <?php echo $prodtls->hsn_code; ?>
     </td>
     <td class="report closing" id="closing">
-        <?php echo round(($prodtls->closing - - $prodtls->shtg)* $prodtls->hsn_code); ?>
+        <?php echo round(($prodtls->closing - $prodtls->shtg)* $prodtls->hsn_code); ?>
     </td>
 <?php
 }
