@@ -16,16 +16,13 @@
 
        }
 }
-
-
-
-   
+ 
     public function choose_columns()
     {
         $this->load->database();
 
-        $data['purchase_fields'] = $this->db->list_fields('td_purchase_rep');
-        $data['sale_fields']     = $this->db->list_fields('td_sale_rep');
+        $data['purchase_fields'] = $this->db->list_fields('td_purchase');
+        $data['sale_fields']     = $this->db->list_fields('td_sale');
         $company_cols=$this->db->list_fields('mm_company_dtls');
         $data['company_fields'] = $company_cols;
         // load from report folder
@@ -49,8 +46,8 @@
     $company_cols  = $this->input->post('company_cols') ?? []; // ✅ user-selected company cols
 
     // Validate against DB fields
-    $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase_rep'));
-    $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale_rep'));
+    $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase'));
+    $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale'));
     $valid_company  = array_intersect($company_cols, $this->db->list_fields('mm_company_dtls'));
 
     // Fallback defaults
@@ -67,21 +64,21 @@
     // Build SELECT query
     $select = [];
     foreach ($valid_purchase as $col) {
-        $select[] = "td_purchase_rep.$col";
+        $select[] = "td_purchase.$col";
     }
     foreach ($valid_sale as $col) {
-        $select[] = "td_sale_rep.$col";
+        $select[] = "td_sale.$col";
     }
     foreach ($valid_company as $col) {
         $select[] = "mm_company_dtls.$col";
     }
 
     $this->db->select(implode(", ", $select));
-    $this->db->from('td_purchase_rep');
-    $this->db->join('td_sale_rep', 'td_purchase_rep.ro_no = td_sale_rep.sale_ro', 'left');
-    $this->db->join('mm_company_dtls', 'td_purchase_rep.comp_id = mm_company_dtls.comp_id', 'left');
-    $this->db->where('td_purchase_rep.ro_dt >=', $from_date);
-    $this->db->where('td_purchase_rep.ro_dt <=', $to_date);
+    $this->db->from('td_purchase');
+    $this->db->join('td_sale', 'td_purchase.ro_no = td_sale.sale_ro', 'left');
+    $this->db->join('mm_company_dtls', 'td_purchase.comp_id = mm_company_dtls.comp_id', 'left');
+    $this->db->where('td_purchase.ro_dt >=', $from_date);
+    $this->db->where('td_purchase.ro_dt <=', $to_date);
 
     $query = $this->db->get();
     $data['results'] = $query->result_array();
