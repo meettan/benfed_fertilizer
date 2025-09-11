@@ -427,7 +427,7 @@
                                 </div> -->
 
 								<a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
-								
+								<a href="<?php echo site_url("fert/rep/choose_columns");?>">choose_columns</a>
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?> 
                                 <div class="sub-dropdown">
                                    <a class="sub-dropbtn">Purchase & Sale Ledger <i class="fa fa-angle-right" style="float: right;"></i></a> 

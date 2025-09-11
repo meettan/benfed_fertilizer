@@ -17,7 +17,88 @@
        }
 }
 
-        public function rateslab(){
+
+
+   
+    public function choose_columns()
+    {
+        $this->load->database();
+
+        $data['purchase_fields'] = $this->db->list_fields('td_purchase_rep');
+        $data['sale_fields']     = $this->db->list_fields('td_sale_rep');
+        $company_cols=$this->db->list_fields('mm_company_dtls');
+        $data['company_fields'] = $company_cols;
+        // load from report folder
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/choose_columns_view', $data);
+        $this->load->view('post_login/footer');
+       
+        
+    }
+
+    public function generate_report()
+{
+    $this->load->database();
+
+    $from_date = $this->input->post('from_date');
+    $to_date   = $this->input->post('to_date');
+
+    // Collect selected columns
+    $purchase_cols = $this->input->post('purchase_cols') ?? [];
+    $sale_cols     = $this->input->post('sale_cols') ?? [];
+    $company_cols  = $this->input->post('company_cols') ?? []; // ✅ user-selected company cols
+
+    // Validate against DB fields
+    $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase_rep'));
+    $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale_rep'));
+    $valid_company  = array_intersect($company_cols, $this->db->list_fields('mm_company_dtls'));
+
+    // Fallback defaults
+    if (empty($valid_purchase)) {
+        $valid_purchase = ['ro_no'];   // default purchase col
+    }
+    if (empty($valid_sale)) {
+        $valid_sale = ['sale_ro'];     // default sale col
+    }
+    if (empty($valid_company)) {
+        $valid_company = ['comp_name']; // default company col
+    }
+
+    // Build SELECT query
+    $select = [];
+    foreach ($valid_purchase as $col) {
+        $select[] = "td_purchase_rep.$col";
+    }
+    foreach ($valid_sale as $col) {
+        $select[] = "td_sale_rep.$col";
+    }
+    foreach ($valid_company as $col) {
+        $select[] = "mm_company_dtls.$col";
+    }
+
+    $this->db->select(implode(", ", $select));
+    $this->db->from('td_purchase_rep');
+    $this->db->join('td_sale_rep', 'td_purchase_rep.ro_no = td_sale_rep.sale_ro', 'left');
+    $this->db->join('mm_company_dtls', 'td_purchase_rep.comp_id = mm_company_dtls.comp_id', 'left');
+    $this->db->where('td_purchase_rep.ro_dt >=', $from_date);
+    $this->db->where('td_purchase_rep.ro_dt <=', $to_date);
+
+    $query = $this->db->get();
+    $data['results'] = $query->result_array();
+
+    // Pass columns to view
+    $data['purchase_cols'] = $valid_purchase;
+    $data['sale_cols']     = $valid_sale;
+    $data['company_cols']  = $valid_company;
+    $data['from_date']     = $from_date;
+    $data['to_date']       = $to_date;
+
+    $this->load->view('post_login/fertilizer_main');
+    $this->load->view('report/report_result_view', $data);
+    $this->load->view('post_login/footer');
+}
+
+public function rateslab(){
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {
 
