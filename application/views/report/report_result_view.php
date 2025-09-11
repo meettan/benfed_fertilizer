@@ -121,7 +121,10 @@ $(document).ready(function(){
         scrollX: true,
         scrollCollapse: true,
         autoWidth: false,
-        colReorder: true,
+        // colReorder: true,
+        colReorder: {
+        realtime: false   // ✅ drag "ghost" column only, don’t stretch table
+    },
         fixedColumns: { leftColumns: 1 + companyColsCount },
         dom: 't',
         buttons: [
