@@ -187,7 +187,7 @@ th:hover .drag-handle { color: #228ed3; }
                             if($stock_key->unit_id==1){
                                 $OpeningMTS += $stock_key->opening; $PurchaseMTS += $stock_key->purchase; 
                                 $SaleMTS += $stock_key->sale; $stgMTS += $stock_key->shtg; 
-                                $ClosingMTS += $stock_key->closing;
+                                $ClosingMTS += $stock_key->closing ;
                             } else if($stock_key->unit_id==3){
                                 $OpeningLTR += $stock_key->opening; $PurchaseLTR += $stock_key->purchase; 
                                 $SaleLTR += $stock_key->sale; $stgLTR += $stock_key->shtg; 
@@ -223,7 +223,7 @@ th:hover .drag-handle { color: #228ed3; }
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$PurchaseMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$SaleMTS?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgMTS?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS ?></td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $ClosingMTS -$stgMTS ?></td>
                             </tr>
                             <tr>
                             <tr>
@@ -232,7 +232,7 @@ th:hover .drag-handle { color: #228ed3; }
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $PurchaseLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?= $SaleLTR?></td>
                                <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$stgLTR?></td>
-                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR ?> </td>
+                               <td class="report" colspan="1" style="text-align:center" bgcolor="silver"><?=$ClosingLTR -$stgLTR ?> </td>
                               
                                   
                                     
