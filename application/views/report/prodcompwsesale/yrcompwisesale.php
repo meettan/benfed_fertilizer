@@ -85,7 +85,7 @@ tr:hover {background-color: #f5f5f5;}
                             
                                 <th>Sl No.</th>
 
-                                <th>Year</th>
+                                <th>Product</th>
 
                                 <th>IFFCO Solid Qty</th>
                                 <!-- <th>IFFCO Liquid Qty</th> -->
@@ -157,7 +157,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <tr class="rep">
                                      <td class="report"><?php echo $i++; ?></td>
-                                     <td class="report"><?php echo $prodtls->fin_yr; ?>
+                                     <td class="report"><?php echo $prodtls->prod_desc; ?>
                                      <td class="report"><?php echo $prodtls->IFFCO_QTY; ?>
                                      <!-- <td class="report"><?php echo $prodtls->IFFCO_LQQTY; ?> -->
                                      <td class="report"><?php echo $prodtls->IFFCO_VALUE; ?>
