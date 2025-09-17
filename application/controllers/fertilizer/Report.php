@@ -2647,9 +2647,12 @@ public function prodcompwssale(){
         //  $where_tomyr     = array("sl_no" =>$frmyr);
         //  $data['frmyrnm'] = $this->ReportModel->f_select('md_fin_year ',$select,$where_frmyr,1);
         //  $data['toyrnm'] = $this->ReportModel->f_select('md_fin_year ',$select,$where_tomyr,1);
-
+        $data['fDate']= $frmdt;
+        $data['tDate']=$todt;
          $branch     =   $this->session->userdata['loggedin']['branch_id'];
         $data['sale']      =   $this->ReportModel->f_get_prodcompwisesale($frmdt,$todt);
+        echo $this->db->last_query();
+        die();
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/prodcompwsesale/yrcompwisesale',$data);
       
