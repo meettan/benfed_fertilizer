@@ -27,6 +27,11 @@
         $data['company_fields'] = $company_cols;
         // ✅ Append: Fetch districts dynamically from md_district
     $data['districts'] = $this->db->get('md_district')->result();
+    $data['companies'] = $this->db->select('COMP_ID, COMP_NAME')
+                                  ->from('mm_company_dtls')
+                                  ->order_by('COMP_NAME', 'ASC')
+                                  ->get()
+                                  ->result();
         // load from report folder
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/choose_columns_view', $data);
@@ -102,7 +107,8 @@ public function generate_report()
 
     $from_date     = $this->input->post('from_date');
     $to_date       = $this->input->post('to_date');
-    $district_code = $this->input->post('district_code');   // ✅ NEW
+    $district_code = $this->input->post('district_code');   // ✅ District filter
+    $comp_id       = $this->input->post('comp_id');         // ✅ Company filter
 
     // Collect selected columns
     $purchase_cols = $this->input->post('purchase_cols') ?? [];
@@ -195,14 +201,19 @@ public function generate_report()
         JOIN mm_company_dtls b ON a.comp_id = b.comp_id
         JOIN mm_product c      ON a.prod_id = c.prod_id
         JOIN md_district d     ON a.br=d.district_code
-        JOIN mm_unit e  ON a.unit = e.id
+        JOIN mm_unit e         ON a.unit = e.id
         WHERE a.ro_dt BETWEEN ".$this->db->escape($from_date)." 
                           AND ".$this->db->escape($to_date)."
     ";
 
-    // ✅ District filter only if not "all"
+    // ✅ Apply district filter
     if ($district_code !== 'all') {
         $sql_purchase .= " AND a.br = ".$this->db->escape($district_code);
+    }
+
+    // ✅ Apply company filter
+    if ($comp_id !== 'all') {
+        $sql_purchase .= " AND a.comp_id = ".$this->db->escape($comp_id);
     }
 
     $this->db->query($sql_purchase);
@@ -261,9 +272,14 @@ public function generate_report()
                          AND ".$this->db->escape($to_date)."
     ";
 
-    // ✅ District filter for sale also (if your sale table has `br_cd`)
+    // ✅ Apply district filter for sale
     if ($district_code !== 'all') {
         $sql_sale .= " AND a.br_cd = ".$this->db->escape($district_code);
+    }
+
+    // ✅ Apply company filter for sale
+    if ($comp_id !== 'all') {
+        $sql_sale .= " AND a.comp_id = ".$this->db->escape($comp_id);
     }
 
     $this->db->query($sql_sale);
@@ -297,7 +313,8 @@ public function generate_report()
     $data['company_cols']  = $valid_company;
     $data['from_date']     = $from_date;
     $data['to_date']       = $to_date;
-    $data['district_code'] = $district_code;  // ✅ NEW for showing in view
+    $data['district_code'] = $district_code; // ✅ keep selected district
+    $data['comp_id']       = $comp_id;       // ✅ keep selected company
 
     $this->load->view('post_login/fertilizer_main');
     $this->load->view('report/report_result_view', $data);

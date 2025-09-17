@@ -194,34 +194,53 @@
     </div>
 
     <div class="clear"></div>
+    <div class="filters-row" style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap;">
 
-    <!-- Date Range Filter -->
-    <div class="date-box">
-        <h4>📅 Filter by RO Date</h4>
-        <div class="date-row">
-            <label for="from_date">From:</label>
-            <input type="date" name="from_date" id="from_date" required>
+<!-- RO Date Filter -->
+<div class="date-box" style="flex: 1; min-width: 250px;">
+    <h4>📅 Filter by RO Date</h4>
+    <div class="date-row" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <label for="from_date">From:</label>
+        <input type="date" name="from_date" id="from_date" required>
 
-            <label for="to_date">To:</label>
-            <input type="date" name="to_date" id="to_date" required>
-        </div>
+        <label for="to_date">To:</label>
+        <input type="date" name="to_date" id="to_date" required>
     </div>
+</div>
 
-    <!-- District Filter -->
-    <div class="date-box">
-        <h4>🏢 Filter by District</h4>
-        <div class="date-row">
-            <label for="district">District:</label>
-            <select name="district_code" id="district" required>
-                <option value="all">All</option>
-                <?php foreach($districts as $d): ?>
-                    <option value="<?php echo $d->district_code; ?>">
-                        <?php echo $d->district_name; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+<!-- District Filter -->
+<div class="date-box" style="flex: 1; min-width: 200px;">
+    <h4>🏢 Filter by District</h4>
+    <div class="date-row" style="display: flex; gap: 10px; align-items: center;">
+        <label for="district">District:</label>
+        <select name="district_code" id="district" required>
+            <option value="all">All</option>
+            <?php foreach($districts as $d): ?>
+                <option value="<?php echo $d->district_code; ?>">
+                    <?php echo $d->district_name; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
+</div>
+
+<!-- Company Filter -->
+<div class="date-box" style="flex: 1; min-width: 200px;">
+    <h4>🏢 Filter by Company</h4>
+    <div class="date-row" style="display: flex; gap: 10px; align-items: center;">
+        <label for="company">Company:</label>
+        <select name="comp_id" id="company" required>
+            <option value="all">All</option>
+            <?php foreach($companies as $c): ?>
+                <option value="<?php echo $c->COMP_ID; ?>">
+                    <?php echo $c->COMP_NAME; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+
+</div>
 
     <button type="submit">Generate Report</button>
 </form>
