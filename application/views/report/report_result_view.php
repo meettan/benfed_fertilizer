@@ -81,6 +81,7 @@
         ];
 
         $purchase_aliases = [
+            'district_name' =>'Branch',
             'prod_desc'     =>'Product Name',
             'ro_no'         =>'Ro Number',
             'ro_dt'         =>'Ro Date',

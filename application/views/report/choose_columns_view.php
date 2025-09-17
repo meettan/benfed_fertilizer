@@ -20,10 +20,14 @@
             height: 320px;
             float: left;
             overflow-y: auto;
-            background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        /* Different background colors */
+        .purchase-box { background: #eaf4ff; }  /* Light Blue */
+        .company-box  { background: #fff9e6; }  /* Light Yellow */
+        .sale-box     { background: #eafaf1; }  /* Light Green */
+
         .columns-box h4 {
             margin-top: 0;
             margin-bottom: 10px;
@@ -60,9 +64,10 @@
             margin: 0;
             font-weight: bold;
         }
-        .date-row input {
-            width: 130px;
-            height: 28px;
+        .date-row input,
+        .date-row select {
+            width: 180px;
+            height: 32px;
             padding: 2px 6px;
             font-size: 14px;
         }
@@ -88,6 +93,7 @@
     <?php
     // Aliases for readability
     $purchase_fields = [
+        'district_name' =>'Branch',
         'prod_desc'     =>'Product Name',
         'ro_no'         =>'Ro Number',
         'ro_dt'         =>'Ro Date',
@@ -107,7 +113,7 @@
         'frt_subsidy'   =>'Freight Subsidy',
         'tot_amt'       =>'Total Amount',
         'net_amt'       =>'Net Amount',
-  'trn_handling_charge' =>'T & H Charge',
+        'trn_handling_charge' =>'T & H Charge',
         'created_by'    =>'Created By',
         'created_dt'    =>'Created Date',
         'created_ip'    =>'Created IP',
@@ -123,7 +129,7 @@
         'qty'         =>'Quantity',
         'sale_rt'     =>'Sale Rate',
         'taxable_amt' =>'Taxable Amount',
-        'cgst'         =>'CGST',
+        'cgst'        =>'CGST',
         'sgst'        =>'SGST',
         'dis'         =>'Discount',
         'tot_amt'     =>'Total Amount',
@@ -140,7 +146,7 @@
     ];
 
     $company_fields = [
-        'comp_id'       => 'Company ID',
+        
         'comp_name'     => 'Company Name',
         'short_name'    => 'Short Name',
         'COMP_ADD'      => 'Address',
@@ -154,7 +160,7 @@
     ?>
 
     <!-- Purchase Columns -->
-    <div class="columns-box">
+    <div class="columns-box purchase-box">
         <h4>Purchase Columns</h4>
         <?php foreach ($purchase_fields as $col => $alias): ?>
             <label>
@@ -165,7 +171,7 @@
     </div>
 
     <!-- Sale Columns -->
-    <div class="columns-box">
+    <div class="columns-box sale-box">
         <h4>Sale Columns</h4>
         <?php foreach ($sale_fields as $col => $alias): ?>
             <label>
@@ -176,7 +182,7 @@
     </div>
 
     <!-- Company Columns -->
-    <div class="columns-box">
+    <div class="columns-box company-box">
         <h4>Company Columns</h4>
         <?php foreach ($company_fields as $col => $alias): ?>
             <label>
@@ -197,6 +203,22 @@
 
             <label for="to_date">To:</label>
             <input type="date" name="to_date" id="to_date" required>
+        </div>
+    </div>
+
+    <!-- District Filter -->
+    <div class="date-box">
+        <h4>🏢 Filter by District</h4>
+        <div class="date-row">
+            <label for="district">District:</label>
+            <select name="district_code" id="district" required>
+                <option value="all">All</option>
+                <?php foreach($districts as $d): ?>
+                    <option value="<?php echo $d->district_code; ?>">
+                        <?php echo $d->district_name; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
     </div>
 
