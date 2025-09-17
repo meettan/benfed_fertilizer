@@ -1,7 +1,7 @@
-<!-- <!DOCTYPE html>
-<html> -->
-<!-- <head> -->
-    <!-- <title>Dynamic Report Result</title> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Report Result</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- DataTables + ColReorder + FixedColumns + Buttons CSS -->
@@ -11,13 +11,23 @@
     <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" rel="stylesheet">
 
     <style>
-        body { font-size: 13px; } /* smaller font to fit more columns */
+        body { font-size: 13px; }
         .container-box { margin-top: 10px; padding: 10px; }
         .report-header { text-align: center; margin-bottom: 1px; }
         .report-header h4 { margin: 2px 0; font-weight: bold; }
         .dtfc-fixed-left { background: #f8f9fa; box-shadow: 2px 0 5px -2px rgba(0,0,0,0.3); }
 
         table th, table td { white-space: nowrap; font-size: 12px; }
+
+        /* Prevent huge ghost column when dragging */
+        .DTCR_clonedTable { table-layout: fixed !important; width: auto !important; }
+        .DTCR_clonedTable th, .DTCR_clonedTable td {
+            max-width: 180px !important;
+            min-width: 80px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         @media print {
             body { margin: 0; }
@@ -26,14 +36,14 @@
             table { border-collapse: collapse !important; width: 100% !important; font-size: 12px !important; }
             th, td { border: 1px solid #000 !important; padding: 4px !important; }
             thead { background: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
-            .dataTables_scroll, .dtfc-fixed-left, .dtfc-fixed-right, .dtfc-fixed-top, .dtfc-fixed-bottom { display: none !important; }
+            .dataTables_scroll, .dtfc-fixed-left, .dtfc-fixed-right { display: none !important; }
             #reportTable { display: table !important; }
         }
     </style>
-<!-- </head> -->
+</head>
 <body class="bg-light">
 
-<div class="container-fluid"> <!-- Full width -->
+<div class="container-fluid">
     <div class="container-box">
 
         <!-- Header -->
@@ -55,6 +65,74 @@
             <button id="exportPdf" class="btn btn-danger">📄 Export PDF</button>
         </div>
 
+        <?php
+        // Column aliases
+        $company_aliases = [
+        
+        'comp_name'     => 'Company Name',
+        'short_name'    => 'Short Name',
+        'COMP_ADD'      => 'Address',
+        'COMP_PN_NO'    => 'Phone No.',
+        'COMP_EMAIL_ID' => 'Email',
+        'PAN_NO'        => 'PAN NO',
+        'GST_NO'        => 'GST NO',
+        'CIN'           => 'CIN',
+        'MFMS'          => 'MFMS'
+        ];
+
+        $purchase_aliases = [
+            'prod_desc'     =>'Product Name',
+            'ro_no'         =>'Ro Number',
+            'ro_dt'         =>'Ro Date',
+            'invoice_no'    =>'Invoice number',
+            'invoice_dt'    =>'Invoice Date',
+            'no_of_days'    =>'Credit Period',
+            'qty'           =>'Quantity',
+            'rate'          =>'Purchase Rate',
+            'taxable_amt'   =>'Taxable Amount',
+            'cgst'           =>'CGST',
+            'sgst'          =>'SGST',
+            'tcs'           =>'TCS',
+            'retlr_margin'  =>'Retailer Margin',
+            'spl_rebt'      =>'Spacial Rebeat',
+            'trad_margin'   =>'Trade Margin',
+            'oth_dis'       =>'Other Disount',
+            'frt_subsidy'   =>'Freight Subsidy',
+            'tot_amt'       =>'Total Amount',
+            'net_amt'       =>'Net Amount',
+      'trn_handling_charge' =>'T & H Charge',
+            'created_by'    =>'Created By',
+            'created_dt'    =>'Created Date',
+            'created_ip'    =>'Created IP',
+            'modified_ip'   =>'Modified IP',
+            'modified_by'   =>'Modified By',
+            'modified_dt'   =>'Modified Date'
+        ];
+
+        $sale_aliases = [
+        'soc_name'    =>'Society Name',
+        'trans_do'    =>'Sale Invoice No',
+        'trans_dt'    =>'Sale Invoice Date',
+        'qty'         =>'Quantity',
+        'sale_rt'     =>'Sale Rate',
+        'taxable_amt' =>'Taxable Amount',
+        'cgst'        =>'CGST',
+        'sgst'        =>'SGST',
+        'dis'         =>'Discount',
+        'tot_amt'     =>'Total Amount',
+        'irn'         =>'IRN',
+        'ack'         =>'Acknowledge No',
+        'ack_dt'      =>'Acknowledge Date',
+        'total_amt'   =>'Total Amount',
+        'created_by'  =>'Created By',
+        'created_dt'  =>'Created Date',
+        'created_ip'  =>'Created IP',
+        'modified_ip' =>'Modified IP',
+        'modified_by' =>'Modified By',
+        'modified_dt' =>'Modified Date'
+        ];
+        ?>
+
         <!-- Report Table -->
         <?php if (!empty($results)): ?>
             <div class="table-responsive">
@@ -63,13 +141,13 @@
                         <tr>
                             <th class="text-center bg-secondary text-white">S.No.</th>
                             <?php foreach ($company_cols as $col): ?>
-                                <th class="text-center bg-warning text-dark"><?= ucfirst(str_replace('_',' ',$col)) ?></th>
+                                <th class="text-center bg-warning text-dark"><?= $company_aliases[$col] ?? ucfirst(str_replace('_',' ',$col)) ?></th>
                             <?php endforeach; ?>
                             <?php foreach ($purchase_cols as $col): ?>
-                                <th class="text-center bg-primary text-white"><?= ucfirst(str_replace('_',' ',$col)) ?></th>
+                                <th class="text-center bg-primary text-white"><?= $purchase_aliases[$col] ?? ucfirst(str_replace('_',' ',$col)) ?></th>
                             <?php endforeach; ?>
                             <?php foreach ($sale_cols as $col): ?>
-                                <th class="text-center bg-success text-white"><?= ucfirst(str_replace('_',' ',$col)) ?></th>
+                                <th class="text-center bg-success text-white"><?= $sale_aliases[$col] ?? ucfirst(str_replace('_',' ',$col)) ?></th>
                             <?php endforeach; ?>
                         </tr>
                     </thead>
@@ -112,6 +190,13 @@
 
 <script>
 $(document).ready(function(){
+
+    function recalcSNo(table) {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each(function(cell, i) {
+            cell.innerHTML = i + 1;
+        });
+    }
+
     let companyColsCount = <?= count($company_cols) ?>;
 
     let table = $('#reportTable').DataTable({
@@ -121,12 +206,14 @@ $(document).ready(function(){
         scrollX: true,
         scrollCollapse: true,
         autoWidth: false,
-        // colReorder: true,
-        colReorder: {
-        realtime: false   // ✅ drag "ghost" column only, don’t stretch table
-    },
+        colReorder: { realtime: false },
         fixedColumns: { leftColumns: 1 + companyColsCount },
-        dom: 't',
+        deferRender: true,
+        columnDefs: [
+            { orderable: false, targets: 0 },
+            { width: "120px", targets: "_all" }
+        ],
+        dom: 'tB',
         buttons: [
             {
                 extend: 'print',
@@ -141,41 +228,21 @@ $(document).ready(function(){
                             <h4>Purchase Sale Report (From: <?= date('d-m-Y', strtotime($from_date)) ?> To: <?= date('d-m-Y', strtotime($to_date)) ?>)</h4>
                         </div>
                     `);
-                    $(win.document.body).find('table').addClass('compact').css('font-size','inherit');
                 }
             },
-            {
-                extend: 'excelHtml5',
-                title: 'Purchase_Sale_Report',
-                exportOptions: { columns: ':visible' }
-            },
-            {
-                extend: 'pdfHtml5',
-                title: 'Purchase_Sale_Report',
-                orientation: 'landscape',
-                pageSize: 'A4',
-                exportOptions: { columns: ':visible' },
-                customize: function(doc) {
-                    doc.defaultStyle.fontSize = 10;
-                    doc.styles.tableHeader.fontSize = 10;
-                    doc.content.unshift({
-                        text: 'THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.\nHEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.\nPurchase Sale Report (From: <?= date('d-m-Y', strtotime($from_date)) ?> To: <?= date('d-m-Y', strtotime($to_date)) ?>)',
-                        alignment: 'center',
-                        margin: [0,0,0,10],
-                        fontSize: 12,
-                        bold: true
-                    });
-                }
-            }
+            { extend: 'excelHtml5', title: 'Purchase_Sale_Report', exportOptions: { columns: ':visible' } },
+            { extend: 'pdfHtml5', title: 'Purchase_Sale_Report', orientation: 'landscape', pageSize: 'A3', exportOptions: { columns: ':visible' } }
         ]
     });
 
-    // Custom buttons
+    table.on('order.dt search.dt column-reorder.dt', function () { recalcSNo(table); }).draw();
+
     $('#printBtn').on('click', function(){ table.button('.buttons-print').trigger(); });
     $('#exportExcel').on('click', function(){ table.button('.buttons-excel').trigger(); });
     $('#exportPdf').on('click', function(){ table.button('.buttons-pdf').trigger(); });
+
 });
 </script>
 
 </body>
-<!-- </html> -->
+</html>

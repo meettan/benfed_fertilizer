@@ -21,8 +21,8 @@
     {
         $this->load->database();
 
-        $data['purchase_fields'] = $this->db->list_fields('td_purchase');
-        $data['sale_fields']     = $this->db->list_fields('td_sale');
+        $data['purchase_fields'] = $this->db->list_fields('td_purchase_temp');
+        $data['sale_fields']     = $this->db->list_fields('td_sale_temp');
         $company_cols=$this->db->list_fields('mm_company_dtls');
         $data['company_fields'] = $company_cols;
         // load from report folder
@@ -33,7 +33,68 @@
         
     }
 
-    public function generate_report()
+//     public function generate_report()
+// {
+//     $this->load->database();
+
+//     $from_date = $this->input->post('from_date');
+//     $to_date   = $this->input->post('to_date');
+
+//     // Collect selected columns
+//     $purchase_cols = $this->input->post('purchase_cols') ?? [];
+//     $sale_cols     = $this->input->post('sale_cols') ?? [];
+//     $company_cols  = $this->input->post('company_cols') ?? []; // ✅ user-selected company cols
+
+//     // Validate against DB fields
+//     $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase'));
+//     $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale'));
+//     $valid_company  = array_intersect($company_cols, $this->db->list_fields('mm_company_dtls'));
+
+//     // Fallback defaults
+//     if (empty($valid_purchase)) {
+//         $valid_purchase = ['ro_no'];   // default purchase col
+//     }
+//     if (empty($valid_sale)) {
+//         $valid_sale = ['sale_ro'];     // default sale col
+//     }
+//     if (empty($valid_company)) {
+//         $valid_company = ['comp_name']; // default company col
+//     }
+
+//     // Build SELECT query
+//     $select = [];
+//     foreach ($valid_purchase as $col) {
+//         $select[] = "td_purchase.$col";
+//     }
+//     foreach ($valid_sale as $col) {
+//         $select[] = "td_sale.$col";
+//     }
+//     foreach ($valid_company as $col) {
+//         $select[] = "mm_company_dtls.$col";
+//     }
+
+//     $this->db->select(implode(", ", $select));
+//     $this->db->from('td_purchase');
+//     $this->db->join('td_sale', 'td_purchase.ro_no = td_sale.sale_ro', 'left');
+//     $this->db->join('mm_company_dtls', 'td_purchase.comp_id = mm_company_dtls.comp_id', 'left');
+//     $this->db->where('td_purchase.ro_dt >=', $from_date);
+//     $this->db->where('td_purchase.ro_dt <=', $to_date);
+
+//     $query = $this->db->get();
+//     $data['results'] = $query->result_array();
+
+//     // Pass columns to view
+//     $data['purchase_cols'] = $valid_purchase;
+//     $data['sale_cols']     = $valid_sale;
+//     $data['company_cols']  = $valid_company;
+//     $data['from_date']     = $from_date;
+//     $data['to_date']       = $to_date;
+
+//     $this->load->view('post_login/fertilizer_main');
+//     $this->load->view('report/report_result_view', $data);
+//     $this->load->view('post_login/footer');
+// }
+public function generate_report()
 {
     $this->load->database();
 
@@ -43,47 +104,177 @@
     // Collect selected columns
     $purchase_cols = $this->input->post('purchase_cols') ?? [];
     $sale_cols     = $this->input->post('sale_cols') ?? [];
-    $company_cols  = $this->input->post('company_cols') ?? []; // ✅ user-selected company cols
+    $company_cols  = $this->input->post('company_cols') ?? [];
 
-    // Validate against DB fields
-    $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase'));
-    $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale'));
+    // Validate against DB schema
+    $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase_temp'));
+    $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale_temp'));
     $valid_company  = array_intersect($company_cols, $this->db->list_fields('mm_company_dtls'));
 
-    // Fallback defaults
-    if (empty($valid_purchase)) {
-        $valid_purchase = ['ro_no'];   // default purchase col
-    }
-    if (empty($valid_sale)) {
-        $valid_sale = ['sale_ro'];     // default sale col
-    }
-    if (empty($valid_company)) {
-        $valid_company = ['comp_name']; // default company col
-    }
+    if (empty($valid_purchase)) $valid_purchase = ['ro_no'];
+    if (empty($valid_sale))     $valid_sale = ['sale_ro'];
+    if (empty($valid_company))  $valid_company = ['comp_name'];
 
-    // Build SELECT query
+    // ================================
+    // STEP 1: Build td_purchase_temp
+    // ================================
+    $this->db->query("TRUNCATE TABLE td_purchase_temp");
+
+    $sql_purchase = "
+        INSERT INTO td_purchase_temp
+        SELECT
+            a.trans_cd,
+            a.trans_dt,
+            a.adv_status,
+            a.trans_flag,
+            a.comp_id,
+            a.comp_acc_cd,
+            a.prod_id,
+            a.ro_no,
+            b.comp_name,
+            c.prod_desc,
+            a.ro_dt,
+            a.invoice_no,
+            a.invoice_dt,
+            a.advance_receipt_no,
+            a.indent_memo_no,
+            a.due_dt,
+            a.no_of_days,
+            a.qty,
+            a.unit,
+            a.stock_qty,
+            a.no_of_bags,
+            a.delivery_mode,
+            a.reck_pt_rt,
+            a.reck_pt_n_rt,
+            a.govt_sale_rt,
+            a.iffco_buf_rt,
+            a.iffco_n_buff_rt,
+            a.challan_flag,
+            a.rate,
+            a.base_price,
+            a.cgst,
+            a.sgst,
+            a.tcs,
+            a.retlr_margin,
+            a.spl_rebt,
+            a.rbt_add,
+            a.rbt_less,
+            a.rnd_of_add,
+            a.rnd_of_less,
+            a.trad_margin,
+            a.oth_dis,
+            a.frt_subsidy,
+            a.tot_amt,
+            a.net_amt,
+            a.add_adj_amt,
+            a.less_adj_amt,
+            a.trn_handling_charge,
+            a.trn_handling_charge_flag,
+            a.add_ret_margin_flag,
+            a.less_spl_rbt_flag,
+            a.add_adj_amt_flag,
+            a.less_adj_amt_flag,
+            a.less_trad_margin_flag,
+            a.less_oth_dis_flag,
+            a.less_frght_subsdy_flag,
+            a.created_by,
+            a.created_dt,
+            a.created_ip,
+            a.modified_ip,
+            a.modified_by,
+            a.modified_dt,
+            a.br,
+            a.fin_yr,
+            a.stock_point
+        FROM td_purchase a
+        JOIN mm_company_dtls b ON a.comp_id = b.comp_id
+        JOIN mm_product c      ON a.prod_id = c.prod_id
+        WHERE a.ro_dt BETWEEN ".$this->db->escape($from_date)." 
+                          AND ".$this->db->escape($to_date)."
+    ";
+    $this->db->query($sql_purchase);
+
+    // ================================
+    // STEP 2: Build td_sale_temp
+    // ================================
+    $this->db->query("TRUNCATE TABLE td_sale_temp");
+
+    $sql_sale = "
+        INSERT INTO td_sale_temp
+        SELECT
+            a.trans_do,
+            a.trans_no,
+            a.do_dt,
+            a.no_of_days,
+            a.sale_due_dt,
+            a.trans_type,
+            a.soc_id,
+            a.comp_id,
+            a.sale_ro,
+            a.prod_id,
+            a.unit,
+            a.catg_id,
+            a.stock_point,
+            a.gov_sale_rt,
+            a.qty,
+            a.sale_rt,
+            a.base_price,
+            a.taxable_amt,
+            a.cgst,
+            a.sgst,
+            a.dis,
+            a.tot_amt,
+            a.round_tot_amt,
+            a.paid_amt,
+            a.irn,
+            a.irn_cnl_reason,
+            a.irn_cnl_rem,
+            a.ack,
+            a.ack_dt,
+            a.gst_type_flag,
+            a.created_by,
+            a.created_dt,
+            a.created_ip,
+            a.modified_ip,
+            a.modified_by,
+            a.modified_dt,
+            a.br_cd,
+            a.fin_yr,
+            b.soc_name,
+            c.prod_desc
+        FROM td_sale a
+        JOIN mm_ferti_soc b ON a.soc_id = b.soc_id
+        JOIN mm_product c  ON a.prod_id = c.prod_id
+        WHERE a.do_dt BETWEEN ".$this->db->escape($from_date)." 
+                         AND ".$this->db->escape($to_date)."
+    ";
+    $this->db->query($sql_sale);
+
+    // ================================
+    // STEP 3: Build dynamic SELECT
+    // ================================
     $select = [];
-    foreach ($valid_purchase as $col) {
-        $select[] = "td_purchase.$col";
-    }
-    foreach ($valid_sale as $col) {
-        $select[] = "td_sale.$col";
-    }
-    foreach ($valid_company as $col) {
-        $select[] = "mm_company_dtls.$col";
-    }
+    foreach ($valid_purchase as $col) $select[] = "p.$col";
+    foreach ($valid_sale as $col)     $select[] = "s.$col";
+    foreach ($valid_company as $col)  $select[] = "c.$col";
 
-    $this->db->select(implode(", ", $select));
-    $this->db->from('td_purchase');
-    $this->db->join('td_sale', 'td_purchase.ro_no = td_sale.sale_ro', 'left');
-    $this->db->join('mm_company_dtls', 'td_purchase.comp_id = mm_company_dtls.comp_id', 'left');
-    $this->db->where('td_purchase.ro_dt >=', $from_date);
-    $this->db->where('td_purchase.ro_dt <=', $to_date);
+    $select_str = implode(", ", $select);
+
+    // ================================
+    // STEP 4: Query from temp tables
+    // ================================
+    $this->db->select($select_str);
+    $this->db->from('td_purchase_temp p');
+    $this->db->join('td_sale_temp s', 'p.ro_no = s.sale_ro', 'left');
+    $this->db->join('mm_company_dtls c', 'p.comp_id = c.comp_id', 'left');
 
     $query = $this->db->get();
     $data['results'] = $query->result_array();
 
-    // Pass columns to view
+    // ================================
+    // STEP 5: Pass to view
+    // ================================
     $data['purchase_cols'] = $valid_purchase;
     $data['sale_cols']     = $valid_sale;
     $data['company_cols']  = $valid_company;
@@ -2443,7 +2634,35 @@ public function soc_payblepaid(){
             }
             
             }
+/***********************company wise and product wise yearly sale*********************** */
+public function prodcompwssale(){
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+             
+         $frmdt      = $_POST['from_date'];
+         $todt      = $_POST['to_date'];
 
+        //  $select   = array("fin_yr" );
+        //  $where_frmyr     = array("sl_no" =>$frmyr);
+     
+        //  $where_tomyr     = array("sl_no" =>$frmyr);
+        //  $data['frmyrnm'] = $this->ReportModel->f_select('md_fin_year ',$select,$where_frmyr,1);
+        //  $data['toyrnm'] = $this->ReportModel->f_select('md_fin_year ',$select,$where_tomyr,1);
+
+         $branch     =   $this->session->userdata['loggedin']['branch_id'];
+        $data['sale']      =   $this->ReportModel->f_get_prodcompwisesale($frmdt,$todt);
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/prodcompwsesale/yrcompwisesale',$data);
+      
+        $this->load->view('post_login/footer');
+    
+    }else{
+        $data['yr']    =   $this->ReportModel->f_select("md_fin_year", NULL, NULL, 0);
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/prodcompwsesale/stk_stmt_ip',$data);
+        $this->load->view('post_login/footer');
+    }
+    
+    }
 
 /********************************************************* */
 

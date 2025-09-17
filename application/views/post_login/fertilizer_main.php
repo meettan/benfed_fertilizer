@@ -452,6 +452,7 @@
                                         <a href="<?php echo site_url("fert/rep/yrwssale");?>">Year Wise Sale</a>
 								<!-- <a href="<?php echo site_url("fert/rep/yrcompwisesale");?>">Year Wise Company Wise Sale</a> -->
 								<a href="<?php echo site_url("fert/rep/yrcompwssale");?>">Year Wise Company Wise Sale</a>
+                                <a href="<?php echo site_url("fert/rep/prodcompwssale");?>">product & Company Wise Sale</a>
 									</div>
                                 </div>
 
