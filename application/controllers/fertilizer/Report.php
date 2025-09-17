@@ -2651,8 +2651,8 @@ public function prodcompwssale(){
         $data['tDate']=$todt;
          $branch     =   $this->session->userdata['loggedin']['branch_id'];
         $data['sale']      =   $this->ReportModel->f_get_prodcompwisesale($frmdt,$todt);
-        echo $this->db->last_query();
-        die();
+        // echo $this->db->last_query();
+        // die();
         $this->load->view('post_login/fertilizer_main');
         $this->load->view('report/prodcompwsesale/yrcompwisesale',$data);
       
