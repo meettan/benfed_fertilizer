@@ -145,6 +145,7 @@ public function generate_report()
             a.no_of_days,
             a.qty,
             a.unit,
+            e.unit_name,
             a.stock_qty,
             a.no_of_bags,
             a.delivery_mode,
@@ -194,6 +195,7 @@ public function generate_report()
         JOIN mm_company_dtls b ON a.comp_id = b.comp_id
         JOIN mm_product c      ON a.prod_id = c.prod_id
         JOIN md_district d     ON a.br=d.district_code
+        JOIN mm_unit e  ON a.unit = e.id
         WHERE a.ro_dt BETWEEN ".$this->db->escape($from_date)." 
                           AND ".$this->db->escape($to_date)."
     ";
@@ -223,7 +225,6 @@ public function generate_report()
             a.comp_id,
             a.sale_ro,
             a.prod_id,
-            a.unit,
             a.catg_id,
             a.stock_point,
             a.gov_sale_rt,

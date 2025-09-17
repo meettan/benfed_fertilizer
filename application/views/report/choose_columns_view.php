@@ -95,6 +95,7 @@
     $purchase_fields = [
         'district_name' =>'Branch',
         'prod_desc'     =>'Product Name',
+        'unit_name'     =>'Unit',
         'ro_no'         =>'Ro Number',
         'ro_dt'         =>'Ro Date',
         'invoice_no'    =>'Invoice number',
