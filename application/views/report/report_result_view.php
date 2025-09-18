@@ -19,7 +19,6 @@
 
         table th, table td { white-space: nowrap; font-size: 12px; }
 
-        /* Prevent huge ghost column when dragging */
         .DTCR_clonedTable { table-layout: fixed !important; width: auto !important; }
         .DTCR_clonedTable th, .DTCR_clonedTable td {
             max-width: 180px !important;
@@ -68,16 +67,15 @@
         <?php
         // Column aliases
         $company_aliases = [
-        
-        'comp_name'     => 'Company Name',
-        'short_name'    => 'Short Name',
-        'COMP_ADD'      => 'Address',
-        'COMP_PN_NO'    => 'Phone No.',
-        'COMP_EMAIL_ID' => 'Email',
-        'PAN_NO'        => 'PAN NO',
-        'GST_NO'        => 'GST NO',
-        'CIN'           => 'CIN',
-        'MFMS'          => 'MFMS'
+            'comp_name'     => 'Company Name',
+            'short_name'    => 'Short Name',
+            'COMP_ADD'      => 'Address',
+            'COMP_PN_NO'    => 'Phone No.',
+            'COMP_EMAIL_ID' => 'Email',
+            'PAN_NO'        => 'PAN NO',
+            'GST_NO'        => 'GST NO',
+            'CIN'           => 'CIN',
+            'MFMS'          => 'MFMS'
         ];
 
         $purchase_aliases = [
@@ -91,8 +89,8 @@
             'no_of_days'    =>'Credit Period',
             'qty'           =>'Quantity',
             'rate'          =>'Purchase Rate',
-            'taxable_amt'   =>'Taxable Amount',
-            'cgst'           =>'CGST',
+            'base_price'   =>'Taxable Amount',
+            'cgst'          =>'CGST',
             'sgst'          =>'SGST',
             'tcs'           =>'TCS',
             'retlr_margin'  =>'Retailer Margin',
@@ -102,7 +100,7 @@
             'frt_subsidy'   =>'Freight Subsidy',
             'tot_amt'       =>'Total Amount',
             'net_amt'       =>'Net Amount',
-      'trn_handling_charge' =>'T & H Charge',
+            'trn_handling_charge' =>'T & H Charge',
             'created_by'    =>'Created By',
             'created_dt'    =>'Created Date',
             'created_ip'    =>'Created IP',
@@ -112,26 +110,26 @@
         ];
 
         $sale_aliases = [
-        'soc_name'    =>'Society Name',
-        'trans_do'    =>'Sale Invoice No',
-        'trans_dt'    =>'Sale Invoice Date',
-        'qty'         =>'Quantity',
-        'sale_rt'     =>'Sale Rate',
-        'taxable_amt' =>'Taxable Amount',
-        'cgst'        =>'CGST',
-        'sgst'        =>'SGST',
-        'dis'         =>'Discount',
-        'tot_amt'     =>'Total Amount',
-        'irn'         =>'IRN',
-        'ack'         =>'Acknowledge No',
-        'ack_dt'      =>'Acknowledge Date',
-        'total_amt'   =>'Total Amount',
-        'created_by'  =>'Created By',
-        'created_dt'  =>'Created Date',
-        'created_ip'  =>'Created IP',
-        'modified_ip' =>'Modified IP',
-        'modified_by' =>'Modified By',
-        'modified_dt' =>'Modified Date'
+            'soc_name'    =>'Society Name',
+            'trans_do'    =>'Sale Invoice No',
+            'trans_dt'    =>'Sale Invoice Date',
+            'qty'         =>'Sale Qty',
+            'sale_rt'     =>'Sale Rate',
+            'taxable_amt' =>'Taxable Amount',
+            'cgst'        =>'Sale CGST',
+            'sgst'        =>'Sale SGST',
+            'dis'         =>'Discount',
+            'tot_amt'     =>'Total Amount',
+            'irn'         =>'IRN',
+            'ack'         =>'Acknowledge No',
+            'ack_dt'      =>'Acknowledge Date',
+            'total_amt'   =>'Total Amount',
+            'created_by'  =>'Created By',
+            'created_dt'  =>'Created Date',
+            'created_ip'  =>'Created IP',
+            'modified_ip' =>'Modified IP',
+            'modified_by' =>'Modified By',
+            'modified_dt' =>'Modified Date'
         ];
         ?>
 
@@ -158,13 +156,13 @@
                         <tr>
                             <td><?= $sn++; ?></td>
                             <?php foreach ($company_cols as $col): ?>
-                                <td style="background-color:#fff3cd;"><?= $row[$col] ?? ''; ?></td>
+                                <td style="background-color:#fff3cd;"><?= $row["company_$col"] ?? ''; ?></td>
                             <?php endforeach; ?>
                             <?php foreach ($purchase_cols as $col): ?>
-                                <td style="background-color:#cce5ff;"><?= $row[$col] ?? ''; ?></td>
+                                <td style="background-color:#cce5ff;"><?= $row["purchase_$col"] ?? ''; ?></td>
                             <?php endforeach; ?>
                             <?php foreach ($sale_cols as $col): ?>
-                                <td style="background-color:#d4edda;"><?= $row[$col] ?? ''; ?></td>
+                                <td style="background-color:#d4edda;"><?= $row["sale_$col"] ?? ''; ?></td>
                             <?php endforeach; ?>
                         </tr>
                         <?php endforeach; ?>

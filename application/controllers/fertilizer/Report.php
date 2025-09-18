@@ -107,8 +107,8 @@ public function generate_report()
 
     $from_date     = $this->input->post('from_date');
     $to_date       = $this->input->post('to_date');
-    $district_code = $this->input->post('district_code');   // ✅ District filter
-    $comp_id       = $this->input->post('comp_id');         // ✅ Company filter
+    $district_code = $this->input->post('district_code');
+    $comp_id       = $this->input->post('comp_id');
 
     // Collect selected columns
     $purchase_cols = $this->input->post('purchase_cols') ?? [];
@@ -206,12 +206,9 @@ public function generate_report()
                           AND ".$this->db->escape($to_date)."
     ";
 
-    // ✅ Apply district filter
     if ($district_code !== 'all') {
         $sql_purchase .= " AND a.br = ".$this->db->escape($district_code);
     }
-
-    // ✅ Apply company filter
     if ($comp_id !== 'all') {
         $sql_purchase .= " AND a.comp_id = ".$this->db->escape($comp_id);
     }
@@ -272,12 +269,9 @@ public function generate_report()
                          AND ".$this->db->escape($to_date)."
     ";
 
-    // ✅ Apply district filter for sale
     if ($district_code !== 'all') {
         $sql_sale .= " AND a.br_cd = ".$this->db->escape($district_code);
     }
-
-    // ✅ Apply company filter for sale
     if ($comp_id !== 'all') {
         $sql_sale .= " AND a.comp_id = ".$this->db->escape($comp_id);
     }
@@ -285,12 +279,18 @@ public function generate_report()
     $this->db->query($sql_sale);
 
     // ================================
-    // STEP 3: Build dynamic SELECT
+    // STEP 3: Build dynamic SELECT with aliases
     // ================================
     $select = [];
-    foreach ($valid_purchase as $col) $select[] = "p.$col";
-    foreach ($valid_sale as $col)     $select[] = "s.$col";
-    foreach ($valid_company as $col)  $select[] = "c.$col";
+    foreach ($valid_purchase as $col) {
+        $select[] = "p.$col AS purchase_$col";
+    }
+    foreach ($valid_sale as $col) {
+        $select[] = "s.$col AS sale_$col";
+    }
+    foreach ($valid_company as $col) {
+        $select[] = "c.$col AS company_$col";
+    }
 
     $select_str = implode(", ", $select);
 
@@ -305,16 +305,14 @@ public function generate_report()
     $query = $this->db->get();
     $data['results'] = $query->result_array();
 
-    // ================================
-    // STEP 5: Pass to view
-    // ================================
+    // Pass to view
     $data['purchase_cols'] = $valid_purchase;
     $data['sale_cols']     = $valid_sale;
     $data['company_cols']  = $valid_company;
     $data['from_date']     = $from_date;
     $data['to_date']       = $to_date;
-    $data['district_code'] = $district_code; // ✅ keep selected district
-    $data['comp_id']       = $comp_id;       // ✅ keep selected company
+    $data['district_code'] = $district_code;
+    $data['comp_id']       = $comp_id;
 
     $this->load->view('post_login/fertilizer_main');
     $this->load->view('report/report_result_view', $data);
