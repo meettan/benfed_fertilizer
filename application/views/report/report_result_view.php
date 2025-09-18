@@ -112,7 +112,7 @@
         $sale_aliases = [
             'soc_name'    =>'Society Name',
             'trans_do'    =>'Sale Invoice No',
-            'trans_dt'    =>'Sale Invoice Date',
+            'do_dt'    =>'Sale Invoice Date',
             'qty'         =>'Sale Qty',
             'sale_rt'     =>'Sale Rate',
             'taxable_amt' =>'Taxable Amount',
