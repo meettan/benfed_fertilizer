@@ -123,7 +123,7 @@
     function getIndianCurrency(float $number)
 {
     $no = floor($number);
-    $decimal = round($number - $no, 2) * 100;
+    $decimal = round($number * 100) % 100;  // ✅ Fix here
     $decimal_part = ($decimal > 0) ? $decimal : 0;
 
     $hundred = null;
@@ -144,18 +144,18 @@
     // Convert Rupees
     while ($i < $digits_length) {
         $divider = ($i == 2) ? 10 : 100;
-        $number = floor($no % $divider);
+        $number_part = floor($no % $divider);
         $no = floor($no / $divider);
         $i += ($divider == 10) ? 1 : 2;
 
-        if ($number) {
+        if ($number_part) {
             $counter = count($str);
-            $plural = (($counter) && $number > 9) ? '' : null;
+            $plural = (($counter) && $number_part > 9) ? '' : null;
             $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
-            if ($number < 21) {
-                $str[] = $words[$number] . ' ' . $digits[$counter] . $plural . ' ' . $hundred;
+            if ($number_part < 21) {
+                $str[] = $words[$number_part] . ' ' . $digits[$counter] . $plural . ' ' . $hundred;
             } else {
-                $str[] = $words[floor($number / 10) * 10] . ' ' . $words[$number % 10] . ' ' . $digits[$counter] . $plural . ' ' . $hundred;
+                $str[] = $words[floor($number_part / 10) * 10] . ' ' . $words[$number_part % 10] . ' ' . $digits[$counter] . $plural . ' ' . $hundred;
             }
         } else {
             $str[] = null;
