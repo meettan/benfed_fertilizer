@@ -40,67 +40,7 @@
         
     }
 
-//     public function generate_report()
-// {
-//     $this->load->database();
 
-//     $from_date = $this->input->post('from_date');
-//     $to_date   = $this->input->post('to_date');
-
-//     // Collect selected columns
-//     $purchase_cols = $this->input->post('purchase_cols') ?? [];
-//     $sale_cols     = $this->input->post('sale_cols') ?? [];
-//     $company_cols  = $this->input->post('company_cols') ?? []; // ✅ user-selected company cols
-
-//     // Validate against DB fields
-//     $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase'));
-//     $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale'));
-//     $valid_company  = array_intersect($company_cols, $this->db->list_fields('mm_company_dtls'));
-
-//     // Fallback defaults
-//     if (empty($valid_purchase)) {
-//         $valid_purchase = ['ro_no'];   // default purchase col
-//     }
-//     if (empty($valid_sale)) {
-//         $valid_sale = ['sale_ro'];     // default sale col
-//     }
-//     if (empty($valid_company)) {
-//         $valid_company = ['comp_name']; // default company col
-//     }
-
-//     // Build SELECT query
-//     $select = [];
-//     foreach ($valid_purchase as $col) {
-//         $select[] = "td_purchase.$col";
-//     }
-//     foreach ($valid_sale as $col) {
-//         $select[] = "td_sale.$col";
-//     }
-//     foreach ($valid_company as $col) {
-//         $select[] = "mm_company_dtls.$col";
-//     }
-
-//     $this->db->select(implode(", ", $select));
-//     $this->db->from('td_purchase');
-//     $this->db->join('td_sale', 'td_purchase.ro_no = td_sale.sale_ro', 'left');
-//     $this->db->join('mm_company_dtls', 'td_purchase.comp_id = mm_company_dtls.comp_id', 'left');
-//     $this->db->where('td_purchase.ro_dt >=', $from_date);
-//     $this->db->where('td_purchase.ro_dt <=', $to_date);
-
-//     $query = $this->db->get();
-//     $data['results'] = $query->result_array();
-
-//     // Pass columns to view
-//     $data['purchase_cols'] = $valid_purchase;
-//     $data['sale_cols']     = $valid_sale;
-//     $data['company_cols']  = $valid_company;
-//     $data['from_date']     = $from_date;
-//     $data['to_date']       = $to_date;
-
-//     $this->load->view('post_login/fertilizer_main');
-//     $this->load->view('report/report_result_view', $data);
-//     $this->load->view('post_login/footer');
-// }
 public function generate_report()
 {
     $this->load->database();
@@ -204,6 +144,7 @@ public function generate_report()
         JOIN mm_unit e         ON a.unit = e.id
         WHERE a.ro_dt BETWEEN ".$this->db->escape($from_date)." 
                           AND ".$this->db->escape($to_date)."
+                     
     ";
 
     if ($district_code !== 'all') {
@@ -267,6 +208,7 @@ public function generate_report()
         JOIN mm_product c  ON a.prod_id = c.prod_id
         WHERE a.do_dt BETWEEN ".$this->db->escape($from_date)." 
                          AND ".$this->db->escape($to_date)."
+         
     ";
 
     if ($district_code !== 'all') {
@@ -319,6 +261,256 @@ public function generate_report()
     $this->load->view('post_login/footer');
 }
 
+public function choose_columns_br()
+    {
+        $this->load->database();
+
+        $data['purchase_fields'] = $this->db->list_fields('td_purchase_temp');
+        $data['sale_fields']     = $this->db->list_fields('td_sale_temp');
+        $company_cols=$this->db->list_fields('mm_company_dtls');
+        $data['company_fields'] = $company_cols;
+       
+        // echo  $branch;
+        // die();
+        // ✅ Append: Fetch districts dynamically from md_district
+    $data['districts'] = $this->db->get('md_district')->result();
+    $data['companies'] = $this->db->select('COMP_ID, COMP_NAME')
+                                  ->from('mm_company_dtls')
+                                  ->order_by('COMP_NAME', 'ASC')
+                                  ->get()
+                                  ->result();
+        // load from report folder
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/choose_columns_br_view', $data);
+        $this->load->view('post_login/footer');
+       
+        
+    }
+
+    public function generate_report_br()
+    {
+        $this->load->database();
+    
+        $from_date     = $this->input->post('from_date');
+        $to_date       = $this->input->post('to_date');
+        $district_code = $this->input->post('district_code');
+        $comp_id       = $this->input->post('comp_id');
+        $branch        = $this->session->userdata['loggedin']['branch_id'];
+        $where1              =   array("district_code"  => $branch);
+        $data['branch_nm']      =   $this->ReportModel->f_select("md_district", NULL, $where1,1);
+        // Collect selected columns
+        $purchase_cols = $this->input->post('purchase_cols') ?? [];
+        $sale_cols     = $this->input->post('sale_cols') ?? [];
+        $company_cols  = $this->input->post('company_cols') ?? [];
+    
+        // Validate against DB schema
+        $valid_purchase = array_intersect($purchase_cols, $this->db->list_fields('td_purchase_temp'));
+        $valid_sale     = array_intersect($sale_cols, $this->db->list_fields('td_sale_temp'));
+        $valid_company  = array_intersect($company_cols, $this->db->list_fields('mm_company_dtls'));
+    
+        if (empty($valid_purchase)) $valid_purchase = ['ro_no'];
+        if (empty($valid_sale))     $valid_sale = ['sale_ro'];
+        if (empty($valid_company))  $valid_company = ['comp_name'];
+    
+        // ================================
+        // STEP 1: Build td_purchase_temp
+        // ================================
+        $this->db->query("TRUNCATE TABLE td_purchase_temp");
+    
+        $sql_purchase = "
+            INSERT INTO td_purchase_temp
+            SELECT
+                a.trans_cd,
+                a.trans_dt,
+                a.adv_status,
+                a.trans_flag,
+                a.comp_id,
+                a.comp_acc_cd,
+                a.prod_id,
+                a.ro_no,
+                b.comp_name,
+                c.prod_desc,
+                a.ro_dt,
+                a.invoice_no,
+                a.invoice_dt,
+                a.advance_receipt_no,
+                a.indent_memo_no,
+                a.due_dt,
+                a.no_of_days,
+                a.qty,
+                a.unit,
+                e.unit_name,
+                a.stock_qty,
+                a.no_of_bags,
+                a.delivery_mode,
+                a.reck_pt_rt,
+                a.reck_pt_n_rt,
+                a.govt_sale_rt,
+                a.iffco_buf_rt,
+                a.iffco_n_buff_rt,
+                a.challan_flag,
+                a.rate,
+                a.base_price,
+                a.cgst,
+                a.sgst,
+                a.tcs,
+                a.retlr_margin,
+                a.spl_rebt,
+                a.rbt_add,
+                a.rbt_less,
+                a.rnd_of_add,
+                a.rnd_of_less,
+                a.trad_margin,
+                a.oth_dis,
+                a.frt_subsidy,
+                a.tot_amt,
+                a.net_amt,
+                a.add_adj_amt,
+                a.less_adj_amt,
+                a.trn_handling_charge,
+                a.trn_handling_charge_flag,
+                a.add_ret_margin_flag,
+                a.less_spl_rbt_flag,
+                a.add_adj_amt_flag,
+                a.less_adj_amt_flag,
+                a.less_trad_margin_flag,
+                a.less_oth_dis_flag,
+                a.less_frght_subsdy_flag,
+                a.created_by,
+                a.created_dt,
+                a.created_ip,
+                a.modified_ip,
+                a.modified_by,
+                a.modified_dt,
+                d.district_name,
+                a.fin_yr,
+                a.stock_point
+            FROM td_purchase a
+            JOIN mm_company_dtls b ON a.comp_id = b.comp_id
+            JOIN mm_product c      ON a.prod_id = c.prod_id
+            JOIN md_district d     ON a.br = d.district_code
+            JOIN mm_unit e         ON a.unit = e.id
+            WHERE a.ro_dt BETWEEN ".$this->db->escape($from_date)." 
+                              AND ".$this->db->escape($to_date)."
+                              AND a.br = ".$this->db->escape($branch)."
+            
+        ";
+    
+        if ($comp_id !== 'all') {
+            $sql_purchase .= " AND a.comp_id = ".$this->db->escape($comp_id);
+        }
+    
+        $this->db->query($sql_purchase);
+        log_message('error', 'Purchase insert error: '.json_encode($this->db->error()));
+        log_message('error', 'Purchase rows inserted: '.$this->db->affected_rows());
+    
+        // ================================
+        // STEP 2: Build td_sale_temp
+        // ================================
+        $this->db->query("TRUNCATE TABLE td_sale_temp");
+    
+        $sql_sale = "
+            INSERT INTO td_sale_temp
+            SELECT
+                a.trans_do,
+                a.trans_no,
+                a.do_dt,
+                a.no_of_days,
+                a.sale_due_dt,
+                a.trans_type,
+                a.soc_id,
+                a.comp_id,
+                a.sale_ro,
+                a.prod_id,
+                a.catg_id,
+                a.stock_point,
+                a.gov_sale_rt,
+                a.qty,
+                a.sale_rt,
+                a.base_price,
+                a.taxable_amt,
+                a.cgst,
+                a.sgst,
+                a.dis,
+                a.tot_amt,
+                a.round_tot_amt,
+                a.paid_amt,
+                a.irn,
+                a.irn_cnl_reason,
+                a.irn_cnl_rem,
+                a.ack,
+                a.ack_dt,
+                a.gst_type_flag,
+                a.created_by,
+                a.created_dt,
+                a.created_ip,
+                a.modified_ip,
+                a.modified_by,
+                a.modified_dt,
+                a.br_cd,
+                a.fin_yr,
+                b.soc_name,
+                c.prod_desc
+            FROM td_sale a
+            JOIN mm_ferti_soc b ON a.soc_id = b.soc_id
+            JOIN mm_product c  ON a.prod_id = c.prod_id
+            WHERE a.do_dt BETWEEN ".$this->db->escape($from_date)." 
+                             AND ".$this->db->escape($to_date)."
+                             AND a.br_cd = ".$this->db->escape($branch)."
+        ";
+    
+        if ($comp_id !== 'all') {
+            $sql_sale .= " AND a.comp_id = ".$this->db->escape($comp_id);
+        }
+    
+        $this->db->query($sql_sale);
+        log_message('error', 'Sale insert error: '.json_encode($this->db->error()));
+        log_message('error', 'Sale rows inserted: '.$this->db->affected_rows());
+    
+        // ================================
+        // STEP 3: Build dynamic SELECT
+        // ================================
+        $select = [];
+        foreach ($valid_purchase as $col) {
+            $select[] = "p.$col AS purchase_$col";
+        }
+        foreach ($valid_sale as $col) {
+            $select[] = "s.$col AS sale_$col";
+        }
+        foreach ($valid_company as $col) {
+            $select[] = "c.$col AS company_$col";
+        }
+    
+        $select_str = implode(", ", $select);
+    
+        // ================================
+        // STEP 4: Query from temp tables
+        // ================================
+        $this->db->select($select_str);
+        $this->db->from('td_purchase_temp p');
+        $this->db->join('td_sale_temp s', 'p.ro_no = s.sale_ro', 'left');
+        $this->db->join('mm_company_dtls c', 'p.comp_id = c.comp_id', 'left');
+    
+        $query = $this->db->get();
+        $data['results'] = $query->result_array();
+    
+        // Pass to view
+        $data['purchase_cols'] = $valid_purchase;
+        $data['sale_cols']     = $valid_sale;
+        $data['company_cols']  = $valid_company;
+        $data['from_date']     = $from_date;
+        $data['to_date']       = $to_date;
+        $data['district_code'] = $district_code;
+        $data['comp_id']       = $comp_id;
+    
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/report_result_br_view', $data);
+        $this->load->view('post_login/footer');
+    
+        // Optional: quick display for debugging (remove in production)
+        echo "<pre>Purchase inserted: ".$this->db->affected_rows()."</pre>";
+    }
+    
 public function rateslab(){
 
             if($_SERVER['REQUEST_METHOD'] == "POST") {

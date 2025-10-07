@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Choose Columns</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f9f9f9;
+        }
+        h3, h4 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .columns-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 280px;
+            height: 320px;
+            float: left;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Different background colors */
+        .purchase-box { background: #eaf4ff; }  /* Light Blue */
+        .company-box  { background: #fff9e6; }  /* Light Yellow */
+        .sale-box     { background: #eafaf1; }  /* Light Green */
+
+        .columns-box h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #007bff;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .clear { clear: both; }
+        .date-box {
+            margin: 15px 10px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 580px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .date-box h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #28a745;
+        }
+        .date-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .date-row label {
+            margin: 0;
+            font-weight: bold;
+        }
+        .date-row input,
+        .date-row select {
+            width: 180px;
+            height: 32px;
+            padding: 2px 6px;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+<h4><b>Select Columns for Dynamic Report</b></h4>
+
+<form method="post" action="<?php echo site_url('fert/rep/generate_report_br'); ?>">
+
+    <?php
+    // Aliases for readability
+    $purchase_fields = [
+        'district_name' =>'Branch',
+        'prod_desc'     =>'Product Name',
+        'unit_name'     =>'Unit',
+        'ro_no'         =>'Ro Number',
+        'ro_dt'         =>'Ro Date',
+        'invoice_no'    =>'Invoice number',
+        'invoice_dt'    =>'Invoice Date',
+        'no_of_days'    =>'Credit Period',
+        'qty'           =>'Quantity',
+        'rate'          =>'Purchase Rate',
+        'base_price'   =>'Taxable Amount',
+        'cgst'          =>'CGST',
+        'sgst'          =>'SGST',
+        'tcs'           =>'TCS',
+        'retlr_margin'  =>'Retailer Margin',
+        'spl_rebt'      =>'Spacial Rebeat',
+        'trad_margin'   =>'Trade Margin',
+        'oth_dis'       =>'Other Disount',
+        'frt_subsidy'   =>'Freight Subsidy',
+        'tot_amt'       =>'Total Amount',
+        'net_amt'       =>'Net Amount',
+        'trn_handling_charge' =>'T & H Charge',
+        'created_by'    =>'Created By',
+        'created_dt'    =>'Created Date',
+        'created_ip'    =>'Created IP',
+        'modified_ip'   =>'Modified IP',
+        'modified_by'   =>'Modified By',
+        'modified_dt'   =>'Modified Date'       
+    ];
+
+    $sale_fields = [ 
+        'soc_name'    =>'Society Name',
+        'trans_do'    =>'Sale Invoice No',
+        'do_dt'       =>'Sale Invoice Date',
+        'qty'         =>'Sale Qty',
+        'sale_rt'     =>'Sale Rate',
+        'taxable_amt' =>'Taxable Amount',
+        'cgst'        =>'Sale CGST',
+        'sgst'        =>'Sale SGST',
+        'dis'         =>'Discount',
+        'tot_amt'     =>'Total Amount',
+        'irn'         =>'IRN',
+        'ack'         =>'Acknowledge No',
+        'ack_dt'      =>'Acknowledge Date',
+        'total_amt'   =>'Total Amount',
+        'created_by'  =>'Created By',
+        'created_dt'  =>'Created Date',
+        'created_ip'  =>'Created IP',
+        'modified_ip' =>'Modified IP',
+        'modified_by' =>'Modified By',
+        'modified_dt' =>'Modified Date'     
+    ];
+
+    $company_fields = [
+        
+        'comp_name'     => 'Company Name',
+        'short_name'    => 'Short Name',
+        'COMP_ADD'      => 'Address',
+        'COMP_PN_NO'    => 'Phone No.',
+        'COMP_EMAIL_ID' => 'Email',
+        'PAN_NO'        => 'PAN NO',
+        'GST_NO'        => 'GST NO',
+        'CIN'           => 'CIN',
+        'MFMS'          => 'MFMS'
+    ];
+    ?>
+
+    <!-- Purchase Columns -->
+    <div class="columns-box purchase-box">
+        <h4>Purchase Columns</h4>
+        <?php foreach ($purchase_fields as $col => $alias): ?>
+            <label>
+                <input type="checkbox" name="purchase_cols[]" value="<?php echo $col; ?>">
+                <?php echo $alias; ?>
+            </label>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Sale Columns -->
+    <div class="columns-box sale-box">
+        <h4>Sale Columns</h4>
+        <?php foreach ($sale_fields as $col => $alias): ?>
+            <label>
+                <input type="checkbox" name="sale_cols[]" value="<?php echo $col; ?>">
+                <?php echo $alias; ?>
+            </label>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Company Columns -->
+    <div class="columns-box company-box">
+        <h4>Company Columns</h4>
+        <?php foreach ($company_fields as $col => $alias): ?>
+            <label>
+                <input type="checkbox" name="company_cols[]" value="<?php echo $col; ?>">
+                <?php echo $alias; ?>
+            </label>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="clear"></div>
+    <div class="filters-row" style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap;">
+
+<!-- RO Date Filter -->
+<div class="date-box" style="flex: 1; min-width: 250px;">
+    <h4>📅 Filter by RO Date</h4>
+    <div class="date-row" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <label for="from_date">From:</label>
+        <input type="date" name="from_date" id="from_date" required>
+
+        <label for="to_date">To:</label>
+        <input type="date" name="to_date" id="to_date" required>
+    </div>
+</div>
+
+<!-- District Filter -->
+<!-- <div class="date-box" style="flex: 1; min-width: 200px;">
+    <h4>🏢 Filter by District</h4>
+    <div class="date-row" style="display: flex; gap: 10px; align-items: center;">
+        <label for="district">District:</label>
+        <select name="district_code" id="district" required>
+            <option value="all">All</option>
+            <?php foreach($districts as $d): ?>
+                <option value="<?php echo $d->district_code; ?>">
+                    <?php echo $d->district_name; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div> -->
+
+<!-- Company Filter -->
+<div class="date-box" style="flex: 1; min-width: 200px;">
+    <h4>🏢 Filter by Company</h4>
+    <div class="date-row" style="display: flex; gap: 10px; align-items: center;">
+        <label for="company">Company:</label>
+        <select name="comp_id" id="company" required>
+            <option value="all">All</option>
+            <?php foreach($companies as $c): ?>
+                <option value="<?php echo $c->COMP_ID; ?>">
+                    <?php echo $c->COMP_NAME; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+
+</div>
+
+    <button type="submit">Generate Report</button>
+</form>
+
+</body>
+</html>

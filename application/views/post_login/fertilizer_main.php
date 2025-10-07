@@ -345,6 +345,7 @@
                                  <div class="sub-dropdown">
 								   <a class="sub-dropbtn">Purchase & Sale <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">
+                                   <a href="<?php echo site_url("fert/rep/choose_columns_br");?>">Purchase sale report(Test))</a> 
 									<a href="<?php echo site_url("fert/rep/stkSprodro");?>">RO Wise Purchase & Sale</a>
 									<a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
 									<a href="<?php echo site_url("fert/rep/salerep");?>">Sale Ledger</a>
