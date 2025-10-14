@@ -61,9 +61,8 @@ if (!empty($results)) {
                     (From: <?= date('d-m-Y', strtotime($from_date)) ?> To: <?= date('d-m-Y', strtotime($to_date)) ?>)
                 <?php endif; ?>
             </h4>
-            <h4>Branch- <?php echo $branch_nm->district_name; ?></h4>
+            <h4>Branch- <?= $branch_nm->district_name ?></h4>
         </div>
-
 
         <!-- Toolbar -->
         <div class="d-flex justify-content-end mb-3 no-print">
@@ -166,10 +165,29 @@ if (!empty($results)) {
                             <td class="company-row"><?= $row["company_$col"] ?? ''; ?></td>
                         <?php endforeach; ?>
                         <?php foreach ($purchase_cols as $col): ?>
-                            <td class="purchase-row"><?= $row["purchase_$col"] ?? ''; ?></td>
+                            <td class="purchase-row">
+                                <?php
+                                    $val = $row["purchase_$col"] ?? '';
+                                    if (in_array($col, ['ro_dt','invoice_dt','created_dt','modified_dt']) && !empty($val)) {
+                                        echo date('d-m-Y', strtotime($val));
+                                    } else {
+                                        echo $val;
+                                    }
+                                ?>
+                            </td>
                         <?php endforeach; ?>
                         <?php foreach ($sale_cols as $col): ?>
-                            <td class="sale-row"><?= $row["sale_$col"] ?? ''; ?></td>
+                            <td class="sale-row">
+                                <?php
+                                    $val = $row["sale_$col"] ?? '';
+                                    
+                                        if (in_array($col, ['do_dt','created_dt','modified_dt']) && !empty($val)) {
+                                        echo date('d-m-Y', strtotime($val));
+                                    } else {
+                                        echo $val;
+                                    }
+                                ?>
+                            </td>
                         <?php endforeach; ?>
                     </tr>
                     <?php endforeach; ?>
@@ -240,13 +258,21 @@ if (!empty($results)) {
                         // purchase fields
                         foreach ($purchase_cols as $col) {
                             $label = $purchase_aliases[$col] ?? ucfirst(str_replace('_',' ',$col));
-                            $transposed[$label][$uniqueKey] = $row["purchase_$col"] ?? '';
+                            $val = $row["purchase_$col"] ?? '';
+                            if (in_array($col, ['ro_dt','invoice_dt']) && !empty($val)) {
+                                $val = date('d-m-Y', strtotime($val));
+                            }
+                            $transposed[$label][$uniqueKey] = $val;
                         }
 
                         // sale fields
                         foreach ($sale_cols as $col) {
                             $label = $sale_aliases[$col] ?? ucfirst(str_replace('_',' ',$col));
-                            $transposed[$label][$uniqueKey] = $row["sale_$col"] ?? '';
+                            $val = $row["sale_$col"] ?? '';
+                            if ($col == 'do_dt' && !empty($val)) {
+                                $val = date('d-m-Y', strtotime($val));
+                            }
+                            $transposed[$label][$uniqueKey] = $val;
                         }
                     }
 

@@ -1115,6 +1115,29 @@ from (
 
         return $query->result();
     }
+
+    public function getCumulativePurchase($companyId, $productId = null) {
+        $db = $this->db; // or your DB connection
+    
+        $sql = "SELECT SUM(purchase_qty) AS total_qty
+                FROM td_purchase_temp
+                WHERE comp_id = ?";
+    
+        $params = [$companyId];
+    
+        if ($productId) {
+            $sql .= " AND product_id = ?";
+            $params[] = $productId;
+        }
+    
+        $query = $db->prepare($sql);
+        $query->execute($params);
+    
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+    
+        return $result['total_qty'] ?? 0;
+    }
+    
 ///************************************* */
 public function f_get_prodcompwisesale($frm_dt, $to_dt)
     {
@@ -3348,6 +3371,7 @@ GROUP BY
         a.trans_dt >= '2023-04-01'
         AND a.comp_id = $comp_id
         AND '$date'>a.due_dt 
+        AND a.adv_status='N'
     GROUP BY  a.br,b.branch_name,
         a.ro_no, a.prod_id,d.prod_desc,
         a.due_dt, a.trans_dt,
