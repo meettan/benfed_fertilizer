@@ -51,7 +51,7 @@ tr:hover {background-color: #f5f5f5;}
 
                 </div>
 
-                <!-- <div class="form-group row">
+                 <div class="form-group row">
 
                     <label for="to_date" class="col-sm-2 col-form-label">To Date:</label>
 
@@ -65,7 +65,7 @@ tr:hover {background-color: #f5f5f5;}
 
                     </div>
 
-                </div>  -->
+                </div> 
 
                 <div class="form-group row">
                     <label for="comp_id" class="col-sm-2 col-form-label">Company:</label>
