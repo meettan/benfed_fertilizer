@@ -3370,7 +3370,7 @@ GROUP BY
         tdf_company_payment f ON a.ro_no = f.pur_ro
     WHERE 
        
-        a.trans_dt between $frmdate and $todate
+        a.trans_dt between '$frmdate' and '$todate'
         AND a.comp_id = $comp_id
           AND '$todate'>a.due_dt 
         AND a.adv_status='N'
