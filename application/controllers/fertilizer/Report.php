@@ -3193,11 +3193,13 @@ public function company_advpayment(){
             //     $wherec = array('a.comp_id '=>$this->input->post('comp_id'));
             // }
                  $comp_id=  $this->input->post('comp_id');
-                $date=$this->input->post('from_date');
-                $data['allData']=$this->ReportModel->overdue_list_model($date,$comp_id);
-                // echo $this->db->last_query();
-                // die();
-                $data['date']= $date;
+                $frmdate=$this->input->post('from_date');
+                $todate=$this->input->post('to_date');
+                // $data['allData']=$this->ReportModel->overdue_list_model($date,$comp_id);
+                $data['allData']=$this->ReportModel->overdue_list_model($frmdate,$todate,$comp_id);
+                // $data['date']= $date;
+                $data['date']= $frmdate;
+                $data['date']= $todate;
                 $this->load->view('post_login/fertilizer_main');
                 $this->load->view('report/over_due_list/over_due_list.php', $data);
                 $this->load->view('post_login/footer');

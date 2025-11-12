@@ -3294,7 +3294,8 @@ GROUP BY
     }
 
     //Function for overdue list report 1st part for HO ,2nd part for branch
-    function overdue_list_model($date,$comp_id)        
+    // function overdue_list_model($date,$comp_id)    
+    function overdue_list_model($frmdate,$todate,$comp_id)     
     {
 
         $branciId=$this->session->userdata('loggedin')['branch_id'];
@@ -3368,9 +3369,11 @@ GROUP BY
     LEFT JOIN 
         tdf_company_payment f ON a.ro_no = f.pur_ro
     WHERE 
-        a.trans_dt >= '2023-04-01'
+        /* a.trans_dt >= '2023-04-01' */
+        a.trans_dt between $frmdate and $todate
         AND a.comp_id = $comp_id
-        AND '$date'>a.due_dt 
+        /* AND '$date'>a.due_dt  */
+        AND '$frmdate'>a.due_dt 
         AND a.adv_status='N'
     GROUP BY  a.br,b.branch_name,
         a.ro_no, a.prod_id,d.prod_desc,
