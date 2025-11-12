@@ -3401,8 +3401,8 @@ GROUP BY
                 and   a.br_cd=$branciId
                 and a.comp_id=$comp_id
                 and a.trans_do=f.sale_invoice_no
-                and   a.do_dt >= '2023-04-01'
-                and   a.sale_due_dt < '$date'
+                and   a.do_dt >='frmdate'
+                and   a.sale_due_dt < '$todate'
                 group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt
                 HAVING a.round_tot_amt-sum(f.paid_amt) >0");
 
