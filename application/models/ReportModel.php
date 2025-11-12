@@ -3372,7 +3372,7 @@ GROUP BY
        
         a.trans_dt between $frmdate and $todate
         AND a.comp_id = $comp_id
-          AND '$frmdate'>a.due_dt 
+          AND '$todate'>a.due_dt 
         AND a.adv_status='N'
     GROUP BY  a.br,b.branch_name,
         a.ro_no, a.prod_id,d.prod_desc,
