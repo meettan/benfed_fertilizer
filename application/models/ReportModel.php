@@ -3369,11 +3369,10 @@ GROUP BY
     LEFT JOIN 
         tdf_company_payment f ON a.ro_no = f.pur_ro
     WHERE 
-        /* a.trans_dt >= '2023-04-01' */
+       
         a.trans_dt between $frmdate and $todate
         AND a.comp_id = $comp_id
-        /* AND '$date'>a.due_dt  */
-        AND '$frmdate'>a.due_dt 
+          AND '$frmdate'>a.due_dt 
         AND a.adv_status='N'
     GROUP BY  a.br,b.branch_name,
         a.ro_no, a.prod_id,d.prod_desc,
