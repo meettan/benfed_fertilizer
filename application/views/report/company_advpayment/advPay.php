@@ -83,6 +83,37 @@ tr:hover {background-color: #f5f5f5;}
         }, 10);
     }
 </script>
+<script>
+function exportDivToExcel(divId, filename = 'Export.xls') {
+    const divToExport = document.getElementById(divId);
+    if (!divToExport) {
+        alert('Div not found!');
+        return;
+    }
+
+    // Clone the div to preserve inline styles
+    const clone = divToExport.cloneNode(true);
+
+    // Optional: remove hidden elements
+    clone.querySelectorAll('[style*="display:none"]').forEach(el => el.remove());
+
+    // Wrap in <table> if needed or keep existing tables
+    const tableHTML = clone.innerHTML;
+
+    const downloadLink = document.createElement('a');
+    const dataType = 'application/vnd.ms-excel';
+    downloadLink.href = 'data:' + dataType + ', ' + encodeURIComponent(tableHTML);
+    downloadLink.download = filename;
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+
+// Usage examples
+// exportDivToExcel('divToPrint', 'Payment_Statement.xls');
+// exportDivToExcel('divadvToPrint', 'Advice_Statement.xls');
+</script>
 
         <div class="wraper"> 
 
@@ -376,7 +407,9 @@ foreach ($tableDatasummary as $ptableDatasummary) {
 
                     <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
                     <button class="btn btn-primary" type="button" onclick="printadvDiv();">Print Advice</button>
-                   <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
+                    <button class="btn btn-success" onclick="exportDivToExcel('divToPrint', 'Payment_Statement.xls')">Export Payment to Excel</button>
+
+                    <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
 
                 </div>
 

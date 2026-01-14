@@ -83,7 +83,27 @@ tr:hover {background-color: #f5f5f5;}
         }, 10);
     }
 </script>
+<script>
+function exportAdviceToExcel() {
+    const divToExport = document.getElementById('divadvToPrint');
+    
+    // Create a temporary table to hold the content
+    const tableHTML = divToExport.innerHTML;
 
+    // Create a download link
+    const downloadLink = document.createElement('a');
+    const dataType = 'application/vnd.ms-excel';
+    const filename = 'Advice_Statement.xls';
+
+    downloadLink.href = 'data:' + dataType + ', ' + encodeURIComponent(tableHTML);
+    downloadLink.download = filename;
+
+    // Trigger the download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+</script>
         <div class="wraper"> 
 
             <div class="col-lg-12 container contant-wraper">
@@ -349,7 +369,9 @@ tr:hover {background-color: #f5f5f5;}
 
                     <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
                     <button class="btn btn-primary" type="button" onclick="printadvDiv();">Print Advice</button>
-                   <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
+                    <button class="btn btn-primary" type="button" onclick="exportAdviceToExcel();">Export Advice to Excel</button>
+
+                    <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
 
                 </div>
 
