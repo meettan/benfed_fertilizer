@@ -87,6 +87,60 @@
         }, 10);
     }
 </script>
+<script>
+function exportAdvToExcel() {
+    var divToExport = document.getElementById('divadvToPrint');
+
+    // Create a Blob with HTML content
+    var htmlContent = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" 
+              xmlns:x="urn:schemas-microsoft-com:office:excel" 
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+            <!-- Excel settings -->
+            <!--[if gte mso 9]>
+            <xml>
+                <x:ExcelWorkbook>
+                    <x:ExcelWorksheets>
+                        <x:ExcelWorksheet>
+                            <x:Name>Advance Payment Advice</x:Name>
+                            <x:WorksheetOptions>
+                                <x:Print>
+                                    <x:ValidPrinterInfo/>
+                                </x:Print>
+                            </x:WorksheetOptions>
+                        </x:ExcelWorksheet>
+                    </x:ExcelWorksheets>
+                </x:ExcelWorkbook>
+            </xml>
+            <![endif]-->
+            <style>
+                table { border-collapse: collapse; font-size: 12px; }
+                th, td { border: 1px solid black; padding: 6px; }
+                .center { text-align: center; }
+                .headertitle { font-weight: bold; font-size: 22px; }
+                .headeraddress { font-weight: normal; }
+            </style>
+        </head>
+        <body>
+            ${divToExport.innerHTML}
+        </body>
+        </html>`;
+
+    // Convert to Blob
+    var blob = new Blob([htmlContent], { type: "application/vnd.ms-excel" });
+
+    // Create download link
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "Advance_Payment_Advice.xls";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+</script>
+
 
 <div class="wraper">
 
@@ -292,6 +346,8 @@
 
             <button class="btn btn-primary" type="button" onclick="printDiv();">Print</button>
             <button class="btn btn-primary" type="button" onclick="printadvDiv();">Print Advice</button>
+            <button class="btn btn-success" onclick="exportAdvToExcel();">Export Advice to Excel</button>
+
             <!-- <button class="btn btn-primary" type="button" id="btnExport" >Excel</button>-->
 
         </div>
