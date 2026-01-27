@@ -1,2 +1,3 @@
 /application/config
 /application/cache
+application/controllers/fertilizer/Api.php
