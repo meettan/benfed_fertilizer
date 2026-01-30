@@ -3216,7 +3216,40 @@ public function company_advpayment(){
             $this->load->view('post_login/footer');
         }
     }
+//********** */
+public function outstanding_list(){
+    // $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
+    $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,NUll,0);
+    if($this->input->post()){
+        // if($this->input->post('comp_id') != 0){
+        //     $wherec = array('a.comp_id '=>$this->input->post('comp_id'));
+        // }
+             $comp_id=  $this->input->post('comp_id');
+            $frmdate=$this->input->post('from_date');
+            $todate=$this->input->post('to_date');
+            // $data['allData']=$this->ReportModel->overdue_list_model($date,$comp_id);
+            $data['allData']=$this->ReportModel->outstanding_list_model($frmdate,$todate,$comp_id);
+            // $data['date']= $date;
+            $data['date']= $frmdate;
+            $data['date']= $todate;
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/outstanding_list/over_due_list.php', $data);
+            $this->load->view('post_login/footer');
+    
+    }else{
+        $select      = array("COMP_ID","COMP_NAME");
+    
+        // $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
+        $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,NUll,0);
 
+        $this->load->view('post_login/fertilizer_main');
+        
+        $this->load->view('report/outstanding_list/over_due_list_ip.php',$data);
+        $this->load->view('post_login/footer');
+    }
+}
+
+///****** */
 // ================================ Monthly stock report at HO =======================================
     public function stock_report(){
         if($this->input->post()){
