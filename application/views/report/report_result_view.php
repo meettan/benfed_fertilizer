@@ -68,7 +68,7 @@ if (!empty($results)) {
             <button id="printBtn" class="btn btn-primary me-2">🖨️ Print</button>
             <button id="exportExcel" class="btn btn-success me-2">📊 Export Excel</button>
             <button id="exportPdf" class="btn btn-danger me-2">📄 Export PDF</button>
-            <button id="toggleView" class="btn btn-dark">🔄 Switch to Transposed</button>
+            <!-- <button id="toggleView" class="btn btn-dark">🔄 Switch to Transposed</button> -->
         </div>
 
         <?php

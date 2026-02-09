@@ -207,7 +207,7 @@
     				<label for="due_dt" class="col-sm-1 col-form-label">Due Date:</label>
     				<div class="col-sm-3">
     					<input type="date" min="" style="width:200px" id=due_dt name="due_dt"
-    						class="form-control mindate" required />
+    						class="form-control mindate" readonly />
     				</div>
     				<label for="delivery_mode" class="col-sm-1 col-form-label">Delivery Mode:</label>
     				<div class="col-sm-3">

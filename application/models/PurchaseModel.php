@@ -131,6 +131,69 @@
 		
 			
 		}
+
+		/****upload invoice test* */
+// 🔹 Generate Transaction Code
+public function get_trans_cd()
+    {
+        $row = $this->db
+            ->select('IFNULL(MAX(trans_cd),0)+1 AS trans_cd', false)
+            ->get('td_purchase')
+            ->row();
+
+        return $row->trans_cd;
+    }
+
+    // 🔹 Insert purchase invoice
+    public function insert_purchase($inv)
+    {
+        // 🔹 Duplicate invoice check
+        $this->db->where('invoice_no', $inv['invoice_no']);
+        if ($this->db->count_all_results('td_purchase') > 0) {
+            return ['status' => false, 'msg' => 'Duplicate invoice'];
+        }
+
+        // 🔹 DB Transaction (VERY IMPORTANT)
+        $this->db->trans_begin();
+
+        $data = [
+            'trans_cd'      => $this->get_trans_cd(),
+            'trans_dt'      => $inv['invoice_dt'],
+            'trans_flag'    => '1',
+            'comp_id'       => 1,       // IFFCO
+            'comp_acc_cd'   => 4937,
+	       'prod_id'       => (int)$inv['prod_id'], // ✅ MUST BE HERE
+					
+            'ro_no'         => $inv['ro_no'],
+            'invoice_no'    => $inv['invoice_no'],
+            'invoice_dt'    => $inv['invoice_dt'],
+            'qty'           => $inv['qty'],
+            'unit'          => 1,
+            'no_of_bags'    => $inv['no_of_bags'],
+            'delivery_mode' => '2',
+            'base_price'    => $inv['base_price'],
+            'cgst'          => $inv['cgst'],
+            'sgst'          => $inv['sgst'],
+            'tot_amt'       => $inv['base_price'] + $inv['cgst'] + $inv['sgst'],
+            'net_amt'       => $inv['net_amt'],
+            'created_dt'    => date('Y-m-d'),
+            'created_ip'    => $this->input->ip_address(),
+            'fin_yr'        => '6',
+            'br'            => $this->session->userdata['loggedin']['branch_id'],
+            'stock_point'   => 342
+        ];
+
+        $this->db->insert('td_purchase', $data);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return ['status' => false, 'msg' => 'DB insert failed'];
+        }
+
+        $this->db->trans_commit();
+        return ['status' => true, 'msg' => 'Invoice saved'];
+    }
+//***** *//
 		public function f_get_crnote_dtls(){
 			// $user_id    = $this->session->userdata('login')->user_id;
 	

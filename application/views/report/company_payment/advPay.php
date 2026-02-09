@@ -325,7 +325,10 @@ function exportAdviceToExcel() {
                                     
                                      <td><?php echo $sumr->taxable_amt; ?></td>
                                      <td><?php echo $sumr->tds_amt; ?></td>
-                                     <td><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td>
+                                     <!-- <td><?php echo $sumr->net_amt; $prod_net_tot +=$sumr->net_amt;?></td> -->
+                                     <td><?php echo $sumr->taxable_amt - $sumr->tds_amt; $prod_net_tot +=$sumr->taxable_amt - $sumr->tds_amt; 
+                                     ?></td>
+
                                      </td>
                                 </tr>
                                
@@ -336,7 +339,8 @@ function exportAdviceToExcel() {
                                   
                                     <td><b><?php echo $totalAmount; ?></b></td>
                                     <td><b><?php echo $totalTDS; ?></b></td>
-                                    <td><b><?php echo  $prod_net_tot; ?>
+                                    <!-- <td><b><?php echo  $prod_net_tot; ?> -->
+                                    <td><b><?php echo $totalAmount - $totalTDS; ?>
                                     <?php //echo  $totalAmount-$totalTDS; ?></b></td>
                                 </tr>
                                 <?php 
@@ -555,8 +559,8 @@ function exportAdviceToExcel() {
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->bnk)){echo $sumr->bnk;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->acc_num)){echo $sumr->acc_num;}?></td>
                         <td style="border:1px solid black !important"><?php if(!empty($sumr->cifsc)){echo $sumr->cifsc;}?></td>
-                        <td style="border:1px solid black !important"><?php if(!empty($sumr->net_amt)){echo $sumr->net_amt;
-                                                                                $summary_tot +=$sumr->net_amt;
+                        <td style="border:1px solid black !important"><?php if(!empty($sumr->net_amt)){echo $sumr->taxable_amt - $sumr->tds_amt;
+                                                                                $summary_tot +=$sumr->taxable_amt - $sumr->tds_amt;
                         }?></td>
                     </tr>
 
@@ -567,7 +571,7 @@ function exportAdviceToExcel() {
                     </tr> -->
                     <tr>
                         <td colspan="4" style="text-align:center">Rupee : 
-                        <?php echo number_format((float)($prod_net_tot), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($prod_net_tot), 2, '.', ''))?>)
+                        <?php echo number_format((float)($summary_tot), 2, '.', ''); ?> (<?=getIndianCurrency(number_format((float)($summary_tot), 2, '.', ''))?>)
                         
                         </td>
                     </tr>
