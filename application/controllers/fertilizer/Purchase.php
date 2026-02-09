@@ -18,7 +18,10 @@ class Purchase extends MX_Controller
 			redirect('User_Login/login');
 		}
 	}
-
+	// public function hello()
+    // {
+    //     echo "Hello method working";
+    // }
 	public function dr_note()
 	{
 		$this->sysdate  = $_SESSION['sys_date'];
@@ -4392,8 +4395,289 @@ public function purackdtledit(){
 
 }
 
-/////////////////////////////
+////////////////upload test/////////////
+// 🔹 Upload Page
+public function upload()
+    {
+        $this->load->view('purchase/upload_invoice');
+    }
 
+    // Upload + OCR + Insert
+	public function upload_invoice()
+    {
+        $config['upload_path']   = './application/uploads/invoices/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size']      = 5120;
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('invoice')) {
+            echo $this->upload->display_errors();
+            return;
+        }
+
+        $file     = $this->upload->data();
+        $pdf_path = $file['full_path'];
+
+        // ---- Windows paths ----
+        $poppler   = '"C:\poppler\Library\bin\pdftoppm.exe"';
+        $tesseract = '"C:\Program Files\Tesseract-OCR\tesseract.exe"';
+
+        $output = FCPATH . 'application/uploads/invoices/invoice_' . time();
+
+        // PDF → PNG
+        shell_exec($poppler . ' -r 300 -png "' . $pdf_path . '" "' . $output . '"');
+
+        // OCR
+        $text = '';
+        foreach (glob($output . '-*.png') as $img) {
+            $text .= shell_exec($tesseract . ' "' . $img . '" stdout');
+        }
+
+        if (trim($text) === '') {
+            echo "❌ OCR failed";
+            return;
+        }
+
+        /* =========================================================
+           AUTO COMPANY DETECTION
+        ========================================================= */
+        if (stripos($text, 'INDIAN POTASH LIMITED') !== false) {
+
+            $invoice = $this->parse_ipl_invoice($text);
+            $invoice['comp_id']     = 3;      // IPL
+            $invoice['comp_acc_cd']= 4938;
+            // $invoice['prod_id']    = 1019;
+
+        } elseif (stripos($text, 'IFFCO') !== false) {
+
+            $invoice = $this->parse_iffco_invoice($text);
+            $invoice['comp_id']     = 1;      // IFFCO
+            $invoice['comp_acc_cd']= 4937;
+            // $invoice['prod_id']    = 1019;
+
+        } else {
+            echo "❌ Unknown invoice format";
+            echo "<pre>".htmlspecialchars($text)."</pre>";
+            return;
+        }
+
+        if (empty($invoice['invoice_no'])) {
+            echo "❌ Invoice number not detected";
+            return;
+        }
+
+        // Insert DB
+        $result = $this->PurchaseModel->insert_purchase($invoice);
+
+        if (!$result['status']) {
+            echo "❌ " . $result['msg'];
+            return;
+        }
+
+        echo "✅ Invoice uploaded successfully";
+    }
+
+    // 🔒 PRIVATE PARSER
+	private function parse_iffco_invoice($text)
+{
+    // -------------------------------
+    // Normalize OCR text
+    // -------------------------------
+    $clean = strtoupper($text);
+    $clean = str_replace(',', '', $clean);
+    $clean = preg_replace('/\s+/', ' ', $clean);
+
+    // -------------------------------
+    // Invoice Details
+    // -------------------------------
+    preg_match('/INVOICE\s*NO\s*([A-Z0-9\/\-]+)/', $clean, $inv);
+    preg_match('/INVOICE\s*DATE\s*(\d{2}-[A-Z]{3}-\d{2,4})/', $clean, $dt);
+    preg_match('/RO\s*NO\s*([A-Z0-9\/\-]+)/', $clean, $ro);
+
+    // -------------------------------
+    // PRODUCT NAME (EXCLUDE MFMS)
+    // -------------------------------
+    $product_name = '';
+
+    // Case 1: MFMS exists → cut BEFORE MFMS
+    if (preg_match(
+        '/DESCRIPTION OF GOODS\s+(.+?)(?=\s+M\s*F\s*M\s*S|\s+MFMS)/i',
+        $clean,
+        $pm
+    )) {
+        $product_name = $pm[1];
+
+    // Case 2: MFMS missing → cut before next section
+    } elseif (preg_match(
+        '/DESCRIPTION OF GOODS\s+(.+?)(?=\s+NO\.?\s*OF\s*BAGS|\s+QUANTITY|\s+NET)/i',
+        $clean,
+        $pm
+    )) {
+        $product_name = $pm[1];
+    }
+
+    // Cleanup product name
+    if ($product_name !== '') {
+        $product_name = trim($product_name);
+        $product_name = preg_replace('/\s+/', ' ', $product_name);
+        $product_name = preg_replace('/[^A-Z0-9:\- ]/', '', $product_name);
+    }
+
+    // -------------------------------
+    // 🔥 ALERT & EXIT (DEBUG MODE)
+    // -------------------------------
+    // if ($product_name === '') {
+    //     echo "<script>alert('PRODUCT NAME NOT FOUND');</script>";
+    //     exit;
+    // }
+
+    // echo "<script>alert('PRODUCT NAME: " . addslashes($product_name) . "');</script>";
+    // exit;
+
+    // ------------------------------   -------------------
+    // BELOW CODE WILL NOT EXECUTE (INSERT DISABLED)
+    // -------------------------------------------------
+
+    // Quantity & Bags
+    preg_match('/NO\.?\s*OF\s*BAGS.*?(\d+)/', $clean, $bags);
+    preg_match('/QUANTITY.*?([\d]+(?:\.\d+)?)/', $clean, $qty);
+
+    // Amounts
+    preg_match('/NET\s*TAXABLE\s*PRICE.*?([\d\.]+)/', $clean, $base);
+    preg_match('/CGST.*?([\d\.]+)/', $clean, $cgst);
+    preg_match('/SGST.*?([\d\.]+)/', $clean, $sgst);
+    preg_match('/NET\s*AMOUNT.*?([\d\.]+)/', $clean, $net);
+
+    // Product ID fetch
+    $prod_id   = 0;
+    $alert_msg = '';
+
+    if ($product_name !== '') {
+
+        if (preg_match('/(NPK|DAP)\s*(\d+)[^0-9]+(\d+)[^0-9]+(\d+)/', $product_name, $m)) {
+            $regex = $m[1] . '.*' . $m[2] . '.*' . $m[3] . '.*' . $m[4];
+        } elseif (preg_match('/UREA\s*(\d+)/', $product_name, $m)) {
+            $regex = 'UREA.*' . $m[1];
+        } else {
+            $regex = str_replace(' ', '.*', $product_name);
+        }
+
+        $q = $this->db->query("
+            SELECT prod_id
+            FROM mm_product
+            WHERE UPPER(prod_desc) REGEXP ?
+            LIMIT 1
+        ", [$regex]);
+
+        // if ($q->num_rows() > 0) {
+        //     $prod_id = (int)$q->row()->prod_id;
+        // } else {
+        //     $alert_msg = 'Product not found in master: ' . $product_name;
+        // }
+    }
+
+    // Final return (unreachable now)
+    return [
+        'invoice_no'   => $inv[1] ?? '',
+        'invoice_dt'   => isset($dt[1]) ? date('Y-m-d', strtotime($dt[1])) : null,
+        'ro_no'        => $ro[1] ?? '',
+        'product_name' => $product_name,
+        'prod_id'      => $prod_id,
+		'qty'          => 0,
+        'no_of_bags'   => (int)$bags,
+		'base_price'   => isset($base[1]) ? (float)$base[1] : 0,
+		'cgst'         => isset($cgst[1]) ? (float)$cgst[1] : 0,
+        'sgst'         => isset($sgst[1]) ? (float)$sgst[1] : 0,
+		'net_amt'      => isset($net[1]) ? (float)$net[1] : 0,
+        'alert'        => $alert_msg
+    ];
+}
+
+	
+	
+	
+	private function parse_ipl_invoice($text)
+{
+    // -------------------------------
+    // Normalize OCR text
+    // -------------------------------
+    $clean = strtoupper($text);
+    $clean = str_replace(',', '', $clean);
+    $clean = preg_replace('/\s+/', ' ', $clean);
+
+    // -------------------------------
+    // Invoice No / Date / DC No
+    // -------------------------------
+    preg_match('/INVOICE\s*[:\-]?\s*(\d{6,})/i', $clean, $inv);
+    preg_match('/INVOICE\s*DATE\s*[:\-]?\s*(\d{2}\.\d{2}\.\d{4})/i', $clean, $dt);
+    preg_match('/DC\s*NO\s*[:\-]?\s*(\d+)/i', $clean, $dc);
+
+    // -------------------------------
+    // 🔹 PRODUCT NAME (OCR SAFE)
+    // Example: MOP 31042000 30.000 MT
+    // -------------------------------
+    $product_name = '';
+
+    if (preg_match('/\b(MOP|DAP|UREA|SOP|NPK)\b/i', $clean, $pm)) {
+        $product_name = strtoupper($pm[1]);
+    }
+
+    // -------------------------------
+    // 🔹 Quantity (MT)
+    // -------------------------------
+    $qty_mt = 0;
+    if (preg_match('/(\d+(?:\.\d+)?)\s*MT\b/', $clean, $qm)) {
+        $qty_mt = (float)$qm[1];
+    }
+
+    // Bags (50 KG per bag)
+    $bags = ($qty_mt > 0) ? ($qty_mt * 1000) / 50 : 0;
+
+    // -------------------------------
+    // Amounts
+    // -------------------------------
+    preg_match('/TAXABLE\s*AMT.*?([\d\.]+)/i', $clean, $base);
+    preg_match('/CGST.*?RS\s*([\d\.]+)/i', $clean, $cgst);
+    preg_match('/SGST.*?RS\s*([\d\.]+)/i', $clean, $sgst);
+    preg_match('/TOTAL\s*AMOUNT.*?RS\s*([\d\.]+)/i', $clean, $net);
+
+    // -------------------------------
+    // 🔹 PRODUCT ID (DYNAMIC & SAFE)
+    // -------------------------------
+    $prod_id = 0;
+
+    if ($product_name !== '') {
+        $q = $this->db->query("
+            SELECT MIN(prod_id) AS prod_id
+            FROM mm_product
+            WHERE COMPANY = 3
+              AND PROD_DESC LIKE ?
+        ", ['%' . $product_name . '%']);
+
+        $r = $q->row();
+        $prod_id = $r ? (int)$r->prod_id : 0;
+    }
+
+    // -------------------------------
+    // FINAL RETURN
+    // -------------------------------
+    return [
+        'invoice_no'   => $inv[1] ?? '',
+        'invoice_dt'   => isset($dt[1]) ? date('Y-m-d', strtotime($dt[1])) : null,
+        'ro_no'        => $dc[1] ?? '',
+        'product_name'=> $product_name,
+        'prod_id'      => $prod_id,   // ✅ WILL BE 20
+        'qty'          => $qty_mt,
+        'no_of_bags'   => (int)$bags,
+        'base_price'   => isset($base[1]) ? (float)$base[1] : 0,
+        'cgst'         => isset($cgst[1]) ? (float)$cgst[1] : 0,
+        'sgst'         => isset($sgst[1]) ? (float)$sgst[1] : 0,
+        'net_amt'      => isset($net[1]) ? (float)$net[1] : 0
+    ];
+}
+
+	
 /////////
 	public function pur_ackwrep()
 	{
@@ -4442,6 +4726,53 @@ public function purackdtledit(){
 		$array = array('status' => '1', 'error' => '', 'page' => $page_data);
 		echo json_encode($array);
 	}
-
+	// public function ajaxackwrep()
+	// {
+	// 	$dist_id = $this->input->post('br_id');
+	// 	$fin_id  = $this->session->userdata['loggedin']['fin_id'];
+	
+	// 	$sql = "
+	// 		SELECT 
+	// 			a.memo_no,
+	// 			a.qty,
+	// 			b.COMP_NAME,
+	// 			c.PROD_DESC,
+	// 			d.invoice_dt AS trans_dt,
+	// 			d.no_of_days,
+	// 			COUNT(e.pur_ro) AS cnt
+	// 		FROM td_purchase_ackw a
+	// 		JOIN mm_company_dtls b 
+	// 			ON a.comp_id = b.COMP_ID
+	// 		JOIN mm_product c 
+	// 			ON a.prod_id = c.PROD_ID
+	// 		JOIN td_purchase d 
+	// 			ON a.memo_no = d.indent_memo_no
+	// 			AND b.comp_id = d.COMP_ID
+	// 			AND c.prod_id = d.PROD_ID
+	// 		LEFT JOIN tdf_company_payment e 
+	// 			ON d.ro_no = e.pur_ro
+	// 		WHERE a.branch_id = ?
+	// 		AND a.fin_id = ?
+	// 		GROUP BY 
+	// 			a.memo_no,
+	// 			a.qty,
+	// 			b.COMP_NAME,
+	// 			c.PROD_DESC,
+	// 			d.invoice_dt,
+	// 			d.no_of_days
+	// 	";
+	
+	// 	$query = $this->db->query($sql, [$dist_id, $fin_id]);
+	// 	$bank['data'] = $query->result();
+	
+	// 	$page_data = $this->load->view("purchase_ackw/ackwdtls", $bank, true);
+	
+	// 	echo json_encode([
+	// 		'status' => '1',
+	// 		'error'  => '',
+	// 		'page'   => $page_data
+	// 	]);
+	// }
+	
 
 }

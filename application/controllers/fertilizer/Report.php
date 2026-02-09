@@ -3230,8 +3230,8 @@ public function outstanding_list(){
             // $data['allData']=$this->ReportModel->overdue_list_model($date,$comp_id);
             $data['allData']=$this->ReportModel->outstanding_list_model($frmdate,$todate,$comp_id);
             // $data['date']= $date;
-            $data['date']= $frmdate;
-            $data['date']= $todate;
+            $data['frmdate']= $frmdate;
+            $data['todate']= $todate;
             $this->load->view('post_login/fertilizer_main');
             $this->load->view('report/outstanding_list/over_due_list.php', $data);
             $this->load->view('post_login/footer');

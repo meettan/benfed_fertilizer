@@ -65,7 +65,9 @@ tr:hover {background-color: #f5f5f5;}
 
                         <h2>THE WEST BENGAL STATE CO.OP.MARKETING FEDERATION LTD.</h2>
                         <h4>HEAD OFFICE: SOUTHEND CONCLAVE, 3RD FLOOR, 1582 RAJDANGA MAIN ROAD, KOLKATA-700107.</h4>
-                        <h4>Overdue List As On: <?php echo date("d/m/Y", strtotime($date))?></h4>
+                        <!-- <h4>Outstanding List As On: <?php echo date("d/m/Y", strtotime($date))?></h4> -->
+                        <h4>Outstanding List Between:<?php echo  date("d/m/Y", strtotime($frmdate)).' To '.date("d/m/Y", strtotime($todate)) ?></h4>
+    <?php //print_r($total_Voucher);  ?>
                         <?php $branciId=$this->session->userdata('loggedin')['branch_id'];
         if($branciId != 342){ ?>
                         <h5 style="text-align:left"><label>District: </label> <?php  foreach($allData as $data){ echo $data->branch_name; break; } ?></h5>
@@ -98,7 +100,7 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Society Name</th>
 
                                 <th>Ro No</th>
-
+                                <th>Ro Date</th>
                                 <!-- <th>Product Id</th> -->
 
                                 <th>Product</th>
@@ -108,7 +110,8 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Invoice Date</th>
                                 <th>No. Of Days</th>
                                 <th>Due Date</th>
-                                <th>Quantity</th>
+                                <th>Purchase Qty</th>
+                                <th>Sale Qty</th>
                                 <!-- <th>unit</th> -->
                                 <th>Unit</th>
                                 <th>Invoice Amount</th>
@@ -139,20 +142,22 @@ tr:hover {background-color: #f5f5f5;}
                                      <?php } ?>
                                      <!-- <td class="report"><?php echo $data->soc_id ?></td> -->
                                      <td class="report"><?php echo $data->soc_name ?></td>
-                                     <td class="report"><?php echo $data->sale_ro ?></td>
+                                     <td class="report"><?php echo $data->ro ?></td>
+                                     <td class="report"><?php echo date("d/m/Y", strtotime($data->ro_dt)) ?></td>
                                      <!-- <td class="report"><?php //echo $data->prod_id ?></td> -->
                                      <td class="report"><?php echo $data->prod_desc ?></td>
-                                     <td class="report"><?php echo $data->trans_do ?></td>
-                                     <td class="report"><?php echo date("d/m/Y", strtotime($data->do_dt)) ?></td>
+                                     <td class="report"><?php echo $data->invoice_no?></td>
+                                     <td class="report"><?php echo date("d/m/Y", strtotime($data->invoice_dt))?></td>
                                      <td class="report"><?php echo $data->no_of_days ?></td>
-                                     <td class="report"><?php echo date("d/m/Y", strtotime($data->sale_due_dt)) ?></td>
+                                     <td  class="report"><?php echo date("d/m/Y", strtotime($data->due_dt)) ?></td>
                                      <td class="report"><?php echo $data->qty ?></td>
+                                     <td class="report"><?php echo $data->sale_qty ?></td>
                                      <td class="report"><?php echo $data->unit_name ?></td>
                                      <td class="report"><?php echo $data->round_tot_amt;$round_tot_amt=$round_tot_amt+$data->round_tot_amt ?></td>
                                      <td class="report"><?php echo $data->paid_amt; $paid_amt=$paid_amt+$data->paid_amt; ?></td>
                                      <td class="report"><?php echo $data->due_amt; $due_amt=$due_amt+$data->due_amt; ?></td>
-                                    
-                          
+                                                                                 
+                                                
                                 </tr>
  
                                 <?php  
@@ -165,6 +170,8 @@ tr:hover {background-color: #f5f5f5;}
                                         <?php   if($branciId == 342){ ?>
                                         <td class="report"></td>
                                         <?php } ?>
+                                        <td class="report"></td>
+                                        <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
                                         <td class="report"></td>
@@ -220,7 +227,7 @@ tr:hover {background-color: #f5f5f5;}
     buttons: [
     {
     extend: 'excelHtml5',
-    title: 'Over Due List',
+    title: 'Outsatnding List',
     text: 'Export to excel'
 
    }
