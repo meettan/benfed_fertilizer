@@ -247,7 +247,7 @@
                         <?php if( $this->session->userdata['loggedin']['ho_flag']=="N"){?> 
                         <div class="dropdown-content">
                             <div class="sub-dropdown"> 
-                            <a href="<?php echo site_url("stock/upload");?>">upload invoice</a>    
+                            <!-- <a href="<?php echo site_url("stock/upload");?>">upload invoice</a>     -->
                               <a href="<?php echo site_url("adv/advancefilter");?>">Advance</a>
                               <a href="<?php echo site_url("fertilizer/advance/advtrans");?>">Advance Transfer</a>
                               <a href="<?php echo site_url("adv/advancefwd");?>">Advance Forward</a>
@@ -395,7 +395,7 @@
                                    <a class="sub-dropbtn">Branchwise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">  
                                    <a href="<?php echo site_url("fert/rep/choose_columns");?>">Purchase sale report(Test))</a>
-                                   <a href="<?php echo site_url("fertilizer/chatbot/index");?>">chatbot(test)</a>  
+                                   <!-- <a href="<?php echo site_url("fertilizer/chatbot/index");?>">chatbot(test)</a>   -->
 										<a href="<?php echo site_url("fert/rep/stkStmt_ho");?>">Consolidated Stock</a>
                                         <a href="<?php echo site_url("fert/rep/stock_valuation");?>">Stock Valuation</a>
 										<a href="<?php echo site_url("fert/rep/stkScomp_ho");?>">Companywise Stock</a>

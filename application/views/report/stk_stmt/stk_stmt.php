@@ -186,11 +186,13 @@ th:hover .drag-handle { color: #228ed3; }
                             $i++;
                             if($stock_key->unit_id==1){
                                 $OpeningMTS += $stock_key->opening; $PurchaseMTS += $stock_key->purchase; 
-                                $SaleMTS += $stock_key->sale; $stgMTS += $stock_key->shtg; 
+                                $SaleMTS += $stock_key->sale;
+                                 $stgMTS += $stock_key->shtg; 
                                 $ClosingMTS += $stock_key->closing ;
                             } else if($stock_key->unit_id==3){
                                 $OpeningLTR += $stock_key->opening; $PurchaseLTR += $stock_key->purchase; 
-                                $SaleLTR += $stock_key->sale; $stgLTR += $stock_key->shtg; 
+                                $SaleLTR += $stock_key->sale; 
+                                $stgLTR += $stock_key->shtg; 
                                 $ClosingLTR += $stock_key->closing;
                             }
                     ?>
