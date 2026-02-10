@@ -51,6 +51,7 @@
                     <th>Fwd No</th>
                     <th>Ro no</th>
                     <th>Qty</th>
+                    <th>Status</th>
                     <th>View</th>
                     <!-- <th>Delete</th> -->
                 </tr>
@@ -69,6 +70,9 @@
                     <td><?php echo $pay->fwd_no; ?></td>
                     <td><?php echo $pay->ro_no;?></td>
                     <td><?php echo $pay->fwd_qty; ?></td>
+                    <td style="color: <?php echo ($pay->fwd_status == 'U') ? 'red' : 'green'; ?>;">
+    <?php echo ($pay->fwd_status == 'U') ? 'Not Forward' : 'Forwarded'; ?>
+                    </td>
 
                     <td><a href="soc_payfwd_edit?fwd_no=<?=$pay->fwd_no;?>&fin_yr=<?=$pay->fin_yr;?>" data-toggle="tooltip"
                             data-placement="bottom" title="Edit">
@@ -95,6 +99,7 @@
                     <th>Fwd No</th>
                     <th>Ro no</th>
                     <th>Qty</th>
+                    <th>Status</th>
                     <th>View</th>
                   
                 </tr>

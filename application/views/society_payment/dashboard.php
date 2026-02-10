@@ -213,9 +213,28 @@
 	window.alert("<?php echo $this->session->flashdata('error'); ?>");
     <?php } ?>
     });
-
-
 </script>
+
+<script>
+    $(document).ready(function () {
+
+        $('.delete').click(function () {
+
+            var id = $(this).attr('id');
+            // window.alert("<?php echo $this->session->flashdata('msg'); ?>");
+            var result = confirm("Do you really want to delete this record?");
+
+            if (result) {
+
+                window.location = "<?php echo site_url('stock/deletecustpay?trans_cd=" + id + "');?>";
+
+            }
+
+        });
+
+    });
+</script>
+
 
 
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
