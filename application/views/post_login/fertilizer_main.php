@@ -346,7 +346,7 @@
                                  <div class="sub-dropdown">
 								   <a class="sub-dropbtn">Purchase & Sale <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">
-                                   <a href="<?php echo site_url("fert/rep/choose_columns_br");?>">Purchase sale report(Test))</a> 
+                                   <a href="<?php echo site_url("fert/rep/choose_columns_br");?>">Purchase sale report</a> 
 									<a href="<?php echo site_url("fert/rep/stkSprodro");?>">RO Wise Purchase & Sale</a>
 									<a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
 									<a href="<?php echo site_url("fert/rep/salerep");?>">Sale Ledger</a>
@@ -394,7 +394,7 @@
                                 <div class="sub-dropdown">
                                    <a class="sub-dropbtn">Branchwise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">  
-                                   <a href="<?php echo site_url("fert/rep/choose_columns");?>">Purchase sale report(Test))</a>
+                                   <a href="<?php echo site_url("fert/rep/choose_columns");?>">Purchase sale report</a>
                                    <!-- <a href="<?php echo site_url("fertilizer/chatbot/index");?>">chatbot(test)</a>   -->
 										<a href="<?php echo site_url("fert/rep/stkStmt_ho");?>">Consolidated Stock</a>
                                         <a href="<?php echo site_url("fert/rep/stock_valuation");?>">Stock Valuation</a>
@@ -402,6 +402,8 @@
 										<a href="<?php echo site_url("fert/rep/purrepbr");?>">Purchase</a>
 										<a href="<?php echo site_url("fert/rep/salerepbr");?>">Sale</a>
 										<a href="<?php echo site_url("fert/rep/active_society");?>">Active Society</a>
+                                        <!-- <a href="<?php echo site_url("fert/rep/active_society");?>">Company Payment Forward Details</a> -->
+                                        <a href="<?php echo site_url("fertilizer/report/company_fwd_detail");?>">Company Payment Forward Details</a>
 									</div>
                                 </div>
 								<a href="<?php echo site_url("fert/rep/soc_wse_cr_dmd");?>"> Society wise Credit Note Demand.</a>

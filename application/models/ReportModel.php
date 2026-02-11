@@ -2721,6 +2721,39 @@ GROUP BY
         return $q->result();
     }
 
+
+    public function getcompfwdData($frm_date, $to_date, $branch_id)
+    {
+        $sql = "
+            SELECT 
+                a.trans_dt,
+                b.district_name,
+                a.ro_no,
+                a.fwd_no,
+                SUM(a.fwd_qty) AS fwd_qty,
+                a.fwd_status,
+                a.fin_yr
+            FROM tdf_payment_forward a
+            JOIN md_district b 
+                ON a.branch_id = b.district_code
+            WHERE a.branch_id = ?
+            AND a.trans_dt BETWEEN ? AND ?
+            GROUP BY 
+                a.trans_dt,
+                b.district_name,
+                a.ro_no,
+                a.fwd_no,
+                a.fwd_status,
+                a.fin_yr
+            ORDER BY 
+                b.district_name,
+                a.trans_dt
+        ";
+    
+        $query = $this->db->query($sql, [$branch_id, $frm_date, $to_date]);
+        return $query->result();
+    }
+    
     public function getallAdvfwdData($comp_id, $frm_date, $to_date, $branch_id)
     {
 

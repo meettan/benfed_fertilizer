@@ -3588,7 +3588,36 @@ public function outstanding_list(){
             $this->load->view('post_login/footer');
         }
     }
+///***********Company wise forward detils for ho*************** */
+public function company_fwd_detail()
+{
+    // Collect input once
+    $branch_id = $this->input->post('branch_id');
+    $frm_date  = $this->input->post('fr_date');
+    $to_date   = $this->input->post('to_date');
 
+    // Prepare data once
+    $data['tableData'] = $this->ReportModel->getcompfwdData($frm_date, $to_date, $branch_id);
+    $data['fDate']     = $frm_date;
+    $data['tDate']     = $to_date;
+
+    // Load common header
+    $this->load->view('post_login/fertilizer_main');
+
+    // Load view based on request type
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $this->load->view('report/comp_forward_detail/advPay', $data);
+    } else {
+        $data['branch']     =   $this->ReportModel->f_get_district_asc();
+        $this->load->view('report/comp_forward_detail/advPay_ip', $data);
+    }
+
+    // Load footer
+    $this->load->view('post_login/footer');
+}
+
+/******* */
     function prod_type_sale_sumr(){
 
         if($_SERVER['REQUEST_METHOD'] == "POST") {
