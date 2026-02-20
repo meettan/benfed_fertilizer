@@ -48,7 +48,9 @@
 
                 <tr>
                     <th>Sl No.</th>
+                    <th>Draft date</th>
                     <th>Fwd No</th>
+                    <th>Fwd date</th>
                     <th>Ro no</th>
                     <th>Qty</th>
                     <th>Status</th>
@@ -67,7 +69,9 @@
 
                 <tr>
                     <td><?php echo ++$i; ?></td>
+                    <td><?php echo date("d/m/Y", strtotime($pay->trans_dt)); ?></td>
                     <td><?php echo $pay->fwd_no; ?></td>
+                    <td><?php echo date("d/m/Y", strtotime($pay->fwd_date)); ?></td>
                     <td><?php echo $pay->ro_no;?></td>
                     <td><?php echo $pay->fwd_qty; ?></td>
                     <td style="color: <?php echo ($pay->fwd_status == 'U') ? 'red' : 'green'; ?>;">
@@ -95,8 +99,10 @@
 
                 <tr>
 
-                    <th>Sl No.</th>
+                <th>Sl No.</th>
+                    <th>Draft date</th>
                     <th>Fwd No</th>
+                    <th>Fwd date</th>
                     <th>Ro no</th>
                     <th>Qty</th>
                     <th>Status</th>
