@@ -71,7 +71,15 @@
                     <td><?php echo ++$i; ?></td>
                     <td><?php echo date("d/m/Y", strtotime($pay->trans_dt)); ?></td>
                     <td><?php echo $pay->fwd_no; ?></td>
-                    <td><?php echo date("d/m/Y", strtotime($pay->fwd_date)); ?></td>
+                    <td>
+                        <?php
+                        if ($pay->fwd_status == 'U') {
+                            echo '00-00-0000';
+                        } else {
+                            echo date("d/m/Y", strtotime($pay->fwd_date));
+                        }
+                        ?>
+                        </td>
                     <td><?php echo $pay->ro_no;?></td>
                     <td><?php echo $pay->fwd_qty; ?></td>
                     <td style="color: <?php echo ($pay->fwd_status == 'U') ? 'red' : 'green'; ?>;">
