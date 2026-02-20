@@ -3,6 +3,23 @@
 <head>
     <title>Company Forward Details</title>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- JSZip (REQUIRED for Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- DataTables Buttons -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Arial, sans-serif;
@@ -21,34 +38,14 @@
             font-weight: 600;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th {
+        table.dataTable thead th {
             background: #2f4050;
             color: #ffffff;
-            padding: 10px;
-            font-size: 13px;
-            text-transform: uppercase;
             text-align: center;
         }
 
-        td {
-            padding: 8px;
-            font-size: 14px;
+        table.dataTable tbody td {
             text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #eef5ff;
         }
 
         .badge {
@@ -69,56 +66,41 @@
             color: #fff;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            padding: 8px 20px;
-            font-size: 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
+        .dt-buttons {
+            margin-bottom: 10px;
         }
 
         @media print {
-            body {
-                background: #fff;
-            }
-
-            .btn {
+            .dt-buttons,
+            .dataTables_filter,
+            .dataTables_length,
+            .dataTables_paginate {
                 display: none;
-            }
-
-            th {
-                background: #000 !important;
-                color: #fff !important;
             }
         }
     </style>
 
     <script>
+        $(document).ready(function () {
+            $('#reportTable').DataTable({
+                pageLength: 25,
+                order: [[7, 'asc']], // Sort by FWD Date
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Export to Excel',
+                        title: 'Company_Forward_Details'
+                    }
+                ],
+                columnDefs: [
+                    { orderable: false, targets: [0] } // Sl No not sortable
+                ]
+            });
+        });
+
         function printDiv() {
-            var divToPrint = document.getElementById('divToPrint');
-            var WindowObject = window.open('', 'Print-Window');
-
-            WindowObject.document.open();
-            WindowObject.document.write('<html><head><title>Print</title>');
-            WindowObject.document.write('<style>');
-            WindowObject.document.write('table{width:100%;border-collapse:collapse;font-size:12px}');
-            WindowObject.document.write('th,td{border:1px solid #000;padding:6px;text-align:center}');
-            WindowObject.document.write('th{background:#000;color:#fff}');
-            WindowObject.document.write('</style>');
-            WindowObject.document.write('</head><body onload="window.print()">');
-            WindowObject.document.write(divToPrint.innerHTML);
-            WindowObject.document.write('</body></html>');
-            WindowObject.document.close();
-
-            setTimeout(function() {
-                WindowObject.close();
-            }, 50);
+            window.print();
         }
     </script>
 </head>
@@ -126,75 +108,68 @@
 <body>
 
 <div class="wraper">
-    <div class="col-lg-12 container contant-wraper">
+<div class="col-lg-12 container contant-wraper">
 
-        <div id="divToPrint">
+<!-- HEADER -->
+<div style="text-align:center; margin-bottom:15px;">
+    <h4>THE WEST BENGAL STATE CO-OP. MARKETING FEDERATION LTD.</h4>
+    <h5>Head Office: Southend Conclave, 3rd Floor, Rajdanga Main Road, Kolkata – 700107</h5>
+    <hr style="width:60%; margin:10px auto;">
+    <h3>
+        Company Forward Details<br>
+        <small>
+            (<?= date("d/m/Y", strtotime($fDate)); ?> to <?= date("d/m/Y", strtotime($tDate)); ?>)
+        </small>
+    </h3>
+</div>
 
-            <!-- HEADER -->
-            <div style="text-align:center; margin-bottom:15px;">
-                <h4>THE WEST BENGAL STATE CO-OP. MARKETING FEDERATION LTD.</h4>
-                <h5>Head Office: Southend Conclave, 3rd Floor, Rajdanga Main Road, Kolkata – 700107</h5>
-                <hr style="width:60%; margin:10px auto;">
-                <h3>
-                    Company Forward Details<br>
-                    <small>
-                        (<?= date("d/m/Y", strtotime($fDate)); ?> to <?= date("d/m/Y", strtotime($tDate)); ?>)
-                    </small>
-                </h3>
-            </div>
+<!-- TABLE -->
+<table id="reportTable" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Branch</th>
+            <th>Company</th>
+            <th>Product</th>
+            <th>RO No</th>
+            <th>RO Date</th>
+            <th>FWD No</th>
+            <th>FWD Date</th>
+            <th>Qty</th>
+            <th>Status</th>
+        </tr>
+    </thead>
 
-            <!-- TABLE -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sl No</th>
-                        <th>Date</th>
-                        <th>FWD No</th>
-                        <th>Branch Name</th>
-                        <th>Qty</th>
-                        <th>RO No</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+    <tbody>
+    <?php if (!empty($tableData)) {
+        $i = 1;
+        foreach ($tableData as $row) { ?>
+        <tr>
+            <td><?= $i++; ?></td>
+            <td><?= $row->district_name; ?></td>
+            <td><?= $row->companies; ?></td>
+            <td><?= $row->products; ?></td>
+            <td><?= $row->ro_no; ?></td>
+            <td><?= date("d/m/Y", strtotime($row->ro_dt)); ?></td>
+            <td><?= $row->fwd_no; ?></td>
+            <td><?= date("d/m/Y", strtotime($row->trans_dt)); ?></td>
+            <td><?= $row->fwd_qty; ?></td>
+            <td>
+                <?= ($row->fwd_status == 'A')
+                    ? '<span class="badge badge-success">Forwarded</span>'
+                    : '<span class="badge badge-danger">Not Forwarded</span>'; ?>
+            </td>
+        </tr>
+    <?php } } ?>
+    </tbody>
+</table>
 
-                <tbody>
-                <?php if ($tableData) { 
-                    $i = 1;
-                    foreach ($tableData as $row) { ?>
-                        <tr>
-                            <td><?= $i++; ?></td>
-                            <td><?= date("d/m/Y", strtotime($row->trans_dt)); ?></td>
-                            <td><?= $row->fwd_no; ?></td>
-                            <td><?= $row->district_name; ?></td>
-                            <td><?= $row->fwd_qty; ?></td>
-                            <td><?= $row->ro_no; ?></td>
-                            <td>
-                                <?php if ($row->fwd_status == 'A') { ?>
-                                    <span class="badge badge-success">Forwarded</span>
-                                <?php } else { ?>
-                                    <span class="badge badge-danger">Not Forwarded</span>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                <?php } 
-                } else { ?>
-                    <tr>
-                        <td colspan="7" style="text-align:center; font-weight:bold;">
-                            No Data Found
-                        </td>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
+<!-- BUTTON -->
+<div style="text-align:center; margin-top:20px;">
+    <button class="btn btn-primary" onclick="printDiv()">Print</button>
+</div>
 
-        </div>
-
-        <!-- BUTTON -->
-        <div style="text-align:center; margin-top:20px;">
-            <button class="btn-primary btn" onclick="printDiv()">Print</button>
-        </div>
-
-    </div>
+</div>
 </div>
 
 </body>

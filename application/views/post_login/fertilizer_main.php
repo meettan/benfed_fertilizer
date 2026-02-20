@@ -22,6 +22,22 @@
         <script type="text/javascript" src="<?php echo base_url("/assets/dist/jquery.validate.js")?>"></script>
         
     <style>
+        .new-badge {
+    background: #ff0000;
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-left: 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0.4;}
+    100% {opacity: 1;}
+}
         .hr {
             display: block;
             margin-top: 0.5em;
@@ -262,7 +278,16 @@
                               <a href="<?php echo site_url("drcrnote/dr_noteadj_br");?>">Debit Note Adjustment</a>
                               <a href="<?php echo site_url("drcrnote/yearlydr_note");?>">Yearly Credit Note </a>
                               <a href="<?php echo site_url("socpay/society_payment");?>">Receive Payment</a>
-                              <a href="<?php echo site_url("socpay/soc_payment_fwd");?>">Forward Payment</a>
+                              <?php 
+$release_date = strtotime("2026-02-20");
+$today = time();
+$days = ($today - $release_date) / (60*60*24);
+?>
+                              <a href="<?php echo site_url("socpay/soc_payment_fwd");?>">Forward Payment
+                              <?php if($days <= 20){ ?>
+        <span class="new-badge">NEW</span>
+    <?php } ?>
+                            </a>
                               <!-- <a href="<?php echo site_url("virtualpnt/virtual_stk_point");?>">Secondary Stock Point</a> -->
                             </div>
                         </div>
@@ -346,7 +371,17 @@
                                  <div class="sub-dropdown">
 								   <a class="sub-dropbtn">Purchase & Sale <i class="fa fa-angle-right" style="float: right;"></i></a> 
 								   <div class="sub-dropdown-content">
-                                   <a href="<?php echo site_url("fert/rep/choose_columns_br");?>">Purchase sale report</a> 
+                                   <?php 
+$release_date = strtotime("2026-02-20");
+$today = time();
+$days = ($today - $release_date) / (60*60*24);
+?>
+
+                                   <a href="<?php echo site_url("fert/rep/choose_columns_br");?>">Dynamic Purchase sale report
+                                   <?php if($days <= 20){ ?>
+        <span class="new-badge">NEW</span>
+    <?php } ?>
+                                </a> 
 									<a href="<?php echo site_url("fert/rep/stkSprodro");?>">RO Wise Purchase & Sale</a>
 									<a href="<?php echo site_url("fert/rep/purrep");?>">Purchase Ledger</a>
 									<a href="<?php echo site_url("fert/rep/salerep");?>">Sale Ledger</a>
@@ -393,13 +428,33 @@
 								<!--<div class="sub-dropdownbr"> -->
                                 <div class="sub-dropdown">
                                    <a class="sub-dropbtn">Branchwise Report <i class="fa fa-angle-right" style="float: right;"></i></a> 
-								   <div class="sub-dropdown-content">  
-                                   <a href="<?php echo site_url("fert/rep/choose_columns");?>">Purchase sale report</a>
+								   <div class="sub-dropdown-content"> 
+                                   <?php 
+$release_date = strtotime("2026-02-20");
+$today = time();
+$days = ($today - $release_date) / (60*60*24);
+?> 
+                                   <a href="<?php echo site_url("fert/rep/choose_columns");?>">Dynamic Purchase sale report
+                                   <?php if($days <= 20){ ?>
+        <span class="new-badge">NEW</span>
+    <?php } ?>
+</a>
+                                </a>
                                    <!-- <a href="<?php echo site_url("fertilizer/chatbot/index");?>">chatbot(test)</a>   -->
 										<a href="<?php echo site_url("fert/rep/stkStmt_ho");?>">Consolidated Stock</a>
                                         <a href="<?php echo site_url("fert/rep/stock_valuation");?>">Stock Valuation</a>
 										<a href="<?php echo site_url("fert/rep/stkScomp_ho");?>">Companywise Stock</a>
-										<a href="<?php echo site_url("fert/rep/purrepbr");?>">Purchase</a>
+										<?php 
+$release_date = strtotime("2026-02-20");
+$today = time();
+$days = ($today - $release_date) / (60*60*24);
+?>
+
+                                        <a href="<?php echo site_url("fert/rep/purrepbr");?>">Purchase
+                                        <?php if($days <= 20){ ?>
+        <span class="new-badge">NEW</span>
+    <?php } ?>
+                                    </a>
 										<a href="<?php echo site_url("fert/rep/salerepbr");?>">Sale</a>
 										<a href="<?php echo site_url("fert/rep/active_society");?>">Active Society</a>
                                         <!-- <a href="<?php echo site_url("fert/rep/active_society");?>">Company Payment Forward Details</a> -->
@@ -433,7 +488,16 @@
                                 </div> -->
 
 								<a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
-                                <a href="<?php echo site_url("fert/rep/outstanding_list");?>">Outstanding Report</a>
+                                <?php 
+$release_date = strtotime("2026-02-20");
+$today = time();
+$days = ($today - $release_date) / (60*60*24);
+?>
+                                <a href="<?php echo site_url("fert/rep/outstanding_list");?>">Outstanding Report
+                                <?php if($days <= 7){ ?>
+        <span class="new-badge">NEW</span>
+    <?php } ?>
+                            </a>
 
                                 <?php if( $this->session->userdata['loggedin']['ho_flag']=="Y"){?> 
                                 <div class="sub-dropdown">

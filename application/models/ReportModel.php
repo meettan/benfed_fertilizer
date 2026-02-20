@@ -1430,7 +1430,22 @@ END ),3)lqdqty,
         return $data->result();
         
     }
-
+    public function pc_all($from_dt,$to_dt){
+        $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
+                a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
+                a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
+                CONCAT(c.COMP_NAME," - ",c.GST_NO) as short_name ,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
+                from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
+                where  a.prod_id = b.PROD_ID
+                and    a.comp_id = c.COMP_ID
+                and    a.stock_point=d.soc_id
+                and    d.district=f.district_code
+                and    a.trans_dt between "'.$from_dt.'" and "'.$to_dt.'"
+                and    a.trans_flag = 1');
+                        
+        return $data->result();
+    
+    } 
     public function pcn($from_dt,$to_dt,$company)
     {
 
@@ -1448,6 +1463,24 @@ END ),3)lqdqty,
                 and    a.trans_flag = 1');
                         
         return $data->result();
+    }
+    public function pc_branch($from_dt,$to_dt,$branch)
+    { 
+        $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
+        a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
+        a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
+        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
+ from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
+ where  a.prod_id = b.PROD_ID
+ and    a.comp_id = c.COMP_ID
+ and    a.stock_point=d.soc_id
+ and    d.district=f.district_code
+ and    a.br      = '.$branch.'
+ and    a.trans_dt between "'.$from_dt.'" and "'.$to_dt.'"
+ and    a.trans_flag = 1');
+
+return $data->result();
+
     }
 
 // ============================End Branchwise Purchase Report at HO (individual and all branch)====================== 
@@ -2723,37 +2756,140 @@ GROUP BY
 
 
     public function getcompfwdData($frm_date, $to_date, $branch_id)
-    {
+{
+    if (!empty($branch_id) && $branch_id > 0) {
+
+        // Selected branch
         $sql = "
+        SELECT 
+            f.trans_dt,
+            b.district_name,
+            f.ro_no,p.ro_dt,
+            f.fwd_no,
+            f.fwd_qty,
+            f.fwd_status,
+            f.fin_yr,
+
+            GROUP_CONCAT(DISTINCT m.prod_desc ORDER BY m.prod_desc SEPARATOR ', ') AS products,
+            GROUP_CONCAT(DISTINCT c.comp_name ORDER BY c.comp_name SEPARATOR ', ') AS companies
+
+        FROM (
             SELECT 
-                a.trans_dt,
-                b.district_name,
-                a.ro_no,
-                a.fwd_no,
-                SUM(a.fwd_qty) AS fwd_qty,
-                a.fwd_status,
-                a.fin_yr
-            FROM tdf_payment_forward a
-            JOIN md_district b 
-                ON a.branch_id = b.district_code
-            WHERE a.branch_id = ?
-            AND a.trans_dt BETWEEN ? AND ?
+                trans_dt,
+                branch_id,
+                ro_no,
+                fwd_no,
+                SUM(fwd_qty) AS fwd_qty,
+                fwd_status,
+                fin_yr
+            FROM tdf_payment_forward
+            WHERE branch_id = ?
+              AND trans_dt BETWEEN ? AND ?
             GROUP BY 
-                a.trans_dt,
-                b.district_name,
-                a.ro_no,
-                a.fwd_no,
-                a.fwd_status,
-                a.fin_yr
-            ORDER BY 
-                b.district_name,
-                a.trans_dt
+                trans_dt,
+                branch_id,
+                ro_no,
+                fwd_no,
+                fwd_status,
+                fin_yr
+        ) f
+
+        JOIN md_district b 
+            ON f.branch_id = b.district_code
+
+        JOIN td_purchase p 
+            ON f.ro_no = p.ro_no
+
+        JOIN mm_product m 
+            ON p.prod_id = m.prod_id
+
+        JOIN mm_company_dtls c 
+            ON p.comp_id = c.comp_id
+
+        GROUP BY 
+            f.trans_dt,
+            b.district_name,
+            f.ro_no,p.ro_dt,
+            f.fwd_no,
+            f.fwd_qty,
+            f.fwd_status,
+            f.fin_yr
+
+        ORDER BY 
+            b.district_name,
+            f.trans_dt
         ";
-    
+
         $query = $this->db->query($sql, [$branch_id, $frm_date, $to_date]);
-        return $query->result();
+
+    } else {
+
+        // ALL branches
+        $sql = "
+        SELECT 
+            f.trans_dt,
+            b.district_name,
+            f.ro_no,p.ro_dt,
+            f.fwd_no,
+            f.fwd_qty,
+            f.fwd_status,
+            f.fin_yr,
+
+            GROUP_CONCAT(DISTINCT m.prod_desc ORDER BY m.prod_desc SEPARATOR ', ') AS products,
+            GROUP_CONCAT(DISTINCT c.comp_name ORDER BY c.comp_name SEPARATOR ', ') AS companies
+
+        FROM (
+            SELECT 
+                trans_dt,
+                branch_id,
+                ro_no,
+                fwd_no,
+                SUM(fwd_qty) AS fwd_qty,
+                fwd_status,
+                fin_yr
+            FROM tdf_payment_forward
+            WHERE trans_dt BETWEEN ? AND ?
+            GROUP BY 
+                trans_dt,
+                branch_id,
+                ro_no,
+                fwd_no,
+                fwd_status,
+                fin_yr
+        ) f
+
+        JOIN md_district b 
+            ON f.branch_id = b.district_code
+
+        JOIN td_purchase p 
+            ON f.ro_no = p.ro_no
+
+        JOIN mm_product m 
+            ON p.prod_id = m.prod_id
+
+        JOIN mm_company_dtls c 
+            ON p.comp_id = c.comp_id
+
+        GROUP BY 
+            f.trans_dt,
+            b.district_name,
+            f.ro_no,p.ro_dt,
+            f.fwd_no,
+            f.fwd_qty,
+            f.fwd_status,
+            f.fin_yr
+
+        ORDER BY 
+            b.district_name,
+            f.trans_dt
+        ";
+
+        $query = $this->db->query($sql, [$frm_date, $to_date]);
     }
-    
+
+    return $query->result();
+}
+
     public function getallAdvfwdData($comp_id, $frm_date, $to_date, $branch_id)
     {
 
@@ -3366,20 +3502,50 @@ GROUP BY
         HAVING  a.tot_amt - IFNULL(SUM(f.paid_amt),0) >10");
     
         }else{
-            
-            $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
-                FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_payment_recv f
-                where a.br_cd = b.id
-                and   a.soc_id = c.soc_id
-                and   a.prod_id = d.prod_id
-                and   a.unit    = e.id
-                and   a.br_cd=$branciId
-                and a.comp_id=$comp_id
-                and a.trans_do=f.sale_invoice_no
-                and   a.do_dt >='$frmdate'
-                and   a.sale_due_dt < '$todate'
-                group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt
-                HAVING a.round_tot_amt-sum(f.paid_amt) >10");
+            $query = $this->db->query("SELECT 
+        a.br, b.branch_name,'' AS soc_id,
+        '' AS soc_name,a.ro_no AS sale_ro,
+        a.prod_id, d.prod_desc,'' AS trans_do,a.trans_dt AS do_dt,
+        a.no_of_days,a.due_dt AS sale_due_dt,
+        a.qty, a.unit, e.unit_name,
+        a.tot_amt AS round_tot_amt,
+        SUM(f.paid_amt) AS paid_amt,
+        a.tot_amt - IFNULL(SUM(f.paid_amt),0) AS due_amt
+    FROM 
+        td_purchase a
+    JOIN 
+        md_branch b ON a.br = b.id
+    JOIN 
+        mm_product d ON a.prod_id = d.prod_id
+    JOIN 
+        mm_unit e ON a.unit = e.id
+    LEFT JOIN 
+        tdf_company_payment f ON a.ro_no = f.pur_ro
+    WHERE 
+       
+        a.trans_dt between '$frmdate' and '$todate'
+        AND a.comp_id = $comp_id
+          AND '$todate'>a.due_dt 
+        AND a.adv_status='N'
+        AND   a.br=$branciId
+    GROUP BY  a.br,b.branch_name,
+        a.ro_no, a.prod_id,d.prod_desc,
+        a.due_dt, a.trans_dt,
+        a.qty, a.unit,e.unit_name
+        HAVING  a.tot_amt - IFNULL(SUM(f.paid_amt),0) >10");
+            // $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
+            //     FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_payment_recv f
+            //     where a.br_cd = b.id
+            //     and   a.soc_id = c.soc_id
+            //     and   a.prod_id = d.prod_id
+            //     and   a.unit    = e.id
+            //     and   a.br_cd=$branciId
+            //     and a.comp_id=$comp_id
+            //     and a.trans_do=f.sale_invoice_no
+            //     and   a.do_dt >='$frmdate'
+            //     and   a.sale_due_dt < '$todate'
+            //     group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt
+            //     HAVING a.round_tot_amt-sum(f.paid_amt) >10");
 
         }
         return $query->result();
