@@ -3297,7 +3297,7 @@ GROUP BY
     if($refereceNo==null||$refereceNo==""){
         
      $q = $this->db->query("select y.type_name,SUM(a.adv_amt) as taxable_amt,ROUND( SUM(0.001 *a.adv_amt),2) as tds_amt,d.comp_name,
-        ROUND(SUM(a.adv_amt) - SUM(0.001 *a.adv_amt),2)as net_amt,
+     SUM(a.adv_amt) - ROUND( SUM(0.001 *a.adv_amt),2)as net_amt,
       x.bank_name bnk,x.bnk_branch_name bnk_branch_name,t.bank_name benfed_bnk,t.ac_no,t.bank_name,t.branch_name,
      x.ac_no acc_num,x.ifsc as cifsc
      from tdf_company_advance a, mm_product b,md_district c,mm_company_dtls d,td_prod_comp_cat_acc x,mm_product_type y,td_adv_details z,mm_feri_bank t
@@ -3317,7 +3317,7 @@ GROUP BY
   
     }else{
         $q = $this->db->query("select y.type_name,SUM(a.adv_amt) as taxable_amt,ROUND( SUM(0.001 *a.adv_amt),2) as tds_amt,d.comp_name,
-        ROUND(SUM(a.adv_amt) - SUM(0.001 *a.adv_amt),2)as net_amt,
+        SUM(a.adv_amt) - ROUND( SUM(0.001 *a.adv_amt),2)as net_amt,
       x.bank_name bnk,x.bnk_branch_name bnk_branch_name,t.bank_name benfed_bnk,t.ac_no,t.bank_name,t.branch_name,
      x.ac_no acc_num,x.ifsc as cifsc
      from tdf_company_advance a, mm_product b,md_district c,mm_company_dtls d,td_prod_comp_cat_acc x,mm_product_type y,td_adv_details z,mm_feri_bank t
