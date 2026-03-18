@@ -310,6 +310,8 @@ public function drnoteReport()
 				
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 				
+				"SUBSTR(a.recpt_no,1,3) !=" => 'CRN',
+
 				"a.trans_dt BETWEEN '".$from_date."' AND '".$to_date."' group by  a.invoice_no ORDER BY a.trans_dt"			=>	NULL
 			);
 			//a.fin_yr='".$this->session->userdata['loggedin']['fin_id']."'
