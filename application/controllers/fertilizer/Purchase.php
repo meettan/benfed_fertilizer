@@ -1466,15 +1466,15 @@ class Purchase extends MX_Controller
 
 				"prod_id"      => $prod_id,
 
-				"ro_no"        => $ro_no,
-
+				"ro_no"        => trim($ro_no),
+				
 				"ro_dt"        => $ro_dt,
 
 				"no_of_days"   => $no_of_days,
 
 				"due_dt"       => $due_dt,
 
-				"invoice_no"   => $invoice_no,
+				"invoice_no"   => trim($invoice_no),
 
 				"invoice_dt"   =>  $invoice_dt,
 
