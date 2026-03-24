@@ -3253,8 +3253,13 @@ public function company_advpayment(){
 /******* */
 
     public function overdue_list(){
-        // $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
-        $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,NUll,0);
+        $where_cmp = array(
+            "COMP_ID !=" => 1
+        );
+        
+        $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,$where_cmp,0);
+        //echo $this->db->last_query();
+        //exit;
         if($this->input->post()){
             // if($this->input->post('comp_id') != 0){
             //     $wherec = array('a.comp_id '=>$this->input->post('comp_id'));
@@ -3273,9 +3278,12 @@ public function company_advpayment(){
         
         }else{
             $select      = array("COMP_ID","COMP_NAME");
-        
-            // $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
-            $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,NUll,0);
+            $where_cmp = array(
+                "COMP_ID !=" => 1
+            );
+            
+            
+            $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,$where_cmp,0);
 
             $this->load->view('post_login/fertilizer_main');
             
@@ -3285,12 +3293,13 @@ public function company_advpayment(){
     }
 //********** */
 public function outstanding_list(){
-    // $data['company']    =   $this->ReportModel->f_select("mm_company_dtls", NULL, array('1 order by COMP_NAME'=>NULL), 0);
-    $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,NUll,0);
+    $where_cmp = array(
+        "COMP_ID !=" => 1
+    );
+   
+    $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,$where_cmp,0);
     if($this->input->post()){
-        // if($this->input->post('comp_id') != 0){
-        //     $wherec = array('a.comp_id '=>$this->input->post('comp_id'));
-        // }
+        
              $comp_id=  $this->input->post('comp_id');
             $frmdate=$this->input->post('from_date');
             $todate=$this->input->post('to_date');
@@ -3306,8 +3315,11 @@ public function outstanding_list(){
     }else{
         $select      = array("COMP_ID","COMP_NAME");
     
-        // $where       = array("district"  =>  $this->session->userdata['loggedin']['branch_id']);
-        $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,NUll,0);
+        $where_cmp = array(
+            "COMP_ID !=" => 1
+        );
+       
+        $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,$where_cmp,0);
 
         $this->load->view('post_login/fertilizer_main');
         
