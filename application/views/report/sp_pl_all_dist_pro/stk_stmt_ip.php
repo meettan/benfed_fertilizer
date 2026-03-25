@@ -81,7 +81,7 @@
                 <label for="product" class="col-sm-2 col-form-label">Product:</label>
                 <div class="col-sm-6">
                     <select name="product" id="product" class="form-control product" required>
-                        <option value="">Select Product</option>
+                        <option value="">Select2 Product</option>
                     </select>
                 </div>
             </div>
@@ -119,7 +119,8 @@
         $.ajax({
             url: "<?=site_url('fert/rep/getcompany')?>", 
             type: "POST",
-            dataType: "json",
+            // dataType: "json",
+            dataType: "html",
             data:{ comp_id: comp_id },
             success: function (result) {
             $('#product').html(result);

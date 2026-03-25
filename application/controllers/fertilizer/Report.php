@@ -1242,22 +1242,49 @@ public function ps_pl_all_comp_dist(){
     }
 
 }
+    // public function getcompany(){
+    //     $comp=$this->input->post('comp_id');
+    //     $ex=explode(',',$comp);
+    //     $comp_id=$ex[0];
+    //     $where1 = array("COMPANY"  =>  $comp_id,'1 order by PROD_DESC'=>NULL);
+    //     $select=array('PROD_DESC','PROD_ID');
+
+    //     $data=$this->ReportModel->f_select("mm_product", $select, $where1,0);
+    //     $output='<option value="">Select Product</option>';
+    //     foreach ($data as $key) {
+    //         $output.='<option value="'.$key->PROD_ID.','.$key->PROD_DESC.'">'.$key->PROD_DESC.'</option>';
+    //     }
+    //     echo json_encode($output);
+    // }
+
     public function getcompany(){
-        $comp=$this->input->post('comp_id');
-        $ex=explode(',',$comp);
-        $comp_id=$ex[0];
-        $where1 = array("COMPANY"  =>  $comp_id,'1 order by PROD_DESC'=>NULL);
-        $select=array('PROD_DESC','PROD_ID');
 
-        $data=$this->ReportModel->f_select("mm_product", $select, $where1,0);
-        $output='<option value="">Select Product</option>';
+        $comp = $this->input->post('comp_id');
+        $ex   = explode(',', $comp);
+        $comp_id = $ex[0];
+    
+        $where1 = array(
+            "COMPANY" => $comp_id,
+            '1 order by PROD_DESC' => NULL
+        );
+    
+        $select = array('PROD_DESC','PROD_ID');
+    
+        $data = $this->ReportModel->f_select("mm_product", $select, $where1, 0);
+    
+        // ✅ Start HTML
+        $output  = '<option value="0,All">All</option>';
+        $output .= '<option value="">Select Product</option>';
+    
         foreach ($data as $key) {
-            $output.='<option value="'.$key->PROD_ID.','.$key->PROD_DESC.'">'.$key->PROD_DESC.'</option>';
+    
+            $output .= '<option value="'.$key->PROD_ID.','.$key->PROD_DESC.'">'
+                    .  $key->PROD_DESC
+                    . '</option>';
         }
-        echo json_encode($output);
-    }
-
-     
+    
+        echo $output; // ✅ NO json_encode
+    } 
 /*******************************************Companywise Consolidated Stock Report at Branch**********************************************/
         public function stkScomp(){
 
