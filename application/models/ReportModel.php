@@ -1710,15 +1710,68 @@ public function f_get_gstrb2b( $frmDt, $toDt)
     public function p_delivery_reg($frm_dt, $to_dt, $br_cd, $soc_id)
     {
 
-        $query  = $this->db->query("SELECT a.do_dt,a.trans_do,a.prod_id,b.prod_desc,a.sale_ro,a.qty,a.soc_id,c.soc_name,b.unit,b.qty_per_bag,
-    (select distinct  paid_id from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and soc_id=$soc_id) as paid_id,(select distinct  paid_dt from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and soc_id=$soc_id) as paid_dt,
-    (select ro_dt from td_purchase where ro_no=a.sale_ro and br=$br_cd) ro_dt,
-    (select   ifnull(sum(paid_amt),0) from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and soc_id=$soc_id) as paid_amt
-    FROM  td_sale a,mm_product b ,mm_ferti_soc c
-    WHERE a.prod_id=b.prod_id
-    and a.soc_id=c.soc_id
-    and a.br_cd=$br_cd and a.soc_id=$soc_id
-    and a.do_dt between '$frm_dt' and '$to_dt'");
+    //     $query  = $this->db->query("SELECT a.do_dt,a.trans_do,a.prod_id,b.prod_desc,a.sale_ro,a.qty,a.soc_id,c.soc_name,b.unit,b.qty_per_bag,
+    // (select distinct  paid_id from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and soc_id=$soc_id) as paid_id,(select distinct  paid_dt from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and soc_id=$soc_id) as paid_dt,
+    // (select ro_dt from td_purchase where ro_no=a.sale_ro and br=$br_cd) ro_dt,
+    // (select   ifnull(sum(paid_amt),0) from tdf_payment_recv where sale_invoice_no=a.trans_do and branch_id=$br_cd and soc_id=$soc_id) as paid_amt
+    // FROM  td_sale a,mm_product b ,mm_ferti_soc c
+    // WHERE a.prod_id=b.prod_id
+    // and a.soc_id=c.soc_id
+    // and a.br_cd=$br_cd and a.soc_id=$soc_id
+    // and a.do_dt between '$frm_dt' and '$to_dt'");
+
+    $query  = $this->db->query(" SELECT 
+    a.do_dt,
+    a.trans_do,
+    a.prod_id,
+    b.prod_desc,
+    a.sale_ro,
+    a.qty,
+    a.soc_id,
+    c.soc_name,
+    b.unit,
+    b.qty_per_bag,
+
+    MAX(p.paid_id)  AS paid_id,
+    MAX(p.paid_dt)  AS paid_dt,
+    IFNULL(SUM(p.paid_amt), 0) AS paid_amt,
+
+    MAX(tp.ro_dt) AS ro_dt
+
+FROM td_sale a
+
+JOIN mm_product b 
+    ON a.prod_id = b.prod_id
+
+JOIN mm_ferti_soc c 
+    ON a.soc_id = c.soc_id
+
+LEFT JOIN tdf_payment_recv p 
+    ON p.sale_invoice_no = a.trans_do 
+    AND p.branch_id = $br_cd 
+    AND p.soc_id = $soc_id
+
+LEFT JOIN td_purchase tp 
+    ON tp.ro_no = a.sale_ro 
+    AND tp.br = $br_cd
+
+WHERE 
+    a.br_cd =  $br_cd 
+    AND a.soc_id = $soc_id 
+    AND a.do_dt BETWEEN '$frm_dt' and '$to_dt'
+
+GROUP BY 
+    a.do_dt,
+    a.trans_do,
+    a.prod_id,
+    b.prod_desc,
+    a.sale_ro,
+    a.qty,
+    a.soc_id,
+    c.soc_name,
+    b.unit,
+    b.qty_per_bag  
+ORDER BY `ro_dt` DESC");
         return $query->result();
     }
     /*********************************** */

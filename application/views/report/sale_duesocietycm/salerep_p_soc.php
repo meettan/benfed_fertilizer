@@ -96,7 +96,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <!-- <th>Sale invoice</th> -->
 
-                                <th>RO</th>
+                                <th>RO,</th>
 
                                 <th>RO Date</th>
 

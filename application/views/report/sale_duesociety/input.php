@@ -234,7 +234,13 @@ tr:hover {background-color: #f5f5f5;}
                              </td>
                         <td class="report"><?php echo $sal->trans_do; ?></td>
                         <td class="report"><?php echo $sal->paid_id; ?></td>
-                        <td class="report"><?php echo date("d/m/Y",strtotime($sal->paid_dt)); ?></td>
+                        <!-- <td class="report"><?php echo date("d/m/Y",strtotime($sal->paid_dt)); ?></td> -->
+                        <td class="report">
+<?= (!empty($sal->paid_dt) && $sal->paid_dt != '0000-00-00') 
+    ? date("d/m/Y", strtotime($sal->paid_dt)) 
+    : '' ?>
+</td>
+                        <!-- <td class="report"><?php  echo (!empty($row->paid_dt)) ? date("d/m/Y", strtotime($row->paid_dt)) : '';?></td> -->
                         <td class="report"><?php echo $sal->paid_amt; 
                          $tot_amt += $sal->paid_amt;?></td>
                         <!-- <td class="report"><?php echo $sal->taxable_amt;
