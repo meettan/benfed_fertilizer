@@ -308,7 +308,8 @@
                     // if($payment_fwd_cnt == 0) 
                    // { 
                         ?>
-                        <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Submit" />
+                        <!-- <input type="submit" id= "submit" class="btn btn-info active_flag_c" value="Submit" /> -->
+                        <input type="submit" id= "submit" class="btn btn-info" value="Submit" />
                         <?php
                     // }
                      //else 
