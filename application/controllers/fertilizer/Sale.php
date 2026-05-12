@@ -114,16 +114,17 @@
 			
 
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-
-				$where  =   array(
-					'comp_id'     => $comp_id,
-					'ro_no'      =>  $ro
-				);
+// echo $comp_id;
+// echo $ro;
+// die();
+				$where  =   array('comp_id' => $comp_id,
+					              'ro_no'   => $this->input->post("ro"));
 
 				$select = array("ro_dt","prod_id");
 
-			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
-
+			$ros= $this->SaleModel->f_select('td_purchase',$select,$where,1);
+			// echo $this->db->last_query();
+			// exit();
 			$ro_dt      = $ros->ro_dt;
 
 			$prod_id    = $ros->prod_id;
