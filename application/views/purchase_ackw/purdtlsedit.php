@@ -119,7 +119,7 @@
 
                 <!-- <label for="dr_amt" class="col-sm-2 col-form-label">Amount:</label> -->
 
-                <div class="col-sm-4">
+                <div class="col-sm-4">Qty
                     <!-- <input type="text" id="tot_amt" name="tot_amt" class="form-control" required /> -->
                     <input type="hidden" id="recpt_no" name="recpt_no" class="form-control" />
                 </div>

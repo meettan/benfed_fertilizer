@@ -95,7 +95,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <!-- <th>Sale invoice</th> -->
 
-                                <th>RO</th>
+                                <th>RO,</th>
 
                                <th>RO Date</th>
 
@@ -105,7 +105,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                 <th>MR No</th>
 
-                                <th>MR Date</th>
+                                <th>MR date</th>
 
                                 <th>Received Amount</th>
 
@@ -151,7 +151,12 @@ tr:hover {background-color: #f5f5f5;}
                                     <td class="report"><?php echo $sal->qty; ?></td>
                                     <td class="report"><?php echo $sal->trans_do; ?></td>
                                     <td class="report"><?php echo $sal->paid_id; ?></td>
-                                    <td class="report"><?php echo date("d/m/Y",strtotime($sal->paid_dt)); ?></td>
+                                    <!-- <td class="report"><?php echo date("d/m/Y",strtotime($sal->paid_dt)); ?></td> -->
+                                    <td class="report"><?php  if (!empty($row->paid_dt) && $row->paid_dt != '0000-00-00') {
+    echo date("d/m/Y", strtotime($row->paid_dt));
+} else {
+    echo 'Not paid';
+}?></td>
                                     <td class="report"><?php echo $sal->paid_amt; 
                                      $tot_amt += $sal->paid_amt;?></td>
                                     <!-- <td class="report"><?php echo $sal->taxable_amt;
