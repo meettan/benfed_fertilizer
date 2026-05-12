@@ -529,7 +529,7 @@ public function editcompany(){
 
 		$sch['schdtls'] = $this->FertilizerModel->f_select("mm_company_dtls",$select,$where,1);
 		$sch['catdtls'] = $this->FertilizerModel->f_select("mm_product_type",NULL,NULL,0);
-		$sch['pccadtls'] = $this->FertilizerModel->f_select("td_prod_comp_cat_acc",NULL,NULL,0);
+		$sch['pccadtls'] = $this->FertilizerModel->f_select("td_prod_comp_cat_acc",NULL,$where,0);
 																															
 		$this->load->view('post_login/fertilizer_main');
 
