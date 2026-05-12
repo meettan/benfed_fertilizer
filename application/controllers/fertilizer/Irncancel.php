@@ -350,7 +350,8 @@
 					// $data_array_fin['rem'] = $prod_name->prod_desc." Sale Return vide Ro No ".$rono;
 					$data_array_fin['rem'] = $this->input->post('prod_desc')." Sale Return vide Ro No ";
 				//$this->SaleModel->f_salejnl_crn($data_array_fin);
-				$this->IrncancelModel->f_cancelsalejnl($data_array_fin);
+
+				// $this->IrncancelModel->f_cancelsalejnl($data_array_fin);
 				
 				$this->session->set_flashdata('msg', 'Successfully Updated');
 		
@@ -476,7 +477,7 @@
 
 				// $data_array_fin['rem'] = $prod_name->prod_desc." Sale Return vide Ro No ".$rono;
 				$data_array_fin['rem'] = $this->input->post('prod_desc')." Sale Return vide Ro No ";
-				$this->IrncancelModel->f_cancelsalejnl($data_array_fin);
+				// $this->IrncancelModel->f_cancelsalejnl($data_array_fin);
                 // $this->SaleModel->f_edit('td_sale', $data_array, $where);
                 $this->session->set_flashdata('msg', 'Successfully Updated');
         
