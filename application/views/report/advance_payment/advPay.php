@@ -241,8 +241,9 @@ function exportAdvToExcel() {
                         <tr>
                             <td colspan="7"><b>Total</b></td>
                             <td><b><?php echo round($total, 2); ?></b></td>
-                            <td><b><?php echo $totalTds; ?></b></td>
-                            <td><b><?php echo $totalnetamt; ?></b></td>
+                            <td><b><?php echo round($totalTds); ?></b></td>
+                            <!-- <td><b><?php echo $totalnetamt; ?></b></td> -->
+                            <td><b><?php echo  round($total, 2) - round($totalTds); ?></b></td>
                         </tr>
                     <?php
                     } else {
@@ -314,7 +315,9 @@ function exportAdvToExcel() {
                             <td colspan="3"><b>Total</b></td>
                             <td style="text-align: right;"><b><?php echo round($total, 2); ?></b></td>
                             <td style="text-align: right;"><b><?php echo round($totalTds, 2); ?></b></td>
-                            <td style="text-align: right;"><b><?php echo $totalnetamt;  ?> <?php $summary_tot=$totalnetamt?></b></td>
+                            <td style="text-align: right;"><b><?php echo $totalnetamt;  ?>
+                             <!-- <?php $summary_tot=$totalnetamt?></b></td> -->
+                             <?php $summary_tot= round($total, 2) -round($totalTds, 2)?></b></td>
                         </tr>
                     <?php
                     } else {

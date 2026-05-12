@@ -346,7 +346,7 @@
 
                 //     string += '<option value="' + value.trans_do + '">' + value.trans_do + '</option>'
 
-                // });
+                //  });
 
                 // $('#inv_no').html(string);
 
