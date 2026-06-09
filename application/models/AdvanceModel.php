@@ -437,7 +437,7 @@ return $result;
 																				WHERE soc_id ='$soc_id'
 																				and receipt_no = '$receipt_no'
 																				and trans_type='O')
-												+ (select (-1)*sum(balance) from td_soc_opening
+												+ (select (-1)*ifnull(sum(balance),0) from td_soc_opening
 												where soc_id='$soc_id' and op_dt='2022-04-01')as adv_amt
 					FROM tdf_advance a 
 					WHERE a.soc_id ='$soc_id'
