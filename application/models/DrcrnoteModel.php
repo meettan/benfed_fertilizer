@@ -225,7 +225,18 @@ function f_crnjnl($data){
 		  return $sql->result();
 	
 		}
-		
+		public function f_get_yrlyrecpt_dtls($receipt_no )
+		{
+	
+   $sql = $this->db->query(" select a.trans_dt,a.recpt_no,a.trans_no,a.soc_id,b.soc_name,b.gstin,a.comp_id,a.invoice_no,a.ro,a.catg,sum(a.tot_amt) as tot_amt ,a.trans_flag,a.note_type,a.remarks,c.cat_desc
+                                    from tdf_dr_cr_note a ,mm_ferti_soc b,mm_cr_note_category c
+									 where a.soc_id=b.soc_id
+									 and   a.catg = c.sl_no
+									 and recpt_no ='$receipt_no' 
+									 group by c.cat_desc,a.trans_dt,a.recpt_no,a.trans_no,a.soc_id,b.soc_name,b.gstin,a.comp_id,a.invoice_no,a.ro,a.trans_flag,a.note_type,a.remarks");			
+		  return $sql->result();
+	
+		}
 		public function get_trans_no($fin_id){
 
 			$sql="select ifnull(max(trans_no),0) + 1 trans_no

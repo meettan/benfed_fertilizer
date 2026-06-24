@@ -285,7 +285,20 @@ public function drnoteReport()
 	$this->load->view('post_login/footer');
 	
 }
+/********yearly cr note recipt copy */
+public function yrdrnoteReport()
+{
+    $receipt_no = $this->input->get('recpt_no');
+    $finYr      = $this->session->userdata['loggedin']['fin_id'];
 
+    $cr['data'] = $this->DrcrnoteModel->f_get_yrlyrecpt_dtls($receipt_no);
+
+    $cr['receipt_no'] = $receipt_no;
+
+    $this->load->view("post_login/fertilizer_main");
+    $this->load->view('report/yrlycr_note_report', $cr);
+    $this->load->view('post_login/footer');
+}
 
 //Dashboard
 		public function dr_note(){

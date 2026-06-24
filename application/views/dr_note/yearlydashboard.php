@@ -96,13 +96,13 @@
                         <button type="button" name="Print<?= $i ?>" class="Print_" id="Print" data-toggle="tooltip"
                             data-placement="bottom" title="Print_" <?= $disable_btn; ?>>
                              
-                            <!-- <a href="<?php echo site_url('drcrnote/drnoteReport?invoice_no='.$dr->invoice_no.''); ?>" -->
-                            <!-- <a href="<?php echo site_url('drcrnote/drnoteReport?recpt_no='.$dr->recpt_no.''); ?>"
-                                title="Print"> -->
+                            <!-- <a href="<?php echo site_url('drcrnote/yrlycr_note_report.php?invoice_no='.$dr->invoice_no.''); ?>"title="Print"> -->
+                            <a href="<?php echo site_url('drcrnote/yrdrnoteReport?recpt_no='.$dr->recpt_no.''); ?>"
+                                title="Print">
 
                                 <i class="fa fa-print fa-2x" style="color:green;"></i>
 
-                            <!-- </a> -->
+                            </a>
                     </td>
                     <!-- <td>
                         <button type="button" name="download_<?= $i ?>" class="download_" id="download"
