@@ -45,7 +45,7 @@
 
             <div class="form-header">
 
-                <h4>Yearly Add Credit Note</h4>
+                <h4>Yearly Add Credit Note-</h4>
 
             </div>
 
@@ -123,7 +123,7 @@
                 <label for="trans_dt" class="col-sm-2 col-form-label">YEAR:</label>
 
                 <div class="col-sm-4">
-                      <select name="year" id="year" class="form-control year" >
+                      <!-- <select name="year" id="year" class="form-control year" >
                               <option value="">Select Year</option>
                             <?php
                                 foreach($years as $yr)
@@ -131,8 +131,21 @@
                                 <option value="<?php echo $yr->sl_no; ?>"><?php echo $yr->fin_yr; ?></option>
                             <?php
                             } ?>
-                            </select> 
-                    </div>        
+                            </select>  -->
+                            <!-- //**Showing last two years in list Box **/ -->
+                        <?php
+                        $lastTwoYears = array_slice($years, -2);
+                        ?>
+
+                        <select name="year" id="year" class="form-control year">
+                            <option value="">Select Year</option>
+                            <?php foreach ($lastTwoYears as $yr) { ?>
+                                <option value="<?php echo $yr->sl_no; ?>">
+                                    <?php echo $yr->fin_yr; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+</div>        
                    <label for="trans_dt" class="col-sm-2 col-form-label">Ref Invoice:</label>
                    <div class="col-sm-4">
 

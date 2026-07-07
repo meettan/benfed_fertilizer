@@ -54,39 +54,39 @@
 	   }	
 
 	   /**********************API CALL for sale cancel voucher within or after 24 hrs********************* */
-function f_cancelsalejnl($data){
-	// echo 'hi';
-	// die();
-	$curl = curl_init();
+// function f_cancelsalejnl($data){
+// 	// echo 'hi';
+// 	// die();
+// 	$curl = curl_init();
 
-	curl_setopt_array($curl, array(
+// 	curl_setopt_array($curl, array(
 	
-	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/cancelsale_voucher',
+// 	CURLOPT_URL => 'http://localhost/benfed/Benfed_finance/index.php/api_voucher/cancelsale_voucher',
 
 
-	  CURLOPT_RETURNTRANSFER => true,
-	  CURLOPT_ENCODING => '',
-	  CURLOPT_MAXREDIRS => 10,
-	  CURLOPT_TIMEOUT => 0,
-	  CURLOPT_FOLLOWLOCATION => true,
-	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS =>'{
-		"data": '.json_encode($data).'
-	}',
+// 	  CURLOPT_RETURNTRANSFER => true,
+// 	  CURLOPT_ENCODING => '',
+// 	  CURLOPT_MAXREDIRS => 10,
+// 	  CURLOPT_TIMEOUT => 0,
+// 	  CURLOPT_FOLLOWLOCATION => true,
+// 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+// 	  CURLOPT_CUSTOMREQUEST => 'POST',
+// 	  CURLOPT_POSTFIELDS =>'{
+// 		"data": '.json_encode($data).'
+// 	}',
 	
-	  CURLOPT_HTTPHEADER => array(
-		'Content-Type: application/json',
-		'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
-	  ),
-	));
+// 	  CURLOPT_HTTPHEADER => array(
+// 		'Content-Type: application/json',
+// 		'Cookie: ci_session=eieqmu6gupm05pkg5o78jqbq97jqb22g'
+// 	  ),
+// 	));
 	
-	$response = curl_exec($curl);
+// 	$response = curl_exec($curl);
 	
-	curl_close($curl);
-	echo $response;
+// 	curl_close($curl);
+// 	echo $response;
 	
-}
+// }
 
 
 		public function f_get_receiptReport_dtls($receipt_no)
@@ -247,19 +247,19 @@ return $result;
 			$this->db->where(array('irn' => $irn));
 			$quey = $this->db->get('td_sale')->row();
 			$trans_do = $quey->trans_do;
-			if($this->f_delete_voucher($trans_do)){
+			// if($this->f_delete_voucher($trans_do)){
 				if($this->db->insert('td_sale_cancel', $quey)){
-					
+				 	
 					$this->db->where(array('irn' => $irn));
 					
 					$this->db->update('td_sale_cancel',array('cancel_date' => date('Y-m-d'),'irn_cnl_rem'=> 'IRNCNL'));
 
 					$this->db->where(array('irn' => $irn));
 					$this->db->delete('td_sale');
-					$this->delete_td_vouchers($trans_do);
+					// $this->delete_td_vouchers($trans_do);
 					
-				}
-		    }
+				 }
+		    // }
 		}
         public function delete_td_vouchers($trans_no){
 			$db2 = $this->load->database('findb', TRUE);

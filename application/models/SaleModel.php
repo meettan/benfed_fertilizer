@@ -1070,7 +1070,7 @@ function f_salecrjnl($data){
 					$this->db->where(array(
 						'trans_do' => $data['trans_do']
 					));
-					$this->delete_td_vouchers($data['trans_do']);
+					// $this->delete_td_vouchers($data['trans_do']);
 					if($this->db->delete('td_sale')){
 						$input = array(
 							// 'trans_dt' => date('Y-m-d'),
@@ -1113,7 +1113,7 @@ function f_salecrjnl($data){
 		public function checked_selsRo($sale_invoice_no){
 			$this->db->where('trans_do',$sale_invoice_no);
 			$this->db->where('irn is NOT NULL', NULL, FALSE);
-			$this->db->where('ack is NOT NULL', NULL, FALSE);
+			$this->db->where('ack9 is NOT NULL', NULL, FALSE);
 			$this->db->where('ack_dt is NOT NULL', NULL, FALSE);
 			$q=$this->db->get('td_sale')->num_rows();
 			return $q;
