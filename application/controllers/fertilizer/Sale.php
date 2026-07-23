@@ -114,17 +114,16 @@
 			
 
 			$br_cd      = $this->session->userdata['loggedin']['branch_id'];
-// echo $comp_id;
-// echo $ro;
-// die();
-				$where  =   array('comp_id' => $comp_id,
-					              'ro_no'   => $this->input->post("ro"));
+
+				$where  =   array(
+					'comp_id'     => $comp_id,
+					'ro_no'      =>  $ro
+				);
 
 				$select = array("ro_dt","prod_id");
 
-			$ros= $this->SaleModel->f_select('td_purchase',$select,$where,1);
-			// echo $this->db->last_query();
-			// exit();
+			$ros        = $this->SaleModel->f_select('td_purchase',$select,$where,1);
+
 			$ro_dt      = $ros->ro_dt;
 
 			$prod_id    = $ros->prod_id;
@@ -165,7 +164,7 @@
 			// die();
             $result = $this->SaleModel->get_govsale_rate($br_cd,$comp_id,$ro_dt,$prod_id,$category,$gov_sale_rt);		
 			// echo $this->db->last_query();
-			// die();
+			// die(); 
  			echo json_encode($result);
 
 
@@ -530,7 +529,7 @@ if($resp==0){
 	if($irnChecked==0){
 
 
-		$this->SaleModel->delete_td_vouchers($sale_invoice_no);
+		//$this->SaleModel->delete_td_vouchers($sale_invoice_no);
 
 		$data2=$this->SaleModel->f_select('td_sale',null,$where,0);
 		foreach ($data2 as $keydata2) {

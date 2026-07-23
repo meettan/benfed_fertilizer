@@ -74,7 +74,7 @@
 				
 				$data_array_fin['rem'] = $this->input->post('prod_desc')." Sale Return Of B2C vide Ro No ";
 				$this->IrncancelModel->del_b2c($this->input->post('trans_do'));
-				$this->IrncancelModel->f_cancelsalejnl($data_array_fin);
+				// $this->IrncancelModel->f_cancelsalejnl($data_array_fin);
 				// $this->irncancelmodel->get_irn_details($this->input->post('trans_do'));
                 $this->session->set_flashdata('msg', 'Successfully Updated');
         
