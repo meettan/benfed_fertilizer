@@ -3356,6 +3356,43 @@ public function outstanding_list(){
 }
 
 ///****** */
+
+public function outstanding_list_br(){
+    $where_cmp = array(
+        "COMP_ID !=" => 1
+    );
+   
+    $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,$where_cmp,0);
+    if($this->input->post()){
+        $branch     =   $this->session->userdata['loggedin']['branch_id'];
+         $comp_id=  $this->input->post('comp_id');
+            $frmdate=$this->input->post('from_date');
+            $todate=$this->input->post('to_date');
+            // $data['allData']=$this->ReportModel->overdue_list_model($date,$comp_id);
+            $data['allData']=$this->ReportModel->outstanding_list_model_br($frmdate,$todate,$comp_id,$branch);
+            // $data['date']= $date;
+            $data['frmdate']= $frmdate;
+            $data['todate']= $todate;
+            $this->load->view('post_login/fertilizer_main');
+            $this->load->view('report/outstanding_list_br/over_due_list.php', $data);
+            $this->load->view('post_login/footer');
+    
+    }else{
+        $select      = array("COMP_ID","COMP_NAME");
+    
+        $where_cmp = array(
+            "COMP_ID !=" => 1
+        );
+       
+        $data['company']   = $this->ReportModel->f_select('mm_company_dtls',NULL,$where_cmp,0);
+
+        $this->load->view('post_login/fertilizer_main');
+        
+        $this->load->view('report/outstanding_list_br/over_due_list_ip.php',$data);
+        $this->load->view('post_login/footer');
+    }
+}
+
 // ================================ Monthly stock report at HO =======================================
     public function stock_report(){
         if($this->input->post()){

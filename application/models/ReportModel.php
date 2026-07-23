@@ -3899,27 +3899,101 @@ function outstanding_list_model($frmdate,$todate,$comp_id)
     
     
         }
-        // else{
-            
-        //     $query = $this->db->query("SELECT a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt,sum(f.paid_amt)paid_amt,( a.round_tot_amt-sum(f.paid_amt) )due_amt
-        //         FROM td_sale a,md_branch b,mm_ferti_soc c,mm_product d,mm_unit e,tdf_payment_recv f
-        //         where a.br_cd = b.id
-        //         and   a.soc_id = c.soc_id
-        //         and   a.prod_id = d.prod_id
-        //         and   a.unit    = e.id
-        //         and   a.br_cd=$branciId
-        //         and a.comp_id=$comp_id
-        //         and a.trans_do=f.sale_invoice_no
-        //         and   a.do_dt >='$frmdate'
-                
-        //         group by a.br_cd,b.branch_name,a.soc_id,c.soc_name,a.sale_ro,a.prod_id,d.prod_desc,a.trans_do,a.do_dt,a.no_of_days,a.sale_due_dt, a.qty,a.unit,e.unit_name,a.round_tot_amt
-        //         HAVING a.round_tot_amt-sum(f.paid_amt) >0");
-
-        // }
+        
         return $query->result();
     }
 
 //************************ */
+function outstanding_list_model_br($frmdate,$todate,$comp_id,$br)     
+    {
+
+        $branciId=$this->session->userdata('loggedin')['branch_id'];
+        if($branciId != 342){
+            $query = $this->db->query("SELECT 
+            a.br,
+            b.branch_name,
+            '' AS soc_id,
+        
+            /* ✅ SOC names from td_sale (multiple allowed) */
+            IFNULL((
+                SELECT GROUP_CONCAT(DISTINCT t.soc_name ORDER BY t.soc_name SEPARATOR ', ')
+                FROM td_sale s
+                JOIN mm_ferti_soc t ON s.soc_id = t.soc_id
+                 WHERE s.sale_ro = a.ro_no
+            ), '') AS soc_name,
+        
+            a.ro_no AS ro,
+            a.ro_dt,
+            a.invoice_no,
+            a.invoice_dt,
+            a.prod_id, 
+            d.prod_desc,
+            '' AS trans_do,
+            a.trans_dt,
+            a.no_of_days,
+            a.due_dt,
+            a.qty,
+            a.unit,
+            e.unit_name,
+            a.tot_amt AS round_tot_amt,
+        
+            IFNULL(SUM(f.paid_amt),0) AS paid_amt,
+            a.tot_amt - IFNULL(SUM(f.paid_amt),0) AS due_amt,
+        
+            /* ✅ Sale Qty (no equi join) */
+            IFNULL((
+                SELECT SUM(s.qty)
+                FROM td_sale s
+                WHERE s.sale_ro = a.ro_no
+            ), 0) AS sale_qty
+        
+        FROM td_purchase a
+        
+        JOIN md_branch b 
+            ON a.br = b.id
+        
+        JOIN mm_product d 
+            ON a.prod_id = d.prod_id
+        
+        JOIN mm_unit e 
+            ON a.unit = e.id
+        
+        LEFT JOIN tdf_company_payment f 
+            ON a.ro_no = f.pur_ro
+        
+        WHERE 
+            a.trans_dt BETWEEN '$frmdate' AND '$todate'
+            AND a.comp_id = $comp_id
+            AND a.adv_status = 'N'
+            AND  a.br = '$br'
+        GROUP BY  
+            a.br,
+            b.branch_name,
+            a.ro_no,
+            a.ro_dt,
+            a.invoice_no,
+            a.invoice_dt,
+            a.prod_id,
+            d.prod_desc,
+            a.trans_dt,
+            a.no_of_days,
+            a.due_dt,
+            a.qty,
+            a.unit,
+            e.unit_name,
+            a.tot_amt
+        
+        HAVING  
+            a.tot_amt - IFNULL(SUM(f.paid_amt),0) > 10");
+        
+    
+    
+        }
+        
+        return $query->result();
+    }
+
+//*******// */
     public function test($date){
         try {
             $this->db->reconnect();

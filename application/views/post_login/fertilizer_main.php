@@ -394,6 +394,7 @@ $days = ($today - $release_date) / (60*60*24);
 								 <a href="<?php echo site_url("fert/rep/cust_payblepaid");?>">Due Register</a> 
 								 <a href="<?php echo site_url("fert/rep/soc_ledger");?>">Society Ledger</a>
                                  <a href="<?php echo site_url("fert/rep/overdue_list");?>">Overdue List</a>
+                                 <a href="<?php echo site_url("fert/rep/outstanding_list_br");?>">Outstanding List</a>
                                  <a href="<?php echo site_url("fert/rep/tcs_payable");?>">TCS Payable</a>
                                  <a href="<?php echo site_url("fert/rep/dr_notebr");?>">Debit Note</a>
 								</div>
