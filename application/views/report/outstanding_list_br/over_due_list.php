@@ -108,14 +108,14 @@ tr:hover {background-color: #f5f5f5;}
                                <th>Invoice No.</th>
 
                                 <th>Invoice Date</th>
-                                <th>No. Of Days</th>
+                                <th>No. Of Days (Inv Date - Today)</th>
                                 <th>Due Date</th>
                                 <th>Purchase Qty</th>
                                 <th>Sale Qty</th>
                                 <!-- <th>unit</th> -->
                                 <th>Unit</th>
                                 <th>Invoice Amount</th>
-                                <th>Paid Amount</th>
+                                <th>Recv Amount</th>
                                 <th>Due Amount</th>
 
                             </tr>

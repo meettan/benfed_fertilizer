@@ -3910,79 +3910,91 @@ function outstanding_list_model_br($frmdate,$todate,$comp_id,$br)
         $branciId=$this->session->userdata('loggedin')['branch_id'];
         if($branciId != 342){
         
-        $query = $this->db->query("SELECT 
-        a.br,
-        b.branch_name,
-        '' AS soc_id,
-    
-        h.soc_name AS soc_name,
-    
-        a.ro_no AS ro,
-        a.ro_dt,
-        g.trans_do invoice_no,
-        g.do_dt invoice_dt,
-        a.prod_id, 
-        d.prod_desc,
-        '' AS trans_do,
-        a.trans_dt,
-        DATEDIFF(CURDATE(), g.do_dt) AS no_of_days,
-        g.sale_due_dt due_dt,
-        a.qty,
-        a.unit,
-        e.unit_name,
-        g.tot_amt AS round_tot_amt,
-    
-        IFNULL(f.paid_amt,0) AS paid_amt,
-        g.tot_amt - IFNULL(f.paid_amt,0) AS due_amt,
-    
-        /* ✅ Sale Qty (no equi join) */
-        IFNULL((
-            SELECT SUM(s.qty)
-            FROM td_sale s
-            WHERE s.sale_ro = a.ro_no
-        ), 0) AS sale_qty
-    
-    FROM td_purchase a
-     
-    JOIN md_branch b 
-        ON a.br = b.id
-    
-    JOIN mm_product d 
-        ON a.prod_id = d.prod_id
-    
-    JOIN mm_unit e 
-        ON a.unit = e.id
-    JOIN td_sale g 
-     ON a.ro_no = g.sale_ro
-      JOIN mm_ferti_soc h 
-     ON  g.soc_id=h.soc_id
-    LEFT JOIN tdf_company_payment f 
-        ON a.ro_no = f.pur_ro
-    
-    WHERE 
-        a.trans_dt BETWEEN '$frmdate' AND '$todate'
-        AND a.comp_id = $comp_id
-        AND a.adv_status = 'N'
-        AND  a.br = '$br'
-    GROUP BY  
+    $query = $this->db->query("SELECT
     a.br,
     b.branch_name,
-    h.soc_name,
-    a.ro_no,
+    '' AS soc_id,
+
+    h.soc_name AS soc_name,
+
+    a.ro_no AS ro,
     a.ro_dt,
-    g.trans_do,
-    g.do_dt,
+
+    g.trans_do AS invoice_no,
+    g.do_dt AS invoice_dt,
+
     a.prod_id,
     d.prod_desc,
+
+    '' AS trans_do,
     a.trans_dt,
-    g.sale_due_dt,
+
+    CASE 
+        WHEN g.do_dt IS NOT NULL 
+        THEN DATEDIFF(CURDATE(), g.do_dt)
+        ELSE NULL
+    END AS no_of_days,
+
+    g.sale_due_dt AS due_dt,
+
     a.qty,
     a.unit,
     e.unit_name,
-    g.tot_amt
-    
-    HAVING  
-        g.tot_amt - IFNULL(SUM(f.paid_amt),0) > 10");
+
+    IFNULL(g.tot_amt, 0) AS round_tot_amt,
+
+    IFNULL(f.paid_amt, 0) AS paid_amt,
+
+    IFNULL(g.tot_amt, 0) - IFNULL(f.paid_amt, 0) AS due_amt,
+
+    IFNULL(
+        (
+            SELECT SUM(s.qty)
+            FROM td_sale s
+            WHERE s.sale_ro = a.ro_no
+              AND s.prod_id = a.prod_id
+        ), 
+        0
+    ) AS sale_qty
+
+FROM td_purchase a
+
+LEFT JOIN md_branch b
+    ON a.br = b.id
+
+LEFT JOIN mm_product d
+    ON a.prod_id = d.prod_id
+
+LEFT JOIN mm_unit e
+    ON a.unit = e.id
+
+LEFT JOIN td_sale g
+    ON a.ro_no = g.sale_ro
+    AND a.prod_id = g.prod_id
+
+LEFT JOIN mm_ferti_soc h
+    ON g.soc_id = h.soc_id
+
+LEFT JOIN
+(
+    SELECT
+        sale_invoice_no,
+        SUM(paid_amt) AS paid_amt
+    FROM tdf_payment_recv
+    GROUP BY ro_no,sale_invoice_no 
+) f
+    ON g.trans_do  = f.sale_invoice_no
+
+WHERE
+    a.trans_dt BETWEEN '$frmdate' AND '$todate'
+    AND a.comp_id = $comp_id
+    AND a.adv_status = 'N'
+    AND a.br = '$br'
+    AND IFNULL(g.tot_amt, 0) - IFNULL(f.paid_amt, 0)>10
+ORDER BY
+    h.soc_name ASC,
+    a.ro_no,
+    a.prod_id");
     
         }
         
