@@ -1421,7 +1421,7 @@ public function f_get_dist_bnk_dtls(){
 		
 		$adv['data']    = $this->AdvanceModel->f_select("tdf_advance a,mm_ferti_soc b",$select,$where,0);
 		$this->load->view("post_login/fertilizer_main");
-		$this->load->view("advance/dashboard",$adv);
+		$this->load->view("advance_transfer/dashboard",$adv);
 		$this->load->view('search/search');
 		$this->load->view('post_login/footer');
 
