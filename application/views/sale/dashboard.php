@@ -168,13 +168,33 @@
                                 <a href="<?php echo site_url('trade/saleinvoice_rep?trans_do='.$value->trans_do.''); ?>" title="Print"><i class="fa fa-print fa-2x" style="color:green;"></i></a>
                                 </td>
                                 
-                                <td>
+                                <!-- <td>
                                     <?php if(empty($value->irn)){  ?><button type="button" name="delete_<?= $i ?>" class="delete" id="<?php echo $value->trans_do;?>&transinvoice=<?php echo $value->trans_do; ?>" transInvoice=<?php echo $value->trans_do; ?> data-toggle="tooltip" data-placement="bottom" title="Delete" <?= $disable_btn; ?>>
 
                                         <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
                                     </button> 
                                     <?php } ?>
-                                </td>
+                                </td> -->
+ <td>
+    <?php 
+    $user_type = $this->session->userdata['loggedin']['user_type'];
+
+    if (in_array($user_type, array('M', 'A')) && empty($value->irn)) { 
+    ?>
+        <button type="button"
+                name="delete_<?= $i ?>"
+                class="delete"
+                id="<?php echo $value->trans_do; ?>&transinvoice=<?php echo $value->trans_do; ?>"
+                transInvoice="<?php echo $value->trans_do; ?>"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Delete"
+                <?= $disable_btn; ?>>
+
+            <i class="fa fa-trash-o fa-2x" style="color:#bd2130"></i>
+        </button>
+    <?php } ?>
+</td>
                             </tr>
 
                     <?php
