@@ -682,6 +682,56 @@ public function crsummrep_ho(){
     }
 
 }
+/*************************Society List****** */
+public function soclst_ho(){
+
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        $from_dt    =   $_POST['from_date'];
+
+        $to_dt      =   $_POST['to_date'];
+
+        // $branch     =   $this->session->userdata['loggedin']['branch_id'];
+
+        $mth        =  date('n',strtotime($from_dt));
+
+        $yr         =  date('Y',strtotime($from_dt));
+
+        if($mth > 3){
+
+            $year = $yr;
+
+        }else{
+
+            $year = $yr - 1;
+        }
+
+        $opndt      =  date($year.'-04-01');
+
+        $prevdt     =  date('Y-m-d', strtotime('-1 day', strtotime($from_dt)));
+
+        $_SESSION['date']    =   date('d/m/Y',strtotime($from_dt)).'-'.date('d/m/Y',strtotime($to_dt));
+
+        // $where1              =   array("COMP_ID"  => $comp_id);
+        
+        // $data['compdtls']      =   $this->ReportModel->f_select("mm_company_dtls", NULL, $where1,1);
+        $data['crdtls']     =   $this->ReportModel->f_soclst_ho_rep($from_dt,$to_dt);
+        
+        $this->load->view('post_login/fertilizer_main');
+        $this->load->view('report/soclist_ho/stk_stmt',$data);
+        $this->load->view('post_login/footer');
+
+    }else{
+        
+        $data['compdtls']      =   $this->ReportModel->f_select("mm_company_dtls", NULL, NULL,0);
+    
+        $this->load->view('post_login/fertilizer_main');
+        
+        $this->load->view('report/soclist_ho/stk_stmt_ip',$data);
+        $this->load->view('post_login/footer');
+    }
+
+}
 
 		/***************************************Ho Cr Note Report************************** */
 public function crnoterep_ho(){

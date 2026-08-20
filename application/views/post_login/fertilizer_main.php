@@ -422,7 +422,7 @@ $days = ($today - $release_date) / (60*60*24);
 									    
 									</div>
                                 </div>
-
+                                <a href="<?php echo site_url("fert/rep/soclst_ho");?>">Soceity List</a>
 								<a href="<?php echo site_url("fert/rep/brwse_constk");?>">Consolidated Stock</a>
 								<a href="<?php echo site_url("fert/rep/rateslabho");?>">Sale Rate Slab</a>
                                 <a href="<?php echo site_url("fert/rep/tcs_report");?>">Tcs Report</a>

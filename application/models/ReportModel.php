@@ -1865,7 +1865,50 @@ order by h.district_name,f.comp_name,a.trans_dt");
 
         return $query->result();
     }
+/******************************* */
+public function f_soclst_ho_rep($frm_dt, $to_dt)
+    {
 
+        $query  = $this->db->query(" SELECT 
+        '' AS CUSTOMER_GROUP,
+        'M/s' AS TITLE,
+        a.soc_name AS CUSTOMER_NAME,
+        a.soc_add AS ADDRESS,
+        a.panc_mun AS LOCATION,
+        b.district_name AS DISTRICT,
+        a.pin AS PIN_CODE,
+        c.block_name AS BLOCK,
+        a.ph_no,
+        a.email,
+        a.retailmfms,
+        a.mfms AS whole_sale_mfms,
+        a.license_no AS Whole_sale_licen_no,
+        a.license_from_dt AS Whole_sale_licen_frm_dt,
+        a.license_to_dt AS Whole_sale_licen_to_dt,
+        a.retail_license_no,
+        a.retail_license_from_dt,
+        a.reatil_license_to_dt,
+        a.gstin,
+        a.pan,
+        COALESCE(
+            (
+                SELECT SUM(s.qty)
+                FROM td_sale s
+                WHERE s.soc_id = a.soc_id
+                  AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt'
+            ), 0
+        ) AS sl_qty
+    FROM mm_ferti_soc a
+    INNER JOIN md_district b 
+        ON a.district = b.district_code
+    INNER JOIN md_block c 
+        ON a.soc_block = c.blockcode
+    ORDER BY 
+        b.district_name,
+        a.soc_name");
+
+        return $query->result();
+    }
     /*************Delivery Register Comapny Wise*********************/
     public function p_delivery_reg_compwse($frm_dt, $to_dt, $br_cd, $comp_id)
     {

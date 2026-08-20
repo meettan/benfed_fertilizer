@@ -179,7 +179,7 @@
     <?php 
     $user_type = $this->session->userdata['loggedin']['user_type'];
 
-    if (in_array($user_type, array('M', 'A')) && empty($value->irn)) { 
+    if (in_array($user_type, array('M', 'A','C')) && empty($value->irn)) { 
     ?>
         <button type="button"
                 name="delete_<?= $i ?>"
