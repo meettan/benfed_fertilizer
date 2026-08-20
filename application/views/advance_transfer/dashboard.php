@@ -246,7 +246,7 @@ $(".filt").on("click", function() {
     var todt = $('#to_date').val();
     // $(".obutn").click(function() {
     //  $(this).closest("form").attr("action", "/benfed_fertilizer/index.php/trade/salesfilter");   
-    $(this).closest("form").attr("action", "advancefilter");   
+    $(this).closest("form").attr("action", "advtrans");   
 // });
     if(frmdt=='' && todt==''){
       //  alert('raj'); 
