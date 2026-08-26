@@ -529,7 +529,7 @@ if($resp==0){
 	if($irnChecked==0){
 
 
-		//$this->SaleModel->delete_td_vouchers($sale_invoice_no);
+		$this->SaleModel->delete_td_vouchers($sale_invoice_no);
 
 		$data2=$this->SaleModel->f_select('td_sale',null,$where,0);
 		foreach ($data2 as $keydata2) {
