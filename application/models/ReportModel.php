@@ -1897,7 +1897,17 @@ public function f_soclst_ho_rep($frm_dt, $to_dt)
                 WHERE s.soc_id = a.soc_id
                   AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt'
             ), 0
-        ) AS sl_qty
+        ) AS sl_qty,
+        COALESCE( ( SELECT 
+        SUM( CASE WHEN s.unit = 1 THEN s.qty 
+        WHEN s.unit = 2 THEN s.qty / 1000 WHEN s.unit = 6 THEN s.qty / 10000 ELSE 0 END ) 
+FROM td_sale s 
+WHERE s.soc_id = a.soc_id 
+AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt' 
+AND s.unit IN (1, 2, 6) ), 0 ) AS sale_qty, 
+COALESCE( ( SELECT SUM(s.tot_amt) FROM td_sale s 
+WHERE s.soc_id = a.soc_id AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt'
+ AND s.unit IN (1, 2, 6) ), 0 ) AS tot_amt 
     FROM mm_ferti_soc a
     INNER JOIN md_district b 
         ON a.district = b.district_code

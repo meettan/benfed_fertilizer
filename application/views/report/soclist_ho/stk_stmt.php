@@ -1,288 +1,585 @@
+<?php
+/* =========================================================
+   DISTRICT WISE SOCIETY LIST
+   PROFESSIONAL REPORT
+   ========================================================= */
+?>
+
 <style>
-/* =========================================================
-   PROFESSIONAL REPORT DESIGN
-   ========================================================= */
-
-body {
-    background: #f4f6f9;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #333;
+:root{
+    --primary:#173f67;
+    --primary-dark:#0f2f4d;
+    --accent:#2f80ed;
+    --success:#198754;
+    --border:#d9e2ec;
+    --muted:#64748b;
+    --surface:#ffffff;
+    --surface-soft:#f6f9fc;
+    --text:#1e293b;
 }
 
-.report-container {
-    width: 98%;
-    margin: 20px auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    padding: 20px;
+*{
+    box-sizing:border-box;
 }
 
-/* Header */
-.report-header {
-    text-align: center;
-    border-bottom: 2px solid #1f4e78;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-}
-
-.report-header h2 {
-    margin: 0 0 8px 0;
-    font-size: 22px;
-    font-weight: 700;
-    color: #1f4e78;
-    text-transform: uppercase;
-}
-
-.report-header h4 {
-    margin: 4px 0;
-    font-size: 13px;
-    color: #555;
-    font-weight: 600;
-}
-
-.report-title {
-    margin-top: 12px !important;
-    font-size: 17px !important;
-    color: #222 !important;
-    font-weight: 700 !important;
-}
-
-/* Table wrapper */
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* Main table */
-#example {
-    width: 100% !important;
-    border-collapse: collapse;
-    font-size: 12px;
-}
-
-#example thead th {
-    background: #1f4e78;
-    color: #fff;
-    border: 1px solid #d5dce3;
-    padding: 8px 6px;
-    text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    font-weight: 600;
-}
-
-#example tbody td {
-    border: 1px solid #dfe3e8;
-    padding: 7px 6px;
-    vertical-align: middle;
-    background: #fff;
-}
-
-#example tbody tr:nth-child(even) td {
-    background: #f8fafc;
-}
-
-#example tbody tr:hover td {
-    background: #eaf3fb;
-}
-
-/* Footer */
-#example tfoot th {
-    background: #e9eef3;
-    color: #222;
-    border: 1px solid #999;
-    padding: 8px 6px;
-    font-weight: bold;
-}
-
-/* Alignment */
-.text-center {
-    text-align: center !important;
-}
-
-.text-left {
-    text-align: left !important;
-}
-
-.text-right {
-    text-align: right !important;
-}
-
-.qty {
-    text-align: right !important;
-    font-weight: 600;
+body{
+    margin:0;
+    padding:0;
+    background:linear-gradient(135deg,#eef3f8 0%,#f8fafc 100%);
+    font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+    color:var(--text);
 }
 
 /* =========================================================
-   ACTION BUTTONS
+   REPORT CONTAINER
    ========================================================= */
 
-.action-bar {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #ddd;
-}
-
-.btn-print {
-    background: #1f4e78;
-    color: #fff;
-    border: none;
-    padding: 9px 22px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    margin-right: 8px;
-}
-
-.btn-print:hover {
-    background: #163a5a;
-}
-
-/* Excel Button */
-.dt-buttons {
-    margin-bottom: 12px;
-}
-
-.dt-button {
-    background: #198754 !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 5px !important;
-    padding: 9px 18px !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    cursor: pointer;
-}
-
-.dt-button:hover {
-    background: #146c43 !important;
-}
-
-/* Search */
-.dataTables_filter {
-    margin-bottom: 10px;
-}
-
-.dataTables_filter input {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 7px 10px;
-    margin-left: 5px;
+.report-container{
+    width:98%;
+    max-width:1900px;
+    margin:22px auto;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    box-shadow:0 8px 30px rgba(15,47,77,.10);
+    padding:22px;
 }
 
 /* =========================================================
-   PRINT STYLE
+   REPORT HEADER
    ========================================================= */
 
-@media print {
+.report-header{
+    position:relative;
+    text-align:center;
+    padding:4px 10px 16px;
+    margin-bottom:18px;
+    border-bottom:3px solid var(--primary);
+}
 
-    @page {
-        size: A4 landscape;
-        margin: 8mm;
+.report-header:after{
+    content:"";
+    display:block;
+    width:90px;
+    height:3px;
+    background:var(--accent);
+    margin:9px auto -19px;
+    border-radius:4px;
+}
+
+.report-header h2{
+    margin:0 0 8px;
+    font-size:22px;
+    line-height:1.3;
+    font-weight:750;
+    letter-spacing:.25px;
+    color:var(--primary);
+    text-transform:uppercase;
+}
+
+.report-header h4{
+    margin:4px 0;
+    font-size:12px;
+    line-height:1.45;
+    color:#526274;
+    font-weight:600;
+}
+
+.report-title{
+    margin-top:13px !important;
+    font-size:16px !important;
+    color:#162b40 !important;
+    font-weight:750 !important;
+    letter-spacing:.7px;
+}
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:visible;
+    border:1px solid var(--border);
+    border-radius:10px;
+}
+
+/* =========================================================
+   MAIN TABLE
+   ========================================================= */
+
+#example{
+    width:100% !important;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:12px;
+}
+
+#example thead th{
+    position:sticky;
+    top:0;
+    z-index:2;
+    background:linear-gradient(
+        180deg,
+        var(--primary) 0%,
+        var(--primary-dark) 100%
+    );
+    color:#fff;
+    border:0;
+    border-right:1px solid rgba(255,255,255,.18);
+    border-bottom:2px solid #0d2942;
+    padding:10px 7px;
+    text-align:center;
+    vertical-align:middle;
+    white-space:nowrap;
+    font-weight:700;
+    letter-spacing:.15px;
+}
+
+#example thead th:first-child{
+    border-top-left-radius:8px;
+}
+
+#example thead th:last-child{
+    border-right:0;
+    border-top-right-radius:8px;
+}
+
+#example tbody td{
+    border:0;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:8px 7px;
+    vertical-align:middle;
+    background:#fff;
+}
+
+#example tbody tr:nth-child(even) td{
+    background:#f8fbfe;
+}
+
+#example tbody tr:hover td{
+    background:#eaf3ff;
+}
+
+#example tbody tr:last-child td{
+    border-bottom:0;
+}
+
+/* =========================================================
+   COLUMN WIDTHS
+   ========================================================= */
+
+#example th:nth-child(1),
+#example td:nth-child(1){
+    min-width:58px;
+}
+
+#example th:nth-child(4),
+#example td:nth-child(4){
+    min-width:180px;
+}
+
+#example th:nth-child(5),
+#example td:nth-child(5){
+    min-width:220px;
+}
+
+#example th:nth-child(6),
+#example td:nth-child(6){
+    min-width:120px;
+}
+
+#example th:nth-child(7),
+#example td:nth-child(7){
+    min-width:110px;
+}
+
+#example th:nth-child(11),
+#example td:nth-child(11){
+    min-width:180px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+#example tfoot th{
+    background:linear-gradient(
+        180deg,
+        #e8eef5,
+        #dbe5ee
+    );
+    color:#172b3d;
+    border:0;
+    border-top:2px solid #aebdcb;
+    padding:9px 7px;
+    font-weight:800;
+}
+
+/* =========================================================
+   ALIGNMENT
+   ========================================================= */
+
+.text-center{
+    text-align:center !important;
+}
+
+.text-left{
+    text-align:left !important;
+}
+
+.text-right{
+    text-align:right !important;
+}
+
+.qty{
+    text-align:right !important;
+    font-weight:700;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+}
+
+/* =========================================================
+   ACTION BAR
+   ========================================================= */
+
+.action-bar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid #e2e8f0;
+}
+
+.btn-print{
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        #245d91
+    );
+    color:#fff;
+    border:0;
+    padding:10px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 3px 8px rgba(23,63,103,.20);
+    transition:.2s ease;
+}
+
+.btn-print:hover{
+    transform:translateY(-1px);
+    box-shadow:0 5px 12px rgba(23,63,103,.28);
+}
+
+/* =========================================================
+   DATATABLE
+   ========================================================= */
+
+.dataTables_wrapper{
+    width:100%;
+}
+
+.dt-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.dt-bottom{
+    margin-top:10px;
+}
+
+.dataTables_wrapper .dt-buttons{
+    float:left;
+    margin-bottom:12px;
+}
+
+.dataTables_wrapper .dataTables_filter{
+    float:right;
+    margin-bottom:12px;
+}
+
+.dataTables_wrapper .dataTables_filter label{
+    color:#475569;
+    font-weight:650;
+}
+
+.dataTables_wrapper .dataTables_filter input{
+    width:240px;
+    margin-left:7px;
+    padding:8px 11px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
+    outline:0;
+    background:#fff;
+    transition:.2s;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(47,128,237,.12);
+}
+
+/* =========================================================
+   EXCEL BUTTON
+   ========================================================= */
+
+.dt-button{
+    background:linear-gradient(
+        135deg,
+        #198754,
+        #157347
+    ) !important;
+
+    color:#fff !important;
+
+    border:0 !important;
+
+    border-radius:7px !important;
+
+    padding:9px 16px !important;
+
+    font-size:13px !important;
+
+    font-weight:700 !important;
+
+    box-shadow:
+        0 3px 7px rgba(25,135,84,.18) !important;
+
+    transition:.2s !important;
+}
+
+.dt-button:hover{
+    background:linear-gradient(
+        135deg,
+        #157347,
+        #11613b
+    ) !important;
+
+    transform:translateY(-1px);
+}
+
+.dataTables_info{
+    margin-top:10px;
+    color:#64748b;
+    font-size:12px;
+}
+
+.dataTables_scroll{
+    border-radius:10px;
+}
+
+/* =========================================================
+   NO DATA
+   ========================================================= */
+
+#example tbody td[colspan]{
+    color:#64748b;
+    background:#f8fafc !important;
+    font-size:13px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:768px){
+
+    .report-container{
+        width:100%;
+        margin:0;
+        padding:12px;
+        border-radius:0;
     }
 
-    body {
-        background: #fff !important;
-        margin: 0;
-        padding: 0;
+    .report-header h2{
+        font-size:17px;
     }
 
-    .report-container {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        border: none;
+    .report-header h4{
+        font-size:10px;
+    }
+
+    .report-title{
+        font-size:13px !important;
+    }
+
+    .dt-top{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .dataTables_wrapper .dataTables_filter{
+        float:none;
+        text-align:left;
+        margin-bottom:10px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input{
+        width:calc(100% - 65px);
+    }
+
+    .dataTables_wrapper .dt-buttons{
+        float:none;
+    }
+
+    .action-bar{
+        flex-wrap:wrap;
+    }
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print{
+
+    @page{
+        size:A4 landscape;
+        margin:7mm;
+    }
+
+    body{
+        background:#fff !important;
+        margin:0;
+        padding:0;
+    }
+
+    .report-container{
+        width:100%;
+        max-width:none;
+        margin:0;
+        padding:0;
+        box-shadow:none;
+        border:0;
     }
 
     .action-bar,
     .dt-buttons,
     .dataTables_filter,
     .dataTables_info,
-    .dataTables_paginate {
-        display: none !important;
+    .dataTables_paginate,
+    .dataTables_length{
+        display:none !important;
     }
 
-    .report-header {
-        border-bottom: 2px solid #000;
-        margin-bottom: 10px;
-        padding-bottom: 7px;
+    .report-header{
+        border-bottom:2px solid #000;
+        margin-bottom:8px;
+        padding-bottom:6px;
     }
 
-    .report-header h2 {
-        color: #000 !important;
-        font-size: 16px;
+    .report-header:after{
+        display:none;
     }
 
-    .report-header h4 {
-        color: #000 !important;
-        font-size: 9px;
+    .report-header h2{
+        color:#000 !important;
+        font-size:15px;
     }
 
-    .report-title {
-        font-size: 13px !important;
+    .report-header h4{
+        color:#000 !important;
+        font-size:8px;
     }
 
-    #example {
-        width: 100% !important;
-        font-size: 7px !important;
+    .report-title{
+        font-size:11px !important;
     }
 
-    #example thead th {
-        background: #eee !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
-        padding: 3px !important;
+    .table-responsive{
+        overflow:visible !important;
+        border:0;
     }
 
-    #example tbody td {
-        border: 1px solid #000 !important;
-        padding: 3px !important;
+    #example_wrapper{
+        width:100% !important;
     }
 
-    #example tfoot th {
-        background: #eee !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
-        padding: 3px !important;
+    #example{
+        width:100% !important;
+        font-size:6.5px !important;
     }
 
-    tr {
-        page-break-inside: avoid;
+    #example thead th{
+        position:static;
+        background:#e9edf1 !important;
+        color:#000 !important;
+        border:1px solid #000 !important;
+        padding:3px !important;
     }
 
-    thead {
-        display: table-header-group;
+    #example tbody td{
+        border:1px solid #000 !important;
+        padding:3px !important;
     }
 
-    tfoot {
-        display: table-footer-group;
+    #example tfoot th{
+        background:#e9edf1 !important;
+        color:#000 !important;
+        border:1px solid #000 !important;
+        padding:3px !important;
+    }
+
+    tr{
+        page-break-inside:avoid;
+    }
+
+    thead{
+        display:table-header-group;
+    }
+
+    tfoot{
+        display:table-footer-group;
     }
 }
 </style>
 
 
-<script>
-/* =========================================================
-   PRINT FUNCTION
-   ========================================================= */
+<!-- =========================================================
+     PRINT FUNCTION
+     ========================================================= -->
 
-function printDiv() {
+<script>
+
+function printDiv(){
 
     var divToPrint = document.getElementById('divToPrint');
+
+    if(!divToPrint){
+
+        alert('Report area not found.');
+
+        return;
+    }
 
     var WindowObject = window.open(
         '',
         'Print-Window',
-        'width=1200,height=800'
+        'width=1400,height=900'
     );
+
+    if(!WindowObject){
+
+        alert(
+            'Please allow pop-ups for printing this report.'
+        );
+
+        return;
+    }
 
     WindowObject.document.open();
 
     WindowObject.document.write(`
+
         <!DOCTYPE html>
 
         <html>
@@ -291,112 +588,156 @@ function printDiv() {
 
             <meta charset="utf-8">
 
-            <title>District Wise Society List</title>
+            <title>
+                District Wise Society List
+            </title>
 
             <style>
 
-                @page {
-                    size: A4 landscape;
-                    margin: 8mm;
+                @page{
+                    size:A4 landscape;
+                    margin:7mm;
                 }
 
-                body {
-                    font-family: Arial, Helvetica, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    color: #000;
+                *{
+                    box-sizing:border-box;
                 }
 
-                .report-header {
-                    text-align: center;
-                    border-bottom: 2px solid #000;
-                    padding-bottom: 7px;
-                    margin-bottom: 10px;
+                body{
+                    font-family:
+                        "Segoe UI",
+                        Arial,
+                        Helvetica,
+                        sans-serif;
+
+                    margin:0;
+                    padding:0;
+                    color:#000;
+                    background:#fff;
                 }
 
-                .report-header h2 {
-                    margin: 0 0 5px 0;
-                    font-size: 16px;
+                .report-header{
+                    text-align:center;
+                    border-bottom:2px solid #000;
+                    padding-bottom:6px;
+                    margin-bottom:8px;
                 }
 
-                .report-header h4 {
-                    margin: 3px 0;
-                    font-size: 9px;
+                .report-header:after{
+                    display:none;
                 }
 
-                .report-title {
-                    font-size: 13px !important;
+                .report-header h2{
+                    margin:0 0 4px 0;
+                    font-size:15px;
+                    font-weight:700;
                 }
 
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    font-size: 7px;
+                .report-header h4{
+                    margin:2px 0;
+                    font-size:8px;
+                    font-weight:600;
                 }
 
-                th {
-                    background: #eeeeee !important;
-                    color: #000 !important;
-                    border: 1px solid #000;
-                    padding: 3px;
-                    text-align: center;
-                    vertical-align: middle;
+                .report-title{
+                    font-size:11px !important;
+                    font-weight:700 !important;
                 }
 
-                td {
-                    border: 1px solid #000;
-                    padding: 3px;
-                    vertical-align: middle;
+                table{
+                    width:100%;
+                    border-collapse:collapse;
+                    font-size:6.5px;
+                    table-layout:auto;
                 }
 
-                tfoot th {
-                    background: #eeeeee !important;
-                    font-weight: bold;
+                th{
+                    background:#e9edf1 !important;
+                    color:#000 !important;
+                    border:1px solid #000;
+                    padding:3px;
+                    text-align:center;
+                    vertical-align:middle;
+                    font-weight:bold;
                 }
 
-                .text-center {
-                    text-align: center;
+                td{
+                    border:1px solid #000;
+                    padding:3px;
+                    vertical-align:middle;
                 }
 
-                .text-left {
-                    text-align: left;
+                tfoot th{
+                    background:#e9edf1 !important;
+                    font-weight:bold;
                 }
 
-                .text-right {
-                    text-align: right;
+                .text-center{
+                    text-align:center !important;
                 }
 
-                tr {
-                    page-break-inside: avoid;
+                .text-left{
+                    text-align:left !important;
                 }
 
-                thead {
-                    display: table-header-group;
+                .text-right{
+                    text-align:right !important;
                 }
 
-                tfoot {
-                    display: table-footer-group;
+                .qty{
+                    text-align:right !important;
+                    white-space:nowrap;
+                }
+
+                tr{
+                    page-break-inside:avoid;
+                }
+
+                thead{
+                    display:table-header-group;
+                }
+
+                tfoot{
+                    display:table-footer-group;
                 }
 
             </style>
 
         </head>
 
-        <body onload="window.print();">
+        <body>
 
             ${divToPrint.innerHTML}
+
+            <script>
+
+                window.onload = function(){
+
+                    setTimeout(function(){
+
+                        window.print();
+
+                    },300);
+
+                };
+
+                window.onafterprint = function(){
+
+                    window.close();
+
+                };
+
+            <\/script>
 
         </body>
 
         </html>
+
     `);
 
     WindowObject.document.close();
-
-    setTimeout(function () {
-        WindowObject.close();
-    }, 1000);
 }
+
 </script>
 
 
@@ -407,7 +748,6 @@ function printDiv() {
 <div class="report-container">
 
     <div id="divToPrint">
-
 
         <!-- =================================================
              REPORT HEADER
@@ -430,7 +770,11 @@ function printDiv() {
 
             <h4>
                 Period:
-                <?php echo htmlspecialchars($_SESSION['date'] ?? ''); ?>
+                <?php
+                echo htmlspecialchars(
+                    $_SESSION['date'] ?? ''
+                );
+                ?>
             </h4>
 
         </div>
@@ -448,49 +792,97 @@ function printDiv() {
 
                     <tr>
 
-                        <th>Sl No.</th>
+                        <th>
+                            Sl No.
+                        </th>
 
-                        <th>CUSTOMER<br>GROUP</th>
+                        <th>
+                            CUSTOMER<br>GROUP
+                        </th>
 
-                        <th>TITLE</th>
+                        <th>
+                            TITLE
+                        </th>
 
-                        <th>CUSTOMER NAME</th>
+                        <th>
+                            CUSTOMER NAME
+                        </th>
 
-                        <th>ADDRESS</th>
+                        <th>
+                            ADDRESS
+                        </th>
 
-                        <th>LOCATION</th>
+                        <th>
+                            LOCATION
+                        </th>
 
-                        <th>DISTRICT</th>
+                        <th>
+                            DISTRICT
+                        </th>
 
-                        <th>PIN CODE</th>
+                        <th>
+                            PIN CODE
+                        </th>
 
-                        <th>BLOCK</th>
+                        <th>
+                            BLOCK
+                        </th>
 
-                        <th>PHONE</th>
+                        <th>
+                            PHONE
+                        </th>
 
-                        <th>EMAIL</th>
+                        <th>
+                            EMAIL
+                        </th>
 
-                        <th>RETAIL<br>MFMS</th>
+                        <th>
+                            RETAIL<br>MFMS
+                        </th>
 
-                        <th>WHOLESALE<br>MFMS</th>
+                        <th>
+                            WHOLESALE<br>MFMS
+                        </th>
 
-                        <th>WHOLESALE<br>LICENCE NO.</th>
+                        <th>
+                            WHOLESALE<br>LICENCE NO.
+                        </th>
 
-                        <th>WHOLESALE LICENCE<br>FROM DATE</th>
+                        <th>
+                            WHOLESALE LICENCE<br>FROM DATE
+                        </th>
 
-                        <th>WHOLESALE LICENCE<br>TO DATE</th>
+                        <th>
+                            WHOLESALE LICENCE<br>TO DATE
+                        </th>
 
-                        <th>RETAIL<br>LICENCE NO.</th>
+                        <th>
+                            RETAIL<br>LICENCE NO.
+                        </th>
 
-                        <th>RETAIL LICENCE<br>FROM DATE</th>
+                        <th>
+                            RETAIL LICENCE<br>FROM DATE
+                        </th>
 
-                        <th>RETAIL LICENCE<br>TO DATE</th>
+                        <th>
+                            RETAIL LICENCE<br>TO DATE
+                        </th>
 
-                        <th>GSTIN</th>
+                        <th>
+                            GSTIN
+                        </th>
 
-                        <th>PAN</th>
+                        <th>
+                            PAN
+                        </th>
 
-                        <th>SALE<br>QTY</th>
+                        <th>
+                            SALE<br>QTY
+                        </th>
+
+                        <th>
+                            SALE<br>AMT
+                        </th>
 
                     </tr>
 
@@ -501,217 +893,385 @@ function printDiv() {
 
                 <?php
 
-                if (!empty($crdtls)) {
+                $grand_total_qty = 0;
+                $grand_total_amt = 0;
+
+                if(!empty($crdtls)){
 
                     $i = 1;
 
-                    $grand_total = 0;
+                    foreach($crdtls as $crd){
 
-                    foreach ($crdtls as $crd) {
+                        /* =================================================
+                           SALE QUANTITY
+                           ================================================= */
 
                         $sale_qty = isset($crd->sl_qty)
                             ? (float)$crd->sl_qty
                             : 0;
 
-                        $grand_total += $sale_qty;
+
+                        /* =================================================
+                           SALE AMOUNT
+                           ================================================= */
+
+                        $sale_amt = isset($crd->tot_amt)
+                            ? (float)$crd->tot_amt
+                            : 0;
+
+
+                        /* =================================================
+                           GRAND TOTAL
+                           ================================================= */
+
+                        $grand_total_qty += $sale_qty;
+
+                        $grand_total_amt += $sale_amt;
 
                 ?>
 
                     <tr>
 
                         <!-- Sl No -->
+
                         <td class="text-center">
-                            <?php echo $i++; ?>
+
+                            <?php
+                            echo $i++;
+                            ?>
+
                         </td>
 
+
                         <!-- Customer Group -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->CUSTOMER_GROUP ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Title -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->TITLE ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Customer Name -->
+
                         <td class="text-left">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->CUSTOMER_NAME ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Address -->
+
                         <td class="text-left">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->ADDRESS ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Location -->
+
                         <td class="text-left">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->LOCATION ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- District -->
+
                         <td class="text-left">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->DISTRICT ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- PIN -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->PIN_CODE ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Block -->
+
                         <td class="text-left">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->BLOCK ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Phone -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->ph_no ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Email -->
+
                         <td class="text-left">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->email ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Retail MFMS -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->retailmfms ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Wholesale MFMS -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->whole_sale_mfms ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Wholesale Licence No -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->Whole_sale_licen_no ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Wholesale Licence From -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->Whole_sale_licen_frm_dt ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Wholesale Licence To -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->Whole_sale_licen_to_dt ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Retail Licence No -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->retail_license_no ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Retail Licence From -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->retail_license_from_dt ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- Retail Licence To -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->reatil_license_to_dt ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- GSTIN -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->gstin ?? ''
                             );
+
                             ?>
+
                         </td>
 
+
                         <!-- PAN -->
+
                         <td class="text-center">
+
                             <?php
+
                             echo htmlspecialchars(
                                 $crd->pan ?? ''
                             );
+
                             ?>
+
                         </td>
 
-                        <!-- Sale Qty -->
+
+                        <!-- Sale Quantity -->
+
                         <td class="qty">
+
                             <?php
+
                             echo number_format(
                                 $sale_qty,
                                 3
                             );
+
                             ?>
+
+                        </td>
+
+
+                        <!-- Sale Amount -->
+
+                        <td class="qty">
+
+                            <?php
+
+                            echo number_format(
+                                $sale_amt,
+                                2
+                            );
+
+                            ?>
+
                         </td>
 
                     </tr>
@@ -720,21 +1280,23 @@ function printDiv() {
 
                     }
 
-                } else {
+                }else{
 
                 ?>
 
                     <tr>
 
                         <td
-                            colspan="22"
+                            colspan="23"
                             class="text-center"
                             style="
-                                padding:20px;
-                                font-weight:bold;
+                                padding:25px;
+                                font-weight:700;
                             "
                         >
+
                             No Data Found
+
                         </td>
 
                     </tr>
@@ -752,7 +1314,11 @@ function printDiv() {
                      GRAND TOTAL
                      ================================================= -->
 
-                <?php if (!empty($crdtls)) { ?>
+                <?php
+
+                if(!empty($crdtls)){
+
+                ?>
 
                 <tfoot>
 
@@ -762,25 +1328,48 @@ function printDiv() {
                             colspan="21"
                             style="text-align:right;"
                         >
+
                             GRAND TOTAL
+
                         </th>
 
-                        <th
-                            class="text-right"
-                        >
+
+                        <th class="text-right">
+
                             <?php
+
                             echo number_format(
-                                $grand_total,
+                                $grand_total_qty,
                                 3
                             );
+
                             ?>
+
+                        </th>
+
+
+                        <th class="text-right">
+
+                            <?php
+
+                            echo number_format(
+                                $grand_total_amt,
+                                2
+                            );
+
+                            ?>
+
                         </th>
 
                     </tr>
 
                 </tfoot>
 
-                <?php } ?>
+                <?php
+
+                }
+
+                ?>
 
             </table>
 
@@ -809,26 +1398,30 @@ function printDiv() {
 
 
 <!-- =========================================================
-     DATATABLE LIBRARIES
+     DATATABLE CSS
      ========================================================= -->
 
 <link
     href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"
     rel="stylesheet"
-/>
+>
 
 <link
     href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"
     rel="stylesheet"
-/>
+>
 
+
+<!-- =========================================================
+     DATATABLE JS
+     ========================================================= -->
 
 <script
     src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js">
 </script>
 
 <script
-    src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js">
+    src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js">
 </script>
 
 <script
@@ -836,7 +1429,7 @@ function printDiv() {
 </script>
 
 <script
-    src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js">
+    src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js">
 </script>
 
 
@@ -846,34 +1439,35 @@ function printDiv() {
 
 <script>
 
-$(document).ready(function () {
+$(document).ready(function(){
 
     $('#example').DataTable({
 
-        destroy: true,
+        destroy:true,
 
-        searching: true,
+        searching:true,
 
-        ordering: true,
+        ordering:true,
 
-        paging: false,
+        paging:false,
 
-        info: true,
+        info:true,
 
-        scrollX: true,
+        scrollX:true,
 
-        autoWidth: false,
+        autoWidth:false,
 
-        dom: 'Bfrtip',
+        dom:'<"dt-top" B f>rt<"dt-bottom" i>',
 
-        buttons: [
+        buttons:[
 
             {
-                extend: 'excelHtml5',
+                extend:'excelHtml5',
 
-                text: '⬇ Convert to Excel',
+                text:'⬇ Convert to Excel',
 
-                title: 'THE WEST BENGAL STATE CO-OP. MARKETING FEDERATION LTD.',
+                title:
+                    'THE WEST BENGAL STATE CO-OP. MARKETING FEDERATION LTD.',
 
                 messageTop:
                     'DISTRICT WISE SOCIETY LIST | Period: <?php echo addslashes($_SESSION["date"] ?? ""); ?>',
@@ -881,22 +1475,19 @@ $(document).ready(function () {
                 filename:
                     'District_Wise_Society_List',
 
-                exportOptions: {
-
-                    columns: ':visible'
-
+                exportOptions:{
+                    columns:':visible'
                 },
 
-                footer: true
-
+                footer:true
             }
 
         ],
 
-        columnDefs: [
+        columnDefs:[
 
             {
-                targets: [
+                targets:[
                     0,
                     1,
                     2,
@@ -914,16 +1505,43 @@ $(document).ready(function () {
                     20
                 ],
 
-                className: 'text-center'
+                className:'text-center'
             },
 
             {
-                targets: [21],
+                targets:[
+                    21,
+                    22
+                ],
 
-                className: 'text-right'
+                className:'text-right'
             }
 
-        ]
+        ],
+
+        language:{
+
+            search:'🔎 Search:',
+
+            info:'Showing _TOTAL_ records',
+
+            infoEmpty:'No records available',
+
+            zeroRecords:'No matching records found'
+
+        },
+
+        footerCallback:function(
+            row,
+            data,
+            start,
+            end,
+            display
+        ){
+
+            
+
+        }
 
     });
 
