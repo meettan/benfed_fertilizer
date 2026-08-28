@@ -1071,6 +1071,10 @@ function f_salecrjnl($data){
 						'trans_do' => $data['trans_do']
 					));
 					// $this->delete_td_vouchers($data['trans_do']);
+					if(isset($row['gst_type_flag']) && $row['gst_type_flag'] != 'Y'){
+						$this->delete_td_vouchers($data['trans_do']);
+					}
+				
 					if($this->db->delete('td_sale')){
 						$input = array(
 							// 'trans_dt' => date('Y-m-d'),

@@ -120,23 +120,22 @@ body{
     position:sticky;
     top:0;
     z-index:2;
-    background:linear-gradient(
-        180deg,
-        var(--primary) 0%,
-        var(--primary-dark) 100%
-    );
+
+    background:#173f67 !important;
     color:#fff;
+
     border:0;
     border-right:1px solid rgba(255,255,255,.18);
     border-bottom:2px solid #0d2942;
+
     padding:10px 7px;
     text-align:center;
     vertical-align:middle;
     white-space:nowrap;
+
     font-weight:700;
     letter-spacing:.15px;
 }
-
 #example thead th:first-child{
     border-top-left-radius:8px;
 }
