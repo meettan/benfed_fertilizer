@@ -258,7 +258,11 @@
 						<option value="4" <?php echo ($stock->delivery_mode == 4)? 'selected' : '';?>>NON BUFFER
 						</option>
 						<option value="5" <?php echo ($stock->delivery_mode == 5)? 'selected' : '';?>>FOR-FOL</option>
-
+						<option value="6"<?php echo ($stock->delivery_mode == 6)? 'selected' : '';?>>EX PORT</option>
+						<option value="7"<?php echo ($stock->delivery_mode == 7)? 'selected' : '';?>>FOL PORT</option>
+						<option value="8"><?php echo ($stock->delivery_mode == 8)? 'selected' : '';?>>FOL EX GODOWN</option>
+						<option value="9"><?php echo ($stock->delivery_mode == 9)? 'selected' : '';?>>FOL EX RAIL</option>
+							
 						<!-- <option value="1" <?php //echo ($stock->delivery_mode == 1)? 'selected' : '';?>>EX GODOWN/RAIL BUFFER</option>
                     
 							<option value="2" <?php //echo ($stock->delivery_mode == 2)? 'selected' : '';?>>EX GODOWN/RAIL NON BUFFER</option>

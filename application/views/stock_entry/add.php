@@ -219,6 +219,10 @@
     						<option value="3">BUFFER </option>
     						<option value="4">NON BUFFER</option>
     						<option value="5">FOR-FOL</option>
+							<option value="6">EX PORT</option>
+							<option value="7">FOL PORT</option>
+							<option value="8">FOL EX GODOWN</option>
+							<option value="9">FOL EX RAIL</option>
 
     					</select>
     				</div>
