@@ -122,14 +122,11 @@ tr:hover {background-color: #f5f5f5;}
                                 <th>Less Freight Subsidy</th>
                                 <th>Taxable amt</th>
                                 <th>CGST</th>
-
                                 <th>SGST</th>
-
                                 <th>Total amt</th>
                                 <th>TDS(.1%)</th>
-
                                 <th>Advance Status</th>
-
+                                <th>Forward No.</th>
                             </tr>
 
                         </thead>
@@ -306,6 +303,7 @@ tr:hover {background-color: #f5f5f5;}
 
                                      ?></td>
                                     <td class="report"><?php echo $purc->adv_flag; ?></td>
+                                    <td class="report"><?php echo $purc->advance_receipt_no; ?></td>
                                 </tr>
  
                                 <?php  

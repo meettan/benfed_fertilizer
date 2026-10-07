@@ -1416,7 +1416,8 @@ END ),3)lqdqty,
         $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
                                        a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                                        a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
-                                       c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
+                                       c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,
+                                       if(a.adv_status="Y","With advance","without advance")as adv_flag,advance_receipt_no
                                 from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
                                 where  a.prod_id = b.PROD_ID
                                 and    a.comp_id = c.COMP_ID
@@ -1434,7 +1435,8 @@ END ),3)lqdqty,
         $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
                 a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                 a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
-                CONCAT(c.COMP_NAME," - ",c.GST_NO) as short_name ,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
+                CONCAT(c.COMP_NAME," - ",c.GST_NO) as short_name ,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,
+                if(a.adv_status="Y","With advance","without advance")as adv_flag,advance_receipt_no
                 from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
                 where  a.prod_id = b.PROD_ID
                 and    a.comp_id = c.COMP_ID
@@ -1452,7 +1454,8 @@ END ),3)lqdqty,
         $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
                 a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
                 a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
-                c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
+                c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,
+                if(a.adv_status="Y","With advance","without advance")as adv_flag,advance_receipt_no
                 from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
                 where  a.prod_id = b.PROD_ID
                 and    a.comp_id = c.COMP_ID
@@ -1469,7 +1472,9 @@ END ),3)lqdqty,
         $data=$this->db->query('select f.district_name,a.trans_dt,a.ro_no ro_no,a.ro_dt ro_dt,a.invoice_no,b.prod_id,a.invoice_dt invoice_dt,a.net_amt,
         a.qty qty,a.retlr_margin retlr_margin,d.soc_name,a.spl_rebt spl_rebt,a.rbt_add rbt_add,a.rbt_less rbt_less,a.rnd_of_add,a.rnd_of_less rnd_of_less,a.add_adj_amt,a.less_adj_amt,
         a.unit,a.stock_qty,a.rate,a.base_price,a.no_of_bags,a.cgst,a.sgst,a.tot_amt,
-        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,if(a.adv_status="Y","With advance","without advance")as adv_flag
+        c.short_name,b.PROD_DESC,a.trad_margin,a.oth_dis,a.frt_subsidy,b.unit,b.HSN_CODE,
+        if(a.adv_status="Y","With advance","without advance")as adv_flag,
+        advance_receipt_no
  from td_purchase a,mm_product b,mm_company_dtls c,mm_ferti_soc d,md_district f
  where  a.prod_id = b.PROD_ID
  and    a.comp_id = c.COMP_ID
@@ -1869,7 +1874,7 @@ order by h.district_name,f.comp_name,a.trans_dt");
 public function f_soclst_ho_rep($frm_dt, $to_dt)
     {
 
-        $query  = $this->db->query(" SELECT 
+        $query  = $this->db->query("SELECT 
         '' AS CUSTOMER_GROUP,
         'M/s' AS TITLE,
         a.soc_name AS CUSTOMER_NAME,
@@ -1890,29 +1895,67 @@ public function f_soclst_ho_rep($frm_dt, $to_dt)
         a.reatil_license_to_dt,
         a.gstin,
         a.pan,
-        COALESCE(
-            (
-                SELECT SUM(s.qty)
-                FROM td_sale s
-                WHERE s.soc_id = a.soc_id
-                  AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt'
-            ), 0
-        ) AS sl_qty,
-        COALESCE( ( SELECT 
-        SUM( CASE WHEN s.unit = 1 THEN s.qty 
-        WHEN s.unit = 2 THEN s.qty / 1000 WHEN s.unit = 6 THEN s.qty / 10000 ELSE 0 END ) 
-FROM td_sale s 
-WHERE s.soc_id = a.soc_id 
-AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt' 
-AND s.unit IN (1, 2, 6) ), 0 ) AS sale_qty, 
-COALESCE( ( SELECT SUM(s.tot_amt) FROM td_sale s 
-WHERE s.soc_id = a.soc_id AND s.do_dt BETWEEN '$frm_dt' AND '$to_dt'
- AND s.unit IN (1, 2, 6) ), 0 ) AS tot_amt 
+    
+        COALESCE(sales.sl_qty, 0) AS sl_qty,
+        COALESCE(sales.sale_qty, 0) AS sale_qty,
+        COALESCE(sales.tot_amt, 0) AS tot_amt
+    
     FROM mm_ferti_soc a
+    
     INNER JOIN md_district b 
         ON a.district = b.district_code
+    
     INNER JOIN md_block c 
         ON a.soc_block = c.blockcode
+    
+    LEFT JOIN (
+        SELECT 
+            soc_id,
+    
+            /* Raw sale quantity only for unit 1, 2 and 6 */
+            SUM(
+                CASE 
+                    WHEN unit IN (1, 2, 6) THEN qty
+                    ELSE 0
+                END
+            ) AS sl_qty,
+    
+            /* Converted quantity */
+            SUM(
+                CASE 
+                    WHEN unit = 1 THEN qty
+                    WHEN unit = 2 THEN qty / 1000
+                    WHEN unit = 6 THEN qty / 10000
+                    ELSE 0
+                END
+            ) AS sale_qty,
+    
+            /* Amount only for unit 1, 2 and 6 */
+            SUM(
+                CASE 
+                    WHEN unit IN (1, 2, 6) THEN tot_amt
+                    ELSE 0
+                END
+            ) AS tot_amt
+    
+        FROM td_sale
+    
+        WHERE do_dt BETWEEN '$frm_dt' AND '$to_dt'
+         
+    
+        GROUP BY soc_id
+    
+    ) sales 
+        ON sales.soc_id = a.soc_id
+    
+    WHERE (
+        a.soc_name LIKE '%SKUS%'
+        OR a.soc_name LIKE '%S.K.U.S%'
+        OR a.soc_name LIKE '%S K U S%'
+        OR a.soc_name LIKE '%Krishi Unnayan%'
+        OR a.soc_name LIKE '%PRIMARY CO-OP%'
+    )
+    
     ORDER BY 
         b.district_name,
         a.soc_name");

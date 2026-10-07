@@ -1071,7 +1071,7 @@ function f_salecrjnl($data){
 						'trans_do' => $data['trans_do']
 					));
 					// $this->delete_td_vouchers($data['trans_do']);
-					if(isset($row['gst_type_flag']) && $row['gst_type_flag'] != 'Y'){
+					if( $row['gst_type_flag'] != 'Y'){
 						$this->delete_td_vouchers($data['trans_do']);
 					}
 				
@@ -1117,7 +1117,7 @@ function f_salecrjnl($data){
 		public function checked_selsRo($sale_invoice_no){
 			$this->db->where('trans_do',$sale_invoice_no);
 			$this->db->where('irn is NOT NULL', NULL, FALSE);
-			$this->db->where('ack9 is NOT NULL', NULL, FALSE);
+			$this->db->where('ack is NOT NULL', NULL, FALSE);
 			$this->db->where('ack_dt is NOT NULL', NULL, FALSE);
 			$q=$this->db->get('td_sale')->num_rows();
 			return $q;
