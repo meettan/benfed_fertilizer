@@ -3716,7 +3716,7 @@ public function deleteAccCd() {
 			$select = array('trans_dt','ro_no','fwd_no','fwd_date','sum(fwd_qty) fwd_qty','fwd_status','fin_yr');
 			$where = array(
 			               "branch_id"  => $this->session->userdata['loggedin']['branch_id'],
-			               "trans_dt between '".$frmdt."' and '".$todt."' group by trans_dt,fwd_no,fwd_date,ro_no,fwd_status,fin_yr"=> NULL
+			               "trans_dt between '".$frmdt."' and '".$todt."' group by trans_dt,fwd_no,ro_no,fwd_status,fin_yr"=> NULL
 						 );
 			$data['cpfwds'] = $this->Society_paymentModel->f_select('tdf_payment_forward',$select,$where,0);
 			$this->load->view("post_login/fertilizer_main");
@@ -3730,7 +3730,7 @@ public function deleteAccCd() {
 			$select = array('trans_dt','fwd_no','fwd_date','ro_no','sum(fwd_qty) fwd_qty','fwd_status','fin_yr');
 			$where = array(
 			               "branch_id"  => $this->session->userdata['loggedin']['branch_id'],
-			               "trans_dt between '".$frmdt."' and '".$todt."' group by trans_dt,fwd_no,fwd_date,ro_no,fwd_status,fin_yr"=> NULL
+			               "trans_dt between '".$frmdt."' and '".$todt."' group by trans_dt,fwd_no,ro_no,fwd_status,fin_yr"=> NULL
 						 );
 			$data['cpfwds'] = $this->Society_paymentModel->f_select('tdf_payment_forward',$select,$where,0);
 			$this->load->view("post_login/fertilizer_main");
