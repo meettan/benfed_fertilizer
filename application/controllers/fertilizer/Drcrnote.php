@@ -1353,7 +1353,9 @@ public function crnote_editvu(){
 
      }
 	public function yearlydr_note(){
+		$finYr          = $this->session->userdata['loggedin']['fin_id'];
 		if($_SERVER['REQUEST_METHOD'] == "POST") {
+			
 			$from_date=$this->input->post('from_date');
 			$to_date=$this->input->post('to_date');
 			$select	=	array("a.br_adj_flag","b.soc_name","a.recpt_no","(select  nwirn from td_sale_cancel where trans_do=a.invoice_no) as irn",
@@ -1372,7 +1374,7 @@ public function crnote_editvu(){
 
 				"a.note_type"			=>	'D',
 				"a.recpt_no LIKE"       => "%YRLY_Crnote%",
-				
+				"a.fin_yr"			    => $finYr   ,
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 				
 				"a.trans_dt BETWEEN '".$from_date."' AND '".$to_date."' group by  a.invoice_no,a.recpt_no ORDER BY a.trans_dt"			=>	NULL
@@ -1403,6 +1405,8 @@ public function crnote_editvu(){
 				"a.trans_flag"			=>	'R',
 				"a.note_type"			=>	'D',
 				"a.recpt_no LIKE"       => "%YRLY_Crnote%",
+				"a.fin_yr"              => $finYr   ,
+
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
 				"a.trans_dt BETWEEN '".date('Y-m-d')."' AND '".date('Y-m-d')."' group by  a.invoice_no,a.recpt_no ORDER BY a.trans_dt"			=>	NULL,
 
