@@ -1139,7 +1139,7 @@ public function crnote_editvu(){
 		
 		$product['compdtls']   = $this->DrcrnoteModel->f_select('mm_company_dtls',$select1,NULL,0);
 
-		$product['catg']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',NULL,NULL,0);
+		$product['catdtls']   = $this->DrcrnoteModel->f_select('mm_cr_note_category',NULL,NULL,0);
 		$product['cr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note',NULL,$where3,1);
 
 		    // $product['dr_dtls']    = $this->DrcrnoteModel->f_select('tdf_dr_cr_note a,mm_cr_note_category b ',$select3,$where,0);
@@ -1404,7 +1404,7 @@ public function crnote_editvu(){
 				"a.note_type"			=>	'D',
 				"a.recpt_no LIKE"       => "%YRLY_Crnote%",
 				"a.branch_id"			=>	$this->session->userdata['loggedin']['branch_id'],
-				"a.trans_dt BETWEEN '".date('Y-m-d')."' AND '".date('Y-m-d')."' group by  a.invoice_no ORDER BY a.trans_dt"			=>	NULL,
+				"a.trans_dt BETWEEN '".date('Y-m-d')."' AND '".date('Y-m-d')."' group by  a.invoice_no,a.recpt_no ORDER BY a.trans_dt"			=>	NULL,
 
 			);
 		
