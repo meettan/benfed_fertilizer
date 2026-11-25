@@ -1870,6 +1870,22 @@ order by h.district_name,f.comp_name,a.trans_dt");
 
         return $query->result();
     }
+
+    /***** */
+public function f_soc_perform_rep($frm_dt, $to_dt){
+    $query  = $this->db->query("SELECT c.district_name,d.block_name,b.soc_name ,sum(a.round_tot_amt) AS tot_amt
+    FROM td_sale a ,mm_ferti_soc b,md_district c ,md_block d
+    WHERE a.soc_id=b.soc_id
+    and a.br_cd=b.district
+    and b.district=c.district_code
+    and b.soc_block=d.blockcode
+    and a.do_dt between '$frm_dt' and '$to_dt'
+    group by c.district_name,d.block_name, b.soc_name
+    order by sum(a.round_tot_amt) DESC");
+    return $query->result();
+}
+
+    /**** */
 /******************************* */
 public function f_soclst_ho_rep($frm_dt, $to_dt)
     {
